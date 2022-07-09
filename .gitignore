@@ -1,0 +1,17 @@
+# Setting IDE
+.idea
+.vscode
+
+# Node
+node_modules
+
+# logs
+*.log
+
+# Trash folders
+Thumbs.db
+Desktop.ini
+.DS_Store*
+ehthumbs.db
+Icon?
+package-lock.json
