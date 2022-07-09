@@ -7,14 +7,14 @@
     "calendar",
     "js",
     "javascript",
-		"native",
-		"default",
+    "native",
+    "default",
     "vanilla",
     "vanilla-js",
-		"picker",
-		"date-picker",
-		"datepicker",
-		"iso8601"
+    "picker",
+    "date-picker",
+    "datepicker",
+    "iso8601"
   ],
   "repository": {
     "type": "git",
