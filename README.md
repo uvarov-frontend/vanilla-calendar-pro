@@ -1,4 +1,4 @@
-# Vanilla JS Calendar v1.4.3
+# Vanilla JS Calendar v1.4.4
 
 A simple yet feature rich calendar with no dependencies and no «input» tag, written in vanilla JavaScript. The size of
 the minified file .js is approximately **22kb** and **5.3kb** gzip.
@@ -9,8 +9,8 @@ the minified file .js is approximately **22kb** and **5.3kb** gzip.
 
 Since Vanilla Calendar is written in pure JavaScript, it can be used with any modern framework or library, be it Vue,
 React or Angular. You can get the plugin
-by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.3.zip) it manually,
-via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.3/) or via a package manager like npm:
+by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.4.zip) it manually,
+via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.4/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
@@ -64,24 +64,25 @@ new VanillaCalendar(selector, options);
 
 ### Settings
 
-| Name                            |  Type   | Default  | Description                                                                                                                                                      |
-|---------------------------------|:-------:|:--------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| settings.lang                   | String  |   'en'   | Indicates what language the labels will be in. The available default options are 'ru' and 'en'. It is also possible to install any other language, see the demo. |
-| settings.iso8601                | Boolean |   true   | Weeks in ISO 8601 format.                                                                                                                                        |
-| settings.range.min              | String  |   null   | Dates less than this will be considered disabled.                                                                                                                |
-| settings.range.max              | String  |   null   | Dates greater than this will be considered disabled.                                                                                                             |
-| settings.range.disabled         |  Array  |   null   | Force the specified dates to be disabled.                                                                                                                        |
-| settings.selection.day          | String  | 'single' | Allow to choose a days. Possible options: 'single', 'multiple', 'multiple-ranged'.                                                                               |
-| settings.selection.month        | Boolean |   true   | Allow to select a month.                                                                                                                                         |
-| settings.selection.year         | Boolean |   true   | Allow to select a year.                                                                                                                                          |
-| settings.selected.dates         |  Array  |   null   | List of days to be selected.                                                                                                                                     |
-| settings.selected.month         | Number  |   null   | Selected month by default.                                                                                                                                       |
-| settings.selected.year          | Number  |   null   | Selected year by default.                                                                                                                                        |
-| settings.selected.holidays      |  Array  |   null   | The specified days will be considered additional days off.                                                                                                       |
-| settings.visibility.weekend     | Boolean |   true   | Highlight the weekend.                                                                                                                                           |
-| settings.visibility.today       | Boolean |   true   | Highlight the today.                                                                                                                                             |
-| settings.visibility.disabled    | Boolean |  false   | Show disabled days.                                                                                                                                              |
-| settings.visibility.weekNumbers | Boolean |  false   | Show week numbers.                                                                                                                                               |
+| Name                            |  Type   | Default  | Description                                                                                                                                       |
+|---------------------------------|:-------:|:--------:|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| settings.lang                   | String  |   'en'   | Indicates what language the labels will be in. Specify a BCP 47 locale or 'define' to assign your own month and week names, see demo for details. |
+| settings.iso8601                | Boolean |   true   | Weeks in ISO 8601 format.                                                                                                                         |
+| settings.range.min              | String  |   null   | Dates less than this will be considered disabled.                                                                                                 |
+| settings.range.max              | String  |   null   | Dates greater than this will be considered disabled.                                                                                              |
+| settings.range.disabled         |  Array  |   null   | Force the specified dates to be disabled.                                                                                                         |
+| settings.selection.day          | String  | 'single' | Allow to choose a days. Possible options: 'single', 'multiple', 'multiple-ranged'.                                                                |
+| settings.selection.month        | Boolean |   true   | Allow to select a month.                                                                                                                          |
+| settings.selection.year         | Boolean |   true   | Allow to select a year.                                                                                                                           |
+| settings.selected.dates         |  Array  |   null   | List of days to be selected.                                                                                                                      |
+| settings.selected.month         | Number  |   null   | Selected month by default.                                                                                                                        |
+| settings.selected.year          | Number  |   null   | Selected year by default.                                                                                                                         |
+| settings.selected.holidays      |  Array  |   null   | The specified days will be considered additional days off.                                                                                        |
+| settings.visibility.monthShort  | Boolean |   true   | Abbreviate month names in the month selection.                                                                                                    |
+| settings.visibility.weekNumbers | Boolean |  false   | Show week numbers.                                                                                                                                |
+| settings.visibility.weekend     | Boolean |   true   | Highlight the weekend.                                                                                                                            |
+| settings.visibility.today       | Boolean |   true   | Highlight the today.                                                                                                                              |
+| settings.visibility.disabled    | Boolean |  false   | Show disabled days.                                                                                                                               |
 
 ### Methods
 
@@ -121,10 +122,11 @@ const calendar = new VanillaCalendar('.vanilla-calendar', {
       holidays: ['2022-01-02', '2022-01-03', '2022-01-04', '2022-01-05'],
     },
     visibility: {
+      monthShort: false,
+      weekNumbers: true,
       weekend: false,
       today: true,
       disabled: true,
-      weekNumbers: true,
     },
   },
   actions: {
