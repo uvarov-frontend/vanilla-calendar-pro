@@ -1,34 +1,34 @@
 {
-  "name": "@uvarov.frontend/vanilla-calendar",
-  "version": "1.4.5",
-  "description": "Vanilla JS calendar without using additional packages. A lightweight date picker written in pure javascript.",
-  "homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
-  "keywords": [
-    "calendar",
-    "js",
-    "javascript",
+	"name": "@uvarov.frontend/vanilla-calendar",
+	"version": "1.4.6",
+	"description": "Vanilla JS calendar without using additional packages. A lightweight date picker written in pure javascript.",
+	"homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
+	"keywords": [
+		"calendar",
+		"js",
+		"javascript",
 		"native",
 		"pure",
 		"default",
-    "vanilla",
-    "vanilla-js",
+		"vanilla",
+		"vanilla-js",
 		"picker",
 		"date-picker",
 		"datepicker",
 		"iso8601"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
-  },
-  "author": {
-    "name": "Yuri Uvarov",
-    "email": "uvarov.frontend@gmail.com",
-    "url": "https://frontend.uvarov.tech"
-  },
-  "license": "MIT",
-  "main": "vanilla-calendar.min.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
+	},
+	"author": {
+		"name": "Yuri Uvarov",
+		"email": "uvarov.frontend@gmail.com",
+		"url": "https://frontend.uvarov.tech"
+	},
+	"license": "MIT",
+	"main": "vanilla-calendar.min.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	}
 }

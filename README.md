@@ -1,7 +1,7 @@
-# Vanilla JS Calendar v1.4.5
+# Vanilla JS Calendar v1.4.6
 
-A simple yet feature rich calendar with no dependencies and no «input» tag, written in vanilla JavaScript. The size of
-the minified file .js is approximately **22kb** and **5.3kb** gzip.
+A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date picker written in pure JavaScript.
+The size of the minified file .js is approximately **22kb** and **5.3kb** gzip.
 
 [DEMO](https://vanilla-calendar.frontend.uvarov.tech/)
 
@@ -9,8 +9,8 @@ the minified file .js is approximately **22kb** and **5.3kb** gzip.
 
 Since Vanilla Calendar is written in pure JavaScript, it can be used with any modern framework or library, be it Vue,
 React or Angular. You can get the plugin
-by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.5.zip) it manually,
-via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.5/) or via a package manager like npm:
+by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.6.zip) it manually,
+via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.6/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
@@ -99,6 +99,14 @@ new VanillaCalendar(selector, options);
 | actions.clickMonth           |  Function   |     null     | The method is triggered after clicking on a month in the calendar, but before other operations.                                                                  |
 | actions.clickYear            |  Function   |     null     | The method is triggered after clicking on a year in the calendar, but before other operations.                                                                   |
 
+### Popups
+
+| Name                  |  Type  | Default | Description                                                                                                                                           |
+|-----------------------|:------:|:-------:|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| popups[date]          | String |  null   | The «popups» object accepts a date as an object key, such as «popups['2022-06-29']». Note the required date format 'YYYY-MM-DD'.                      |
+| popups[date].modifier | String |  null   | The «popups[date].modifier» object takes a modifier class as its value. This class allows you to highlight the date using styles.                     |
+| popups[date].html     | String |  null   | 	The «popups[date].html» object takes as its value a string that is rendered to HTML. You can pass plain text or full HTML markup to style the popup. |
+
 ## Usage example
 
 ```js
@@ -153,6 +161,23 @@ const calendar = new VanillaCalendar('.vanilla-calendar', {
     },
     clickYear(e) {
       alert(e.target.dataset.calendarYear);
+    },
+  },
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red',
+      html: 'Meeting at 9:00 PM',
+    },
+    '2022-07-13': {
+      modifier: 'bg-red',
+      html: 'Meeting at 6:00 PM',
+    },
+    '2022-07-17': {
+      modifier: 'bg-orange',
+      html: `<div>
+        <u><b>12:00 PM</b></u>
+        <p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
+      </div>`,
     },
   },
 });
