@@ -1,4 +1,4 @@
-# Vanilla JS Calendar v1.4.4
+# Vanilla JS Calendar v1.4.5
 
 A simple yet feature rich calendar with no dependencies and no «input» tag, written in vanilla JavaScript. The size of
 the minified file .js is approximately **22kb** and **5.3kb** gzip.
@@ -9,8 +9,8 @@ the minified file .js is approximately **22kb** and **5.3kb** gzip.
 
 Since Vanilla Calendar is written in pure JavaScript, it can be used with any modern framework or library, be it Vue,
 React or Angular. You can get the plugin
-by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.4.zip) it manually,
-via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.4/) or via a package manager like npm:
+by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.5.zip) it manually,
+via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.5/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
@@ -84,6 +84,13 @@ new VanillaCalendar(selector, options);
 | settings.visibility.today       | Boolean |   true   | Highlight the today.                                                                                                                              |
 | settings.visibility.disabled    | Boolean |  false   | Show disabled days.                                                                                                                               |
 
+### Locale
+
+| Name           | Type  | Default | Description                                                                                      |
+|----------------|:-----:|:-------:|--------------------------------------------------------------------------------------------------|
+| locale.months  | Array |  null   | 	An array with custom month names. Only works when "settings.lang" is set to "define".           |
+| locale.weekday | Array |  null   | An array with custom abbreviated week names. Only works when "settings.lang" is set to "define". |
+
 ### Methods
 
 | Name                         |    Type     |   Default    | Description                                                                                                                                                      |
@@ -103,7 +110,7 @@ const calendar = new VanillaCalendar('.vanilla-calendar', {
     today: new Date('2022-01-07'),
   },
   settings: {
-    lang: 'ru',
+    lang: 'define',
     iso8601: true,
     range: {
       min: '2022-01-01',
@@ -128,6 +135,14 @@ const calendar = new VanillaCalendar('.vanilla-calendar', {
       today: true,
       disabled: true,
     },
+  },
+  locale: {
+    months: ['Қаңтар', 'Ақпан', 'Наурыз', 'Сәуір', 'Мамыр', 'Маусым', 'Шілде', 'Тамыз', 'Қыркүйек', 'Қазан', 'Қараша', 'Желтоқсан'],
+    weekday: ['Си', 'Же', 'Ду', 'Сй', 'Ср', 'Бе', 'Жұ'],
+    // Example:
+    // months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    // weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    // Note that the weeks array must start with Sunday, this does not affect ISO 8601.
   },
   actions: {
     clickDay(e) {
