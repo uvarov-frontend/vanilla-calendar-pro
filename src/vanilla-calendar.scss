@@ -1,0 +1,508 @@
+.vanilla-calendar {
+	$calendar: &;
+
+	width: 260px;
+	min-width: min-content;
+	display: grid;
+	grid-template-areas: 'header header' 'column content';
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto 1fr;
+	background-color: white;
+	padding: 12px;
+	border-radius: 4px;
+
+	&-header {
+		grid-area: header;
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+
+		&__content {
+			flex-grow: 1;
+			display: grid;
+			gap: 5px;
+			grid-auto-flow: column;
+			grid-auto-columns: max-content;
+			align-items: center;
+			justify-content: center;
+			padding: 0 15px;
+		}
+	}
+
+	&-column {
+		grid-area: column;
+		display: flex;
+		flex-direction: column;
+		margin-right: 5px;
+
+		&__title {
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 700;
+			color: lightseagreen;
+			width: 25px;
+			height: 25px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&__content {
+			display: grid;
+			grid-auto-flow: row;
+			column-gap: 5px;
+			align-items: center;
+			justify-items: center;
+			flex-grow: 1;
+		}
+	}
+
+	&-content {
+		grid-area: content;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&-arrow {
+		position: relative;
+		display: block;
+		font-size: 0;
+		width: 14px;
+		height: 14px;
+		padding: 0;
+		outline: 0;
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 3px;
+			width: 10px;
+			height: 1px;
+			background-color: black;
+			transform: rotateZ(45deg);
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: 3px;
+			width: 10px;
+			height: 1px;
+			background-color: black;
+			transform: rotateZ(-45deg);
+		}
+
+		&:hover {
+
+			&::before,
+			&::after {
+				background-color: lightseagreen;
+			}
+		}
+
+		&_prev {
+			transform: rotateZ(180deg);
+		}
+	}
+
+	&-month {
+		font-size: 16px;
+		line-height: 20px;
+		font-weight: 700;
+		color: black;
+		cursor: pointer;
+
+		&:hover {
+			color: lightseagreen;
+		}
+
+		&_not-active {
+			color: silver;
+		}
+
+		&_disabled {
+			pointer-events: none;
+			color: silver;
+		}
+	}
+
+	&-year {
+		font-size: 16px;
+		line-height: 20px;
+		font-weight: 700;
+		color: black;
+		cursor: pointer;
+
+		&:hover {
+			color: lightseagreen;
+		}
+
+		&_not-active {
+			color: silver;
+		}
+
+		&_disabled {
+			pointer-events: none;
+			color: silver;
+		}
+	}
+
+	&-week {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		column-gap: 5px;
+		justify-items: center;
+
+		&__day {
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 700;
+			color: lightseagreen;
+			width: 25px;
+			height: 25px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&_weekend {
+				color: coral;
+			}
+		}
+
+		// &-numbers {
+		// }
+
+		&-number {
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 700;
+			color: lightseagreen;
+			width: 25px;
+			height: 25px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	&-days {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		column-gap: 5px;
+		justify-items: center;
+		align-items: center;
+		flex-grow: 1;
+
+		&_selecting {
+			#{$calendar}-day {
+				cursor: pointer;
+
+				&_disabled {
+					cursor: default;
+				}
+			}
+		}
+	}
+
+	&-day {
+		$day: &;
+
+		position: relative;
+		font-size: 12px;
+		line-height: 16px;
+		font-weight: 400;
+		width: 25px;
+		height: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background-color: white;
+		cursor: default;
+
+		&:hover {
+			background-color: aliceblue;
+
+			#{$day}__popup {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+
+		&_today {
+			background-color: aliceblue;
+			color: lightseagreen;
+			font-weight: 600;
+
+			&:hover {
+				color: lightseagreen;
+				background-color: aliceblue;
+			}
+
+			&#{$day}_prev,
+			&#{$day}_next {
+				background-color: whitesmoke;
+				color: lightgrey;
+			}
+		}
+
+		&_selected {
+			background-color: lightseagreen;
+			color: white;
+
+			&:hover {
+				background-color: lightseagreen;
+				color: white;
+			}
+
+			&#{$day}_prev,
+			&#{$day}_next {
+				background-color: whitesmoke;
+				color: grey;
+
+				&:hover {
+					background-color: whitesmoke;
+					color: grey;
+				}
+			}
+		}
+
+		&_weekend,
+		&_holiday {
+			color: coral;
+
+			&:hover {
+				background-color: seashell;
+			}
+
+			&#{$day}_today {
+				color: coral;
+				background-color: seashell;
+
+				&#{$day}_disabled {
+					color: lightgrey;
+					background-color: whitesmoke;
+				}
+
+				&#{$day}_prev,
+				&#{$day}_next {
+					background-color: whitesmoke;
+					color: lightgrey;
+				}
+			}
+
+			&#{$day}_selected {
+				background-color: coral;
+				color: white;
+
+				&:hover {
+					background-color: coral;
+				}
+
+				&#{$day}_prev,
+				&#{$day}_next {
+					background-color: whitesmoke;
+					color: grey;
+
+					&:hover {
+						background-color: whitesmoke;
+						color: grey;
+					}
+				}
+			}
+
+			&#{$day}_prev,
+			&#{$day}_next {
+				color: lightgrey;
+			}
+		}
+
+		&_prev,
+		&_next,
+		&_disabled {
+			background-color: white;
+			color: lightgrey;
+
+			&:hover {
+				background-color: white;
+				color: lightgrey;
+			}
+		}
+
+		&_disabled {
+			pointer-events: none;
+		}
+
+		&__popup {
+			position: absolute;
+			z-index: 2;
+			left: 50%;
+			top: 100%;
+			transform: translateX(-50%);
+			width: 130px;
+			padding: 16px 12px 8px;
+			color: black;
+			font-size: 12px;
+			line-height: 14px;
+			font-weight: 400;
+			opacity: 0;
+			pointer-events: none;
+
+			&::before {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				height: calc(100% - 8px);
+				display: block;
+				border-radius: 4px;
+				background-color: white;
+				box-shadow: 0 2px 20px rgb(0 0 0 / 10%);
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				left: 50%;
+				transform: translateX(-50%);
+				top: 2px;
+				display: block;
+				height: 0;
+				width: 0;
+				border-color: transparent transparent white;
+				border-style: solid;
+				border-width: 0 10px 8px;
+			}
+		}
+	}
+
+	&-months {
+		border-radius: 4px;
+		overflow: hidden;
+		display: grid;
+		column-gap: 6px;
+		row-gap: 12px;
+		grid-template-columns: repeat(4, 1fr);
+		background-color: white;
+
+		&_selecting {
+			#{$calendar}-months__month {
+				cursor: pointer;
+
+				&_disabled {
+					cursor: default;
+				}
+			}
+		}
+
+		&__month {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			height: 40px;
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 700;
+			background-color: white;
+			color: lightseagreen;
+			padding: 2px;
+			border-radius: 4px;
+			word-break: break-all;
+
+			&:hover {
+				background-color: aliceblue;
+			}
+
+			&_selected {
+				background-color: lightseagreen;
+				color: white;
+
+				&:hover {
+					background-color: lightseagreen;
+					color: white;
+				}
+			}
+
+			&_disabled {
+				pointer-events: none;
+				background-color: white;
+				color: silver;
+
+				&:hover {
+					background-color: white;
+					color: silver;
+				}
+			}
+		}
+	}
+
+	&-years {
+		border-radius: 4px;
+		overflow: hidden;
+		display: grid;
+		column-gap: 6px;
+		row-gap: 12px;
+		grid-template-columns: repeat(5, 1fr);
+		background-color: white;
+
+		&_selecting {
+			#{$calendar}-years__year {
+				cursor: pointer;
+
+				&_disabled {
+					cursor: default;
+				}
+			}
+		}
+
+		&__year {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			height: 40px;
+			font-size: 12px;
+			line-height: 20px;
+			font-weight: 700;
+			background-color: white;
+			color: lightseagreen;
+			padding: 2px;
+			border-radius: 4px;
+			word-break: break-all;
+
+			&:hover {
+				background-color: aliceblue;
+			}
+
+			&_selected {
+				background-color: lightseagreen;
+				color: white;
+
+				&:hover {
+					background-color: lightseagreen;
+					color: white;
+				}
+			}
+
+			&_disabled {
+				pointer-events: none;
+				background-color: white;
+				color: silver;
+
+				&:hover {
+					background-color: white;
+					color: silver;
+				}
+			}
+		}
+	}
+}

@@ -1,16 +1,23 @@
-# Vanilla JS Calendar v1.4.6
+[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png)](https://vanilla-calendar.frontend.uvarov.tech/)
+# Vanilla JS Calendar v1.4.7
 
 A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date picker written in pure JavaScript.
 The size of the minified file .js is approximately **22kb** and **5.3kb** gzip.
 
 [DEMO](https://vanilla-calendar.frontend.uvarov.tech/)
 
+This plugin is completely free, any support from you is important, please report problems or new ideas, it's really important!
+
+If you like the plugin, consider ...
+
+[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
+
 ## Implementation
 
 Since Vanilla Calendar is written in pure JavaScript, it can be used with any modern framework or library, be it Vue,
 React or Angular. You can get the plugin
-by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.6.zip) it manually,
-via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.6/) or via a package manager like npm:
+by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.7.zip) it manually,
+via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.7/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
@@ -203,3 +210,6 @@ MIT License
 ## Author
 
 Yuri Uvarov (*uvarov.frontend@gmail.com*)
+
+[buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
+[buymeacoffee]: https://www.buymeacoffee.com/uvarov
