@@ -1,6 +1,6 @@
 export default class VanillaCalendar {
 	constructor(selector, option) {
-		this.HTMLElement = document.querySelector(selector);
+		this.HTMLElement = typeof selector === 'object' ? selector : document.querySelector(selector);
 		if (!this.HTMLElement) return;
 		this.type = option?.type ?? 'default';
 		this.date = {
@@ -28,6 +28,7 @@ export default class VanillaCalendar {
 				holidays: option?.settings?.selected?.holidays ?? null,
 			},
 			visibility: {
+				templateHeader: option?.settings?.visibility?.templateHeader ?? '%M %Y',
 				monthShort: option?.settings?.visibility?.monthShort ?? true,
 				weekNumbers: option?.settings?.visibility?.weekNumbers ?? false,
 				weekend: option?.settings?.visibility?.weekend ?? true,
@@ -47,6 +48,17 @@ export default class VanillaCalendar {
 		this.popups = option?.popups ?? null;
 
 		this.currentType = this.type;
+	}
+
+	generateDate(date) {
+		const year = date.getUTCFullYear();
+		let month = date.getUTCMonth() + 1;
+		let day = date.getUTCDate();
+
+		month = month < 10 ? `0${month}` : month;
+		day = day < 10 ? `0${day}` : day;
+
+		return `${year}-${month}-${day}`;
 	}
 
 	setVariablesDates() {
@@ -82,10 +94,7 @@ export default class VanillaCalendar {
 					class="vanilla-calendar-arrow vanilla-calendar-arrow_prev"
 					title="prev">
 				</button>
-				<div class="vanilla-calendar-header__content">
-					<b class="vanilla-calendar-month${this.settings.selection.month ? '' : ' vanilla-calendar-month_disabled'}"></b>
-					<b class="vanilla-calendar-year${this.settings.selection.year ? '' : ' vanilla-calendar-year_disabled'}"></b>
-				</div>
+				<div class="vanilla-calendar-header__content"></div>
 				<button type="button"
 					class="vanilla-calendar-arrow vanilla-calendar-arrow_next"
 					title="next">
@@ -108,10 +117,7 @@ export default class VanillaCalendar {
 			this.HTMLElement.classList.remove('vanilla-calendar_year');
 			this.HTMLElement.innerHTML = `
 			<div class="vanilla-calendar-header">
-				<div class="vanilla-calendar-header__content">
-					<b class="vanilla-calendar-month"></b>
-					<b class="vanilla-calendar-year vanilla-calendar-year_not-active${this.settings.selection.year ? '' : ' vanilla-calendar-year_disabled'}"></b>
-				</div>
+				<div class="vanilla-calendar-header__content"></div>
 			</div>
 			<div class="vanilla-calendar-content">
 				<div class="vanilla-calendar-months"></div>
@@ -126,10 +132,7 @@ export default class VanillaCalendar {
 					class="vanilla-calendar-arrow vanilla-calendar-arrow_prev"
 					title="prev">
 				</button>
-				<div class="vanilla-calendar-header__content">
-					<b class="vanilla-calendar-month vanilla-calendar-month_not-active${this.settings.selection.month ? '' : ' vanilla-calendar-month_disabled'}"></b>
-					<b class="vanilla-calendar-year"></b>
-				</div>
+				<div class="vanilla-calendar-header__content"></div>
 				<button type="button"
 					class="vanilla-calendar-arrow vanilla-calendar-arrow_next"
 					title="next">
@@ -141,15 +144,18 @@ export default class VanillaCalendar {
 		}
 	}
 
-	generateDate(date) {
-		const year = date.getUTCFullYear();
-		let month = date.getUTCMonth() + 1;
-		let day = date.getUTCDate();
+	createHeader() {
+		const headerContent = this.HTMLElement.querySelector('.vanilla-calendar-header__content');
+		const monthDisabled = !this.settings.selection.month ? ' vanilla-calendar-month_disabled' : '';
+		const yearDisabled = !this.settings.selection.year ? ' vanilla-calendar-year_disabled' : '';
 
-		month = month < 10 ? `0${month}` : month;
-		day = day < 10 ? `0${day}` : day;
+		const month = `<b class="vanilla-calendar-month${monthDisabled}">${this.locale.months[this.selectedMonth]}</b>`;
+		const year = `<b class="vanilla-calendar-year${yearDisabled}">${this.selectedYear}</b>`;
 
-		return `${year}-${month}-${day}`;
+		let templateHeader = this.settings.visibility.templateHeader.replace('%M', month);
+		templateHeader = templateHeader.replace('%Y', year);
+
+		headerContent.innerHTML = templateHeader;
 	}
 
 	controlArrows() {
@@ -196,16 +202,6 @@ export default class VanillaCalendar {
 
 		defaultControl();
 		yearControl();
-	}
-
-	writeYear() {
-		const yearEl = this.HTMLElement.querySelector('.vanilla-calendar-year');
-		yearEl.innerText = this.selectedYear;
-	}
-
-	writeMonth() {
-		const monthEl = this.HTMLElement.querySelector('.vanilla-calendar-month');
-		monthEl.innerText = this.locale.months[this.selectedMonth];
 	}
 
 	createWeek() {
@@ -461,18 +457,16 @@ export default class VanillaCalendar {
 
 		this.settings.selected.month = this.selectedMonth;
 
+		this.createHeader();
 		this.controlArrows();
-		this.writeYear();
-		this.writeMonth();
 		this.createDays();
 	}
 
 	createYears() {
 		this.currentType = 'year';
 		this.createDOM();
+		this.createHeader();
 		this.controlArrows();
-		this.writeYear();
-		this.writeMonth();
 
 		const yearsEl = this.HTMLElement.querySelector('.vanilla-calendar-years');
 		if (this.settings.selection.year) yearsEl.classList.add('vanilla-calendar-years_selecting');
@@ -502,8 +496,7 @@ export default class VanillaCalendar {
 	createMonths() {
 		this.currentType = 'month';
 		this.createDOM();
-		this.writeYear();
-		this.writeMonth();
+		this.createHeader();
 
 		const monthsEl = this.HTMLElement.querySelector('.vanilla-calendar-months');
 		if (this.settings.selection.month) monthsEl.classList.add('vanilla-calendar-months_selecting');
@@ -555,11 +548,11 @@ export default class VanillaCalendar {
 
 	update() {
 		this.setVariablesDates();
-		this.createDOM();
-		this.controlArrows();
 		this.getLocale();
-		this.writeYear();
-		this.writeMonth();
+		this.createDOM();
+		this.createHeader();
+		this.controlArrows();
+
 		if (this.currentType === 'default') {
 			this.createWeek();
 			this.createDays();
