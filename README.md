@@ -1,5 +1,5 @@
 [![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png)](https://vanilla-calendar.frontend.uvarov.tech/)
-# Vanilla JS Calendar v1.4.8
+# Vanilla JS Calendar v1.4.9
 
 A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date picker written in pure JavaScript.
 The size of the minified file .js is approximately **22kb** and **5.3kb** gzip.
@@ -14,10 +14,7 @@ If you like the plugin, consider ...
 
 ## Implementation
 
-Since Vanilla Calendar is written in pure JavaScript, it can be used with any modern framework or library, be it Vue,
-React or Angular. You can get the plugin
-by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.8.zip) it manually,
-via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.8/) or via a package manager like npm:
+Because Vanilla Calendar is written in pure JavaScript, it can be used with any framework or library, such as Vue, React, or Angular, if desired. You can get the plugin by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.4.9.zip) it manually, via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.4.9/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
@@ -62,58 +59,58 @@ new VanillaCalendar(selector || object[, options]);
 
 ### Main parameters
 
-| Name                         |    Type     |   Default    | Description                                                                                                                                                      |
-|------------------------------|:-----------:|:------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type                         |   String    |  'default'   | Calendar type. Possible options: 'default', 'month', 'year'.                                                                                                     |
-| date.min                     |   String    | '1970-01-01' | The minimum possible date that the calendar will take into account.                                                                                              |
-| date.max                     |   String    | '2470-12-31' | The maximum possible date that the calendar will take into account.                                                                                              |
-| date.today                   | Date object |  new Date()  | Specifies which day the calendar will consider today.                                                                                                            |
+| Name       |    Type     |   Default    | Description                                                                                                                       |
+|------------|:-----------:|:------------:|-----------------------------------------------------------------------------------------------------------------------------------|
+| type       |   String    |  'default'   | Calendar type. Possible options: 'default', 'month', 'year'.                                                                      |
+| date.min   |   String    | '1970-01-01' | The minimum possible date that the calendar will take into account in its life cycle. Note the required date format 'YYYY-MM-DD'. |
+| date.max   |   String    | '2470-12-31' | The maximum possible date that the calendar will consider in its life cycle. Note the required date format 'YYYY-MM-DD'.          |
+| date.today | Date object |  new Date()  | Specifies which day the calendar will consider today. For example: «new Date('2022-01-07')».                                      |
 
 ### Settings
 
-| Name                               |  Type   | Default  | Description                                                                                                                                       |
-|------------------------------------|:-------:|:--------:|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| settings.lang                      | String  |   'en'   | Indicates what language the labels will be in. Specify a BCP 47 locale or 'define' to assign your own month and week names, see demo for details. |
-| settings.iso8601                   | Boolean |   true   | Weeks in ISO 8601 format.                                                                                                                         |
-| settings.range.min                 | String  |   null   | Dates less than this will be considered disabled.                                                                                                 |
-| settings.range.max                 | String  |   null   | Dates greater than this will be considered disabled.                                                                                              |
-| settings.range.disabled            |  Array  |   null   | Force the specified dates to be disabled.                                                                                                         |
-| settings.selection.day             | String  | 'single' | Allow to choose a days. Possible options: 'single', 'multiple', 'multiple-ranged'.                                                                |
-| settings.selection.month           | Boolean |   true   | Allow to select a month.                                                                                                                          |
-| settings.selection.year            | Boolean |   true   | Allow to select a year.                                                                                                                           |
-| settings.selected.dates            |  Array  |   null   | List of days to be selected.                                                                                                                      |
-| settings.selected.month            | Number  |   null   | Selected month by default.                                                                                                                        |
-| settings.selected.year             | Number  |   null   | Selected year by default.                                                                                                                         |
-| settings.selected.holidays         |  Array  |   null   | The specified days will be considered additional days off.                                                                                        |
-| settings.visibility.templateHeader | String  | '%M %Y'  | Customize the title of the calendar. %M - month display pattern, %Y - year display pattern.                                                       |
-| settings.visibility.monthShort     | Boolean |   true   | Abbreviate month names in the month selection.                                                                                                    |
-| settings.visibility.weekNumbers    | Boolean |  false   | Show week numbers.                                                                                                                                |
-| settings.visibility.weekend        | Boolean |   true   | Highlight the weekend.                                                                                                                            |
-| settings.visibility.today          | Boolean |   true   | Highlight the today.                                                                                                                              |
-| settings.visibility.disabled       | Boolean |  false   | Show disabled days.                                                                                                                               |
+| Name                               |  Type   | Default  | Description                                                                                                                                                            |
+|------------------------------------|:-------:|:--------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| settings.lang                      | String  |   'en'   | Language localization of the calendar. Specify a BCP 47 locale or «'define'» to assign your own month and week names, see demo for details.                            |
+| settings.iso8601                   | Boolean |   true   | Weeks in ISO 8601 format. If set to «false», the week starts on Sunday.                                                                                                |
+| settings.range.min                 | String  |   null   | Specifies the minimum possible date for the user to select. Dates below this will be considered disabled and unselectable. Note the required date format 'YYYY-MM-DD'. |
+| settings.range.max                 | String  |   null   | Specifies the maximum possible date for the user to select. Dates below this will be considered disabled and unselectable. Note the required date format 'YYYY-MM-DD'. |
+| settings.range.disabled            |  Array  |   null   | Disable specified dates despite date range. Note the required date format 'YYYY-MM-DD'.                                                                                |
+| settings.selection.day             | String  | 'single' | Allow selection of one or more days. Possible options: «false», «'single'», «'multiple'», «'multiple-ranged'».                                                         |
+| settings.selection.month           | Boolean |   true   | Allow month selection. Yes or no.                                                                                                                                      |
+| settings.selection.year            | Boolean |   true   | Allow year selection. Yes or no.                                                                                                                                       |
+| settings.selected.dates            |  Array  |   null   | List of days marked as selected when the calendar was initialized. Note the required date format 'YYYY-MM-DD'.                                                         |
+| settings.selected.month            | Number  |   null   | The month to display when the calendar is initialized. From 0 to 11.                                                                                                   |
+| settings.selected.year             | Number  |   null   | The year displayed when the calendar is initialized. Note the required date format 'YYYY'.                                                                             |
+| settings.selected.holidays         |  Array  |   null   | The specified days will be considered additional days off. Note the required date format 'YYYY-MM-DD'.                                                                 |
+| settings.visibility.templateHeader | String  | '%M %Y'  | Customize the title of the calendar. %M - month display pattern, %Y - year display pattern.                                                                            |
+| settings.visibility.monthShort     | Boolean |   true   | Abbreviated names of months in the month selection.                                                                                                                    |
+| settings.visibility.weekNumbers    | Boolean |  false   | Show week numbers of the year.                                                                                                                                         |
+| settings.visibility.weekend        | Boolean |   true   | Highlight the weekend.                                                                                                                                                 |
+| settings.visibility.today          | Boolean |   true   | Highlight the today.                                                                                                                                                   |
+| settings.visibility.disabled       | Boolean |  false   | Show all days, including disabled ones.                                                                                                                                |
 
 ### Locale
 
-| Name           | Type  | Default | Description                                                                                      |
-|----------------|:-----:|:-------:|--------------------------------------------------------------------------------------------------|
-| locale.months  | Array |  null   | 	An array with custom month names. Only works when "settings.lang" is set to "define".           |
-| locale.weekday | Array |  null   | An array with custom abbreviated week names. Only works when "settings.lang" is set to "define". |
+| Name           | Type  | Default | Description                                                                                                                                       |
+|----------------|:-----:|:-------:|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| locale.months  | Array |  null   | An array with custom month names. January must be the first element in the array. Only works when «settings.lang» is set to «'define'».           |
+| locale.weekday | Array |  null   | An array with custom abbreviated week names. Sunday must be the first element in the array. Only works when «settings.lang» is set to «'define'». |
 
 ### Methods
 
-| Name                         |    Type     |   Default    | Description                                                                                                                                                      |
-|------------------------------|:-----------:|:------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| actions.clickDay             |  Function   |     null     | The method is triggered after clicking on a day in the calendar, but before other operations.                                                                    |
-| actions.clickMonth           |  Function   |     null     | The method is triggered after clicking on a month in the calendar, but before other operations.                                                                  |
-| actions.clickYear            |  Function   |     null     | The method is triggered after clicking on a year in the calendar, but before other operations.                                                                   |
+| Name               |   Type   | Default | Description                                                                             |
+|--------------------|:--------:|:-------:|-----------------------------------------------------------------------------------------|
+| actions.clickDay   | Function |  null   | The method fires after clicking on a day in the calendar, before the visual display.    |
+| actions.clickMonth | Function |  null   | The method is triggered after selecting a month in the calendar, before visual display. |
+| actions.clickYear  | Function |  null   | The method is triggered after selecting a year in the calendar, before visual display.  |
 
 ### Popups
 
-| Name                  |  Type  | Default | Description                                                                                                                                           |
-|-----------------------|:------:|:-------:|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| popups[date]          | String |  null   | The «popups» object accepts a date as an object key, such as «popups['2022-06-29']». Note the required date format 'YYYY-MM-DD'.                      |
-| popups[date].modifier | String |  null   | The «popups[date].modifier» object takes a modifier class as its value. This class allows you to highlight the date using styles.                     |
-| popups[date].html     | String |  null   | 	The «popups[date].html» object takes as its value a string that is rendered to HTML. You can pass plain text or full HTML markup to style the popup. |
+| Name                  |  Type  | Default | Description                                                                                                                                          |
+|-----------------------|:------:|:-------:|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| popups[date]          | String |  null   | The «popups» object accepts a date as an object key, such as «popups['2022-06-29']». Note the required date format 'YYYY-MM-DD'.                     |
+| popups[date].modifier | String |  null   | The «popups[date].modifier» object takes a CSS class as its value. This class allows you to highlight the date using styles.                         |
+| popups[date].html     | String |  null   | The «popups[date].html» object takes as its value a string that is rendered to HTML. You can pass plain text or full HTML markup to style the popup. |
 
 ## Usage example
 

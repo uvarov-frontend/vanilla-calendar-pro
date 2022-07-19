@@ -102,7 +102,7 @@ export default class VanillaCalendar {
 			</div>
 			${this.settings.visibility.weekNumbers ? `
 			<div class="vanilla-calendar-column">
-				<div class="vanilla-calendar-column__title">#</div>
+				<b class="vanilla-calendar-column__title">#</b>
 				<div class="vanilla-calendar-column__content vanilla-calendar-week-numbers"></div>
 			</div>
 			` : ''}
@@ -149,8 +149,16 @@ export default class VanillaCalendar {
 		const monthDisabled = !this.settings.selection.month ? ' vanilla-calendar-month_disabled' : '';
 		const yearDisabled = !this.settings.selection.year ? ' vanilla-calendar-year_disabled' : '';
 
-		const month = `<b class="vanilla-calendar-month${monthDisabled}">${this.locale.months[this.selectedMonth]}</b>`;
-		const year = `<b class="vanilla-calendar-year${yearDisabled}">${this.selectedYear}</b>`;
+		const month = `
+		<button type="button"
+			class="vanilla-calendar-month${monthDisabled}">
+			${this.locale.months[this.selectedMonth]}
+		</button>`.replace(/[\n\t]/g, '');
+		const year = `
+		<button type="button"
+			class="vanilla-calendar-year${yearDisabled}">
+			${this.selectedYear}
+		</button>`.replace(/[\n\t]/g, '');
 
 		let templateHeader = this.settings.visibility.templateHeader.replace('%M', month);
 		templateHeader = templateHeader.replace('%Y', year);
@@ -206,7 +214,7 @@ export default class VanillaCalendar {
 
 	createWeek() {
 		const weekEl = this.HTMLElement.querySelector('.vanilla-calendar-week');
-		const templateWeekDayEl = document.createElement('span');
+		const templateWeekDayEl = document.createElement('b');
 		templateWeekDayEl.className = 'vanilla-calendar-week__day';
 
 		const weekday = [...this.locale.weekday];
@@ -249,7 +257,7 @@ export default class VanillaCalendar {
 	createWeekNumbers(firstDayWeek, daysSelectedMonth) {
 		if (!this.settings.visibility.weekNumbers) return;
 		const weekNumbersEl = this.HTMLElement.querySelector('.vanilla-calendar-week-numbers');
-		const daysEl = this.HTMLElement.querySelectorAll('.vanilla-calendar-day');
+		const daysBtnEl = this.HTMLElement.querySelectorAll('.vanilla-calendar-day__btn');
 		const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 		const templateWeekNumberEl = document.createElement('span');
 		templateWeekNumberEl.className = 'vanilla-calendar-week-number';
@@ -257,7 +265,7 @@ export default class VanillaCalendar {
 		weekNumbersEl.innerHTML = '';
 
 		for (let i = 0; i < countWeek; i++) {
-			const weekNumber = this.getWeekNumber(daysEl[i * 7].dataset.calendarDay);
+			const weekNumber = this.getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay);
 			const weekNumberEl = templateWeekNumberEl.cloneNode(true);
 			weekNumberEl.innerText = `${weekNumber.week}`;
 			weekNumberEl.dataset.calendarYear = `${weekNumber.year}`;
@@ -271,12 +279,12 @@ export default class VanillaCalendar {
 		// eslint-disable-next-line no-restricted-syntax
 		for (const day in this.popups) {
 			if (Object.hasOwnProperty.call(this.popups, day)) {
-				const dayEl = daysEl.querySelector(`[data-calendar-day="${day}"]`);
-				if (!dayEl) return;
+				const dayBtnEl = daysEl.querySelector(`[data-calendar-day="${day}"]`);
+				if (!dayBtnEl) return;
 
 				const dayInfo = this.popups[day];
-				dayEl.classList.add(dayInfo.modifier);
-				dayEl.innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div`;
+				dayBtnEl.classList.add(dayInfo.modifier);
+				dayBtnEl.parentNode.innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div>`;
 			}
 		}
 	}
@@ -290,7 +298,10 @@ export default class VanillaCalendar {
 
 		const daysEl = this.HTMLElement.querySelector('.vanilla-calendar-days');
 		const templateDayEl = document.createElement('div');
+		const templateDayBtnEl = document.createElement('button');
 		templateDayEl.className = 'vanilla-calendar-day';
+		templateDayBtnEl.className = 'vanilla-calendar-day__btn';
+		templateDayBtnEl.type = 'button';
 
 		if (['single', 'multiple', 'multiple-ranged'].includes(this.settings.selection.day)) {
 			daysEl.classList.add('vanilla-calendar-days_selecting');
@@ -298,17 +309,17 @@ export default class VanillaCalendar {
 
 		daysEl.innerHTML = '';
 
-		const setDayModifier = (dayEl, dayID, date) => {
+		const setDayModifier = (dayBtnEl, dayID, date) => {
 			// if weekend
 			if (this.settings.visibility.weekend && (dayID === 0 || dayID === 6)) {
-				dayEl.classList.add('vanilla-calendar-day_weekend');
+				dayBtnEl.classList.add('vanilla-calendar-day__btn_weekend');
 			}
 
 			// if holidays
 			if (Array.isArray(this.settings.selected.holidays)) {
 				this.settings.selected.holidays.forEach((holiday) => {
 					if (holiday === date) {
-						dayEl.classList.add('vanilla-calendar-day_holiday');
+						dayBtnEl.classList.add('vanilla-calendar-day__btn_holiday');
 					}
 				});
 			}
@@ -321,28 +332,40 @@ export default class VanillaCalendar {
 
 			const thisDay = `${this.date.today.getUTCFullYear()}-${thisMonth}-${thisToday}`;
 
-			if (this.settings.visibility.today && dayEl.dataset.calendarDay === thisDay) {
-				dayEl.classList.add('vanilla-calendar-day_today');
+			if (this.settings.visibility.today && dayBtnEl.dataset.calendarDay === thisDay) {
+				dayBtnEl.classList.add('vanilla-calendar-day__btn_today');
 			}
 
 			// if selected day
 			if (this.selectedDates.find((selectedDate) => selectedDate === date)) {
-				dayEl.classList.add('vanilla-calendar-day_selected');
+				dayBtnEl.classList.add('vanilla-calendar-day__btn_selected');
 			}
 
 			// if range min/max
 			if (this.settings.range.min > date || this.settings.range.max < date) {
-				dayEl.classList.add('vanilla-calendar-day_disabled');
+				dayBtnEl.classList.add('vanilla-calendar-day__btn_disabled');
 			}
 
 			// if range values
 			if (Array.isArray(this.settings.range.disabled)) {
 				this.settings.range.disabled.forEach((dateDisabled) => {
 					if (dateDisabled === date) {
-						dayEl.classList.add('vanilla-calendar-day_disabled');
+						dayBtnEl.classList.add('vanilla-calendar-day__btn_disabled');
 					}
 				});
 			}
+		};
+
+		const createDay = (dayText, dayID, date, modifier) => {
+			const dayEl = templateDayEl.cloneNode(true);
+			const dayBtnEl = templateDayBtnEl.cloneNode(true);
+			if (modifier) dayBtnEl.classList.add(modifier);
+			dayBtnEl.innerText = dayText;
+			dayBtnEl.dataset.calendarDay = date;
+
+			setDayModifier(dayBtnEl, dayID, date);
+			dayEl.append(dayBtnEl);
+			daysEl.append(dayEl);
 		};
 
 		const prevMonth = () => {
@@ -366,29 +389,17 @@ export default class VanillaCalendar {
 				const prevMonthID = dayIDCurrent.getUTCMonth() - 1;
 				const dayID = new Date(Date.UTC(this.selectedYear, prevMonthID, day)).getUTCDay();
 
-				const dayEl = templateDayEl.cloneNode(true);
-				dayEl.classList.add('vanilla-calendar-day_prev');
-				dayEl.innerText = `${day}`;
-				dayEl.dataset.calendarDay = date;
-
-				setDayModifier(dayEl, dayID, date);
-				daysEl.append(dayEl);
+				createDay(day, dayID, date, 'vanilla-calendar-day__btn_prev');
 			}
 		};
 
 		const selectedMonth = () => {
 			for (let i = 1; i <= daysSelectedMonth; i++) {
 				const day = new Date(Date.UTC(this.selectedYear, this.selectedMonth, i));
-
 				const date = this.generateDate(day);
 				const dayID = day.getUTCDay();
 
-				const dayEl = templateDayEl.cloneNode(true);
-				dayEl.innerText = `${i}`;
-				dayEl.dataset.calendarDay = date;
-
-				setDayModifier(dayEl, dayID, date);
-				daysEl.append(dayEl);
+				createDay(i, dayID, date);
 			}
 		};
 
@@ -409,19 +420,12 @@ export default class VanillaCalendar {
 
 			for (let i = 1; i <= nextDays; i++) {
 				const day = i < 10 ? `0${i}` : i;
-
 				const date = `${year}-${month}-${day}`;
 				const dayIDCurrent = new Date(Date.UTC(this.selectedYear, this.selectedMonth, i));
 				const nextMonthID = dayIDCurrent.getUTCMonth() + 1;
 				const dayID = new Date(Date.UTC(this.selectedYear, nextMonthID, i)).getUTCDay();
 
-				const dayEl = templateDayEl.cloneNode(true);
-				dayEl.classList.add('vanilla-calendar-day_next');
-				dayEl.innerText = `${i}`;
-				dayEl.dataset.calendarDay = date;
-
-				setDayModifier(dayEl, dayID, date);
-				daysEl.append(dayEl);
+				createDay(i, dayID, date, 'vanilla-calendar-day__btn_next');
 			}
 		};
 
@@ -456,6 +460,7 @@ export default class VanillaCalendar {
 		}
 
 		this.settings.selected.month = this.selectedMonth;
+		this.settings.selected.year = this.selectedYear;
 
 		this.createHeader();
 		this.controlArrows();
@@ -470,7 +475,8 @@ export default class VanillaCalendar {
 
 		const yearsEl = this.HTMLElement.querySelector('.vanilla-calendar-years');
 		if (this.settings.selection.year) yearsEl.classList.add('vanilla-calendar-years_selecting');
-		const templateYearEl = document.createElement('span');
+		const templateYearEl = document.createElement('button');
+		templateYearEl.type = 'button';
 		templateYearEl.className = 'vanilla-calendar-years__year';
 
 		for (let i = this.viewYear - 7; i < this.viewYear + 8; i++) {
@@ -501,7 +507,8 @@ export default class VanillaCalendar {
 		const monthsEl = this.HTMLElement.querySelector('.vanilla-calendar-months');
 		if (this.settings.selection.month) monthsEl.classList.add('vanilla-calendar-months_selecting');
 
-		const templateMonthEl = document.createElement('span');
+		const templateMonthEl = document.createElement('button');
+		templateMonthEl.type = 'button';
 		templateMonthEl.className = 'vanilla-calendar-months__month';
 
 		for (let i = 0; i < this.locale.months.length; i++) {
@@ -568,34 +575,34 @@ export default class VanillaCalendar {
 			const arrowEl = e.target.closest('.vanilla-calendar-arrow');
 			const arrowPrevEl = e.target.closest('.vanilla-calendar-arrow_prev');
 			const arrowNextEl = e.target.closest('.vanilla-calendar-arrow_next');
-			const dayEl = e.target.closest('.vanilla-calendar-day');
-			const dayPrevEl = e.target.closest('.vanilla-calendar-day_prev');
-			const dayNextEl = e.target.closest('.vanilla-calendar-day_next');
+			const dayBtnEl = e.target.closest('.vanilla-calendar-day__btn');
+			const dayBtnPrevEl = e.target.closest('.vanilla-calendar-day__btn_prev');
+			const dayBtnNextEl = e.target.closest('.vanilla-calendar-day__btn_next');
 			const yearHeaderEl = e.target.closest('.vanilla-calendar-year');
 			const yearItemEl = e.target.closest('.vanilla-calendar-years__year');
 			const monthHeaderEl = e.target.closest('.vanilla-calendar-month');
 			const monthItemEl = e.target.closest('.vanilla-calendar-months__month');
 
 			const clickDaySingle = () => {
-				if (dayEl.classList.contains('vanilla-calendar-day_selected')) {
-					this.selectedDates.splice(this.selectedDates.indexOf(dayEl.dataset.calendarDay), 1);
+				if (dayBtnEl.classList.contains('vanilla-calendar-day_selected')) {
+					this.selectedDates.splice(this.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
 				} else {
 					this.selectedDates = [];
-					this.selectedDates.push(dayEl.dataset.calendarDay);
+					this.selectedDates.push(dayBtnEl.dataset.calendarDay);
 				}
 			};
 
 			const clickDayMultiple = () => {
-				if (dayEl.classList.contains('vanilla-calendar-day_selected')) {
-					this.selectedDates.splice(this.selectedDates.indexOf(dayEl.dataset.calendarDay), 1);
+				if (dayBtnEl.classList.contains('vanilla-calendar-day_selected')) {
+					this.selectedDates.splice(this.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
 				} else {
-					this.selectedDates.push(dayEl.dataset.calendarDay);
+					this.selectedDates.push(dayBtnEl.dataset.calendarDay);
 				}
 			};
 
 			const clickDayMultipleRanged = () => {
 				if (this.selectedDates.length > 1) this.selectedDates = [];
-				this.selectedDates.push(dayEl.dataset.calendarDay);
+				this.selectedDates.push(dayBtnEl.dataset.calendarDay);
 
 				if (!this.selectedDates[1]) return;
 
@@ -631,7 +638,7 @@ export default class VanillaCalendar {
 			};
 
 			const clickDay = () => {
-				if (['single', 'multiple', 'multiple-ranged'].includes(this.settings.selection.day) && dayEl) {
+				if (['single', 'multiple', 'multiple-ranged'].includes(this.settings.selection.day) && dayBtnEl) {
 					switch (this.settings.selection.day) {
 						case 'single':
 							clickDaySingle();
@@ -648,9 +655,9 @@ export default class VanillaCalendar {
 					if (this.actions.clickDay) this.actions.clickDay(e);
 					this.settings.selected.dates = this.selectedDates;
 
-					if (dayPrevEl) {
+					if (dayBtnPrevEl) {
 						this.changeMonth('prev');
-					} else if (dayNextEl) {
+					} else if (dayBtnNextEl) {
 						this.changeMonth('next');
 					} else {
 						this.createDays();
@@ -683,8 +690,8 @@ export default class VanillaCalendar {
 					if (this.selectedMonth > this.dateMax.getUTCMonth() && year === this.dateMax.getUTCFullYear()) {
 						this.settings.selected.month = this.dateMax.getUTCMonth();
 					}
-					this.settings.selected.year = year;
 					if (this.actions.clickYear) this.actions.clickYear(e);
+					this.settings.selected.year = year;
 					this.update();
 				}
 			};
@@ -699,8 +706,8 @@ export default class VanillaCalendar {
 				} else if (monthItemEl) {
 					const month = Number(monthItemEl.dataset.calendarMonth);
 					this.currentType = this.type;
-					this.settings.selected.month = month;
 					if (this.actions.clickMonth) this.actions.clickMonth(e);
+					this.settings.selected.month = month;
 					this.update();
 				}
 			};
