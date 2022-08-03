@@ -22,7 +22,7 @@
 		grid-area: header;
 		display: flex;
 		align-items: center;
-		margin-bottom: 6px;
+		margin-bottom: 12px;
 
 		&__content {
 			flex-grow: 1;
@@ -32,6 +32,7 @@
 			align-items: center;
 			justify-content: center;
 			padding: 0 15px;
+			white-space: pre-wrap;
 		}
 	}
 
@@ -39,15 +40,15 @@
 		grid-area: column;
 		display: flex;
 		flex-direction: column;
-		margin-right: 5px;
+		margin-right: 2px;
 
 		&__title {
 			font-size: 12px;
 			line-height: 16px;
 			font-weight: 700;
 			color: lightseagreen;
-			width: 20px;
-			height: 25px;
+			width: 28px;
+			height: 28px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -56,7 +57,7 @@
 		&__content {
 			display: grid;
 			grid-auto-flow: row;
-			column-gap: 5px;
+			column-gap: 2px;
 			align-items: center;
 			justify-items: center;
 			align-content: space-between;
@@ -292,16 +293,17 @@
 	&-week {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		column-gap: 5px;
+		column-gap: 2px;
 		justify-items: center;
+		margin-bottom: 5px;
 
 		&__day {
 			font-size: 12px;
 			line-height: 16px;
 			font-weight: 700;
 			color: lightseagreen;
-			width: 25px;
-			height: 25px;
+			width: 28px;
+			height: 18px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -316,8 +318,8 @@
 			line-height: 16px;
 			font-weight: 700;
 			color: lightseagreen;
-			width: 20px;
-			height: 25px;
+			width: 28px;
+			height: 28px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -327,7 +329,7 @@
 	&-days {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		column-gap: 5px;
+		column-gap: 2px;
 		row-gap: 2px;
 		justify-items: center;
 		align-items: center;
@@ -348,6 +350,11 @@
 		$day: &;
 
 		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		&__btn {
 			$btn: &;
@@ -355,8 +362,9 @@
 			font-size: 12px;
 			line-height: 16px;
 			font-weight: 400;
-			width: 25px;
-			height: 25px;
+			color: black;
+			width: 28px;
+			height: 28px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -395,12 +403,22 @@
 			}
 
 			&_selected {
-				background-color: lightseagreen;
+				background-color: #289b95;
 				color: white;
 
 				&:hover {
-					background-color: lightseagreen;
+					background-color: #289b95;
 					color: white;
+				}
+
+				&#{$btn}_intermediate {
+					background-color: #68cec9;
+					color: white;
+
+					&:hover {
+						background-color: #68cec9;
+						color: white;
+					}
 				}
 
 				&#{$btn}_prev,
@@ -445,6 +463,17 @@
 
 					&:hover {
 						background-color: coral;
+						color: white;
+					}
+
+					&#{$btn}_intermediate {
+						background-color: #ffaa8a;
+						color: white;
+
+						&:hover {
+							background-color: #ffaa8a;
+							color: white;
+						}
 					}
 
 					&#{$btn}_prev,
@@ -529,6 +558,209 @@
 				border-color: transparent transparent white;
 				border-style: solid;
 				border-width: 0 10px 8px;
+			}
+		}
+	}
+
+	&-time {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 12px;
+		border-top: 1px solid gainsboro;
+		padding: 12px 6px 0;
+		margin-top: 12px;
+
+		&__content {
+			display: flex;
+			align-items: center;
+
+			input {
+				box-sizing: border-box;
+				position: relative;
+				display: block;
+				font-size: 18px;
+				line-height: 18px;
+				font-weight: 600;
+				color: black;
+				background-color: white;
+				width: 100%;
+				padding: 2px;
+				border-radius: 4px;
+
+				&:hover {
+					background-color: antiquewhite;
+				}
+
+				&:disabled {
+					cursor: default;
+
+					&:hover {
+						background-color: transparent;
+					}
+				}
+
+				&:focus-visible {
+					outline: 1px solid darkorange;
+					background-color: white;
+				}
+
+				&.is-focus {
+					background-color: antiquewhite;
+				}
+			}
+		}
+
+		&__hours {
+			position: relative;
+			width: 25px;
+			margin-right: 6px;
+
+			&::after {
+				content: ':';
+				display: block;
+				position: absolute;
+				right: -5px;
+				top: 50%;
+				transform: translateY(-50%);
+				margin-top: -1px;
+				font-size: 14px;
+				line-height: 14px;
+				font-weight: 600;
+				color: black;
+			}
+		}
+
+		&__minutes {
+			width: 25px;
+		}
+
+		&__keeping {
+			cursor: pointer;
+			display: block;
+			font-size: 11px;
+			line-height: 12px;
+			font-weight: 400;
+			color: gray;
+			margin-left: 1px;
+			margin-top: 5px;
+			padding: 2px;
+			border-radius: 4px;
+
+			&:hover {
+				background-color: antiquewhite;
+			}
+
+			&:disabled {
+				cursor: default;
+
+				&:hover {
+					background-color: transparent;
+				}
+			}
+		}
+
+		&__ranges {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__range {
+			$range: &;
+
+			font-size: 0;
+			position: relative;
+			z-index: 1;
+
+			&::before {
+				content: '';
+				width: 1px;
+				height: 8px;
+				position: absolute;
+				left: 0;
+				top: 5px;
+				margin-top: 1px;
+				background-color: gainsboro;
+			}
+
+			&::after {
+				content: '';
+				width: 1px;
+				height: 8px;
+				position: absolute;
+				right: 0;
+				top: 5px;
+				margin-top: 1px;
+				background-color: gainsboro;
+			}
+
+			&:hover {
+
+				input::-webkit-slider-thumb {
+					border-color: gray;
+				}
+
+				input::-moz-range-thumb {
+					border-color: gray;
+				}
+			}
+
+			input {
+				width: 100%;
+				position: relative;
+				appearance: none;
+				height: 20px;
+				cursor: pointer;
+
+				&:focus-visible {
+
+					&::-webkit-slider-thumb {
+						border-color: darkorange;
+					}
+
+					&::-moz-range-thumb {
+						border-color: darkorange;
+					}
+				}
+
+				@mixin thumb {
+					position: relative;
+					z-index: 2;
+					box-sizing: border-box;
+					border: 1px solid gainsboro;
+					height: 16px;
+					width: 10px;
+					border-radius: 3px;
+					background-color: white;
+					cursor: pointer;
+				}
+
+				@mixin track {
+					box-sizing: border-box;
+					width: 100%;
+					height: 1px;
+					margin-top: 1px;
+					cursor: pointer;
+					background-color: gainsboro;
+				}
+
+				&::-webkit-slider-thumb {
+					appearance: none;
+					margin-top: -8px;
+
+					@include thumb;
+				}
+
+				&::-moz-range-thumb {
+					@include thumb;
+				}
+
+				&::-webkit-slider-runnable-track {
+					@include track;
+				}
+
+				&::-moz-range-track {
+					@include track;
+				}
 			}
 		}
 	}
