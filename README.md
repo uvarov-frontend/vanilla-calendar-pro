@@ -1,4 +1,4 @@
-[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png)](https://vanilla-calendar.frontend.uvarov.tech/)
+[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png?v2)](https://vanilla-calendar.frontend.uvarov.tech/)
 # Vanilla JS Calendar v1.5.0
 
 A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date and time picker written in pure JavaScript.
