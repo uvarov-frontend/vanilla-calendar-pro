@@ -1042,5 +1042,3 @@ export default class VanillaCalendar {
 		this.click();
 	}
 }
-
-window.VanillaCalendar = VanillaCalendar;

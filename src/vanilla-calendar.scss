@@ -82,6 +82,7 @@
 		background-color: transparent;
 		cursor: pointer;
 		border-radius: 4px;
+		border: 0;
 
 		&::before {
 			content: '';
@@ -153,6 +154,7 @@
 			color: lightseagreen;
 			padding: 2px;
 			border-radius: 4px;
+			border: 0;
 			word-break: break-all;
 
 			&:hover {
@@ -190,6 +192,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		padding: 2px;
+		border: 0;
+		background-color: transparent;
 
 		&:hover {
 			color: lightseagreen;
@@ -238,6 +242,7 @@
 			color: lightseagreen;
 			padding: 2px;
 			border-radius: 4px;
+			border: 0;
 			word-break: break-all;
 
 			&:hover {
@@ -275,6 +280,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		padding: 2px;
+		border: 0;
+		background-color: transparent;
 
 		&:hover {
 			color: lightseagreen;
@@ -370,6 +377,7 @@
 			justify-content: center;
 			border-radius: 50%;
 			background-color: white;
+			border: 0;
 			cursor: default;
 
 			&:hover {

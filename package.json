@@ -1,6 +1,6 @@
 {
 	"name": "@uvarov.frontend/vanilla-calendar",
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"description": "Vanilla JS calendar without using additional packages. A lightweight date and time picker written in pure JavaScript.",
 	"homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
 	"keywords": [
@@ -28,8 +28,18 @@
 		"url": "https://frontend.uvarov.tech"
 	},
 	"license": "MIT",
-	"main": "vanilla-calendar.min.js",
+	"main": "./build/vanilla-calendar.min.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "rollup -c"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.18.10",
+		"@babel/preset-env": "^7.18.10",
+		"@rollup/plugin-babel": "^5.3.1",
+		"rollup": "^2.36.2",
+		"rollup-plugin-scss": "3",
+		"rollup-plugin-terser": "^7.0.2",
+		"rollup-plugin-userscript-header": "^1.0.0",
+		"sass": "^1.54.3"
 	}
 }
