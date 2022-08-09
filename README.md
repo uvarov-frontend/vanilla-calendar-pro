@@ -62,7 +62,7 @@ calendar.init();
 ```
 
 ```js
-// CSS Selector
+// HTML element
 const calendarEl = document.querySelector('#calendar');
 const calendar = new VanillaCalendar(calendarEl, {
   // Options
