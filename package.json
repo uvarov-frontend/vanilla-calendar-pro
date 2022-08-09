@@ -1,6 +1,6 @@
 {
 	"name": "@uvarov.frontend/vanilla-calendar",
-	"version": "1.5.3",
+	"version": "1.5.4",
 	"description": "Vanilla JS calendar without using additional packages. A lightweight date and time picker written in pure JavaScript.",
 	"homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
 	"keywords": [
