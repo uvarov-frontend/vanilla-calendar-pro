@@ -404,11 +404,12 @@ export default class VanillaCalendar {
 		for (const day in this.popups) {
 			if (Object.hasOwnProperty.call(this.popups, day)) {
 				const dayBtnEl = daysEl.querySelector(`[data-calendar-day="${day}"]`);
-				if (!dayBtnEl) return;
 
-				const dayInfo = this.popups[day];
-				dayBtnEl.classList.add(dayInfo.modifier);
-				dayBtnEl.parentNode.innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div>`;
+				if (dayBtnEl) {
+					const dayInfo = this.popups[day];
+					dayBtnEl.classList.add(dayInfo.modifier);
+					dayBtnEl.parentNode.innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div>`;
+				}
 			}
 		}
 	}
