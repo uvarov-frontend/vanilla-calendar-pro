@@ -1,5 +1,5 @@
 [![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png?v2)](https://vanilla-calendar.frontend.uvarov.tech/)
-# Vanilla JS Calendar v1.5.4
+# Vanilla JS Calendar v1.5.5
 
 A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date and time picker written in pure JavaScript.
 The size of the minified file .js is approximately **30kb** and **7.2kb** gzip.
@@ -14,7 +14,7 @@ If you like the plugin please give it a star.
 
 ## Implementation
 
-Because Vanilla Calendar is written in pure JavaScript, it can be used with any framework or library, such as Vue, React, or Angular, if desired. You can get the plugin by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.5.4.zip) it manually, via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.5.4/build/) or via a package manager like npm:
+Because Vanilla Calendar is written in pure JavaScript, it can be used with any framework or library, such as Vue, React, or Angular, if desired. You can get the plugin by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v1.5.5.zip) it manually, via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.5.5/build/) or via a package manager like npm:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
