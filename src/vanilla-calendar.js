@@ -672,7 +672,8 @@ export default class VanillaCalendar {
 				monthEl.classList.add('vanilla-calendar-months__month_disabled');
 			}
 
-			monthEl.dataset.calendarMonth = i;
+			//plus 1 to convert from 0 index to month numbers (1-12)
+			monthEl.dataset.calendarMonth = i + 1;
 
 			monthEl.title = `${month}`;
 			monthEl.innerText = `${this.settings.visibility.monthShort ? month.substring(0, 3) : month}`;
