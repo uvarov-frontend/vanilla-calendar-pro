@@ -48,7 +48,8 @@
 			font-weight: 700;
 			color: lightseagreen;
 			width: 28px;
-			height: 28px;
+			height: 18px;
+			margin-bottom: 5px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -406,7 +407,7 @@
 				&#{$btn}_prev,
 				&#{$btn}_next {
 					background-color: whitesmoke;
-					color: lightgrey;
+					color: darkgray;
 				}
 			}
 
@@ -453,15 +454,15 @@
 					color: coral;
 					background-color: seashell;
 
-					&#{$btn}_disabled {
-						color: lightgrey;
+					&#{$btn}_prev,
+					&#{$btn}_next {
+						color: darkgray;
 						background-color: whitesmoke;
 					}
 
-					&#{$btn}_prev,
-					&#{$btn}_next {
-						background-color: whitesmoke;
+					&#{$btn}_disabled {
 						color: lightgrey;
+						background-color: whitesmoke;
 					}
 				}
 
@@ -498,13 +499,23 @@
 
 				&#{$btn}_prev,
 				&#{$btn}_next {
-					color: lightgrey;
+					color: darkgray;
 				}
 			}
 
 			&_prev,
-			&_next,
+			&_next {
+				background-color: white;
+				color: darkgray;
+
+				&:hover {
+					background-color: white;
+					color: darkgray;
+				}
+			}
+
 			&_disabled {
+				pointer-events: none;
 				background-color: white;
 				color: lightgrey;
 
@@ -512,10 +523,6 @@
 					background-color: white;
 					color: lightgrey;
 				}
-			}
-
-			&_disabled {
-				pointer-events: none;
 			}
 		}
 
@@ -574,6 +581,7 @@
 		display: grid;
 		grid-template-columns: auto 1fr;
 		gap: 12px;
+		grid-column: span 2;
 		border-top: 1px solid gainsboro;
 		padding: 12px 6px 0;
 		margin-top: 12px;
@@ -589,10 +597,13 @@
 				font-size: 18px;
 				line-height: 18px;
 				font-weight: 600;
+				text-align: center;
 				color: black;
 				background-color: white;
 				width: 100%;
 				padding: 2px;
+				margin: 0;
+				border: 0;
 				border-radius: 4px;
 
 				&:hover {
@@ -652,6 +663,8 @@
 			margin-left: 1px;
 			margin-top: 5px;
 			padding: 2px;
+			border: 0;
+			background-color: transparent;
 			border-radius: 4px;
 
 			&:hover {
@@ -718,6 +731,8 @@
 				appearance: none;
 				height: 20px;
 				cursor: pointer;
+				margin: 0;
+				outline: none;
 
 				&:focus-visible {
 
