@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../types';
+import { FormatDateString, IVanillaCalendar } from 'src/types';
 import changeMonth from './changeMonth';
 import createDays from './createDays';
 import createMonths from './createMonths';
@@ -30,26 +30,26 @@ const clickCalendar = (self: IVanillaCalendar) => {
 		const clickDaySingle = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
 			if (dayBtnEl.classList.contains('vanilla-calendar-day__btn_selected')) {
-				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
+				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay as FormatDateString), 1);
 			} else {
 				self.selectedDates = [];
-				self.selectedDates.push(dayBtnEl.dataset.calendarDay);
+				self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
 			}
 		};
 
 		const clickDayMultiple = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
 			if (dayBtnEl.classList.contains('vanilla-calendar-day__btn_selected')) {
-				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
+				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay as FormatDateString), 1);
 			} else {
-				self.selectedDates.push(dayBtnEl.dataset.calendarDay);
+				self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
 			}
 		};
 
 		const clickDayMultipleRanged = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
 			if (self.selectedDates.length > 1) self.selectedDates = [];
-			self.selectedDates.push(dayBtnEl.dataset.calendarDay);
+			self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
 
 			if (!self.selectedDates[1]) return;
 

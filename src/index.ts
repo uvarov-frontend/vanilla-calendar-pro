@@ -1,4 +1,4 @@
-import { IWindow } from './scripts/types';
+import { IWindow } from './types';
 import VanillaCalendar from './scripts/vanilla-calendar';
 import './styles/vanilla-calendar.scss';
 

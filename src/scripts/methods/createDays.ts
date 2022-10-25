@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../types';
+import { FormatDateString, IVanillaCalendar } from 'src/types';
 import createPopup from './createPopup';
 import createWeekNumbers from './createWeekNumbers';
 import generateDate from './generateDate';
@@ -53,14 +53,14 @@ const createDays = (self: IVanillaCalendar) => {
 		}
 
 		// if selected day
-		if (self.selectedDates && self.selectedDates.indexOf(date) === 0) {
+		if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) === 0) {
 			dayBtnEl.classList.add('vanilla-calendar-day__btn_selected');
-		} else if (self.selectedDates && self.selectedDates[0] && (self.selectedDates.indexOf(date) === self.selectedDates.length - 1)) {
+		} else if (self.selectedDates && self.selectedDates[0] && (self.selectedDates.indexOf(date as FormatDateString) === self.selectedDates.length - 1)) {
 			dayBtnEl.classList.add('vanilla-calendar-day__btn_selected');
-		} else if (self.selectedDates && self.selectedDates.indexOf(date) > 0 && self.settings.selection.day === 'multiple-ranged') {
+		} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0 && self.settings.selection.day === 'multiple-ranged') {
 			dayBtnEl.classList.add('vanilla-calendar-day__btn_selected');
 			dayBtnEl.classList.add('vanilla-calendar-day__btn_intermediate');
-		} else if (self.selectedDates && self.selectedDates.indexOf(date) > 0) {
+		} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0) {
 			dayBtnEl.classList.add('vanilla-calendar-day__btn_selected');
 		}
 
@@ -131,7 +131,7 @@ const createDays = (self: IVanillaCalendar) => {
 		for (let i = 0; i < firstDayWeek; i++) {
 			day += 1;
 
-			const date = `${year}-${month}-${day}`;
+			const date = `${year}-${month}-${day}` as FormatDateString;
 			const dayIDCurrent = new Date(Date.UTC(self.selectedYear, self.selectedMonth, day - 1));
 			const prevMonthID = dayIDCurrent.getUTCMonth() - 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, prevMonthID, day)).getUTCDay();
@@ -169,7 +169,7 @@ const createDays = (self: IVanillaCalendar) => {
 
 		for (let i = 1; i <= nextDays; i++) {
 			const day = i < 10 ? `0${i}` : String(i);
-			const date = `${year}-${month}-${day}`;
+			const date = `${year}-${month}-${day}` as FormatDateString;
 			const dayIDCurrent = new Date(Date.UTC(self.selectedYear, self.selectedMonth, i));
 			const nextMonthID = dayIDCurrent.getUTCMonth() + 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, nextMonthID, i)).getUTCDay();

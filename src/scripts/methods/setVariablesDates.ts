@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../types';
+import { IVanillaCalendar } from 'src/types';
 import transformTime12 from './transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {

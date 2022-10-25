@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../types';
+import { IVanillaCalendar } from 'src/types';
 
 const createHeader = (self: IVanillaCalendar) => {
 	const headerContent = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-header__content');

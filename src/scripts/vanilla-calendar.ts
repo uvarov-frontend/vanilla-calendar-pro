@@ -1,7 +1,8 @@
-import { IOptions, IVanillaCalendar } from './types';
+import { FormatDateString, IOptionsDev } from 'src/types';
+import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 
-export default class VanillaCalendar implements IVanillaCalendar {
+export default class VanillaCalendar {
 	HTMLElement: HTMLElement | null;
 
 	type!: string;
@@ -16,25 +17,25 @@ export default class VanillaCalendar implements IVanillaCalendar {
 		lang: string;
 		iso8601: boolean;
 		range: {
-			min: string;
-			max: string;
-			disabled: string[] | null;
-			enabled: string[] | null;
+			min: FormatDateString,
+			max: FormatDateString,
+			disabled: FormatDateString[] | null,
+			enabled: FormatDateString[] | null,
 		};
 		selection: {
-			day: string;
+			day: 'single' | 'multiple' | 'multiple-ranged';
 			month: boolean;
 			year: boolean;
 			time: boolean | number;
-			controlTime: string;
+			controlTime: 'all' | 'range';
 			stepHours: number;
 			stepMinutes: number;
 		};
 		selected: {
-			dates: string[] | undefined | null;
+			dates: FormatDateString[] | undefined | null;
 			month: number | null;
 			year: number | null;
-			holidays: string[] | null;
+			holidays: FormatDateString[] | null;
 			time: string | null;
 		};
 		visibility: {
@@ -53,17 +54,17 @@ export default class VanillaCalendar implements IVanillaCalendar {
 	};
 
 	actions!: {
-		clickDay: (e: MouseEvent, dates: string[] | undefined) => void;
-		clickMonth: (e: MouseEvent, month: number) => void;
-		clickYear: (e: MouseEvent, year: number) => void;
-		changeTime: (e: Event, time: string, hours: string, minutes: string, keeping: string) => void;
+		clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
+		clickMonth: ((e: MouseEvent, month: number) => void) | null;
+		clickYear: ((e: MouseEvent, year: number) => void) | null;
+		changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
 	};
 
 	popups!: {
-		[key: string]: {
-			modifier: string;
+		[date in FormatDateString]: {
+			modifier: string | null;
 			html: string;
-		};
+		} | null;
 	} | null;
 
 	currentType!: string;
@@ -72,7 +73,7 @@ export default class VanillaCalendar implements IVanillaCalendar {
 
 	userTime!: boolean;
 
-	constructor(selector: string | HTMLElement, option: IOptions) {
+	constructor(selector: string | HTMLElement, option: IOptionsDev) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
 		if (!this.HTMLElement) return;
 		this.type = option?.type ?? 'default';
@@ -131,6 +132,8 @@ export default class VanillaCalendar implements IVanillaCalendar {
 		this.selectedKeeping = null;
 		this.userTime = false;
 	}
+
+	update = () => updateCalendar(this);
 
 	init = () => initCalendar(this);
 }

@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../types';
+import { IVanillaCalendar } from 'src/types';
 
 const createDOM = (self: IVanillaCalendar) => {
 	const calendarElement = (self.HTMLElement as HTMLElement);
