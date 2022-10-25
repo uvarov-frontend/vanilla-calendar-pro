@@ -1,7 +1,7 @@
-[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/preview.png?v2)](https://vanilla-calendar.frontend.uvarov.tech/)
-# Vanilla JS Calendar v2.0.0
+[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/screenshot.png)](https://vanilla-calendar.frontend.uvarov.tech/)
+# Vanilla JS Calendar v2.1.1
 
-A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date and time picker written in pure JavaScript.
+A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date and time picker written in pure JavaScript using TypeScript.
 The size of the minified file .js is approximately **27kb** and **6.4kb** gzip.
 
 [Documentation](https://vanilla-calendar.frontend.uvarov.tech/en/documentation/) | [Demos](https://vanilla-calendar.frontend.uvarov.tech/en/demos/)
@@ -12,44 +12,103 @@ If you like the plugin please give it a star.
 
 [![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
 
-## Implementation
+## Getting Started
 
-Because Vanilla Calendar is written in pure JavaScript using TypeScript, it can be used with any framework or library, such as Vue, React, or Angular, if desired. You can get the plugin by [downloading](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v2.0.0.zip) it manually, via [cdn](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.0.0/build/) or via a package manager like npm:
+Because Vanilla Calendar is written in pure JavaScript using TypeScript, it can be used with any framework or library you want, such as Vue, React, Angular, and more.
+
+### Installation
+
+You can get it via npm or yarn:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
 ```
 
-Then import it in your javascript file.
+```sh
+yarn add @uvarov.frontend/vanilla-calendar
+```
+
+If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v2.1.1.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.1.1/build/).
+
+### Examples
+
+Simple usage example:
 
 ```js
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+
+const calendar = new VanillaCalendar('#calendar');
+calendar.init();
 ```
-
-And don't forget to import the base plugin styles in your stylesheet:
-
-```css
-@import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
-```
-
-If you have downloaded the plugin or are using it via cdn, you need to embed the plugin in your page, you should include
-all required files in the **head** tag of your HTML document:
 
 ```html
-
 <html>
-<head>
-  <!-- Plugin CSS -->
-  <link href="./vanilla-calendar.min.css" rel="stylesheet">
-  <!-- Plugin JS -->
-  <script src="./vanilla-calendar.min.js" defer></script>
-</head>
-<body>
-</body>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
 </html>
 ```
 
-## Initialization
+If you downloaded the files manually or decided to use a CDN, then instead of the example above, you need to add all the necessary files to the **head** tag of your HTML document. Here is an example of such usage:
+
+```html
+<html>
+  <head>
+    <!-- Plugin CSS -->
+    <link href="./vanilla-calendar.min.css" rel="stylesheet">
+    <!-- Plugin JS -->
+    <script src="./vanilla-calendar.min.js" defer></script>
+  </head>
+  <body>
+    <div id="calendar"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const calendar = new VanillaCalendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```
+
+React component:
+
+```tsx
+import { useEffect, useRef } from 'react';
+import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+
+const Calendar: React.FC = () => {
+  const calendarEl = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!calendarEl.current) return;
+
+    const calendar = new VanillaCalendar(calendarEl.current, {
+      settings: {
+        lang: 'en',
+        selection: {
+          time: 12,
+        },
+      },
+    });
+    calendar.init();
+  }, [calendarEl.current]);
+
+  return (
+    <div ref={calendarEl}
+      className="vanilla-calendar"></div>
+  );
+};
+
+export default Calendar;
+```
+
+## API
 
 The first argument can be either the CSS selector of the HTML element, or the element itself. The second optional argument can be passed parameters that define the calendar settings.
 
@@ -78,7 +137,7 @@ MIT License
 
 ## Author
 
-Yuri Uvarov (*uvarov.frontend@gmail.com*)
+Yury Uvarov (*uvarov.frontend@gmail.com*)
 
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymeacoffee]: https://www.buymeacoffee.com/uvarov
