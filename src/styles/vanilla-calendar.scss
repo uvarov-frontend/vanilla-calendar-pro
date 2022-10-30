@@ -697,6 +697,8 @@
 				width: 1px;
 				height: 8px;
 				position: absolute;
+				z-index: 2;
+				pointer-events: none;
 				left: 0;
 				top: 5px;
 				margin-top: 1px;
@@ -708,6 +710,8 @@
 				width: 1px;
 				height: 8px;
 				position: absolute;
+				z-index: 2;
+				pointer-events: none;
 				right: 0;
 				top: 5px;
 				margin-top: 1px;
@@ -752,6 +756,7 @@
 					border: 1px solid gainsboro;
 					height: 16px;
 					width: 10px;
+					box-shadow: none;
 					border-radius: 3px;
 					background-color: white;
 					cursor: pointer;

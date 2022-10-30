@@ -1,10 +1,13 @@
 [![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/screenshot.png)](https://vanilla-calendar.frontend.uvarov.tech/)
-# Vanilla JS Calendar v2.1.1
+# Vanilla JS Calendar
 
-A simple yet feature rich calendar with no dependencies and no «input» tag. A lightweight date and time picker written in pure JavaScript using TypeScript.
+[![package-badge]][package]
+
+A simple but feature rich calendar without dependencies and «input» tag. A lightweight date and time picker written in pure JavaScript with using TypeScript.
+
 The size of the minified file .js is approximately **27kb** and **6.4kb** gzip.
 
-[Documentation](https://vanilla-calendar.frontend.uvarov.tech/en/documentation/) | [Demos](https://vanilla-calendar.frontend.uvarov.tech/en/demos/)
+[API](https://vanilla-calendar.frontend.uvarov.tech/api/) | [Examples](https://vanilla-calendar.frontend.uvarov.tech/examples/)
 
 This plugin is completely free, any support from you is important, please report problems or new ideas, it's really important!
 
@@ -14,9 +17,10 @@ If you like the plugin please give it a star.
 
 ## Getting Started
 
-Because Vanilla Calendar is written in pure JavaScript using TypeScript, it can be used with any framework or library you want, such as Vue, React, Angular, and more.
+This calendar has no dependencies, but it has a simple localization for any language, is displayed anywhere, is not tied to the «input» tag and can have an unlimited number of copies per page.
+It is possible to include it as a standalone HTML script or import it into your bundler.
 
-### Installation
+### Install
 
 You can get it via npm or yarn:
 
@@ -28,9 +32,9 @@ npm install @uvarov.frontend/vanilla-calendar
 yarn add @uvarov.frontend/vanilla-calendar
 ```
 
-If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v2.1.1.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.1.1/build/).
+If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v2.1.2.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.1.2/build/).
 
-### Examples
+### Usage
 
 Simple usage example:
 
@@ -74,8 +78,9 @@ If you downloaded the files manually or decided to use a CDN, then instead of th
   </body>
 </html>
 ```
+Because the calendar is written in JavaScript with no dependencies, if desired, it can be used with any framework or library, such as Vue, React, Angular, etc.
 
-React component:
+**Example using React + TypeScript:**
 
 ```tsx
 import { useEffect, useRef } from 'react';
@@ -97,7 +102,7 @@ const Calendar: React.FC = () => {
       },
     });
     calendar.init();
-  }, [calendarEl.current]);
+  }, [calendarEl]);
 
   return (
     <div ref={calendarEl}
@@ -110,26 +115,11 @@ export default Calendar;
 
 ## API
 
-The first argument can be either the CSS selector of the HTML element, or the element itself. The second optional argument can be passed parameters that define the calendar settings.
+`new VanillaCalendar()` — creates an instance of an object.
 
-```js
-// CSS Selector
-const calendar = new VanillaCalendar('#calendar', {
-  // Options
-});
-calendar.init();
-```
+If you loaded the plugin from a &#60;script&#62; tag, the VanillaCalendar object is available on the global Window.
 
-```js
-// HTML element
-const calendarEl = document.querySelector('#calendar');
-const calendar = new VanillaCalendar(calendarEl, {
-  // Options
-});
-calendar.init();
-```
-
-You can see all the parameters and settings of the calendar in the [extended documentation](https://vanilla-calendar.frontend.uvarov.tech/en/documentation/).
+You can see all the parameters and settings of the calendar in the [extended documentation](https://vanilla-calendar.frontend.uvarov.tech/api/).
 
 ## License
 
@@ -139,5 +129,7 @@ MIT License
 
 Yury Uvarov (*uvarov.frontend@gmail.com*)
 
+[package]: https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar
+[package-badge]: https://img.shields.io/npm/v/@uvarov.frontend/vanilla-calendar
 [buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymeacoffee]: https://www.buymeacoffee.com/uvarov
