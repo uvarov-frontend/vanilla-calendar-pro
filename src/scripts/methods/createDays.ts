@@ -110,7 +110,7 @@ const createDays = (self: IVanillaCalendar) => {
 			dayBtnEl.dataset.calendarDay = date;
 
 			if (self.settings.visibility.weekNumbers) {
-				const weekNumber = getWeekNumber(date);
+				const weekNumber = getWeekNumber(date, self.settings.iso8601);
 				if (!weekNumber) return;
 				dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
 			}

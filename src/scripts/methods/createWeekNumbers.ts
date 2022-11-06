@@ -14,7 +14,7 @@ const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSel
 		weekNumbersEl.innerHTML = '';
 
 		for (let i = 0; i < countWeek; i++) {
-			const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay);
+			const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay, self.settings.iso8601);
 			if (!weekNumber) return;
 
 			const weekNumberEl = templateWeekNumberEl.cloneNode(true);
