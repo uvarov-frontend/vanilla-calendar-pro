@@ -2,6 +2,7 @@ import { FormatDateString, IVanillaCalendar } from 'src/types';
 import createPopup from './createPopup';
 import createWeekNumbers from './createWeekNumbers';
 import generateDate from './generateDate';
+import getWeekNumber from './getWeekNumber';
 
 const createDays = (self: IVanillaCalendar) => {
 	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
@@ -19,7 +20,7 @@ const createDays = (self: IVanillaCalendar) => {
 	templateDayBtnEl.className = 'vanilla-calendar-day__btn';
 	templateDayBtnEl.type = 'button';
 
-	if (['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day)) {
+	if (self.settings.selection.day && ['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day)) {
 		daysEl.classList.add('vanilla-calendar-days_selecting');
 	}
 
@@ -107,6 +108,12 @@ const createDays = (self: IVanillaCalendar) => {
 			if (modifier) dayBtnEl.classList.add(modifier);
 			dayBtnEl.innerText = dayText;
 			dayBtnEl.dataset.calendarDay = date;
+
+			if (self.settings.visibility.weekNumbers) {
+				const weekNumber = getWeekNumber(date);
+				if (!weekNumber) return;
+				dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
+			}
 
 			setDayModifier(dayBtnEl, dayID, date, currentMonth);
 			dayEl.append(dayBtnEl);

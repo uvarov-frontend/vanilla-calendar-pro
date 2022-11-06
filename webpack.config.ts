@@ -100,7 +100,7 @@ const config: webpack.Configuration = {
 			banner: 'name: @uvarov.frontend/vanilla-calendar | url: https://github.com/uvarov-frontend/vanilla-calendar',
 		}),
 		new MiniCssExtractPlugin({
-			filename: isProd ? 'vanilla-calendar.min.css' : 'vanilla-calendar.css',
+			filename: isProd ? '[name].min.css' : '[name].css',
 			linkType: false,
 		}),
 		new HtmlWebpackPlugin({
@@ -109,6 +109,7 @@ const config: webpack.Configuration = {
 			minify: false,
 			cache: true,
 			alwaysWriteToDisk: true,
+			inject: false,
 		}),
 		new HtmlWebpackHarddiskPlugin(),
 	],

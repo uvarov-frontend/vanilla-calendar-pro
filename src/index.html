@@ -6,7 +6,13 @@
 		<meta name="viewport" content="initial-scale=1,width=device-width">
 		<meta name="format-detection" content="telephone=no">
 		<title>Vanilla JS Calendar - A simple but feature rich calendar without dependencies and «input» tag.</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css">
+		<%= htmlWebpackPlugin.tags.headTags %>
 		<style>
+			* {
+				font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
+			}
+
 			body {
 				box-sizing: border-box;
 				padding: 40px 15px;
@@ -14,7 +20,6 @@
 				width: 100vw;
 				min-height: 100vh;
 				overflow-x: hidden;
-				font-family: 'Helvetica', 'Arial', sans-serif;
 				background-color: #fff0d2;
 				background: linear-gradient(160deg,#fff0d2,#e4feff);
 				background-position: 0 0;
@@ -50,7 +55,6 @@
 				border: 1px solid #efefef;
 				box-shadow: 0 0 10px -10px #000;
 				margin: 30px auto 10px;
-				width: 280px !important;
 			}
 
 			.vanilla-calendar-info {

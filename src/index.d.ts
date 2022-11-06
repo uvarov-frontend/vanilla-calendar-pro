@@ -17,7 +17,7 @@ export interface IOptions {
 			enabled?: FormatDateString[] | null,
 		};
 		selection?: {
-			day?: boolean | 'single' | 'multiple' | 'multiple-ranged';
+			day?: false | 'single' | 'multiple' | 'multiple-ranged';
 			month?: boolean;
 			year?: boolean;
 			time?: boolean | number;
@@ -59,8 +59,8 @@ export interface IOptions {
 	} | null;
 }
 
-declare class VanillaCalendar {
-	constructor(selector: string | HTMLElement, option?: Partial<IOptions>)
+declare class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
+	constructor(selector: T, option?: R)
 
 	update: () => void;
 

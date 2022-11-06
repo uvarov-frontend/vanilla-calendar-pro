@@ -32,7 +32,7 @@ npm install @uvarov.frontend/vanilla-calendar
 yarn add @uvarov.frontend/vanilla-calendar
 ```
 
-If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar-v2.1.3.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.1.3/build/).
+If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/).
 
 ### Usage
 

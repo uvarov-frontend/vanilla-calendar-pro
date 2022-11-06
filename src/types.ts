@@ -4,11 +4,7 @@ type MM = `0${oneToNine}` | `1${0|1|2}`;
 type DD = `${0}${oneToNine}` | `${1|2}${zeroToNine}` | `3${0|1}`;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
-export interface IWindow {
-	VanillaCalendar?: object;
-}
-
-export interface IOptionsDev {
+export interface IOptionsRequire {
 	type: string;
 	date: {
 		min: string;
@@ -25,7 +21,7 @@ export interface IOptionsDev {
 			enabled: FormatDateString[] | null,
 		};
 		selection: {
-			day: 'single' | 'multiple' | 'multiple-ranged';
+			day: false | 'single' | 'multiple' | 'multiple-ranged';
 			month: boolean;
 			year: boolean;
 			time: boolean | number;
@@ -67,7 +63,7 @@ export interface IOptionsDev {
 	} | null;
 }
 
-export interface IVariables extends IOptionsDev {
+export interface IVariables extends IOptionsRequire {
 	HTMLElement: HTMLElement | null;
 	currentType: string;
 	selectedKeeping: string | null;

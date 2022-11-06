@@ -86,7 +86,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 		};
 
 		const clickDay = () => {
-			if (['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) && dayBtnEl) {
+			if (self.settings.selection.day && ['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) && dayBtnEl) {
 				switch (self.settings.selection.day) {
 					case 'single':
 						clickDaySingle();

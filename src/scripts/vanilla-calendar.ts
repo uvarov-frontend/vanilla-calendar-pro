@@ -1,8 +1,8 @@
-import { FormatDateString, IOptionsDev } from 'src/types';
+import { FormatDateString, IOptionsRequire } from 'src/types';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 
-export default class VanillaCalendar {
+export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptionsRequire> {
 	HTMLElement: HTMLElement | null;
 
 	type!: string;
@@ -23,7 +23,7 @@ export default class VanillaCalendar {
 			enabled: FormatDateString[] | null,
 		};
 		selection: {
-			day: 'single' | 'multiple' | 'multiple-ranged';
+			day: false | 'single' | 'multiple' | 'multiple-ranged';
 			month: boolean;
 			year: boolean;
 			time: boolean | number;
@@ -73,7 +73,7 @@ export default class VanillaCalendar {
 
 	userTime!: boolean;
 
-	constructor(selector: string | HTMLElement, option: IOptionsDev) {
+	constructor(selector: T, option?: R) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
 		if (!this.HTMLElement) return;
 		this.type = option?.type ?? 'default';
@@ -86,8 +86,8 @@ export default class VanillaCalendar {
 			lang: option?.settings?.lang ?? 'en',
 			iso8601: option?.settings?.iso8601 ?? true,
 			range: {
-				min: option?.settings?.range?.min ?? this.date.min,
-				max: option?.settings?.range?.max ?? this.date.max,
+				min: option?.settings?.range?.min ?? '1970-01-01',
+				max: option?.settings?.range?.max ?? '2470-12-31',
 				disabled: option?.settings?.range?.disabled ?? null,
 				enabled: option?.settings?.range?.enabled ?? null,
 			},

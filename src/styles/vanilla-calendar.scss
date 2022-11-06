@@ -1,7 +1,7 @@
 .vanilla-calendar {
 	$calendar: &;
 
-	width: 260px;
+	width: 280px;
 	min-width: min-content;
 	display: grid;
 	grid-template-areas: 'header header' 'column content';
@@ -19,6 +19,7 @@
 	}
 
 	&-header {
+		position: relative;
 		grid-area: header;
 		display: flex;
 		align-items: center;
@@ -58,15 +59,15 @@
 		&__content {
 			display: grid;
 			grid-auto-flow: row;
-			column-gap: 2px;
+			row-gap: 2px;
 			align-items: center;
 			justify-items: center;
-			align-content: space-between;
 			flex-grow: 1;
 		}
 	}
 
 	&-content {
+		height: 200px;
 		grid-area: content;
 		display: flex;
 		flex-direction: column;
@@ -697,7 +698,7 @@
 				width: 1px;
 				height: 8px;
 				position: absolute;
-				z-index: 2;
+				z-index: 1;
 				pointer-events: none;
 				left: 0;
 				top: 5px;
@@ -710,7 +711,7 @@
 				width: 1px;
 				height: 8px;
 				position: absolute;
-				z-index: 2;
+				z-index: 1;
 				pointer-events: none;
 				right: 0;
 				top: 5px;
