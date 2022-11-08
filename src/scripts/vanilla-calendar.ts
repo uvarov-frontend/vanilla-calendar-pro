@@ -1,8 +1,8 @@
-import { FormatDateString, IOptionsRequire } from 'src/types';
+import { FormatDateString, IOptions } from 'src/types';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 
-export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptionsRequire> {
+export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
 
 	type!: string;
@@ -62,7 +62,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	popups!: {
 		[date in FormatDateString]: {
-			modifier: string | null;
+			modifier?: string | null;
 			html: string;
 		} | null;
 	} | null;

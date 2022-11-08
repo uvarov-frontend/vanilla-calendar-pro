@@ -1,6 +1,6 @@
 {
 	"name": "@uvarov.frontend/vanilla-calendar",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"description": "Vanilla JS calendar without using additional packages. A lightweight date and time picker written in pure JavaScript using TypeScript.",
 	"homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
 	"keywords": [
@@ -36,9 +36,10 @@
 	"source": "./src/scripts/vanilla-calendar.ts",
 	"types": "./src/index.d.ts",
 	"scripts": {
+		"ssr-fix": "node ./ssr-fix.cjs",
 		"dev": "webpack",
 		"start": "webpack serve",
-		"build": "cross-env NODE_ENV=production webpack"
+		"build": "cross-env NODE_ENV=production webpack && npm run ssr-fix"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.0",
@@ -59,6 +60,7 @@
 		"postcss": "^8.4.18",
 		"postcss-loader": "^7.0.1",
 		"postcss-preset-env": "^7.8.2",
+		"replace-in-file": "^6.3.5",
 		"sass": "^1.55.0",
 		"sass-loader": "^13.1.0",
 		"terser-webpack-plugin": "^5.3.6",

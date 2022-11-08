@@ -4,66 +4,84 @@ type MM = `0${oneToNine}` | `1${0|1|2}`;
 type DD = `${0}${oneToNine}` | `${1|2}${zeroToNine}` | `3${0|1}`;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
-export interface IOptionsRequire {
-	type: string;
-	date: {
-		min: string;
-		max: string;
-		today: Date;
-	};
-	settings: {
-		lang: string;
-		iso8601: boolean;
-		range: {
-			min: FormatDateString,
-			max: FormatDateString,
-			disabled: FormatDateString[] | null,
-			enabled: FormatDateString[] | null,
-		};
-		selection: {
-			day: false | 'single' | 'multiple' | 'multiple-ranged';
-			month: boolean;
-			year: boolean;
-			time: boolean | number;
-			controlTime: 'all' | 'range';
-			stepHours: number;
-			stepMinutes: number;
-		};
-		selected: {
-			dates: FormatDateString[] | undefined | null;
-			month: number | null;
-			year: number | null;
-			holidays: FormatDateString[] | null;
-			time: string | null;
-		};
-		visibility: {
-			templateHeader: string;
-			monthShort: boolean;
-			weekNumbers: boolean;
-			weekend: boolean;
-			today: boolean;
-			disabled: boolean;
-		};
-	};
-	locale: {
-		months: string[] | [];
-		weekday: string[] | [];
-	};
-	actions: {
-		clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
-		clickMonth: ((e: MouseEvent, month: number) => void) | null;
-		clickYear: ((e: MouseEvent, year: number) => void) | null;
-		changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
-	};
-	popups: {
-		[date in FormatDateString]: {
-			modifier: string | null;
-			html: string;
-		} | null;
+export interface IDate {
+	min: string;
+	max: string;
+	today: Date;
+}
+
+export interface IRange {
+	min: FormatDateString,
+	max: FormatDateString,
+	disabled: FormatDateString[] | null,
+	enabled: FormatDateString[] | null,
+}
+
+export interface ISelection {
+	day: false | 'single' | 'multiple' | 'multiple-ranged';
+	month: boolean;
+	year: boolean;
+	time: boolean | number;
+	controlTime: 'all' | 'range';
+	stepHours: number;
+	stepMinutes: number;
+}
+
+export interface ISelected {
+	dates: FormatDateString[] | undefined | null;
+	month: number | null;
+	year: number | null;
+	holidays: FormatDateString[] | null;
+	time: string | null;
+}
+
+export interface IVisibility {
+	templateHeader: string;
+	monthShort: boolean;
+	weekNumbers: boolean;
+	weekend: boolean;
+	today: boolean;
+	disabled: boolean;
+}
+
+export interface ISettings {
+	lang: string;
+	iso8601: boolean;
+	range: IRange;
+	selection: ISelection;
+	selected: ISelected;
+	visibility: IVisibility;
+}
+
+export interface ILocale {
+	months: string[] | [];
+	weekday: string[] | [];
+}
+
+export interface IActions {
+	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
+	clickMonth: ((e: MouseEvent, month: number) => void) | null;
+	clickYear: ((e: MouseEvent, year: number) => void) | null;
+	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
+}
+
+export type IPopups = {
+	[date in FormatDateString]: {
+		modifier?: string | null;
+		html: string;
 	} | null;
 }
 
-export interface IVariables extends IOptionsRequire {
+export interface IOptions {
+	type: string;
+	date: IDate;
+	settings: ISettings;
+	locale: ILocale;
+	actions: IActions;
+	popups?: IPopups | null;
+}
+
+export interface IVariables extends IOptions {
 	HTMLElement: HTMLElement | null;
 	currentType: string;
 	selectedKeeping: string | null;

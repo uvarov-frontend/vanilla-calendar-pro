@@ -20,7 +20,9 @@ const config: webpack.Configuration = {
 		clean: true,
 		path: path.resolve(__dirname, 'build'),
 		filename: isProd ? '[name].min.js' : '[name].js',
-		libraryTarget: 'umd',
+		library: {
+			type: 'umd2',
+		},
 		publicPath: '/',
 	},
 	optimization: {
@@ -65,6 +67,7 @@ const config: webpack.Configuration = {
 	module: {
 		rules: [
 			{
+				exclude: /node_modules/,
 				test: /\.ts$/i,
 				loader: 'esbuild-loader',
 				options: {

@@ -51,7 +51,7 @@ calendar.init();
   <head>
   </head>
   <body>
-    <div id="calendar"></div>
+    <div class="vanilla-calendar" id="calendar"></div>
   </body>
 </html>
 ```
@@ -67,7 +67,7 @@ If you downloaded the files manually or decided to use a CDN, then instead of th
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
-    <div id="calendar"></div>
+    <div class="vanilla-calendar" id="calendar"></div>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
