@@ -11,7 +11,11 @@ const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
 			if (dayBtnEl) {
 				const dayInfo = self.popups[day as FormatDateString];
 				if (dayInfo) {
-					if (dayInfo.modifier) dayBtnEl.classList.add(dayInfo.modifier);
+					if (dayInfo.modifier) {
+						dayInfo.modifier.split(" ").forEach((cl) => {
+							dayBtnEl.classList.add(cl);
+            })
+					}
 					(dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div>`;
 				}
 			}
