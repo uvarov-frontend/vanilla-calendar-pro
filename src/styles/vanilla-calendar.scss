@@ -365,6 +365,15 @@
 		align-items: center;
 		justify-content: center;
 
+		&:focus-visible,
+		&:hover {
+
+			& #{$day}__popup {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+
 		&__btn {
 			$btn: &;
 
@@ -384,15 +393,6 @@
 
 			&:hover {
 				background-color: aliceblue;
-			}
-
-			&:focus-visible,
-			&:hover {
-
-				& + #{$day}__popup {
-					opacity: 1;
-					pointer-events: auto;
-				}
 			}
 
 			&_today {
