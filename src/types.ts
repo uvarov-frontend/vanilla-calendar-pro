@@ -11,10 +11,10 @@ export interface IDate {
 }
 
 export interface IRange {
-	min: FormatDateString,
-	max: FormatDateString,
-	disabled: FormatDateString[] | null,
-	enabled: FormatDateString[] | null,
+	min: FormatDateString;
+	max: FormatDateString;
+	disabled: FormatDateString[] | null;
+	enabled: FormatDateString[] | null;
 }
 
 export interface ISelection {
@@ -72,6 +72,61 @@ export type IPopups = {
 	} | null;
 }
 
+export interface IStyleClass {
+	calendar: string;
+	calendarDefault: string;
+	calendarMonth: string;
+	calendarYear: string;
+	header: string;
+	headerContent: string;
+	month: string;
+	monthDisabled: string;
+	year: string;
+	yearDisabled: string;
+	arrow: string;
+	arrowPrev: string;
+	arrowNext: string;
+	content: string;
+	week: string;
+	weekDay: string;
+	weekDayWeekend: string;
+	days: string;
+	daysSelecting: string;
+	months: string;
+	monthsSelecting: string;
+	monthsMonth: string;
+	monthsMonthSelected: string;
+	monthsMonthDisabled: string;
+	years: string;
+	yearsSelecting: string;
+	yearsYear: string;
+	yearsYearSelected: string;
+	yearsYearDisabled: string;
+	time: string;
+	timeContent: string;
+	timeHours: string;
+	timeMinutes: string;
+	timeKeeping: string;
+	timeRanges: string;
+	timeRange: string;
+	day: string;
+	dayPopup: string;
+	dayBtn: string;
+	dayBtnPrev: string;
+	dayBtnNext: string;
+	dayBtnSelected: string;
+	dayBtnIntermediate: string;
+	dayBtnDisabled: string;
+	dayBtnToday: string;
+	dayBtnWeekend: string;
+	dayBtnHoliday: string;
+	weekNumbers: string;
+	weekNumbersTitle: string;
+	weekNumbersContent: string;
+	weekNumber: string;
+	isFocus: string;
+}
+
 export interface IOptions {
 	type: string;
 	date: IDate;
@@ -79,6 +134,7 @@ export interface IOptions {
 	locale: ILocale;
 	actions: IActions;
 	popups?: IPopups | null;
+	styleClass: IStyleClass;
 }
 
 export interface IVariables extends IOptions {

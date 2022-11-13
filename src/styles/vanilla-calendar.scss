@@ -37,7 +37,7 @@
 		}
 	}
 
-	&-column {
+	&-week-numbers {
 		grid-area: column;
 		display: flex;
 		flex-direction: column;
@@ -624,7 +624,7 @@
 					background-color: white;
 				}
 
-				&.is-focus {
+				&.vanilla-calendar-is-focus {
 					background-color: antiquewhite;
 				}
 			}

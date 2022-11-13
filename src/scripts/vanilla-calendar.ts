@@ -67,6 +67,61 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		} | null;
 	} | null;
 
+	styleClass!: {
+		calendar: string;
+		calendarDefault: string;
+		calendarMonth: string;
+		calendarYear: string;
+		header: string;
+		headerContent: string;
+		month: string;
+		monthDisabled: string;
+		year: string;
+		yearDisabled: string;
+		arrow: string;
+		arrowPrev: string;
+		arrowNext: string;
+		content: string;
+		week: string;
+		weekDay: string;
+		weekDayWeekend: string;
+		days: string;
+		daysSelecting: string;
+		months: string;
+		monthsSelecting: string;
+		monthsMonth: string;
+		monthsMonthSelected: string;
+		monthsMonthDisabled: string;
+		years: string;
+		yearsSelecting: string;
+		yearsYear: string;
+		yearsYearSelected: string;
+		yearsYearDisabled: string;
+		time: string;
+		timeContent: string;
+		timeHours: string;
+		timeMinutes: string;
+		timeKeeping: string;
+		timeRanges: string;
+		timeRange: string;
+		day: string;
+		dayPopup: string;
+		dayBtn: string;
+		dayBtnPrev: string;
+		dayBtnNext: string;
+		dayBtnToday: string;
+		dayBtnIntermediate: string;
+		dayBtnSelected: string;
+		dayBtnDisabled: string;
+		dayBtnWeekend: string;
+		dayBtnHoliday: string;
+		weekNumbers: string;
+		weekNumbersTitle: string;
+		weekNumbersContent: string;
+		weekNumber: string;
+		isFocus: string;
+	};
+
 	currentType!: string;
 
 	selectedKeeping!: null;
@@ -127,6 +182,60 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			changeTime: option?.actions?.changeTime ?? null,
 		};
 		this.popups = option?.popups ?? null;
+		this.styleClass = {
+			calendar: option?.styleClass?.calendar ?? 'vanilla-calendar',
+			calendarDefault: option?.styleClass?.calendarDefault ?? 'vanilla-calendar_default',
+			calendarMonth: option?.styleClass?.calendarMonth ?? 'vanilla-calendar_month',
+			calendarYear: option?.styleClass?.calendarYear ?? 'vanilla-calendar_year',
+			header: option?.styleClass?.header ?? 'vanilla-calendar-header',
+			headerContent: option?.styleClass?.headerContent ?? 'vanilla-calendar-header__content',
+			month: option?.styleClass?.month ?? 'vanilla-calendar-month',
+			monthDisabled: option?.styleClass?.monthDisabled ?? 'vanilla-calendar-month_disabled',
+			year: option?.styleClass?.year ?? 'vanilla-calendar-year',
+			yearDisabled: option?.styleClass?.yearDisabled ?? 'vanilla-calendar-year_disabled',
+			arrow: option?.styleClass?.arrow ?? 'vanilla-calendar-arrow',
+			arrowPrev: option?.styleClass?.arrowPrev ?? 'vanilla-calendar-arrow_prev',
+			arrowNext: option?.styleClass?.arrowNext ?? 'vanilla-calendar-arrow_next',
+			content: option?.styleClass?.content ?? 'vanilla-calendar-content',
+			week: option?.styleClass?.week ?? 'vanilla-calendar-week',
+			weekDay: option?.styleClass?.weekDay ?? 'vanilla-calendar-week__day',
+			weekDayWeekend: option?.styleClass?.weekDayWeekend ?? 'vanilla-calendar-week__day_weekend',
+			days: option?.styleClass?.days ?? 'vanilla-calendar-days',
+			daysSelecting: option?.styleClass?.daysSelecting ?? 'vanilla-calendar-days_selecting',
+			months: option?.styleClass?.months ?? 'vanilla-calendar-months',
+			monthsSelecting: option?.styleClass?.monthsSelecting ?? 'vanilla-calendar-months_selecting',
+			monthsMonth: option?.styleClass?.monthsMonth ?? 'vanilla-calendar-months__month',
+			monthsMonthSelected: option?.styleClass?.monthsMonthSelected ?? 'vanilla-calendar-months__month_selected',
+			monthsMonthDisabled: option?.styleClass?.monthsMonthDisabled ?? 'vanilla-calendar-months__month_disabled',
+			years: option?.styleClass?.years ?? 'vanilla-calendar-years',
+			yearsSelecting: option?.styleClass?.yearsSelecting ?? 'vanilla-calendar-years_selecting',
+			yearsYear: option?.styleClass?.yearsYear ?? 'vanilla-calendar-years__year',
+			yearsYearSelected: option?.styleClass?.yearsYearSelected ?? 'vanilla-calendar-years__year_selected',
+			yearsYearDisabled: option?.styleClass?.yearsYearDisabled ?? 'vanilla-calendar-years__year_disabled',
+			time: option?.styleClass?.time ?? 'vanilla-calendar-time',
+			timeContent: option?.styleClass?.timeContent ?? 'vanilla-calendar-time__content',
+			timeHours: option?.styleClass?.timeHours ?? 'vanilla-calendar-time__hours',
+			timeMinutes: option?.styleClass?.timeMinutes ?? 'vanilla-calendar-time__minutes',
+			timeKeeping: option?.styleClass?.timeKeeping ?? 'vanilla-calendar-time__keeping',
+			timeRanges: option?.styleClass?.timeRanges ?? 'vanilla-calendar-time__ranges',
+			timeRange: option?.styleClass?.timeRange ?? 'vanilla-calendar-time__range',
+			day: option?.styleClass?.day ?? 'vanilla-calendar-day',
+			dayPopup: option?.styleClass?.dayPopup ?? 'vanilla-calendar-day__popup',
+			dayBtn: option?.styleClass?.dayBtn ?? 'vanilla-calendar-day__btn',
+			dayBtnPrev: option?.styleClass?.dayBtnPrev ?? 'vanilla-calendar-day__btn_prev',
+			dayBtnNext: option?.styleClass?.dayBtnNext ?? 'vanilla-calendar-day__btn_next',
+			dayBtnToday: option?.styleClass?.dayBtnToday ?? 'vanilla-calendar-day__btn_today',
+			dayBtnSelected: option?.styleClass?.dayBtnSelected ?? 'vanilla-calendar-day__btn_selected',
+			dayBtnDisabled: option?.styleClass?.dayBtnDisabled ?? 'vanilla-calendar-day__btn_disabled',
+			dayBtnIntermediate: option?.styleClass?.dayBtnIntermediate ?? 'vanilla-calendar-day__btn_intermediate',
+			dayBtnWeekend: option?.styleClass?.dayBtnWeekend ?? 'vanilla-calendar-day__btn_weekend',
+			dayBtnHoliday: option?.styleClass?.dayBtnHoliday ?? 'vanilla-calendar-day__btn_holiday',
+			weekNumbers: option?.styleClass?.weekNumbers ?? 'vanilla-calendar-week-numbers',
+			weekNumbersTitle: option?.styleClass?.weekNumbersTitle ?? 'vanilla-calendar-week-numbers__title',
+			weekNumbersContent: option?.styleClass?.weekNumbersContent ?? 'vanilla-calendar-week-numbers__content',
+			weekNumber: option?.styleClass?.weekNumber ?? 'vanilla-calendar-week-number',
+			isFocus: option?.styleClass?.isFocus ?? 'vanilla-calendar-is-focus',
+		};
 
 		this.currentType = this.type;
 		this.selectedKeeping = null;

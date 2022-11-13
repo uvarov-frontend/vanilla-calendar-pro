@@ -3,8 +3,8 @@ import { IVanillaCalendar } from 'src/types';
 const controlArrows = (self: IVanillaCalendar) => {
 	if (!['default', 'year'].includes(self.currentType)) return;
 
-	const arrowPrev = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-arrow_prev');
-	const arrowNext = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-arrow_next');
+	const arrowPrev = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.arrowPrev}`);
+	const arrowNext = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.arrowNext}`);
 
 	if (arrowPrev instanceof HTMLElement && arrowNext instanceof HTMLElement) {
 		const defaultControl = () => {

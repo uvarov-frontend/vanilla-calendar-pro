@@ -10,12 +10,12 @@ const createYears = (self: IVanillaCalendar) => {
 	createHeader(self);
 	controlArrows(self);
 
-	const yearsEl = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-years');
+	const yearsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.years}`);
 	if (!yearsEl) return;
-	if (self.settings.selection.year) (yearsEl as HTMLElement).classList.add('vanilla-calendar-years_selecting');
+	if (self.settings.selection.year) (yearsEl as HTMLElement).classList.add(self.styleClass.yearsSelecting);
 	const templateYearEl = document.createElement('button');
 	templateYearEl.type = 'button';
-	templateYearEl.className = 'vanilla-calendar-years__year';
+	templateYearEl.className = self.styleClass.yearsYear;
 
 	for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
 		const year = i;
@@ -23,14 +23,14 @@ const createYears = (self: IVanillaCalendar) => {
 
 		if (yearEl instanceof HTMLElement) {
 			if (year === self.selectedYear) {
-				yearEl.classList.add('vanilla-calendar-years__year_selected');
+				yearEl.classList.add(self.styleClass.yearsYearSelected);
 			}
 			if (year < self.dateMin.getUTCFullYear()) {
-				yearEl.classList.add('vanilla-calendar-years__year_disabled');
+				yearEl.classList.add(self.styleClass.yearsYearDisabled);
 				yearEl.tabIndex = -1;
 			}
 			if (year > self.dateMax.getUTCFullYear()) {
-				yearEl.classList.add('vanilla-calendar-years__year_disabled');
+				yearEl.classList.add(self.styleClass.yearsYearDisabled);
 				yearEl.tabIndex = -1;
 			}
 

@@ -1,23 +1,23 @@
 import { IVanillaCalendar } from 'src/types';
 
 const createHeader = (self: IVanillaCalendar) => {
-	const headerContent = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-header__content');
+	const headerContent = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.headerContent}`);
 	if (self.selectedMonth === undefined || self.selectedYear === undefined || !headerContent) return;
 
-	const monthDisabled = !self.settings.selection.month ? ' vanilla-calendar-month_disabled' : '';
-	const yearDisabled = !self.settings.selection.year ? ' vanilla-calendar-year_disabled' : '';
+	const monthDisabled = !self.settings.selection.month ? self.styleClass.monthDisabled : '';
+	const yearDisabled = !self.settings.selection.year ? self.styleClass.yearDisabled : '';
 
 	const month = `
 	<button type="button"
 		tabindex="${self.settings.selection.month ? 0 : -1}"
-		class="vanilla-calendar-month${monthDisabled}"
+		class="${self.styleClass.month} ${monthDisabled}"
 		data-calendar-selected-month="${self.selectedMonth}">
 		${self.locale.months[self.selectedMonth]}
 	</button>`.replace(/[\n\t]/g, '');
 	const year = `
 	<button type="button"
 		tabindex="${self.settings.selection.year ? 0 : -1}"
-		class="vanilla-calendar-year${yearDisabled}"
+		class="${self.styleClass.year} ${yearDisabled}"
 		data-calendar-selected-year="${self.selectedYear}">
 		${self.selectedYear}
 	</button>`.replace(/[\n\t]/g, '');

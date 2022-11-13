@@ -79,7 +79,7 @@
 		<h1>Vanilla Calendar</h1>
 		<p>A simple but feature rich calendar without dependencies and «input» tag.
 			A lightweight date and time picker written in pure JavaScript with using TypeScript.</p>
-		<div class="vanilla-calendar"></div>
+		<div id="vanilla-calendar"></div>
 		<div class="vanilla-calendar-info">
 			<span id="vanilla-calendar-info-date"></span>
 			<span id="vanilla-calendar-info-time"></span>
@@ -100,7 +100,7 @@
 
 				const calendarInfoDate = document.querySelector('#vanilla-calendar-info-date');
 				const calendarInfoTime = document.querySelector('#vanilla-calendar-info-time');
-				const calendar = new VanillaCalendar('.vanilla-calendar', {
+				const calendar = new VanillaCalendar('#vanilla-calendar', {
 					settings: {
 						lang: 'en',
 						selection: {

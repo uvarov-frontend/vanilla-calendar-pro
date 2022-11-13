@@ -7,14 +7,14 @@ const createMonths = (self: IVanillaCalendar) => {
 	createDOM(self);
 	createHeader(self);
 
-	const monthsEl = (self.HTMLElement as HTMLElement).querySelector('.vanilla-calendar-months');
+	const monthsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.months}`);
 	if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax || !monthsEl) return;
 
-	if (self.settings.selection.month) monthsEl.classList.add('vanilla-calendar-months_selecting');
+	if (self.settings.selection.month) monthsEl.classList.add(self.styleClass.monthsSelecting);
 
 	const templateMonthEl = document.createElement('button');
 	templateMonthEl.type = 'button';
-	templateMonthEl.className = 'vanilla-calendar-months__month';
+	templateMonthEl.className = self.styleClass.monthsMonth;
 
 	for (let i = 0; i < self.locale.months.length; i++) {
 		const month = self.locale.months[i];
@@ -22,14 +22,14 @@ const createMonths = (self: IVanillaCalendar) => {
 
 		if (monthEl instanceof HTMLElement) {
 			if (i === self.selectedMonth) {
-				monthEl.classList.add('vanilla-calendar-months__month_selected');
+				monthEl.classList.add(self.styleClass.monthsMonthSelected);
 			}
 			if (i < self.dateMin.getUTCMonth() && self.selectedYear === self.dateMin.getUTCFullYear()) {
-				monthEl.classList.add('vanilla-calendar-months__month_disabled');
+				monthEl.classList.add(self.styleClass.monthsMonthDisabled);
 				monthEl.tabIndex = -1;
 			}
 			if (i > self.dateMax.getUTCMonth() && self.selectedYear === self.dateMax.getUTCFullYear()) {
-				monthEl.classList.add('vanilla-calendar-months__month_disabled');
+				monthEl.classList.add(self.styleClass.monthsMonthDisabled);
 				monthEl.tabIndex = -1;
 			}
 

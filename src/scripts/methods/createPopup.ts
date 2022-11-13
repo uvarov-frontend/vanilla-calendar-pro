@@ -16,7 +16,7 @@ const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
 							dayBtnEl.classList.add(cl);
 						});
 					}
-					(dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="vanilla-calendar-day__popup">${dayInfo.html}</div>`;
+					(dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="${self.styleClass.dayPopup}">${dayInfo.html}</div>`;
 				}
 			}
 		}
