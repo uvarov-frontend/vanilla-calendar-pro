@@ -19,7 +19,7 @@ export type Options = {
 	actions?: Partial<IActions>;
 	popups?: IPopups | null;
 	CSSClasses?: Partial<ICSSClasses>;
-	templateDOM: Partial<ITemplateDOM>;
+	templateDOM?: Partial<ITemplateDOM>;
 }
 
 declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partial<Options>> {
