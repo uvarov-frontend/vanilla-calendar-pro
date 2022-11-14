@@ -3,18 +3,18 @@ import transformTime12 from './transformTime12';
 import transformTime24 from './transformTime24';
 
 const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
-	const rangeHours = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.timeRange} input[name="hours"]`);
-	const rangeMinutes = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.timeRange} input[name="minutes"]`);
-	const inputHours = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.timeHours} input[name="hours"]`);
-	const inputMinutes = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.timeMinutes} input[name="minutes"]`);
-	const btnKeepingTime = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.timeKeeping}`);
+	const rangeHours = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeRange} input[name="hours"]`);
+	const rangeMinutes = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeRange} input[name="minutes"]`);
+	const inputHours = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeHours} input[name="hours"]`);
+	const inputMinutes = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeMinutes} input[name="minutes"]`);
+	const btnKeepingTime = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeKeeping}`);
 
 	const mouseoverRange = (range: HTMLInputElement, input: HTMLInputElement) => {
-		range.addEventListener('mouseover', () => input.classList.add(self.styleClass.isFocus));
+		range.addEventListener('mouseover', () => input.classList.add(self.CSSClasses.isFocus));
 	};
 
 	const mouseoutRange = (range: HTMLInputElement, input: HTMLInputElement) => {
-		range.addEventListener('mouseout', () => input.classList.remove(self.styleClass.isFocus));
+		range.addEventListener('mouseout', () => input.classList.remove(self.CSSClasses.isFocus));
 	};
 
 	const setTime = (e: Event, value: string, type: string) => {

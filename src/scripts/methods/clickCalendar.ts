@@ -10,16 +10,16 @@ const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
 		const element = e.target as HTMLElement;
 
-		const arrowEl: HTMLElement| null = element.closest(`.${self.styleClass.arrow}`);
-		const arrowPrevEl: HTMLElement| null = element.closest(`.${self.styleClass.arrowPrev}`);
-		const arrowNextEl: HTMLElement| null = element.closest(`.${self.styleClass.arrowNext}`);
-		const dayBtnEl: HTMLElement| null = element.closest(`.${self.styleClass.dayBtn}`);
-		const dayBtnPrevEl: HTMLElement| null = element.closest(`.${self.styleClass.dayBtnPrev}`);
-		const dayBtnNextEl: HTMLElement| null = element.closest(`.${self.styleClass.dayBtnNext}`);
-		const yearHeaderEl: HTMLElement| null = element.closest(`.${self.styleClass.year}`);
-		const yearItemEl: HTMLElement| null = element.closest(`.${self.styleClass.yearsYear}`);
-		const monthHeaderEl: HTMLElement| null = element.closest(`.${self.styleClass.month}`);
-		const monthItemEl: HTMLElement| null = element.closest(`.${self.styleClass.monthsMonth}`);
+		const arrowEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrow}`);
+		const arrowPrevEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrowPrev}`);
+		const arrowNextEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrowNext}`);
+		const dayBtnEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtn}`);
+		const dayBtnPrevEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnPrev}`);
+		const dayBtnNextEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnNext}`);
+		const yearHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.year}`);
+		const yearItemEl: HTMLElement| null = element.closest(`.${self.CSSClasses.yearsYear}`);
+		const monthHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.month}`);
+		const monthItemEl: HTMLElement| null = element.closest(`.${self.CSSClasses.monthsMonth}`);
 
 		const clickArrowMonth = () => {
 			if (arrowEl && self.currentType !== 'year' && self.currentType !== 'month') {
@@ -29,7 +29,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 		const clickDaySingle = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
-			if (dayBtnEl.classList.contains(self.styleClass.dayBtnSelected)) {
+			if (dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected)) {
 				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay as FormatDateString), 1);
 			} else {
 				self.selectedDates = [];
@@ -39,7 +39,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 		const clickDayMultiple = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
-			if (dayBtnEl.classList.contains(self.styleClass.dayBtnSelected)) {
+			if (dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected)) {
 				self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay as FormatDateString), 1);
 			} else {
 				self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);

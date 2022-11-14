@@ -36,7 +36,6 @@ export interface ISelected {
 }
 
 export interface IVisibility {
-	templateHeader: string;
 	monthShort: boolean;
 	weekNumbers: boolean;
 	weekend: boolean;
@@ -72,7 +71,13 @@ export type IPopups = {
 	} | null;
 }
 
-export interface IStyleClass {
+export interface ITemplateDOM {
+	default: string;
+	month: string;
+	year: string;
+}
+
+export interface ICSSClasses {
 	calendar: string;
 	calendarDefault: string;
 	calendarMonth: string;
@@ -86,6 +91,7 @@ export interface IStyleClass {
 	arrow: string;
 	arrowPrev: string;
 	arrowNext: string;
+	wrapper: string;
 	content: string;
 	week: string;
 	weekDay: string;
@@ -134,7 +140,8 @@ export interface IOptions {
 	locale: ILocale;
 	actions: IActions;
 	popups?: IPopups | null;
-	styleClass: IStyleClass;
+	templateDOM: ITemplateDOM;
+	CSSClasses: ICSSClasses;
 }
 
 export interface IVariables extends IOptions {

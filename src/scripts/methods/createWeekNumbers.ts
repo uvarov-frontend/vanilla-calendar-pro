@@ -3,26 +3,34 @@ import getWeekNumber from './getWeekNumber';
 
 const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number) => {
 	if (!self.settings.visibility.weekNumbers) return;
-	const weekNumbersEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.weekNumbers}`);
-	const daysBtnEl: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.styleClass.dayBtn}`);
+	const weekNumbersEl: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.weekNumbers}`);
+	const daysBtnEl: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.dayBtn}`);
 
-	if (weekNumbersEl instanceof HTMLElement) {
-		const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
-		const templateWeekNumberEl = document.createElement('span');
-		templateWeekNumberEl.className = self.styleClass.weekNumber;
+	if (!weekNumbersEl || !daysBtnEl[0]) return;
+	weekNumbersEl.innerHTML = '';
+	const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
-		weekNumbersEl.innerHTML = '';
+	const weekNumbersTitleEl = document.createElement('b');
+	weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
+	weekNumbersTitleEl.innerText = '#';
+	weekNumbersEl.append(weekNumbersTitleEl);
 
-		for (let i = 0; i < countWeek; i++) {
-			const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay, self.settings.iso8601);
-			if (!weekNumber) return;
+	const weekNumbersContentEl = document.createElement('div');
+	weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
+	weekNumbersEl.append(weekNumbersContentEl);
 
-			const weekNumberEl = templateWeekNumberEl.cloneNode(true);
-			if (weekNumberEl instanceof HTMLElement) {
-				weekNumberEl.innerText = `${weekNumber.week}`;
-				weekNumberEl.dataset.calendarYearWeek = `${weekNumber.year}`;
-				weekNumbersEl.append(weekNumberEl);
-			}
+	const templateWeekNumberEl = document.createElement('span');
+	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
+
+	for (let i = 0; i < countWeek; i++) {
+		const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay, self.settings.iso8601);
+		if (!weekNumber) return;
+
+		const weekNumberEl = templateWeekNumberEl.cloneNode(true);
+		if (weekNumberEl instanceof HTMLElement) {
+			weekNumberEl.innerText = `${weekNumber.week}`;
+			weekNumberEl.dataset.calendarYearWeek = `${weekNumber.year}`;
+			weekNumbersContentEl.append(weekNumberEl);
 		}
 	}
 };

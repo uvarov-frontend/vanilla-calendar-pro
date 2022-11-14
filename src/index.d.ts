@@ -1,5 +1,5 @@
 import {
-	IActions, IDate, ILocale, IPopups, IRange, ISelected, ISelection, IVisibility,
+	IActions, ICSSClasses, IDate, ILocale, IPopups, IRange, ISelected, ISelection, ITemplateDOM, IVisibility,
 } from './types';
 
 type Settings = {
@@ -18,6 +18,8 @@ export type Options = {
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
 	popups?: IPopups | null;
+	CSSClasses?: Partial<ICSSClasses>;
+	templateDOM: Partial<ITemplateDOM>;
 }
 
 declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partial<Options>> {

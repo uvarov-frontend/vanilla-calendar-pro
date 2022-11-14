@@ -4,9 +4,7 @@
 	width: 280px;
 	min-width: min-content;
 	display: grid;
-	grid-template-areas: 'header header' 'column content';
-	grid-template-columns: auto 1fr;
-	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr;
 	background-color: white;
 	padding: 12px;
 	border-radius: 4px;
@@ -20,7 +18,6 @@
 
 	&-header {
 		position: relative;
-		grid-area: header;
 		display: flex;
 		align-items: center;
 		margin-bottom: 12px;
@@ -38,10 +35,9 @@
 	}
 
 	&-week-numbers {
-		grid-area: column;
 		display: flex;
 		flex-direction: column;
-		margin-right: 2px;
+		align-items: center;
 
 		&__title {
 			font-size: 12px;
@@ -66,11 +62,16 @@
 		}
 	}
 
-	&-content {
+	&-wrapper {
 		height: 200px;
-		grid-area: content;
+		display: flex;
+		gap: 4px;
+	}
+
+	&-content {
 		display: flex;
 		flex-direction: column;
+		flex-grow: 1;
 	}
 
 	&-arrow {
@@ -582,7 +583,6 @@
 		display: grid;
 		grid-template-columns: auto 1fr;
 		gap: 12px;
-		grid-column: span 2;
 		border-top: 1px solid gainsboro;
 		padding: 12px 6px 0;
 		margin-top: 12px;

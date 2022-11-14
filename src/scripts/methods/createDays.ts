@@ -12,16 +12,16 @@ const createDays = (self: IVanillaCalendar) => {
 	let firstDayWeek = Number(firstDay.getUTCDay());
 	if (self.settings.iso8601) firstDayWeek = Number((firstDay.getUTCDay() !== 0 ? firstDay.getUTCDay() : 7) - 1);
 
-	const daysEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.days}`);
+	const daysEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.days}`);
 	if (!daysEl) return;
 	const templateDayEl = document.createElement('div');
 	const templateDayBtnEl = document.createElement('button');
-	templateDayEl.className = self.styleClass.day;
-	templateDayBtnEl.className = self.styleClass.dayBtn;
+	templateDayEl.className = self.CSSClasses.day;
+	templateDayBtnEl.className = self.CSSClasses.dayBtn;
 	templateDayBtnEl.type = 'button';
 
 	if (self.settings.selection.day && ['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day)) {
-		daysEl.classList.add(self.styleClass.daysSelecting);
+		daysEl.classList.add(self.CSSClasses.daysSelecting);
 	}
 
 	daysEl.innerHTML = '';
@@ -29,14 +29,14 @@ const createDays = (self: IVanillaCalendar) => {
 	const setDayModifier = (dayBtnEl: HTMLElement, dayID: number, date: string, currentMonth: boolean) => {
 		// if weekend
 		if (self.settings.visibility.weekend && (dayID === 0 || dayID === 6)) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnWeekend);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnWeekend);
 		}
 
 		// if holidays
 		if (Array.isArray(self.settings.selected.holidays)) {
 			self.settings.selected.holidays.forEach((holiday) => {
 				if (holiday === date) {
-					dayBtnEl.classList.add(self.styleClass.dayBtnHoliday);
+					dayBtnEl.classList.add(self.CSSClasses.dayBtnHoliday);
 				}
 			});
 		}
@@ -50,34 +50,34 @@ const createDays = (self: IVanillaCalendar) => {
 		const thisDay = `${self.date.today.getFullYear()}-${thisMonth}-${thisToday}`;
 
 		if (self.settings.visibility.today && dayBtnEl.dataset.calendarDay === thisDay) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnToday);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnToday);
 		}
 
 		// if selected day
 		if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) === 0) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnSelected);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 		} else if (self.selectedDates && self.selectedDates[0] && (self.selectedDates.indexOf(date as FormatDateString) === self.selectedDates.length - 1)) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnSelected);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 		} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0 && self.settings.selection.day === 'multiple-ranged') {
-			dayBtnEl.classList.add(self.styleClass.dayBtnSelected);
-			dayBtnEl.classList.add(self.styleClass.dayBtnIntermediate);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnIntermediate);
 		} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnSelected);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 		}
 
 		// if range min/max
 		if (self.settings.range.min > date || self.settings.range.max < date) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnDisabled);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 			dayBtnEl.tabIndex = -1;
 		}
 
 		// if disabled selected
 		if (!self.settings.selection.month && !currentMonth) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnDisabled);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 			dayBtnEl.tabIndex = -1;
 		}
 		if (!self.settings.selection.year && new Date(date).getFullYear() !== self.selectedYear) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnDisabled);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 			dayBtnEl.tabIndex = -1;
 		}
 
@@ -85,16 +85,16 @@ const createDays = (self: IVanillaCalendar) => {
 		if (Array.isArray(self.settings.range.disabled)) {
 			self.settings.range.disabled.forEach((dateDisabled) => {
 				if (dateDisabled === date) {
-					dayBtnEl.classList.add(self.styleClass.dayBtnDisabled);
+					dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 					dayBtnEl.tabIndex = -1;
 				}
 			});
 		} else if (Array.isArray(self.settings.range.enabled)) {
-			dayBtnEl.classList.add(self.styleClass.dayBtnDisabled);
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 			dayBtnEl.tabIndex = -1;
 			self.settings.range.enabled.forEach((dateEnabled) => {
 				if (dateEnabled === date) {
-					dayBtnEl.classList.remove(self.styleClass.dayBtnDisabled);
+					dayBtnEl.classList.remove(self.CSSClasses.dayBtnDisabled);
 					dayBtnEl.tabIndex = 0;
 				}
 			});
@@ -143,7 +143,7 @@ const createDays = (self: IVanillaCalendar) => {
 			const prevMonthID = dayIDCurrent.getUTCMonth() - 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, prevMonthID, day)).getUTCDay();
 
-			createDay(String(day), dayID, date, false, self.styleClass.dayBtnPrev);
+			createDay(String(day), dayID, date, false, self.CSSClasses.dayBtnPrev);
 		}
 	};
 
@@ -181,7 +181,7 @@ const createDays = (self: IVanillaCalendar) => {
 			const nextMonthID = dayIDCurrent.getUTCMonth() + 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, nextMonthID, i)).getUTCDay();
 
-			createDay(String(i), dayID, date, false, self.styleClass.dayBtnNext);
+			createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnNext);
 		}
 	};
 

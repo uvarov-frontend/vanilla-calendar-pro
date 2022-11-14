@@ -4,9 +4,9 @@ const createWeek = (self: IVanillaCalendar) => {
 	const weekday = [...self.locale.weekday];
 	if (!weekday[0]) return;
 
-	const weekEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.styleClass.week}`);
+	const weekEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.week}`);
 	const templateWeekDayEl = document.createElement('b');
-	templateWeekDayEl.className = self.styleClass.weekDay;
+	templateWeekDayEl.className = self.CSSClasses.weekDay;
 
 	if (self.settings.iso8601) weekday.push((weekday.shift() as string));
 
@@ -20,11 +20,11 @@ const createWeek = (self: IVanillaCalendar) => {
 			if (weekDayEl instanceof HTMLElement) {
 				if (self.settings.visibility.weekend && self.settings.iso8601) {
 					if (i === 5 || i === 6) {
-						weekDayEl.classList.add(self.styleClass.weekDayWeekend);
+						weekDayEl.classList.add(self.CSSClasses.weekDayWeekend);
 					}
 				} else if (self.settings.visibility.weekend && !self.settings.iso8601) {
 					if (i === 0 || i === 6) {
-						weekDayEl.classList.add(self.styleClass.weekDayWeekend);
+						weekDayEl.classList.add(self.CSSClasses.weekDayWeekend);
 					}
 				}
 

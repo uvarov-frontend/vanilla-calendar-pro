@@ -2,7 +2,8 @@ import { IVanillaCalendar } from 'src/types';
 import controlArrows from './controlArrows';
 import createDays from './createDays';
 import createDOM from './createDOM';
-import createHeader from './createHeader';
+import showMonth from './showMonth';
+import showYear from './showYear';
 import createMonths from './createMonths';
 import createTime from './createTime';
 import createWeek from './createWeek';
@@ -14,7 +15,8 @@ const update = (self: IVanillaCalendar) => {
 	setVariablesDates(self);
 	getLocale(self);
 	createDOM(self);
-	createHeader(self);
+	showMonth(self);
+	showYear(self);
 	controlArrows(self);
 	createTime(self);
 
