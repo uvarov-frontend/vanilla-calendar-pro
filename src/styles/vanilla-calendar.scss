@@ -4,6 +4,7 @@
 	width: 280px;
 	min-width: min-content;
 	display: grid;
+	gap: 12px;
 	grid-template-columns: 1fr;
 	background-color: white;
 	padding: 12px;
@@ -20,7 +21,6 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		margin-bottom: 12px;
 
 		&__content {
 			flex-grow: 1;
@@ -585,7 +585,6 @@
 		gap: 12px;
 		border-top: 1px solid gainsboro;
 		padding: 12px 6px 0;
-		margin-top: 12px;
 
 		&__content {
 			display: flex;
