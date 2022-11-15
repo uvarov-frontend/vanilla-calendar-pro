@@ -1,130 +1,40 @@
-import { FormatDateString, IOptions } from 'src/types';
+import {
+	IOptions,
+	IDate,
+	ISettings,
+	ILocale,
+	IActions,
+	IPopups,
+	ICSSClasses,
+} from 'src/types';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 import DOMDefault from './templates/DOMDefault';
 import DOMMonth from './templates/DOMMonth';
 import DOMYear from './templates/DOMYear';
-import CSSClasses from './CSSClasses';
+import classes from '../classes';
+
+const classesObj = { ...classes };
+(Object.keys(classes) as Array<keyof typeof classes>).forEach((className) => {
+	classesObj[className] = classes[className];
+});
 
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
 
 	type!: string;
 
-	date!: {
-		min: string;
-		max: string;
-		today: Date;
-	};
+	date!: IDate;
 
-	settings!: {
-		lang: string;
-		iso8601: boolean;
-		range: {
-			min: FormatDateString,
-			max: FormatDateString,
-			disabled: FormatDateString[] | null,
-			enabled: FormatDateString[] | null,
-		};
-		selection: {
-			day: false | 'single' | 'multiple' | 'multiple-ranged';
-			month: boolean;
-			year: boolean;
-			time: boolean | number;
-			controlTime: 'all' | 'range';
-			stepHours: number;
-			stepMinutes: number;
-		};
-		selected: {
-			dates: FormatDateString[] | undefined | null;
-			month: number | null;
-			year: number | null;
-			holidays: FormatDateString[] | null;
-			time: string | null;
-		};
-		visibility: {
-			monthShort: boolean;
-			weekNumbers: boolean;
-			weekend: boolean;
-			today: boolean;
-			disabled: boolean;
-		};
-	};
+	settings!: ISettings;
 
-	locale!: {
-		months: string[] | [];
-		weekday: string[] | [];
-	};
+	locale!: ILocale;
 
-	actions!: {
-		clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
-		clickMonth: ((e: MouseEvent, month: number) => void) | null;
-		clickYear: ((e: MouseEvent, year: number) => void) | null;
-		changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
-	};
+	actions!: IActions;
 
-	popups!: {
-		[date in FormatDateString]: {
-			modifier?: string | null;
-			html: string;
-		} | null;
-	} | null;
+	popups!: IPopups | null;
 
-	CSSClasses!: {
-		calendar: string;
-		calendarDefault: string;
-		calendarMonth: string;
-		calendarYear: string;
-		header: string;
-		headerContent: string;
-		month: string;
-		monthDisabled: string;
-		year: string;
-		yearDisabled: string;
-		arrow: string;
-		arrowPrev: string;
-		arrowNext: string;
-		wrapper: string;
-		content: string;
-		week: string;
-		weekDay: string;
-		weekDayWeekend: string;
-		days: string;
-		daysSelecting: string;
-		months: string;
-		monthsSelecting: string;
-		monthsMonth: string;
-		monthsMonthSelected: string;
-		monthsMonthDisabled: string;
-		years: string;
-		yearsSelecting: string;
-		yearsYear: string;
-		yearsYearSelected: string;
-		yearsYearDisabled: string;
-		time: string;
-		timeContent: string;
-		timeHours: string;
-		timeMinutes: string;
-		timeKeeping: string;
-		timeRanges: string;
-		timeRange: string;
-		day: string;
-		dayPopup: string;
-		dayBtn: string;
-		dayBtnPrev: string;
-		dayBtnNext: string;
-		dayBtnToday: string;
-		dayBtnIntermediate: string;
-		dayBtnSelected: string;
-		dayBtnDisabled: string;
-		dayBtnWeekend: string;
-		dayBtnHoliday: string;
-		weekNumbers: string;
-		weekNumbersTitle: string;
-		weekNumbersContent: string;
-		weekNumber: string;
-		isFocus: string;
-	};
+	CSSClasses!: ICSSClasses;
 
 	DOMTemplates!: {
 		default: string;
@@ -191,7 +101,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			changeTime: option?.actions?.changeTime ?? null,
 		};
 		this.popups = option?.popups ?? null;
-		this.CSSClasses = CSSClasses(option);
+		this.CSSClasses = classesObj;
 		this.DOMTemplates = {
 			default: option?.DOMTemplates?.default ?? DOMDefault(this.CSSClasses),
 			month: option?.DOMTemplates?.month ?? DOMMonth(this.CSSClasses),

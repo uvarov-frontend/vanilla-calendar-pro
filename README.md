@@ -5,7 +5,7 @@
 
 A simple but feature rich calendar without dependencies and «input» tag. A lightweight date and time picker written in pure JavaScript with using TypeScript.
 
-The size of the minified file .js is approximately **33.2kb** and **7.7kb** gzip.
+The size of the minified file .js is approximately **33.2kb** and **7.1kb** gzip.
 
 [API](https://vanilla-calendar.frontend.uvarov.tech/api/) | [Examples](https://vanilla-calendar.frontend.uvarov.tech/examples/)
 
@@ -17,7 +17,8 @@ If you like the plugin please give it a star.
 
 ## Getting Started
 
-This calendar has no dependencies, but it has a simple localization for any language, is displayed anywhere, is not tied to the «input» tag and can have an unlimited number of copies per page.
+This calendar has no dependencies, but has simple localization for any language, displays anywhere, is not tied to the **«input»** tag, can have an unlimited number of copies per page and is easily customizable both with CSS and by changing the html markup.
+
 It is possible to include it as a standalone HTML script or import it into your bundler.
 
 ### Install
@@ -51,7 +52,7 @@ calendar.init();
   <head>
   </head>
   <body>
-    <div class="vanilla-calendar" id="calendar"></div>
+    <div id="calendar"></div>
   </body>
 </html>
 ```
@@ -67,7 +68,7 @@ If you downloaded the files manually or decided to use a CDN, then instead of th
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
-    <div class="vanilla-calendar" id="calendar"></div>
+    <div id="calendar"></div>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -105,12 +106,42 @@ const Calendar: React.FC = () => {
   }, [calendarEl]);
 
   return (
-    <div ref={calendarEl}
-      className="vanilla-calendar"></div>
+    <div ref={calendarEl}></div>
   );
 };
 
 export default Calendar;
+```
+
+**Markup template change available since v2.2.0**
+
+The calendar has registered components with which you can completely change the structure of the calendar.
+Tags containing the **«#»** character are registered calendar components and must include a trailing slash at the end of the tag.
+Default Template:
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    default: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <#WeekNumbers />
+        <div class="vanilla-calendar-content">
+          <#Week />
+          <#Days />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
 ```
 
 ## API
