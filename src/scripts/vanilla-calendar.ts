@@ -70,12 +70,6 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		} | null;
 	} | null;
 
-	templateDOM!: {
-		default: string;
-		month: string;
-		year: string;
-	};
-
 	CSSClasses!: {
 		calendar: string;
 		calendarDefault: string;
@@ -130,6 +124,12 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		weekNumbersContent: string;
 		weekNumber: string;
 		isFocus: string;
+	};
+
+	DOMTemplates!: {
+		default: string;
+		month: string;
+		year: string;
 	};
 
 	currentType!: string;
@@ -192,10 +192,10 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		};
 		this.popups = option?.popups ?? null;
 		this.CSSClasses = CSSClasses(option);
-		this.templateDOM = {
-			default: option?.templateDOM?.default ?? DOMDefault(this.CSSClasses),
-			month: option?.templateDOM?.month ?? DOMMonth(this.CSSClasses),
-			year: option?.templateDOM?.year ?? DOMYear(this.CSSClasses),
+		this.DOMTemplates = {
+			default: option?.DOMTemplates?.default ?? DOMDefault(this.CSSClasses),
+			month: option?.DOMTemplates?.month ?? DOMMonth(this.CSSClasses),
+			year: option?.DOMTemplates?.year ?? DOMYear(this.CSSClasses),
 		};
 		this.currentType = this.type;
 		this.selectedKeeping = null;

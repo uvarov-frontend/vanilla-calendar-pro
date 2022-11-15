@@ -10,19 +10,19 @@ const createDOM = (self: IVanillaCalendar) => {
 			calendarElement.classList.add(self.CSSClasses.calendarDefault);
 			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.templateDOM.default);
+			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.default);
 			break;
 		case 'month':
 			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
 			calendarElement.classList.add(self.CSSClasses.calendarMonth);
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.templateDOM.month);
+			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.month);
 			break;
 		case 'year':
 			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
 			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
 			calendarElement.classList.add(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.templateDOM.year);
+			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.year);
 			break;
 		// no default
 	}

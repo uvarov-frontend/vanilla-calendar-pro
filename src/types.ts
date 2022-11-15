@@ -71,7 +71,7 @@ export type IPopups = {
 	} | null;
 }
 
-export interface ITemplateDOM {
+export interface IDOMTemplates {
 	default: string;
 	month: string;
 	year: string;
@@ -140,7 +140,7 @@ export interface IOptions {
 	locale: ILocale;
 	actions: IActions;
 	popups?: IPopups | null;
-	templateDOM: ITemplateDOM;
+	DOMTemplates: IDOMTemplates;
 	CSSClasses: ICSSClasses;
 }
 
