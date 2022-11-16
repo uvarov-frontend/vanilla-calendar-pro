@@ -6,6 +6,7 @@ import {
 	IActions,
 	IPopups,
 	ICSSClasses,
+	IDOMTemplates,
 } from 'src/types';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
@@ -13,11 +14,6 @@ import DOMDefault from './templates/DOMDefault';
 import DOMMonth from './templates/DOMMonth';
 import DOMYear from './templates/DOMYear';
 import classes from '../classes';
-
-const classesObj = { ...classes };
-(Object.keys(classes) as Array<keyof typeof classes>).forEach((className) => {
-	classesObj[className] = classes[className];
-});
 
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
@@ -36,11 +32,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	CSSClasses!: ICSSClasses;
 
-	DOMTemplates!: {
-		default: string;
-		month: string;
-		year: string;
-	};
+	DOMTemplates!: IDOMTemplates;
 
 	currentType!: string;
 
@@ -101,7 +93,17 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			changeTime: option?.actions?.changeTime ?? null,
 		};
 		this.popups = option?.popups ?? null;
-		this.CSSClasses = classesObj;
+		this.CSSClasses = (() => {
+			const classesObj = { ...classes };
+			(Object.keys(classes) as Array<keyof typeof classes>).forEach((className) => {
+				if (option?.CSSClasses?.[className]) {
+					classesObj[className] = option.CSSClasses[className];
+				} else {
+					classesObj[className] = classes[className];
+				}
+			});
+			return classesObj;
+		})();
 		this.DOMTemplates = {
 			default: option?.DOMTemplates?.default ?? DOMDefault(this.CSSClasses),
 			month: option?.DOMTemplates?.month ?? DOMMonth(this.CSSClasses),
