@@ -57,6 +57,11 @@
 				margin: 30px auto 10px;
 			}
 
+			.vanilla-calendar-header__content {
+				justify-content: flex-start;
+				padding-left: 5px;
+			}
+
 			.vanilla-calendar-info {
 				display: grid;
 				grid-auto-flow: column;
@@ -72,42 +77,47 @@
 				font-size: 14px;
 				color: black;
 			}
+
+			.bg-red {
+				background-color: orangered;
+				color: white;
+			}
+
+			.bg-red:hover {
+				background-color: orangered;
+				color: white;
+			}
+
+			.bg-orange {
+				background-color: orange;
+			}
+
+			.bg-orange:hover {
+				background-color: orange;
+			}
 		</style>
 	</head>
 
 	<body>
 		<h1>Vanilla Calendar</h1>
-		<p>A simple but feature rich calendar without dependencies and «input» tag.
+		<p>A simple but feature rich calendar without dependencies and <strong>«input»</strong> tag.
 			A lightweight date and time picker written in pure JavaScript with using TypeScript.</p>
 		<div id="vanilla-calendar"></div>
 		<div class="vanilla-calendar-info">
-			<span id="vanilla-calendar-info-date"></span>
-			<span id="vanilla-calendar-info-time"></span>
+			<span id="vanilla-calendar-info-date">«Choose a day»</span>
+			<span id="vanilla-calendar-info-time">«Choose a time»</span>
 		</div>
 
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
-				const generateDate = (date) => {
-					const year = date.getUTCFullYear();
-					let month = date.getUTCMonth() + 1;
-					let day = date.getUTCDate();
-
-					month = month < 10 ? `0${month}` : month;
-					day = day < 10 ? `0${day}` : day;
-
-					return `${year}-${month}-${day}`;
-				};
-
 				const calendarInfoDate = document.querySelector('#vanilla-calendar-info-date');
 				const calendarInfoTime = document.querySelector('#vanilla-calendar-info-time');
 				const calendar = new VanillaCalendar('#vanilla-calendar', {
 					settings: {
 						lang: 'en',
+						iso8601: false,
 						selection: {
 							time: 12,
-						},
-						selected: {
-							dates: [generateDate(new Date())],
 						},
 						visibility: {
 							weekNumbers: true,
@@ -115,15 +125,76 @@
 					},
 					actions: {
 						clickDay(e, dates) {
-							calendarInfoDate.innerText = dates;
+							calendarInfoDate.innerText = dates[0] ? dates : '«Day not selected»';
 						},
 						changeTime(e, time) {
 							calendarInfoTime.innerText = time;
 						},
 					},
+					popups: {
+						'2022-12-28': {
+							modifier: 'bg-red',
+							html: 'Meeting at 9:00 PM',
+						},
+						'2022-09-13': {
+							modifier: 'bg-red',
+							html: 'Meeting at 6:00 PM',
+						},
+						'2022-11-17': {
+							modifier: 'bg-orange s',
+							html: `<div>
+								<u><b>12:00 PM</b></u>
+								<p style="margin: 5px 0 0; text-align: left; font-size: 12px;">Airplane in Las Vegas</p>
+							</div>`,
+						},
+					},
+					DOMTemplates: {
+						default: `
+							<div class="vanilla-calendar-header">
+								<div class="vanilla-calendar-header__content ">
+									<#Month /> | <#Year />
+								</div>
+								<#ArrowPrev />
+								<#ArrowNext />
+							</div>
+							<div class="vanilla-calendar-wrapper">
+								<#WeekNumbers />
+								<div class="vanilla-calendar-content">
+									<#Week />
+									<#Days />
+								</div>
+							</div>
+							<#ControlTime />
+						`,
+						month: `
+							<div class="vanilla-calendar-header">
+								<div class="vanilla-calendar-header__content">
+									<#Month /> | <#Year />
+								</div>
+							</div>
+							<div class="vanilla-calendar-wrapper">
+								<div class="vanilla-calendar-content">
+									<#Months />
+								</div>
+							</div>
+						`,
+						year: `
+							<div class="vanilla-calendar-header">
+								<div class="vanilla-calendar-header__content">
+									<#Month /> | <#Year />
+								</div>
+								<#ArrowPrev />
+								<#ArrowNext />
+							</div>
+							<div class="vanilla-calendar-wrapper">
+								<div class="vanilla-calendar-content">
+									<#Years />
+								</div>
+							</div>
+						`,
+					},
 				});
 				calendar.init();
-				calendarInfoDate.innerText = generateDate(new Date());
 				calendarInfoTime.innerText = calendar.selectedTime;
 			});
 		</script>
