@@ -21,25 +21,23 @@ const createYears = (self: IVanillaCalendar) => {
 
 	for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
 		const year = i;
-		const yearEl = templateYearEl.cloneNode(true);
+		const yearEl = templateYearEl.cloneNode(true) as HTMLButtonElement;
 
-		if (yearEl instanceof HTMLElement) {
-			if (year === self.selectedYear) {
-				yearEl.classList.add(self.CSSClasses.yearsYearSelected);
-			}
-			if (year < self.dateMin.getUTCFullYear()) {
-				yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
-				yearEl.tabIndex = -1;
-			}
-			if (year > self.dateMax.getUTCFullYear()) {
-				yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
-				yearEl.tabIndex = -1;
-			}
-
-			yearEl.dataset.calendarYear = String(year);
-			yearEl.innerText = `${year}`;
-			yearsEl.append(yearEl);
+		if (year === self.selectedYear) {
+			yearEl.classList.add(self.CSSClasses.yearsYearSelected);
 		}
+		if (year < self.dateMin.getUTCFullYear()) {
+			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
+			yearEl.tabIndex = -1;
+		}
+		if (year > self.dateMax.getUTCFullYear()) {
+			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
+			yearEl.tabIndex = -1;
+		}
+
+		yearEl.dataset.calendarYear = String(year);
+		yearEl.innerText = `${year}`;
+		yearsEl.append(yearEl);
 	}
 };
 

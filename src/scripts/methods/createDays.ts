@@ -102,23 +102,22 @@ const createDays = (self: IVanillaCalendar) => {
 	};
 
 	const createDay = (dayText: string, dayID: number, date: string, currentMonth: boolean, modifier: string | null) => {
-		const dayEl = templateDayEl.cloneNode(true);
-		const dayBtnEl = templateDayBtnEl.cloneNode(true);
-		if (dayEl instanceof HTMLElement && dayBtnEl instanceof HTMLElement) {
-			if (modifier) dayBtnEl.classList.add(modifier);
-			dayBtnEl.innerText = dayText;
-			dayBtnEl.dataset.calendarDay = date;
+		const dayEl = templateDayEl.cloneNode(true) as HTMLDivElement;
+		const dayBtnEl = templateDayBtnEl.cloneNode(true) as HTMLButtonElement;
 
-			if (self.settings.visibility.weekNumbers) {
-				const weekNumber = getWeekNumber(date, self.settings.iso8601);
-				if (!weekNumber) return;
-				dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
-			}
+		if (modifier) dayBtnEl.classList.add(modifier);
+		dayBtnEl.innerText = dayText;
+		dayBtnEl.dataset.calendarDay = date;
 
-			setDayModifier(dayBtnEl, dayID, date, currentMonth);
-			dayEl.append(dayBtnEl);
-			daysEl.append(dayEl);
+		if (self.settings.visibility.weekNumbers) {
+			const weekNumber = getWeekNumber(date, self.settings.iso8601);
+			if (!weekNumber) return;
+			dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
 		}
+
+		setDayModifier(dayBtnEl, dayID, date, currentMonth);
+		dayEl.append(dayBtnEl);
+		daysEl.append(dayEl);
 	};
 
 	const prevMonth = () => {

@@ -20,27 +20,25 @@ const createMonths = (self: IVanillaCalendar) => {
 
 	for (let i = 0; i < self.locale.months.length; i++) {
 		const month = self.locale.months[i];
-		const monthEl = templateMonthEl.cloneNode(true);
+		const monthEl = templateMonthEl.cloneNode(true) as HTMLButtonElement;
 
-		if (monthEl instanceof HTMLElement) {
-			if (i === self.selectedMonth) {
-				monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
-			}
-			if (i < self.dateMin.getUTCMonth() && self.selectedYear === self.dateMin.getUTCFullYear()) {
-				monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
-				monthEl.tabIndex = -1;
-			}
-			if (i > self.dateMax.getUTCMonth() && self.selectedYear === self.dateMax.getUTCFullYear()) {
-				monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
-				monthEl.tabIndex = -1;
-			}
-
-			monthEl.dataset.calendarMonth = String(i);
-
-			monthEl.title = `${month}`;
-			monthEl.innerText = `${self.settings.visibility.monthShort ? month.substring(0, 3) : month}`;
-			monthsEl.append(monthEl);
+		if (i === self.selectedMonth) {
+			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
+		if (i < self.dateMin.getUTCMonth() && self.selectedYear === self.dateMin.getUTCFullYear()) {
+			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
+			monthEl.tabIndex = -1;
+		}
+		if (i > self.dateMax.getUTCMonth() && self.selectedYear === self.dateMax.getUTCFullYear()) {
+			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
+			monthEl.tabIndex = -1;
+		}
+
+		monthEl.dataset.calendarMonth = String(i);
+
+		monthEl.title = `${month}`;
+		monthEl.innerText = `${self.settings.visibility.monthShort ? month.substring(0, 3) : month}`;
+		monthsEl.append(monthEl);
 	}
 };
 

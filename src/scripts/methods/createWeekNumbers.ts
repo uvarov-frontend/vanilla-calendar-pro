@@ -26,12 +26,10 @@ const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSel
 		const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay, self.settings.iso8601);
 		if (!weekNumber) return;
 
-		const weekNumberEl = templateWeekNumberEl.cloneNode(true);
-		if (weekNumberEl instanceof HTMLElement) {
-			weekNumberEl.innerText = `${weekNumber.week}`;
-			weekNumberEl.dataset.calendarYearWeek = `${weekNumber.year}`;
-			weekNumbersContentEl.append(weekNumberEl);
-		}
+		const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
+		weekNumberEl.innerText = `${weekNumber.week}`;
+		weekNumberEl.dataset.calendarYearWeek = `${weekNumber.year}`;
+		weekNumbersContentEl.append(weekNumberEl);
 	}
 };
 
