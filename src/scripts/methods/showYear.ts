@@ -6,7 +6,7 @@ const showYear = (self: IVanillaCalendar) => {
 
 	if (!year) return;
 
-	year.dataset.calendarSelectedMonth = String(self.selectedYear);
+	year.dataset.calendarSelectedYear = String(self.selectedYear);
 	year.innerText = String(self.selectedYear);
 
 	if (!self.settings.selection.year) {
