@@ -24,10 +24,10 @@ const createWeek = (self: IVanillaCalendar) => {
 			if (i === 0 || i === 6) {
 				weekDayEl.classList.add(self.CSSClasses.weekDayWeekend);
 			}
-
-			weekDayEl.innerText = `${weekDayName}`;
-			weekEl.append(weekDayEl);
 		}
+
+		weekDayEl.innerText = `${weekDayName}`;
+		weekEl.append(weekDayEl);
 	}
 };
 
