@@ -90,6 +90,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			clickDay: option?.actions?.clickDay ?? null,
 			clickMonth: option?.actions?.clickMonth ?? null,
 			clickYear: option?.actions?.clickYear ?? null,
+			clickArrow: option?.actions?.clickArrow ?? null,
 			changeTime: option?.actions?.changeTime ?? null,
 		};
 		this.popups = option?.popups ?? null;

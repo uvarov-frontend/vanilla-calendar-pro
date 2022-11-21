@@ -127,6 +127,15 @@
 						clickDay(e, dates) {
 							calendarInfoDate.innerText = dates[0] ? dates : '«Day not selected»';
 						},
+						clickMonth(e, month) {
+							console.log(`Current month: ${month}`);
+						},
+						clickYear(e, year) {
+							console.log(`Current year: ${year}`);
+						},
+						clickArrow(e, year, month) {
+							console.log(`Current year: ${year}, current month: ${month}`);
+						},
 						changeTime(e, time) {
 							calendarInfoTime.innerText = time;
 						},

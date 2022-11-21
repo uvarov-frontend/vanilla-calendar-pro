@@ -25,6 +25,9 @@ const clickCalendar = (self: IVanillaCalendar) => {
 			if (arrowEl && self.currentType !== 'year' && self.currentType !== 'month') {
 				changeMonth(self, element.dataset.calendarArrow);
 			}
+			if (arrowEl) {
+				if (self.actions.clickArrow) self.actions.clickArrow(e, Number(self.selectedYear), Number(self.selectedMonth));
+			}
 		};
 
 		const clickDaySingle = () => {

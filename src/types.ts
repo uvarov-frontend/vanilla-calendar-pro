@@ -61,6 +61,7 @@ export interface IActions {
 	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
 	clickMonth: ((e: MouseEvent, month: number) => void) | null;
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
+	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
 }
 
