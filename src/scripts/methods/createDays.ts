@@ -142,7 +142,10 @@ const createDays = (self: IVanillaCalendar) => {
 			const prevMonthID = dayIDCurrent.getUTCMonth() - 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, prevMonthID, day)).getUTCDay();
 
-			createDay(String(day), dayID, date, false, self.CSSClasses.dayBtnPrev);
+			if (!self.settings.visibility.offMonth)
+				createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnNext);
+			else
+				createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnOffMonth);
 		}
 	};
 
@@ -180,7 +183,10 @@ const createDays = (self: IVanillaCalendar) => {
 			const nextMonthID = dayIDCurrent.getUTCMonth() + 1;
 			const dayID = new Date(Date.UTC(self.selectedYear, nextMonthID, i)).getUTCDay();
 
-			createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnNext);
+			if (!self.settings.visibility.offMonth)
+				createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnNext);
+			else
+				createDay(String(i), dayID, date, false, self.CSSClasses.dayBtnOffMonth);
 		}
 	};
 
