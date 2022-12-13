@@ -41,6 +41,7 @@ export interface IVisibility {
 	weekend: boolean;
 	today: boolean;
 	disabled: boolean;
+	offMonth: boolean;
 }
 
 export interface ISettings {
@@ -123,6 +124,7 @@ export interface ICSSClasses {
 	dayBtnNext: string;
 	dayBtnSelected: string;
 	dayBtnIntermediate: string;
+	dayBtnOffMonth: string;
 	dayBtnDisabled: string;
 	dayBtnToday: string;
 	dayBtnWeekend: string;

@@ -80,6 +80,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				weekend: option?.settings?.visibility?.weekend ?? true,
 				today: option?.settings?.visibility?.today ?? true,
 				disabled: option?.settings?.visibility?.disabled ?? false,
+				offMonth: option?.settings?.visibility?.offMonth ?? false,
 			},
 		};
 		this.locale = {

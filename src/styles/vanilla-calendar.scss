@@ -516,6 +516,10 @@
 				}
 			}
 
+			&_offMonth {
+				display: none;
+			}
+
 			&_disabled {
 				pointer-events: none;
 				background-color: white;

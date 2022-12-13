@@ -42,6 +42,7 @@ const classes = {
 	dayBtnPrev: 'vanilla-calendar-day__btn_prev',
 	dayBtnNext: 'vanilla-calendar-day__btn_next',
 	dayBtnToday: 'vanilla-calendar-day__btn_today',
+	dayBtnOffMonth: 'vanilla-calendar-day__btn_offMonth',
 	dayBtnSelected: 'vanilla-calendar-day__btn_selected',
 	dayBtnDisabled: 'vanilla-calendar-day__btn_disabled',
 	dayBtnIntermediate: 'vanilla-calendar-day__btn_intermediate',
