@@ -5,6 +5,7 @@ import createMonths from './createMonths';
 import createYears from './createYears';
 import generateDate from './generateDate';
 import update from './updateCalendar';
+import hoverDays from './hoverDays';
 
 const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
@@ -54,38 +55,40 @@ const clickCalendar = (self: IVanillaCalendar) => {
 			if (self.selectedDates.length > 1) self.selectedDates = [];
 			self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
 
-			if (!self.selectedDates[1]) return;
+			if (self.selectedDates[1]) {
+				const startDate = new Date(Date.UTC(
+					new Date(self.selectedDates[0]).getUTCFullYear(),
+					new Date(self.selectedDates[0]).getUTCMonth(),
+					new Date(self.selectedDates[0]).getUTCDate(),
+				));
 
-			const startDate = new Date(Date.UTC(
-				new Date(self.selectedDates[0]).getUTCFullYear(),
-				new Date(self.selectedDates[0]).getUTCMonth(),
-				new Date(self.selectedDates[0]).getUTCDate(),
-			));
+				const endDate = new Date(Date.UTC(
+					new Date(self.selectedDates[1]).getUTCFullYear(),
+					new Date(self.selectedDates[1]).getUTCMonth(),
+					new Date(self.selectedDates[1]).getUTCDate(),
+				));
 
-			const endDate = new Date(Date.UTC(
-				new Date(self.selectedDates[1]).getUTCFullYear(),
-				new Date(self.selectedDates[1]).getUTCMonth(),
-				new Date(self.selectedDates[1]).getUTCDate(),
-			));
+				const addSelectedDate = (day: Date) => {
+					if (!self.selectedDates) return;
+					const date = generateDate(day);
+					if (self.settings.range.disabled && self.settings.range.disabled.includes(date)) return;
+					self.selectedDates.push(date);
+				};
 
-			const addSelectedDate = (day: Date) => {
-				if (!self.selectedDates) return;
-				const date = generateDate(day);
-				if (self.settings.range.disabled && self.settings.range.disabled.includes(date)) return;
-				self.selectedDates.push(date);
-			};
+				self.selectedDates = [];
 
-			self.selectedDates = [];
-
-			if (endDate > startDate) {
-				for (let i = startDate; i <= endDate; i.setUTCDate(i.getUTCDate() + 1)) {
-					addSelectedDate(i);
-				}
-			} else {
-				for (let i = startDate; i >= endDate; i.setUTCDate(i.getUTCDate() - 1)) {
-					addSelectedDate(i);
+				if (endDate > startDate) {
+					for (let i = startDate; i <= endDate; i.setUTCDate(i.getUTCDate() + 1)) {
+						addSelectedDate(i);
+					}
+				} else {
+					for (let i = startDate; i >= endDate; i.setUTCDate(i.getUTCDate() - 1)) {
+						addSelectedDate(i);
+					}
 				}
 			}
+
+			hoverDays(self);
 		};
 
 		const clickDay = () => {

@@ -43,6 +43,7 @@ const classes = {
 	dayBtnNext: 'vanilla-calendar-day__btn_next',
 	dayBtnToday: 'vanilla-calendar-day__btn_today',
 	dayBtnSelected: 'vanilla-calendar-day__btn_selected',
+	dayBtnHover: 'vanilla-calendar-day__btn_hover',
 	dayBtnDisabled: 'vanilla-calendar-day__btn_disabled',
 	dayBtnIntermediate: 'vanilla-calendar-day__btn_intermediate',
 	dayBtnWeekend: 'vanilla-calendar-day__btn_weekend',
