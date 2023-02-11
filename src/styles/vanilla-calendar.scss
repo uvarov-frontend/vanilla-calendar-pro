@@ -526,6 +526,10 @@
 					color: lightgrey;
 				}
 			}
+
+			&_hover {
+				border: 1px solid rgb(89 137 135 / 50%);
+			}
 		}
 
 		&__popup {

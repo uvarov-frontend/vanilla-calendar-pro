@@ -122,6 +122,7 @@ export interface ICSSClasses {
 	dayBtnPrev: string;
 	dayBtnNext: string;
 	dayBtnSelected: string;
+	dayBtnHover: string;
 	dayBtnIntermediate: string;
 	dayBtnDisabled: string;
 	dayBtnToday: string;
