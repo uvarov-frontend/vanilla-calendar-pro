@@ -13,7 +13,7 @@ This plugin is completely free, any support from you is important, please report
 
 If you like the plugin please give it a star.
 
-[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
+[![GitHub stars](https://img.shields.io/github/stars/uvarov-frontend/vanilla-calendar.svg?style=social&label=Star&maxAge=2592000)](https://github.com/uvarov-frontend/vanilla-calendar/stargazers/)
 
 ## Getting Started
 
@@ -162,5 +162,3 @@ Yury Uvarov (*uvarov.frontend@gmail.com*)
 
 [package]: https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar
 [package-badge]: https://img.shields.io/npm/v/@uvarov.frontend/vanilla-calendar
-[buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
-[buymeacoffee]: https://www.buymeacoffee.com/uvarov
