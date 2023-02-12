@@ -127,6 +127,9 @@
 						clickDay(e, dates) {
 							calendarInfoDate.innerText = dates[0] ? dates : '«Day not selected»';
 						},
+						clickWeekNumber(e, number, days, year) {
+							console.log(`Week number: ${number}, year of the week: ${year},`, 'Days of this week:', days);
+						},
 						clickMonth(e, month) {
 							console.log(`Current month: ${month}`);
 						},
