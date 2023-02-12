@@ -333,6 +333,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			cursor: pointer;
+
+			&:hover {
+				color: #68cec9;
+			}
 		}
 	}
 

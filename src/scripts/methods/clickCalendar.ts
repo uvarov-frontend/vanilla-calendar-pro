@@ -17,6 +17,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 		const dayBtnEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtn}`);
 		const dayBtnPrevEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnPrev}`);
 		const dayBtnNextEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnNext}`);
+		const weekNumberEl: HTMLElement| null = element.closest(`.${self.CSSClasses.weekNumber}`);
 		const yearHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.year}`);
 		const yearItemEl: HTMLElement| null = element.closest(`.${self.CSSClasses.yearsYear}`);
 		const monthHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.month}`);
@@ -119,6 +120,18 @@ const clickCalendar = (self: IVanillaCalendar) => {
 			}
 		};
 
+		const clickWeekNumber = () => {
+			if (!self.settings.visibility.weekNumbers || !weekNumberEl || !self.actions.clickWeekNumber) return;
+			const daysToWeeks = self.HTMLElement?.querySelectorAll('[data-calendar-week-number]');
+			if (!daysToWeeks) return;
+
+			const weekNumberValue = Number(weekNumberEl.innerText);
+			const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
+			const daysOfThisWeek = [...daysToWeeks].filter((day) => Number((day as HTMLElement).dataset.calendarWeekNumber) === weekNumberValue);
+
+			self.actions.clickWeekNumber(e, weekNumberValue, daysOfThisWeek as HTMLElement[], yearWeek);
+		};
+
 		const clickYear = () => {
 			if (!self.settings.selection.year) return;
 			if (arrowEl && self.currentType === 'year') {
@@ -168,6 +181,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 		clickArrowMonth();
 		clickDay();
+		clickWeekNumber();
 		clickYear();
 		clickMonth();
 	});
