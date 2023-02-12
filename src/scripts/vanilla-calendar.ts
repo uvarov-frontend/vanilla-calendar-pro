@@ -88,6 +88,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		};
 		this.actions = {
 			clickDay: option?.actions?.clickDay ?? null,
+			clickWeekNumber: option?.actions?.clickWeekNumber ?? null,
 			clickMonth: option?.actions?.clickMonth ?? null,
 			clickYear: option?.actions?.clickYear ?? null,
 			clickArrow: option?.actions?.clickArrow ?? null,
