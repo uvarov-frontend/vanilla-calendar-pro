@@ -1,5 +1,6 @@
 import { IVanillaCalendar } from 'src/types';
 import generateDate from './generateDate';
+import update from './updateCalendar';
 
 let currentSelf: null | IVanillaCalendar = null;
 
@@ -53,14 +54,26 @@ const hoverDaysEvent = (e: MouseEvent) => {
 	}
 };
 
+const cancelSelectionDays = (e: KeyboardEvent) => {
+	if (!currentSelf || e.key !== 'Escape') return;
+
+	currentSelf.selectedDates = [];
+	currentSelf.settings.selected.dates = [];
+	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
+	document.removeEventListener('keydown', cancelSelectionDays);
+	update(currentSelf);
+};
+
 const hoverDays = (self: IVanillaCalendar) => {
 	if (!self || !self.selectedDates) return;
 	currentSelf = self;
 
-	if (self.selectedDates.length <= 1) {
+	if (self.selectedDates[0] && self.selectedDates.length <= 1) {
 		(self.HTMLElement as HTMLElement).addEventListener('mousemove', hoverDaysEvent);
+		document.addEventListener('keydown', cancelSelectionDays);
 	} else {
 		(self.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
+		document.removeEventListener('keydown', cancelSelectionDays);
 	}
 };
 
