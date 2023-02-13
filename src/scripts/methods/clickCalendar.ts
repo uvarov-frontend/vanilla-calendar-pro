@@ -53,8 +53,13 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 		const clickDayMultipleRanged = () => {
 			if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
-			if (self.selectedDates.length > 1) self.selectedDates = [];
-			self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
+
+			if (self.selectedDates.length <= 1 && self.selectedDates[0] && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay)) {
+				self.selectedDates = [];
+			} else {
+				if (self.selectedDates.length > 1) self.selectedDates = [];
+				self.selectedDates.push(dayBtnEl.dataset.calendarDay as FormatDateString);
+			}
 
 			if (self.selectedDates[1]) {
 				const startDate = new Date(Date.UTC(
