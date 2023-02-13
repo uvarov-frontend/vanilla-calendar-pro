@@ -5,8 +5,8 @@ type DD = `${0}${oneToNine}` | `${1|2}${zeroToNine}` | `3${0|1}`;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
 export interface IDate {
-	min: string;
-	max: string;
+	min: FormatDateString;
+	max: FormatDateString;
 	today: Date;
 }
 

@@ -53,8 +53,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			lang: option?.settings?.lang ?? 'en',
 			iso8601: option?.settings?.iso8601 ?? true,
 			range: {
-				min: option?.settings?.range?.min ?? '1970-01-01',
-				max: option?.settings?.range?.max ?? '2470-12-31',
+				min: option?.settings?.range?.min ?? this.date.min,
+				max: option?.settings?.range?.max ?? this.date.max,
 				disabled: option?.settings?.range?.disabled ?? null,
 				enabled: option?.settings?.range?.enabled ?? null,
 			},
