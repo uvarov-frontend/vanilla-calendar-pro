@@ -109,6 +109,7 @@ const config: webpack.Configuration = {
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
 			filename: './index.html',
+			publicPath: './',
 			minify: false,
 			cache: true,
 			alwaysWriteToDisk: true,
