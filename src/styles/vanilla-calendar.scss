@@ -465,6 +465,11 @@
 					&#{$btn}_next {
 						color: darkgray;
 						background-color: whitesmoke;
+
+						&#{$btn}_disabled {
+							color: lightgrey;
+							background-color: whitesmoke;
+						}
 					}
 
 					&#{$btn}_disabled {
@@ -507,6 +512,10 @@
 				&#{$btn}_prev,
 				&#{$btn}_next {
 					color: darkgray;
+
+					&#{$btn}_disabled {
+						color: lightgrey;
+					}
 				}
 			}
 
