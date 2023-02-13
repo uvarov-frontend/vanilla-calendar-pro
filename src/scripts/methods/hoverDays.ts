@@ -20,6 +20,12 @@ const addHover = (day: Date) => {
 
 const hoverDaysEvent = (e: MouseEvent) => {
 	if (!e.target || !currentSelf || !currentSelf.selectedDates) return;
+
+	if (!(e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.days}`)) {
+		removeHover();
+		return;
+	}
+
 	const date = (e.target as HTMLElement).dataset.calendarDay;
 	if (!date) return;
 	removeHover();
@@ -47,26 +53,14 @@ const hoverDaysEvent = (e: MouseEvent) => {
 	}
 };
 
-const checkDaysEvent = (e: MouseEvent) => {
-	if (!e.target || !currentSelf) return;
-	if (![...(e.target as HTMLElement).classList].includes(currentSelf.CSSClasses.dayBtn)
-		&& ![...(e.target as HTMLElement).classList].includes(currentSelf.CSSClasses.day)
-		&& ![...(e.target as HTMLElement).classList].includes(currentSelf.CSSClasses.days)) {
-		removeHover();
-	}
-};
-
 const hoverDays = (self: IVanillaCalendar) => {
-	const days = self.HTMLElement?.querySelector(`.${self.CSSClasses.days}`);
-	if (!self || !self.selectedDates || !days) return;
+	if (!self || !self.selectedDates) return;
 	currentSelf = self;
 
 	if (self.selectedDates.length <= 1) {
-		(days as HTMLElement).addEventListener('mouseover', hoverDaysEvent);
-		(self.HTMLElement as HTMLElement).addEventListener('mouseout', checkDaysEvent);
+		(self.HTMLElement as HTMLElement).addEventListener('mousemove', hoverDaysEvent);
 	} else {
-		(days as HTMLElement).removeEventListener('mouseover', hoverDaysEvent);
-		(self.HTMLElement as HTMLElement).removeEventListener('mouseout', checkDaysEvent);
+		(self.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
 	}
 };
 
