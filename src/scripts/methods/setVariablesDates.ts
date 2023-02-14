@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import transformTime12 from './transformTime12';
+import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
 	if (self.settings.selected.dates !== null) {

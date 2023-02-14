@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import parserComponent from './parserComponent';
+import { DOMParser, MultipleParser } from '../helpers/parserComponent';
 
 const createDOM = (self: IVanillaCalendar) => {
 	const calendarElement = (self.HTMLElement as HTMLElement);
@@ -10,30 +10,26 @@ const createDOM = (self: IVanillaCalendar) => {
 			calendarElement.classList.add(self.CSSClasses.calendarDefault);
 			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.default);
+			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.default);
 			break;
 		case 'multiple':
 			if (!self.correctMonths) break;
 			calendarElement.classList.add(self.CSSClasses.calendarMultiple);
 			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = '';
-
-			for (let i = 0; i < self.correctMonths; i++) {
-				calendarElement.innerHTML += parserComponent(self, self.DOMTemplates.multiple);
-			}
+			calendarElement.innerHTML = MultipleParser(self, DOMParser(self, self.DOMTemplates.multiple));
 			break;
 		case 'month':
 			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
 			calendarElement.classList.add(self.CSSClasses.calendarMonth);
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.month);
+			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.month);
 			break;
 		case 'year':
 			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
 			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
 			calendarElement.classList.add(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.year);
+			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.year);
 			break;
 		// no default
 	}

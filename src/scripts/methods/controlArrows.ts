@@ -3,8 +3,10 @@ import { IVanillaCalendar } from 'src/types';
 const controlArrows = (self: IVanillaCalendar) => {
 	if (!['default', 'multiple', 'year'].includes(self.currentType)) return;
 
-	const arrowPrev = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowPrev}`) as HTMLElement;
-	const arrowNext = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowNext}`) as HTMLElement;
+	const arrowPrev: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowPrev}`);
+	const arrowNext: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowNext}`);
+
+	if (!arrowPrev || !arrowNext) return;
 
 	const defaultControl = () => {
 		if (!self.dateMin || !self.dateMax) return;

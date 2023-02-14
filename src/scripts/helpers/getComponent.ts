@@ -9,7 +9,7 @@ import {
 	Years,
 	WeekNumbers,
 	ControlTime,
-} from '../templates/Components';
+} from './createComponents';
 
 const getComponent = (pattern: string) => {
 	let FC = null;

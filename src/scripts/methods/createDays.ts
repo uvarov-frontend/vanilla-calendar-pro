@@ -1,7 +1,7 @@
 import { FormatDateString, IVanillaCalendar } from 'src/types';
 import createPopup from './createPopup';
 import createWeekNumbers from './createWeekNumbers';
-import generateDate from './generateDate';
+import generateDate from '../helpers/generateDate';
 import getWeekNumber from './getWeekNumber';
 
 const createDays = (self: IVanillaCalendar) => {

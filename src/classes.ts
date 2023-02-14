@@ -4,6 +4,8 @@ const classes = {
 	calendarMultiple: 'vanilla-calendar_multiple',
 	calendarMonth: 'vanilla-calendar_month',
 	calendarYear: 'vanilla-calendar_year',
+	controls: 'vanilla-calendar-controls',
+	grid: 'vanilla-calendar-grid',
 	column: 'vanilla-calendar-column',
 	header: 'vanilla-calendar-header',
 	headerContent: 'vanilla-calendar-header__content',

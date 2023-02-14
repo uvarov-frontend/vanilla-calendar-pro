@@ -2,6 +2,7 @@
 	$calendar: &;
 
 	width: 280px;
+	position: relative;
 	min-width: min-content;
 	display: grid;
 	gap: 12px;
@@ -11,9 +12,7 @@
 	border-radius: 4px;
 
 	&_multiple {
-		width: 800px;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 30px;
+		gap: 0;
 
 		#{$calendar} {
 			&-month {
@@ -50,6 +49,23 @@
 		&:focus-visible {
 			outline: 1px solid darkorange;
 		}
+	}
+
+	&-controls {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 24px;
+		margin-bottom: -24px;
+		pointer-events: none;
+	}
+
+	&-grid {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 30px;
 	}
 
 	&-column {
@@ -118,6 +134,7 @@
 
 	&-arrow {
 		position: relative;
+		pointer-events: auto;
 		right: 2px;
 		display: block;
 		font-size: 0;
@@ -426,7 +443,7 @@
 			$btn: &;
 
 			font-size: 12px;
-			line-height: 16px;
+			line-height: 17px;
 			font-weight: 400;
 			color: black;
 			width: 28px;

@@ -1,23 +1,29 @@
 import { ICSSClasses } from 'src/types';
 
 const DOMMultiple = (styles: ICSSClasses) => (`
-	<div class="${styles.column}">
-		<div class="${styles.header}">
-			<#ArrowPrev />
-			<div class="${styles.headerContent}">
-				<#Month />
-				<#Year />
+	<div class="${styles.controls}">
+		<#ArrowPrev />
+		<#ArrowNext />
+	</div>
+	<div class="${styles.grid}">
+		<#Multiple>
+			<div class="${styles.column}">
+				<div class="${styles.header}">
+					<div class="${styles.headerContent}">
+						<#Month />
+						<#Year />
+					</div>
+				</div>
+				<div class="${styles.wrapper}">
+					<#WeekNumbers />
+					<div class="${styles.content}">
+						<#Week />
+						<#Days />
+					</div>
+				</div>
+				<#ControlTime />
 			</div>
-			<#ArrowNext />
-		</div>
-		<div class="${styles.wrapper}">
-			<#WeekNumbers />
-			<div class="${styles.content}">
-				<#Week />
-				<#Days />
-			</div>
-		</div>
-		<#ControlTime />
+		<#/Multiple>
 	</div>
 `);
 

@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import generateDate from './generateDate';
+import generateDate from '../helpers/generateDate';
 import update from './updateCalendar';
 
 let currentSelf: null | IVanillaCalendar = null;

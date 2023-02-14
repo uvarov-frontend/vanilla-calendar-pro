@@ -86,6 +86,8 @@ export interface ICSSClasses {
 	calendarMultiple: string;
 	calendarMonth: string;
 	calendarYear: string;
+	controls: string;
+	grid: string;
 	column: string;
 	header: string;
 	headerContent: string;

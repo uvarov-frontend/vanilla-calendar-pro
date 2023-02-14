@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from 'src/types';
 import controlTime from './controlTime';
-import transformTime24 from './transformTime24';
+import transformTime24 from '../helpers/transformTime24';
 
 const createTime = (self: IVanillaCalendar) => {
 	const timeEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.time}`);

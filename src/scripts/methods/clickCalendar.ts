@@ -3,7 +3,7 @@ import changeMonth from './changeMonth';
 import createDays from './createDays';
 import createMonths from './createMonths';
 import createYears from './createYears';
-import generateDate from './generateDate';
+import generateDate from '../helpers/generateDate';
 import update from './updateCalendar';
 import hoverDays from './hoverDays';
 
