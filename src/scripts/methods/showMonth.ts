@@ -1,21 +1,24 @@
 import { IVanillaCalendar } from 'src/types';
 
 const showMonth = (self: IVanillaCalendar) => {
-	if (self.selectedMonth === undefined) return;
-	const month: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector('[data-calendar-selected-month]');
+	const months = (self.HTMLElement as HTMLElement).querySelectorAll('[data-calendar-selected-month]') as NodeListOf<HTMLElement>;
+	if (!months[0] || self.selectedMonth === undefined) return;
+	const initDate = new Date(self.date.today.getTime());
 
-	if (!month) return;
+	months.forEach((_, index: number) => {
+		const selectedMonth = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
 
-	month.dataset.calendarSelectedMonth = String(self.selectedMonth);
-	month.innerText = self.locale.months[self.selectedMonth];
+		months[index].dataset.calendarSelectedMonth = String(selectedMonth);
+		months[index].innerText = self.locale.months[selectedMonth];
 
-	if (!self.settings.selection.month) {
-		month.tabIndex = -1;
-		month.classList.add(self.CSSClasses.monthDisabled);
-	} else {
-		month.tabIndex = 0;
-		month.classList.remove(self.CSSClasses.monthDisabled);
-	}
+		if (!self.settings.selection.month || self.currentType === 'multiple') {
+			months[index].tabIndex = -1;
+			months[index].classList.add(self.CSSClasses.monthDisabled);
+		} else {
+			months[index].tabIndex = 0;
+			months[index].classList.remove(self.CSSClasses.monthDisabled);
+		}
+	});
 };
 
 export default showMonth;

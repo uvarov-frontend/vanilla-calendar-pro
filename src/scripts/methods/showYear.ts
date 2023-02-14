@@ -1,21 +1,24 @@
 import { IVanillaCalendar } from 'src/types';
 
 const showYear = (self: IVanillaCalendar) => {
-	if (self.selectedYear === undefined) return;
-	const year: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector('[data-calendar-selected-year]');
+	const years = (self.HTMLElement as HTMLElement).querySelectorAll('[data-calendar-selected-year]') as NodeListOf<HTMLElement>;
+	if (!years || self.selectedMonth === undefined) return;
+	const initDate = new Date(self.date.today.getTime());
 
-	if (!year) return;
+	years.forEach((_, index: number) => {
+		const selectedYear = new Date(initDate.setFullYear((self.selectedYear as number), (self.selectedMonth as number) + index)).getFullYear();
 
-	year.dataset.calendarSelectedYear = String(self.selectedYear);
-	year.innerText = String(self.selectedYear);
+		years[index].dataset.calendarSelectedYear = String(selectedYear);
+		years[index].innerText = String(selectedYear);
 
-	if (!self.settings.selection.year) {
-		year.tabIndex = -1;
-		year.classList.add(self.CSSClasses.yearDisabled);
-	} else {
-		year.tabIndex = 0;
-		year.classList.remove(self.CSSClasses.yearDisabled);
-	}
+		if (!self.settings.selection.year || self.currentType === 'multiple') {
+			years[index].tabIndex = -1;
+			years[index].classList.add(self.CSSClasses.yearDisabled);
+		} else {
+			years[index].tabIndex = 0;
+			years[index].classList.remove(self.CSSClasses.yearDisabled);
+		}
+	});
 };
 
 export default showYear;

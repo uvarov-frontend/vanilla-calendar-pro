@@ -20,7 +20,7 @@ const update = (self: IVanillaCalendar) => {
 	controlArrows(self);
 	createTime(self);
 
-	if (self.currentType === 'default') {
+	if (self.currentType === 'default' || self.currentType === 'multiple') {
 		createWeek(self);
 		createDays(self);
 	} else if (self.currentType === 'month') {

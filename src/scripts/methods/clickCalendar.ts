@@ -138,7 +138,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 		};
 
 		const clickYear = () => {
-			if (!self.settings.selection.year) return;
+			if (!self.settings.selection.year || self.currentType === 'multiple') return;
 			if (arrowEl && self.currentType === 'year') {
 				if (self.viewYear === undefined) return;
 				if (arrowNextEl) {
@@ -169,7 +169,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 		};
 
 		const clickMonth = () => {
-			if (!self.settings.selection.month) return;
+			if (!self.settings.selection.month || self.currentType === 'multiple') return;
 			if (self.currentType !== 'month' && monthHeaderEl) {
 				createMonths(self);
 			} else if (self.currentType === 'month' && monthHeaderEl) {

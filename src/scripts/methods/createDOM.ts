@@ -12,6 +12,17 @@ const createDOM = (self: IVanillaCalendar) => {
 			calendarElement.classList.remove(self.CSSClasses.calendarYear);
 			calendarElement.innerHTML = parserComponent(self, self.DOMTemplates.default);
 			break;
+		case 'multiple':
+			if (!self.correctMonths) break;
+			calendarElement.classList.add(self.CSSClasses.calendarMultiple);
+			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
+			calendarElement.classList.remove(self.CSSClasses.calendarYear);
+			calendarElement.innerHTML = '';
+
+			for (let i = 0; i < self.correctMonths; i++) {
+				calendarElement.innerHTML += parserComponent(self, self.DOMTemplates.multiple);
+			}
+			break;
 		case 'month':
 			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
 			calendarElement.classList.add(self.CSSClasses.calendarMonth);

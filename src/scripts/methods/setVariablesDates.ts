@@ -62,6 +62,20 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 		// eslint-disable-next-line no-console
 		console.error('The value of the time property can be: false, true, 12 or 24.');
 	}
+
+	if (self.type !== 'multiple') return;
+
+	if (self.months === 1) {
+		// eslint-disable-next-line no-console
+		console.warn('The value of the «months» parameter cannot be less than «2», the minimum available value will be initialized.');
+		self.correctMonths = 2;
+	} else if (self.months > 12) {
+		// eslint-disable-next-line no-console
+		console.warn('The value of the «months» parameter cannot be greater than «12», the maximum available value will be initialized.');
+		self.correctMonths = 12;
+	} else {
+		self.correctMonths = self.months;
+	}
 };
 
 export default setVariablesDates;

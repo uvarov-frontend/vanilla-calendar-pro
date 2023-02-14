@@ -75,6 +75,7 @@ export type IPopups = {
 
 export interface IDOMTemplates {
 	default: string;
+	multiple: string;
 	month: string;
 	year: string;
 }
@@ -82,8 +83,10 @@ export interface IDOMTemplates {
 export interface ICSSClasses {
 	calendar: string;
 	calendarDefault: string;
+	calendarMultiple: string;
 	calendarMonth: string;
 	calendarYear: string;
+	column: string;
 	header: string;
 	headerContent: string;
 	month: string;
@@ -138,6 +141,7 @@ export interface ICSSClasses {
 
 export interface IOptions {
 	type: string;
+	months: number,
 	date: IDate;
 	settings: ISettings;
 	locale: ILocale;
@@ -163,6 +167,7 @@ export interface IVanillaCalendar extends IVariables {
 	selectedHours?: string;
 	selectedMinutes?: string;
 	selectedTime?: string;
+	correctMonths?: number;
 	viewYear?: number;
 	dateMin?: Date;
 	dateMax?: Date;

@@ -10,11 +10,53 @@
 	padding: 12px;
 	border-radius: 4px;
 
+	&_multiple {
+		width: 800px;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
+
+		#{$calendar} {
+			&-month {
+				color: black;
+				cursor: default;
+
+				&:hover {
+					color: black;
+				}
+
+				&_disabled {
+					color: black;
+					pointer-events: auto;
+				}
+			}
+			&-year {
+				color: black;
+				cursor: default;
+
+				&:hover {
+					color: black;
+				}
+
+				&_disabled {
+					color: black;
+					pointer-events: auto;
+				}
+			}
+		}
+	}
+
 	button {
 
 		&:focus-visible {
 			outline: 1px solid darkorange;
 		}
+	}
+
+	&-column {
+		min-width: min-content;
+		display: grid;
+		gap: 12px;
+		grid-template-columns: 1fr;
 	}
 
 	&-header {
