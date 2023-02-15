@@ -1,12 +1,10 @@
 import { IVanillaCalendar } from 'src/types';
 import getWeekNumber from './getWeekNumber';
 
-const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number) => {
+const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
-	const weekNumbersEl: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.weekNumbers}`);
-	const daysBtnEl: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.dayBtn}`);
+	const daysBtnEl = daysEl.querySelectorAll(`.${self.CSSClasses.dayBtn}`) as NodeListOf<HTMLElement>;
 
-	if (!weekNumbersEl || !daysBtnEl[0]) return;
 	weekNumbersEl.innerHTML = '';
 	const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 

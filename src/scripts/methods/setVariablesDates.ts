@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import transformTime12 from './transformTime12';
+import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
 	if (self.settings.selected.dates !== null) {
@@ -61,6 +61,20 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 		self.settings.selection.time = false;
 		// eslint-disable-next-line no-console
 		console.error('The value of the time property can be: false, true, 12 or 24.');
+	}
+
+	if (self.type !== 'multiple') return;
+
+	if (self.months === 1) {
+		// eslint-disable-next-line no-console
+		console.warn('The value of the «months» parameter cannot be less than «2», the minimum available value will be initialized.');
+		self.correctMonths = 2;
+	} else if (self.months > 12) {
+		// eslint-disable-next-line no-console
+		console.warn('The value of the «months» parameter cannot be greater than «12», the maximum available value will be initialized.');
+		self.correctMonths = 12;
+	} else {
+		self.correctMonths = self.months;
 	}
 };
 

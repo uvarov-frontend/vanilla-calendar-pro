@@ -2,6 +2,7 @@
 	$calendar: &;
 
 	width: 280px;
+	position: relative;
 	min-width: min-content;
 	display: grid;
 	gap: 12px;
@@ -10,11 +11,68 @@
 	padding: 12px;
 	border-radius: 4px;
 
+	&_multiple {
+		gap: 0;
+
+		#{$calendar} {
+			&-month {
+				color: black;
+				cursor: default;
+
+				&:hover {
+					color: black;
+				}
+
+				&_disabled {
+					color: black;
+					pointer-events: auto;
+				}
+			}
+			&-year {
+				color: black;
+				cursor: default;
+
+				&:hover {
+					color: black;
+				}
+
+				&_disabled {
+					color: black;
+					pointer-events: auto;
+				}
+			}
+		}
+	}
+
 	button {
 
 		&:focus-visible {
 			outline: 1px solid darkorange;
 		}
+	}
+
+	&-controls {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 24px;
+		margin-bottom: -24px;
+		pointer-events: none;
+	}
+
+	&-grid {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 30px;
+	}
+
+	&-column {
+		min-width: min-content;
+		display: grid;
+		gap: 12px;
+		grid-template-columns: 1fr;
 	}
 
 	&-header {
@@ -76,6 +134,7 @@
 
 	&-arrow {
 		position: relative;
+		pointer-events: auto;
 		right: 2px;
 		display: block;
 		font-size: 0;
@@ -384,7 +443,7 @@
 			$btn: &;
 
 			font-size: 12px;
-			line-height: 16px;
+			line-height: 17px;
 			font-weight: 400;
 			color: black;
 			width: 28px;

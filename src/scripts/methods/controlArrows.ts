@@ -1,13 +1,15 @@
 import { IVanillaCalendar } from 'src/types';
 
 const controlArrows = (self: IVanillaCalendar) => {
-	if (!['default', 'year'].includes(self.currentType)) return;
+	if (!['default', 'multiple', 'year'].includes(self.currentType)) return;
 
-	const arrowPrev = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowPrev}`) as HTMLElement;
-	const arrowNext = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowNext}`) as HTMLElement;
+	const arrowPrev: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowPrev}`);
+	const arrowNext: HTMLElement | null = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.arrowNext}`);
+
+	if (!arrowPrev || !arrowNext) return;
 
 	const defaultControl = () => {
-		if (!self.dateMin || !self.dateMax || self.currentType !== 'default') return;
+		if (!self.dateMin || !self.dateMax) return;
 
 		const isSelectedMinMount = self.selectedMonth === self.dateMin.getUTCMonth();
 		const isSelectedMaxMount = self.selectedMonth === self.dateMax.getUTCMonth();
@@ -27,7 +29,7 @@ const controlArrows = (self: IVanillaCalendar) => {
 	};
 
 	const yearControl = () => {
-		if (!self.dateMin || !self.dateMax || self.currentType !== 'year' || self.viewYear === undefined) return;
+		if (!self.dateMin || !self.dateMax || self.viewYear === undefined) return;
 
 		if (self.dateMin.getUTCFullYear() && (self.viewYear - 7) <= self.dateMin.getUTCFullYear()) {
 			arrowPrev.style.visibility = 'hidden';
@@ -42,8 +44,8 @@ const controlArrows = (self: IVanillaCalendar) => {
 		}
 	};
 
-	defaultControl();
-	yearControl();
+	if (self.currentType === 'default' || self.currentType === 'multiple') defaultControl();
+	if (self.currentType === 'year') yearControl();
 };
 
 export default controlArrows;

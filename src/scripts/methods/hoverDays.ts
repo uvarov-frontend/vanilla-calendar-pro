@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import generateDate from './generateDate';
+import generateDate from '../helpers/generateDate';
 import update from './updateCalendar';
 
 let currentSelf: null | IVanillaCalendar = null;
@@ -15,8 +15,11 @@ const addHover = (day: Date) => {
 	const date = generateDate(day);
 
 	if (currentSelf.settings.range.disabled && currentSelf.settings.range.disabled.includes(date)) return;
-	const dayEl = currentSelf.HTMLElement?.querySelector(`[data-calendar-day="${date}"]`);
-	dayEl?.classList.add(currentSelf.CSSClasses.dayBtnHover);
+	const dayEls = currentSelf.HTMLElement?.querySelectorAll(`[data-calendar-day="${date}"]`) as NodeListOf<HTMLElement>;
+
+	dayEls?.forEach((dayEl) => {
+		dayEl.classList.add((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover);
+	});
 };
 
 const hoverDaysEvent = (e: MouseEvent) => {

@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from 'src/types';
-import transformTime12 from './transformTime12';
-import transformTime24 from './transformTime24';
+import transformTime12 from '../helpers/transformTime12';
+import transformTime24 from '../helpers/transformTime24';
 
 const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
 	const rangeHours = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.timeRange} input[name="hours"]`);

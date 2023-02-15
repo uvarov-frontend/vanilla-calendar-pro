@@ -11,6 +11,7 @@ import {
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 import DOMDefault from './templates/DOMDefault';
+import DOMMultiple from './templates/DOMMultiple';
 import DOMMonth from './templates/DOMMonth';
 import DOMYear from './templates/DOMYear';
 import classes from '../classes';
@@ -19,6 +20,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 	HTMLElement: HTMLElement | null;
 
 	type!: string;
+
+	months!: number;
 
 	date!: IDate;
 
@@ -44,6 +47,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
 		if (!this.HTMLElement) return;
 		this.type = option?.type ?? 'default';
+		this.months = option?.months ?? 2;
 		this.date = {
 			min: option?.date?.min ?? '1970-01-01',
 			max: option?.date?.max ?? '2470-12-31',
@@ -108,6 +112,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		})();
 		this.DOMTemplates = {
 			default: option?.DOMTemplates?.default ?? DOMDefault(this.CSSClasses),
+			multiple: option?.DOMTemplates?.multiple ?? DOMMultiple(this.CSSClasses),
 			month: option?.DOMTemplates?.month ?? DOMMonth(this.CSSClasses),
 			year: option?.DOMTemplates?.year ?? DOMYear(this.CSSClasses),
 		};
