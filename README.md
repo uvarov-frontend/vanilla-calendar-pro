@@ -11,9 +11,7 @@ The size of the minified file .js is approximately **29.7kb** and **7.2kb** gzip
 
 This plugin is completely free, any support from you is important, please report problems or new ideas, it's really important!
 
-If you like the plugin please give it a star.
-
-[![GitHub stars](https://img.shields.io/github/stars/uvarov-frontend/vanilla-calendar.svg?style=social&label=Star&maxAge=2592000)](https://github.com/uvarov-frontend/vanilla-calendar/stargazers/)
+If you like the plugin, please give it an asterisk in the GitHub repository.
 
 ## Getting Started
 
