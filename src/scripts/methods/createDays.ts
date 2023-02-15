@@ -123,7 +123,12 @@ const createDays = (self: IVanillaCalendar) => {
 
 			setDayModifier(dayBtnEl, dayID, date, otherMonth);
 
-			dayEl.append(dayBtnEl);
+			if (self.currentType === 'multiple') {
+				if (!otherMonth) dayEl.append(dayBtnEl);
+			} else {
+				dayEl.append(dayBtnEl);
+			}
+
 			daysEls[index].append(dayEl);
 		};
 
