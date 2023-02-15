@@ -3,7 +3,7 @@ import getWeekNumber from './getWeekNumber';
 
 const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
-	const daysBtnEl = daysEl.querySelectorAll(`.${self.CSSClasses.dayBtn}`) as NodeListOf<HTMLElement>;
+	const dayEls = daysEl.querySelectorAll(`.${self.CSSClasses.day}`) as NodeListOf<HTMLElement>;
 
 	weekNumbersEl.innerHTML = '';
 	const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
@@ -21,7 +21,15 @@ const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSel
 	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
 	for (let i = 0; i < countWeek; i++) {
-		const weekNumber = getWeekNumber(daysBtnEl[i * 7].dataset.calendarDay, self.settings.iso8601);
+		let dayBtnEl: HTMLElement | null = null;
+
+		if (i === 0) {
+			dayBtnEl = dayEls[6].querySelector(`.${self.CSSClasses.dayBtn}`) as HTMLElement;
+		} else {
+			dayBtnEl = dayEls[i * 7].querySelector(`.${self.CSSClasses.dayBtn}`) as HTMLElement;
+		}
+
+		const weekNumber = getWeekNumber(dayBtnEl.dataset.calendarDay, self.settings.iso8601);
 		if (!weekNumber) return;
 
 		const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;

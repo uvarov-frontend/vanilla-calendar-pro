@@ -41,6 +41,7 @@ export interface IVisibility {
 	weekend: boolean;
 	today: boolean;
 	disabled: boolean;
+	daysOutside: boolean;
 }
 
 export interface ISettings {
