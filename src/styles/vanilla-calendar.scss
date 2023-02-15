@@ -12,8 +12,6 @@
 	border-radius: 4px;
 
 	&_multiple {
-		gap: 0;
-
 		#{$calendar} {
 			&-month {
 				color: black;
@@ -52,13 +50,14 @@
 	}
 
 	&-controls {
-		position: relative;
+		position: absolute;
 		z-index: 2;
+		left: 0;
+		right: 0;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		height: 24px;
-		margin-bottom: -24px;
+		padding: 15px 12px;
 		pointer-events: none;
 	}
 
