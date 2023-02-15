@@ -21,7 +21,8 @@ type Settings = {
 }
 
 export type Options = {
-	type?: string;
+	type?: 'default' | 'multiple' | 'month' | 'year';
+	months?: number,
 	date?: Partial<IDate>;
 	settings?: Partial<Settings>;
 	locale?: Partial<ILocale>;

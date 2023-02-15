@@ -19,7 +19,7 @@ import classes from '../classes';
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
 
-	type!: string;
+	type!: 'default' | 'multiple' | 'month' | 'year';
 
 	months!: number;
 

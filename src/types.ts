@@ -143,7 +143,7 @@ export interface ICSSClasses {
 }
 
 export interface IOptions {
-	type: string;
+	type: 'default' | 'multiple' | 'month' | 'year';
 	months: number,
 	date: IDate;
 	settings: ISettings;
