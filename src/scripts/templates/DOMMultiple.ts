@@ -21,10 +21,10 @@ const DOMMultiple = (styles: ICSSClasses) => (`
 						<#Days />
 					</div>
 				</div>
-				<#ControlTime />
 			</div>
 		<#/Multiple>
 	</div>
+	<#ControlTime />
 `);
 
 export default DOMMultiple;
