@@ -77,6 +77,13 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.tabIndex = -1;
 			}
 
+			// if disable past
+			const pastDays = new Date(date) < self.date.today;
+			if (self.settings.range.disablePast && pastDays && date !== thisDay) {
+				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
+				dayBtnEl.tabIndex = -1;
+			}
+
 			// if disabled selected
 			if (!self.settings.selection.month && otherMonth) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
