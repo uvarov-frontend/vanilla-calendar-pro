@@ -13,6 +13,7 @@ export interface IDate {
 export interface IRange {
 	min: FormatDateString;
 	max: FormatDateString;
+	disablePast: boolean;
 	disabled: FormatDateString[] | null;
 	enabled: FormatDateString[] | null;
 }
