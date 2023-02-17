@@ -168,6 +168,7 @@ export interface IVanillaCalendar extends IVariables {
 	rangeDisabled?: FormatDateString[] | undefined | null;
 	rangeEnabled?: FormatDateString[] | undefined | null;
 	selectedDates?: FormatDateString[];
+	selectedHolidays?: FormatDateString[];
 	selectedMonth?: number;
 	selectedYear?: number;
 	selectedHours?: string;

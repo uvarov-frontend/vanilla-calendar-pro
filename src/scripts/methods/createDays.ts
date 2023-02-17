@@ -39,8 +39,8 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 
 			// if holidays
-			if (Array.isArray(self.settings.selected.holidays)) {
-				self.settings.selected.holidays.forEach((holiday) => {
+			if (Array.isArray(self.selectedHolidays)) {
+				self.selectedHolidays.forEach((holiday) => {
 					if (holiday === date) {
 						dayBtnEl.classList.add(self.CSSClasses.dayBtnHoliday);
 					}
