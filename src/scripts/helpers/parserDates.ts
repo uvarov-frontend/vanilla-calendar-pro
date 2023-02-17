@@ -1,0 +1,26 @@
+import { FormatDateString } from 'src/types';
+import generateDate from './generateDate';
+
+const parserDates = (dates: FormatDateString[]) => {
+	const newDates: FormatDateString[] = [];
+	dates.forEach((date) => {
+		if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
+			newDates.push(date);
+		} else {
+			date.replace(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/g, (_, d1, d2) => {
+				const startDate = new Date(d1);
+				const endDate = new Date(d2);
+				const currentDate = new Date(startDate.getTime());
+
+				for (currentDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+					newDates.push(generateDate(currentDate));
+				}
+				return _;
+			});
+		}
+	});
+
+	return newDates;
+};
+
+export default parserDates;
