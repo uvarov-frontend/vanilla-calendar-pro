@@ -3,10 +3,12 @@ import parserDates from '../helpers/parserDates';
 import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
-	self.rangeDisabled = self.settings.range.disabled ? parserDates(self.settings.range.disabled) : [];
-	self.rangeEnabled = self.settings.range.enabled ? parserDates(self.settings.range.enabled) : [];
-	self.selectedDates = self.settings.selected.dates ? parserDates(self.settings.selected.dates) : [];
-	self.selectedHolidays = self.settings.selected.holidays ? parserDates(self.settings.selected.holidays) : [];
+	self.rangeMin = self.settings.range.min;
+	self.rangeMax = self.settings.range.max;
+	self.rangeDisabled = self.settings.range.disabled ? parserDates([...self.settings.range.disabled]) : [];
+	self.rangeEnabled = self.settings.range.enabled ? parserDates([...self.settings.range.enabled]) : [];
+	self.selectedDates = self.settings.selected.dates ? parserDates([...self.settings.selected.dates]) : [];
+	self.selectedHolidays = self.settings.selected.holidays ? parserDates([...self.settings.selected.holidays]) : [];
 
 	if (self.settings.selected.month !== null && self.settings.selected.month >= 0 && self.settings.selected.month < 12) {
 		self.selectedMonth = self.settings.selected.month;

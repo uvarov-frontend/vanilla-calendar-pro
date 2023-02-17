@@ -5,7 +5,7 @@ import createMonths from './createMonths';
 import createYears from './createYears';
 import generateDate from '../helpers/generateDate';
 import update from './updateCalendar';
-import hoverDays from './hoverDays';
+import handlerMultipleRanged from './handlerMultipleRanged';
 
 const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
@@ -94,7 +94,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				}
 			}
 
-			hoverDays(self);
+			handlerMultipleRanged(self);
 		};
 
 		const clickDay = () => {
