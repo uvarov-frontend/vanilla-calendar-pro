@@ -72,7 +72,7 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 
 			// if range min/max
-			if (self.settings.range.min > date || self.settings.range.max < date) {
+			if (self.rangeMin > date || self.rangeMax < date) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
