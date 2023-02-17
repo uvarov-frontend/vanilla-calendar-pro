@@ -39,8 +39,8 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 
 			// if holidays
-			if (Array.isArray(self.settings.selected.holidays)) {
-				self.settings.selected.holidays.forEach((holiday) => {
+			if (Array.isArray(self.selectedHolidays)) {
+				self.selectedHolidays.forEach((holiday) => {
 					if (holiday === date) {
 						dayBtnEl.classList.add(self.CSSClasses.dayBtnHoliday);
 					}
@@ -95,17 +95,17 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 
 			// if range values
-			if (Array.isArray(self.settings.range.disabled)) {
-				self.settings.range.disabled.forEach((dateDisabled) => {
+			if (Array.isArray(self.rangeDisabled)) {
+				self.rangeDisabled.forEach((dateDisabled) => {
 					if (dateDisabled === date) {
 						dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 						dayBtnEl.tabIndex = -1;
 					}
 				});
-			} else if (Array.isArray(self.settings.range.enabled)) {
+			} else if (Array.isArray(self.rangeEnabled)) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
-				self.settings.range.enabled.forEach((dateEnabled) => {
+				self.rangeEnabled.forEach((dateEnabled) => {
 					if (dateEnabled === date) {
 						dayBtnEl.classList.remove(self.CSSClasses.dayBtnDisabled);
 						dayBtnEl.tabIndex = 0;

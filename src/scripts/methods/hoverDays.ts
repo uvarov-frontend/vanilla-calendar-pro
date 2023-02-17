@@ -14,7 +14,7 @@ const addHover = (day: Date) => {
 	if (!currentSelf || !currentSelf.selectedDates) return;
 	const date = generateDate(day);
 
-	if (currentSelf.settings.range.disabled && currentSelf.settings.range.disabled.includes(date)) return;
+	if (currentSelf.rangeDisabled && currentSelf.rangeDisabled.includes(date)) return;
 	const dayEls = currentSelf.HTMLElement?.querySelectorAll(`[data-calendar-day="${date}"]`) as NodeListOf<HTMLElement>;
 
 	dayEls?.forEach((dayEl) => {
@@ -61,7 +61,6 @@ const cancelSelectionDays = (e: KeyboardEvent) => {
 	if (!currentSelf || e.key !== 'Escape') return;
 
 	currentSelf.selectedDates = [];
-	currentSelf.settings.selected.dates = [];
 	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
 	document.removeEventListener('keydown', cancelSelectionDays);
 	update(currentSelf);

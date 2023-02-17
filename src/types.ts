@@ -165,7 +165,10 @@ export interface IVariables extends IOptions {
 }
 
 export interface IVanillaCalendar extends IVariables {
+	rangeDisabled?: FormatDateString[];
+	rangeEnabled?: FormatDateString[];
 	selectedDates?: FormatDateString[];
+	selectedHolidays?: FormatDateString[];
 	selectedMonth?: number;
 	selectedYear?: number;
 	selectedHours?: string;

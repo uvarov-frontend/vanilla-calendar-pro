@@ -77,7 +77,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				const addSelectedDate = (day: Date) => {
 					if (!self.selectedDates) return;
 					const date = generateDate(day);
-					if (self.settings.range.disabled && self.settings.range.disabled.includes(date)) return;
+					if (self.rangeDisabled && self.rangeDisabled.includes(date)) return;
 					self.selectedDates.push(date);
 				};
 
@@ -113,7 +113,6 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				}
 
 				if (self.actions.clickDay) self.actions.clickDay(e, self.selectedDates);
-				self.settings.selected.dates = self.selectedDates;
 
 				if (dayBtnPrevEl) {
 					changeMonth(self, 'prev');
