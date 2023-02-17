@@ -165,8 +165,8 @@ export interface IVariables extends IOptions {
 }
 
 export interface IVanillaCalendar extends IVariables {
-	rangeMin: FormatDateString;
-	rangeMax: FormatDateString;
+	rangeMin?: FormatDateString;
+	rangeMax?: FormatDateString;
 	rangeDisabled?: FormatDateString[];
 	rangeEnabled?: FormatDateString[];
 	selectedDates?: FormatDateString[];

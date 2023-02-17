@@ -1,10 +1,16 @@
 import { IVanillaCalendar } from 'src/types';
 import parserDates from '../helpers/parserDates';
+import generateDate from '../helpers/generateDate';
 import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
 	self.rangeMin = self.settings.range.min;
 	self.rangeMax = self.settings.range.max;
+
+	if (self.settings.range.disablePast && new Date(self.settings.range.min) < self.date.today) {
+		self.rangeMin = generateDate(self.date.today);
+	}
+
 	self.rangeDisabled = self.settings.range.disabled ? parserDates([...self.settings.range.disabled]) : [];
 	self.rangeEnabled = self.settings.range.enabled ? parserDates([...self.settings.range.enabled]) : [];
 	self.selectedDates = self.settings.selected.dates ? parserDates([...self.settings.selected.dates]) : [];
@@ -23,8 +29,8 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	}
 
 	self.viewYear = self.selectedYear;
-	self.dateMin = self.settings.visibility.disabled ? new Date(self.date.min) : new Date(self.settings.range.min);
-	self.dateMax = self.settings.visibility.disabled ? new Date(self.date.max) : new Date(self.settings.range.max);
+	self.dateMin = self.settings.visibility.disabled ? new Date(self.date.min) : new Date(self.rangeMin);
+	self.dateMax = self.settings.visibility.disabled ? new Date(self.date.max) : new Date(self.rangeMax);
 
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {
