@@ -61,7 +61,6 @@ const cancelSelectionDays = (e: KeyboardEvent) => {
 	if (!currentSelf || e.key !== 'Escape') return;
 
 	currentSelf.selectedDates = [];
-	currentSelf.settings.selected.dates = [];
 	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
 	document.removeEventListener('keydown', cancelSelectionDays);
 	update(currentSelf);

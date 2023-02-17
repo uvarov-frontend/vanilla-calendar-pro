@@ -5,12 +5,7 @@ import transformTime12 from '../helpers/transformTime12';
 const setVariablesDates = (self: IVanillaCalendar) => {
 	self.rangeDisabled = self.settings.range.disabled ? parserDates(self.settings.range.disabled) : [];
 	self.rangeEnabled = self.settings.range.enabled ? parserDates(self.settings.range.enabled) : [];
-
-	if (self.settings.selected.dates !== null) {
-		self.selectedDates = self.settings.selected.dates;
-	} else {
-		self.selectedDates = [];
-	}
+	self.selectedDates = self.settings.selected.dates ? parserDates(self.settings.selected.dates) : [];
 
 	if (self.settings.selected.month !== null && self.settings.selected.month >= 0 && self.settings.selected.month < 12) {
 		self.selectedMonth = self.settings.selected.month;
