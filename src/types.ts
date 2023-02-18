@@ -14,6 +14,7 @@ export interface IRange {
 	min: FormatDateString;
 	max: FormatDateString;
 	disablePast: boolean;
+	disableGaps: boolean;
 	disabled: FormatDateString[] | null;
 	enabled: FormatDateString[] | null;
 }

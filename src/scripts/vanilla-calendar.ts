@@ -60,6 +60,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				min: option?.settings?.range?.min ?? this.date.min,
 				max: option?.settings?.range?.max ?? this.date.max,
 				disablePast: option?.settings?.range?.disablePast ?? false,
+				disableGaps: option?.settings?.range?.disableGaps ?? false,
 				disabled: option?.settings?.range?.disabled ?? null,
 				enabled: option?.settings?.range?.enabled ?? null,
 			},
