@@ -33,6 +33,12 @@ const createDays = (self: IVanillaCalendar) => {
 		daysEls[index].innerHTML = '';
 
 		const setDayModifier = (dayBtnEl: HTMLElement, dayID: number, date: string, otherMonth: boolean) => {
+			// if disable weekday
+			if (self.settings.range.disableWeekday.includes(dayID)) {
+				self.rangeDisabled?.push(date as FormatDateString);
+				self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
+			}
+
 			// if weekend
 			if (self.settings.visibility.weekend && (dayID === 0 || dayID === 6)) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnWeekend);

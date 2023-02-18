@@ -61,6 +61,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				max: option?.settings?.range?.max ?? this.date.max,
 				disablePast: option?.settings?.range?.disablePast ?? false,
 				disableGaps: option?.settings?.range?.disableGaps ?? false,
+				disableWeekday: option?.settings?.range?.disableWeekday ?? [],
 				disabled: option?.settings?.range?.disabled ?? null,
 				enabled: option?.settings?.range?.enabled ?? null,
 			},
