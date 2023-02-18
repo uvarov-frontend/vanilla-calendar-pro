@@ -16,6 +16,8 @@ const createDays = (self: IVanillaCalendar) => {
 	templateDayBtnEl.className = self.CSSClasses.dayBtn;
 	templateDayBtnEl.type = 'button';
 
+	self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+
 	daysEls.forEach((_, index: number) => {
 		const selectedMonth = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
 		const selectedYear = new Date(initDate.setFullYear((self.selectedYear as number), (self.selectedMonth as number) + index)).getFullYear();
@@ -32,7 +34,7 @@ const createDays = (self: IVanillaCalendar) => {
 
 		daysEls[index].innerHTML = '';
 
-		const setDayModifier = (dayBtnEl: HTMLElement, dayID: number, date: string, otherMonth: boolean) => {
+		const setDayModifier = (dayEl: HTMLElement, dayBtnEl: HTMLElement, dayID: number, date: string, otherMonth: boolean) => {
 			// if disable weekday
 			if (self.settings.range.disableWeekday.includes(dayID)) {
 				self.rangeDisabled?.push(date as FormatDateString);
@@ -67,13 +69,26 @@ const createDays = (self: IVanillaCalendar) => {
 
 			// if selected day
 			if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) === 0) {
+				if (self.settings.selection.day === 'multiple-ranged' && self.selectedDates.length > 1) {
+					dayEl.classList.add(self.CSSClasses.daySelectedFirst);
+				} else {
+					dayEl.classList.add(self.CSSClasses.daySelected);
+				}
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 			} else if (self.selectedDates && self.selectedDates[0] && (self.selectedDates.indexOf(date as FormatDateString) === self.selectedDates.length - 1)) {
+				dayEl.classList.add(self.CSSClasses.daySelected);
+				if (self.settings.selection.day === 'multiple-ranged') {
+					dayEl.classList.add(self.CSSClasses.daySelectedLast);
+				} else {
+					dayEl.classList.add(self.CSSClasses.daySelected);
+				}
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 			} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0 && self.settings.selection.day === 'multiple-ranged') {
+				dayEl.classList.add(self.CSSClasses.daySelectedIntermediate);
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnIntermediate);
 			} else if (self.selectedDates && self.selectedDates.indexOf(date as FormatDateString) > 0) {
+				dayEl.classList.add(self.CSSClasses.daySelected);
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 			}
 
@@ -127,7 +142,7 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
 			}
 
-			setDayModifier(dayBtnEl, dayID, date, otherMonth);
+			setDayModifier(dayEl, dayBtnEl, dayID, date, otherMonth);
 
 			if (otherMonth) {
 				if (self.settings.visibility.daysOutside) dayEl.append(dayBtnEl);
