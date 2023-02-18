@@ -66,17 +66,59 @@ const cancelSelectionDays = (e: KeyboardEvent) => {
 	update(currentSelf);
 };
 
-const hoverDays = (self: IVanillaCalendar) => {
+const setDisabledDates = () => {
+	if (!currentSelf || !currentSelf.selectedDates?.[0] || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2) return;
+	const selectedDate = new Date(currentSelf.selectedDates[0]);
+
+	let startDate = null;
+	let endDate = null;
+
+	currentSelf.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
+
+	for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
+		const disabledDate = new Date(currentSelf.rangeDisabled[index]);
+		if (selectedDate >= disabledDate) {
+			startDate = disabledDate;
+		} else {
+			endDate = disabledDate;
+			break;
+		}
+	}
+
+	if (startDate) {
+		startDate = new Date(startDate.setDate(startDate.getDate() + 1));
+		currentSelf.rangeMin = generateDate(startDate);
+	}
+
+	if (endDate) {
+		endDate = new Date(endDate.setDate(endDate.getDate() - 1));
+		currentSelf.rangeMax = generateDate(endDate);
+	}
+};
+
+const resetDisabledDates = () => {
+	if (!currentSelf) return;
+	currentSelf.rangeMin = currentSelf.settings.range.min;
+	currentSelf.rangeMax = currentSelf.settings.range.max;
+
+	if (currentSelf.settings.range.disablePast && new Date(currentSelf.settings.range.min) < currentSelf.date.today) {
+		currentSelf.rangeMin = generateDate(currentSelf.date.today);
+	}
+};
+
+const handlerMultipleRanged = (self: IVanillaCalendar) => {
 	if (!self || !self.selectedDates) return;
 	currentSelf = self;
 
 	if (self.selectedDates[0] && self.selectedDates.length <= 1) {
 		(self.HTMLElement as HTMLElement).addEventListener('mousemove', hoverDaysEvent);
 		document.addEventListener('keydown', cancelSelectionDays);
+		if (self.settings.range.disableGaps) setDisabledDates();
 	} else {
 		(self.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
 		document.removeEventListener('keydown', cancelSelectionDays);
+		if (self.settings.range.disableGaps) resetDisabledDates();
 	}
 };
 
-export default hoverDays;
+export default handlerMultipleRanged;
