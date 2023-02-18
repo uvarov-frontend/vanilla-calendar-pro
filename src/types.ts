@@ -15,6 +15,7 @@ export interface IRange {
 	max: FormatDateString;
 	disablePast: boolean;
 	disableGaps: boolean;
+	disableWeekday: number[];
 	disabled: FormatDateString[] | null;
 	enabled: FormatDateString[] | null;
 }
