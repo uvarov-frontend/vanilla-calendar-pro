@@ -112,7 +112,6 @@
 		&__content {
 			display: grid;
 			grid-auto-flow: row;
-			row-gap: 2px;
 			align-items: center;
 			justify-items: center;
 			flex-grow: 1;
@@ -122,7 +121,7 @@
 	&-wrapper {
 		height: 200px;
 		display: flex;
-		gap: 4px;
+		gap: 2px;
 	}
 
 	&-content {
@@ -361,7 +360,6 @@
 	&-week {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		column-gap: 2px;
 		justify-items: center;
 		margin-bottom: 5px;
 
@@ -402,8 +400,6 @@
 	&-days {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		column-gap: 2px;
-		row-gap: 2px;
 		justify-items: center;
 		align-items: center;
 		flex-grow: 1;
@@ -435,6 +431,34 @@
 			& #{$day}__popup {
 				opacity: 1;
 				pointer-events: auto;
+			}
+		}
+
+		&_selected {
+
+			&-first {
+				& #{$day}__btn_selected {
+					border-radius: 0;
+					width: 100%;
+					border-top-left-radius: 8px;
+					border-bottom-left-radius: 8px;
+				}
+			}
+
+			&-last {
+				& #{$day}__btn_selected {
+					border-radius: 0;
+					width: 100%;
+					border-top-right-radius: 8px;
+					border-bottom-right-radius: 8px;
+				}
+			}
+
+			&-intermediate {
+				& #{$day}__btn_intermediate {
+					border-radius: 0;
+					width: 100%;
+				}
 			}
 		}
 

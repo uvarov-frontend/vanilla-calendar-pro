@@ -16,8 +16,8 @@ export interface IRange {
 	disablePast: boolean;
 	disableGaps: boolean;
 	disableWeekday: number[];
-	disabled: FormatDateString[] | null;
-	enabled: FormatDateString[] | null;
+	disabled: string[] | null;
+	enabled: string[] | null;
 }
 
 export interface ISelection {
@@ -31,10 +31,10 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates: FormatDateString[] | undefined | null;
+	dates: string[] | undefined | null;
 	month: number | null;
 	year: number | null;
-	holidays: FormatDateString[] | null;
+	holidays: string[] | null;
 	time: string | null;
 }
 
@@ -127,6 +127,10 @@ export interface ICSSClasses {
 	timeRanges: string;
 	timeRange: string;
 	day: string;
+	daySelected: string;
+	daySelectedFirst: string;
+	daySelectedLast: string;
+	daySelectedIntermediate: string;
 	dayPopup: string;
 	dayBtn: string;
 	dayBtnPrev: string;

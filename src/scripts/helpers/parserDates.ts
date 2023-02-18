@@ -1,11 +1,11 @@
 import { FormatDateString } from 'src/types';
 import generateDate from './generateDate';
 
-const parserDates = (dates: FormatDateString[]) => {
+const parserDates = (dates: string[]) => {
 	const newDates: FormatDateString[] = [];
 	dates.forEach((date) => {
 		if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
-			newDates.push(date);
+			newDates.push(date as FormatDateString);
 		} else {
 			date.replace(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/g, (_, d1, d2) => {
 				const startDate = new Date(d1);
