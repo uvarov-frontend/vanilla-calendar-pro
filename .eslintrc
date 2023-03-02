@@ -1,36 +1,18 @@
 {
+	"root": true,
 	"env": {
 		"browser": true,
 		"es2021": true
 	},
 	"extends": [
 		"airbnb-base",
-		"eslint:recommended"
+		"airbnb-typescript/base",
+		"plugin:@typescript-eslint/recommended"
 	],
-	"overrides": [
-		{
-			"files": ["*.ts"],
-			"plugins": ["@typescript-eslint"],
-			"extends": [
-				"plugin:@typescript-eslint/recommended"
-			]
-		}
-	],
-	"plugins": [
-		"import"
-	],
-	"settings": {
-		"import/resolver": {
-			"node": {
-				"extensions": [".js", ".ts"]
-			},
-			"alias": {
-				"extensions": [".js", ".ts"],
-				"map": [
-					["@", "./src/"]
-				]
-			}
-		}
+	"plugins": ["@typescript-eslint"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": "./tsconfig.json"
 	},
 	"rules": {
 		"no-tabs": "off",
@@ -43,6 +25,7 @@
 		"class-methods-use-this": "off",
 		"max-len": ["error", { "code": 180 }],
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1 }],
 		"prefer-destructuring": ["error", { "object": true, "array": false }]
 	}
 }

@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"outDir": "./build/",
-		"target": "ES6",
+		"target": "ESNext",
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
@@ -15,10 +15,10 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"module": "CommonJS"
+		"paths": {
+			"src/*": ["./src/*"]
 		}
 	},
+	"include": ["**/*.ts", "**/*.js"],
+	"exclude": ["node_modules"]
 }

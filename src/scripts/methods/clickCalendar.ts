@@ -11,17 +11,17 @@ const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
 		const element = e.target as HTMLElement;
 
-		const arrowEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrow}`);
-		const arrowPrevEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrowPrev}`);
-		const arrowNextEl: HTMLElement| null = element.closest(`.${self.CSSClasses.arrowNext}`);
-		const dayBtnEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtn}`);
-		const dayBtnPrevEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnPrev}`);
-		const dayBtnNextEl: HTMLElement| null = element.closest(`.${self.CSSClasses.dayBtnNext}`);
-		const weekNumberEl: HTMLElement| null = element.closest(`.${self.CSSClasses.weekNumber}`);
-		const yearHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.year}`);
-		const yearItemEl: HTMLElement| null = element.closest(`.${self.CSSClasses.yearsYear}`);
-		const monthHeaderEl: HTMLElement| null = element.closest(`.${self.CSSClasses.month}`);
-		const monthItemEl: HTMLElement| null = element.closest(`.${self.CSSClasses.monthsMonth}`);
+		const arrowEl: HTMLElement | null = element.closest(`.${self.CSSClasses.arrow}`);
+		const arrowPrevEl: HTMLElement | null = element.closest(`.${self.CSSClasses.arrowPrev}`);
+		const arrowNextEl: HTMLElement | null = element.closest(`.${self.CSSClasses.arrowNext}`);
+		const dayBtnEl: HTMLElement | null = element.closest(`.${self.CSSClasses.dayBtn}`);
+		const dayBtnPrevEl: HTMLElement | null = element.closest(`.${self.CSSClasses.dayBtnPrev}`);
+		const dayBtnNextEl: HTMLElement | null = element.closest(`.${self.CSSClasses.dayBtnNext}`);
+		const weekNumberEl: HTMLElement | null = element.closest(`.${self.CSSClasses.weekNumber}`);
+		const yearHeaderEl: HTMLElement | null = element.closest(`.${self.CSSClasses.year}`);
+		const yearItemEl: HTMLElement | null = element.closest(`.${self.CSSClasses.yearsYear}`);
+		const monthHeaderEl: HTMLElement | null = element.closest(`.${self.CSSClasses.month}`);
+		const monthItemEl: HTMLElement | null = element.closest(`.${self.CSSClasses.monthsMonth}`);
 
 		const clickArrowMonth = () => {
 			if (arrowEl && self.currentType !== 'year' && self.currentType !== 'month') {
