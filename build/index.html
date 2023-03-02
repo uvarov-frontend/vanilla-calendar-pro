@@ -5,208 +5,21 @@
 		<meta name="viewport" content="initial-scale=1,width=device-width">
 		<meta name="format-detection" content="telephone=no">
 		<title>Vanilla JS Calendar - A simple but feature rich calendar without dependencies and «input» tag.</title>
-		<link rel="stylesheet" href="./vanilla-calendar.min.css">
-		<script defer src="./vanilla-calendar.min.js"></script>
-
-		<style>
-			* {
-				font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
-			}
-
-			body {
-				box-sizing: border-box;
-				padding: 40px 15px;
-				margin: 0;
-				width: 100vw;
-				min-height: 100vh;
-				overflow-x: hidden;
-				background-color: #fff0d2;
-				background: linear-gradient(160deg,#fff0d2,#e4feff);
-				background-position: 0 0;
-				background-repeat: no-repeat;
-			}
-
-			h1 {
-				align-items: flex-end;
-				color: #000;
-				display: flex;
-				font-size: 52px;
-				font-weight: 700;
-				justify-content: center;
-				line-height: 70px;
-				margin: 0 auto 15px;
-				text-align: center;
-				width: 100%;
-			}
-
-			p {
-				color: #000;
-				display: block;
-				font-size: 16px;
-				font-weight: 400;
-				line-height: 24px;
-				margin: 0 auto;
-				max-width: 580px;
-				text-align: center;
-				width: 100%;
-			}
-
-			.vanilla-calendar {
-				border: 1px solid #efefef;
-				box-shadow: 0 0 10px -10px #000;
-				margin: 30px auto 10px;
-			}
-
-			.vanilla-calendar-header__content {
-				justify-content: flex-start;
-				padding-left: 5px;
-			}
-
-			.vanilla-calendar-info {
-				display: grid;
-				grid-auto-flow: column;
-				justify-content: start;
-				gap: 5px;
-				margin: 20px auto;
-				width: 280px;
-				border: 1px solid #efefef;
-				box-shadow: 0 0 10px -10px #000;
-				background-color: white;
-				border-radius: 4px;
-				padding: 10px 15px;
-				font-size: 14px;
-				color: black;
-			}
-
-			.bg-red {
-				background-color: orangered;
-				color: white;
-			}
-
-			.bg-red:hover {
-				background-color: orangered;
-				color: white;
-			}
-
-			.bg-orange {
-				background-color: orange;
-			}
-
-			.bg-orange:hover {
-				background-color: orange;
-			}
-		</style>
+		<script defer src="https://cdn.tailwindcss.com"></script>
+		<script defer src="../vanilla-calendar.min.js"></script>
+		<link rel="stylesheet" href="../vanilla-calendar.min.css">
 	</head>
-	<body>
-		<h1>Vanilla Calendar</h1>
-		<p>A simple but feature rich calendar without dependencies and <strong>«input»</strong> tag.
-			A lightweight date and time picker written in pure JavaScript with using TypeScript.</p>
+	<body class="flex flex-col items-center font-sans py-12 dark:bg-slate-900 dark:text-white">
+		<h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar</h1>
+		<p class="text-lg mb-12">A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</p>
+
 		<div id="vanilla-calendar"></div>
-		<div class="vanilla-calendar-info">
-			<span id="vanilla-calendar-info-date">«Choose a day»</span>
-			<span id="vanilla-calendar-info-time">«Choose a time»</span>
-		</div>
 
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
-				const calendarInfoDate = document.querySelector('#vanilla-calendar-info-date');
-				const calendarInfoTime = document.querySelector('#vanilla-calendar-info-time');
 				const calendar = new VanillaCalendar('#vanilla-calendar', {
-					settings: {
-						lang: 'en',
-						iso8601: false,
-						selection: {
-							time: 12,
-						},
-						visibility: {
-							weekNumbers: true,
-						},
-					},
-					actions: {
-						clickDay(e, dates) {
-							calendarInfoDate.innerText = dates[0] ? dates : '«Day not selected»';
-						},
-						clickWeekNumber(e, number, days, year) {
-							console.log(`Week number: ${number}, year of the week: ${year},`, 'Days of this week:', days);
-						},
-						clickMonth(e, month) {
-							console.log(`Current month: ${month}`);
-						},
-						clickYear(e, year) {
-							console.log(`Current year: ${year}`);
-						},
-						clickArrow(e, year, month) {
-							console.log(`Current year: ${year}, current month: ${month}`);
-						},
-						changeTime(e, time) {
-							calendarInfoTime.innerText = time;
-						},
-					},
-					popups: {
-						'2022-12-28': {
-							modifier: 'bg-red',
-							html: 'Meeting at 9:00 PM',
-						},
-						'2022-09-13': {
-							modifier: 'bg-red',
-							html: 'Meeting at 6:00 PM',
-						},
-						'2022-11-17': {
-							modifier: 'bg-orange s',
-							html: `<div>
-								<u><b>12:00 PM</b></u>
-								<p style="margin: 5px 0 0; text-align: left; font-size: 12px;">Airplane in Las Vegas</p>
-							</div>`,
-						},
-					},
-					DOMTemplates: {
-						default: `
-							<div class="vanilla-calendar-header">
-								<div class="vanilla-calendar-header__content ">
-									<#Month /> | <#Year />
-								</div>
-								<#ArrowPrev />
-								<#ArrowNext />
-							</div>
-							<div class="vanilla-calendar-wrapper">
-								<#WeekNumbers />
-								<div class="vanilla-calendar-content">
-									<#Week />
-									<#Days />
-								</div>
-							</div>
-							<#ControlTime />
-						`,
-						month: `
-							<div class="vanilla-calendar-header">
-								<div class="vanilla-calendar-header__content">
-									<#Month /> | <#Year />
-								</div>
-							</div>
-							<div class="vanilla-calendar-wrapper">
-								<div class="vanilla-calendar-content">
-									<#Months />
-								</div>
-							</div>
-						`,
-						year: `
-							<div class="vanilla-calendar-header">
-								<div class="vanilla-calendar-header__content">
-									<#Month /> | <#Year />
-								</div>
-								<#ArrowPrev />
-								<#ArrowNext />
-							</div>
-							<div class="vanilla-calendar-wrapper">
-								<div class="vanilla-calendar-content">
-									<#Years />
-								</div>
-							</div>
-						`,
-					},
 				});
 				calendar.init();
-				calendarInfoTime.innerText = calendar.selectedTime;
 			});
 		</script>
 	</body>
