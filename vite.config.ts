@@ -10,16 +10,18 @@ export default defineConfig({
 		target: 'ES6',
 		assetsDir: '',
 		outDir: 'build',
-		cssCodeSplit: false,
+		cssCodeSplit: true,
 		minify: 'terser',
 		rollupOptions: {
 			output: {
-				format: 'umd',
-				entryFileNames: 'vanilla-calendar.min.js',
-				assetFileNames: 'vanilla-calendar.min.[ext]',
+				inlineDynamicImports: false,
+				format: 'cjs',
+				entryFileNames: '[name].min.js',
+				assetFileNames: '[name].min.[ext]',
 			},
 			input: {
-				index: resolve(__dirname, '/src/index.ts'),
+				demo: resolve(__dirname, '/src/styles/demo.css'),
+				'vanilla-calendar': resolve(__dirname, '/src/vanilla-calendar.ts'),
 			},
 		},
 	},

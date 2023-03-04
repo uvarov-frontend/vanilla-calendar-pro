@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.popup-btn-orange {
+		background-color: rgb(251 146 60) !important;
+		color: white !important;
+	}
+	.popup-btn-red {
+		background-color: rgb(239 68 68) !important;
+		color: white !important;
+	}
+}

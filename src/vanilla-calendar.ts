@@ -1,6 +1,6 @@
 /* eslint-disable import/no-import-module-exports */
-import VanillaCalendar from './scripts/vanilla-calendar';
-import './styles/vanilla-calendar.scss';
+import VanillaCalendar from './scripts/main';
+import './styles/vanilla-calendar.css';
 
 if (typeof window !== 'undefined') {
 	(window as { VanillaCalendar?: object }).VanillaCalendar = VanillaCalendar;
