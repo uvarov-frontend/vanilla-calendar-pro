@@ -1,5 +1,5 @@
 .vanilla-calendar {
-	@apply bg-white p-4 rounded-xl relative grid grid-rows-[auto_1fr_auto] gap-3 min-w-[275px]
+	@apply bg-white p-4 rounded-xl relative flex flex-col min-w-[275px]
 }
 
 .vanilla-calendar button:focus-visible {
@@ -17,7 +17,7 @@
 }
 
 .vanilla-calendar-controls {
-	@apply absolute z-20 left-0 right-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content
+	@apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content
 }
 
 .vanilla-calendar-arrow {
@@ -42,15 +42,15 @@
 }
 
 .vanilla-calendar-grid {
-	@apply grid grid-flow-col gap-7
+	@apply grid grid-flow-col gap-7 grow
 }
 
 .vanilla-calendar-column {
-	@apply grid min-w-min gap-3 grid-cols-1
+	@apply min-w-min flex flex-col
 }
 
 .vanilla-calendar-header {
-	@apply relative flex items-center px-1
+	@apply relative flex items-center px-1 mb-3
 }
 
 .vanilla-calendar-header__content {
@@ -137,7 +137,7 @@
 }
 
 .vanilla-calendar-wrapper {
-	@apply flex
+	@apply flex grow
 }
 
 .vanilla-calendar-content {
@@ -330,7 +330,7 @@
 }
 
 .vanilla-calendar-time {
-	@apply grid grid-cols-[auto_1fr] gap-3 border-t border-slate-300 pt-3
+	@apply grid grid-cols-[auto_1fr] gap-3 border-t border-slate-300 pt-3 mt-3
 }
 
 .vanilla-calendar-time__content {

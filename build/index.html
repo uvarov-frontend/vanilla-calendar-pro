@@ -4,22 +4,20 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1,width=device-width">
 		<meta name="format-detection" content="telephone=no">
-		<title>Vanilla JS Calendar - A simple but feature rich calendar without dependencies and «input» tag.</title>
+		<title>Vanilla Calendar - A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css">
 		<link rel="stylesheet" href="./demo.min.css">
 		<link rel="stylesheet" href="./vanilla-calendar.min.css">
 		<script defer src="./vanilla-calendar.min.js"></script>
 	</head>
-	<body class="flex flex-col items-center font-sans py-12 dark:bg-slate-900 dark:text-white">
+	<body>
 		<h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar</h1>
-		<p class="text-lg mb-12">A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</p>
-		<div id="vanilla-calendar"></div>
+		<p class="text-lg mb-12 dark:text-slate-400">A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</p>
+		<div id="vanilla-calendar" class="shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)]"></div>
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
 				const calendar = new VanillaCalendar('#vanilla-calendar', {
-					// type: 'multiple',
-					date: {
-						today: new Date('2023-03-04'),
-					},
+					type: 'multiple',
 					settings: {
 						range: {
 							disablePast: true,
@@ -27,7 +25,7 @@
 						},
 						selection: {
 							day: 'multiple-ranged',
-							time: 12,
+							// time: 12,
 							// month: false,
 							// year: false,
 						},

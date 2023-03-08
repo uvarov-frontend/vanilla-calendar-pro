@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-family: 'Lato', 'Helvetica', 'Arial', system-ui, sans-serif;
+    background-image: linear-gradient(
+      145deg,
+      rgb(6 182 212 / 4%) 12%,
+      rgb(6 182 212 / 10%) 42%,
+      rgb(6 182 212 / 5%) 60%,
+      rgb(6 182 212 / 18%) 85%
+    );
+    @apply bg-white text-slate-900 min-h-screen flex flex-col items-center py-12;
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-image: linear-gradient(
+        145deg,
+        rgb(6 182 212 / 0%) 12%,
+        rgb(6 182 212 / 3%) 42%,
+        rgb(6 182 212 / 10%) 60%,
+        rgb(6 182 212 / 4%) 85%
+      );
+      @apply bg-slate-900 text-white;
+    }
+  }
+}
+
 @layer components {
 	.popup-btn-orange {
 		background-color: rgb(251 146 60) !important;
