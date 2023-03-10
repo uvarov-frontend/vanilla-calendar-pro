@@ -10,16 +10,28 @@ export default defineConfig({
 		target: 'ES6',
 		assetsDir: '',
 		outDir: 'build',
-		cssCodeSplit: false,
+		cssCodeSplit: true,
 		minify: 'terser',
 		rollupOptions: {
 			output: {
-				format: 'umd',
-				entryFileNames: 'vanilla-calendar.min.js',
-				assetFileNames: 'vanilla-calendar.min.[ext]',
+				inlineDynamicImports: false,
+				format: 'cjs',
+				entryFileNames: '[name].min.js',
+				assetFileNames: (assetInfo) => {
+					if (assetInfo.name?.includes('demo')) {
+						return 'demo/[name].min.[ext]';
+					}
+					if (assetInfo.name && ['light.css', 'dark.css'].includes(assetInfo.name)) {
+						return 'themes/[name].min.[ext]';
+					}
+					return '[name].min.[ext]';
+				},
 			},
 			input: {
-				index: resolve(__dirname, '/src/index.ts'),
+				demo: resolve(__dirname, '/src/styles/demo.css'),
+				light: resolve(__dirname, '/src/styles/themes/light.css'),
+				dark: resolve(__dirname, '/src/styles/themes/dark.css'),
+				'vanilla-calendar': resolve(__dirname, '/src/vanilla-calendar.ts'),
 			},
 		},
 	},
