@@ -82,6 +82,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				time: option?.settings?.selected?.time ?? null,
 			},
 			visibility: {
+				theme: option?.settings?.visibility?.theme ?? 'system',
 				monthShort: option?.settings?.visibility?.monthShort ?? true,
 				weekNumbers: option?.settings?.visibility?.weekNumbers ?? false,
 				weekend: option?.settings?.visibility?.weekend ?? true,
