@@ -31,20 +31,22 @@
 }
 
 .vanilla-calendar-arrow {
-	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 before:absolute
+	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0
 }
 
 .vanilla-calendar-arrow::before {
-	mask: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M12 16c-.3 0-.5-.1-.7-.3l-6-6c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l5.3 5.3 5.3-5.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-6 6c-.2.2-.4.3-.7.3z"/%3E%3C/svg%3E') no-repeat 50% 50%;
-	@apply left-0 right-0 top-0 bottom-0
+	content: '';
+	mask-image: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M12 16c-.3 0-.5-.1-.7-.3l-6-6c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l5.3 5.3 5.3-5.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-6 6c-.2.2-.4.3-.7.3z"/%3E%3C/svg%3E');
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
 }
 
 .vanilla-calendar-arrow.vanilla-calendar-arrow_prev::before {
-	@apply rotate-90
+	transform: rotateZ(90deg);
 }
 
 .vanilla-calendar-arrow.vanilla-calendar-arrow_next::before {
-	@apply -rotate-90
+	transform: rotateZ(-90deg);
 }
 
 .vanilla-calendar-grid {
@@ -179,19 +181,23 @@
 }
 
 .vanilla-calendar-day__popup {
-	@apply absolute z-20 left-1/2 top-full -translate-x-1/2 w-32 pt-4 pb-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto before:absolute after:absolute
+	transform: translateX(-50%);
+	@apply absolute z-20 left-1/2 top-full w-32 pt-4 pb-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto before:absolute after:absolute
 }
 
 .vanilla-calendar-day__popup::before {
+	content: '';
 	@apply -z-10 left-0 bottom-0 w-full h-[calc(100%_-_8px)] block rounded-lg
 }
 
 .vanilla-calendar-day__popup::after {
-	@apply -z-10 left-1/2 -translate-x-1/2 top-[1px] block h-0 w-0 border-t-0 border-x-8 border-b-8 border-solid border-t-transparent border-x-transparent
+	content: '';
+	transform: translateX(-50%);
+	@apply -z-10 left-1/2 top-[1px] block h-0 w-0 border-t-0 border-x-8 border-b-8 border-solid border-t-transparent border-x-transparent
 }
 
 .vanilla-calendar-time {
-	@apply grid grid-cols-[auto_1fr] gap-3 border-t pt-3 mt-3
+	@apply grid grid-cols-[auto_1fr] gap-3 border-solid border-t border-b-0 border-l-0 border-r-0 pt-3 mt-3
 }
 
 .vanilla-calendar-time__content {
@@ -199,7 +205,7 @@
 }
 
 .vanilla-calendar-time__hours {
-	@apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[5px] after:top-1/2 after:-translate-y-1/2 after:mt-[-1px]
+	@apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[5px] after:top-1/2 after:mt-[calc(-50%_+_1px)]
 }
 
 .vanilla-calendar-time__minutes {
@@ -225,7 +231,9 @@
 
 .vanilla-calendar-time__range::before,
 .vanilla-calendar-time__range::after {
-	@apply w-[1px] h-2 absolute z-10 pointer-events-none top-1/2 -translate-y-1/2
+	content: '';
+	transform: translateY(-50%);
+	@apply w-[1px] h-2 absolute z-10 pointer-events-none top-1/2
 }
 
 .vanilla-calendar-time__range input {

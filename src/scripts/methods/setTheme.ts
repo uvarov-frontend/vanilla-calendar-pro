@@ -4,6 +4,8 @@ import themes from '../themes';
 const setTheme = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
 	if (self.settings.visibility.theme === 'system') {
+		if (window.matchMedia('(prefers-color-scheme)').media === 'not all') return;
+
 		const dark = window.matchMedia('(prefers-color-scheme: dark)');
 		self.HTMLElement.dataset.calendarTheme = dark.matches ? 'dark' : 'light';
 

@@ -30,7 +30,7 @@
 
 [data-calendar-theme="dark"] .vanilla-calendar-month,
 [data-calendar-theme="dark"] .vanilla-calendar-year {
-	@apply hover:text-slate-500
+	@apply text-white hover:text-slate-500
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-month.vanilla-calendar-month_not-active,
@@ -79,12 +79,12 @@
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_today {
-	@apply bg-slate-800 text-cyan-500 hover:bg-slate-700 hover:text-cyan-500
+	@apply text-cyan-500 hover:text-cyan-500
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_prev,
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_next {
-	@apply bg-slate-800 text-slate-600
+	@apply text-slate-600
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_prev,
@@ -117,12 +117,12 @@
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_today,
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_today {
-	@apply text-rose-500 bg-slate-800 hover:bg-slate-700
+	@apply text-rose-500
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_disabled,
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_disabled {
-	@apply bg-slate-800 text-slate-700
+	@apply text-slate-700
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev,
@@ -143,14 +143,7 @@
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_today,
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today,
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today {
-	@apply bg-slate-800 text-slate-400 hover:bg-slate-700
-}
-
-[data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="dark"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_hover {
-	@apply bg-slate-700
+	@apply text-slate-400
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_disabled,
@@ -271,4 +264,3 @@
 [data-calendar-theme="dark"] .vanilla-calendar-time__range input::-moz-range-track {
 	@apply bg-slate-600
 }
-
