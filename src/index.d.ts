@@ -18,7 +18,7 @@ type Settings = {
 	selection: Partial<ISelection>;
 	selected: Partial<ISelected>;
 	visibility: Partial<IVisibility>;
-}
+};
 
 export type Options = {
 	type?: 'default' | 'multiple' | 'month' | 'year';
@@ -30,10 +30,10 @@ export type Options = {
 	popups?: IPopups | null;
 	CSSClasses?: Partial<ICSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
-}
+};
 
 declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partial<Options>> {
-	constructor(selector: T, option?: R)
+	constructor(selector: T, option?: R);
 
 	update: () => void;
 

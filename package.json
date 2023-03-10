@@ -35,41 +35,6 @@
 	"style": "./build/vanilla-calendar.min.css",
 	"source": "./src/scripts/vanilla-calendar.ts",
 	"types": "./src/index.d.ts",
-	"scripts": {
-		"ssr-fix": "node ./ssr-fix.cjs",
-		"dev": "webpack",
-		"start": "webpack serve",
-		"build": "cross-env NODE_ENV=production webpack && npm run ssr-fix"
-	},
-	"devDependencies": {
-		"@types/node": "^18.11.0",
-		"@types/webpack": "^5.28.0",
-		"@types/webpack-dev-server": "^4.7.2",
-		"@typescript-eslint/eslint-plugin": "^5.40.1",
-		"@typescript-eslint/parser": "^5.40.1",
-		"cross-env": "^7.0.3",
-		"css-loader": "^6.7.1",
-		"esbuild-loader": "^2.20.0",
-		"eslint": "^8.25.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-import-resolver-alias": "^1.1.2",
-		"eslint-plugin-import": "^2.26.0",
-		"html-webpack-harddisk-plugin": "^2.0.0",
-		"html-webpack-plugin": "^5.5.0",
-		"mini-css-extract-plugin": "^2.6.1",
-		"postcss": "^8.4.18",
-		"postcss-loader": "^7.0.1",
-		"postcss-preset-env": "^7.8.2",
-		"replace-in-file": "^6.3.5",
-		"sass": "^1.55.0",
-		"sass-loader": "^13.1.0",
-		"terser-webpack-plugin": "^5.3.6",
-		"ts-node": "^10.9.1",
-		"typescript": "^4.7.4",
-		"webpack": "^5.74.0",
-		"webpack-cli": "^4.10.0",
-		"webpack-dev-server": "^4.11.1"
-	},
 	"browserslist": {
 		"production": [
 			">0.2%",
@@ -81,5 +46,27 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	}
+	},
+	"scripts": {
+		"watch": "tsc && vite build --watch",
+		"build": "tsc && vite build"
+	},
+	"devDependencies": {
+		"@types/node": "^18.14.4",
+		"@typescript-eslint/eslint-plugin": "^5.54.0",
+		"@typescript-eslint/parser": "^5.54.0",
+		"autoprefixer": "^10.4.13",
+		"eslint": "^8.35.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-airbnb-typescript": "^17.0.0",
+		"eslint-plugin-import": "^2.27.5",
+		"fast-glob": "^3.2.12",
+		"sass": "^1.58.3",
+		"terser": "^5.16.5",
+		"typescript": "^4.9.3",
+		"vite": "^4.1.0",
+		"vite-plugin-banner": "^0.7.0",
+		"vite-plugin-eslint": "^1.8.1"
+	},
+	"dependencies": {}
 }
