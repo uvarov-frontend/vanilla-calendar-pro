@@ -1,4 +1,4 @@
-[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/screenshot-new.jpg)](https://vanilla-calendar.frontend.uvarov.tech/)
+[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar.jpg)](https://vanilla-calendar.frontend.uvarov.tech/)
 # Lightweight, simple, feature-rich and no dependencies.
 
 [![package-badge]][package]
