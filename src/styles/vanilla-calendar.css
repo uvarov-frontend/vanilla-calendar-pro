@@ -22,6 +22,10 @@
 	@apply pointer-events-auto
 }
 
+.vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-days {
+	@apply grow-0
+}
+
 .vanilla-calendar-controls {
 	@apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content
 }
@@ -73,38 +77,26 @@
 	@apply grid gap-y-4 gap-x-2 grid-cols-4 items-center grow
 }
 
-.vanilla-calendar-months_selecting .vanilla-calendar-months__month {
-	@apply cursor-pointer
-}
-
-.vanilla-calendar-months_selecting .vanilla-calendar-months__month .vanilla-calendar-months__month_disabled {
-	@apply cursor-default
-}
-
-.vanilla-calendar-months__month {
-	@apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all
-}
-
-.vanilla-calendar-months__month.vanilla-calendar-months__month_disabled {
-	@apply pointer-events-none
-}
-
 .vanilla-calendar-years {
 	@apply grid gap-y-4 gap-x-2 grid-cols-5 items-center grow
 }
 
+.vanilla-calendar-months_selecting .vanilla-calendar-months__month,
 .vanilla-calendar-years_selecting .vanilla-calendar-years__year {
 	@apply cursor-pointer
 }
 
+.vanilla-calendar-months_selecting .vanilla-calendar-months__month .vanilla-calendar-months__month_disabled,
 .vanilla-calendar-years_selecting .vanilla-calendar-years__year .vanilla-calendar-years__year_disabled {
 	@apply cursor-default
 }
 
+.vanilla-calendar-months__month,
 .vanilla-calendar-years__year {
 	@apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all
 }
 
+.vanilla-calendar-months__month.vanilla-calendar-months__month_disabled,
 .vanilla-calendar-years__year.vanilla-calendar-years__year_disabled {
 	@apply pointer-events-none
 }
@@ -195,7 +187,7 @@
 }
 
 .vanilla-calendar-day__popup::after {
-	@apply -z-10 left-1/2 -translate-x-1/2 top-[2px] block h-0 w-0 border-t-0 border-x-8 border-b-8 border-solid border-t-transparent border-x-transparent
+	@apply -z-10 left-1/2 -translate-x-1/2 top-[1px] block h-0 w-0 border-t-0 border-x-8 border-b-8 border-solid border-t-transparent border-x-transparent
 }
 
 .vanilla-calendar-time {

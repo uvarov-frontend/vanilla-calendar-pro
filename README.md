@@ -5,7 +5,7 @@
 
 A simple but feature rich calendar without dependencies and «input» tag. A lightweight date and time picker written in pure JavaScript with using TypeScript.
 
-The size of the minified file .js is approximately **29.7kb** and **7.2kb** gzip.
+The size of the minified file .js is approximately **36.7kb** and **8.8kb** gzip.
 
 [API](https://vanilla-calendar.frontend.uvarov.tech/api/) | [Examples](https://vanilla-calendar.frontend.uvarov.tech/examples/)
 

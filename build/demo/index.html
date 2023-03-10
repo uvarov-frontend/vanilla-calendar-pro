@@ -5,19 +5,20 @@
 		<meta name="viewport" content="initial-scale=1,width=device-width">
 		<meta name="format-detection" content="telephone=no">
 		<title>Vanilla Calendar - A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css">
+		<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 		<link rel="stylesheet" href="./demo.min.css">
-		<link rel="stylesheet" href="./vanilla-calendar.min.css">
-		<script defer src="./vanilla-calendar.min.js"></script>
+		<link rel="stylesheet" href="../vanilla-calendar.min.css">
+		<link rel="stylesheet" href="../themes/light.min.css">
+		<link rel="stylesheet" href="../themes/dark.min.css">
+		<script defer src="../vanilla-calendar.min.js"></script>
 	</head>
-	<body>
+	<body class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white">
 		<h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar</h1>
 		<p class="text-lg mb-12 dark:text-slate-400">A pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.</p>
-		<div id="vanilla-calendar" data-calendar-theme="light" class="shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)]"></div>
+		<div id="vanilla-calendar" data-calendar-theme="dark" class="shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)]"></div>
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
 				const calendar = new VanillaCalendar('#vanilla-calendar', {
-					// type: 'multiple',
 					settings: {
 						range: {
 							disablePast: true,
@@ -25,27 +26,13 @@
 						},
 						selection: {
 							day: 'multiple-ranged',
-							// time: 12,
-							// month: false,
-							// year: false,
+							time: true,
 						},
 						visibility: {
 							weekNumbers: true,
+							daysOutside: false,
 						},
 					},
-					// popups: {
-					// 	'2023-03-13': {
-					// 		modifier: 'popup-btn-red',
-					// 		html: 'Meeting at 6:00 PM',
-					// 	},
-					// 	'2023-03-17': {
-					// 		modifier: 'popup-btn-orange',
-					// 		html: `<div>
-					// 			<u><b>12:00 PM</b></u>
-					// 			<p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
-					// 		</div>`,
-					// 	},
-					// },
 				});
 				calendar.init();
 			});

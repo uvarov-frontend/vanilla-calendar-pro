@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    font-family: 'Lato', 'Helvetica', 'Arial', system-ui, sans-serif;
-    @apply bg-white bg-light-mode text-slate-900 min-h-screen flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white;
-  }
-}
-
 @layer components {
 	.popup-btn-orange {
 		background-color: rgb(251 146 60) !important;

@@ -1,8 +1,6 @@
 /* eslint-disable import/no-import-module-exports */
 import VanillaCalendar from './scripts/main';
 import './styles/vanilla-calendar.css';
-import './styles/themes/dark.css';
-import './styles/themes/light.css';
 
 if (typeof window !== 'undefined') {
 	(window as { VanillaCalendar?: object }).VanillaCalendar = VanillaCalendar;
