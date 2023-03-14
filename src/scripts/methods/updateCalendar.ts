@@ -10,9 +10,11 @@ import createWeek from './createWeek';
 import createYears from './createYears';
 import getLocale from './getLocale';
 import setVariablesDates from './setVariablesDates';
+import setTheme from './setTheme';
 
 const update = (self: IVanillaCalendar) => {
 	setVariablesDates(self);
+	setTheme(self);
 	getLocale(self);
 	createDOM(self);
 	showMonth(self);
