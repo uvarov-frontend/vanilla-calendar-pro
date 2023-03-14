@@ -220,6 +220,11 @@
 	@apply text-white bg-slate-900 hover:bg-slate-700 focus-visible:outline-orange-300
 }
 
+[data-calendar-theme="dark"] .vanilla-calendar-time__hours input.vanilla-calendar-is-focus,
+[data-calendar-theme="dark"] .vanilla-calendar-time__minutes input.vanilla-calendar-is-focus {
+	@apply bg-slate-700
+}
+
 [data-calendar-theme="dark"] .vanilla-calendar-time__keeping {
 	@apply text-slate-500 hover:bg-slate-700 hover:text-slate-400 focus-visible:outline-orange-300
 }
