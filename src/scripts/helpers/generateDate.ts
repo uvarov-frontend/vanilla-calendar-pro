@@ -1,9 +1,9 @@
 import { FormatDateString } from 'src/types';
 
 const generateDate = (date: Date) => {
-	const year = date.getUTCFullYear();
-	let month: number | string = date.getUTCMonth() + 1;
-	let day: number | string = date.getUTCDate();
+	const year = date.getFullYear();
+	let month: number | string = date.getMonth() + 1;
+	let day: number | string = date.getDate();
 
 	month = month < 10 ? `0${month}` : month;
 	day = day < 10 ? `0${day}` : day;
