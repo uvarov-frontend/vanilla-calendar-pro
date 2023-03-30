@@ -1,11 +1,5 @@
-/* @media (prefers-color-scheme: dark) {
-	[data-calendar-theme="auto"].vanilla-calendar {
-		@apply bg-slate-900
-	}
-} */
-
 .vanilla-calendar {
-	@apply p-4 rounded-xl relative flex flex-col min-w-[275px]
+	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] w-max
 }
 
 .vanilla-calendar button:focus-visible {
@@ -31,7 +25,7 @@
 }
 
 .vanilla-calendar-arrow {
-	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0
+	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0
 }
 
 .vanilla-calendar-arrow::before {
