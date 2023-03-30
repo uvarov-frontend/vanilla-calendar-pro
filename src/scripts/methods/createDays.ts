@@ -35,8 +35,22 @@ const createDays = (self: IVanillaCalendar) => {
 		daysEls[index].innerHTML = '';
 
 		const setDayModifier = (dayEl: HTMLElement, dayBtnEl: HTMLElement, dayID: number, date: string, otherMonth: boolean) => {
+			if (self.rangeEnabled?.[0] && self.rangeDisabled?.[0]) {
+				const rangeDisabledTemp: FormatDateString[] = [];
+				for (let i = 0; i < self.rangeDisabled.length; i++) {
+					const dateDisabled = self.rangeDisabled[i];
+					if (!self.rangeEnabled?.includes(dateDisabled)) rangeDisabledTemp.push(dateDisabled);
+				}
+				self.rangeDisabled = [...rangeDisabledTemp];
+
+				if (self.settings.range.disableAllDays) {
+					self.rangeMin = self.rangeEnabled[0];
+					self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
+				}
+			}
+
 			// if disable weekday
-			if (self.settings.range.disableWeekday.includes(dayID)) {
+			if (self.settings.range.disableWeekday?.includes(dayID)) {
 				self.rangeDisabled?.push(date as FormatDateString);
 				self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
 			}
@@ -92,10 +106,14 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 			}
 
-			// if range min/max
-			if ((self.rangeMin as FormatDateString) > date || (self.rangeMax as FormatDateString) < date) {
-				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
-				dayBtnEl.tabIndex = -1;
+			// if range values
+			if (Array.isArray(self.rangeDisabled) && self.rangeDisabled[0]) {
+				self.rangeDisabled.forEach((dateDisabled) => {
+					if (dateDisabled === date) {
+						dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
+						dayBtnEl.tabIndex = -1;
+					}
+				});
 			}
 
 			// if disabled selected
@@ -108,23 +126,10 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.tabIndex = -1;
 			}
 
-			// if range values
-			if (Array.isArray(self.rangeDisabled)) {
-				self.rangeDisabled.forEach((dateDisabled) => {
-					if (dateDisabled === date) {
-						dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
-						dayBtnEl.tabIndex = -1;
-					}
-				});
-			} else if (Array.isArray(self.rangeEnabled)) {
+			// if range min/max
+			if ((self.rangeMin as FormatDateString) > date || (self.rangeMax as FormatDateString) < date) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
-				self.rangeEnabled.forEach((dateEnabled) => {
-					if (dateEnabled === date) {
-						dayBtnEl.classList.remove(self.CSSClasses.dayBtnDisabled);
-						dayBtnEl.tabIndex = 0;
-					}
-				});
 			}
 		};
 
