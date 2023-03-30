@@ -15,6 +15,14 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 		self.rangeMin = generateDate(self.date.today);
 	}
 
+	if (self.settings.range.disableAllDays) {
+		self.rangeMin = generateDate(self.date.today);
+		self.rangeMax = generateDate(self.date.today);
+		self.rangeDisabled?.push(generateDate(self.date.today));
+	}
+
+	if (self.rangeEnabled) self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
+
 	const firstDay = new Date(self.rangeMin);
 	const lastDay = new Date(self.rangeMax);
 	firstDay.setDate(firstDay.getDate() - 1);
