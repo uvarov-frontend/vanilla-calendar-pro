@@ -3,7 +3,7 @@
 
 [![package-badge]][package]
 
-VanillaCalendar — is a pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.
+VanillaCalendar is a pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.
 
 The final minified .js file is ~ **37.5 KB** and with gzip is ~ **9.2** KB.
 
