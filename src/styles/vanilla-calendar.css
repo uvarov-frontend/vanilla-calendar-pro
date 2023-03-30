@@ -167,7 +167,7 @@
 }
 
 .vanilla-calendar-day__btn_today {
-	@apply font-semibold
+	@apply font-bold
 }
 
 .vanilla-calendar-day__btn_disabled {

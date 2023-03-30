@@ -79,7 +79,7 @@
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_today {
-	@apply text-cyan-500 hover:text-cyan-500
+	@apply text-cyan-500 hover:text-cyan-500 bg-slate-800
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_prev,
