@@ -3,7 +3,7 @@ import { IVanillaCalendar } from 'src/types';
 const showYear = (self: IVanillaCalendar) => {
 	const years = (self.HTMLElement as HTMLElement).querySelectorAll('[data-calendar-selected-year]') as NodeListOf<HTMLElement>;
 	if (!years || self.selectedMonth === undefined) return;
-	const initDate = new Date(self.date.today.getTime());
+	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
 
 	years.forEach((_, index: number) => {
 		const selectedYear = new Date(initDate.setFullYear((self.selectedYear as number), (self.selectedMonth as number) + index)).getFullYear();
