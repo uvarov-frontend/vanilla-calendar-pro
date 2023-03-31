@@ -1,5 +1,5 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] w-max
+	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] w-max h-max
 }
 
 .vanilla-calendar button:focus-visible {
@@ -98,7 +98,7 @@
 }
 
 .vanilla-calendar-week-numbers {
-	@apply flex flex-col
+	@apply flex flex-col grow
 }
 
 .vanilla-calendar-week-numbers__title {
@@ -106,7 +106,7 @@
 }
 
 .vanilla-calendar-week-numbers__content {
-	@apply grid grid-flow-row items-center justify-items-center gap-y-1 grow
+	@apply grid grid-flow-row items-center justify-items-center gap-y-1
 }
 
 .vanilla-calendar-week-number {
