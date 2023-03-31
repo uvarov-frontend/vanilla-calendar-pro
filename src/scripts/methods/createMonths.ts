@@ -25,11 +25,11 @@ const createMonths = (self: IVanillaCalendar) => {
 		if (i === self.selectedMonth) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
-		if (i < self.dateMin.getUTCMonth() && self.selectedYear === self.dateMin.getUTCFullYear()) {
+		if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
 			monthEl.tabIndex = -1;
 		}
-		if (i > self.dateMax.getUTCMonth() && self.selectedYear === self.dateMax.getUTCFullYear()) {
+		if (i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
 			monthEl.tabIndex = -1;
 		}

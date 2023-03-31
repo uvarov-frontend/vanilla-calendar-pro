@@ -62,17 +62,17 @@ const clickCalendar = (self: IVanillaCalendar) => {
 			}
 
 			if (self.selectedDates[1]) {
-				const startDate = new Date(Date.UTC(
-					new Date(self.selectedDates[0]).getUTCFullYear(),
-					new Date(self.selectedDates[0]).getUTCMonth(),
-					new Date(self.selectedDates[0]).getUTCDate(),
-				));
+				const startDate = new Date(
+					new Date(`${self.selectedDates[0]} 00:00:00`).getFullYear(),
+					new Date(`${self.selectedDates[0]} 00:00:00`).getMonth(),
+					new Date(`${self.selectedDates[0]} 00:00:00`).getDate(),
+				);
 
-				const endDate = new Date(Date.UTC(
-					new Date(self.selectedDates[1]).getUTCFullYear(),
-					new Date(self.selectedDates[1]).getUTCMonth(),
-					new Date(self.selectedDates[1]).getUTCDate(),
-				));
+				const endDate = new Date(
+					new Date(`${self.selectedDates[1]} 00:00:00`).getFullYear(),
+					new Date(`${self.selectedDates[1]} 00:00:00`).getMonth(),
+					new Date(`${self.selectedDates[1]} 00:00:00`).getDate(),
+				);
 
 				const addSelectedDate = (day: Date) => {
 					if (!self.selectedDates) return;
@@ -84,11 +84,11 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				self.selectedDates = [];
 
 				if (endDate > startDate) {
-					for (let i = startDate; i <= endDate; i.setUTCDate(i.getUTCDate() + 1)) {
+					for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
 						addSelectedDate(i);
 					}
 				} else {
-					for (let i = startDate; i >= endDate; i.setUTCDate(i.getUTCDate() - 1)) {
+					for (let i = startDate; i >= endDate; i.setDate(i.getDate() - 1)) {
 						addSelectedDate(i);
 					}
 				}
@@ -155,11 +155,11 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				if (self.selectedMonth === undefined || !self.dateMin || !self.dateMax) return;
 				self.selectedYear = Number(yearItemEl.dataset.calendarYear);
 				self.currentType = self.type;
-				if (self.selectedMonth < self.dateMin.getUTCMonth() && self.selectedYear === self.dateMin.getUTCFullYear()) {
-					self.settings.selected.month = self.dateMin.getUTCMonth();
+				if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
+					self.settings.selected.month = self.dateMin.getMonth();
 				}
-				if (self.selectedMonth > self.dateMax.getUTCMonth() && self.selectedYear === self.dateMax.getUTCFullYear()) {
-					self.settings.selected.month = self.dateMax.getUTCMonth();
+				if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
+					self.settings.selected.month = self.dateMax.getMonth();
 				}
 				if (self.actions.clickYear) self.actions.clickYear(e, self.selectedYear);
 				self.settings.selected.year = self.selectedYear;
