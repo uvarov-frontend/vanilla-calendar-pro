@@ -8,7 +8,7 @@ const createDays = (self: IVanillaCalendar) => {
 	const daysEls = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.days}`) as NodeListOf<HTMLElement>;
 	const weekNumbersEls = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.weekNumbers}`) as NodeListOf<HTMLElement>;
 
-	const initDate = new Date(self.date.today.getTime());
+	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
 
 	const templateDayEl = document.createElement('div');
 	const templateDayBtnEl = document.createElement('button');
