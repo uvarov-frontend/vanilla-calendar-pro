@@ -1,0 +1,24 @@
+# Click a day
+
+If you plan to have the user interact with your calendar in some way, you need to use existing actions. One of these actions is
+`clickDay()`, as the name suggests, with this action we can catch the moment when the user has clicked on a day in your calendar.
+
+Let's try to display the clicked day in the console!
+
+<Sandbox example="action-handlers-click-a-day" />
+
+As you may have noticed, the day is contained in an array, this is because we can get not only one day, but for example a range.
+
+<Sandbox example="action-handlers-click-a-day-ranged" />
+
+By default, we get an array of all selected dates, this is logical. But more often than not, you only need to get the extreme dates.
+
+We could take the first and last element of the array, but in this case we cannot guarantee that the user will not select the latest date first and then the earliest.
+
+In order to get the dates sorted, we can use the standard `.sort()` method.
+
+```js
+dates.sort((a, b) => +new Date(a) - +new Date(b))
+```
+
+Try pasting this snippet into your `console.log()` in the sandbox above!

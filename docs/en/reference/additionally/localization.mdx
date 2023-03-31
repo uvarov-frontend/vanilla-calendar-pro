@@ -1,0 +1,51 @@
+
+
+# Localization
+The top-level key `locale` is used to manually localize the calendar. Only works if `settings.lang` is set to `define`.
+`locale` allows you to set your own names for months and weeks.
+
+<Info>
+  If your locale is supported by <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank" rel="nofollow noreferrer">` .toLocaleString()`</a>, you can pass a language tag to the <a href="/docs/reference/additionally/settings#lang">`settings.lang`</a> parameter, without the need for manual localization.
+  You can find support for your language tag here <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer ">BCP 47</a>.
+</Info>
+
+The `locale` key has two keys `months` and `weekday`, both of which accept an array of strings.
+It is important to know that **both options are required** when `settings.lang` is set to `define`.
+
+## locale.months
+
+`Type: String[]`
+
+`Default: []`
+
+`Options: String[] | []`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    lang: 'define',
+  },
+  locale: {
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  },
+});
+```
+
+## locale.weekday
+
+`Type: String[]`
+
+`Default: []`
+
+`Options: String[] | []`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    lang: 'define',
+  },
+  locale: {
+    weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  },
+});
+```

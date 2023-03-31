@@ -1,0 +1,30 @@
+
+
+# Создать экземпляр
+
+`new VanillaCalendar()` - создает экземпляр VanillaCalendar, представляющего собой сам календарь, его параметры и методы.
+
+<Info>
+  Календарь можно создать, только вызвав функцию **VanillaCalendar** в качестве конструктора. Обычный вызов функции (то есть без использования оператора new) вернет строку вместо объекта **VanillaCalendar**.
+</Info>
+
+<Info>
+  Если вы загрузили **VanillaCalendar** из тега `<script>`, объект доступен в глобальной переменной **window.VanillaCalendar**.
+</Info>
+
+Экземпляр `VanillaCalendar`, принимает в себя два параметра. Первым **обязательным** параметром может быть **CSS-селектор** или **HTML-элемент**.
+
+```js
+new VanillaCalendar('#calendar');
+// or
+const calendarEl = document.querySelector('#calendar');
+new VanillaCalendar(calendarEl);
+```
+
+Второй **необязательный** параметр — это объект, определяющий настройки и методы календаря.
+
+```js
+new VanillaCalendar('#calendar', {
+  // Settings
+});
+```

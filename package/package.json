@@ -1,0 +1,73 @@
+{
+	"name": "@uvarov.frontend/vanilla-calendar",
+	"version": "2.5.3",
+	"description": "Vanilla JS calendar without using additional packages. A lightweight date and time picker written in pure JavaScript using TypeScript.",
+	"homepage": "https://vanilla-calendar.frontend.uvarov.tech/",
+	"keywords": [
+		"calendar",
+		"js",
+		"ts",
+		"javascript",
+		"typescript",
+		"native",
+		"react",
+		"pure",
+		"default",
+		"vanilla",
+		"vanilla-js",
+		"picker",
+		"date-picker",
+		"datepicker",
+		"timepicker",
+		"iso8601"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
+	},
+	"author": {
+		"name": "Yury Uvarov",
+		"email": "uvarov.frontend@gmail.com",
+		"url": "https://frontend.uvarov.tech"
+	},
+	"license": "MIT",
+	"main": "./build/vanilla-calendar.min.js",
+	"style": "./build/vanilla-calendar.min.css",
+	"source": "./src/scripts/main.ts",
+	"types": "./src/index.d.ts",
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"scripts": {
+		"watch": "tsc && vite build --watch",
+		"build": "tsc && vite build"
+	},
+	"devDependencies": {
+		"@types/node": "^18.14.4",
+		"@typescript-eslint/eslint-plugin": "^5.54.0",
+		"@typescript-eslint/parser": "^5.54.0",
+		"autoprefixer": "^10.4.13",
+		"eslint": "^8.35.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-airbnb-typescript": "^17.0.0",
+		"eslint-plugin-import": "^2.27.5",
+		"fast-glob": "^3.2.12",
+		"postcss": "^8.4.21",
+		"tailwindcss": "^3.2.7",
+		"terser": "^5.16.5",
+		"typescript": "^4.9.3",
+		"vite": "^4.1.0",
+		"vite-plugin-banner": "^0.7.0",
+		"vite-plugin-eslint": "^1.8.1"
+	},
+	"dependencies": {}
+}

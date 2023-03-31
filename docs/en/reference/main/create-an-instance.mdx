@@ -1,0 +1,30 @@
+
+
+# Create instance
+
+`new VanillaCalendar()` - creates an instance of VanillaCalendar, which is the calendar itself, its parameters and methods.
+
+<Info>
+  The calendar can only be created by calling the **VanillaCalendar** function as a constructor. A normal function call (that is, without using the new operator) will return a string instead of a **VanillaCalendar** object.
+</Info>
+
+<Info>
+  If you loaded **VanillaCalendar** from a `<script>` tag, the object is available in the global variable **window.VanillaCalendar**.
+</Info>
+
+The `VanillaCalendar` instance takes two parameters. The first **required** parameter can be a **CSS selector** or **HTML element**.
+
+```js
+new VanillaCalendar('#calendar');
+// or
+const calendarEl = document.querySelector('#calendar');
+new VanillaCalendar(calendarEl);
+```
+
+The second **optional** parameter is an object that defines the settings and methods of the calendar.
+
+```js
+new VanillaCalendar('#calendar', {
+  // Settings
+});
+```
