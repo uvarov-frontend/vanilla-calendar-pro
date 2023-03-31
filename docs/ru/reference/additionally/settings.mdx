@@ -1,0 +1,658 @@
+
+
+# Настройки
+
+Ключ верхнего уровня `settings` содержит набор параметров, которые определяют настройки календаря.
+
+## settings.lang
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | 'define'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    lang: 'en',
+  },
+});
+```
+
+Языковая локализация календаря. Укажите языковую метку <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> или `'define'`,
+чтобы назначить свои собственные названия месяца и недели, подробнее см. <a href="/docs/reference/additionally/localization">`locale`</a>.
+
+---
+
+## settings.iso8601
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    iso8601: true,
+  },
+});
+```
+
+Начало недели по международному стандарту ISO 8601. Если установлено значение `'false'`, неделя начинается в воскресенье, в противном случае — в понедельник.
+
+---
+
+## settings.range.min
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      min: '2022-07-01',
+    }
+  },
+});
+```
+
+Минимальная дата, которую может выбрать пользователь. Даты меньше указанной, будут считаться отключенными и недоступными для выбора.
+
+<Info>
+  Важно знать, что `settings.range.min` и `settings.range.max` отключают даты, а `date.min` и `date.max` вообще их не создают.
+</Info>
+
+---
+
+## settings.range.max
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      max: '2024-07-01',
+    }
+  },
+});
+```
+
+Максимальная дата, которую может выбрать пользователь. Даты больше указанной, будут считаться отключенными и недоступными для выбора.
+
+---
+
+## settings.range.disablePast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disablePast: true,
+    }
+  },
+});
+```
+
+Отключает все прошедшие дни.
+
+---
+
+## settings.range.disableGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableGaps: true,
+    }
+  },
+});
+```
+
+Отключает выбор дней в диапазоне с отключенными датами. Работает, только если для параметра <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> установлено значение `'multiple-ranged'`.
+
+---
+
+## settings.range.disableAllDays
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableAllDays: true,
+    }
+  },
+});
+```
+
+Отключает все дни, полезно при использовании <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+
+---
+
+## settings.range.disableWeekday
+
+`Type: Number[]`
+
+`Default: []`
+
+`Options: number[] | []`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableWeekday: [0, 6],
+    }
+  },
+});
+```
+
+Отключить указанные дни в неделе. Укажите массив с типом `number`, где `number` это `id` дня недели. `0` - воскресенье.
+
+---
+
+## settings.range.disabled
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disabled: ['2022-08-10:2022-08-15', '2022-08-20'],
+    }
+  },
+});
+```
+
+Отключить указанные даты независимо от указанного диапазона.
+
+<Info>
+  Чтобы указать диапазон отключенных дат, используйте любой разделитель между датами в приделах одной строки.
+</Info>
+
+---
+
+## settings.range.enabled
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      enabled: ['2022-08-11:2022-08-16', '2022-08-20'],
+    }
+  },
+});
+```
+
+Включить указанные даты, несмотря на диапазон и отключенные даты.
+
+<Info>
+  Чтобы указать диапазон включенных дат, используйте любой разделитель между датами в приделах одной строки.
+</Info>
+
+---
+
+## settings.selection.day
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      day: 'single',
+    },
+  },
+});
+```
+
+Разрешить выбор одного, нескольких дней или вообще отключить выбор дней.
+
+---
+
+## settings.selection.month
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      month: false,
+    },
+  },
+});
+```
+
+Запретить выбор месяца.
+
+---
+
+## settings.selection.year
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      year: false,
+    },
+  },
+});
+```
+
+Запретить выбор года.
+
+---
+
+## settings.selection.time
+
+`Type: Boolean | Number`
+
+`Default: false`
+
+`Options: true (it is 12) | false | 24 | 12`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      time: true,
+    },
+  },
+});
+```
+
+Включить выбор времени. В дополнение к булево значению вы можете указать, какой формат времени использовать: 24-часовой или 12-часовой.
+
+---
+
+## settings.selection.controlTime
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      controlTime: 'all',
+    },
+  },
+});
+```
+
+Способ выбора времени. Любым способом или только контроллер.
+
+---
+
+## settings.selection.stepHours
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: Number (from 1 to 23)`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      stepHours: 1,
+    },
+  },
+});
+```
+
+Шаг контроллера часов. Любое число от 1 до 23.
+
+---
+
+## settings.selection.stepMinutes
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: Number (from 1 to 59)`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      stepMinutes: 1,
+    },
+  },
+});
+```
+
+Шаг контроллера минут. Любое число от 1 до 59.
+
+---
+
+## settings.selected.dates
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      dates: ['2022-08-10', '2022-08-12', '2022-08-13'],
+    },
+  },
+});
+```
+
+Список дней, отмеченных как выбранные при инициализации календаря.
+
+<Info>
+  Чтобы указать диапазон выбранных дат, используйте любой разделитель между датами в приделах одной строки.
+</Info>
+
+---
+
+## settings.selected.month
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (from 0 to 11) | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      month: 0,
+    },
+  },
+});
+```
+
+Месяц, отображаемый при инициализации календаря. От 0 до 11.
+
+---
+
+## settings.selected.year
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      year: 2022,
+    },
+  },
+});
+```
+
+Год, отображаемый при инициализации календаря.
+
+---
+
+## settings.selected.holidays
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      holidays: ['2022-08-10', '2022-08-12', '2022-08-13'],
+    },
+  },
+});
+```
+
+Указанные дни будут считаться праздничными и иметь дополнительный CSS-модификатор.
+
+<Info>
+  Чтобы указать диапазон дат праздников, используйте любой разделитель между датами в приделах одной строки.
+</Info>
+
+---
+
+## settings.selected.time
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      time: '03:44 AM',
+    },
+  },
+});
+```
+
+Время, отображаемое при инициализации календаря. `aa` - это маркер AM/PM. Если указан 24-часовой день, `aa` указывать не нужно.
+
+---
+
+## settings.visibility.theme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: 'light' | 'dark' | 'system'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      theme: 'system',
+    },
+  },
+});
+```
+
+Тема календаря. По умолчанию тема определяется системой пользователя.
+
+---
+
+## settings.visibility.monthShort
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      monthShort: true,
+    },
+  },
+});
+```
+
+Сокращенные названия месяцев в выборе месяца.
+
+---
+
+## settings.visibility.weekNumbers
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      weekNumbers: false,
+    },
+  },
+});
+```
+
+Показать номера недель в году.
+
+---
+
+## settings.visibility.weekend
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      weekend: true,
+    },
+  },
+});
+```
+
+Выделить выходные дни.
+
+---
+
+## settings.visibility.today
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      today: true,
+    },
+  },
+});
+```
+
+Выделить сегодняшний день.
+
+---
+
+## settings.visibility.disabled
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      disabled: false,
+    },
+  },
+});
+```
+
+Показать все дни, включая отключенные.
+
+---
+
+## settings.visibility.daysOutside
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      daysOutside: true,
+    },
+  },
+});
+```
+
+Показать дни прошлого и следующего месяца.

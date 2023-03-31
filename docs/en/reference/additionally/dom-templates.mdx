@@ -1,0 +1,158 @@
+
+
+# DOM Templates
+
+Thanks to DOM templates, you can almost completely change the DOM of the calendar and add your own html elements, such as buttons.
+
+Each calendar <a href="/docs/reference/main/main-settings#type">`type`</a> has its own default template. You can customize any of them.
+
+<Info>
+  Tags containing the character **«#»** are registered calendar components and must contain a closing slash at the end of the tag, except for the **\<#Multiple>\<#/Multiple>** tag, which wraps one month.
+  The default templates lists all possible components for that template.
+</Info>
+
+## DOMTemplates.default
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    default: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <#WeekNumbers />
+        <div class="vanilla-calendar-content">
+          <#Week />
+          <#Days />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+Default template for displaying one month and its dates.
+
+---
+
+## DOMTemplates.multiple
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    multiple: `
+      <div class="vanilla-calendar-controls">
+        <#ArrowPrev />
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-grid">
+        <#Multiple>
+          <div class="vanilla-calendar-column">
+            <div class="vanilla-calendar-header">
+              <div class="vanilla-calendar-header__content">
+                <#Month />
+                <#Year />
+              </div>
+            </div>
+            <div class="vanilla-calendar-wrapper">
+              <#WeekNumbers />
+              <div class="vanilla-calendar-content">
+                <#Week />
+                <#Days />
+              </div>
+            </div>
+          </div>
+        <#/Multiple>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+Default template for displaying multiple months and their dates.
+
+---
+
+## DOMTemplates.month
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    month: `
+      <div class="vanilla-calendar-header">
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <div class="vanilla-calendar-content">
+          <#Months />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+The default month picker template.
+
+---
+
+## DOMTemplates.year
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    year: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <div class="vanilla-calendar-content">
+          <#Years />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+The default year picker template.

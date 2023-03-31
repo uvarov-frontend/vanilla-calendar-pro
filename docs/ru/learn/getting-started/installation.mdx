@@ -1,0 +1,49 @@
+# Установка
+
+Календарь разработан на нативном JS с использованием TypeScript, без каких либо зависимостей. Если вы хотите попробовать VanillaCalendar, этот раздел поможет вам начать работу.
+
+## Попробовать VanillaCalendar
+
+Вам не нужно ничего устанавливать, чтобы попробовать VanillaCalendar. Попробуйте отредактировать эту песочницу!
+
+<Sandbox example="try-vanilla-calendar" />
+
+Вы можете отредактировать его напрямую или открыть в новой вкладке. Большинство страниц в этой документации содержат такие песочницы.
+
+### Попробуйте VanillaCalendar локально
+
+Чтобы попробовать VanillaCalendar локально на своем компьютере, [скачайте этот пример](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar.zip). Откройте его в редакторе и в браузере!
+
+## NPM
+
+VanillaCalendar доступен в виде пакета на NPM для использования с сборщиком модулей:
+
+```shell
+npm install @uvarov.frontend/vanilla-calendar
+# or
+yarn add @uvarov.frontend/vanilla-calendar
+```
+
+Он также доступен в виде предварительно скомпилированного js файла, который определяет глобальную переменную **window.VanillaCalendar**.
+Этот файл можно <a href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" rel="noreferrer" target="_blank">скачать</a> и подключить напрямую через тег `<script>`. Пример такого подключения смотрите ниже в разделе CDN.
+
+## CDN
+
+Поскольку VanillaCalendar доступен в виде пакета на NPM, вы можете подключить его через любой CDN, который его поддерживает, например <a href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/" rel="noreferrer" target="_blank">jsdelivr.com</a>.
+
+Подключите все необходимые файлы в свой HTML-документ.
+
+```html
+<html>
+  <head>
+    <!-- Plugin CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
+    <!-- Plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
+  </head>
+  <body>
+  </body>
+</html>
+```

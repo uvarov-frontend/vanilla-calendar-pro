@@ -1,0 +1,158 @@
+
+
+# DOM-Шаблоны
+
+Благодаря DOM-шаблонам вы можете практически полностью изменить DOM календаря и добавить свои собственные html-элементы, например кнопки.
+
+Каждый <a href="/docs/reference/main/main-settings#type">`type`</a> календаря имеет собственный шаблон по умолчанию. Вы можете кастомизировать любой из них.
+
+<Info>
+  Теги, содержащие символ **«#»**, являются зарегистрированными компонентами календаря и должны содержать закрывающую косую черту в конце тега, за исключением тега **\<#Multiple>\<#/Multiple>**, который оборачивает один месяц.
+  В шаблонах по умолчанию перечислены все возможные компоненты для этого шаблона.
+</Info>
+
+## DOMTemplates.default
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    default: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <#WeekNumbers />
+        <div class="vanilla-calendar-content">
+          <#Week />
+          <#Days />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+Шаблон по умолчанию для отображения одного месяца и его дат.
+
+---
+
+## DOMTemplates.multiple
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    multiple: `
+      <div class="vanilla-calendar-controls">
+        <#ArrowPrev />
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-grid">
+        <#Multiple>
+          <div class="vanilla-calendar-column">
+            <div class="vanilla-calendar-header">
+              <div class="vanilla-calendar-header__content">
+                <#Month />
+                <#Year />
+              </div>
+            </div>
+            <div class="vanilla-calendar-wrapper">
+              <#WeekNumbers />
+              <div class="vanilla-calendar-content">
+                <#Week />
+                <#Days />
+              </div>
+            </div>
+          </div>
+        <#/Multiple>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+Шаблон по умолчанию для отображения нескольких месяцев и их дат.
+
+---
+
+## DOMTemplates.month
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    month: `
+      <div class="vanilla-calendar-header">
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <div class="vanilla-calendar-content">
+          <#Months />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+Шаблона выбора месяца по умолчанию.
+
+---
+
+## DOMTemplates.year
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    year: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <div class="vanilla-calendar-content">
+          <#Years />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+Шаблона выбора года по умолчанию.

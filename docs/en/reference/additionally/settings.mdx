@@ -1,0 +1,657 @@
+
+
+# Settings
+
+The top-level key `settings` contains a set of parameters that define the calendar settings.
+
+## settings.lang
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | 'define'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    lang: 'en',
+  },
+});
+```
+
+Language localization of the calendar. Specify language tag <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or `'define'` to assign your own month and week names, see <a href="/docs/reference/additionally/localization">`locale`</a> for details.
+
+---
+
+## settings.iso8601
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    iso8601: true,
+  },
+});
+```
+
+ISO 8601 start of the week. If set to `'false'`, the week starts on Sunday, otherwise it starts on Monday.
+
+---
+
+## settings.range.min
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      min: '2022-07-01',
+    }
+  },
+});
+```
+
+The minimum date that the user can select. Dates less than this will be considered disabled and unselectable.
+
+<Info>
+  It's important to know that `settings.range.min` and `settings.range.max` disable dates, while `date.min` and `date.max` don't create them at all.
+</Info>
+
+---
+
+## settings.range.max
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      max: '2024-07-01',
+    }
+  },
+});
+```
+
+The maximum date that the user can select. Dates greater than this will be considered disabled and unselectable.
+
+---
+
+## settings.range.disablePast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disablePast: true,
+    }
+  },
+});
+```
+
+Disables all past days.
+
+---
+
+## settings.range.disableGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableGaps: true,
+    }
+  },
+});
+```
+
+Disables selection of days in a range with disabled dates. Only works if <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
+
+---
+
+## settings.range.disableAllDays
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableAllDays: true,
+    }
+  },
+});
+```
+
+Disables all days, useful when using <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+
+---
+
+## settings.range.disableWeekday
+
+`Type: Number[]`
+
+`Default: []`
+
+`Options: number[] | []`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disableWeekday: [0, 6],
+    }
+  },
+});
+```
+
+Disable specified days in a week. Specify an array of type `number`, where `number` is the `id` of the day of the week. `0` - Sunday.
+
+---
+
+## settings.range.disabled
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      disabled: ['2022-08-10:2022-08-15', '2022-08-20'],
+    }
+  },
+});
+```
+
+Disable the specified dates regardless of the specified range.
+
+<Info>
+  To specify a range of disabled dates, use any separator between dates within the same line.
+</Info>
+
+---
+
+## settings.range.enabled
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      enabled: ['2022-08-11:2022-08-16', '2022-08-20'],
+    }
+  },
+});
+```
+
+Include specified dates despite range and disabled dates.
+
+<Info>
+  To specify a range of dates to include, use any separator between dates within the same line.
+</Info>
+
+---
+
+## settings.selection.day
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      day: 'single',
+    },
+  },
+});
+```
+
+Allow selection of one, several days, or disable the selection of days altogether.
+
+---
+
+## settings.selection.month
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      month: false,
+    },
+  },
+});
+```
+
+Disable month selection.
+
+---
+
+## settings.selection.year
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      year: false,
+    },
+  },
+});
+```
+
+Disable year selection.
+
+---
+
+## settings.selection.time
+
+`Type: Boolean | Number`
+
+`Default: false`
+
+`Options: true (it is 12) | false | 24 | 12`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      time: true,
+    },
+  },
+});
+```
+
+Enable time picker. In addition to the boolean value, you can specify which time format to use: 24-hour or 12-hour.
+
+---
+
+## settings.selection.controlTime
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      controlTime: 'all',
+    },
+  },
+});
+```
+
+Timing method. Any way or just the controller.
+
+---
+
+## settings.selection.stepHours
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: Number (from 1 to 23)`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      stepHours: 1,
+    },
+  },
+});
+```
+
+Clock controller step. Any number from 1 to 23.
+
+---
+
+## settings.selection.stepMinutes
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: Number (from 1 to 59)`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      stepMinutes: 1,
+    },
+  },
+});
+```
+
+Minute controller step. Any number from 1 to 59.
+
+---
+
+## settings.selected.dates
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      dates: ['2022-08-10', '2022-08-12', '2022-08-13'],
+    },
+  },
+});
+```
+
+List of days marked as selected when the calendar was initialized.
+
+<Info>
+  To specify a range of selected dates, use any separator between dates within the same line.
+</Info>
+
+---
+
+## settings.selected.month
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (from 0 to 11) | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      month: 0,
+    },
+  },
+});
+```
+
+The month to display when the calendar is initialized. 0 to 11.
+
+---
+
+## settings.selected.year
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      year: 2022,
+    },
+  },
+});
+```
+
+The year displayed when the calendar is initialized.
+
+---
+
+## settings.selected.holidays
+
+`Type: String[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      holidays: ['2022-08-10', '2022-08-12', '2022-08-13'],
+    },
+  },
+});
+```
+
+The specified days will be considered public holidays and will have an additional CSS modifier.
+
+<Info>
+  To specify a range of holiday dates, use any separator between dates on the same line.
+</Info>
+
+---
+
+## settings.selected.time
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selected: {
+      time: '03:44 AM',
+    },
+  },
+});
+```
+
+The time displayed when the calendar is initialized. `aa` is the AM/PM marker. If a 24-hour day is specified, `aa` does not need to be specified.
+
+---
+
+## settings.visibility.theme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: 'light' | 'dark' | 'system'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      theme: 'system',
+    },
+  },
+});
+```
+
+Calendar theme. By default, the theme is determined by the user's system.
+
+---
+
+## settings.visibility.monthShort
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      monthShort: true,
+    },
+  },
+});
+```
+
+Abbreviated names of months in the month selection.
+
+---
+
+## settings.visibility.weekNumbers
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      weekNumbers: false,
+    },
+  },
+});
+```
+
+Show week numbers of the year.
+
+---
+
+## settings.visibility.weekend
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      weekend: true,
+    },
+  },
+});
+```
+
+Select weekends.
+
+---
+
+## settings.visibility.today
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      today: true,
+    },
+  },
+});
+```
+
+Highlight today.
+
+---
+
+## settings.visibility.disabled
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      disabled: false,
+    },
+  },
+});
+```
+
+Show all days, including disabled ones.
+
+---
+
+## settings.visibility.daysOutside
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      daysOutside: true,
+    },
+  },
+});
+```
+
+Show the days of the past and next month.

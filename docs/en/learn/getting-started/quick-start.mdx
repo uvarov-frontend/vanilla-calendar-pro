@@ -1,0 +1,55 @@
+
+
+
+# Quick Start
+
+Now that you've got VanillaCalendar installed, let's create our first calendar.
+
+## HTML
+
+Create an HTML tag with any unique CSS selector anywhere on your page, the calendar will refer to it and use it as an ID.
+
+As an example, this documentation will use the **«id»** attribute with the value **«calendar»**.
+
+```html
+<div id="calendar"></div>
+```
+
+## JS
+If you have NPM calendar installed, you need to import js and necessary styles, if you used CDN or included js and styles in `<head>` of your document, skip this step.
+
+```js
+// JS Script
+import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+
+// Basic styles
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+
+// Additional styles
+import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
+import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
+```
+
+<Info>
+  The **«vanilla-calendar.min.css»** file contains the calendar skeleton properties, the other css files in the **«themes»** directory contain only the calendar's color scheme.
+</Info>
+
+<Info>
+  The calendar automatically displays the theme used on the user's system.
+  You can disable this default behavior and force any of the themes to be installed. In this case, you don't need to import all themes.
+</Info>
+
+Now let's create a calendar instance with default parameters and initialize it.
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+calendar.init();
+```
+
+## Whole example
+
+<Sandbox example="try-vanilla-calendar" />
+
+All is ready! 🎉
+
+We have created the simplest calendar, with default parameters, but few people need a calendar with default parameters, you can easily customize it to fit your needs, for this, read other sections. 🤓

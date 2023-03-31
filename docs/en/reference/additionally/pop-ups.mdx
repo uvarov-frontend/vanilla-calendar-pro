@@ -1,0 +1,69 @@
+# Pop-ups
+
+Pop-ups allow you to highlight any day and display brief information about it right in the calendar when you hover over that day.
+
+## popups['date']
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'YYYY-MM-DD': | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  popups: {
+    '2022-06-28': {},
+  }
+});
+```
+
+Dates in the format `YYYY-MM-DD` are used as the key.
+
+---
+
+## popups['date'].modifier
+
+`Type: String`
+
+`Default: null`
+
+`Options: CSS classes | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+    },
+  }
+});
+```
+
+`modifier` accepts arbitrary CSS classes separated by spaces. With these classes, you can highlight the date with styles.
+
+---
+
+## popups['date'].html
+
+`Type: String`
+
+`Default: null`
+
+`Options: '' | HTML | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+      html: `<div>
+        <u><b>12:00 PM</b></u>
+        <p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
+      </div>`, // or just text 'Airplane in Las Vegas'
+    },
+  }
+});
+```
+
+`html` accepts plain text or HTML markup to style the popup.

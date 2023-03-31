@@ -1,0 +1,98 @@
+# Main settings
+
+The main parameters are responsible for the most important changes.
+
+## type
+
+`Type: String`
+
+`Default: 'default'`
+
+`Options: 'default' | 'multiple' | 'month' | 'year'`
+
+```js
+new VanillaCalendar('#calendar', {
+  type: 'default',
+});
+```
+
+The type of calendar to display.
+
+- - -
+
+## months
+
+`Type: Number`
+
+`Default: 2`
+
+`Options: от 2 до 12`
+
+```js
+new VanillaCalendar('#calendar', {
+  months: 2,
+});
+```
+
+Specifies the number of months to display if the calendar type is `'multiple'`.
+
+- - -
+
+## date.min
+
+`Type: '1970-01-01'`
+
+`Default: String`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  date: {
+    min: '1970-01-01',
+  },
+});
+```
+
+The minimum possible date that the calendar will take into account in its life cycle, which means that there will be no dates less than this.
+
+- - -
+
+## date.max
+
+`Type: '2470-12-31'`
+
+`Default: String`
+
+`Options: 'YYYY-MM-DD'`
+
+```js
+new VanillaCalendar('#calendar', {
+  date: {
+    max: '2470-12-31',
+  },
+});
+```
+
+Like `data.min`, this parameter is responsible for the life cycle of the calendar. Sets the maximum possible date.
+
+- - -
+
+
+## date.today
+
+`Type: Date object`
+
+`Default: new Date()`
+
+`Options: new Date()`
+
+```js
+new VanillaCalendar('#calendar', {
+  date: {
+    max: '2470-12-31',
+  },
+});
+```
+
+Specifies which day the calendar will consider today.
