@@ -22,11 +22,11 @@ const createDays = (self: IVanillaCalendar) => {
 		const selectedMonth = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
 		const selectedYear = new Date(initDate.setFullYear((self.selectedYear as number), (self.selectedMonth as number) + index)).getFullYear();
 
-		const firstDay = new Date(Date.UTC(selectedYear, selectedMonth, 1));
-		const daysSelectedMonth = new Date(Date.UTC(selectedYear, selectedMonth + 1, 0)).getUTCDate();
+		const firstDay = new Date(selectedYear, selectedMonth, 1);
+		const daysSelectedMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
 
-		let firstDayWeek = Number(firstDay.getUTCDay());
-		if (self.settings.iso8601) firstDayWeek = Number((firstDay.getUTCDay() !== 0 ? firstDay.getUTCDay() : 7) - 1);
+		let firstDayWeek = Number(firstDay.getDay());
+		if (self.settings.iso8601) firstDayWeek = Number((firstDay.getDay() !== 0 ? firstDay.getDay() : 7) - 1);
 
 		if (self.settings.selection.day && ['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day)) {
 			daysEls[index].classList.add(self.CSSClasses.daysSelecting);
@@ -121,7 +121,7 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
-			if (!self.settings.selection.year && new Date(date).getFullYear() !== selectedYear) {
+			if (!self.settings.selection.year && new Date(`${date} 00:00:00`).getFullYear() !== selectedYear) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
@@ -159,7 +159,7 @@ const createDays = (self: IVanillaCalendar) => {
 		};
 
 		const prevMonth = () => {
-			const prevMonthDays = new Date(Date.UTC(selectedYear, selectedMonth, 0)).getUTCDate();
+			const prevMonthDays = new Date(selectedYear, selectedMonth, 0).getDate();
 			let day = prevMonthDays - firstDayWeek;
 			let year = selectedYear;
 			let month: number | string = selectedMonth;
@@ -175,9 +175,9 @@ const createDays = (self: IVanillaCalendar) => {
 				day += 1;
 
 				const date = `${year}-${month}-${day}` as FormatDateString;
-				const dayIDCurrent = new Date(Date.UTC(selectedYear, selectedMonth, day - 1));
-				const prevMonthID = dayIDCurrent.getUTCMonth() - 1;
-				const dayID = new Date(Date.UTC(selectedYear, prevMonthID, day)).getUTCDay();
+				const dayIDCurrent = new Date(selectedYear, selectedMonth, day - 1);
+				const prevMonthID = dayIDCurrent.getMonth() - 1;
+				const dayID = new Date(selectedYear, prevMonthID, day).getDay();
 
 				createDay(String(day), dayID, date, true, self.CSSClasses.dayBtnPrev);
 			}
@@ -185,9 +185,9 @@ const createDays = (self: IVanillaCalendar) => {
 
 		const currentMonth = () => {
 			for (let i = 1; i <= daysSelectedMonth; i++) {
-				const day = new Date(Date.UTC(selectedYear, selectedMonth, i));
+				const day = new Date(selectedYear, selectedMonth, i);
 				const date = generateDate(day);
-				const dayID = day.getUTCDay();
+				const dayID = day.getDay();
 
 				createDay(String(i), dayID, date, false, null);
 			}
@@ -211,9 +211,9 @@ const createDays = (self: IVanillaCalendar) => {
 			for (let i = 1; i <= nextDays; i++) {
 				const day = i < 10 ? `0${i}` : String(i);
 				const date = `${year}-${month}-${day}` as FormatDateString;
-				const dayIDCurrent = new Date(Date.UTC(selectedYear, selectedMonth, i));
-				const nextMonthID = dayIDCurrent.getUTCMonth() + 1;
-				const dayID = new Date(Date.UTC(selectedYear, nextMonthID, i)).getUTCDay();
+				const dayIDCurrent = new Date(selectedYear, selectedMonth, i);
+				const nextMonthID = dayIDCurrent.getMonth() + 1;
+				const dayID = new Date(selectedYear, nextMonthID, i).getDay();
 
 				createDay(String(i), dayID, date, true, self.CSSClasses.dayBtnNext);
 			}

@@ -34,24 +34,24 @@ const hoverDaysEvent = (e: MouseEvent) => {
 	if (!date) return;
 	removeHover();
 
-	const startDate = new Date(Date.UTC(
-		new Date(currentSelf.selectedDates[0]).getUTCFullYear(),
-		new Date(currentSelf.selectedDates[0]).getUTCMonth(),
-		new Date(currentSelf.selectedDates[0]).getUTCDate(),
-	));
+	const startDate = new Date(
+		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getFullYear(),
+		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getMonth(),
+		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getDate(),
+	);
 
-	const endDate = new Date(Date.UTC(
-		new Date(date).getUTCFullYear(),
-		new Date(date).getUTCMonth(),
-		new Date(date).getUTCDate(),
-	));
+	const endDate = new Date(
+		new Date(`${date} 00:00:00`).getFullYear(),
+		new Date(`${date} 00:00:00`).getMonth(),
+		new Date(`${date} 00:00:00`).getDate(),
+	);
 
 	if (endDate > startDate) {
-		for (let i = startDate; i <= endDate; i.setUTCDate(i.getUTCDate() + 1)) {
+		for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
 			addHover(i);
 		}
 	} else {
-		for (let i = startDate; i >= endDate; i.setUTCDate(i.getUTCDate() - 1)) {
+		for (let i = startDate; i >= endDate; i.setDate(i.getDate() - 1)) {
 			addHover(i);
 		}
 	}
@@ -68,7 +68,7 @@ const cancelSelectionDays = (e: KeyboardEvent) => {
 
 const setDisabledDates = () => {
 	if (!currentSelf || !currentSelf.selectedDates?.[0] || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2) return;
-	const selectedDate = new Date(currentSelf.selectedDates[0]);
+	const selectedDate = new Date(`${currentSelf.selectedDates[0]} 00:00:00`);
 
 	let startDate = null;
 	let endDate = null;
@@ -76,7 +76,7 @@ const setDisabledDates = () => {
 	currentSelf.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
 
 	for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
-		const disabledDate = new Date(currentSelf.rangeDisabled[index]);
+		const disabledDate = new Date(`${currentSelf.rangeDisabled[index]} 00:00:00`);
 		if (selectedDate >= disabledDate) {
 			startDate = disabledDate;
 		} else {
@@ -101,7 +101,7 @@ const resetDisabledDates = () => {
 	currentSelf.rangeMin = currentSelf.settings.range.min;
 	currentSelf.rangeMax = currentSelf.settings.range.max;
 
-	if (currentSelf.settings.range.disablePast && new Date(currentSelf.settings.range.min) < currentSelf.date.today) {
+	if (currentSelf.settings.range.disablePast && new Date(`${currentSelf.settings.range.min} 00:00:00`) < currentSelf.date.today) {
 		currentSelf.rangeMin = generateDate(currentSelf.date.today);
 	}
 };

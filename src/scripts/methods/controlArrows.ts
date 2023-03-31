@@ -11,10 +11,10 @@ const controlArrows = (self: IVanillaCalendar) => {
 	const defaultControl = () => {
 		if (!self.dateMin || !self.dateMax) return;
 
-		const isSelectedMinMount = self.selectedMonth === self.dateMin.getUTCMonth();
-		const isSelectedMaxMount = self.selectedMonth === self.dateMax.getUTCMonth();
-		const isSelectedMinYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMin.getUTCFullYear();
-		const isSelectedMaxYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMax.getUTCFullYear();
+		const isSelectedMinMount = self.selectedMonth === self.dateMin.getMonth();
+		const isSelectedMaxMount = self.selectedMonth === self.dateMax.getMonth();
+		const isSelectedMinYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMin.getFullYear();
+		const isSelectedMaxYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMax.getFullYear();
 
 		if ((isSelectedMinMount && isSelectedMinYear) || !self.settings.selection.month) {
 			arrowPrev.style.visibility = 'hidden';
@@ -31,13 +31,13 @@ const controlArrows = (self: IVanillaCalendar) => {
 	const yearControl = () => {
 		if (!self.dateMin || !self.dateMax || self.viewYear === undefined) return;
 
-		if (self.dateMin.getUTCFullYear() && (self.viewYear - 7) <= self.dateMin.getUTCFullYear()) {
+		if (self.dateMin.getFullYear() && (self.viewYear - 7) <= self.dateMin.getFullYear()) {
 			arrowPrev.style.visibility = 'hidden';
 		} else {
 			arrowPrev.style.visibility = '';
 		}
 
-		if (self.dateMax.getUTCFullYear() && (self.viewYear + 7) >= self.dateMax.getUTCFullYear()) {
+		if (self.dateMax.getFullYear() && (self.viewYear + 7) >= self.dateMax.getFullYear()) {
 			arrowNext.style.visibility = 'hidden';
 		} else {
 			arrowNext.style.visibility = '';

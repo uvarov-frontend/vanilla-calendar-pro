@@ -26,11 +26,11 @@ const createYears = (self: IVanillaCalendar) => {
 		if (year === self.selectedYear) {
 			yearEl.classList.add(self.CSSClasses.yearsYearSelected);
 		}
-		if (year < self.dateMin.getUTCFullYear()) {
+		if (year < self.dateMin.getFullYear()) {
 			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
 			yearEl.tabIndex = -1;
 		}
-		if (year > self.dateMax.getUTCFullYear()) {
+		if (year > self.dateMax.getFullYear()) {
 			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
 			yearEl.tabIndex = -1;
 		}
