@@ -1,0 +1,11 @@
+# Maximum and minimum date to display
+
+The `settings.range.min` and `settings.range.max` parameters, just like the `date.min` and `date.max` parameters, specify a range of dates in the calendar, with one difference.
+
+They **do not affect the life cycle of the calendar**, but merely indicate which dates in the range are allowed to be displayed and/or selected.
+
+For example, if the `settings.visibility.disabled` parameter is set to `true`, then the minimum and maximum year that the user can see will be taken from the `date.min` and `date.max` parameters.
+
+<Sandbox example="date-range-maximum-and-minimum-date-to-display" />
+
+Try setting `settings.visibility.disabled` to `false` in the sandbox above and you will see no difference between `date.min`, `date.max` and `settings.range.min`, `settings.range.max `.
