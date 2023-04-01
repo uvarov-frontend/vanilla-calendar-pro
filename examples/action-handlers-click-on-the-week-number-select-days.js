@@ -18,7 +18,7 @@ const options = {
       calendar.update();
     },
   },
-}
+};
 
 const calendar = new VanillaCalendar('#calendar', options);
 calendar.init();

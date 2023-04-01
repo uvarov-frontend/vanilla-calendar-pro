@@ -16,7 +16,7 @@ const options = {
       console.log('Days of this week:', days);
     },
   },
-}
+};
 
 const calendar = new VanillaCalendar('#calendar', options);
 calendar.init();

@@ -9,7 +9,7 @@ const options = {
       console.log(year);
     },
   },
-}
+};
 
 const calendar = new VanillaCalendar('#calendar', options);
 calendar.init();

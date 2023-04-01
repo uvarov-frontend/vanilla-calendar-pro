@@ -5,7 +5,7 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 const options = {
   type: 'month',
-}
+};
 
 const calendar = new VanillaCalendar('#calendar', options);
 calendar.init();

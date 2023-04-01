@@ -4,17 +4,12 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
 import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 const options = {
-  type: 'multiple',
   settings: {
-    range: {
-      disablePast: true,
-    },
-    selection: {
-      day: 'multiple-ranged',
-    },
-    visibility: {
-      daysOutside: true,
-    },
+    lang: 'define',
+  },
+  locale: {
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   },
 };
 
