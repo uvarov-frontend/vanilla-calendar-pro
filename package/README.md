@@ -1,4 +1,4 @@
-[![vanilla-calendar preview](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar.jpg)](https://vanilla-calendar.frontend.uvarov.tech/)
+[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar.jpg)](https://vanilla-calendar.com/)
 # Lightweight, simple, feature-rich and no dependencies.
 
 [![package-badge]][package]
@@ -13,7 +13,7 @@ This plugin is completely free, any support from you is important. Please report
 
 If you like the plugin, please give it an asterisk in the GitHub repository.
 
-[API](https://vanilla-calendar.frontend.uvarov.tech/api/) | [Examples](https://vanilla-calendar.frontend.uvarov.tech/examples/)
+[Learn](https://vanilla-calendar.com/docs/learn/) | [Reference](https://vanilla-calendar.com/docs/reference/)
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ npm install @uvarov.frontend/vanilla-calendar
 yarn add @uvarov.frontend/vanilla-calendar
 ```
 
-If you are not working with a package manager, just [download](https://vanilla-calendar.frontend.uvarov.tech/vanilla-calendar.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/).
+If you are not working with a package manager, just [download](https://vanilla-calendar.com/vanilla-calendar.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/).
 
 ### Usage
 
@@ -157,7 +157,7 @@ new VanillaCalendar('#calendar', {
 
 ## API
 
-You can see all the parameters and settings of the calendar in the [extended documentation](https://vanilla-calendar.frontend.uvarov.tech/api/).
+You can see all the parameters and settings of the calendar in the [reference](https://vanilla-calendar.com/docs/reference/).
 
 ## License
 
