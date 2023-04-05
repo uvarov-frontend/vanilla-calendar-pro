@@ -13,7 +13,7 @@ const options = {
       day: 'multiple-ranged',
     },
     visibility: {
-      daysOutside: true,
+      daysOutside: false,
     },
   },
 };
