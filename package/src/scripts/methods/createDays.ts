@@ -35,24 +35,10 @@ const createDays = (self: IVanillaCalendar) => {
 		daysEls[index].innerHTML = '';
 
 		const setDayModifier = (dayEl: HTMLElement, dayBtnEl: HTMLElement, dayID: number, date: string, otherMonth: boolean) => {
-			if (self.rangeEnabled?.[0] && self.rangeDisabled?.[0]) {
-				const rangeDisabledTemp: FormatDateString[] = [];
-				for (let i = 0; i < self.rangeDisabled.length; i++) {
-					const dateDisabled = self.rangeDisabled[i];
-					if (!self.rangeEnabled?.includes(dateDisabled)) rangeDisabledTemp.push(dateDisabled);
-				}
-				self.rangeDisabled = [...rangeDisabledTemp];
-
-				if (self.settings.range.disableAllDays) {
-					self.rangeMin = self.rangeEnabled[0];
-					self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
-				}
-			}
-
-			// if disable weekday
-			if (self.settings.range.disableWeekday?.includes(dayID)) {
-				self.rangeDisabled?.push(date as FormatDateString);
-				self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
+			// if range min/max
+			if ((self.rangeMin as FormatDateString) > date || (self.rangeMax as FormatDateString) < date) {
+				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
+				dayBtnEl.tabIndex = -1;
 			}
 
 			// if weekend
@@ -125,12 +111,6 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
-
-			// if range min/max
-			if ((self.rangeMin as FormatDateString) > date || (self.rangeMax as FormatDateString) < date) {
-				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
-				dayBtnEl.tabIndex = -1;
-			}
 		};
 
 		const createDay = (dayText: string, dayID: number, date: string, otherMonth: boolean, modifier: string | null) => {
@@ -145,6 +125,18 @@ const createDays = (self: IVanillaCalendar) => {
 				const weekNumber = getWeekNumber(date, self.settings.iso8601);
 				if (!weekNumber) return;
 				dayBtnEl.dataset.calendarWeekNumber = `${weekNumber.week}`;
+			}
+
+			if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays && !self.rangeDisabled?.includes(date as FormatDateString)) {
+				self.rangeDisabled?.push(date as FormatDateString);
+			}
+
+			if (self.rangeEnabled?.[0] && self.rangeDisabled?.includes(date as FormatDateString)) {
+				self.rangeDisabled = self.rangeDisabled?.filter((d: FormatDateString) => !self.rangeEnabled?.includes(d));
+			}
+
+			if (self.settings.range.disableWeekday?.includes(dayID) && !self.rangeDisabled?.includes(date as FormatDateString)) {
+				self.rangeDisabled?.push(date as FormatDateString);
 			}
 
 			setDayModifier(dayEl, dayBtnEl, dayID, date, otherMonth);
@@ -225,6 +217,8 @@ const createDays = (self: IVanillaCalendar) => {
 		createPopup(self, (daysEls[index] as HTMLElement));
 		createWeekNumbers(self, firstDayWeek, daysSelectedMonth, weekNumbersEls[index], daysEls[index]);
 	});
+
+	self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
 };
 
 export default createDays;
