@@ -73,8 +73,6 @@ const setDisabledDates = () => {
 	let startDate = null;
 	let endDate = null;
 
-	currentSelf.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
-
 	for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
 		const disabledDate = new Date(`${currentSelf.rangeDisabled[index]} 00:00:00`);
 		if (selectedDate >= disabledDate) {
