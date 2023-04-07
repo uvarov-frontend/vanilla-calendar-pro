@@ -1,11 +1,11 @@
-[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar.jpg)](https://vanilla-calendar.com/)
+[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar-07_04_23.jpg)](https://vanilla-calendar.com/)
 # Lightweight, simple, feature-rich and no dependencies.
 
 [![package-badge]][package]
 
 VanillaCalendar is a pure JavaScript date and time picker using TypeScript so it supports any JS framework and library.
 
-The final minified .js file is ~ **37.5 KB** and with gzip is ~ **9.2** KB.
+The final minified .js file is ~ **39 KB** and with gzip is ~ **9.6** KB.
 
 Latest version without TypeScript - [v1.5.5](https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar/v/1.5.5)
 
