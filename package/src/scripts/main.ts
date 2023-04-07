@@ -39,7 +39,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	currentType!: string;
 
-	selectedKeeping!: null;
+	selectedKeeping!: string | null;
 
 	userTime!: boolean;
 

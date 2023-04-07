@@ -61,9 +61,9 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	readonly currentType: string;
 
-	readonly selectedKeeping: null;
+	readonly dateMin: Date;
 
-	readonly userTime: boolean;
+	readonly dateMax: Date;
 
 	readonly rangeMin: FormatDateString;
 
@@ -85,15 +85,15 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	readonly selectedMinutes: string;
 
+	readonly selectedKeeping: string | null;
+
 	readonly selectedTime: string;
+
+	readonly userTime: boolean;
 
 	readonly correctMonths: number;
 
 	readonly viewYear: number;
-
-	readonly dateMin: Date;
-
-	readonly dateMax: Date;
 }
 
 export default VanillaCalendar;
