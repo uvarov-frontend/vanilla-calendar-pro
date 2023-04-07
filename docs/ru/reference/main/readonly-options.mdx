@@ -1,0 +1,255 @@
+# Параметры только для чтения
+
+После инициализации календаря создаются дополнительные параметры, доступные только для чтения.
+
+Эти параметры содержат набор данных на текущее состояние календаря.
+
+<Info>
+  Состояние календаря меняется каждый раз, когда вы взаимодействуете с календарем.
+  Соответственно, набор данных будет перезаписан, поэтому эти свойства доступны только для чтения.
+</Info>
+
+## HTMLElement
+
+`Type: HTMLElement`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.HTMLElement);
+```
+
+Корневой html-элемент, в котором был инициализирован календарь.
+
+- - -
+
+## currentType
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.currentType);
+```
+
+Текущий тип календаря.
+
+- - -
+
+## dateMin
+
+`Type: Date`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.dateMin);
+```
+
+Минимальная дата в формате `Date` объекта.
+
+- - -
+
+## dateMax
+
+`Type: Date`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.dateMax);
+```
+
+Максимальная дата в формате `Date` объекта.
+
+- - -
+
+## rangeMin
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeMin);
+```
+
+Текущая минимальная дата.
+
+- - -
+
+## rangeMax
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeMax);
+```
+
+Текущая максимальная дата.
+
+- - -
+
+## rangeDisabled
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeDisabled);
+```
+
+Массив отключенных дат.
+
+- - -
+
+## rangeEnabled
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeEnabled);
+```
+
+Массив включенных дат.
+
+- - -
+
+## selectedDates
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedDates);
+```
+
+Массив выбранных в данный момент дат.
+
+- - -
+
+## selectedHolidays
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedHolidays);
+```
+
+Массив праздничных дней.
+
+- - -
+
+## selectedMonth
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedMonth);
+```
+
+Текущий выбранный месяц.
+
+- - -
+
+## selectedYear
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedYear);
+```
+
+Текущий выбранный год.
+
+- - -
+
+## selectedHours
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedHours);
+```
+
+Текущий выбранный час. Доступно, если `settings.selection.time` не равно `false`.
+
+- - -
+
+## selectedMinutes
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedMinutes);
+```
+
+Текущие выбранные минуты. Доступно, если `settings.selection.time` не равно `false`.
+
+- - -
+
+## selectedKeeping
+
+`Type: string | null`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedKeeping);
+```
+
+Текущий маркер AM/PM для 12-часового формата времени. Доступно, если `settings.selection.time` не равно `false`.
+
+- - -
+
+## selectedTime
+
+`Type: string | null`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedTime);
+```
+
+Текущие полное время. Доступно, если `settings.selection.time` не равно `false`.
+
+- - -
+
+## userTime
+
+`Type: boolean`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.userTime);
+```
+
+Указывает, как было установлено время при инициализации календаря. Автоопределение текущего времени (по умолчанию) или использование параметра `settings.selected.time`.
+
+- - -
+
+## correctMonths
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.correctMonths);
+```
+
+Текущее кол-во месяцев для отображения, если тип календаря `'multiple'`.
+
+- - -
+
+## viewYear
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.viewYear);
+```
+
+Текущий отображаемый год.

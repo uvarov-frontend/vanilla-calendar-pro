@@ -1,0 +1,255 @@
+# Readonly options
+
+After the calendar is initialized, additional read-only settings are created.
+
+These parameters contain a set of data on the current state of the calendar.
+
+<Info>
+  The state of the calendar changes each time you interact with the calendar.
+  Accordingly, the dataset will be overwritten, so these properties are read-only.
+</Info>
+
+## HTMLElement
+
+`Type: HTMLElement`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.HTMLElement);
+```
+
+The root html element where the calendar was initialized.
+
+- - -
+
+## currentType
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.currentType);
+```
+
+The current calendar type.
+
+- - -
+
+## dateMin
+
+`Type: Date`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.dateMin);
+```
+
+The minimum date in the `Date` format of the object.
+
+- - -
+
+## dateMax
+
+`Type: Date`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.dateMax);
+```
+
+The maximum date in the `Date` format of the object.
+
+- - -
+
+## rangeMin
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeMin);
+```
+
+The current minimum date.
+
+- - -
+
+## rangeMax
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeMax);
+```
+
+The current maximum date.
+
+- - -
+
+## rangeDisabled
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeDisabled);
+```
+
+An array of disabled dates.
+
+- - -
+
+## rangeEnabled
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.rangeEnabled);
+```
+
+An array of enabled dates.
+
+- - -
+
+## selectedDates
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedDates);
+```
+
+An array of currently selected dates.
+
+- - -
+
+## selectedHolidays
+
+`Type: string[]`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedHolidays);
+```
+
+An array of holidays.
+
+- - -
+
+## selectedMonth
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedMonth);
+```
+
+The currently selected month.
+
+- - -
+
+## selectedYear
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedYear);
+```
+
+The current selected year.
+
+- - -
+
+## selectedHours
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedHours);
+```
+
+The currently selected hour. Available if `settings.selection.time` is not `false`.
+
+- - -
+
+## selectedMinutes
+
+`Type: string`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedMinutes);
+```
+
+The currently selected minutes. Available if `settings.selection.time` is not `false`.
+
+- - -
+
+## selectedKeeping
+
+`Type: string | null`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedKeeping);
+```
+
+Current AM/PM marker for 12-hour time format. Available if `settings.selection.time` is not `false`.
+
+- - -
+
+## selectedTime
+
+`Type: string | null`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.selectedTime);
+```
+
+Current full time. Available if `settings.selection.time` is not `false`.
+
+- - -
+
+## userTime
+
+`Type: boolean`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.userTime);
+```
+
+Specifies how the time was set when the calendar was initialized. Autodetect the current time (default) or use the `settings.selected.time` option.
+
+- - -
+
+## correctMonths
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.correctMonths);
+```
+
+The current number of months to display if the calendar type is `'multiple'`.
+
+- - -
+
+## viewYear
+
+`Type: number`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.viewYear);
+```
+
+The current display year.
