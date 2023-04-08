@@ -6,6 +6,10 @@
 	@apply outline outline-1 rounded-lg
 }
 
+.vanilla-calendar_hidden {
+	@apply hidden
+}
+
 .vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-month,
 .vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-year {
 	@apply cursor-default

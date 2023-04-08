@@ -154,8 +154,9 @@ export interface ICSSClasses {
 }
 
 export interface IOptions {
+	input: boolean;
 	type: 'default' | 'multiple' | 'month' | 'year';
-	months: number,
+	months: number;
 	date: IDate;
 	settings: ISettings;
 	locale: ILocale;
@@ -166,6 +167,7 @@ export interface IOptions {
 }
 
 export interface IVariables extends IOptions {
+	HTMLInputElement: HTMLInputElement | null;
 	HTMLElement: HTMLElement | null;
 	currentType: string;
 	selectedKeeping: string | null;
