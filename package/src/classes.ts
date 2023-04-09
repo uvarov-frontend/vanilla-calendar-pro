@@ -1,5 +1,6 @@
 const classes = {
 	calendar: 'vanilla-calendar',
+	calendarHidden: 'vanilla-calendar_hidden',
 	calendarDefault: 'vanilla-calendar_default',
 	calendarMultiple: 'vanilla-calendar_multiple',
 	calendarMonth: 'vanilla-calendar_month',

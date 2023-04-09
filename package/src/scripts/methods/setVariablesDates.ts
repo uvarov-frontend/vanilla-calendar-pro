@@ -4,14 +4,6 @@ import generateDate from '../helpers/generateDate';
 import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
-	if (self.input) {
-		const createHTMLElement = document.createElement('div');
-		createHTMLElement.className = 'vanilla-calendar_hidden';
-		self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
-		self.HTMLElement = createHTMLElement;
-		self.HTMLInputElement?.parentNode?.insertBefore(createHTMLElement, (self.HTMLElement as HTMLElement).nextSibling);
-	}
-
 	self.rangeMin = self.settings.range.min;
 	self.rangeMax = self.settings.range.max;
 	self.rangeDisabled = self.settings.range.disabled ? parserDates([...self.settings.range.disabled]) : [];

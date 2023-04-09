@@ -90,6 +90,7 @@ export interface IDOMTemplates {
 
 export interface ICSSClasses {
 	calendar: string;
+	calendarHidden: string;
 	calendarDefault: string;
 	calendarMultiple: string;
 	calendarMonth: string;

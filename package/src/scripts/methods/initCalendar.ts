@@ -5,6 +5,13 @@ import clickCalendar from './clickCalendar';
 
 const initCalendar = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
+	if (self.input) {
+		const createHTMLElement = document.createElement('div');
+		createHTMLElement.className = self.CSSClasses.calendarHidden;
+		self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
+		self.HTMLElement = createHTMLElement;
+		self.HTMLInputElement?.parentNode?.insertBefore(createHTMLElement, (self.HTMLElement as HTMLElement).nextSibling);
+	}
 	updateCalendar(self);
 	handlerInput(self);
 	clickCalendar(self);
