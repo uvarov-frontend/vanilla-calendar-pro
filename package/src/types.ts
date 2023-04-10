@@ -67,12 +67,12 @@ export interface ILocale {
 
 export interface IActions {
 	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
-	clickDayToInput: ((e: MouseEvent, dates: string[] | undefined, HTMLInputElement: HTMLElement) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
 	clickMonth: ((e: MouseEvent, month: number) => void) | null;
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
 	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
+	changeToInput: ((e: Event, HTMLInputElement: HTMLElement, dates?: string[], time?: string, hours?: string, minutes?: string, keeping?: string) => void) | null;
 }
 
 export type IPopups = {
@@ -171,16 +171,14 @@ export interface IOptions {
 }
 
 export interface IVariables extends IOptions {
-	HTMLInputElement: HTMLElement | null;
 	HTMLElement: HTMLElement | null;
 	currentType: string;
-	selectedKeeping: string | null;
-	userTime: boolean;
 	update: () => void;
 	init: () => void;
 }
 
 export interface IVanillaCalendar extends IVariables {
+	HTMLInputElement?: HTMLElement;
 	rangeMin?: FormatDateString;
 	rangeMax?: FormatDateString;
 	rangeDisabled?: FormatDateString[];
@@ -191,7 +189,9 @@ export interface IVanillaCalendar extends IVariables {
 	selectedYear?: number;
 	selectedHours?: string;
 	selectedMinutes?: string;
+	selectedKeeping?: string;
 	selectedTime?: string;
+	userTime?: boolean;
 	correctMonths?: number;
 	viewYear?: number;
 	dateMin?: Date;

@@ -1,4 +1,4 @@
-const transformTime24 = (hour: string | undefined, keeping: string | null) => {
+const transformTime24 = (hour: string | undefined, keeping: string | undefined) => {
 	const oldHour = Number(hour);
 	let newHour = String(oldHour);
 

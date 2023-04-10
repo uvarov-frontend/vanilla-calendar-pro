@@ -62,7 +62,7 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	readonly HTMLElement: HTMLElement | null;
 
-	readonly HTMLInputElement: HTMLElement | null;
+	readonly HTMLInputElement?: HTMLElement;
 
 	readonly currentType: string;
 
@@ -74,29 +74,29 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	readonly rangeMax: FormatDateString;
 
-	readonly rangeDisabled: FormatDateString[];
+	readonly rangeDisabled?: FormatDateString[];
 
-	readonly rangeEnabled: FormatDateString[];
+	readonly rangeEnabled?: FormatDateString[];
 
-	readonly selectedDates: FormatDateString[];
+	readonly selectedDates?: FormatDateString[];
 
-	readonly selectedHolidays: FormatDateString[];
+	readonly selectedHolidays?: FormatDateString[];
 
-	readonly selectedMonth: number;
+	readonly selectedMonth?: number;
 
-	readonly selectedYear: number;
+	readonly selectedYear?: number;
 
-	readonly selectedHours: string;
+	readonly selectedHours?: string;
 
-	readonly selectedMinutes: string;
+	readonly selectedMinutes?: string;
 
-	readonly selectedKeeping: string | null;
+	readonly selectedKeeping?: string;
 
-	readonly selectedTime: string;
+	readonly selectedTime?: string;
 
-	readonly userTime: boolean;
+	readonly userTime?: boolean;
 
-	readonly correctMonths: number;
+	readonly correctMonths?: number;
 
 	readonly viewYear: number;
 }

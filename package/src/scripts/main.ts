@@ -41,12 +41,6 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	currentType!: string;
 
-	selectedKeeping!: string | null;
-
-	userTime!: boolean;
-
-	HTMLInputElement!: HTMLElement | null;
-
 	constructor(selector: T, option?: R) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
 		if (!this.HTMLElement) return;
@@ -103,12 +97,12 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		};
 		this.actions = {
 			clickDay: option?.actions?.clickDay ?? null,
-			clickDayToInput: option?.actions?.clickDayToInput ?? null,
 			clickWeekNumber: option?.actions?.clickWeekNumber ?? null,
 			clickMonth: option?.actions?.clickMonth ?? null,
 			clickYear: option?.actions?.clickYear ?? null,
 			clickArrow: option?.actions?.clickArrow ?? null,
 			changeTime: option?.actions?.changeTime ?? null,
+			changeToInput: option?.actions?.changeToInput ?? null,
 		};
 		this.popups = option?.popups ?? null;
 		this.CSSClasses = (() => {
@@ -129,9 +123,6 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			year: option?.DOMTemplates?.year ?? DOMYear(this.CSSClasses),
 		};
 		this.currentType = this.type;
-		this.selectedKeeping = null;
-		this.userTime = false;
-		this.HTMLInputElement = null;
 	}
 
 	update = () => updateCalendar(this);

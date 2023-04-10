@@ -29,6 +29,10 @@ const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
 		if (self.actions.changeTime) {
 			self.actions.changeTime(e, self.selectedTime, (self.selectedHours as string), (self.selectedMinutes as string), (self.selectedKeeping as string));
 		}
+
+		if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
+			self.actions.changeToInput(e, self.HTMLInputElement, self.selectedDates, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
+		}
 	};
 
 	const changeRange = (range: HTMLInputElement, input: HTMLInputElement, type: string, max: number) => {
