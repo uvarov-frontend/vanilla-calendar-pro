@@ -91,11 +91,13 @@ export interface IDOMTemplates {
 
 export interface ICSSClasses {
 	calendar: string;
-	calendarHidden: string;
 	calendarDefault: string;
 	calendarMultiple: string;
 	calendarMonth: string;
 	calendarYear: string;
+	calendarHidden: string;
+	calendarToInput: string;
+	calendarInputWrapper: string;
 	controls: string;
 	grid: string;
 	column: string;
