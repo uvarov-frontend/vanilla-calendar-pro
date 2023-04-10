@@ -8,7 +8,7 @@ const initCalendar = (self: IVanillaCalendar) => {
 	if (self.input) {
 		const createHTMLElement = document.createElement('div');
 		createHTMLElement.className = self.CSSClasses.calendarHidden;
-		self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
+		self.HTMLInputElement = self.HTMLElement as HTMLElement;
 		self.HTMLElement = createHTMLElement;
 		self.HTMLInputElement?.parentNode?.insertBefore(createHTMLElement, (self.HTMLElement as HTMLElement).nextSibling);
 	}

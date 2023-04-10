@@ -19,7 +19,7 @@ import classes from '../classes';
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
 
-	HTMLInputElement!: HTMLInputElement | null;
+	HTMLInputElement!: HTMLElement | null;
 
 	input!: boolean;
 
@@ -103,6 +103,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		};
 		this.actions = {
 			clickDay: option?.actions?.clickDay ?? null,
+			clickDayToInput: option?.actions?.clickDayToInput ?? null,
 			clickWeekNumber: option?.actions?.clickWeekNumber ?? null,
 			clickMonth: option?.actions?.clickMonth ?? null,
 			clickYear: option?.actions?.clickYear ?? null,

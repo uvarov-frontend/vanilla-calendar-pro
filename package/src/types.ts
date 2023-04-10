@@ -67,6 +67,7 @@ export interface ILocale {
 
 export interface IActions {
 	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
+	clickDayToInput: ((e: MouseEvent, dates: string[] | undefined, HTMLInputElement: HTMLElement) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
 	clickMonth: ((e: MouseEvent, month: number) => void) | null;
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
@@ -168,7 +169,7 @@ export interface IOptions {
 }
 
 export interface IVariables extends IOptions {
-	HTMLInputElement: HTMLInputElement | null;
+	HTMLInputElement: HTMLElement | null;
 	HTMLElement: HTMLElement | null;
 	currentType: string;
 	selectedKeeping: string | null;
