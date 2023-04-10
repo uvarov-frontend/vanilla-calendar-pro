@@ -2,16 +2,11 @@ import { IVanillaCalendar } from 'src/types';
 import updateCalendar from './updateCalendar';
 import handlerInput from './handlerInput';
 import clickCalendar from './clickCalendar';
+import createCalendarToInput from './createCalendarToInput';
 
 const initCalendar = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
-	if (self.input) {
-		const createHTMLElement = document.createElement('div');
-		createHTMLElement.className = self.CSSClasses.calendarHidden;
-		self.HTMLInputElement = self.HTMLElement as HTMLElement;
-		self.HTMLElement = createHTMLElement;
-		self.HTMLInputElement?.parentNode?.insertBefore(createHTMLElement, (self.HTMLElement as HTMLElement).nextSibling);
-	}
+	createCalendarToInput(self);
 	updateCalendar(self);
 	handlerInput(self);
 	clickCalendar(self);
