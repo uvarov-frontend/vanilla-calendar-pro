@@ -19,8 +19,6 @@ import classes from '../classes';
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
 
-	HTMLInputElement!: HTMLElement | null;
-
 	input!: boolean;
 
 	type!: 'default' | 'multiple' | 'month' | 'year';
@@ -46,6 +44,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 	selectedKeeping!: string | null;
 
 	userTime!: boolean;
+
+	HTMLInputElement!: HTMLElement | null;
 
 	constructor(selector: T, option?: R) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
@@ -131,6 +131,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		this.currentType = this.type;
 		this.selectedKeeping = null;
 		this.userTime = false;
+		this.HTMLInputElement = null;
 	}
 
 	update = () => updateCalendar(this);
