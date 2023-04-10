@@ -22,6 +22,19 @@ console.log(calendar.HTMLElement);
 
 - - -
 
+## HTMLInputElement
+
+`Type: HTMLElement`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.HTMLInputElement);
+```
+
+Корневой html-элемент, который является полем ввода.
+
+- - -
+
 ## currentType
 
 `Type: string`
@@ -174,7 +187,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHours);
 ```
 
-Текущий выбранный час. Доступно, если `settings.selection.time` не равно `false`.
+Текущий выбранный час.
 
 - - -
 
@@ -187,7 +200,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMinutes);
 ```
 
-Текущие выбранные минуты. Доступно, если `settings.selection.time` не равно `false`.
+Текущие выбранные минуты.
 
 - - -
 
@@ -200,7 +213,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedKeeping);
 ```
 
-Текущий маркер AM/PM для 12-часового формата времени. Доступно, если `settings.selection.time` не равно `false`.
+Текущий маркер AM/PM для 12-часового формата времени.
 
 - - -
 
@@ -213,7 +226,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedTime);
 ```
 
-Текущие полное время. Доступно, если `settings.selection.time` не равно `false`.
+Текущие полное время.
 
 - - -
 

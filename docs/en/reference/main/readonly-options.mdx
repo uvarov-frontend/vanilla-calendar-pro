@@ -22,6 +22,19 @@ The root html element where the calendar was initialized.
 
 - - -
 
+## HTMLInputElement
+
+`Type: HTMLElement`
+
+```js
+const calendar = new VanillaCalendar('#calendar');
+console.log(calendar.HTMLInputElement);
+```
+
+The root html element that is the input field.
+
+- - -
+
 ## currentType
 
 `Type: string`
@@ -174,7 +187,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHours);
 ```
 
-The currently selected hour. Available if `settings.selection.time` is not `false`.
+The currently selected hour.
 
 - - -
 
@@ -187,7 +200,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMinutes);
 ```
 
-The currently selected minutes. Available if `settings.selection.time` is not `false`.
+The currently selected minutes.
 
 - - -
 
@@ -200,7 +213,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedKeeping);
 ```
 
-Current AM/PM marker for 12-hour time format. Available if `settings.selection.time` is not `false`.
+Current AM/PM marker for 12-hour time format.
 
 - - -
 
@@ -213,7 +226,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedTime);
 ```
 
-Current full time. Available if `settings.selection.time` is not `false`.
+Current full time.
 
 - - -
 

@@ -15,17 +15,17 @@ Actions are calendar handlers, they allow you to get the necessary data for furt
 
 `Default: null`
 
-`Options: clickDay(event, dates) => void | null`
+`Options: clickDay(e, dates) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickDay(event, dates) {},
+    clickDay(e, dates) {},
   },
 });
 ```
 
-The method is triggered after clicking on a day in the calendar. Parameters that can be received: `event` - mouse event, `dates` - array of selected dates.
+The method is triggered after clicking on a day in the calendar. Parameters that can be received: `e` - mouse event, `dates` - array of selected dates.
 
 <Info>
   It is important to know that each HTML element of the day that is clicked contains a data attribute, inside which is the full date in the format `YYYY-MM-DD`.
@@ -41,18 +41,19 @@ The method is triggered after clicking on a day in the calendar. Parameters that
 
 `Default: null`
 
-`Options: clickWeekNumber(event, number, days, year) => void | null`
+`Options: clickWeekNumber(e, number, days, year) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickWeekNumber(event, number, days, year) {},
+    clickWeekNumber(e, number, days, year) {},
   },
 });
 ```
 
 For this method to work, the parameter <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`settings.visibility.weekNumbers`</a> with the value `true` is required.
-The method is triggered after clicking on the week number in the calendar. Parameters that can be received: `event` - mouse event, `number` - week number, `days` - array of days (html elements), `year` - year of the week.
+
+The method is triggered after clicking on the week number in the calendar. Parameters that can be received: `e` - mouse event, `number` - week number, `days` - array of days (html elements), `year` - year of the week.
 
 ---
 
@@ -62,7 +63,7 @@ The method is triggered after clicking on the week number in the calendar. Param
 
 `Default: null`
 
-`Options: clickMonth(event, month) => void | null`
+`Options: clickMonth(e, month) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -72,7 +73,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after selecting a month in the calendar. Parameters that can be received: `event` - mouse event, `month` - selected month number.
+The method is triggered after selecting a month in the calendar. Parameters that can be received: `e` - mouse event, `month` - selected month number.
 
 ---
 
@@ -82,17 +83,17 @@ The method is triggered after selecting a month in the calendar. Parameters that
 
 `Default: null`
 
-`Options: clickYear(event, year) => void | null`
+`Options: clickYear(e, year) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickYear(event, year) {},
+    clickYear(e, year) {},
   },
 });
 ```
 
-The method is triggered after selecting a year in the calendar. Parameters that can be received: `event` - mouse event, `year` - selected year.
+The method is triggered after selecting a year in the calendar. Parameters that can be received: `e` - mouse event, `year` - selected year.
 
 ---
 
@@ -102,17 +103,17 @@ The method is triggered after selecting a year in the calendar. Parameters that 
 
 `Default: null`
 
-`Options: clickArrow(event, year, month) => void | null`
+`Options: clickArrow(e, year, month) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickArrow(event, year, month) {},
+    clickArrow(e, year, month) {},
   },
 });
 ```
 
-The method is triggered after clicking on the arrow. Parameters that can be received: `event` - mouse event, `year` - selected year, `month` - selected month number.
+The method is triggered after clicking on the arrow. Parameters that can be received: `e` - mouse event, `year` - selected year, `month` - selected month number.
 
 ---
 
@@ -122,14 +123,34 @@ The method is triggered after clicking on the arrow. Parameters that can be rece
 
 `Default: null`
 
-`Options: changeTime(event, time, hours, minutes, keeping) => void | null`
+`Options: changeTime(e, time, hours, minutes, keeping) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeTime(event, time, hours, minutes, keeping) {},
+    changeTime(e, time, hours, minutes, keeping) {},
   },
 });
 ```
 
-The method is triggered after changing the time in any way. The parameters that can be received are: `event` - the change event, `time` - the selected time, `hours` - the selected hour, `minutes` - the selected minutes, `keeping` - the selected AM/PM marker.
+The method is triggered after changing the time in any way. The parameters that can be received are: `e` - the change event, `time` - the selected time, `hours` - the selected hour, `minutes` - the selected minutes, `keeping` - the selected AM/PM marker.
+
+## actions.changeToInput()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {},
+  },
+});
+```
+For this method to work, the parameter <a href="/docs/reference/main/main-settings#input">`input`</a> with the value `true` is required.
+
+The method is triggered after clicking on a day in the calendar or changing the time in any way.
+Parameters that can be received: `e` - event, `HTMLInputElement` - HTML element that is an input field, `dates` - array of selected dates, `time` - selected time, `hours` - selected hour, `minutes ` is the selected minutes, `keeping` is the selected AM/PM marker.
