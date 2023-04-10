@@ -20,6 +20,18 @@
 	@apply grow-0
 }
 
+.vanilla-calendar_hidden {
+	@apply invisible opacity-0 pointer-events-none transition-all
+}
+
+.vanilla-calendar_to-input {
+	@apply absolute left-0 top-full mt-1
+}
+
+.vanilla-calendar-input-wrapper {
+	@apply relative;
+}
+
 .vanilla-calendar-controls {
 	@apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content
 }

@@ -67,6 +67,7 @@ export interface ILocale {
 
 export interface IActions {
 	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
+	clickDayToInput: ((e: MouseEvent, dates: string[] | undefined, HTMLInputElement: HTMLElement) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
 	clickMonth: ((e: MouseEvent, month: number) => void) | null;
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
@@ -94,6 +95,9 @@ export interface ICSSClasses {
 	calendarMultiple: string;
 	calendarMonth: string;
 	calendarYear: string;
+	calendarHidden: string;
+	calendarToInput: string;
+	calendarInputWrapper: string;
 	controls: string;
 	grid: string;
 	column: string;
@@ -154,8 +158,9 @@ export interface ICSSClasses {
 }
 
 export interface IOptions {
+	input: boolean;
 	type: 'default' | 'multiple' | 'month' | 'year';
-	months: number,
+	months: number;
 	date: IDate;
 	settings: ISettings;
 	locale: ILocale;
@@ -166,6 +171,7 @@ export interface IOptions {
 }
 
 export interface IVariables extends IOptions {
+	HTMLInputElement: HTMLElement | null;
 	HTMLElement: HTMLElement | null;
 	currentType: string;
 	selectedKeeping: string | null;

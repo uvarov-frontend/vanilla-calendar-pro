@@ -21,6 +21,7 @@ type Settings = {
 };
 
 export type Options = {
+	input?: boolean;
 	type?: 'default' | 'multiple' | 'month' | 'year';
 	months?: number;
 	date?: Partial<IDate>;
@@ -39,7 +40,9 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	init: () => void;
 
-	type?: 'default' | 'multiple' | 'month' | 'year';
+	input: boolean;
+
+	type: 'default' | 'multiple' | 'month' | 'year';
 
 	months: number;
 
@@ -58,6 +61,8 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 	DOMTemplates: Partial<IDOMTemplates>;
 
 	readonly HTMLElement: HTMLElement | null;
+
+	readonly HTMLInputElement: HTMLElement | null;
 
 	readonly currentType: string;
 
