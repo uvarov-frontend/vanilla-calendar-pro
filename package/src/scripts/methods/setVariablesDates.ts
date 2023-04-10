@@ -53,6 +53,8 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {
+		self.userTime = false;
+
 		if (typeof self.settings.selected.time === 'string') {
 			const regExr = time12 ? /^([0-9]|0[1-9]|1[0-2]):([0-5][0-9])|(AM|PM)/g
 				: /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])/g;

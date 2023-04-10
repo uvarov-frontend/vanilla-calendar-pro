@@ -113,7 +113,10 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				}
 
 				if (self.actions.clickDay) self.actions.clickDay(e, self.selectedDates);
-				if (self.input && self.HTMLInputElement && self.actions.clickDayToInput) self.actions.clickDayToInput(e, self.selectedDates, self.HTMLInputElement);
+
+				if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
+					self.actions.changeToInput(e, self.HTMLInputElement, self.selectedDates, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
+				}
 
 				if (dayBtnPrevEl) {
 					changeMonth(self, 'prev');
