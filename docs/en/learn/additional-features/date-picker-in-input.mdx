@@ -1,3 +1,20 @@
 # Date picker in input
 
+So, if you need to show the calendar on click on **«Input»**, the easiest way is to initialize it immediately with the parameter <a href="/docs/reference/main/main-settings#input">`input`</a>.
+Here is the simplest example of such usage with default settings.
+
+<Info>
+  Open the sandbox in a separate tab if you want to see an example with all the files. To do this, click the **«Open»** button at the top right.
+</Info>
+
 <Sandbox example="additional-features-date-picker-in-input" height={470} />
+
+It is important to understand that **«Input»** in the context of this calendar is not necessarily an `<input>` tag, it can be any tag, such as `<div>`. Let's consider this option.
+
+<Sandbox example="additional-features-date-picker-in-input-div" height={470} />
+
+Great, we tried the simplest option with one date to choose from, now let's try something more complicated.
+
+Let's add a date range selection with a `'multiple'` calendar type.
+
+<Sandbox example="additional-features-date-picker-in-input-multiple" vertically={false} height={720} />

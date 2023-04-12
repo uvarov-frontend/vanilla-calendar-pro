@@ -8,15 +8,15 @@ const options = {
   actions: {
     changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {
       if (dates[0]) {
-        HTMLInputElement.value = dates[0];
+        HTMLInputElement.innerHTML = dates[0];
         // if you want to hide the calendar after picking a date
         calendar.HTMLElement.classList.add('vanilla-calendar_hidden');
       } else {
-        HTMLInputElement.value = '';
+        HTMLInputElement.innerHTML = '';
       }
     },
   },
 };
 
-const calendar = new VanillaCalendar('#calendar-input', options);
+const calendar = new VanillaCalendar('#calendar-input-div', options);
 calendar.init();

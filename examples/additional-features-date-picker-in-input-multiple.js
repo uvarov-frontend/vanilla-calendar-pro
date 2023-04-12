@@ -5,12 +5,25 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 const options = {
   input: true,
+  type: 'multiple',
+  settings: {
+    range: {
+      disablePast: true,
+    },
+    selection: {
+      day: 'multiple-ranged',
+    },
+    visibility: {
+      daysOutside: false,
+    },
+  },
   actions: {
     changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {
-      if (dates[0]) {
+      if (dates[1]) {
+        dates.sort((a, b) => +new Date(a) - +new Date(b));
+        HTMLInputElement.value = `${dates[0]} — ${dates[dates.length - 1]}`;
+      } else if (dates[0]) {
         HTMLInputElement.value = dates[0];
-        // if you want to hide the calendar after picking a date
-        calendar.HTMLElement.classList.add('vanilla-calendar_hidden');
       } else {
         HTMLInputElement.value = '';
       }
