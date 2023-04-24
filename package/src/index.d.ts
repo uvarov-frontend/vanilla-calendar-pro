@@ -36,6 +36,8 @@ export type Options = {
 declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partial<Options>> {
 	constructor(selector: T, option?: R);
 
+	reset: () => void;
+
 	update: () => void;
 
 	init: () => void;

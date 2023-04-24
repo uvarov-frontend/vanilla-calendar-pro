@@ -8,6 +8,7 @@ import {
 	ICSSClasses,
 	IDOMTemplates,
 } from 'src/types';
+import resetCalendar from './methods/resetCalendar';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';
 import DOMDefault from './templates/DOMDefault';
@@ -124,6 +125,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		};
 		this.currentType = this.type;
 	}
+
+	reset = () => resetCalendar(this);
 
 	update = () => updateCalendar(this);
 
