@@ -1,4 +1,4 @@
-# Initialize and update
+# Initialize, update and reset
 
 `init()` - The main instance method that initializes the calendar.
 
@@ -13,4 +13,10 @@ You can also update the calendar with the new settings at any time using the `up
 calendar.settings.lang = 'de-AT';
 calendar.settings.iso8601 = false;
 calendar.update();
+```
+
+Or reset using the `reset()` method.
+
+```js
+calendar.reset();
 ```

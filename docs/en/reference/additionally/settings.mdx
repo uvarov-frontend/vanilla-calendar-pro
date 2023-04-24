@@ -526,6 +526,31 @@ Calendar theme. By default, the theme is determined by the user's system.
 
 ---
 
+## settings.visibility.themeDetect
+
+`Type: String | False`
+
+`Default: 'html[data-theme]'`
+
+`Options: 'string | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      themeDetect: 'html[data-theme]',
+    },
+  },
+});
+```
+In order for the calendar to track and apply the site theme automatically, you need to pass a string value as a CSS selector. Where square brackets indicate an attribute that contains the title of the topic.
+
+By default, the `html` tag with the `data-theme` attribute is tracked, but it can be any other attribute and tag, such as `class` if the theme name is used as the class name: 'html[class ]'.
+
+If set to `false`, the theme is determined by the user's system or the `settings.visibility.theme` setting.
+
+---
+
 ## settings.visibility.monthShort
 
 `Type: Boolean`
