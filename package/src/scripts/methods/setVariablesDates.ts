@@ -77,7 +77,7 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 		if (!self.userTime && (time12)) {
 			self.selectedHours = transformTime12(String(self.date.today.getHours()));
 			self.selectedMinutes = String(self.date.today.getMinutes());
-			self.selectedKeeping = Number(self.date.today.getHours()) > 12 ? 'PM' : 'AM';
+			self.selectedKeeping = Number(self.date.today.getHours()) >= 12 ? 'PM' : 'AM';
 		} else if (!self.userTime) {
 			self.selectedHours = String(self.date.today.getHours());
 			self.selectedMinutes = String(self.date.today.getMinutes());
