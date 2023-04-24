@@ -84,6 +84,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			},
 			visibility: {
 				theme: option?.settings?.visibility?.theme ?? 'system',
+				themeDetect: option?.settings?.visibility?.themeDetect ?? 'html[data-theme]',
 				monthShort: option?.settings?.visibility?.monthShort ?? true,
 				weekNumbers: option?.settings?.visibility?.weekNumbers ?? false,
 				weekend: option?.settings?.visibility?.weekend ?? true,

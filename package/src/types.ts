@@ -43,6 +43,7 @@ export interface ISelected {
 
 export interface IVisibility {
 	theme: typeof themes[number];
+	themeDetect: string | false;
 	monthShort: boolean;
 	weekNumbers: boolean;
 	weekend: boolean;
