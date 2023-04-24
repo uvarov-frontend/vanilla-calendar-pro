@@ -9,11 +9,9 @@ import createTime from './createTime';
 import createWeek from './createWeek';
 import createYears from './createYears';
 import getLocale from './getLocale';
-import setVariablesDates from './setVariablesDates';
 import setTheme from './setTheme';
 
-const update = (self: IVanillaCalendar) => {
-	setVariablesDates(self);
+const updateCalendar = (self: IVanillaCalendar) => {
 	setTheme(self);
 	getLocale(self);
 	createDOM(self);
@@ -32,4 +30,4 @@ const update = (self: IVanillaCalendar) => {
 	}
 };
 
-export default update;
+export default updateCalendar;

@@ -24,7 +24,6 @@ const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
 			self.selectedMinutes = `${value}`;
 		}
 		self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ''}`;
-		self.settings.selected.time = self.selectedTime;
 
 		if (self.actions.changeTime) {
 			self.actions.changeTime(e, self.selectedTime, (self.selectedHours as string), (self.selectedMinutes as string), (self.selectedKeeping as string));

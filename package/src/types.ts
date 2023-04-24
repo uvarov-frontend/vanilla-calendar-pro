@@ -173,6 +173,7 @@ export interface IOptions {
 export interface IVariables extends IOptions {
 	HTMLElement: HTMLElement | null;
 	currentType: string;
+	reset: () => void;
 	update: () => void;
 	init: () => void;
 }

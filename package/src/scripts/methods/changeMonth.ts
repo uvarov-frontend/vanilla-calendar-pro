@@ -28,9 +28,6 @@ const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
 		// no default
 	}
 
-	self.settings.selected.month = self.selectedMonth;
-	self.settings.selected.year = self.selectedYear;
-
 	showMonth(self);
 	showYear(self);
 	controlArrows(self);

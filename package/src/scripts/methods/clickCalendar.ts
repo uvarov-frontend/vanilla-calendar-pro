@@ -160,13 +160,12 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				self.selectedYear = Number(yearItemEl.dataset.calendarYear);
 				self.currentType = self.type;
 				if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
-					self.settings.selected.month = self.dateMin.getMonth();
+					self.selectedMonth = self.dateMin.getMonth();
 				}
 				if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
-					self.settings.selected.month = self.dateMax.getMonth();
+					self.selectedMonth = self.dateMax.getMonth();
 				}
 				if (self.actions.clickYear) self.actions.clickYear(e, self.selectedYear);
-				self.settings.selected.year = self.selectedYear;
 				update(self);
 			}
 		};
@@ -182,7 +181,6 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				self.selectedMonth = Number(monthItemEl.dataset.calendarMonth);
 				self.currentType = self.type;
 				if (self.actions.clickMonth) self.actions.clickMonth(e, self.selectedMonth);
-				self.settings.selected.month = self.selectedMonth;
 				update(self);
 			}
 		};
