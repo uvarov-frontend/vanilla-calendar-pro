@@ -9,14 +9,13 @@ calendar.init();
 
 You can also update the calendar with the new settings at any time using the `update()` method.
 
+The `update()` method, unlike `reset()`, saves the user's selected dates, month, and year after the update.
+
 ```js
 calendar.settings.lang = 'de-AT';
 calendar.settings.iso8601 = false;
+
 calendar.update();
-```
-
-Or reset using the `reset()` method.
-
-```js
+// or
 calendar.reset();
 ```
