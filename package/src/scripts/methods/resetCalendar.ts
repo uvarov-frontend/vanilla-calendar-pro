@@ -1,10 +1,10 @@
 import { IVanillaCalendar } from 'src/types';
 import setVariablesDates from './setVariablesDates';
-import updateCalendar from './updateCalendar';
+import mainMethod from './mainMethod';
 
 const resetCalendar = (self: IVanillaCalendar) => {
 	setVariablesDates(self);
-	updateCalendar(self);
+	mainMethod(self);
 };
 
 export default resetCalendar;

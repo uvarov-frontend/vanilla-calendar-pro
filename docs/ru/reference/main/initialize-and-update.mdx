@@ -7,16 +7,15 @@ const calendar = new VanillaCalendar(element, params);
 calendar.init();
 ```
 
-Вы также можете обновить календарь с новыми настройками в любое время, используя метод `update()`.
+Вы также можете обновить календарь с новыми настройками в любое время, используя метод `update()` или `reset()`.
+
+Метод `update()`, в отличие от `reset()`, сохраняет выбранные пользователем даты, месяц и год после обновления.
 
 ```js
 calendar.settings.lang = 'de-AT';
 calendar.settings.iso8601 = false;
+
 calendar.update();
-```
-
-Или сбросить, используя метод `reset()`.
-
-```js
+// or
 calendar.reset();
 ```
