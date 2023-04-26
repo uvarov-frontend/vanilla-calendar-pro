@@ -1,6 +1,5 @@
 import { IVanillaCalendar } from 'src/types';
-import setVariablesDates from './setVariablesDates';
-import updateCalendar from './updateCalendar';
+import resetCalendar from './resetCalendar';
 import handlerInput from './handlerInput';
 import clickCalendar from './clickCalendar';
 import createCalendarToInput from './createCalendarToInput';
@@ -8,8 +7,7 @@ import createCalendarToInput from './createCalendarToInput';
 const initCalendar = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
 	createCalendarToInput(self);
-	setVariablesDates(self);
-	updateCalendar(self);
+	resetCalendar(self);
 	handlerInput(self);
 	clickCalendar(self);
 };

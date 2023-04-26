@@ -1,33 +1,29 @@
 import { IVanillaCalendar } from 'src/types';
-import controlArrows from './controlArrows';
-import createDays from './createDays';
-import createDOM from './createDOM';
-import showMonth from './showMonth';
-import showYear from './showYear';
-import createMonths from './createMonths';
-import createTime from './createTime';
-import createWeek from './createWeek';
-import createYears from './createYears';
-import getLocale from './getLocale';
-import setTheme from './setTheme';
+import setVariablesDates from './setVariablesDates';
+import mainMethod from './mainMethod';
 
 const updateCalendar = (self: IVanillaCalendar) => {
-	setTheme(self);
-	getLocale(self);
-	createDOM(self);
-	showMonth(self);
-	showYear(self);
-	controlArrows(self);
-	createTime(self);
+	let tempSelectedDates = null;
+	let tempSelectedMonth = null;
+	let tempSelectedYear = null;
 
-	if (self.currentType === 'default' || self.currentType === 'multiple') {
-		createWeek(self);
-		createDays(self);
-	} else if (self.currentType === 'month') {
-		createMonths(self);
-	} else if (self.currentType === 'year') {
-		createYears(self);
+	if (!self.settings.selected.dates?.[0]) {
+		tempSelectedDates = self.settings.selected.dates;
+		self.settings.selected.dates = self.selectedDates;
 	}
+	if (!self.settings.selected.month) {
+		tempSelectedMonth = self.settings.selected.month;
+		self.settings.selected.month = self.selectedMonth as number;
+	}
+	if (!self.settings.selected.year) {
+		tempSelectedYear = self.settings.selected.year;
+		self.settings.selected.year = self.selectedYear as number;
+	}
+	setVariablesDates(self);
+	mainMethod(self);
+	self.settings.selected.dates = tempSelectedDates;
+	self.settings.selected.month = tempSelectedMonth;
+	self.settings.selected.year = tempSelectedYear;
 };
 
 export default updateCalendar;

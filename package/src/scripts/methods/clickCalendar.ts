@@ -4,7 +4,7 @@ import createDays from './createDays';
 import createMonths from './createMonths';
 import createYears from './createYears';
 import generateDate from '../helpers/generateDate';
-import update from './updateCalendar';
+import mainMethod from './mainMethod';
 import handlerMultipleRanged from './handlerMultipleRanged';
 
 const clickCalendar = (self: IVanillaCalendar) => {
@@ -154,7 +154,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				createYears(self);
 			} else if (self.currentType === 'year' && yearHeaderEl) {
 				self.currentType = self.type;
-				update(self);
+				mainMethod(self);
 			} else if (yearItemEl) {
 				if (self.selectedMonth === undefined || !self.dateMin || !self.dateMax) return;
 				self.selectedYear = Number(yearItemEl.dataset.calendarYear);
@@ -166,7 +166,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 					self.selectedMonth = self.dateMax.getMonth();
 				}
 				if (self.actions.clickYear) self.actions.clickYear(e, self.selectedYear);
-				update(self);
+				mainMethod(self);
 			}
 		};
 
@@ -176,12 +176,12 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				createMonths(self);
 			} else if (self.currentType === 'month' && monthHeaderEl) {
 				self.currentType = self.type;
-				update(self);
+				mainMethod(self);
 			} else if (monthItemEl) {
 				self.selectedMonth = Number(monthItemEl.dataset.calendarMonth);
 				self.currentType = self.type;
 				if (self.actions.clickMonth) self.actions.clickMonth(e, self.selectedMonth);
-				update(self);
+				mainMethod(self);
 			}
 		};
 
