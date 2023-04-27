@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 import controlArrows from './controlArrows';
 import createDOM from './createDOM';
 import showMonth from './showMonth';

@@ -1,4 +1,4 @@
-import { FormatDateString, IVanillaCalendar } from 'src/types';
+import { FormatDateString, IVanillaCalendar } from '../../types';
 
 const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
 	if (!self.popups) return;

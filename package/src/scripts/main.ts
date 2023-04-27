@@ -7,7 +7,7 @@ import {
 	IPopups,
 	ICSSClasses,
 	IDOMTemplates,
-} from 'src/types';
+} from '../types';
 import resetCalendar from './methods/resetCalendar';
 import updateCalendar from './methods/updateCalendar';
 import initCalendar from './methods/initCalendar';

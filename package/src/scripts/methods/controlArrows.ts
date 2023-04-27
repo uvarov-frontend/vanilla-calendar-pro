@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const controlArrows = (self: IVanillaCalendar) => {
 	if (!['default', 'multiple', 'year'].includes(self.currentType)) return;

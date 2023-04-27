@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 import resetCalendar from './resetCalendar';
 import handlerInput from './handlerInput';
 import clickCalendar from './clickCalendar';
