@@ -15,6 +15,9 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
+		"paths": {
+			"src/*": ["./src/*"]
+		}
 	},
 	"include": ["**/*.ts", "**/*.js"],
 	"exclude": ["node_modules"]
