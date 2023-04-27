@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "homepage": "https://vanilla-calendar.com",
   "directories": {
-    "doc": "docs/*"
+    "docs": "docs/*",
+		"package": "package/*"
   },
-  "workspaces": [
-    "package/*"
-  ],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
