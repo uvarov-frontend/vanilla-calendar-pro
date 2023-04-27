@@ -1,11 +1,11 @@
 {
-  "name": "vanilla-calendar-project",
-  "version": "0.0.0",
-  "homepage": "https://vanilla-calendar.com",
-  "directories": {
-    "docs": "docs/*",
+	"name": "vanilla-calendar-project",
+	"version": "0.0.0",
+	"homepage": "https://vanilla-calendar.com",
+	"directories": {
+		"docs": "docs/*",
 		"package": "package/*"
-  },
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
@@ -16,7 +16,7 @@
 		"url": "https://frontend.uvarov.tech"
 	},
 	"license": "MIT",
-  "browserslist": {
+	"browserslist": {
 		"production": [
 			">0.2%",
 			"not dead",
@@ -29,8 +29,9 @@
 		]
 	},
 	"scripts": {
-		"watch": "tsc && vite build --watch",
-		"build": "tsc && vite build"
+		"package": "tsc && vite build --config package.config.ts",
+		"build": "tsc && vite build",
+		"start": "tsc && vite"
 	},
 	"devDependencies": {
 		"@types/node": "^18.14.4",
@@ -41,7 +42,6 @@
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-config-airbnb-typescript": "^17.0.0",
 		"eslint-plugin-import": "^2.27.5",
-		"fast-glob": "^3.2.12",
 		"postcss": "^8.4.21",
 		"tailwindcss": "^3.2.7",
 		"terser": "^5.16.5",

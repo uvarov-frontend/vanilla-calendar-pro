@@ -5,6 +5,10 @@
 # Node
 node_modules
 
+# Dist & test
+demo/build
+demo/dist
+
 # BD, logs
 *.log
 
