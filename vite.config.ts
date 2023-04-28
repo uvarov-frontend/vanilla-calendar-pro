@@ -9,4 +9,7 @@ export default defineConfig({
 		cssCodeSplit: true,
 		minify: 'terser',
 	},
+	server: {
+		port: 5173,
+	},
 });

@@ -9,6 +9,9 @@ node_modules
 demo/build
 demo/dist
 
+# Tests
+cypress/videos
+
 # BD, logs
 *.log
 
