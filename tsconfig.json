@@ -13,9 +13,13 @@
 		"module": "ESNext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
-		"isolatedModules": true,
+		"isolatedModules": false,
 		"noEmit": true,
+		"types": ["cypress", "node"],
+		"paths": {
+			"@/*": ["./*"]
+		}
 	},
-	"include": ["**/*.ts", "**/*.js"],
-	"exclude": ["node_modules"]
+	"include": ["**/*.ts", "**/*.js", "**/*.cy.ts"],
+	"exclude": ["node_modules", "next/*"]
 }

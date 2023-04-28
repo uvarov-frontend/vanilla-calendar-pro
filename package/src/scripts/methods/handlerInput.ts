@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 let currentSelf: null | IVanillaCalendar = null;
 

@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const showMonth = (self: IVanillaCalendar) => {
 	const months = (self.HTMLElement as HTMLElement).querySelectorAll('[data-calendar-selected-month]') as NodeListOf<HTMLElement>;

@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const createCalendarToInput = (self: IVanillaCalendar) => {
 	if (!self.input || !self.HTMLElement || !self.HTMLElement.parentNode) return;

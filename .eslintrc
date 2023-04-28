@@ -7,7 +7,8 @@
 	"extends": [
 		"airbnb-base",
 		"airbnb-typescript/base",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"plugin:cypress/recommended"
 	],
 	"plugins": ["@typescript-eslint"],
 	"parser": "@typescript-eslint/parser",
@@ -24,8 +25,20 @@
 		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
 		"class-methods-use-this": "off",
 		"max-len": ["error", { "code": 180 }],
+		"prefer-destructuring": ["error", { "object": true, "array": false }],
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
-		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1 }],
-		"prefer-destructuring": ["error", { "object": true, "array": false }]
-	}
+		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1 }]
+	},
+	"overrides": [
+		{
+			"files": ["./examples/**/*.js"],
+			"rules": {
+				"@typescript-eslint/no-use-before-define": "off",
+				"@typescript-eslint/no-unused-vars": "off",
+				"@typescript-eslint/indent": ["error", 2, { "SwitchCase": 1 }],
+				"indent": ["error", 2, { "SwitchCase": 1 }],
+				"no-console": "off"
+			}
+		}
+	]
 }

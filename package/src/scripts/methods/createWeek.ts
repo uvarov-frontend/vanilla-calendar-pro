@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const createWeek = (self: IVanillaCalendar) => {
 	const weekday = [...self.locale.weekday];

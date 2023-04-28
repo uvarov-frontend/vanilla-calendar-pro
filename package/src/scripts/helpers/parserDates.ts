@@ -1,4 +1,4 @@
-import { FormatDateString } from 'src/types';
+import { FormatDateString } from '../../types';
 import generateDate from './generateDate';
 
 const parserDates = (dates: string[]) => {

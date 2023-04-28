@@ -1,4 +1,4 @@
-import { FormatDateString, IVanillaCalendar } from 'src/types';
+import { FormatDateString, IVanillaCalendar } from '../../types';
 import createPopup from './createPopup';
 import createWeekNumbers from './createWeekNumbers';
 import generateDate from '../helpers/generateDate';

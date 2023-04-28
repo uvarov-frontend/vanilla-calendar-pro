@@ -1,4 +1,4 @@
-import { FormatDateString, IVanillaCalendar } from 'src/types';
+import { FormatDateString, IVanillaCalendar } from '../../types';
 import changeMonth from './changeMonth';
 import createDays from './createDays';
 import createMonths from './createMonths';

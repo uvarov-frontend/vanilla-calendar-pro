@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 import parserDates from '../helpers/parserDates';
 import generateDate from '../helpers/generateDate';
 import transformTime12 from '../helpers/transformTime12';

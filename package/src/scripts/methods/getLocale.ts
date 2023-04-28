@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const getLocale = (self: IVanillaCalendar) => {
 	if (self.settings.lang === 'define') return;

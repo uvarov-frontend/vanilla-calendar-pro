@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 
 const showYear = (self: IVanillaCalendar) => {
 	const years = (self.HTMLElement as HTMLElement).querySelectorAll('[data-calendar-selected-year]') as NodeListOf<HTMLElement>;

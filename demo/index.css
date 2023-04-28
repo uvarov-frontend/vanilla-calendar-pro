@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 @layer components {
+	#calendar {
+		@apply shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)] mx-auto;
+	}
+
 	.popup-btn-orange {
 		background-color: rgb(251 146 60) !important;
 		color: white !important;
 	}
+
 	.popup-btn-red {
 		background-color: rgb(239 68 68) !important;
 		color: white !important;

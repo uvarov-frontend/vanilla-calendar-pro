@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 import generateDate from '../helpers/generateDate';
 import mainMethod from './mainMethod';
 

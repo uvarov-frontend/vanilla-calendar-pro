@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from 'src/types';
+import { IVanillaCalendar } from '../../types';
 import { DOMParser, MultipleParser } from '../helpers/parserComponent';
 
 const createDOM = (self: IVanillaCalendar) => {
