@@ -7,6 +7,12 @@ import { Options } from '@/package/src';
 
 const config: Options = {
 	type: 'multiple',
+	settings: {
+		selected: {
+			month: 3,
+			year: 2023,
+		},
+	},
 };
 
 document.addEventListener('DOMContentLoaded', () => {
