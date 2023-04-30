@@ -8,6 +8,9 @@ import { Options } from '@/package/src';
 const config: Options = {
 	type: 'multiple',
 	settings: {
+		selection: {
+			day: 'multiple-ranged',
+		},
 		selected: {
 			month: 3,
 			year: 2023,
