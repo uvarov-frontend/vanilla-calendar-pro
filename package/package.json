@@ -1,6 +1,6 @@
 {
 	"name": "@uvarov.frontend/vanilla-calendar",
-	"version": "2.5.8",
+	"version": "2.5.9",
 	"description": "VanillaCalendar is a pure JavaScript date and time picker that uses TypeScript so it supports any JS framework and library.",
 	"homepage": "https://vanilla-calendar.com",
 	"keywords": [
@@ -34,5 +34,7 @@
 	"main": "./build/vanilla-calendar.min.js",
 	"style": "./build/vanilla-calendar.min.css",
 	"source": "./src/scripts/main.ts",
-	"types": "./src/index.d.ts"
+	"types": "./src/index.d.ts",
+	"devDependencies": {},
+	"dependencies": {}
 }
