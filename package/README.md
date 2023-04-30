@@ -1,4 +1,4 @@
-[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar-07_04_23.jpg)](https://vanilla-calendar.com/)
+[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar-preview.png)](https://vanilla-calendar.com/)
 # Lightweight, simple, feature-rich and no dependencies.
 
 [![package-badge]][package]
@@ -7,13 +7,11 @@ VanillaCalendar is a pure JavaScript date and time picker using TypeScript so it
 
 The final minified .js file is ~ **39 KB** and with gzip is ~ **9.6** KB.
 
-Latest version without TypeScript - [v1.5.5](https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar/v/1.5.5)
+Latest version without TypeScript - [v1.5.5](https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar/v/1.5.5) (**No longer supported**)
 
 This plugin is completely free, any support from you is important. Please report problems or new ideas, it's really important!
 
-If you like the plugin, please give it an asterisk in the GitHub repository.
-
-[Learn](https://vanilla-calendar.com/docs/learn/) | [Reference](https://vanilla-calendar.com/docs/reference/)
+If you like the plugin, please star it in the GitHub repository.
 
 ## Getting Started
 
@@ -27,27 +25,15 @@ You can get it via npm or yarn:
 
 ```sh
 npm install @uvarov.frontend/vanilla-calendar
-```
-
-```sh
+# or
 yarn add @uvarov.frontend/vanilla-calendar
 ```
 
-If you are not working with a package manager, just [download](https://vanilla-calendar.com/vanilla-calendar.zip) manually, or connect via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/).
+If you are not using a package manager, connect locally or via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/).
 
 ### Usage
 
 Simple usage example:
-
-```js
-import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
-import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
-import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
-
-const calendar = new VanillaCalendar('#calendar');
-calendar.init();
-```
 
 ```html
 <html>
@@ -55,6 +41,8 @@ calendar.init();
   </head>
   <body>
     <div id="calendar"></div>
+    <!-- or -->
+    <!-- <input type="text" id="calendar-input"> -->
   </body>
 </html>
 ```
@@ -62,7 +50,23 @@ calendar.init();
 The **vanilla-calendar.min.css** file contains the properties of the calendar skeleton, other css files in the **themes** directory contain only the calendar color scheme.
 The calendar automatically displays the theme used in the user's system. You can disable this default behavior and install any of the themes forcibly. In this case, you don't need to import all the themes.
 
----
+```js
+// JS Script
+import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+
+// Basic styles
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+
+// Additional styles
+import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
+import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
+
+const calendar = new VanillaCalendar('#calendar');
+calendar.init();
+// or
+// const calendarWithInput = new VanillaCalendar('#calendar-input', { input: true });
+// calendarWithInput.init();
+```
 
 If you downloaded the files manually or decided to use a CDN, then instead of the example above, you need to add all the necessary files to the **head** tag of your HTML document. Here is an example of such usage:
 
@@ -88,9 +92,41 @@ If you downloaded the files manually or decided to use a CDN, then instead of th
   </body>
 </html>
 ```
-Since the final plugin file is pure JavaScript without any dependencies, if desired, it can be used with any framework or library, such as Vue, React, Angular, etc.
 
-**Example using React + TypeScript:**
+### DOM Templates
+
+The calendar has registered components with which you can completely change the structure of the calendar.
+Tags containing the **«#»** character are registered calendar components and must include a trailing slash at the end of the tag.
+Default Template:
+
+```js
+new VanillaCalendar('#calendar', {
+  DOMTemplates: {
+    default: `
+      <div class="vanilla-calendar-header">
+        <#ArrowPrev />
+        <div class="vanilla-calendar-header__content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext />
+      </div>
+      <div class="vanilla-calendar-wrapper">
+        <#WeekNumbers />
+        <div class="vanilla-calendar-content">
+          <#Week />
+          <#Days />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+### Example using React + TypeScript
+
+Since the final plugin file is pure JavaScript without any dependencies, if desired, it can be used with any framework or library, such as Vue, React, Angular, etc.
 
 ```tsx
 import { useEffect, useRef } from 'react';
@@ -124,38 +160,7 @@ const Calendar: React.FC = () => {
 export default Calendar;
 ```
 
-**Markup template change available since v2.2.0**
-
-The calendar has registered components with which you can completely change the structure of the calendar.
-Tags containing the **«#»** character are registered calendar components and must include a trailing slash at the end of the tag.
-Default Template:
-
-```js
-new VanillaCalendar('#calendar', {
-  DOMTemplates: {
-    default: `
-      <div class="vanilla-calendar-header">
-        <#ArrowPrev />
-        <div class="vanilla-calendar-header__content">
-          <#Month />
-          <#Year />
-        </div>
-        <#ArrowNext />
-      </div>
-      <div class="vanilla-calendar-wrapper">
-        <#WeekNumbers />
-        <div class="vanilla-calendar-content">
-          <#Week />
-          <#Days />
-        </div>
-      </div>
-      <#ControlTime />
-    `
-  }
-});
-```
-
-## API
+## API Reference
 
 You can see all the parameters and settings of the calendar in the [reference](https://vanilla-calendar.com/docs/reference/).
 
