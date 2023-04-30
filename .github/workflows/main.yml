@@ -1,0 +1,33 @@
+name: Testing and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup npm package
+        run: npm install
+      - name: Testing
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run start
+  deploy:
+    runs-on: ubuntu-latest
+    needs: cypress
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          source: "."
+          target: ${{ secrets.TARGET }}
