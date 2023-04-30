@@ -11,7 +11,7 @@ Latest version without TypeScript - [v1.5.5](https://www.npmjs.com/package/@uvar
 
 This plugin is completely free, any support from you is important. Please report problems or new ideas, it's really important!
 
-If you like the plugin, please star it in the GitHub repository.
+If you like VanillaCalendar, please give it a 🌟 star on GitHub.
 
 ## Getting Started
 
