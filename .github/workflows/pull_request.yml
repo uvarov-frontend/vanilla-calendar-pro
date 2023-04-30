@@ -1,0 +1,19 @@
+name: Testing pull request
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+    branches:
+      - main
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup npm package
+        run: npm install
+      - name: Testing
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run start
