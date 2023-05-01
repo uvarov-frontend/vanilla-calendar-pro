@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <!-- Plugin CSS -->
+    <link href="./vanilla-calendar.min.css" rel="stylesheet">
+    <link href="./themes/light.min.css" rel="stylesheet">
+    <link href="./themes/dark.min.css" rel="stylesheet">
+    <!-- Plugin JS -->
+    <script src="./vanilla-calendar.min.js" defer></script>
+  </head>
+  <body>
+    <div id="calendar"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const calendar = new VanillaCalendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
