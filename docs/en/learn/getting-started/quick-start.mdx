@@ -59,6 +59,31 @@ calendar.init();
 
 <Sandbox example="try-vanilla-calendar" />
 
+### Usage example without NPM:
+
+```html
+<html>
+  <head>
+    <!-- Plugin CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
+    <!-- Plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
+  </head>
+  <body>
+    <div id="calendar"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const calendar = new VanillaCalendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```
+
 All is ready! 🎉
 
 We have created the simplest calendar, with default parameters, but few people need a calendar with default parameters, you can easily customize it to fit your needs, for this, read other sections. 🤓
