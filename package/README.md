@@ -168,6 +168,10 @@ You can see all the parameters and settings of the calendar in the [reference](h
 
 MIT License
 
+## Sponsor
+
+This project is tested with BrowserStack.
+
 ## Author
 
 Yury Uvarov (*uvarov.frontend@gmail.com*)
