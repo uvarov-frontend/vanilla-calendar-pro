@@ -40,10 +40,10 @@ const get = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList | undefine
 	(self.HTMLElement as HTMLElement).dataset.calendarTheme = theme(supportDarkTheme);
 
 	if (!haveListener) {
-		supportDarkTheme.addEventListener('change', (e) => {
+		supportDarkTheme.onchange = (e) => {
 			if (self.settings.visibility.theme !== 'system') return;
 			(self.HTMLElement as HTMLElement).dataset.calendarTheme = theme(e);
-		});
+		};
 		haveListener = true;
 	}
 };
