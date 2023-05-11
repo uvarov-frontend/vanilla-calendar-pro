@@ -35,15 +35,15 @@ const hoverDaysEvent = (e: MouseEvent) => {
 	removeHover();
 
 	const startDate = new Date(
-		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getFullYear(),
-		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getMonth(),
-		new Date(`${currentSelf.selectedDates[0]} 00:00:00`).getDate(),
+		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getFullYear(),
+		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getMonth(),
+		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getDate(),
 	);
 
 	const endDate = new Date(
-		new Date(`${date} 00:00:00`).getFullYear(),
-		new Date(`${date} 00:00:00`).getMonth(),
-		new Date(`${date} 00:00:00`).getDate(),
+		new Date(`${date}T00:00:00`).getFullYear(),
+		new Date(`${date}T00:00:00`).getMonth(),
+		new Date(`${date}T00:00:00`).getDate(),
 	);
 
 	if (endDate > startDate) {
@@ -68,13 +68,13 @@ const cancelSelectionDays = (e: KeyboardEvent) => {
 
 const setDisabledDates = () => {
 	if (!currentSelf || !currentSelf.selectedDates?.[0] || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2) return;
-	const selectedDate = new Date(`${currentSelf.selectedDates[0]} 00:00:00`);
+	const selectedDate = new Date(`${currentSelf.selectedDates[0]}T00:00:00`);
 
 	let startDate = null;
 	let endDate = null;
 
 	for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
-		const disabledDate = new Date(`${currentSelf.rangeDisabled[index]} 00:00:00`);
+		const disabledDate = new Date(`${currentSelf.rangeDisabled[index]}T00:00:00`);
 		if (selectedDate >= disabledDate) {
 			startDate = disabledDate;
 		} else {
@@ -99,7 +99,7 @@ const resetDisabledDates = () => {
 	currentSelf.rangeMin = currentSelf.settings.range.min;
 	currentSelf.rangeMax = currentSelf.settings.range.max;
 
-	if (currentSelf.settings.range.disablePast && new Date(`${currentSelf.settings.range.min} 00:00:00`) < currentSelf.date.today) {
+	if (currentSelf.settings.range.disablePast && new Date(`${currentSelf.settings.range.min}T00:00:00`) < currentSelf.date.today) {
 		currentSelf.rangeMin = generateDate(currentSelf.date.today);
 	}
 };

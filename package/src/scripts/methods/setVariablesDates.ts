@@ -11,7 +11,7 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	self.selectedDates = self.settings.selected.dates ? parserDates([...self.settings.selected.dates]) : [];
 	self.selectedHolidays = self.settings.selected.holidays ? parserDates([...self.settings.selected.holidays]) : [];
 
-	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min} 00:00:00`) < self.date.today) {
+	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
 		self.rangeMin = generateDate(self.date.today);
 	}
 
@@ -28,8 +28,8 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 		self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
 	}
 
-	const firstDay = new Date(`${self.rangeMin} 00:00:00`);
-	const lastDay = new Date(`${self.rangeMax} 00:00:00`);
+	const firstDay = new Date(`${self.rangeMin}T00:00:00`);
+	const lastDay = new Date(`${self.rangeMax}T00:00:00`);
 	firstDay.setDate(firstDay.getDate() - 1);
 	lastDay.setDate(lastDay.getDate() + 1);
 	self.rangeDisabled.push(generateDate(firstDay));
@@ -48,8 +48,8 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	}
 
 	self.viewYear = self.selectedYear;
-	self.dateMin = self.settings.visibility.disabled ? new Date(`${self.date.min} 00:00:00`) : new Date(`${self.rangeMin} 00:00:00`);
-	self.dateMax = self.settings.visibility.disabled ? new Date(`${self.date.max} 00:00:00`) : new Date(`${self.rangeMax} 00:00:00`);
+	self.dateMin = self.settings.visibility.disabled ? new Date(`${self.date.min}T00:00:00`) : new Date(`${self.rangeMin}T00:00:00`);
+	self.dateMax = self.settings.visibility.disabled ? new Date(`${self.date.max}T00:00:00`) : new Date(`${self.rangeMax}T00:00:00`);
 
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {

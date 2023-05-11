@@ -63,15 +63,15 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 			if (self.selectedDates[1]) {
 				const startDate = new Date(
-					new Date(`${self.selectedDates[0]} 00:00:00`).getFullYear(),
-					new Date(`${self.selectedDates[0]} 00:00:00`).getMonth(),
-					new Date(`${self.selectedDates[0]} 00:00:00`).getDate(),
+					new Date(`${self.selectedDates[0]}T00:00:00`).getFullYear(),
+					new Date(`${self.selectedDates[0]}T00:00:00`).getMonth(),
+					new Date(`${self.selectedDates[0]}T00:00:00`).getDate(),
 				);
 
 				const endDate = new Date(
-					new Date(`${self.selectedDates[1]} 00:00:00`).getFullYear(),
-					new Date(`${self.selectedDates[1]} 00:00:00`).getMonth(),
-					new Date(`${self.selectedDates[1]} 00:00:00`).getDate(),
+					new Date(`${self.selectedDates[1]}T00:00:00`).getFullYear(),
+					new Date(`${self.selectedDates[1]}T00:00:00`).getMonth(),
+					new Date(`${self.selectedDates[1]}T00:00:00`).getDate(),
 				);
 
 				const addSelectedDate = (day: Date) => {
