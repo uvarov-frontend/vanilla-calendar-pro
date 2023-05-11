@@ -13,6 +13,11 @@ This plugin is completely free, any support from you is important. Please report
 
 If you like VanillaCalendar, please give it a 🌟 star on GitHub.
 
+## Support browsers
+![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
+--- | --- | --- | --- | --- |
+57+ ✔ | 52+ ✔ | 80+ ✔ | 44+ ✔ | 10.1+ ✔ |
+
 ## Getting Started
 
 This calendar has no dependencies, has a simple localization for any language, is displayed anywhere, is not tied to the **«input»** tag, can have an unlimited number of copies on the page and is easily configurable both using CSS and by changing the html markup.
@@ -164,13 +169,13 @@ export default Calendar;
 
 You can see all the parameters and settings of the calendar in the [reference](https://vanilla-calendar.com/docs/reference/).
 
-## License
-
-MIT License
-
 ## Sponsor
 
 This project is tested with BrowserStack.
+
+## License
+
+MIT License
 
 ## Author
 
