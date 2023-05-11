@@ -107,7 +107,7 @@ const createDays = (self: IVanillaCalendar) => {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
-			if (!self.settings.selection.year && new Date(`${date} 00:00:00`).getFullYear() !== selectedYear) {
+			if (!self.settings.selection.year && new Date(`${date}T00:00:00`).getFullYear() !== selectedYear) {
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
 				dayBtnEl.tabIndex = -1;
 			}
