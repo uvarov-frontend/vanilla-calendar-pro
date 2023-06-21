@@ -5,7 +5,9 @@ let currentSelf: null | IVanillaCalendar = null;
 const documentClickEvent = (e: MouseEvent) => {
 	if (!currentSelf) return;
 	if ((e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.calendar}`)) return;
-	currentSelf.HTMLElement?.classList.add(currentSelf.CSSClasses.calendarHidden);
+	document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}`).forEach((calendar) => {
+		calendar.classList.add((currentSelf as IVanillaCalendar).CSSClasses.calendarHidden);
+	});
 	document.removeEventListener('click', documentClickEvent, { capture: true });
 };
 
