@@ -11,17 +11,17 @@ const controlArrows = (self: IVanillaCalendar) => {
 	const defaultControl = () => {
 		if (!self.dateMin || !self.dateMax) return;
 
-		const isSelectedMinMount = self.selectedMonth === self.dateMin.getMonth();
-		const isSelectedMaxMount = self.selectedMonth === self.dateMax.getMonth();
-		const isSelectedMinYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMin.getFullYear();
-		const isSelectedMaxYear = !self.settings.selection.year ? true : self.selectedYear === self.dateMax.getFullYear();
+		const jumpDateMin = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
+		const jumpDateMax = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
+		jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
+		jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
 
-		if ((isSelectedMinMount && isSelectedMinYear) || !self.settings.selection.month) {
+		if (jumpDateMin < self.dateMin || !self.settings.selection.month) {
 			arrowPrev.style.visibility = 'hidden';
 		} else {
 			arrowPrev.style.visibility = '';
 		}
-		if ((isSelectedMaxMount && isSelectedMaxYear) || !self.settings.selection.month) {
+		if (jumpDateMax > self.dateMax || !self.settings.selection.month) {
 			arrowNext.style.visibility = 'hidden';
 		} else {
 			arrowNext.style.visibility = '';

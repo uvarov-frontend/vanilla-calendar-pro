@@ -6,27 +6,20 @@ import showYear from './showYear';
 
 const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
 	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
-	const lastMonth = self.locale.months.length - 1;
+	const jumpDate = new Date(self.selectedYear, self.selectedMonth, 1);
 
 	switch (route) {
 		case 'prev':
-			if (self.selectedMonth !== 0) {
-				self.selectedMonth -= 1;
-			} else if (self.settings.selection.year) {
-				self.selectedYear -= 1;
-				self.selectedMonth = lastMonth;
-			}
+			jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths);
 			break;
 		case 'next':
-			if (self.selectedMonth !== lastMonth) {
-				self.selectedMonth += 1;
-			} else if (self.settings.selection.year) {
-				self.selectedYear += 1;
-				self.selectedMonth = 0;
-			}
+			jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths);
 			break;
 		// no default
 	}
+
+	self.selectedMonth = jumpDate.getMonth();
+	self.selectedYear = jumpDate.getFullYear();
 
 	showMonth(self);
 	showYear(self);
