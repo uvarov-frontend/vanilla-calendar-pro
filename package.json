@@ -30,7 +30,7 @@
 		]
 	},
 	"scripts": {
-		"package": "tsc && vite build --config package.config.ts",
+		"package": "tsc && vite build --config config/js.config.ts && vite build --config config/assets.config.ts",
 		"build": "tsc && vite build",
 		"start": "tsc && vite",
 		"lint": "eslint --ext .js,.ts package/src cypress examples",

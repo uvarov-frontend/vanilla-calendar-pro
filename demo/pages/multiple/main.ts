@@ -2,8 +2,9 @@
 import '@/package/src/styles/vanilla-calendar.css';
 import '@/package/src/styles/themes/light.css';
 import '@/package/src/styles/themes/dark.css';
-import VanillaCalendar from '@/package/src/scripts/main';
-import { Options } from '@/package/src';
+// import VanillaCalendar from '@/package/build/vanilla-calendar.min';
+import VanillaCalendar from '@/package/src/scripts/vanilla-calendar';
+import IVanillaCalendar, { Options } from '@/package/src';
 
 const config: Options = {
 	type: 'multiple',
@@ -20,6 +21,6 @@ const config: Options = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	// @ts-ignore: VanillaCalendar config
-	const calendar = new VanillaCalendar('#calendar', config);
+	const calendar: IVanillaCalendar<string, Options> = new VanillaCalendar('#calendar', config);
 	calendar.init();
 });
