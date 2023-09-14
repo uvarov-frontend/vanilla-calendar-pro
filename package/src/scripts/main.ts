@@ -26,6 +26,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	months!: number;
 
+	jumpMonths!: number;
+
 	date!: IDate;
 
 	settings!: ISettings;
@@ -48,6 +50,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		this.input = option?.input ?? false;
 		this.type = option?.type ?? 'default';
 		this.months = option?.months ?? 2;
+		this.jumpMonths = option?.jumpMonths ?? 1;
 		this.date = {
 			min: option?.date?.min ?? '1970-01-01',
 			max: option?.date?.max ?? '2470-12-31',
