@@ -108,6 +108,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			clickArrow: option?.actions?.clickArrow ?? null,
 			changeTime: option?.actions?.changeTime ?? null,
 			changeToInput: option?.actions?.changeToInput ?? null,
+			getDays: option?.actions?.getDays ?? null,
 		};
 		this.popups = option?.popups ?? null;
 		this.CSSClasses = (() => {

@@ -148,6 +148,7 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 
 			daysEls[index].append(dayEl);
+			if (self.actions.getDays) self.actions.getDays(Number(dayText), date, dayEl, dayBtnEl);
 		};
 
 		const prevMonth = () => {
