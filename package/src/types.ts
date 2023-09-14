@@ -74,6 +74,7 @@ export interface IActions {
 	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
 	changeToInput: ((e: Event, HTMLInputElement: HTMLElement, dates?: string[], time?: string, hours?: string, minutes?: string, keeping?: string) => void) | null;
+	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
 }
 
 export type IPopups = {
