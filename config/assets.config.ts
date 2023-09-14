@@ -2,7 +2,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import banner from 'vite-plugin-banner';
-import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
 	publicDir: './package/public',
@@ -11,12 +10,11 @@ export default defineConfig({
 		assetsDir: '',
 		outDir: './package/build',
 		cssCodeSplit: true,
-		minify: 'terser',
+		minify: true,
+		emptyOutDir: false,
 		rollupOptions: {
 			output: {
 				inlineDynamicImports: false,
-				format: 'cjs',
-				entryFileNames: '[name].min.js',
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name && ['light.css', 'dark.css'].includes(assetInfo.name)) {
 						return 'themes/[name].min.[ext]';
@@ -25,9 +23,9 @@ export default defineConfig({
 				},
 			},
 			input: {
-				light: resolve(__dirname, './package/src/styles/themes/light.css'),
-				dark: resolve(__dirname, './package/src/styles/themes/dark.css'),
-				'vanilla-calendar': resolve(__dirname, './package/src/vanilla-calendar.ts'),
+				light: resolve(__dirname, '../package/src/styles/themes/light.css'),
+				dark: resolve(__dirname, '../package/src/styles/themes/dark.css'),
+				'vanilla-calendar': resolve(__dirname, '../package/src/styles/vanilla-calendar.css'),
 			},
 		},
 	},
@@ -36,6 +34,5 @@ export default defineConfig({
 			outDir: './package/build',
 			content: 'name: @uvarov.frontend/vanilla-calendar | url: https://github.com/uvarov-frontend/vanilla-calendar',
 		}),
-		eslint(),
 	],
 });
