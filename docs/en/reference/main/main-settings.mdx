@@ -44,7 +44,7 @@ The type of calendar to display.
 
 `Default: 2`
 
-`Options: от 2 до 12`
+`Options: from 2 to 12`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -53,6 +53,24 @@ new VanillaCalendar('#calendar', {
 ```
 
 Specifies the number of months to display if the calendar type is `'multiple'`.
+
+- - -
+
+## jumpMonths
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to ∞`
+
+```js
+new VanillaCalendar('#calendar', {
+  jumpMonths: 1,
+});
+```
+
+Number of switchable months.
 
 - - -
 

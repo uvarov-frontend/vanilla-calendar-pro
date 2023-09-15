@@ -155,3 +155,24 @@ new VanillaCalendar('#calendar', {
 
 Метод срабатывает после после нажатия на день в календаре или изменения времени любым способом.
 Параметры, которые можно получить: `e` - событие, `HTMLInputElement` - HTML-элемент, который является полем ввода, `dates` - массив выбранных дат, `time` - выбранное время, `hours` - выбранный час, `minutes` - выбранные минуты,`keeping` - выбранный маркер AM/PM.
+
+---
+
+## actions.getDays()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getDays(day, date, HTMLElement, HTMLButtonElement) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getDays(day, date, HTMLElement, HTMLButtonElement) {},
+  },
+});
+```
+
+Метод срабатывает при инициализации календаря и изменении месяца и года. Позволяет получить необходимую информацию о каждом дне и его HTML-элементе.
+Параметры, которые можно получить: `day` - номер дня, `date` - полная дата в формате `YYYY-MM-DD`, `HTMLElement` - родительский (обертка) HTML-элемент дня, `HTMLButtonElement` - дочерний (кнопка) HTML-элемент дня.
