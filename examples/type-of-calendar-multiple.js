@@ -5,6 +5,8 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 const options = {
   type: 'multiple',
+  months: 2,
+  jumpMonths: 2,
 };
 
 const calendar = new VanillaCalendar('#calendar', options);
