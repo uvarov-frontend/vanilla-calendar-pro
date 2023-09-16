@@ -1,0 +1,64 @@
+# React component
+
+<Info>
+  If you don't use TypeScript, use the .jsx extension instead of .tsx and get rid of the component typing.
+</Info>
+
+Create a react component named `VanillaCalendar.tsx` and copy the below code into this file.
+
+```js
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import VC, { Options } from "@uvarov.frontend/vanilla-calendar";
+import "@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css";
+import "@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css";
+import "@uvarov.frontend/vanilla-calendar/build/themes/light.min.css";
+
+interface VanillaCalendarProps extends HTMLAttributes<HTMLDivElement> {
+  config?: Options,
+}
+
+function VanillaCalendar({ config, ...attributes }: VanillaCalendarProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [calendar, setCalendar] = useState<VC<HTMLDivElement, Options> | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return
+    setCalendar(new VC(ref.current, config));
+  }, [ref, config])
+
+  useEffect(() => {
+    if (!calendar) return;
+    calendar.init();
+  }, [calendar]);
+
+  return (
+    <div {...attributes} ref={ref}></div>
+  )
+}
+
+export default VanillaCalendar
+```
+
+Then import the created component into the react component where you plan to display the calendar.
+
+```js
+import VanillaCalendar from "./VanillaCalendar";
+```
+
+Use the created component.
+
+```js
+// ...
+<VanillaCalendar />
+// ...
+```
+
+The `VanillaCalendar` component can be passed any HTML attributes that the `<div>` tag supports, as well as `config` to configure the calendar.
+
+```js
+// ...
+<VanillaCalendar config={{
+    type: 'multiple',
+  }} className="thisIsMyClass" />
+// ...
+```

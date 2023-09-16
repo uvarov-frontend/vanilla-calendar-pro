@@ -1,0 +1,64 @@
+# React компонент
+
+<Info>
+  Если вы не используете TypeScript, используйте расширение .jsx вместо .tsx и избавьтесь от типизации компонента.
+</Info>
+
+Создайте react компонент с именем `VanillaCalendar.tsx` и скопируйте приведенный ниже код в этот файл.
+
+```js
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import VC, { Options } from "@uvarov.frontend/vanilla-calendar";
+import "@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css";
+import "@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css";
+import "@uvarov.frontend/vanilla-calendar/build/themes/light.min.css";
+
+interface VanillaCalendarProps extends HTMLAttributes<HTMLDivElement> {
+  config?: Options,
+}
+
+function VanillaCalendar({ config, ...attributes }: VanillaCalendarProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [calendar, setCalendar] = useState<VC<HTMLDivElement, Options> | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return
+    setCalendar(new VC(ref.current, config));
+  }, [ref, config])
+
+  useEffect(() => {
+    if (!calendar) return;
+    calendar.init();
+  }, [calendar]);
+
+  return (
+    <div {...attributes} ref={ref}></div>
+  )
+}
+
+export default VanillaCalendar
+```
+
+Затем импортируйте созданный компонент в компонент react, где вы планируете отображать календарь.
+
+```js
+import VanillaCalendar from "./VanillaCalendar";
+```
+
+Используйте созданый компонент.
+
+```js
+// ...
+<VanillaCalendar />
+// ...
+```
+
+В компонент `VanillaCalendar` можно передать любые атрибуты HTML, которые поддерживает тег `<div>`, а также `config` для настройки календаря.
+
+```js
+// ...
+<VanillaCalendar config={{
+    type: 'multiple',
+  }} className="thisIsMyClass" />
+// ...
+```
