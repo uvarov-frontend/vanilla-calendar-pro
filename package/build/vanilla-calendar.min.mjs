@@ -173,16 +173,16 @@ const controlArrows = (self) => {
   const defaultControl = () => {
     if (!self.dateMin || !self.dateMax)
       return;
-    const jumpDateMin = new Date(self.selectedYear, self.selectedMonth, 1);
-    const jumpDateMax = new Date(self.selectedYear, self.selectedMonth, 1);
+    const jumpDateMin = new Date(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+    const jumpDateMax = new Date(jumpDateMin.getTime());
     jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
     jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
-    if (jumpDateMin < self.dateMin || !self.settings.selection.month) {
+    if (!self.settings.selection.month || jumpDateMin.getFullYear() < self.dateMin.getFullYear() || jumpDateMin.getFullYear() === self.dateMin.getFullYear() && jumpDateMin.getMonth() < self.dateMin.getMonth()) {
       arrowPrev.style.visibility = "hidden";
     } else {
       arrowPrev.style.visibility = "";
     }
-    if (jumpDateMax > self.dateMax || !self.settings.selection.month) {
+    if (!self.settings.selection.month || jumpDateMax.getFullYear() > self.dateMax.getFullYear() || jumpDateMax.getFullYear() === self.dateMax.getFullYear() && jumpDateMax.getMonth() > self.dateMax.getMonth()) {
       arrowNext.style.visibility = "hidden";
     } else {
       arrowNext.style.visibility = "";
@@ -1077,7 +1077,7 @@ const handlerInput = (self) => {
 const changeMonth = (self, route) => {
   if (self.selectedMonth === void 0 || self.selectedYear === void 0)
     return;
-  const jumpDate = new Date(self.selectedYear, self.selectedMonth, 1);
+  const jumpDate = new Date(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
   switch (route) {
     case "prev":
       jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths);
