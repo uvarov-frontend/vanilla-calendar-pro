@@ -1,4 +1,5 @@
 import { IVanillaCalendar } from '../../types';
+import generateDate from '../helpers/generateDate';
 
 const controlArrows = (self: IVanillaCalendar) => {
 	if (!['default', 'multiple', 'year'].includes(self.currentType)) return;
@@ -11,17 +12,23 @@ const controlArrows = (self: IVanillaCalendar) => {
 	const defaultControl = () => {
 		if (!self.dateMin || !self.dateMax) return;
 
-		const jumpDateMin = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
-		const jumpDateMax = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
+		const jumpDateMin = new Date(generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
+		const jumpDateMax = new Date(jumpDateMin.getTime());
 		jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
 		jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
 
-		if (jumpDateMin < self.dateMin || !self.settings.selection.month) {
+		if (!self.settings.selection.month
+			|| jumpDateMin.getFullYear() < self.dateMin.getFullYear()
+			|| (jumpDateMin.getFullYear() === self.dateMin.getFullYear()
+			&& (jumpDateMin.getMonth() < self.dateMin.getMonth()))) {
 			arrowPrev.style.visibility = 'hidden';
 		} else {
 			arrowPrev.style.visibility = '';
 		}
-		if (jumpDateMax > self.dateMax || !self.settings.selection.month) {
+		if (!self.settings.selection.month
+			|| jumpDateMax.getFullYear() > self.dateMax.getFullYear()
+			|| (jumpDateMax.getFullYear() === self.dateMax.getFullYear()
+			&& jumpDateMax.getMonth() > self.dateMax.getMonth())) {
 			arrowNext.style.visibility = 'hidden';
 		} else {
 			arrowNext.style.visibility = '';

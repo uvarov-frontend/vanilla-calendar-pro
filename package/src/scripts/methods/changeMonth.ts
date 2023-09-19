@@ -1,4 +1,5 @@
 import { IVanillaCalendar } from '../../types';
+import generateDate from '../helpers/generateDate';
 import controlArrows from './controlArrows';
 import createDays from './createDays';
 import showMonth from './showMonth';
@@ -6,7 +7,7 @@ import showYear from './showYear';
 
 const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
 	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
-	const jumpDate = new Date(self.selectedYear, self.selectedMonth, 1);
+	const jumpDate = new Date(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
 
 	switch (route) {
 		case 'prev':
