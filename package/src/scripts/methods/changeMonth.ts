@@ -7,7 +7,7 @@ import showYear from './showYear';
 
 const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
 	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
-	const jumpDate = new Date(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+	const jumpDate = new Date(`${generateDate(new Date(self.selectedYear, self.selectedMonth, 1))}T00:00:00`);
 
 	switch (route) {
 		case 'prev':
