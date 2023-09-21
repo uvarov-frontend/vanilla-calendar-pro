@@ -10,8 +10,11 @@ const DOMMultiple = (styles: ICSSClasses) => (`
 			<div class="${styles.column}">
 				<div class="${styles.header}">
 					<div class="${styles.headerContent}">
-						<#Month />
-						<#Year />
+						<div class="${styles.headerContainer}">
+							<#Month />
+							<#Year />
+							<#Switch />
+						</div>
 					</div>
 				</div>
 				<div class="${styles.wrapper}">

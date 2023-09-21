@@ -7,12 +7,13 @@ import VanillaCalendar from '@/package/src/scripts/vanilla-calendar';
 import IVanillaCalendar, { Options } from '@/package/src';
 
 const config: Options = {
-	settings: {
-		selected: {
-			month: 3,
-			year: 2023,
-		},
-	},
+	type: 'multiple',
+	// settings: {
+	// 	selected: {
+	// 		month: 3,
+	// 		year: 2023,
+	// 	},
+	// },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

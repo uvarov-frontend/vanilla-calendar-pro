@@ -71,6 +71,10 @@
 	@apply grid grid-flow-col auto-cols-max items-center justify-center px-4 whitespace-pre-wrap grow
 }
 
+.vanilla-calendar-header__container {
+	@apply relative flex items-center justify-center pr-4
+}
+
 .vanilla-calendar-month,
 .vanilla-calendar-year {
 	@apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent
@@ -79,6 +83,18 @@
 .vanilla-calendar-month.vanilla-calendar-month_disabled,
 .vanilla-calendar-year.vanilla-calendar-year_disabled {
 	@apply pointer-events-none
+}
+
+.vanilla-calendar-switch {
+	@apply cursor-pointer absolute left-0 top-0 bottom-0 right-0
+}
+
+.vanilla-calendar-switch svg {
+	@apply cursor-pointer absolute top-1/2 right-0 -translate-y-1/2
+}
+
+.vanilla-calendar-switch select {
+	@apply cursor-pointer absolute left-0 top-0 bottom-0 right-0 opacity-0
 }
 
 .vanilla-calendar-months {

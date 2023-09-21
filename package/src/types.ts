@@ -105,10 +105,12 @@ export interface ICSSClasses {
 	column: string;
 	header: string;
 	headerContent: string;
+	headerContainer: string;
 	month: string;
 	monthDisabled: string;
 	year: string;
 	yearDisabled: string;
+	switch: string;
 	arrow: string;
 	arrowPrev: string;
 	arrowNext: string;
