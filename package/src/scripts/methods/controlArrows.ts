@@ -12,7 +12,7 @@ const controlArrows = (self: IVanillaCalendar) => {
 	const defaultControl = () => {
 		if (!self.dateMin || !self.dateMax) return;
 
-		const jumpDateMin = new Date(generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
+		const jumpDateMin = new Date(`${generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1))}T00:00:00`);
 		const jumpDateMax = new Date(jumpDateMin.getTime());
 		jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
 		jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
