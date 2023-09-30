@@ -6,16 +6,6 @@
 	@apply outline-orange-300
 }
 
-[data-calendar-theme="dark"].vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-month,
-[data-calendar-theme="dark"].vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-year {
-	@apply text-white hover:text-white
-}
-
-[data-calendar-theme="dark"].vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-month.vanilla-calendar-month_disabled,
-[data-calendar-theme="dark"].vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-year.vanilla-calendar-year_disabled {
-	@apply text-white
-}
-
 [data-calendar-theme="dark"] .vanilla-calendar-arrow::before {
 	@apply bg-white;
 }

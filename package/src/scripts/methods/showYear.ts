@@ -11,7 +11,7 @@ const showYear = (self: IVanillaCalendar) => {
 		years[index].dataset.calendarSelectedYear = String(selectedYear);
 		years[index].innerText = String(selectedYear);
 
-		if (!self.settings.selection.year || self.currentType === 'multiple') {
+		if (!self.settings.selection.year) {
 			years[index].tabIndex = -1;
 			years[index].classList.add(self.CSSClasses.yearDisabled);
 		} else {
