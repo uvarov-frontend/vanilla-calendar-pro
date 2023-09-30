@@ -3,7 +3,6 @@ import {
 	ArrowPrev,
 	Month,
 	Year,
-	Switch,
 	Week,
 	Days,
 	Months,
@@ -27,9 +26,6 @@ const getComponent = (pattern: string) => {
 			break;
 		case 'Year':
 			FC = Year;
-			break;
-		case 'Switch':
-			FC = Switch;
 			break;
 		case 'Week':
 			FC = Week;

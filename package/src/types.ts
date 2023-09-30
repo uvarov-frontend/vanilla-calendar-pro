@@ -112,7 +112,6 @@ export interface ICSSClasses {
 	monthDisabled: string;
 	year: string;
 	yearDisabled: string;
-	switch: string;
 	arrow: string;
 	arrowPrev: string;
 	arrowNext: string;

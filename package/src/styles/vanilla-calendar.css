@@ -85,18 +85,6 @@
 	@apply pointer-events-none
 }
 
-.vanilla-calendar-switch {
-	@apply cursor-pointer absolute left-0 top-0 bottom-0 right-0
-}
-
-.vanilla-calendar-switch svg {
-	@apply cursor-pointer absolute top-1/2 right-0 -translate-y-1/2
-}
-
-.vanilla-calendar-switch select {
-	@apply cursor-pointer absolute left-0 top-0 bottom-0 right-0 opacity-0
-}
-
 .vanilla-calendar-months {
 	@apply grid gap-y-4 gap-x-2 grid-cols-4 items-center grow
 }

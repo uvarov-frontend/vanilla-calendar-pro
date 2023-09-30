@@ -13,7 +13,6 @@ const DOMMultiple = (styles: ICSSClasses) => (`
 						<div class="${styles.headerContainer}">
 							<#Month />
 							<#Year />
-							<#Switch />
 						</div>
 					</div>
 				</div>

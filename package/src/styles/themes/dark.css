@@ -33,10 +33,6 @@
 	@apply text-white hover:text-slate-500
 }
 
-[data-calendar-theme="dark"] .vanilla-calendar-switch {
-	@apply text-white hover:text-slate-500
-}
-
 [data-calendar-theme="dark"] .vanilla-calendar-month.vanilla-calendar-month_not-active,
 [data-calendar-theme="dark"] .vanilla-calendar-year.vanilla-calendar-year_not-active {
 	@apply text-slate-500

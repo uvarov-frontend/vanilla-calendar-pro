@@ -17,7 +17,6 @@ const classes = {
 	monthDisabled: 'vanilla-calendar-month_disabled',
 	year: 'vanilla-calendar-year',
 	yearDisabled: 'vanilla-calendar-year_disabled',
-	switch: 'vanilla-calendar-switch',
 	arrow: 'vanilla-calendar-arrow',
 	arrowPrev: 'vanilla-calendar-arrow_prev',
 	arrowNext: 'vanilla-calendar-arrow_next',
