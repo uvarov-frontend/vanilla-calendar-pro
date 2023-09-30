@@ -6,7 +6,7 @@ import createYears from './createYears';
 import generateDate from '../helpers/generateDate';
 import mainMethod from './mainMethod';
 import handlerMultipleRanged from './handlerMultipleRanged';
-import getColumn from '../helpers/getColumn';
+import getColumnID from '../helpers/getColumnID';
 
 const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
@@ -161,7 +161,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 			} else if (yearItemEl) {
 				if (self.selectedMonth === undefined || !self.dateMin || !self.dateMax) return;
 				self.selectedYear = self.type === 'multiple'
-					? getColumn(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), 'data-calendar-selected-year')
+					? getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), 'data-calendar-selected-year')
 					: Number(yearItemEl.dataset.calendarYear);
 				self.currentType = self.type;
 				if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
@@ -187,7 +187,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				mainMethod(self);
 			} else if (monthItemEl) {
 				self.selectedMonth = self.type === 'multiple'
-					? getColumn(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(monthItemEl.dataset.calendarMonth), 'data-calendar-selected-month')
+					? getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(monthItemEl.dataset.calendarMonth), 'data-calendar-selected-month')
 					: Number(monthItemEl.dataset.calendarMonth);
 				if (self.type === 'multiple') {
 					const column = monthItemEl.closest(`.${self.CSSClasses.columnMonth}`) as HTMLElement;

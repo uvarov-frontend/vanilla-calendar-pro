@@ -1,7 +1,7 @@
-import { IVanillaCalendar, TypesCalendar } from '../../types';
+import { IVanillaCalendar } from '../../types';
 import { DOMParser, MultipleParser } from '../helpers/parserComponent';
 
-const createDOM = (self: IVanillaCalendar, initType?: TypesCalendar, target?: HTMLElement) => {
+const createDOM = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const calendarElement = (self.HTMLElement as HTMLElement);
 	calendarElement.classList.add(self.CSSClasses.calendar);
 
@@ -31,7 +31,7 @@ const createDOM = (self: IVanillaCalendar, initType?: TypesCalendar, target?: HT
 			calendarElement.innerHTML = MultipleParser(self, DOMParser(self, self.DOMTemplates.multiple));
 			break;
 		case 'month':
-			if (initType === 'multiple') {
+			if (self.type === 'multiple') {
 				switcherTypeMultiple(self.CSSClasses.columnMonth, self.DOMTemplates.month);
 				break;
 			}
@@ -41,7 +41,7 @@ const createDOM = (self: IVanillaCalendar, initType?: TypesCalendar, target?: HT
 			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.month);
 			break;
 		case 'year':
-			if (initType === 'multiple') {
+			if (self.type === 'multiple') {
 				switcherTypeMultiple(self.CSSClasses.columnYear, self.DOMTemplates.year);
 				break;
 			}

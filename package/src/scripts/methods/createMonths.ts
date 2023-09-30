@@ -6,7 +6,7 @@ import showYear from './showYear';
 const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target?.dataset.calendarSelectedMonth) : self.selectedMonth;
 	self.currentType = 'month';
-	createDOM(self, self.type, target);
+	createDOM(self, target);
 	showMonth(self);
 	showYear(self);
 

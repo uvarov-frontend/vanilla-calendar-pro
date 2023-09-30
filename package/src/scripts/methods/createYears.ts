@@ -8,7 +8,7 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	if (self.viewYear === undefined || !self.dateMin || !self.dateMax) return;
 	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear;
 	self.currentType = 'year';
-	createDOM(self, self.type, target);
+	createDOM(self, target);
 	showMonth(self);
 	showYear(self);
 	controlArrows(self);
