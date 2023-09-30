@@ -12,7 +12,6 @@ const classes = {
 	column: 'vanilla-calendar-column',
 	header: 'vanilla-calendar-header',
 	headerContent: 'vanilla-calendar-header__content',
-	headerContainer: 'vanilla-calendar-header__container',
 	month: 'vanilla-calendar-month',
 	monthDisabled: 'vanilla-calendar-month_disabled',
 	year: 'vanilla-calendar-year',

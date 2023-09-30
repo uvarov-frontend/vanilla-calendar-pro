@@ -107,7 +107,6 @@ export interface ICSSClasses {
 	column: string;
 	header: string;
 	headerContent: string;
-	headerContainer: string;
 	month: string;
 	monthDisabled: string;
 	year: string;
