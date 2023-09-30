@@ -12,6 +12,23 @@ import getLocale from './getLocale';
 import setTheme from './setTheme';
 
 const mainMethod = (self: IVanillaCalendar) => {
+	const typeMapper = {
+		default() {
+			createWeek(self);
+			createDays(self);
+		},
+		multiple() {
+			createWeek(self);
+			createDays(self);
+		},
+		month() {
+			createMonths(self);
+		},
+		year() {
+			createYears(self);
+		},
+	};
+
 	setTheme(self);
 	getLocale(self);
 	createDOM(self);
@@ -20,14 +37,7 @@ const mainMethod = (self: IVanillaCalendar) => {
 	controlArrows(self);
 	createTime(self);
 
-	if (self.currentType === 'default' || self.currentType === 'multiple') {
-		createWeek(self);
-		createDays(self);
-	} else if (self.currentType === 'month') {
-		createMonths(self);
-	} else if (self.currentType === 'year') {
-		createYears(self);
-	}
+	typeMapper[self.currentType]();
 };
 
 export default mainMethod;
