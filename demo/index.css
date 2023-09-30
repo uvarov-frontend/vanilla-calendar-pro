@@ -17,3 +17,7 @@
 		color: white !important;
 	}
 }
+
+.wrapper-calendar {
+	@apply w-[550px]
+}

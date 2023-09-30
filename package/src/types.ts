@@ -104,7 +104,10 @@ export interface ICSSClasses {
 	calendarInputWrapper: string;
 	controls: string;
 	grid: string;
+	gridDisabled: string;
 	column: string;
+	columnMonth: string;
+	columnYear: string;
 	header: string;
 	headerContent: string;
 	month: string;

@@ -4,10 +4,11 @@ import createDOM from './createDOM';
 import showMonth from './showMonth';
 import showYear from './showYear';
 
-const createYears = (self: IVanillaCalendar) => {
+const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	if (self.viewYear === undefined || !self.dateMin || !self.dateMax) return;
+	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear;
 	self.currentType = 'year';
-	createDOM(self);
+	createDOM(self, self.type, target);
 	showMonth(self);
 	showYear(self);
 	controlArrows(self);
@@ -23,7 +24,7 @@ const createYears = (self: IVanillaCalendar) => {
 		const year = i;
 		const yearEl = templateYearEl.cloneNode(true) as HTMLButtonElement;
 
-		if (year === self.selectedYear) {
+		if (year === selectedYear) {
 			yearEl.classList.add(self.CSSClasses.yearsYearSelected);
 		}
 		if (year < self.dateMin.getFullYear()) {

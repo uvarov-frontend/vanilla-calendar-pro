@@ -3,14 +3,15 @@ import createDOM from './createDOM';
 import showMonth from './showMonth';
 import showYear from './showYear';
 
-const createMonths = (self: IVanillaCalendar) => {
+const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
+	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target?.dataset.calendarSelectedMonth) : self.selectedMonth;
 	self.currentType = 'month';
-	createDOM(self);
+	createDOM(self, self.type, target);
 	showMonth(self);
 	showYear(self);
 
 	const monthsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.months}`);
-	if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax || !monthsEl) return;
+	if (self.selectedYear === undefined || !self.dateMin || !self.dateMax || !monthsEl) return;
 
 	if (self.settings.selection.month) monthsEl.classList.add(self.CSSClasses.monthsSelecting);
 
@@ -22,7 +23,7 @@ const createMonths = (self: IVanillaCalendar) => {
 		const month = self.locale.months[i];
 		const monthEl = templateMonthEl.cloneNode(true) as HTMLButtonElement;
 
-		if (i === self.selectedMonth) {
+		if (i === selectedMonth) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
 		if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
