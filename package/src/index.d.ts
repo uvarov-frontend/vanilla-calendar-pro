@@ -1,4 +1,5 @@
 import {
+	TypesCalendar,
 	IActions,
 	ICSSClasses,
 	IDate,
@@ -22,7 +23,7 @@ type Settings = {
 
 export type Options = {
 	input?: boolean;
-	type?: 'default' | 'multiple' | 'month' | 'year';
+	type?: TypesCalendar;
 	months?: number;
 	jumpMonths?: number;
 	date?: Partial<IDate>;

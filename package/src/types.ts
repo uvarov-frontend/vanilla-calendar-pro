@@ -6,6 +6,8 @@ type MM = `0${OneToNine}` | `1${0 | 1 | 2}`;
 type DD = `${0}${OneToNine}` | `${1 | 2}${ZeroToNine}` | `3${0 | 1}`;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
+export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
+
 export interface IDate {
 	min: FormatDateString;
 	max: FormatDateString;
@@ -163,7 +165,7 @@ export interface ICSSClasses {
 
 export interface IOptions {
 	input: boolean;
-	type: 'default' | 'multiple' | 'month' | 'year';
+	type: TypesCalendar;
 	months: number;
 	jumpMonths: number;
 	date: IDate;
@@ -177,7 +179,7 @@ export interface IOptions {
 
 export interface IVariables extends IOptions {
 	HTMLElement: HTMLElement | null;
-	currentType: string;
+	currentType: TypesCalendar;
 	reset: () => void;
 	update: () => void;
 	init: () => void;

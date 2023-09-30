@@ -7,6 +7,7 @@ import {
 	IPopups,
 	ICSSClasses,
 	IDOMTemplates,
+	TypesCalendar,
 } from '../types';
 import resetCalendar from './methods/resetCalendar';
 import updateCalendar from './methods/updateCalendar';
@@ -22,7 +23,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	input!: boolean;
 
-	type!: 'default' | 'multiple' | 'month' | 'year';
+	type!: TypesCalendar;
 
 	months!: number;
 
@@ -42,7 +43,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 
 	DOMTemplates!: IDOMTemplates;
 
-	currentType!: string;
+	currentType!: TypesCalendar;
 
 	constructor(selector: T, option?: R) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
