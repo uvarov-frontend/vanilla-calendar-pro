@@ -71,10 +71,6 @@
 	@apply grid grid-flow-col auto-cols-max items-center justify-center px-4 whitespace-pre-wrap grow
 }
 
-.vanilla-calendar-header__container {
-	@apply relative flex items-center justify-center pr-4
-}
-
 .vanilla-calendar-month,
 .vanilla-calendar-year {
 	@apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent
