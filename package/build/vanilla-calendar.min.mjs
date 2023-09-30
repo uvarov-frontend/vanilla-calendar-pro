@@ -542,9 +542,21 @@ const MultipleParser = (self, template) => template.replace(/<#Multiple>(.*?)<#\
   }
   return content;
 }).replace(/[\n\t]/g, "");
-const createDOM = (self) => {
+const createDOM = (self, target) => {
   const calendarElement = self.HTMLElement;
   calendarElement.classList.add(self.CSSClasses.calendar);
+  const switcherTypeMultiple = (columnClass, DOMTemplates) => {
+    if (!target)
+      return;
+    const controls = self.HTMLElement.querySelector(`.${self.CSSClasses.controls}`);
+    if (controls)
+      self.HTMLElement.removeChild(controls);
+    const grid = self.HTMLElement.querySelector(`.${self.CSSClasses.grid}`);
+    grid.classList.add(self.CSSClasses.gridDisabled);
+    const columnElement = target.closest(`.${self.CSSClasses.column}`);
+    columnElement.classList.add(columnClass);
+    columnElement.innerHTML = DOMParser(self, DOMTemplates);
+  };
   switch (self.currentType) {
     case "default":
       calendarElement.classList.add(self.CSSClasses.calendarDefault);
@@ -561,12 +573,20 @@ const createDOM = (self) => {
       calendarElement.innerHTML = MultipleParser(self, DOMParser(self, self.DOMTemplates.multiple));
       break;
     case "month":
+      if (self.type === "multiple") {
+        switcherTypeMultiple(self.CSSClasses.columnMonth, self.DOMTemplates.month);
+        break;
+      }
       calendarElement.classList.remove(self.CSSClasses.calendarDefault);
       calendarElement.classList.add(self.CSSClasses.calendarMonth);
       calendarElement.classList.remove(self.CSSClasses.calendarYear);
       calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.month);
       break;
     case "year":
+      if (self.type === "multiple") {
+        switcherTypeMultiple(self.CSSClasses.columnYear, self.DOMTemplates.year);
+        break;
+      }
       calendarElement.classList.remove(self.CSSClasses.calendarDefault);
       calendarElement.classList.remove(self.CSSClasses.calendarMonth);
       calendarElement.classList.add(self.CSSClasses.calendarYear);
@@ -583,7 +603,7 @@ const showMonth = (self) => {
     const selectedMonth = new Date(initDate.setMonth(self.selectedMonth + index)).getMonth();
     months[index].dataset.calendarSelectedMonth = String(selectedMonth);
     months[index].innerText = self.locale.months[selectedMonth];
-    if (!self.settings.selection.month || self.currentType === "multiple") {
+    if (!self.settings.selection.month) {
       months[index].tabIndex = -1;
       months[index].classList.add(self.CSSClasses.monthDisabled);
     } else {
@@ -601,7 +621,7 @@ const showYear = (self) => {
     const selectedYear = new Date(initDate.setFullYear(self.selectedYear, self.selectedMonth + index)).getFullYear();
     years[index].dataset.calendarSelectedYear = String(selectedYear);
     years[index].innerText = String(selectedYear);
-    if (!self.settings.selection.year || self.currentType === "multiple") {
+    if (!self.settings.selection.year) {
       years[index].tabIndex = -1;
       years[index].classList.add(self.CSSClasses.yearDisabled);
     } else {
@@ -610,13 +630,14 @@ const showYear = (self) => {
     }
   });
 };
-const createMonths = (self) => {
+const createMonths = (self, target) => {
+  const selectedMonth = (target == null ? void 0 : target.dataset.calendarSelectedMonth) ? Number(target == null ? void 0 : target.dataset.calendarSelectedMonth) : self.selectedMonth;
   self.currentType = "month";
-  createDOM(self);
+  createDOM(self, target);
   showMonth(self);
   showYear(self);
   const monthsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.months}`);
-  if (self.selectedMonth === void 0 || self.selectedYear === void 0 || !self.dateMin || !self.dateMax || !monthsEl)
+  if (self.selectedYear === void 0 || !self.dateMin || !self.dateMax || !monthsEl)
     return;
   if (self.settings.selection.month)
     monthsEl.classList.add(self.CSSClasses.monthsSelecting);
@@ -626,7 +647,7 @@ const createMonths = (self) => {
   for (let i = 0; i < self.locale.months.length; i++) {
     const month = self.locale.months[i];
     const monthEl = templateMonthEl.cloneNode(true);
-    if (i === self.selectedMonth) {
+    if (i === selectedMonth) {
       monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
     }
     if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
@@ -862,11 +883,12 @@ const createWeek = (self) => {
     }
   });
 };
-const createYears = (self) => {
+const createYears = (self, target) => {
   if (self.viewYear === void 0 || !self.dateMin || !self.dateMax)
     return;
+  const selectedYear = (target == null ? void 0 : target.dataset.calendarSelectedYear) ? Number(target == null ? void 0 : target.dataset.calendarSelectedYear) : self.selectedYear;
   self.currentType = "year";
-  createDOM(self);
+  createDOM(self, target);
   showMonth(self);
   showYear(self);
   controlArrows(self);
@@ -881,7 +903,7 @@ const createYears = (self) => {
   for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
     const year = i;
     const yearEl = templateYearEl.cloneNode(true);
-    if (year === self.selectedYear) {
+    if (year === selectedYear) {
       yearEl.classList.add(self.CSSClasses.yearsYearSelected);
     }
     if (year < self.dateMin.getFullYear()) {
@@ -1009,6 +1031,22 @@ const setTheme = (self) => {
   }
 };
 const mainMethod = (self) => {
+  const typeMapper = {
+    default() {
+      createWeek(self);
+      createDays(self);
+    },
+    multiple() {
+      createWeek(self);
+      createDays(self);
+    },
+    month() {
+      createMonths(self);
+    },
+    year() {
+      createYears(self);
+    }
+  };
   setTheme(self);
   getLocale(self);
   createDOM(self);
@@ -1016,14 +1054,7 @@ const mainMethod = (self) => {
   showYear(self);
   controlArrows(self);
   createTime(self);
-  if (self.currentType === "default" || self.currentType === "multiple") {
-    createWeek(self);
-    createDays(self);
-  } else if (self.currentType === "month") {
-    createMonths(self);
-  } else if (self.currentType === "year") {
-    createYears(self);
-  }
+  typeMapper[self.currentType]();
 };
 const resetCalendar = (self) => {
   setVariablesDates(self);
@@ -1203,6 +1234,19 @@ const handlerMultipleRanged = (self) => {
       resetDisabledDates();
   }
 };
+const getColumnID = (self, columnClass, personalClass, id, dataAttr) => {
+  const columnEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
+  const firstColumnID = Number(columnEls[0].querySelector(`.${personalClass}`).getAttribute(dataAttr));
+  const lastColumnID = Number(columnEls[columnEls.length - 1].querySelector(`.${personalClass}`).getAttribute(dataAttr));
+  const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(columnClass));
+  if (firstColumnID === lastColumnID || indexColumn < 0) {
+    return id;
+  }
+  if (firstColumnID < lastColumnID || self.currentType !== "year" && firstColumnID > lastColumnID) {
+    return id - indexColumn;
+  }
+  return id;
+};
 const clickCalendar = (self) => {
   self.HTMLElement.addEventListener("click", (e) => {
     const element = e.target;
@@ -1217,6 +1261,8 @@ const clickCalendar = (self) => {
     const yearItemEl = element.closest(`.${self.CSSClasses.yearsYear}`);
     const monthHeaderEl = element.closest(`.${self.CSSClasses.month}`);
     const monthItemEl = element.closest(`.${self.CSSClasses.monthsMonth}`);
+    const gridEl = element.closest(`.${self.CSSClasses.grid}`);
+    const columnEl = element.closest(`.${self.CSSClasses.column}`);
     const clickArrowMonth = () => {
       if (arrowEl && self.currentType !== "year" && self.currentType !== "month") {
         changeMonth(self, element.dataset.calendarArrow);
@@ -1327,7 +1373,7 @@ const clickCalendar = (self) => {
       self.actions.clickWeekNumber(e, weekNumberValue, daysOfThisWeek, yearWeek);
     };
     const clickYear = () => {
-      if (!self.settings.selection.year || self.currentType === "multiple")
+      if (!self.settings.selection.year)
         return;
       if (arrowEl && self.currentType === "year") {
         if (self.viewYear === void 0)
@@ -1337,16 +1383,16 @@ const clickCalendar = (self) => {
         } else if (arrowPrevEl) {
           self.viewYear -= 15;
         }
-        createYears(self);
+        createYears(self, e.target);
       } else if (self.currentType !== "year" && yearHeaderEl) {
-        createYears(self);
+        createYears(self, e.target);
       } else if (self.currentType === "year" && yearHeaderEl) {
         self.currentType = self.type;
         mainMethod(self);
       } else if (yearItemEl) {
         if (self.selectedMonth === void 0 || !self.dateMin || !self.dateMax)
           return;
-        self.selectedYear = Number(yearItemEl.dataset.calendarYear);
+        self.selectedYear = self.type === "multiple" ? getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), "data-calendar-selected-year") : Number(yearItemEl.dataset.calendarYear);
         self.currentType = self.type;
         if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
           self.selectedMonth = self.dateMin.getMonth();
@@ -1357,21 +1403,32 @@ const clickCalendar = (self) => {
         if (self.actions.clickYear)
           self.actions.clickYear(e, self.selectedYear);
         mainMethod(self);
+      } else if (self.type === "multiple" && self.currentType === "year" && gridEl && !columnEl) {
+        self.currentType = self.type;
+        mainMethod(self);
       }
     };
     const clickMonth = () => {
-      if (!self.settings.selection.month || self.currentType === "multiple")
+      if (!self.settings.selection.month)
         return;
       if (self.currentType !== "month" && monthHeaderEl) {
-        createMonths(self);
+        createMonths(self, e.target);
       } else if (self.currentType === "month" && monthHeaderEl) {
         self.currentType = self.type;
         mainMethod(self);
       } else if (monthItemEl) {
-        self.selectedMonth = Number(monthItemEl.dataset.calendarMonth);
+        self.selectedMonth = self.type === "multiple" ? getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(monthItemEl.dataset.calendarMonth), "data-calendar-selected-month") : Number(monthItemEl.dataset.calendarMonth);
+        if (self.type === "multiple") {
+          const column = monthItemEl.closest(`.${self.CSSClasses.columnMonth}`);
+          const year = column.querySelector(`.${self.CSSClasses.year}`);
+          self.selectedYear = Number(year.dataset.calendarSelectedYear);
+        }
         self.currentType = self.type;
         if (self.actions.clickMonth)
           self.actions.clickMonth(e, self.selectedMonth);
+        mainMethod(self);
+      } else if (self.type === "multiple" && self.currentType === "month" && gridEl && !columnEl) {
+        self.currentType = self.type;
         mainMethod(self);
       }
     };
@@ -1486,7 +1543,10 @@ const classes = {
   calendarInputWrapper: "vanilla-calendar-input-wrapper",
   controls: "vanilla-calendar-controls",
   grid: "vanilla-calendar-grid",
+  gridDisabled: "vanilla-calendar-grid_disabled",
   column: "vanilla-calendar-column",
+  columnMonth: "vanilla-calendar-column_month",
+  columnYear: "vanilla-calendar-column_year",
   header: "vanilla-calendar-header",
   headerContent: "vanilla-calendar-header__content",
   month: "vanilla-calendar-month",
