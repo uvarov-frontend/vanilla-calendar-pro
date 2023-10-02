@@ -603,7 +603,7 @@ const showMonth = (self) => {
     const selectedMonth = new Date(initDate.setMonth(self.selectedMonth + index)).getMonth();
     months[index].dataset.calendarSelectedMonth = String(selectedMonth);
     months[index].innerText = self.locale.months[selectedMonth];
-    if (!self.settings.selection.month) {
+    if (self.settings.selection.month === false || self.settings.selection.month === "only-arrows") {
       months[index].tabIndex = -1;
       months[index].classList.add(self.CSSClasses.monthDisabled);
     } else {
@@ -621,7 +621,7 @@ const showYear = (self) => {
     const selectedYear = new Date(initDate.setFullYear(self.selectedYear, self.selectedMonth + index)).getFullYear();
     years[index].dataset.calendarSelectedYear = String(selectedYear);
     years[index].innerText = String(selectedYear);
-    if (!self.settings.selection.year) {
+    if (self.settings.selection.year === false || self.settings.selection.year === "only-arrows") {
       years[index].tabIndex = -1;
       years[index].classList.add(self.CSSClasses.yearDisabled);
     } else {
@@ -641,6 +641,7 @@ const createMonths = (self, target) => {
     return;
   if (self.settings.selection.month)
     monthsEl.classList.add(self.CSSClasses.monthsSelecting);
+  const activeMonthsID = self.jumpMonths > 1 ? self.locale.months.map((_, i) => selectedMonth - self.jumpMonths * i).concat(self.locale.months.map((_, i) => selectedMonth + self.jumpMonths * i)).filter((monthID) => monthID >= 0 && monthID <= 12) : Array.from(Array(12).keys());
   const templateMonthEl = document.createElement("button");
   templateMonthEl.type = "button";
   templateMonthEl.className = self.CSSClasses.monthsMonth;
@@ -650,11 +651,7 @@ const createMonths = (self, target) => {
     if (i === selectedMonth) {
       monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
     }
-    if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
-      monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
-      monthEl.tabIndex = -1;
-    }
-    if (i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
+    if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear() || i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear() || i !== selectedMonth && !activeMonthsID.includes(i)) {
       monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
       monthEl.tabIndex = -1;
     }
@@ -1236,15 +1233,12 @@ const handlerMultipleRanged = (self) => {
 };
 const getColumnID = (self, columnClass, personalClass, id, dataAttr) => {
   const columnEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
-  const firstColumnID = Number(columnEls[0].querySelector(`.${personalClass}`).getAttribute(dataAttr));
-  const lastColumnID = Number(columnEls[columnEls.length - 1].querySelector(`.${personalClass}`).getAttribute(dataAttr));
   const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(columnClass));
-  if (firstColumnID === lastColumnID || indexColumn < 0) {
-    return id;
-  }
-  if (firstColumnID < lastColumnID || self.currentType !== "year" && firstColumnID > lastColumnID) {
+  const currentValue = Number(columnEls[indexColumn].querySelector(`.${personalClass}`).getAttribute(dataAttr));
+  if (self.currentType === "month" && indexColumn >= 0)
     return id - indexColumn;
-  }
+  if (self.currentType === "year" && self.selectedYear !== currentValue)
+    return id - 1;
   return id;
 };
 const clickCalendar = (self) => {
