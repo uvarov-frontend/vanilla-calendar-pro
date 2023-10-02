@@ -4,7 +4,7 @@ import showMonth from './showMonth';
 import showYear from './showYear';
 
 const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
-	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target?.dataset.calendarSelectedMonth) : self.selectedMonth;
+	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target?.dataset.calendarSelectedMonth) : self.selectedMonth as number;
 	self.currentType = 'month';
 	createDOM(self, target);
 	showMonth(self);
@@ -15,6 +15,10 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 
 	if (self.settings.selection.month) monthsEl.classList.add(self.CSSClasses.monthsSelecting);
 
+	const activeMonthsID = self.locale.months
+		.map((_, i) => selectedMonth - self.jumpMonths * i)
+		.concat(self.locale.months.map((_, i) => selectedMonth + self.jumpMonths * i))
+		.filter((monthID) => monthID >= 0 && monthID <= 12);
 	const templateMonthEl = document.createElement('button');
 	templateMonthEl.type = 'button';
 	templateMonthEl.className = self.CSSClasses.monthsMonth;
@@ -26,11 +30,10 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 		if (i === selectedMonth) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
-		if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
-			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
-			monthEl.tabIndex = -1;
-		}
-		if (i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
+
+		if ((i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear())
+			|| (i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear())
+			|| (i !== selectedMonth && !activeMonthsID.includes(i))) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
 			monthEl.tabIndex = -1;
 		}
