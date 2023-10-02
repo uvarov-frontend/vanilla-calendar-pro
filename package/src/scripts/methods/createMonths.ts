@@ -15,10 +15,10 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 
 	if (self.settings.selection.month) monthsEl.classList.add(self.CSSClasses.monthsSelecting);
 
-	const activeMonthsID = self.locale.months
+	const activeMonthsID = self.jumpMonths > 1 ? self.locale.months
 		.map((_, i) => selectedMonth - self.jumpMonths * i)
 		.concat(self.locale.months.map((_, i) => selectedMonth + self.jumpMonths * i))
-		.filter((monthID) => monthID >= 0 && monthID <= 12);
+		.filter((monthID) => monthID >= 0 && monthID <= 12) : Array.from(Array(12).keys());
 	const templateMonthEl = document.createElement('button');
 	templateMonthEl.type = 'button';
 	templateMonthEl.className = self.CSSClasses.monthsMonth;
