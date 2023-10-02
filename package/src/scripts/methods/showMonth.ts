@@ -11,7 +11,7 @@ const showMonth = (self: IVanillaCalendar) => {
 		months[index].dataset.calendarSelectedMonth = String(selectedMonth);
 		months[index].innerText = self.locale.months[selectedMonth];
 
-		if (!self.settings.selection.month) {
+		if (self.settings.selection.month === false || self.settings.selection.month === 'only-arrows') {
 			months[index].tabIndex = -1;
 			months[index].classList.add(self.CSSClasses.monthDisabled);
 		} else {
