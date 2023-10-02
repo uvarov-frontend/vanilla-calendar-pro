@@ -1,5 +1,5 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] max-w-full
+	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] max-w-full h-max
 }
 
 .vanilla-calendar button:focus-visible {
