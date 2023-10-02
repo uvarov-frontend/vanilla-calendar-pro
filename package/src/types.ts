@@ -27,8 +27,8 @@ export interface IRange {
 
 export interface ISelection {
 	day: false | 'single' | 'multiple' | 'multiple-ranged';
-	month: boolean;
-	year: boolean;
+	month: boolean | 'only-arrows';
+	year: boolean | 'only-arrows';
 	time: boolean | number;
 	controlTime: 'all' | 'range';
 	stepHours: number;
