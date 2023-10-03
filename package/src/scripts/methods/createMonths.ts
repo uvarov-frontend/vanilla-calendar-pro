@@ -26,6 +26,13 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 	templateMonthEl.type = 'button';
 	templateMonthEl.className = self.CSSClasses.monthsMonth;
 
+	const columnID = () => {
+		if (self.type !== 'multiple') return 0;
+		const columnEls = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.column}`) as NodeListOf<HTMLElement>;
+		const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
+		return indexColumn > 0 ? indexColumn : 0;
+	};
+
 	for (let i = 0; i < self.locale.months.length; i++) {
 		const month = self.locale.months[i];
 		const monthEl = templateMonthEl.cloneNode(true) as HTMLButtonElement;
@@ -34,8 +41,8 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
 
-		if ((i < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear())
-			|| (i > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear())
+		if ((i < self.dateMin.getMonth() + columnID() && selectedYear <= self.dateMin.getFullYear())
+			|| (i > self.dateMax.getMonth() + columnID() && selectedYear >= self.dateMax.getFullYear())
 			|| (i !== selectedMonth && !activeMonthsID.includes(i))) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
 			monthEl.tabIndex = -1;
