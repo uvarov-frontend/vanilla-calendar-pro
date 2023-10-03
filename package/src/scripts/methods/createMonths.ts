@@ -4,14 +4,17 @@ import showMonth from './showMonth';
 import showYear from './showYear';
 
 const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
-	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target?.dataset.calendarSelectedMonth) : self.selectedMonth as number;
+	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target.dataset.calendarSelectedMonth) : self.selectedMonth as number;
+	const yearEl = target?.closest(`.${self.CSSClasses.column}`)?.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
+	const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : self.selectedYear as number;
+
 	self.currentType = 'month';
 	createDOM(self, target);
 	showMonth(self);
 	showYear(self);
 
 	const monthsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.months}`);
-	if (self.selectedYear === undefined || !self.dateMin || !self.dateMax || !monthsEl) return;
+	if (!self.dateMin || !self.dateMax || !monthsEl) return;
 
 	if (self.settings.selection.month) monthsEl.classList.add(self.CSSClasses.monthsSelecting);
 
@@ -31,8 +34,8 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 			monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
 		}
 
-		if ((i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear())
-			|| (i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear())
+		if ((i < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear())
+			|| (i > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear())
 			|| (i !== selectedMonth && !activeMonthsID.includes(i))) {
 			monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
 			monthEl.tabIndex = -1;
