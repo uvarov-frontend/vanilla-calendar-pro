@@ -6,7 +6,7 @@ import showYear from './showYear';
 
 const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	if (self.viewYear === undefined || !self.dateMin || !self.dateMax) return;
-	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear;
+	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'year';
 	createDOM(self, target);
 	showMonth(self);
@@ -20,6 +20,11 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	templateYearEl.type = 'button';
 	templateYearEl.className = self.CSSClasses.yearsYear;
 
+	const relationshipID = () => {
+		if (self.type !== 'multiple') return 0;
+		return self.selectedYear === selectedYear ? 0 : 1;
+	};
+
 	for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
 		const year = i;
 		const yearEl = templateYearEl.cloneNode(true) as HTMLButtonElement;
@@ -27,11 +32,8 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 		if (year === selectedYear) {
 			yearEl.classList.add(self.CSSClasses.yearsYearSelected);
 		}
-		if (year < self.dateMin.getFullYear()) {
-			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
-			yearEl.tabIndex = -1;
-		}
-		if (year > self.dateMax.getFullYear()) {
+
+		if (year < self.dateMin.getFullYear() + relationshipID() || year > self.dateMax.getFullYear()) {
 			yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
 			yearEl.tabIndex = -1;
 		}

@@ -164,11 +164,13 @@ const clickCalendar = (self: IVanillaCalendar) => {
 					? getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), 'data-calendar-selected-year')
 					: Number(yearItemEl.dataset.calendarYear);
 				self.currentType = self.type;
-				if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
+				if ((self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear()) || self.selectedYear < self.dateMin.getFullYear()) {
 					self.selectedMonth = self.dateMin.getMonth();
+					self.selectedYear = self.dateMin.getFullYear();
 				}
-				if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
+				if ((self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear()) || self.selectedYear > self.dateMax.getFullYear()) {
 					self.selectedMonth = self.dateMax.getMonth();
+					self.selectedYear = self.dateMax.getFullYear();
 				}
 				if (self.actions.clickYear) self.actions.clickYear(e, self.selectedYear);
 				mainMethod(self);
@@ -186,6 +188,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 				self.currentType = self.type;
 				mainMethod(self);
 			} else if (monthItemEl) {
+				if (self.selectedMonth === undefined || !self.dateMin || !self.dateMax) return;
 				self.selectedMonth = self.type === 'multiple'
 					? getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(monthItemEl.dataset.calendarMonth), 'data-calendar-selected-month')
 					: Number(monthItemEl.dataset.calendarMonth);
@@ -193,6 +196,12 @@ const clickCalendar = (self: IVanillaCalendar) => {
 					const column = monthItemEl.closest(`.${self.CSSClasses.columnMonth}`) as HTMLElement;
 					const year = column.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
 					self.selectedYear = Number(year.dataset.calendarSelectedYear);
+					if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear()) {
+						self.selectedMonth = self.dateMin.getMonth();
+					}
+					if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear()) {
+						self.selectedMonth = self.dateMax.getMonth();
+					}
 				}
 				self.currentType = self.type;
 				if (self.actions.clickMonth) self.actions.clickMonth(e, self.selectedMonth);
