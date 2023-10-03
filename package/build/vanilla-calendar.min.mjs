@@ -631,13 +631,16 @@ const showYear = (self) => {
   });
 };
 const createMonths = (self, target) => {
-  const selectedMonth = (target == null ? void 0 : target.dataset.calendarSelectedMonth) ? Number(target == null ? void 0 : target.dataset.calendarSelectedMonth) : self.selectedMonth;
+  var _a;
+  const selectedMonth = (target == null ? void 0 : target.dataset.calendarSelectedMonth) ? Number(target.dataset.calendarSelectedMonth) : self.selectedMonth;
+  const yearEl = (_a = target == null ? void 0 : target.closest(`.${self.CSSClasses.column}`)) == null ? void 0 : _a.querySelector(`.${self.CSSClasses.year}`);
+  const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : self.selectedYear;
   self.currentType = "month";
   createDOM(self, target);
   showMonth(self);
   showYear(self);
   const monthsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.months}`);
-  if (self.selectedYear === void 0 || !self.dateMin || !self.dateMax || !monthsEl)
+  if (!self.dateMin || !self.dateMax || !monthsEl)
     return;
   if (self.settings.selection.month)
     monthsEl.classList.add(self.CSSClasses.monthsSelecting);
@@ -645,13 +648,20 @@ const createMonths = (self, target) => {
   const templateMonthEl = document.createElement("button");
   templateMonthEl.type = "button";
   templateMonthEl.className = self.CSSClasses.monthsMonth;
+  const columnID = () => {
+    if (self.type !== "multiple")
+      return 0;
+    const columnEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
+    const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
+    return indexColumn > 0 ? indexColumn : 0;
+  };
   for (let i = 0; i < self.locale.months.length; i++) {
     const month = self.locale.months[i];
     const monthEl = templateMonthEl.cloneNode(true);
     if (i === selectedMonth) {
       monthEl.classList.add(self.CSSClasses.monthsMonthSelected);
     }
-    if (i < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear() || i > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear() || i !== selectedMonth && !activeMonthsID.includes(i)) {
+    if (i < self.dateMin.getMonth() + columnID() && selectedYear <= self.dateMin.getFullYear() || i > self.dateMax.getMonth() + columnID() && selectedYear >= self.dateMax.getFullYear() || i !== selectedMonth && !activeMonthsID.includes(i)) {
       monthEl.classList.add(self.CSSClasses.monthsMonthDisabled);
       monthEl.tabIndex = -1;
     }
@@ -897,17 +907,18 @@ const createYears = (self, target) => {
   const templateYearEl = document.createElement("button");
   templateYearEl.type = "button";
   templateYearEl.className = self.CSSClasses.yearsYear;
+  const relationshipID = () => {
+    if (self.type !== "multiple")
+      return 0;
+    return self.selectedYear === selectedYear ? 0 : 1;
+  };
   for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
     const year = i;
     const yearEl = templateYearEl.cloneNode(true);
     if (year === selectedYear) {
       yearEl.classList.add(self.CSSClasses.yearsYearSelected);
     }
-    if (year < self.dateMin.getFullYear()) {
-      yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
-      yearEl.tabIndex = -1;
-    }
-    if (year > self.dateMax.getFullYear()) {
+    if (year < self.dateMin.getFullYear() + relationshipID() || year > self.dateMax.getFullYear()) {
       yearEl.classList.add(self.CSSClasses.yearsYearDisabled);
       yearEl.tabIndex = -1;
     }
@@ -1084,9 +1095,9 @@ let currentSelf$1 = null;
 const documentClickEvent = (e) => {
   if (!currentSelf$1)
     return;
-  if (e.target.closest(`.${currentSelf$1.CSSClasses.calendar}`))
+  if (e.target.closest(`.${currentSelf$1.CSSClasses.calendar}.${currentSelf$1.CSSClasses.calendarToInput}`))
     return;
-  document.querySelectorAll(`.${currentSelf$1.CSSClasses.calendar}`).forEach((calendar) => {
+  document.querySelectorAll(`.${currentSelf$1.CSSClasses.calendar}.${currentSelf$1.CSSClasses.calendarToInput}`).forEach((calendar) => {
     calendar.classList.add(currentSelf$1.CSSClasses.calendarHidden);
   });
   document.removeEventListener("click", documentClickEvent, { capture: true });
@@ -1388,11 +1399,13 @@ const clickCalendar = (self) => {
           return;
         self.selectedYear = self.type === "multiple" ? getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), "data-calendar-selected-year") : Number(yearItemEl.dataset.calendarYear);
         self.currentType = self.type;
-        if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear === self.dateMin.getFullYear()) {
+        if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear() || self.selectedYear < self.dateMin.getFullYear()) {
           self.selectedMonth = self.dateMin.getMonth();
+          self.selectedYear = self.dateMin.getFullYear();
         }
-        if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear === self.dateMax.getFullYear()) {
+        if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear() || self.selectedYear > self.dateMax.getFullYear()) {
           self.selectedMonth = self.dateMax.getMonth();
+          self.selectedYear = self.dateMax.getFullYear();
         }
         if (self.actions.clickYear)
           self.actions.clickYear(e, self.selectedYear);
@@ -1411,11 +1424,19 @@ const clickCalendar = (self) => {
         self.currentType = self.type;
         mainMethod(self);
       } else if (monthItemEl) {
+        if (self.selectedMonth === void 0 || !self.dateMin || !self.dateMax)
+          return;
         self.selectedMonth = self.type === "multiple" ? getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(monthItemEl.dataset.calendarMonth), "data-calendar-selected-month") : Number(monthItemEl.dataset.calendarMonth);
         if (self.type === "multiple") {
           const column = monthItemEl.closest(`.${self.CSSClasses.columnMonth}`);
           const year = column.querySelector(`.${self.CSSClasses.year}`);
           self.selectedYear = Number(year.dataset.calendarSelectedYear);
+          if (self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear()) {
+            self.selectedMonth = self.dateMin.getMonth();
+          }
+          if (self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear()) {
+            self.selectedMonth = self.dateMax.getMonth();
+          }
         }
         self.currentType = self.type;
         if (self.actions.clickMonth)
