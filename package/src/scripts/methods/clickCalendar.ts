@@ -164,11 +164,11 @@ const clickCalendar = (self: IVanillaCalendar) => {
 					? getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(yearItemEl.dataset.calendarYear), 'data-calendar-selected-year')
 					: Number(yearItemEl.dataset.calendarYear);
 				self.currentType = self.type;
-				if ((self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear()) || self.selectedYear <= self.dateMin.getFullYear()) {
+				if ((self.selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear()) || self.selectedYear < self.dateMin.getFullYear()) {
 					self.selectedMonth = self.dateMin.getMonth();
 					self.selectedYear = self.dateMin.getFullYear();
 				}
-				if ((self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear()) || self.selectedYear >= self.dateMax.getFullYear()) {
+				if ((self.selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear()) || self.selectedYear > self.dateMax.getFullYear()) {
 					self.selectedMonth = self.dateMax.getMonth();
 					self.selectedYear = self.dateMax.getFullYear();
 				}
