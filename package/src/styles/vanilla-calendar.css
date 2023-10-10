@@ -1,5 +1,5 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl relative flex flex-col min-w-[275px] max-w-full h-max
+	@apply p-4 rounded-xl opacity-100 transition-all relative flex flex-col min-w-[275px] max-w-full h-max
 }
 
 .vanilla-calendar button:focus-visible {
@@ -11,7 +11,7 @@
 }
 
 .vanilla-calendar_hidden {
-	@apply invisible opacity-0 pointer-events-none transition-all
+	@apply opacity-0 pointer-events-none
 }
 
 .vanilla-calendar_to-input {
