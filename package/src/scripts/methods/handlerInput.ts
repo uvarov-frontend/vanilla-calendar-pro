@@ -15,7 +15,11 @@ const handlerInput = (self: IVanillaCalendar) => {
 	if (!self || !self.input) return;
 	currentSelf = self;
 	self.HTMLInputElement?.addEventListener('click', () => {
-		self.HTMLElement?.classList.remove(self.CSSClasses.calendarHidden);
+		if (self.HTMLElement && self.HTMLInputElement) {
+			self.HTMLElement.style.left = `${self.HTMLInputElement.offsetLeft}px`;
+			self.HTMLElement.style.top = `${self.HTMLInputElement.offsetTop + self.HTMLInputElement.clientHeight}px`;
+			self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+		}
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});
 };

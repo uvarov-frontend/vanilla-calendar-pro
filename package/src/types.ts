@@ -110,7 +110,6 @@ export interface ICSSClasses {
 	calendarYear: string;
 	calendarHidden: string;
 	calendarToInput: string;
-	calendarInputWrapper: string;
 	controls: string;
 	grid: string;
 	gridDisabled: string;
