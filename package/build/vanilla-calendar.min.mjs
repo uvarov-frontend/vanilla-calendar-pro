@@ -728,7 +728,25 @@ const controlTime = (self, keepingTime) => {
       self.actions.changeTime(e, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
     }
     if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-      self.actions.changeToInput(e, self.HTMLInputElement, self.selectedDates, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
+      const calendar = {
+        hide() {
+          self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+        },
+        show() {
+          self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+        },
+        HTMLInputElement: self.HTMLInputElement,
+        HTMLElement: self.HTMLElement
+      };
+      self.actions.changeToInput(
+        e,
+        calendar,
+        self.selectedDates,
+        self.selectedTime,
+        self.selectedHours,
+        self.selectedMinutes,
+        self.selectedKeeping
+      );
     }
   };
   const changeRange = (range, input, type, max) => {
@@ -1108,8 +1126,11 @@ const handlerInput = (self) => {
     return;
   currentSelf$1 = self;
   (_a = self.HTMLInputElement) == null ? void 0 : _a.addEventListener("click", () => {
-    var _a2;
-    (_a2 = self.HTMLElement) == null ? void 0 : _a2.classList.remove(self.CSSClasses.calendarHidden);
+    if (self.HTMLElement && self.HTMLInputElement) {
+      self.HTMLElement.style.left = `${self.HTMLInputElement.offsetLeft}px`;
+      self.HTMLElement.style.top = `${self.HTMLInputElement.offsetTop + self.HTMLInputElement.clientHeight}px`;
+      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+    }
     document.addEventListener("click", documentClickEvent, { capture: true });
   });
 };
@@ -1353,8 +1374,26 @@ const clickCalendar = (self) => {
         }
         if (self.actions.clickDay)
           self.actions.clickDay(e, self.selectedDates);
-        if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-          self.actions.changeToInput(e, self.HTMLInputElement, self.selectedDates, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
+        if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) {
+          const calendar = {
+            hide() {
+              self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+            },
+            show() {
+              self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+            },
+            HTMLInputElement: self.HTMLInputElement,
+            HTMLElement: self.HTMLElement
+          };
+          self.actions.changeToInput(
+            e,
+            calendar,
+            self.selectedDates,
+            self.selectedTime,
+            self.selectedHours,
+            self.selectedMinutes,
+            self.selectedKeeping
+          );
         }
         if (dayBtnPrevEl) {
           changeMonth(self, "prev");
@@ -1458,14 +1497,10 @@ const createCalendarToInput = (self) => {
   if (!self.input || !self.HTMLElement || !self.HTMLElement.parentNode)
     return;
   self.HTMLInputElement = self.HTMLElement;
-  const wrapper = document.createElement("div");
   const calendar = document.createElement("div");
-  wrapper.className = self.CSSClasses.calendarInputWrapper;
   calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-  self.HTMLElement.parentNode.insertBefore(wrapper, self.HTMLInputElement);
-  wrapper.append(self.HTMLInputElement);
   self.HTMLElement = calendar;
-  wrapper.append(self.HTMLElement);
+  document.body.append(self.HTMLElement);
 };
 const initCalendar = (self) => {
   if (!self.HTMLElement)
@@ -1555,7 +1590,6 @@ const classes = {
   calendarYear: "vanilla-calendar_year",
   calendarHidden: "vanilla-calendar_hidden",
   calendarToInput: "vanilla-calendar_to-input",
-  calendarInputWrapper: "vanilla-calendar-input-wrapper",
   controls: "vanilla-calendar-controls",
   grid: "vanilla-calendar-grid",
   gridDisabled: "vanilla-calendar-grid_disabled",
