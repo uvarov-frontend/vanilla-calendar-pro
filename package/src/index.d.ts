@@ -68,7 +68,7 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	readonly HTMLElement: HTMLElement | null;
 
-	readonly HTMLInputElement?: HTMLElement;
+	readonly HTMLInputElement?: HTMLInputElement;
 
 	readonly currentType: string;
 

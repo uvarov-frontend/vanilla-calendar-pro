@@ -77,8 +77,12 @@ export interface IActions {
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
 	changeToInput: ((
 		e: Event,
-		HTMLInputElement: HTMLElement,
-		HTMLCalendarElement: { hide(): void; show(): void; HTMLElement: HTMLDivElement; },
+		calendar: {
+			hide(): void;
+			show(): void;
+			HTMLInputElement: HTMLInputElement;
+			HTMLElement: HTMLDivElement;
+		},
 		dates?: string[],
 		time?: string,
 		hours?: string,
@@ -195,7 +199,7 @@ export interface IVariables extends IOptions {
 }
 
 export interface IVanillaCalendar extends IVariables {
-	HTMLInputElement?: HTMLElement;
+	HTMLInputElement?: HTMLInputElement;
 	rangeMin?: FormatDateString;
 	rangeMax?: FormatDateString;
 	rangeDisabled?: FormatDateString[];

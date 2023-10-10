@@ -142,19 +142,19 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) => void | null`
+`Options: changeToInput(e, calendar, dates, time, hours, minutes, keeping) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {},
+    changeToInput(e, calendar, dates, time, hours, minutes, keeping) {},
   },
 });
 ```
 Для работы этого метода, необходим параметр <a href="/docs/reference/main/main-settings#input">`input`</a> со значением `true`.
 
 Метод срабатывает после после нажатия на день в календаре или изменения времени любым способом.
-Параметры, которые можно получить: `e` - событие, `HTMLInputElement` - HTML-элемент, который является полем ввода, `dates` - массив выбранных дат, `time` - выбранное время, `hours` - выбранный час, `minutes` - выбранные минуты,`keeping` - выбранный маркер AM/PM.
+Параметры, которые можно получить: `e` - событие, `calendar` - объект, содержащий `HTMLInputElement`, `HTMLElement` и методы `show()`, `hide()`, `dates` - массив выбранных дат, `time` - выбранное время, `hours` - выбранный час, `minutes` - выбранные минуты,`keeping` - выбранный маркер AM/PM.
 
 ---
 
