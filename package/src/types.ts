@@ -75,7 +75,16 @@ export interface IActions {
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
 	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
-	changeToInput: ((e: Event, HTMLInputElement: HTMLElement, dates?: string[], time?: string, hours?: string, minutes?: string, keeping?: string) => void) | null;
+	changeToInput: ((
+		e: Event,
+		HTMLInputElement: HTMLElement,
+		HTMLCalendarElement: { hide(): void; show(): void; HTMLElement: HTMLDivElement; },
+		dates?: string[],
+		time?: string,
+		hours?: string,
+		minutes?: string,
+		keeping?: string
+	) => void) | null;
 	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
 }
 
