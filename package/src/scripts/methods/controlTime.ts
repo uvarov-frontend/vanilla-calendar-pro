@@ -1,4 +1,5 @@
 import { IVanillaCalendar } from '../../types';
+import calendarInput from '../helpers/calendarInput';
 import transformTime12 from '../helpers/transformTime12';
 import transformTime24 from '../helpers/transformTime24';
 
@@ -30,20 +31,9 @@ const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
 		}
 
 		if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-			const calendar = {
-				hide() {
-					(self.HTMLElement as HTMLElement).classList.add(self.CSSClasses.calendarHidden);
-				},
-				show() {
-					(self.HTMLElement as HTMLElement).classList.remove(self.CSSClasses.calendarHidden);
-				},
-				HTMLInputElement: self.HTMLInputElement as HTMLInputElement,
-				HTMLElement: self.HTMLElement as HTMLDivElement,
-			};
-
 			self.actions.changeToInput(
 				e,
-				calendar,
+				calendarInput(self),
 				self.selectedDates,
 				self.selectedTime,
 				self.selectedHours,
