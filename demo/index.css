@@ -19,5 +19,9 @@
 }
 
 .wrapper-calendar {
-	@apply w-[550px]
+	@apply w-[550px] max-w-max justify-center items-center flex flex-col mb-4
+}
+
+.input {
+	@apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left
 }
