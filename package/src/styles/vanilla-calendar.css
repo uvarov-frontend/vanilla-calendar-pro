@@ -15,11 +15,7 @@
 }
 
 .vanilla-calendar_to-input {
-	@apply absolute left-0 top-full mt-1
-}
-
-.vanilla-calendar-input-wrapper {
-	@apply relative;
+	@apply absolute left-0 bottom-0 mt-1
 }
 
 .vanilla-calendar-controls {

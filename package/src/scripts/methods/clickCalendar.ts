@@ -117,8 +117,27 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 				if (self.actions.clickDay) self.actions.clickDay(e, self.selectedDates);
 
-				if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-					self.actions.changeToInput(e, self.HTMLInputElement, self.selectedDates, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
+				if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) {
+					const calendar = {
+						hide() {
+							(self.HTMLElement as HTMLElement).classList.add(self.CSSClasses.calendarHidden);
+						},
+						show() {
+							(self.HTMLElement as HTMLElement).classList.remove(self.CSSClasses.calendarHidden);
+						},
+						HTMLInputElement: self.HTMLInputElement,
+						HTMLElement: self.HTMLElement as HTMLDivElement,
+					};
+
+					self.actions.changeToInput(
+						e,
+						calendar,
+						self.selectedDates,
+						self.selectedTime,
+						self.selectedHours,
+						self.selectedMinutes,
+						self.selectedKeeping,
+					);
 				}
 
 				if (dayBtnPrevEl) {

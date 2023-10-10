@@ -75,7 +75,20 @@ export interface IActions {
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
 	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
 	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
-	changeToInput: ((e: Event, HTMLInputElement: HTMLElement, dates?: string[], time?: string, hours?: string, minutes?: string, keeping?: string) => void) | null;
+	changeToInput: ((
+		e: Event,
+		calendar: {
+			hide(): void;
+			show(): void;
+			HTMLInputElement: HTMLInputElement;
+			HTMLElement: HTMLDivElement;
+		},
+		dates?: string[],
+		time?: string,
+		hours?: string,
+		minutes?: string,
+		keeping?: string
+	) => void) | null;
 	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
 }
 
@@ -101,7 +114,6 @@ export interface ICSSClasses {
 	calendarYear: string;
 	calendarHidden: string;
 	calendarToInput: string;
-	calendarInputWrapper: string;
 	controls: string;
 	grid: string;
 	gridDisabled: string;
@@ -187,7 +199,7 @@ export interface IVariables extends IOptions {
 }
 
 export interface IVanillaCalendar extends IVariables {
-	HTMLInputElement?: HTMLElement;
+	HTMLInputElement?: HTMLInputElement;
 	rangeMin?: FormatDateString;
 	rangeMax?: FormatDateString;
 	rangeDisabled?: FormatDateString[];

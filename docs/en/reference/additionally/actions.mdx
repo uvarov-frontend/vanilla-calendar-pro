@@ -139,19 +139,19 @@ The method is triggered after changing the time in any way. The parameters that 
 
 `Default: null`
 
-`Options: changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) => void | null`
+`Options: changeToInput(e, calendar, dates, time, hours, minutes, keeping) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeToInput(e, HTMLInputElement, dates, time, hours, minutes, keeping) {},
+    changeToInput(e, calendar, dates, time, hours, minutes, keeping) {},
   },
 });
 ```
 For this method to work, the parameter <a href="/docs/reference/main/main-settings#input">`input`</a> with the value `true` is required.
 
 The method is triggered after clicking on a day in the calendar or changing the time in any way.
-Parameters that can be received: `e` - event, `HTMLInputElement` - HTML element that is an input field, `dates` - array of selected dates, `time` - selected time, `hours` - selected hour, `minutes ` is the selected minutes, `keeping` is the selected AM/PM marker.
+Parameters that can be received: `e` - event, `calendar` - an object containing `HTMLInputElement`, `HTMLElement` and methods `show()`, `hide()`, `dates` - array of selected dates, `time` - selected time, `hours` - selected hour, `minutes ` is the selected minutes, `keeping` is the selected AM/PM marker.
 
 ---
 
