@@ -671,6 +671,16 @@ const createMonths = (self, target) => {
     monthsEl.append(monthEl);
   }
 };
+const calendarInput = (self) => ({
+  hide() {
+    self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+  },
+  show() {
+    self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+  },
+  HTMLInputElement: self.HTMLInputElement,
+  HTMLElement: self.HTMLElement
+});
 const transformTime24 = (hour, keeping) => {
   const oldHour = Number(hour);
   let newHour = String(oldHour);
@@ -728,19 +738,9 @@ const controlTime = (self, keepingTime) => {
       self.actions.changeTime(e, self.selectedTime, self.selectedHours, self.selectedMinutes, self.selectedKeeping);
     }
     if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-      const calendar = {
-        hide() {
-          self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
-        },
-        show() {
-          self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-        },
-        HTMLInputElement: self.HTMLInputElement,
-        HTMLElement: self.HTMLElement
-      };
       self.actions.changeToInput(
         e,
-        calendar,
+        calendarInput(self),
         self.selectedDates,
         self.selectedTime,
         self.selectedHours,
@@ -1109,31 +1109,6 @@ const updateCalendar = (self) => {
   self.settings.selected.month = tempSelectedMonth;
   self.settings.selected.year = tempSelectedYear;
 };
-let currentSelf$1 = null;
-const documentClickEvent = (e) => {
-  if (!currentSelf$1)
-    return;
-  if (e.target.closest(`.${currentSelf$1.CSSClasses.calendar}.${currentSelf$1.CSSClasses.calendarToInput}`))
-    return;
-  document.querySelectorAll(`.${currentSelf$1.CSSClasses.calendar}.${currentSelf$1.CSSClasses.calendarToInput}`).forEach((calendar) => {
-    calendar.classList.add(currentSelf$1.CSSClasses.calendarHidden);
-  });
-  document.removeEventListener("click", documentClickEvent, { capture: true });
-};
-const handlerInput = (self) => {
-  var _a;
-  if (!self || !self.input)
-    return;
-  currentSelf$1 = self;
-  (_a = self.HTMLInputElement) == null ? void 0 : _a.addEventListener("click", () => {
-    if (self.HTMLElement && self.HTMLInputElement) {
-      self.HTMLElement.style.left = `${self.HTMLInputElement.offsetLeft}px`;
-      self.HTMLElement.style.top = `${self.HTMLInputElement.offsetTop + self.HTMLInputElement.clientHeight}px`;
-      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-    }
-    document.addEventListener("click", documentClickEvent, { capture: true });
-  });
-};
 const changeMonth = (self, route) => {
   if (self.selectedMonth === void 0 || self.selectedYear === void 0)
     return;
@@ -1153,31 +1128,31 @@ const changeMonth = (self, route) => {
   controlArrows(self);
   createDays(self);
 };
-let currentSelf = null;
+let currentSelf$1 = null;
 const removeHover = () => {
   var _a;
-  if (!currentSelf)
+  if (!currentSelf$1)
     return;
-  const daysEl = (_a = currentSelf.HTMLElement) == null ? void 0 : _a.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
+  const daysEl = (_a = currentSelf$1.HTMLElement) == null ? void 0 : _a.querySelectorAll(`.${currentSelf$1.CSSClasses.dayBtnHover}`);
   if (daysEl)
-    daysEl.forEach((d) => d.classList.remove(currentSelf.CSSClasses.dayBtnHover));
+    daysEl.forEach((d) => d.classList.remove(currentSelf$1.CSSClasses.dayBtnHover));
 };
 const addHover = (day) => {
   var _a;
-  if (!currentSelf || !currentSelf.selectedDates)
+  if (!currentSelf$1 || !currentSelf$1.selectedDates)
     return;
   const date = generateDate(day);
-  if (currentSelf.rangeDisabled && currentSelf.rangeDisabled.includes(date))
+  if (currentSelf$1.rangeDisabled && currentSelf$1.rangeDisabled.includes(date))
     return;
-  const dayEls = (_a = currentSelf.HTMLElement) == null ? void 0 : _a.querySelectorAll(`[data-calendar-day="${date}"]`);
+  const dayEls = (_a = currentSelf$1.HTMLElement) == null ? void 0 : _a.querySelectorAll(`[data-calendar-day="${date}"]`);
   dayEls == null ? void 0 : dayEls.forEach((dayEl) => {
-    dayEl.classList.add(currentSelf.CSSClasses.dayBtnHover);
+    dayEl.classList.add(currentSelf$1.CSSClasses.dayBtnHover);
   });
 };
 const hoverDaysEvent = (e) => {
-  if (!e.target || !currentSelf || !currentSelf.selectedDates)
+  if (!e.target || !currentSelf$1 || !currentSelf$1.selectedDates)
     return;
-  if (!e.target.closest(`.${currentSelf.CSSClasses.days}`)) {
+  if (!e.target.closest(`.${currentSelf$1.CSSClasses.days}`)) {
     removeHover();
     return;
   }
@@ -1186,9 +1161,9 @@ const hoverDaysEvent = (e) => {
     return;
   removeHover();
   const startDate = new Date(
-    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getFullYear(),
-    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getMonth(),
-    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getDate()
+    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getFullYear(),
+    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getMonth(),
+    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getDate()
   );
   const endDate = new Date(
     (/* @__PURE__ */ new Date(`${date}T00:00:00`)).getFullYear(),
@@ -1206,22 +1181,22 @@ const hoverDaysEvent = (e) => {
   }
 };
 const cancelSelectionDays = (e) => {
-  if (!currentSelf || e.key !== "Escape")
+  if (!currentSelf$1 || e.key !== "Escape")
     return;
-  currentSelf.selectedDates = [];
-  currentSelf.HTMLElement.removeEventListener("mousemove", hoverDaysEvent);
+  currentSelf$1.selectedDates = [];
+  currentSelf$1.HTMLElement.removeEventListener("mousemove", hoverDaysEvent);
   document.removeEventListener("keydown", cancelSelectionDays);
-  mainMethod(currentSelf);
+  mainMethod(currentSelf$1);
 };
 const setDisabledDates = () => {
   var _a;
-  if (!currentSelf || !((_a = currentSelf.selectedDates) == null ? void 0 : _a[0]) || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2)
+  if (!currentSelf$1 || !((_a = currentSelf$1.selectedDates) == null ? void 0 : _a[0]) || !currentSelf$1.rangeDisabled || currentSelf$1.rangeDisabled.length < 2)
     return;
-  const selectedDate = /* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`);
+  const selectedDate = /* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`);
   let startDate = null;
   let endDate = null;
-  for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
-    const disabledDate = /* @__PURE__ */ new Date(`${currentSelf.rangeDisabled[index]}T00:00:00`);
+  for (let index = 0; index < currentSelf$1.rangeDisabled.length; index++) {
+    const disabledDate = /* @__PURE__ */ new Date(`${currentSelf$1.rangeDisabled[index]}T00:00:00`);
     if (selectedDate >= disabledDate) {
       startDate = disabledDate;
     } else {
@@ -1231,26 +1206,26 @@ const setDisabledDates = () => {
   }
   if (startDate) {
     startDate = new Date(startDate.setDate(startDate.getDate() + 1));
-    currentSelf.rangeMin = generateDate(startDate);
+    currentSelf$1.rangeMin = generateDate(startDate);
   }
   if (endDate) {
     endDate = new Date(endDate.setDate(endDate.getDate() - 1));
-    currentSelf.rangeMax = generateDate(endDate);
+    currentSelf$1.rangeMax = generateDate(endDate);
   }
 };
 const resetDisabledDates = () => {
-  if (!currentSelf)
+  if (!currentSelf$1)
     return;
-  currentSelf.rangeMin = currentSelf.settings.range.min;
-  currentSelf.rangeMax = currentSelf.settings.range.max;
-  if (currentSelf.settings.range.disablePast && /* @__PURE__ */ new Date(`${currentSelf.settings.range.min}T00:00:00`) < currentSelf.date.today) {
-    currentSelf.rangeMin = generateDate(currentSelf.date.today);
+  currentSelf$1.rangeMin = currentSelf$1.settings.range.min;
+  currentSelf$1.rangeMax = currentSelf$1.settings.range.max;
+  if (currentSelf$1.settings.range.disablePast && /* @__PURE__ */ new Date(`${currentSelf$1.settings.range.min}T00:00:00`) < currentSelf$1.date.today) {
+    currentSelf$1.rangeMin = generateDate(currentSelf$1.date.today);
   }
 };
 const handlerMultipleRanged = (self) => {
   if (!self || !self.selectedDates)
     return;
-  currentSelf = self;
+  currentSelf$1 = self;
   if (self.selectedDates[0] && self.selectedDates.length <= 1) {
     self.HTMLElement.addEventListener("mousemove", hoverDaysEvent);
     document.addEventListener("keydown", cancelSelectionDays);
@@ -1375,19 +1350,9 @@ const clickCalendar = (self) => {
         if (self.actions.clickDay)
           self.actions.clickDay(e, self.selectedDates);
         if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) {
-          const calendar = {
-            hide() {
-              self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
-            },
-            show() {
-              self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-            },
-            HTMLInputElement: self.HTMLInputElement,
-            HTMLElement: self.HTMLElement
-          };
           self.actions.changeToInput(
             e,
-            calendar,
+            calendarInput(self),
             self.selectedDates,
             self.selectedTime,
             self.selectedHours,
@@ -1493,22 +1458,58 @@ const clickCalendar = (self) => {
     clickMonth();
   });
 };
+let currentSelf = null;
+const setPositionCalendar = (input, calendar) => {
+  const inputInfo = input.getBoundingClientRect();
+  calendar.style.left = `${inputInfo.left}px`;
+  calendar.style.top = `${inputInfo.top + inputInfo.height}px`;
+};
 const createCalendarToInput = (self) => {
-  if (!self.input || !self.HTMLElement || !self.HTMLElement.parentNode)
+  if (!self.HTMLInputElement)
     return;
-  self.HTMLInputElement = self.HTMLElement;
   const calendar = document.createElement("div");
   calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
+  setPositionCalendar(self.HTMLInputElement, calendar);
   self.HTMLElement = calendar;
   document.body.append(self.HTMLElement);
+  setTimeout(() => self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden), 0);
+  resetCalendar(self);
+  clickCalendar(self);
+};
+const documentClickEvent = (e) => {
+  if (!currentSelf || e.target.closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`))
+    return;
+  const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`);
+  calendarEls.forEach((calendar) => calendar.classList.add(currentSelf.CSSClasses.calendarHidden));
+  document.removeEventListener("click", documentClickEvent, { capture: true });
+};
+const handlerInput = (self) => {
+  if (!self)
+    return;
+  currentSelf = self;
+  self.HTMLInputElement = self.HTMLElement;
+  self.HTMLElement = null;
+  self.HTMLInputElement.addEventListener("click", () => {
+    if (self.HTMLElement && self.HTMLInputElement) {
+      setPositionCalendar(self.HTMLInputElement, self.HTMLElement);
+      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+    } else if (self.HTMLElement) {
+      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+    } else {
+      createCalendarToInput(self);
+    }
+    document.addEventListener("click", documentClickEvent, { capture: true });
+  });
 };
 const initCalendar = (self) => {
   if (!self.HTMLElement)
     return;
-  createCalendarToInput(self);
-  resetCalendar(self);
-  handlerInput(self);
-  clickCalendar(self);
+  if (self.input) {
+    handlerInput(self);
+  } else {
+    resetCalendar(self);
+    clickCalendar(self);
+  }
 };
 const DOMDefault = (styles) => `
 	<div class="${styles.header}">
