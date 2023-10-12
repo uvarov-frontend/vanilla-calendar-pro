@@ -4,13 +4,18 @@ import resetCalendar from './resetCalendar';
 
 let currentSelf: null | IVanillaCalendar = null;
 
+const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
+	const inputInfo = input.getBoundingClientRect();
+	calendar.style.left = `${inputInfo.left}px`;
+	calendar.style.top = `${inputInfo.top + inputInfo.height}px`;
+};
+
 const createCalendarToInput = (self: IVanillaCalendar) => {
 	if (!self.HTMLInputElement) return;
 
 	const calendar = document.createElement('div');
 	calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-	calendar.style.left = `${self.HTMLInputElement.offsetLeft}px`;
-	calendar.style.top = `${self.HTMLInputElement.offsetTop + self.HTMLInputElement.clientHeight}px`;
+	setPositionCalendar(self.HTMLInputElement, calendar);
 	self.HTMLElement = calendar;
 	document.body.append(self.HTMLElement);
 
@@ -35,8 +40,7 @@ const handlerInput = (self: IVanillaCalendar) => {
 
 	self.HTMLInputElement.addEventListener('click', () => {
 		if (self.HTMLElement && self.HTMLInputElement) {
-			self.HTMLElement.style.left = `${self.HTMLInputElement.offsetLeft}px`;
-			self.HTMLElement.style.top = `${self.HTMLInputElement.offsetTop + self.HTMLInputElement.clientHeight}px`;
+			setPositionCalendar(self.HTMLInputElement, self.HTMLElement);
 			self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
 		} else if (self.HTMLElement) {
 			self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
