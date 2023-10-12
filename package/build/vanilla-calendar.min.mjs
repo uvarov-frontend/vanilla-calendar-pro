@@ -1460,9 +1460,13 @@ const clickCalendar = (self) => {
 };
 let currentSelf = null;
 const setPositionCalendar = (input, calendar) => {
-  const inputInfo = input.getBoundingClientRect();
-  calendar.style.left = `${inputInfo.left}px`;
-  calendar.style.top = `${inputInfo.top + inputInfo.height}px`;
+  let top = input.offsetHeight;
+  let left = 0;
+  for (let el = input; el; el = el.offsetParent) {
+    top += el.offsetTop || 0;
+    left += el.offsetLeft || 0;
+  }
+  Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 const createCalendarToInput = (self) => {
   if (!self.HTMLInputElement)
