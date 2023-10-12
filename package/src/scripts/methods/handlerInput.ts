@@ -5,9 +5,15 @@ import resetCalendar from './resetCalendar';
 let currentSelf: null | IVanillaCalendar = null;
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
-	const inputInfo = input.getBoundingClientRect();
-	calendar.style.left = `${inputInfo.left}px`;
-	calendar.style.top = `${inputInfo.top + inputInfo.height}px`;
+	let top = input.offsetHeight;
+	let left = 0;
+
+	for (let el: HTMLElement | null = input; el; el = el.offsetParent as HTMLElement) {
+		top += el.offsetTop || 0;
+		left += el.offsetLeft || 0;
+	}
+
+	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 
 const createCalendarToInput = (self: IVanillaCalendar) => {
@@ -27,7 +33,7 @@ const createCalendarToInput = (self: IVanillaCalendar) => {
 
 const documentClickEvent = (e: MouseEvent) => {
 	if (!currentSelf || (e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`)) return;
-	const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`);
+	const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`) as NodeListOf<HTMLElement>;
 	calendarEls.forEach((calendar) => calendar.classList.add((currentSelf as IVanillaCalendar).CSSClasses.calendarHidden));
 	document.removeEventListener('click', documentClickEvent, { capture: true });
 };
