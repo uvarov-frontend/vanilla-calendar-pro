@@ -1,6 +1,7 @@
 import { IVanillaCalendar } from '../../types';
 import clickCalendar from './clickCalendar';
 import resetCalendar from './resetCalendar';
+import calendarInput from '../helpers/calendarInput';
 
 let currentSelf: null | IVanillaCalendar = null;
 
@@ -33,8 +34,9 @@ const createCalendarToInput = (self: IVanillaCalendar) => {
 
 const documentClickEvent = (e: MouseEvent) => {
 	if (!currentSelf || (e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`)) return;
-	const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`) as NodeListOf<HTMLElement>;
-	calendarEls.forEach((calendar) => calendar.classList.add((currentSelf as IVanillaCalendar).CSSClasses.calendarHidden));
+
+	const calInput = calendarInput(currentSelf as IVanillaCalendar);
+	calInput.hide();
 	document.removeEventListener('click', documentClickEvent, { capture: true });
 };
 

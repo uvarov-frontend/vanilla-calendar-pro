@@ -2,6 +2,7 @@ import { IVanillaCalendar } from '../../types';
 
 const calendarInput = (self: IVanillaCalendar) => ({
 	hide() {
+		if (self.events.onClose) self.events.onClose();
 		(self.HTMLElement as HTMLElement).classList.add(self.CSSClasses.calendarHidden);
 	},
 	show() {

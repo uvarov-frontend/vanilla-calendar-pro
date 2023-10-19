@@ -4,6 +4,7 @@ import {
 	ICSSClasses,
 	IDate,
 	ILocale,
+	IEvents,
 	IPopups,
 	IRange,
 	ISelected,
@@ -30,6 +31,7 @@ export type Options = {
 	settings?: Partial<Settings>;
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
+	events?: Partial<IEvents>;
 	popups?: IPopups | null;
 	CSSClasses?: Partial<ICSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
@@ -59,6 +61,8 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 	locale: Partial<ILocale>;
 
 	actions: Partial<IActions>;
+
+	events: Partial<IEvents>;
 
 	popups: IPopups | null;
 

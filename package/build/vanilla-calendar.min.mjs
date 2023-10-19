@@ -673,6 +673,8 @@ const createMonths = (self, target) => {
 };
 const calendarInput = (self) => ({
   hide() {
+    if (self.events.onClose)
+      self.events.onClose();
     self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
   },
   show() {
@@ -1483,8 +1485,8 @@ const createCalendarToInput = (self) => {
 const documentClickEvent = (e) => {
   if (!currentSelf || e.target.closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`))
     return;
-  const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`);
-  calendarEls.forEach((calendar) => calendar.classList.add(currentSelf.CSSClasses.calendarHidden));
+  const calInput = calendarInput(currentSelf);
+  calInput.hide();
   document.removeEventListener("click", documentClickEvent, { capture: true });
 };
 const handlerInput = (self) => {
@@ -1667,6 +1669,7 @@ class VanillaCalendar {
     __publicField(this, "settings");
     __publicField(this, "locale");
     __publicField(this, "actions");
+    __publicField(this, "events");
     __publicField(this, "popups");
     __publicField(this, "CSSClasses");
     __publicField(this, "DOMTemplates");
@@ -1674,7 +1677,7 @@ class VanillaCalendar {
     __publicField(this, "reset", () => resetCalendar(this));
     __publicField(this, "update", () => updateCalendar(this));
     __publicField(this, "init", () => initCalendar(this));
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba, _ca, _da, _ea, _fa, _ga, _ha, _ia, _ja, _ka, _la, _ma, _na, _oa, _pa, _qa, _ra, _sa, _ta, _ua, _va, _wa, _xa, _ya, _za, _Aa, _Ba, _Ca, _Da, _Ea, _Fa, _Ga, _Ha, _Ia, _Ja, _Ka, _La, _Ma, _Na, _Oa, _Pa, _Qa, _Ra, _Sa, _Ta, _Ua, _Va, _Wa, _Xa, _Ya, _Za, __a, _$a, _ab, _bb, _cb, _db, _eb, _fb, _gb, _hb, _ib, _jb, _kb, _lb, _mb, _nb, _ob, _pb, _qb, _rb, _sb;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba, _ca, _da, _ea, _fa, _ga, _ha, _ia, _ja, _ka, _la, _ma, _na, _oa, _pa, _qa, _ra, _sa, _ta, _ua, _va, _wa, _xa, _ya, _za, _Aa, _Ba, _Ca, _Da, _Ea, _Fa, _Ga, _Ha, _Ia, _Ja, _Ka, _La, _Ma, _Na, _Oa, _Pa, _Qa, _Ra, _Sa, _Ta, _Ua, _Va, _Wa, _Xa, _Ya, _Za, __a, _$a, _ab, _bb, _cb, _db, _eb, _fb, _gb, _hb, _ib, _jb, _kb, _lb, _mb, _nb, _ob, _pb, _qb, _rb, _sb, _tb, _ub;
     this.HTMLElement = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (!this.HTMLElement)
       return;
@@ -1741,7 +1744,10 @@ class VanillaCalendar {
       changeToInput: (_hb = (_gb = option == null ? void 0 : option.actions) == null ? void 0 : _gb.changeToInput) != null ? _hb : null,
       getDays: (_jb = (_ib = option == null ? void 0 : option.actions) == null ? void 0 : _ib.getDays) != null ? _jb : null
     };
-    this.popups = (_kb = option == null ? void 0 : option.popups) != null ? _kb : null;
+    this.events = {
+      onClose: (_lb = (_kb = option == null ? void 0 : option.events) == null ? void 0 : _kb.onClose) != null ? _lb : null
+    };
+    this.popups = (_mb = option == null ? void 0 : option.popups) != null ? _mb : null;
     this.CSSClasses = (() => {
       const classesObj = __spreadValues({}, classes);
       Object.keys(classes).forEach((className) => {
@@ -1755,10 +1761,10 @@ class VanillaCalendar {
       return classesObj;
     })();
     this.DOMTemplates = {
-      default: (_mb = (_lb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _lb.default) != null ? _mb : DOMDefault(this.CSSClasses),
-      multiple: (_ob = (_nb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _nb.multiple) != null ? _ob : DOMMultiple(this.CSSClasses),
-      month: (_qb = (_pb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _pb.month) != null ? _qb : DOMMonths(this.CSSClasses),
-      year: (_sb = (_rb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _rb.year) != null ? _sb : DOMYears(this.CSSClasses)
+      default: (_ob = (_nb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _nb.default) != null ? _ob : DOMDefault(this.CSSClasses),
+      multiple: (_qb = (_pb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _pb.multiple) != null ? _qb : DOMMultiple(this.CSSClasses),
+      month: (_sb = (_rb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _rb.month) != null ? _sb : DOMMonths(this.CSSClasses),
+      year: (_ub = (_tb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _tb.year) != null ? _ub : DOMYears(this.CSSClasses)
     };
     this.currentType = this.type;
   }

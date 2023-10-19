@@ -4,6 +4,7 @@ import {
 	ISettings,
 	ILocale,
 	IActions,
+	IEvents,
 	IPopups,
 	ICSSClasses,
 	IDOMTemplates,
@@ -36,6 +37,8 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 	locale!: ILocale;
 
 	actions!: IActions;
+
+	events!: IEvents;
 
 	popups!: IPopups | null;
 
@@ -110,6 +113,9 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			changeTime: option?.actions?.changeTime ?? null,
 			changeToInput: option?.actions?.changeToInput ?? null,
 			getDays: option?.actions?.getDays ?? null,
+		};
+		this.events = {
+			onClose: option?.events?.onClose ?? null,
 		};
 		this.popups = option?.popups ?? null;
 		this.CSSClasses = (() => {
