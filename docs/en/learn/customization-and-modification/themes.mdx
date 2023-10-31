@@ -1,19 +1,17 @@
 # Themes
 
-The calendar supports dark and light themes.
+The calendar supports both light and dark theme designs.
 
-If for the `settings.visibility.themeDetect`. set to `false`, the theme is determined by the user's system or `settings.visibility.theme`.
+If the `settings.visibility.themeDetect` parameter is set to `false`, the theme will be determined by the user's system settings or the `settings.visibility.theme` parameter.
 
-The calendar can detect and track the theme of the site automatically, by the given tag and attribute, read more in the reference, the parameter <a href="/docs/reference/additionally/settings#visibility-themeDetect">`settings.visibility.themeDetect`</a>.
+The calendar can automatically detect and track the site's theme based on the set tag and attribute. Additional information about this parameter can be found in the <a href="/docs/reference/additionally/settings#visibility-themeDetect">reference</a>.
 
-If your site only supports one theme, or if you want your calendar to look different, you can force any of the themes.
+If your site supports only one theme or you want to customize the calendar's appearance according to your preferences, you can explicitly choose one of the available themes.
 
-By the way, since we're forcing one theme on, we don't need to load an extra css file.
-
-Remove extra css import and activate dark theme.
+The example below demonstrates the forced use of the dark theme.
 
 <Sandbox example="customization-and-modification-themes-dark" themeDetection={false} />
 
-And now the same thing, only with the `'light'` theme.
+And here's the same example, but using the light theme.
 
 <Sandbox example="customization-and-modification-themes-light" themeDetection={false} />

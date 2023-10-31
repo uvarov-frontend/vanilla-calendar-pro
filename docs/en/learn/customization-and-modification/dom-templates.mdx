@@ -1,11 +1,9 @@
-# DOM templates
+# DOM Templates
 
-One of the advantages of this calendar is that you can easily customize its HTML markup with the `DOMTemplates` parameter.
+The calendar provides a convenient way to customize the HTML markup using the `DOMTemplates` parameter. This allows you to add your own elements, such as buttons or any other HTML elements, to the calendar.
 
-Thanks to this, you can safely add your button or any other html element to your calendar.
+`DOMTemplates` takes the calendar `type` as the key and a string as the value.
 
-`DOMTemplates` takes the `type` of a calendar as a key. And types take a string as a value.
-
-In the example below, we'll customize the title of our calendar, but only for `type: 'default'` and add a regular button.
+In the following example, the calendar header is customized for type: `'default'`, and a regular button is added inside the calendar.
 
 <Sandbox example="customization-and-modification-dom-templates" />

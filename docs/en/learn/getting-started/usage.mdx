@@ -1,18 +1,15 @@
 # Usage
 
-Now that you've got VanillaCalendar installed, let's create our first calendar.
+Now that you have installed VanillaCalendar, you can create your first calendar. VanillaCalendar can be used **in combination with «Input»** or **statically without «Input»**.
 
-First decide where you want to use the calendar: **in combination with «Input»** or **statically without «Input»**.
-See <a href="/docs/reference/main/create-an-instance">«Create instance»</a> for more information on this.
-
-In almost all pages of this section, we will use the simplest option - **statically without «Input»**.
-If you are interested in how this calendar can be used **in conjunction with «Input»**, visit <a href="/docs/learn/additional-features/date-picker-in-input">«Date picker in input»</a>.
+Almost all pages in this section use the simplest option — **statically without «Input»**. If you're interested in how to use this calendar **in combination with «Input»**, visit the page <a href="/docs/learn/additional-features/date-picker-in-input">«Date Selection in Input»</a>.
 
 ## HTML
 
-Create an HTML tag with any unique CSS selector anywhere on your page, the calendar will refer to it and use it as an ID.
+Create an HTML tag with any unique CSS selector anywhere on your page; the calendar will reference it and use it as an identifier.
 
-As an example, this documentation will use the **«id»** attribute with the value **«calendar»**.
+As an example in this documentation, an **«id»** attribute with the value **«calendar»** will be used.
+
 
 ```html
 <html>
@@ -25,7 +22,7 @@ As an example, this documentation will use the **«id»** attribute with the val
 ```
 
 ## JS
-If you have NPM calendar installed, you need to import js and necessary styles, if you used CDN or included js and styles in `<head>` of your document, skip this step.
+If you installed VanillaCalendar using NPM or Yarn, you need to import JavaScript and the necessary styles. If you connected VanillaCalendar locally or used a CDN, you can skip this step.
 
 ```js
 // JS Script
@@ -40,36 +37,38 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 ```
 
 <Info>
-  The **«vanilla-calendar.min.css»** file contains the calendar skeleton properties, the other css files in the **«themes»** directory contain only the calendar's color scheme.
+  The file **«vanilla-calendar.min.css»** contains the calendar's skeleton properties. Other CSS files in the **«themes»** directory contain only the color scheme of the calendar.
 </Info>
 
 <Info>
-  The calendar automatically displays the theme used on the user's system.
-  You can disable this default behavior and force any of the themes to be installed. In this case, you don't need to import all themes.
+  The calendar automatically displays the theme used in the user's system. You can disable this default behavior and forcibly set any of the themes.
+	In this case, you don't need to import all the themes.
 </Info>
 
-Now let's create a calendar instance with default parameters and initialize it.
+Now, create an instance of VanillaCalendar with default parameters and initialize it.
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
 ```
 
-## Whole example
+The full example with html and js files can be viewed in the sandbox by clicking the **"Open"** button at the top right.
 
 <Sandbox example="try-vanilla-calendar" />
 
-### Usage example without NPM:
+## Locally or via CDN
+
+If you want to use CDN, insert the scripts and styles into your HTML document from the <a href="/docs/learn/getting-started/installation#cdn">«Connection via CDN»</a>.
 
 ```html
 <html>
   <head>
     <!-- Plugin CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
+    <link href="./vanilla-calendar.min.css" rel="stylesheet">
+    <link href="./themes/light.min.css" rel="stylesheet">
+    <link href="./themes/dark.min.css" rel="stylesheet">
     <!-- Plugin JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
+    <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
     <div id="calendar"></div>
@@ -84,6 +83,4 @@ calendar.init();
 </html>
 ```
 
-All is ready! 🎉
-
-We have created the simplest calendar, with default parameters, but few people need a calendar with default parameters, you can easily customize it to fit your needs, for this, read other sections. 🤓
+Now, you have a simple calendar with default parameters. You can customize it to suit your needs, as described in other sections of the documentation.

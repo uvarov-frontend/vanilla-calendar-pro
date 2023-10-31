@@ -1,12 +1,11 @@
-
-
 # Multiple
 
-The `'multiple'` calendar type displays multiple months, allows you to select days, switch between months using the arrows, but disables the ability to select the month and year from the corresponding headings.
+The calendar type `'multiple'` displays multiple months, allowing you to select days in each of them. This calendar type is useful when a user needs to choose multiple dates in different months, but for this, you need to use the `settings.selection.day` parameter and set its value to `'multiple'`.
+
+Example code for creating a calendar with the type `'multiple'`.
 
 <Sandbox example="type-of-calendar-multiple" vertically={false} height={680} />
 
-This calendar type is most commonly used in conjunction with the `settings.selection.day: 'multiple-ranged'` option, which allows you to select a range of dates.
-Let's also turn off past days and hide days from other months.
+If you need to select date ranges in each month, you can use the `settings.selection.day` parameter and set its value to `'multiple-ranged'`. This allows you to select date ranges, not just individual days.
 
 <Sandbox example="type-of-calendar-multiple-ranged" vertically={false} height={680} />

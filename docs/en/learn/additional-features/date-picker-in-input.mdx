@@ -1,20 +1,20 @@
-# Date picker in input
+# Date Selection in Input
 
-So, if you need to show the calendar on click on **«Input»**, the easiest way is to initialize it immediately with the parameter <a href="/docs/reference/main/main-settings#input">`input`</a>.
-Here is the simplest example of such usage with default settings.
+If you need to display a calendar when clicking on an **«Input»**, you can easily configure it by initializing it with the <a href="/docs/reference/main/main-settings#input">`input`</a> parameter.
+Here's a simple example of usage with default parameters:
 
 <Info>
-  Open the sandbox in a separate tab if you want to see an example with all the files. To do this, click the **«Open»** button at the top right.
+	Open the sandbox in a separate tab to see the example with all the files. To do this, click the **«Открыть»"** button in the upper right corner.
 </Info>
 
 <Sandbox example="additional-features-date-picker-in-input" height={470} />
 
-It is important to understand that **«Input»** in the context of this calendar is not necessarily an `<input>` tag, it can be any tag, such as `<div>`. Let's consider this option.
+It's important to note that the **«Input»** in the context of this calendar does not necessarily have to be an `<input>` tag. It can be any HTML element, such as a `<div>`.
 
 <Sandbox example="additional-features-date-picker-in-input-div" height={470} />
 
-Great, we tried the simplest option with one date to choose from, now let's try something more complicated.
+With the calendar type set to `'multiple'`, users can select multiple dates simultaneously.
+This allows for easily defining date ranges and working with them.
+Such a calendar provides flexibility and various options for date management.
 
-Let's add a date range selection with a `'multiple'` calendar type.
-
-<Sandbox example="additional-features-date-picker-in-input-multiple" vertically={false} height={720} />
+<Sandbox example="additional-features-date-picker-in-input-multiple" vertically={false} height={760} />

@@ -4,6 +4,7 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
 import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 const options = {
+  type: 'year',
   actions: {
     clickYear(event, year) {
       console.log(year);
