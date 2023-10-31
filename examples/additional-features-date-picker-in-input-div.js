@@ -4,7 +4,7 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
 import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 // start irrelevant code
-document.querySelector('#calendar-input-div').style.display = "flex";
+document.querySelector('#calendar-input-div').style.display = 'flex';
 // end irrelevant code
 
 const options = {

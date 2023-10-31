@@ -1,18 +1,18 @@
 # Установка
 
-Календарь разработан на нативном JS с использованием TypeScript, без каких либо зависимостей. Если вы хотите попробовать VanillaCalendar, этот раздел поможет вам начать работу.
+VanillaCalendar разработан на нативном JS с использованием TypeScript и не имеет внешних зависимостей. Вы можете просто включить его в свой проект, следуя инструкциям ниже.
 
-## Попробовать VanillaCalendar
+## Пробный запуск VanillaCalendar
 
-Вам не нужно ничего устанавливать, чтобы попробовать VanillaCalendar. Попробуйте отредактировать эту песочницу!
+Чтобы просто попробовать VanillaCalendar, вы можете воспользоваться онлайн-редактором кода.
 
 <Sandbox example="try-vanilla-calendar" />
 
 Вы можете отредактировать его напрямую или открыть в новой вкладке. Большинство страниц в этой документации содержат такие песочницы.
 
-## NPM
+## Установка с использованием NPM или Yarn
 
-VanillaCalendar доступен в виде пакета на NPM для использования с сборщиком модулей:
+Вы можете установить VanillaCalendar с помощью NPM или Yarn, если вы используете сборщик модулей в своем проекте.
 
 ```shell
 npm install @uvarov.frontend/vanilla-calendar
@@ -20,33 +20,13 @@ npm install @uvarov.frontend/vanilla-calendar
 yarn add @uvarov.frontend/vanilla-calendar
 ```
 
-Он также доступен в виде предварительно скомпилированного js файла, который определяет глобальную переменную **window.VanillaCalendar**.
-Этот файл можно <a href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" rel="noreferrer" target="_blank">скачать</a> и подключить напрямую через тег `<script>`. Пример такого подключения смотрите ниже в разделе CDN.
+## Установка локально
 
-## CDN
+Чтобы подключить VanillaCalendar локально, выполните следующие шаги:
 
-Поскольку VanillaCalendar доступен в виде пакета на NPM, вы можете подключить его через любой CDN, который его поддерживает, например <a href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/" rel="noreferrer" target="_blank">jsdelivr.com</a>.
-
-Подключите все необходимые файлы в свой HTML-документ.
-
-```html
-<html>
-  <head>
-    <!-- Plugin CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
-    <!-- Plugin JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
-  </head>
-  <body>
-  </body>
-</html>
-```
-
-## Локально
-
-Чтобы подключить все необходимые файлы локально, скачайте этот архив [vanilla-calendar.zip](https://vanilla-calendar.com/vanilla-calendar.zip) с последней версией плагина и включите все необходимые файлы в вашем HTML-документе.
+- Скачайте архив с последней версией VanillaCalendar по [ссылке](https://vanilla-calendar.com/vanilla-calendar.zip).
+- Распакуйте архив в папку вашего проекта.
+- Включите все необходимые файлы в вашем HTML-документе.
 
 ```html
 <html>
@@ -59,6 +39,27 @@ yarn add @uvarov.frontend/vanilla-calendar
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
+    <!-- Your content and initialization of VanillaCalendar -->
+  </body>
+</html>
+```
+
+## Подключение через CDN
+
+VanillaCalendar также доступен через CDN. Вы можете вставить следующие скрипты и стили в ваш HTML-документ.
+
+```html
+<html>
+  <head>
+    <!-- Plugin CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
+    <!-- Plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
+  </head>
+  <body>
+    <!-- Your content and initialization of VanillaCalendar -->
   </body>
 </html>
 ```

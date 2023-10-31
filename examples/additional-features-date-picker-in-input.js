@@ -4,7 +4,7 @@ import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
 import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 // start irrelevant code
-document.querySelector('#calendar-input').style.display = "flex";
+document.querySelector('#calendar-input').style.display = 'flex';
 // end irrelevant code
 
 const options = {
@@ -16,12 +16,11 @@ const options = {
         // if you want to hide the calendar after picking a date
         calendar.hide();
       } else {
-        calendar.HTMLInputElement.value = "";
+        calendar.HTMLInputElement.value = '';
       }
-    }
-  }
+    },
+  },
 };
 
-const calendarInput = new VanillaCalendar("#calendar-input", options);
+const calendarInput = new VanillaCalendar('#calendar-input', options);
 calendarInput.init();
-
