@@ -1,12 +1,10 @@
 # Параметры только для чтения
 
-После инициализации календаря создаются дополнительные параметры, доступные только для чтения.
-
-Эти параметры содержат набор данных на текущее состояние календаря.
+После инициализации календаря, создаются дополнительные параметры, доступные только для чтения.
+Эти параметры содержат информацию о текущем состоянии календаря, которая автоматически обновляется при взаимодействии с ним.
 
 <Info>
-  Состояние календаря меняется каждый раз, когда вы взаимодействуете с календарем.
-  Соответственно, набор данных будет перезаписан, поэтому эти свойства доступны только для чтения.
+  Состояние календаря меняется при каждом взаимодействии с ним, что приводит к обновлению значений этих параметров. Именно поэтому они доступны только для чтения.
 </Info>
 
 ## HTMLElement
@@ -18,7 +16,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.HTMLElement);
 ```
 
-Корневой html-элемент, в котором был инициализирован календарь.
+Свойство `HTMLElement` содержит корневой HTML-элемент, в котором был инициализирован календарь.
 
 - - -
 
@@ -31,7 +29,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.HTMLInputElement);
 ```
 
-Корневой html-элемент, который является полем ввода.
+Свойство `HTMLInputElement` представляет корневой HTML-элемент, который является полем ввода.
 
 - - -
 
@@ -44,7 +42,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.currentType);
 ```
 
-Текущий тип календаря.
+Свойство `currentType` содержит текущий тип календаря.
 
 - - -
 
@@ -57,7 +55,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.dateMin);
 ```
 
-Минимальная дата в формате `Date` объекта.
+Свойство `dateMin` представляет минимальную дату в формате объекта `Date`.
 
 - - -
 
@@ -70,7 +68,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.dateMax);
 ```
 
-Максимальная дата в формате `Date` объекта.
+Свойство `dateMax` представляет максимальную дату в формате объекта `Date`.
 
 - - -
 
@@ -83,7 +81,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeMin);
 ```
 
-Текущая минимальная дата.
+Свойство `rangeMin` содержит текущую минимальную дату.
 
 - - -
 
@@ -96,7 +94,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeMax);
 ```
 
-Текущая максимальная дата.
+Свойство `rangeMax` содержит текущую максимальную дату.
 
 - - -
 
@@ -109,7 +107,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeDisabled);
 ```
 
-Массив отключенных дат.
+Свойство `rangeDisabled` представляет собой массив отключенных дат.
 
 - - -
 
@@ -122,7 +120,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeEnabled);
 ```
 
-Массив включенных дат.
+Свойство `rangeEnabled` содержит массив включенных дат.
 
 - - -
 
@@ -135,7 +133,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedDates);
 ```
 
-Массив выбранных в данный момент дат.
+Свойство `selectedDates` содержит массив в настоящее время выбранных дат.
 
 - - -
 
@@ -148,7 +146,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHolidays);
 ```
 
-Массив праздничных дней.
+Свойство `selectedHolidays` представляет собой массив выбранных праздничных дней.
 
 - - -
 
@@ -161,7 +159,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMonth);
 ```
 
-Текущий выбранный месяц.
+Свойство `selectedMonth` содержит номер текущего выбранного месяца.
 
 - - -
 
@@ -174,7 +172,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedYear);
 ```
 
-Текущий выбранный год.
+Свойство `selectedYear` представляет собой номер текущего выбранного года.
 
 - - -
 
@@ -187,7 +185,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHours);
 ```
 
-Текущий выбранный час.
+Свойство `selectedHours` содержит текущий выбранный час.
 
 - - -
 
@@ -200,7 +198,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMinutes);
 ```
 
-Текущие выбранные минуты.
+Свойство `selectedMinutes` представляет собой текущие выбранные минуты.
 
 - - -
 
@@ -213,7 +211,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedKeeping);
 ```
 
-Текущий маркер AM/PM для 12-часового формата времени.
+Свойство `selectedKeeping` содержит маркер AM/PM для 12-часового формата времени.
 
 - - -
 
@@ -226,7 +224,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedTime);
 ```
 
-Текущие полное время.
+Свойство `selectedTime` содержит полное текущее время.
 
 - - -
 
@@ -239,7 +237,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.userTime);
 ```
 
-Указывает, как было установлено время при инициализации календаря. Автоопределение текущего времени (по умолчанию) или использование параметра `settings.selected.time`.
+Свойство `userTime` указывает на то, как было установлено время при инициализации календаря: автоматическое определение текущего времени (по умолчанию) или использование параметра `settings.selected.time`.
 
 - - -
 
@@ -252,7 +250,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.correctMonths);
 ```
 
-Текущее кол-во месяцев для отображения, если тип календаря `'multiple'`.
+Свойство `correctMonths` содержит текущее количество месяцев для отображения, если тип календаря установлен как `'multiple'`.
 
 - - -
 
@@ -265,4 +263,4 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.viewYear);
 ```
 
-Текущий отображаемый год.
+Свойство `viewYear` представляет собой текущий отображаемый год.
