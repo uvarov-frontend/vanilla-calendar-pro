@@ -1,24 +1,22 @@
+# Creating an Instance
 
-
-# Create instance
-
-`new VanillaCalendar()` - creates an instance of VanillaCalendar, which is the calendar itself, its parameters and methods.
+`new VanillaCalendar()` creates an instance of VanillaCalendar, which encapsulates the calendar, its settings, and methods.
 
 <Info>
-  The calendar can only be created by calling the **VanillaCalendar** function as a constructor. A normal function call (that is, without using the new operator) will return a string instead of a **VanillaCalendar** object.
+  A simple function call (without using the `new` operator) will return a string, not a **VanillaCalendar** object.
 </Info>
 
 <Info>
-  If you loaded **VanillaCalendar** from a `<script>` tag, the object is available in the global variable **window.VanillaCalendar**.
+  If you've included **VanillaCalendar** using a `<script>` tag, the object is available as a global variable **window.VanillaCalendar**.
 </Info>
 
-The `VanillaCalendar` instance takes two parameters. The first **required** parameter can be a **CSS selector** or **HTML element**.
+The `VanillaCalendar` instance takes two parameters. The first one is **mandatory** and can be either a **CSS selector** or an **HTML element**.
 
-The **CSS selector** or **HTML element** can either be a calendar wrapper that will initialize the calendar or an «Input».
+The **CSS selector** or **HTML element** can represent a container for the calendar, where the calendar will be initialized, or an **«Input»**.
 
-The calendar wrapper is a `<div>` tag that initializes the calendar itself.
+A calendar container is a `<div>` element inside which the calendar itself will be initialized.
 
-Initialize into a calendar wrapper:
+Initialization within a calendar container:
 
 ```html
 <div id="calendar"></div>
@@ -31,11 +29,11 @@ const calendarEl = document.querySelector('#calendar');
 new VanillaCalendar(calendarEl);
 ```
 
-«Input» in the context of this calendar is not necessarily an `<input>` tag, it can be any tag, such as `<div>`.
+An **«Input»**, in the context of this calendar, does not necessarily mean an `<input>` element; it can be any HTML element, such as a `<div>`.
 
-When you click on «Input», a pop-up with a calendar will appear.
+Clicking on the **«Input»** will open a popup with the calendar.
 
-Initialize in "Input":
+Initialization within an **«Input»**:
 
 ```html
 <input type="text" id="input">
@@ -52,7 +50,7 @@ new VanillaCalendar(calendarInput, {
 });
 ```
 
-The second **optional** parameter is an object that defines the settings and methods of the calendar.
+The second **optional** parameter is an object that defines the calendar's settings and methods.
 
 ```js
 new VanillaCalendar('#calendar', {

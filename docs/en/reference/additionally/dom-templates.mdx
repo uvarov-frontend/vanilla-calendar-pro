@@ -1,14 +1,10 @@
-
-
 # DOM Templates
 
-Thanks to DOM templates, you can almost completely change the DOM of the calendar and add your own html elements, such as buttons.
-
-Each calendar <a href="/docs/reference/main/main-settings#type">`type`</a> has its own default template. You can customize any of them.
+DOM templates allow you to customize the DOM structure of the calendar almost entirely and add your own HTML elements, such as buttons. Each <a href="/docs/reference/main/main-settings#type">calendar type</a> has its own default template, and you can customize each of them.
 
 <Info>
-  Tags containing the character **«#»** are registered calendar components and must contain a closing slash at the end of the tag, except for the **\<#Multiple>\<#/Multiple>** tag, which wraps one month.
-  The default templates lists all possible components for that template.
+  Tags containing the **«#»** symbol are registered calendar components and should have a closing forward slash at the end of the tag, except for the **\<#Multiple>\<#/Multiple>** tag, which wraps a single month.
+  The default templates list all possible components for that template.
 </Info>
 
 ## DOMTemplates.default
@@ -44,7 +40,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Default template for displaying one month and its dates.
+This is the default template for displaying a single month and its dates.
 
 ---
 
@@ -89,7 +85,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Default template for displaying multiple months and their dates.
+This is the default template for displaying multiple months and their dates.
 
 ---
 
@@ -121,7 +117,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The default month picker template.
+This is the default template for selecting a month.
 
 ---
 
@@ -155,4 +151,4 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The default year picker template.
+This is the default template for selecting a year.

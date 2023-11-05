@@ -1,8 +1,6 @@
-
-
 # Settings
 
-The top-level key `settings` contains a set of parameters that define the calendar settings.
+The top-level `settings` key contains a set of parameters that define the calendar's configuration.
 
 ## settings.lang
 
@@ -19,8 +17,8 @@ new VanillaCalendar('#calendar', {
   },
 });
 ```
-
-Language localization of the calendar. Specify language tag <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or `'define'` to assign your own month and week names, see <a href="/docs/reference/additionally/localization">`locale`</a> for details.
+This parameter sets the language localization of the calendar.
+You can specify a language label according to <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or use `'define'` to customize your own month and weekday names, see <a href="/docs/reference/additionally/localization">`locale`</a> for more details.
 
 ---
 
@@ -40,7 +38,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-ISO 8601 start of the week. If set to `'false'`, the week starts on Sunday, otherwise it starts on Monday.
+This parameter sets the start of the week in accordance with the international standard ISO 8601. If set to `'false'`, the week will start on Sunday; otherwise, it starts on Monday.
 
 ---
 
@@ -62,10 +60,10 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The minimum date that the user can select. Dates less than this will be considered disabled and unselectable.
+This parameter sets the minimum date that the user can choose. Dates earlier than the specified date will be disabled and not available for selection.
 
 <Info>
-  It's important to know that `settings.range.min` and `settings.range.max` disable dates, while `date.min` and `date.max` don't create them at all.
+  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
 </Info>
 
 ---
@@ -88,7 +86,11 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The maximum date that the user can select. Dates greater than this will be considered disabled and unselectable.
+This parameter sets the maximum date that the user can choose. Dates later than the specified date will be disabled and not available for selection.
+
+<Info>
+  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+</Info>
 
 ---
 
@@ -110,7 +112,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disables all past days.
+This parameter disables all past days.
 
 ---
 
@@ -132,7 +134,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disables selection of days in a range with disabled dates. Only works if <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
+This parameter disables the selection of days within a range with disabled dates. It only works when <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
 
 ---
 
@@ -154,7 +156,8 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disables all days, useful when using <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+This parameter disables all days and can be useful when using <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+
 
 ---
 
@@ -176,7 +179,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disable specified days in a week. Specify an array of type `number`, where `number` is the `id` of the day of the week. `0` - Sunday.
+This parameter allows you to disable specified weekdays. Specify an array with numbers, where each number represents a day of the week. For example, `0` is Sunday.
 
 ---
 
@@ -198,10 +201,10 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disable the specified dates regardless of the specified range.
+This parameter allows you to disable specific dates regardless of the specified range.
 
 <Info>
-  To specify a range of disabled dates, use any separator between dates within the same line.
+  To specify a range of disabled dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -224,10 +227,10 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Include specified dates despite range and disabled dates.
+This parameter allows you to enable specific dates regardless of the range and disabled dates.
 
 <Info>
-  To specify a range of dates to include, use any separator between dates within the same line.
+  To specify a range of disabled dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -250,7 +253,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Allow selection of one, several days, or disable the selection of days altogether.
+This parameter determines whether it's allowed to select one or multiple days, or if day selection is completely disabled.
 
 ---
 
@@ -272,7 +275,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disable month selection or control switching only using arrows.
+This parameter allows you to disable the selection of months, allow switching between months only using arrows, or allow switching between months in any way.
 
 ---
 
@@ -294,7 +297,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Disable year selection or control switching only using arrows.
+This parameter allows you to disable the selection of years, allow switching between years only using arrows, or allow switching between years in any way.
 
 ---
 
@@ -316,7 +319,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Enable time picker. In addition to the boolean value, you can specify which time format to use: 24-hour or 12-hour.
+This parameter enables time selection. You can also specify the time format using a boolean value or a number: 24-hour or 12-hour format.
 
 ---
 
@@ -338,7 +341,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Timing method. Any way or just the controller.
+This parameter determines how time selection is allowed: `'all'` (any method) or `'range'` (only with the controller).
 
 ---
 
@@ -360,7 +363,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Clock controller step. Any number from 1 to 23.
+This parameter sets the step for the hour controller. You can choose any number from 1 to 23.
 
 ---
 
@@ -382,7 +385,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Minute controller step. Any number from 1 to 59.
+This parameter sets the step for the minute controller. You can choose any number from 1 to 59.
 
 ---
 
@@ -398,16 +401,16 @@ Minute controller step. Any number from 1 to 59.
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      dates: ['2022-08-10', '2022-08-12', '2022-08-13'],
+      dates: ['2022-08-10:2022-08-15', '2022-08-20'],
     },
   },
 });
 ```
 
-List of days marked as selected when the calendar was initialized.
+This parameter allows you to specify a list of dates that will be selected when the calendar is initialized.
 
 <Info>
-  To specify a range of selected dates, use any separator between dates within the same line.
+  To specify a range of disabled dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -430,7 +433,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The month to display when the calendar is initialized. 0 to 11.
+This parameter determines the month that will be displayed when the calendar is initialized. Months are numbered from 0 to 11.
 
 ---
 
@@ -452,7 +455,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The year displayed when the calendar is initialized.
+This parameter determines the year that will be displayed when the calendar is initialized.
 
 ---
 
@@ -468,16 +471,16 @@ The year displayed when the calendar is initialized.
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      holidays: ['2022-08-10', '2022-08-12', '2022-08-13'],
+      holidays: ['2022-08-10:2022-08-15', '2022-08-20'],
     },
   },
 });
 ```
 
-The specified days will be considered public holidays and will have an additional CSS modifier.
+This parameter allows you to specify dates that will be considered holidays and will receive additional CSS modifiers.
 
 <Info>
-  To specify a range of holiday dates, use any separator between dates on the same line.
+  To specify a range of disabled dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -500,7 +503,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The time displayed when the calendar is initialized. `aa` is the AM/PM marker. If a 24-hour day is specified, `aa` does not need to be specified.
+This parameter allows you to set the time that will be displayed when the calendar is initialized. The time is specified in the `'hh:mm aa'` format, where `'aa'` is the AM/PM marker. If using the 24-hour format, the `'aa'` marker is not required.
 
 ---
 
@@ -522,7 +525,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Calendar theme. By default, the theme is determined by the user's system.
+This parameter determines the theme of the calendar. By default, the theme is determined by the user's system or website settings.
 
 ---
 
@@ -543,11 +546,10 @@ new VanillaCalendar('#calendar', {
   },
 });
 ```
-In order for the calendar to track and apply the site theme automatically, you need to pass a string value as a CSS selector. Where square brackets indicate an attribute that contains the title of the topic.
-
-By default, the `html` tag with the `data-theme` attribute is tracked, but it can be any other attribute and tag, such as `class` if the theme name is used as the class name: `'html[class]'`.
-
-If set to `false`, the theme is determined by the user's system or the `settings.visibility.theme` setting.
+To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector.
+Square brackets indicate an attribute containing the theme name.
+By default, it tracks the `html` tag with the `data-theme` attribute, but you can customize any other attribute and tag, such as `class`, if the class name is used to set the theme: `'html[class]'`.
+If set to `false`, the theme will be determined by the user's system or the `settings.visibility.theme` parameter.
 
 ---
 
@@ -569,7 +571,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Abbreviated names of months in the month selection.
+This parameter allows you to use abbreviated month names when selecting a month.
 
 ---
 
@@ -591,7 +593,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Show week numbers of the year.
+With this parameter, you can decide whether to display week numbers in the calendar.
 
 ---
 
@@ -613,7 +615,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Select weekends.
+This parameter allows you to highlight weekends in the calendar.
 
 ---
 
@@ -635,7 +637,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Highlight today.
+With this parameter, you can highlight the current day in the calendar.
 
 ---
 
@@ -657,7 +659,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Show all days, including disabled ones.
+This parameter determines whether all days, including disabled days, will be displayed.
 
 ---
 
@@ -679,4 +681,4 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Show the days of the past and next month.
+With this parameter, you can decide whether to display days from the previous and next months.

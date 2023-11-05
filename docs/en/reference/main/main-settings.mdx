@@ -1,6 +1,6 @@
-# Main settings
+# Main Settings
 
-The main parameters are responsible for the most important changes.
+Main settings provide the most important options for configuring the calendar.
 
 ## input
 
@@ -16,7 +16,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Indicates that the `HTMLElement` passed as the first parameter is an input field, not a calendar wrapper.
+The `input` parameter specifies that the `HTMLElement` passed as the first parameter represents an input field rather than a wrapper for the calendar.
 
 - - -
 
@@ -34,7 +34,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The type of calendar to display.
+The `type` parameter determines the type of calendar displayed.
 
 - - -
 
@@ -44,7 +44,7 @@ The type of calendar to display.
 
 `Default: 2`
 
-`Options: from 2 to 12`
+`Options: от 2 до 12`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -52,7 +52,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Specifies the number of months to display if the calendar type is `'multiple'`.
+The `months` parameter specifies the number of displayed months when the calendar type is set to `'multiple'`.
 
 - - -
 
@@ -62,7 +62,7 @@ Specifies the number of months to display if the calendar type is `'multiple'`.
 
 `Default: 1`
 
-`Options: from 1 to ∞`
+`Options: от 1 до ∞`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -70,7 +70,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Number of switchable months.
+The `jumpMonths` parameter controls the number of months to jump.
 
 - - -
 
@@ -90,7 +90,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The minimum possible date that the calendar will take into account in its life cycle, which means that there will be no dates less than this.
+The `date.min` parameter sets the minimum allowable date that the calendar will consider, which cannot be earlier than this date.
 
 - - -
 
@@ -110,10 +110,9 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Like `data.min`, this parameter is responsible for the life cycle of the calendar. Sets the maximum possible date.
+The `date.max` parameter sets the maximum allowable date that the calendar will consider, which cannot be later than this date.
 
 - - -
-
 
 ## date.today
 
@@ -131,4 +130,4 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Specifies which day the calendar will consider today.
+The `date.today` parameter determines which day is considered today for the calendar.

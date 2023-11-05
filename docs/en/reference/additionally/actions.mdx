@@ -1,10 +1,9 @@
 # Actions
 
-Actions are calendar handlers, they allow you to get the necessary data for further processing.
+Actions in VanillaCalendar are event handlers that allow you to receive and process various interaction data with the calendar.
 
 <Info>
-  Note that month numbers start at `0`, so December is the 11th month.
-  This is due to the work of the standard method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth" target="_blank" rel="nofollow noreferrer" >`.getMonth()`</a>.
+  Note that month numbering starts from `0`, so December is the 11th month. This is related to the behavior of the standard JavaScript method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth" target="_blank" rel="nofollow noreferrer">`.getMonth()`</a>.
 </Info>
 
 ## actions.clickDay()
@@ -23,16 +22,12 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after clicking on a day in the calendar.
-
-Parameters that can be received:
-- `e` - mouse event;
-- `dates` - array of selected dates.
+This method triggers after clicking on a day in the calendar. You can get the following parameters:
+- `e` - the mouse event;
+- `dates` - an array of selected dates.
 
 <Info>
-  It is important to know that each HTML element of the day that is clicked contains a data attribute, inside which is the full date in the format `YYYY-MM-DD`.
-  If you need to get the day, month, year separately, then you can use the standard JS methods.
-  Example: `new Date('2022-11-07').getDate()` will return `7`.
+  It's important to know that each HTML element of the day you clicked on contains a data attribute that holds the full date in the `YYYY-MM-DD` format. If you need to get the day, month, and year separately, you can use standard JavaScript methods. For example, `new Date('2022-11-07').getDate()` will return `7`.
 </Info>
 
 ---
@@ -53,15 +48,11 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-For this method to work, the parameter <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`settings.visibility.weekNumbers`</a> with the value `true` is required.
-
-The method is triggered after clicking on the week number in the calendar.
-
-Parameters that can be received:
-- `e` - mouse event;
-- `number` - week number;
-- `days` - array of days (html elements);
-- `year` - year of the week.
+This method triggers after clicking on the week number in the calendar, but it requires the <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`settings.visibility.weekNumbers`</a> parameter to be set to true. You can get the following parameters:
+- `e` - the mouse event;
+- `number` - the week number;
+- `days` - an array of days (HTML elements);
+- `year` - the year of the week.
 
 ---
 
@@ -81,11 +72,9 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after selecting a month in the calendar.
-
-Parameters that can be received:
-- `e` - mouse event;
-- `month` - selected month number.
+This method triggers after selecting a month in the calendar. You can get the following parameters:
+- `e` - the mouse event;
+- `month` - the number of the selected month.
 
 ---
 
@@ -105,11 +94,9 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after selecting a year in the calendar.
-
-Parameters that can be received:
-- `e` - mouse event;
-- `year` - selected year.
+This method triggers after selecting a year in the calendar. You can get the following parameters:
+- `e` - the mouse event;
+- `year` - the selected year.
 
 ---
 
@@ -129,12 +116,10 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after clicking on the arrow.
-
-Parameters that can be received:
-- `e` - mouse event;
-- `year` - selected year;
-- `month` - selected month number.
+This method triggers after clicking the arrow in the calendar. You can get the following parameters:
+- `e` - the mouse event;
+- `year` - the selected year;
+- `month` - the number of the selected month.
 
 ---
 
@@ -154,14 +139,14 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered after changing the time in any way.
-
-The parameters that can be received are:
+This method triggers after changing the time in the calendar. You can get the following parameters:
 - `e` - the change event;
 - `time` - the selected time;
 - `hours` - the selected hour;
 - `minutes` - the selected minutes;
-- `keeping` - the selected AM/PM marker.
+- `keeping` - the selected AM/PM marker for the 12-hour time format.
+
+---
 
 ## actions.changeToInput()
 
@@ -178,18 +163,16 @@ new VanillaCalendar('#calendar', {
   },
 });
 ```
-For this method to work, the parameter <a href="/docs/reference/main/main-settings#input">`input`</a> with the value `true` is required.
 
-The method is triggered after clicking on a day in the calendar or changing the time in any way.
-
-Parameters that can be received:
-- `e` - event;
-- `calendar` - an object containing `HTMLInputElement`, `HTMLElement` and methods `show()`, `hide()`;
-- `dates` - array of selected dates;
-- `time` - selected time;
-- `hours` - selected hour;
-- `minutes ` is the selected minutes;
-- `keeping` is the selected AM/PM marker.
+To use this method, you need the <a href="/docs/reference/main/main-settings#input">`input`</a> parameter set to `true`.
+This method triggers after clicking on a day in the calendar or changing the time in any way.
+You can get the following parameters:
+- `e` - the event;
+- `calendar` - an object that includes HTMLInputElement, HTMLElement, and the methods show() and hide();
+- `dates` - an array of selected dates;
+- `time` - the selected time;
+- `hours` - the selected hour;
+- `minutes` - the selected minutes;
 
 ---
 
@@ -209,10 +192,8 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The method is triggered when the calendar is initialized and any change. Allows you to get the necessary information about each day and its HTML element.
-
-Parameters that can be obtained:
-- `day` - day number;
-- `date` - full date in `YYYY-MM-DD` format;
-- `HTMLElement` - parent (wrapper) HTML element of the day;
-- `HTMLButtonElement` - child (button) HTML element of the day.
+This method triggers during the calendar initialization and any changes. It provides access to information about each day and its HTML element. You can get the following parameters:
+- `day` - the day number;
+- `date` - the full date in the `YYYY-MM-DD` format;
+- `HTMLElement` - the parent (wrapper) HTML element of the day;
+- `HTMLButtonElement` - the child (button) HTML element of the day.

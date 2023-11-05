@@ -1,6 +1,6 @@
-# Pop-ups
+# Popups
 
-Pop-ups allow you to highlight any day and display brief information about it right in the calendar when you hover over that day.
+Popups allow you to highlight any day and display brief information about it directly in the calendar when you hover over that day.
 
 ## popups['date']
 
@@ -18,7 +18,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Dates in the format `YYYY-MM-DD` are used as the key.
+Use dates in the format `YYYY-MM-DD` as the key. In the example provided, a popup is set for June 28, 2022.
 
 ---
 
@@ -40,7 +40,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-`modifier` accepts arbitrary CSS classes separated by spaces. With these classes, you can highlight the date with styles.
+The `modifier` accepts arbitrary CSS classes separated by spaces. You can use these classes to style the date, making it stand out or changing its appearance.
 
 ---
 
@@ -60,10 +60,13 @@ new VanillaCalendar('#calendar', {
       html: `<div>
         <u><b>12:00 PM</b></u>
         <p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
-      </div>`, // or just text 'Airplane in Las Vegas'
+      </div>`,
+      // or just text
+      // html: 'Airplane in Las Vegas',
     },
   }
 });
 ```
 
-`html` accepts plain text or HTML markup to style the popup.
+The `html` accepts plain text or HTML markup for styling the popup.
+In this example, hovering over June 28, 2022, will display a popup with the text "Airplane in Las Vegas" and the time "12:00 PM," and it will apply the styles specified in the `bg-red` and `color-pink` classes.

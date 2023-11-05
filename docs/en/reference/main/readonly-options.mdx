@@ -1,12 +1,10 @@
-# Readonly options
+# Read-Only Parameters
 
-After the calendar is initialized, additional read-only settings are created.
-
-These parameters contain a set of data on the current state of the calendar.
+After initializing the calendar, additional read-only parameters are created.
+These parameters contain information about the current state of the calendar, which is automatically updated when interacting with it.
 
 <Info>
-  The state of the calendar changes each time you interact with the calendar.
-  Accordingly, the dataset will be overwritten, so these properties are read-only.
+  The calendar's state changes with every interaction, which leads to the update of these parameter values. This is why they are available for reading only.
 </Info>
 
 ## HTMLElement
@@ -18,7 +16,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.HTMLElement);
 ```
 
-The root html element where the calendar was initialized.
+The `HTMLElement` property contains the root HTML element in which the calendar was initialized.
 
 - - -
 
@@ -31,7 +29,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.HTMLInputElement);
 ```
 
-The root html element that is the input field.
+The `HTMLInputElement` property represents the root HTML element that is an input field.
 
 - - -
 
@@ -44,7 +42,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.currentType);
 ```
 
-The current calendar type.
+The `currentType` property contains the current type of the calendar.
 
 - - -
 
@@ -57,7 +55,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.dateMin);
 ```
 
-The minimum date in the `Date` format of the object.
+The `dateMin` property represents the minimum date in the `Date` object format.
 
 - - -
 
@@ -70,7 +68,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.dateMax);
 ```
 
-The maximum date in the `Date` format of the object.
+The `dateMax` property represents the maximum date in the `Date` object format.
 
 - - -
 
@@ -83,7 +81,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeMin);
 ```
 
-The current minimum date.
+The `rangeMin` property contains the current minimum date.
 
 - - -
 
@@ -96,7 +94,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeMax);
 ```
 
-The current maximum date.
+The `rangeMax` property contains the current maximum date.
 
 - - -
 
@@ -109,7 +107,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeDisabled);
 ```
 
-An array of disabled dates.
+The `rangeDisabled` property represents an array of disabled dates.
 
 - - -
 
@@ -122,7 +120,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.rangeEnabled);
 ```
 
-An array of enabled dates.
+The `rangeEnabled` property contains an array of enabled dates.
 
 - - -
 
@@ -135,7 +133,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedDates);
 ```
 
-An array of currently selected dates.
+The `selectedDates` property contains an array of currently selected dates.
 
 - - -
 
@@ -148,7 +146,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHolidays);
 ```
 
-An array of holidays.
+The `selectedHolidays` property represents an array of selected holiday dates.
 
 - - -
 
@@ -161,7 +159,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMonth);
 ```
 
-The currently selected month.
+The `selectedMonth` property contains the number of the currently selected month.
 
 - - -
 
@@ -174,7 +172,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedYear);
 ```
 
-The current selected year.
+The `selectedYear` property represents the number of the currently selected year.
 
 - - -
 
@@ -187,7 +185,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedHours);
 ```
 
-The currently selected hour.
+The `selectedHours` property contains the currently selected hour.
 
 - - -
 
@@ -200,7 +198,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedMinutes);
 ```
 
-The currently selected minutes.
+The `selectedMinutes` property represents the currently selected minutes.
 
 - - -
 
@@ -213,7 +211,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedKeeping);
 ```
 
-Current AM/PM marker for 12-hour time format.
+The `selectedKeeping` property contains the AM/PM marker for the 12-hour time format.
 
 - - -
 
@@ -226,7 +224,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.selectedTime);
 ```
 
-Current full time.
+The `selectedTime` property contains the full current time.
 
 - - -
 
@@ -239,7 +237,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.userTime);
 ```
 
-Specifies how the time was set when the calendar was initialized. Autodetect the current time (default) or use the `settings.selected.time` option.
+The `userTime` property indicates how the time was set during the calendar initialization: automatically detecting the current time (default) or using the `settings.selected.time` parameter.
 
 - - -
 
@@ -252,7 +250,7 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.correctMonths);
 ```
 
-The current number of months to display if the calendar type is `'multiple'`.
+The `correctMonths` property contains the current number of months to display if the calendar type is set to `'multiple'`.
 
 - - -
 
@@ -265,4 +263,4 @@ const calendar = new VanillaCalendar('#calendar');
 console.log(calendar.viewYear);
 ```
 
-The current display year.
+The `viewYear` property represents the current displayed year.
