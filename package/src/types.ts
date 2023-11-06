@@ -68,10 +68,6 @@ export interface ILocale {
 	weekday: string[] | [];
 }
 
-export interface IEvents {
-	onClose: (() => void) | null;
-}
-
 export interface IActions {
 	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
@@ -94,6 +90,8 @@ export interface IActions {
 		keeping?: string
 	) => void) | null;
 	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
+	hideCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
+	showCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
 }
 
 export type IPopups = {
@@ -189,7 +187,6 @@ export interface IOptions {
 	settings: ISettings;
 	locale: ILocale;
 	actions: IActions;
-	events: IEvents;
 	popups?: IPopups | null;
 	DOMTemplates: IDOMTemplates;
 	CSSClasses: ICSSClasses;
