@@ -90,6 +90,8 @@ export interface IActions {
 		keeping?: string
 	) => void) | null;
 	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
+	hideCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
+	showCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
 }
 
 export type IPopups = {

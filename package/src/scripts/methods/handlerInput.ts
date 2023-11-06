@@ -1,8 +1,7 @@
 import { IVanillaCalendar } from '../../types';
+import calendarInput from '../helpers/calendarInput';
 import clickCalendar from './clickCalendar';
 import resetCalendar from './resetCalendar';
-
-let currentSelf: null | IVanillaCalendar = null;
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;
@@ -16,42 +15,38 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 
-const createCalendarToInput = (self: IVanillaCalendar) => {
-	if (!self.HTMLInputElement) return;
-
-	const calendar = document.createElement('div');
-	calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-	setPositionCalendar(self.HTMLInputElement, calendar);
-	self.HTMLElement = calendar;
-	document.body.append(self.HTMLElement);
-
-	setTimeout(() => (self.HTMLElement as HTMLElement).classList.remove(self.CSSClasses.calendarHidden), 0);
-
-	resetCalendar(self);
-	clickCalendar(self);
-};
-
-const documentClickEvent = (e: MouseEvent) => {
-	if (!currentSelf || (e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`)) return;
-	const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`) as NodeListOf<HTMLElement>;
-	calendarEls.forEach((calendar) => calendar.classList.add((currentSelf as IVanillaCalendar).CSSClasses.calendarHidden));
-	document.removeEventListener('click', documentClickEvent, { capture: true });
-};
-
 const handlerInput = (self: IVanillaCalendar) => {
 	if (!self) return;
-	currentSelf = self;
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
 	self.HTMLElement = null;
 
+	const createCalendarToInput = () => {
+		if (!self.HTMLInputElement) return;
+
+		const calendar = document.createElement('div');
+		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
+		setPositionCalendar(self.HTMLInputElement, calendar);
+		self.HTMLElement = calendar;
+		document.body.append(self.HTMLElement);
+
+		setTimeout(() => calendarInput(self).show(), 0);
+
+		resetCalendar(self);
+		clickCalendar(self);
+	};
+
+	const documentClickEvent = (e: MouseEvent) => {
+		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
+		calendarInput(self as IVanillaCalendar).hide();
+		document.removeEventListener('click', documentClickEvent, { capture: true });
+	};
+
 	self.HTMLInputElement.addEventListener('click', () => {
-		if (self.HTMLElement && self.HTMLInputElement) {
-			setPositionCalendar(self.HTMLInputElement, self.HTMLElement);
-			self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-		} else if (self.HTMLElement) {
-			self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+		if (self.HTMLElement) {
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
+			calendarInput(self as IVanillaCalendar).show();
 		} else {
-			createCalendarToInput(self);
+			createCalendarToInput();
 		}
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});

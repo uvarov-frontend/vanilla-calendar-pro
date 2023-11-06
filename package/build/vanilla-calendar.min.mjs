@@ -674,9 +674,13 @@ const createMonths = (self, target) => {
 const calendarInput = (self) => ({
   hide() {
     self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+    if (self.actions.hideCalendar)
+      self.actions.hideCalendar(self.HTMLInputElement, self.HTMLElement);
   },
   show() {
     self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+    if (self.actions.showCalendar)
+      self.actions.showCalendar(self.HTMLInputElement, self.HTMLElement);
   },
   HTMLInputElement: self.HTMLInputElement,
   HTMLElement: self.HTMLElement
@@ -1128,31 +1132,31 @@ const changeMonth = (self, route) => {
   controlArrows(self);
   createDays(self);
 };
-let currentSelf$1 = null;
+let currentSelf = null;
 const removeHover = () => {
   var _a;
-  if (!currentSelf$1)
+  if (!currentSelf)
     return;
-  const daysEl = (_a = currentSelf$1.HTMLElement) == null ? void 0 : _a.querySelectorAll(`.${currentSelf$1.CSSClasses.dayBtnHover}`);
+  const daysEl = (_a = currentSelf.HTMLElement) == null ? void 0 : _a.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
   if (daysEl)
-    daysEl.forEach((d) => d.classList.remove(currentSelf$1.CSSClasses.dayBtnHover));
+    daysEl.forEach((d) => d.classList.remove(currentSelf.CSSClasses.dayBtnHover));
 };
 const addHover = (day) => {
   var _a;
-  if (!currentSelf$1 || !currentSelf$1.selectedDates)
+  if (!currentSelf || !currentSelf.selectedDates)
     return;
   const date = generateDate(day);
-  if (currentSelf$1.rangeDisabled && currentSelf$1.rangeDisabled.includes(date))
+  if (currentSelf.rangeDisabled && currentSelf.rangeDisabled.includes(date))
     return;
-  const dayEls = (_a = currentSelf$1.HTMLElement) == null ? void 0 : _a.querySelectorAll(`[data-calendar-day="${date}"]`);
+  const dayEls = (_a = currentSelf.HTMLElement) == null ? void 0 : _a.querySelectorAll(`[data-calendar-day="${date}"]`);
   dayEls == null ? void 0 : dayEls.forEach((dayEl) => {
-    dayEl.classList.add(currentSelf$1.CSSClasses.dayBtnHover);
+    dayEl.classList.add(currentSelf.CSSClasses.dayBtnHover);
   });
 };
 const hoverDaysEvent = (e) => {
-  if (!e.target || !currentSelf$1 || !currentSelf$1.selectedDates)
+  if (!e.target || !currentSelf || !currentSelf.selectedDates)
     return;
-  if (!e.target.closest(`.${currentSelf$1.CSSClasses.days}`)) {
+  if (!e.target.closest(`.${currentSelf.CSSClasses.days}`)) {
     removeHover();
     return;
   }
@@ -1161,9 +1165,9 @@ const hoverDaysEvent = (e) => {
     return;
   removeHover();
   const startDate = new Date(
-    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getFullYear(),
-    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getMonth(),
-    (/* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`)).getDate()
+    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getFullYear(),
+    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getMonth(),
+    (/* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`)).getDate()
   );
   const endDate = new Date(
     (/* @__PURE__ */ new Date(`${date}T00:00:00`)).getFullYear(),
@@ -1181,22 +1185,22 @@ const hoverDaysEvent = (e) => {
   }
 };
 const cancelSelectionDays = (e) => {
-  if (!currentSelf$1 || e.key !== "Escape")
+  if (!currentSelf || e.key !== "Escape")
     return;
-  currentSelf$1.selectedDates = [];
-  currentSelf$1.HTMLElement.removeEventListener("mousemove", hoverDaysEvent);
+  currentSelf.selectedDates = [];
+  currentSelf.HTMLElement.removeEventListener("mousemove", hoverDaysEvent);
   document.removeEventListener("keydown", cancelSelectionDays);
-  mainMethod(currentSelf$1);
+  mainMethod(currentSelf);
 };
 const setDisabledDates = () => {
   var _a;
-  if (!currentSelf$1 || !((_a = currentSelf$1.selectedDates) == null ? void 0 : _a[0]) || !currentSelf$1.rangeDisabled || currentSelf$1.rangeDisabled.length < 2)
+  if (!currentSelf || !((_a = currentSelf.selectedDates) == null ? void 0 : _a[0]) || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2)
     return;
-  const selectedDate = /* @__PURE__ */ new Date(`${currentSelf$1.selectedDates[0]}T00:00:00`);
+  const selectedDate = /* @__PURE__ */ new Date(`${currentSelf.selectedDates[0]}T00:00:00`);
   let startDate = null;
   let endDate = null;
-  for (let index = 0; index < currentSelf$1.rangeDisabled.length; index++) {
-    const disabledDate = /* @__PURE__ */ new Date(`${currentSelf$1.rangeDisabled[index]}T00:00:00`);
+  for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
+    const disabledDate = /* @__PURE__ */ new Date(`${currentSelf.rangeDisabled[index]}T00:00:00`);
     if (selectedDate >= disabledDate) {
       startDate = disabledDate;
     } else {
@@ -1206,26 +1210,26 @@ const setDisabledDates = () => {
   }
   if (startDate) {
     startDate = new Date(startDate.setDate(startDate.getDate() + 1));
-    currentSelf$1.rangeMin = generateDate(startDate);
+    currentSelf.rangeMin = generateDate(startDate);
   }
   if (endDate) {
     endDate = new Date(endDate.setDate(endDate.getDate() - 1));
-    currentSelf$1.rangeMax = generateDate(endDate);
+    currentSelf.rangeMax = generateDate(endDate);
   }
 };
 const resetDisabledDates = () => {
-  if (!currentSelf$1)
+  if (!currentSelf)
     return;
-  currentSelf$1.rangeMin = currentSelf$1.settings.range.min;
-  currentSelf$1.rangeMax = currentSelf$1.settings.range.max;
-  if (currentSelf$1.settings.range.disablePast && /* @__PURE__ */ new Date(`${currentSelf$1.settings.range.min}T00:00:00`) < currentSelf$1.date.today) {
-    currentSelf$1.rangeMin = generateDate(currentSelf$1.date.today);
+  currentSelf.rangeMin = currentSelf.settings.range.min;
+  currentSelf.rangeMax = currentSelf.settings.range.max;
+  if (currentSelf.settings.range.disablePast && /* @__PURE__ */ new Date(`${currentSelf.settings.range.min}T00:00:00`) < currentSelf.date.today) {
+    currentSelf.rangeMin = generateDate(currentSelf.date.today);
   }
 };
 const handlerMultipleRanged = (self) => {
   if (!self || !self.selectedDates)
     return;
-  currentSelf$1 = self;
+  currentSelf = self;
   if (self.selectedDates[0] && self.selectedDates.length <= 1) {
     self.HTMLElement.addEventListener("mousemove", hoverDaysEvent);
     document.addEventListener("keydown", cancelSelectionDays);
@@ -1458,7 +1462,6 @@ const clickCalendar = (self) => {
     clickMonth();
   });
 };
-let currentSelf = null;
 const setPositionCalendar = (input, calendar) => {
   let top = input.offsetHeight;
   let left = 0;
@@ -1468,39 +1471,36 @@ const setPositionCalendar = (input, calendar) => {
   }
   Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
-const createCalendarToInput = (self) => {
-  if (!self.HTMLInputElement)
-    return;
-  const calendar = document.createElement("div");
-  calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-  setPositionCalendar(self.HTMLInputElement, calendar);
-  self.HTMLElement = calendar;
-  document.body.append(self.HTMLElement);
-  setTimeout(() => self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden), 0);
-  resetCalendar(self);
-  clickCalendar(self);
-};
-const documentClickEvent = (e) => {
-  if (!currentSelf || e.target.closest(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`))
-    return;
-  const calendarEls = document.querySelectorAll(`.${currentSelf.CSSClasses.calendar}.${currentSelf.CSSClasses.calendarToInput}`);
-  calendarEls.forEach((calendar) => calendar.classList.add(currentSelf.CSSClasses.calendarHidden));
-  document.removeEventListener("click", documentClickEvent, { capture: true });
-};
 const handlerInput = (self) => {
   if (!self)
     return;
-  currentSelf = self;
   self.HTMLInputElement = self.HTMLElement;
   self.HTMLElement = null;
+  const createCalendarToInput = () => {
+    if (!self.HTMLInputElement)
+      return;
+    const calendar = document.createElement("div");
+    calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
+    setPositionCalendar(self.HTMLInputElement, calendar);
+    self.HTMLElement = calendar;
+    document.body.append(self.HTMLElement);
+    setTimeout(() => calendarInput(self).show(), 0);
+    resetCalendar(self);
+    clickCalendar(self);
+  };
+  const documentClickEvent = (e) => {
+    var _a;
+    if (!self || e.target === self.HTMLInputElement || ((_a = self.HTMLElement) == null ? void 0 : _a.contains(e.target)))
+      return;
+    calendarInput(self).hide();
+    document.removeEventListener("click", documentClickEvent, { capture: true });
+  };
   self.HTMLInputElement.addEventListener("click", () => {
-    if (self.HTMLElement && self.HTMLInputElement) {
+    if (self.HTMLElement) {
       setPositionCalendar(self.HTMLInputElement, self.HTMLElement);
-      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-    } else if (self.HTMLElement) {
-      self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+      calendarInput(self).show();
     } else {
-      createCalendarToInput(self);
+      createCalendarToInput();
     }
     document.addEventListener("click", documentClickEvent, { capture: true });
   });
@@ -1674,7 +1674,7 @@ class VanillaCalendar {
     __publicField(this, "reset", () => resetCalendar(this));
     __publicField(this, "update", () => updateCalendar(this));
     __publicField(this, "init", () => initCalendar(this));
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba, _ca, _da, _ea, _fa, _ga, _ha, _ia, _ja, _ka, _la, _ma, _na, _oa, _pa, _qa, _ra, _sa, _ta, _ua, _va, _wa, _xa, _ya, _za, _Aa, _Ba, _Ca, _Da, _Ea, _Fa, _Ga, _Ha, _Ia, _Ja, _Ka, _La, _Ma, _Na, _Oa, _Pa, _Qa, _Ra, _Sa, _Ta, _Ua, _Va, _Wa, _Xa, _Ya, _Za, __a, _$a, _ab, _bb, _cb, _db, _eb, _fb, _gb, _hb, _ib, _jb, _kb, _lb, _mb, _nb, _ob, _pb, _qb, _rb, _sb;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba, _ca, _da, _ea, _fa, _ga, _ha, _ia, _ja, _ka, _la, _ma, _na, _oa, _pa, _qa, _ra, _sa, _ta, _ua, _va, _wa, _xa, _ya, _za, _Aa, _Ba, _Ca, _Da, _Ea, _Fa, _Ga, _Ha, _Ia, _Ja, _Ka, _La, _Ma, _Na, _Oa, _Pa, _Qa, _Ra, _Sa, _Ta, _Ua, _Va, _Wa, _Xa, _Ya, _Za, __a, _$a, _ab, _bb, _cb, _db, _eb, _fb, _gb, _hb, _ib, _jb, _kb, _lb, _mb, _nb, _ob, _pb, _qb, _rb, _sb, _tb, _ub, _vb, _wb;
     this.HTMLElement = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (!this.HTMLElement)
       return;
@@ -1739,9 +1739,11 @@ class VanillaCalendar {
       clickArrow: (_db = (_cb = option == null ? void 0 : option.actions) == null ? void 0 : _cb.clickArrow) != null ? _db : null,
       changeTime: (_fb = (_eb = option == null ? void 0 : option.actions) == null ? void 0 : _eb.changeTime) != null ? _fb : null,
       changeToInput: (_hb = (_gb = option == null ? void 0 : option.actions) == null ? void 0 : _gb.changeToInput) != null ? _hb : null,
-      getDays: (_jb = (_ib = option == null ? void 0 : option.actions) == null ? void 0 : _ib.getDays) != null ? _jb : null
+      getDays: (_jb = (_ib = option == null ? void 0 : option.actions) == null ? void 0 : _ib.getDays) != null ? _jb : null,
+      hideCalendar: (_lb = (_kb = option == null ? void 0 : option.actions) == null ? void 0 : _kb.hideCalendar) != null ? _lb : null,
+      showCalendar: (_nb = (_mb = option == null ? void 0 : option.actions) == null ? void 0 : _mb.showCalendar) != null ? _nb : null
     };
-    this.popups = (_kb = option == null ? void 0 : option.popups) != null ? _kb : null;
+    this.popups = (_ob = option == null ? void 0 : option.popups) != null ? _ob : null;
     this.CSSClasses = (() => {
       const classesObj = __spreadValues({}, classes);
       Object.keys(classes).forEach((className) => {
@@ -1755,10 +1757,10 @@ class VanillaCalendar {
       return classesObj;
     })();
     this.DOMTemplates = {
-      default: (_mb = (_lb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _lb.default) != null ? _mb : DOMDefault(this.CSSClasses),
-      multiple: (_ob = (_nb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _nb.multiple) != null ? _ob : DOMMultiple(this.CSSClasses),
-      month: (_qb = (_pb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _pb.month) != null ? _qb : DOMMonths(this.CSSClasses),
-      year: (_sb = (_rb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _rb.year) != null ? _sb : DOMYears(this.CSSClasses)
+      default: (_qb = (_pb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _pb.default) != null ? _qb : DOMDefault(this.CSSClasses),
+      multiple: (_sb = (_rb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _rb.multiple) != null ? _sb : DOMMultiple(this.CSSClasses),
+      month: (_ub = (_tb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _tb.month) != null ? _ub : DOMMonths(this.CSSClasses),
+      year: (_wb = (_vb = option == null ? void 0 : option.DOMTemplates) == null ? void 0 : _vb.year) != null ? _wb : DOMYears(this.CSSClasses)
     };
     this.currentType = this.type;
   }
