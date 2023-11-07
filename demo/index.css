@@ -19,7 +19,7 @@
 }
 
 .wrapper-calendar {
-	@apply w-[550px] max-w-max justify-center items-center flex flex-col mb-4 relative
+	@apply w-[550px]
 }
 
 .input {
