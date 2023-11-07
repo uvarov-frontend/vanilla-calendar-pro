@@ -1,4 +1,4 @@
-# Initialization, Update, and Reset
+# Initialization, Update, Reset, and Destroy
 
 The `init()` method is the main method of the instance, which initiates the calendar's initialization process.
 
@@ -9,7 +9,8 @@ calendar.init();
 
 It's essential to note that you also have the ability to update the calendar with new settings at any time using the `update()` or `reset()` methods.
 
-Unlike `reset()`, the `update()` method preserves the user-selected dates, month, and year after the update.
+- The `update()` method allows you to apply new settings to the calendar while preserving the user-selected dates, month, and year after the update.
+- The `reset()` method completely resets the calendar to its initial state, discarding any user-selected dates.
 
 Example of usage:
 
@@ -20,4 +21,12 @@ calendar.settings.iso8601 = false;
 calendar.update();
 // or
 calendar.reset();
+```
+
+Additionally, if you want to completely remove the calendar instance, you can use the `destroy()` method.
+
+Example of usage:
+
+```js
+calendar.destroy();
 ```

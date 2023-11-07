@@ -200,3 +200,47 @@ new VanillaCalendar('#calendar', {
 - `date` - полная дата в формате `YYYY-MM-DD`;
 - `HTMLElement` - родительский (обертка) HTML-элемент дня;
 - `HTMLButtonElement` - дочерний (кнопка) HTML-элемент дня.
+
+---
+
+## actions.hideCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: hideCalendar(HTMLInputElement, HTMLElement) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    hideCalendar(HTMLInputElement, HTMLElement) {},
+  },
+});
+```
+
+Этот метод срабатывает при скрытии календаря, но только если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`.
+- `HTMLInputElement` - представляет корневой элемент HTML, который является полем ввода;
+- `HTMLElement` - корневой HTML-элемент календаря.
+
+---
+
+## actions.showCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: showCalendar(HTMLInputElement, HTMLElement) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    showCalendar(HTMLInputElement, HTMLElement) {},
+  },
+});
+```
+
+Этот метод срабатывает при отображении календаря пользователю, но только если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`.
+- `HTMLInputElement` - представляет корневой элемент HTML, который является полем ввода;
+- `HTMLElement` - корневой HTML-элемент календаря.

@@ -197,3 +197,47 @@ This method triggers during the calendar initialization and any changes. It prov
 - `date` - the full date in the `YYYY-MM-DD` format;
 - `HTMLElement` - the parent (wrapper) HTML element of the day;
 - `HTMLButtonElement` - the child (button) HTML element of the day.
+
+---
+
+## actions.hideCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: hideCalendar(HTMLInputElement, HTMLElement) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    hideCalendar(HTMLInputElement, HTMLElement) {},
+  },
+});
+```
+
+This method triggers when the calendar is hiding, but only if the <a href="/docs/reference/main/main-settings#input">`input`</a> parameter is set to `true`.
+- `HTMLInputElement` - represents the root HTML element, which is an input field;
+- `HTMLElement` - root HTML element of the calendar.
+
+---
+
+## actions.showCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: showCalendar(HTMLInputElement, HTMLElement) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    showCalendar(HTMLInputElement, HTMLElement) {},
+  },
+});
+```
+
+This method triggers when displaying the calendar to the user, but only if the <a href="/docs/reference/main/main-settings#input">`input`</a> parameter is set to `true`.
+- `HTMLInputElement` - represents the root HTML element, which is an input field;
+- `HTMLElement` - root HTML element of the calendar.
