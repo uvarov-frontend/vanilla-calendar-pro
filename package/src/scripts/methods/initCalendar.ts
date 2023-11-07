@@ -5,6 +5,7 @@ import clickCalendar from './clickCalendar';
 
 const initCalendar = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
+	self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
 	if (self.input) {
 		handlerInput(self);
 	} else {
