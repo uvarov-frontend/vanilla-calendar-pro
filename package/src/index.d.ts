@@ -44,6 +44,8 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	init: () => void;
 
+	destroy: () => void;
+
 	input: boolean;
 
 	type: 'default' | 'multiple' | 'month' | 'year';

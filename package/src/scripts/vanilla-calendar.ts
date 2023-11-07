@@ -17,6 +17,7 @@ import DOMMultiple from './templates/DOMMultiple';
 import DOMMonth from './templates/DOMMonth';
 import DOMYear from './templates/DOMYear';
 import classes from '../classes';
+import destroyCalendar from './methods/destroyCalendar';
 
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
@@ -139,4 +140,6 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 	update = () => updateCalendar(this);
 
 	init = () => initCalendar(this);
+
+	destroy = () => destroyCalendar(this);
 }

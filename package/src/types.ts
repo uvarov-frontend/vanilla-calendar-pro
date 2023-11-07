@@ -201,6 +201,7 @@ export interface IVariables extends IOptions {
 }
 
 export interface IVanillaCalendar extends IVariables {
+	HTMLOriginalElement?: HTMLElement;
 	HTMLInputElement?: HTMLInputElement;
 	rangeMin?: FormatDateString;
 	rangeMax?: FormatDateString;
