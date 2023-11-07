@@ -10,6 +10,7 @@ import {
 	ISelection,
 	IDOMTemplates,
 	IVisibility,
+	FormatDateString,
 } from './types';
 
 type Settings = {
