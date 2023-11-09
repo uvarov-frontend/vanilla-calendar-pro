@@ -1,9 +1,8 @@
 import themes from './scripts/themes';
 
-type OneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-type ZeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-type MM = `0${OneToNine}` | `1${0 | 1 | 2}`;
-type DD = `${0}${OneToNine}` | `${1 | 2}${ZeroToNine}` | `3${0 | 1}`;
+type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
+type MM = LeadingZero | 10 | 11 | 12;
+type DD = LeadingZero | `${1 | 2}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}` | 30 | 31;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
@@ -21,8 +20,8 @@ export interface IRange {
 	disableGaps: boolean;
 	disableAllDays: boolean;
 	disableWeekday: number[] | null;
-	disabled: string[] | null;
-	enabled: string[] | null;
+	disabled: FormatDateString[] | null;
+	enabled: FormatDateString[] | null;
 }
 
 export interface ISelection {
@@ -36,10 +35,10 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates: string[] | undefined | null;
+	dates: FormatDateString[] | undefined | null;
 	month: number | null;
 	year: number | null;
-	holidays: string[] | null;
+	holidays: FormatDateString[] | null;
 	time: string | null;
 }
 
@@ -69,7 +68,7 @@ export interface ILocale {
 }
 
 export interface IActions {
-	clickDay: ((e: MouseEvent, dates: string[] | undefined) => void) | null;
+	clickDay: ((e: MouseEvent, dates: FormatDateString[] | undefined) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
 	clickMonth: ((e: MouseEvent, month: number) => void) | null;
 	clickYear: ((e: MouseEvent, year: number) => void) | null;
@@ -83,13 +82,13 @@ export interface IActions {
 			HTMLInputElement: HTMLInputElement;
 			HTMLElement: HTMLDivElement;
 		},
-		dates?: string[],
+		dates?: FormatDateString[],
 		time?: string,
 		hours?: string,
 		minutes?: string,
 		keeping?: string
 	) => void) | null;
-	getDays: ((day: number, date: string, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
+	getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
 	hideCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
 	showCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
 }

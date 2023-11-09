@@ -113,7 +113,7 @@ const createDays = (self: IVanillaCalendar) => {
 			}
 		};
 
-		const createDay = (dayText: string, dayID: number, date: string, otherMonth: boolean, modifier: string | null) => {
+		const createDay = (dayText: string, dayID: number, date: FormatDateString, otherMonth: boolean, modifier: string | null) => {
 			const dayEl = templateDayEl.cloneNode(true) as HTMLDivElement;
 			const dayBtnEl = templateDayBtnEl.cloneNode(true) as HTMLButtonElement;
 
