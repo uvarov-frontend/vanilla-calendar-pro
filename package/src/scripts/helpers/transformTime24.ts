@@ -1,37 +1,21 @@
 const transformTime24 = (hour: string | undefined, keeping: string | undefined) => {
-	const oldHour = Number(hour);
-	let newHour = String(oldHour);
+	const hourMap: { [key: number]: { [key: string]: string } } = {
+		0: { AM: '00', PM: '12' },
+		1: { AM: '01', PM: '13' },
+		2: { AM: '02', PM: '14' },
+		3: { AM: '03', PM: '15' },
+		4: { AM: '04', PM: '16' },
+		5: { AM: '05', PM: '17' },
+		6: { AM: '06', PM: '18' },
+		7: { AM: '07', PM: '19' },
+		8: { AM: '08', PM: '20' },
+		9: { AM: '09', PM: '21' },
+		10: { AM: '10', PM: '22' },
+		11: { AM: '11', PM: '23' },
+		12: { AM: '12', PM: '12' },
+	};
 
-	if (keeping === 'AM') {
-		if (oldHour === 12) {
-			newHour = '00';
-		}
-	} else if (keeping === 'PM') {
-		if (oldHour === 1) {
-			newHour = '13';
-		} else if (oldHour === 2) {
-			newHour = '14';
-		} else if (oldHour === 3) {
-			newHour = '15';
-		} else if (oldHour === 4) {
-			newHour = '16';
-		} else if (oldHour === 5) {
-			newHour = '17';
-		} else if (oldHour === 6) {
-			newHour = '18';
-		} else if (oldHour === 7) {
-			newHour = '19';
-		} else if (oldHour === 8) {
-			newHour = '20';
-		} else if (oldHour === 9) {
-			newHour = '21';
-		} else if (oldHour === 10) {
-			newHour = '22';
-		} else if (oldHour === 11) {
-			newHour = '23';
-		}
-	}
-	return newHour;
+	return hour && keeping ? hourMap[Number(hour)][keeping] : '';
 };
 
 export default transformTime24;
