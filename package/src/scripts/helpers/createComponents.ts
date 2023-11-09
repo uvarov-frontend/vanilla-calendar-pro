@@ -3,16 +3,14 @@ import { IVanillaCalendar } from '../../types';
 export const ArrowPrev = (self: IVanillaCalendar) => (`
 	<button type="button"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowPrev}"
-		data-calendar-arrow="prev"
-		title="Prev">
+		data-calendar-arrow="prev">
 	</button>
 `);
 
 export const ArrowNext = (self: IVanillaCalendar) => (`
 	<button type="button"
-	class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
-	data-calendar-arrow="next"
-	title="Next">
+		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
+		data-calendar-arrow="next">
 	</button>
 `);
 
