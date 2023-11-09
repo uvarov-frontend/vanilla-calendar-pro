@@ -1,15 +1,15 @@
 import { IVanillaCalendar } from '../../types';
-import parserDates from '../helpers/parserDates';
+import parseDates from '../helpers/parseDates';
 import generateDate from '../helpers/generateDate';
 import transformTime12 from '../helpers/transformTime12';
 
 const setVariablesDates = (self: IVanillaCalendar) => {
 	self.rangeMin = self.settings.range.min;
 	self.rangeMax = self.settings.range.max;
-	self.rangeDisabled = self.settings.range.disabled ? parserDates([...self.settings.range.disabled]) : [];
-	self.rangeEnabled = self.settings.range.enabled ? parserDates([...self.settings.range.enabled]) : [];
-	self.selectedDates = self.settings.selected.dates ? parserDates([...self.settings.selected.dates]) : [];
-	self.selectedHolidays = self.settings.selected.holidays ? parserDates([...self.settings.selected.holidays]) : [];
+	self.rangeDisabled = self.settings.range.disabled ? parseDates([...self.settings.range.disabled]) : [];
+	self.rangeEnabled = self.settings.range.enabled ? parseDates([...self.settings.range.enabled]) : [];
+	self.selectedDates = self.settings.selected.dates ? parseDates([...self.settings.selected.dates]) : [];
+	self.selectedHolidays = self.settings.selected.holidays ? parseDates([...self.settings.selected.holidays]) : [];
 
 	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
 		self.rangeMin = generateDate(self.date.today);
