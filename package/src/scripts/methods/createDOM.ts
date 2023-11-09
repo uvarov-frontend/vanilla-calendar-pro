@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '../../types';
-import { DOMParser, MultipleParser } from '../helpers/parserComponent';
+import { DOMParser, MultipleParser } from '../helpers/parseComponent';
 
 const createDOM = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const calendarElement = (self.HTMLElement as HTMLElement);
