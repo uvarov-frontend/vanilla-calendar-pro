@@ -5,22 +5,20 @@ import createDays from './createDays';
 import showMonth from './showMonth';
 import showYear from './showYear';
 
-const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
-	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
-	const jumpDate = new Date(`${generateDate(new Date(self.selectedYear, self.selectedMonth, 1))}T00:00:00`);
+const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
+	const { selectedMonth, selectedYear, jumpMonths } = self;
 
-	switch (route) {
-		case 'prev':
-			jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths);
-			break;
-		case 'next':
-			jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths);
-			break;
-		// no default
-	}
+	if (selectedMonth === undefined || selectedYear === undefined) return;
+	const jumpDate = new Date(`${generateDate(new Date(selectedYear, selectedMonth, 1))}T00:00:00`);
 
-	self.selectedMonth = jumpDate.getMonth();
-	self.selectedYear = jumpDate.getFullYear();
+	const routeMap: Record<string, () => void> = {
+		prev: () => jumpDate.setMonth(jumpDate.getMonth() - jumpMonths),
+		next: () => jumpDate.setMonth(jumpDate.getMonth() + jumpMonths),
+	};
+
+	routeMap[route]();
+
+	[self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
 
 	showMonth(self);
 	showYear(self);

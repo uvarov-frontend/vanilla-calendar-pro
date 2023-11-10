@@ -29,7 +29,7 @@ const clickCalendar = (self: IVanillaCalendar) => {
 
 		const clickArrowMonth = () => {
 			if (arrowEl && self.currentType !== 'year' && self.currentType !== 'month') {
-				changeMonth(self, element.dataset.calendarArrow);
+				changeMonth(self, element.dataset.calendarArrow as 'prev' | 'next');
 			}
 			if (arrowEl) {
 				if (self.actions.clickArrow) self.actions.clickArrow(e, Number(self.selectedYear), Number(self.selectedMonth));
