@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '../../types';
-import generateDate from '../helpers/generateDate';
-import mainMethod from './mainMethod';
+import { FormatDateString, IVanillaCalendar } from '../../../types';
+import generateDate from '../../helpers/generateDate';
+import mainMethod from '../mainMethod';
 
 let currentSelf: null | IVanillaCalendar = null;
 
@@ -104,8 +104,24 @@ const resetDisabledDates = () => {
 	}
 };
 
-const handlerMultipleRanged = (self: IVanillaCalendar) => {
-	if (!self || !self.selectedDates) return;
+const handleDayRangedSelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement) => {
+	if (!self || !self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
+	const formattedDate = dayBtnEl.dataset.calendarDay as FormatDateString;
+	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay);
+	self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+
+	if (self.selectedDates?.[1]) {
+		const [startDate, endDate] = self.selectedDates.map((selectedDate) => new Date(`${selectedDate}T00:00:00`));
+		const dateIncrement = endDate > startDate ? 1 : -1;
+		self.selectedDates = [];
+
+		for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
+			const date = generateDate(i);
+			if (self.rangeDisabled?.includes(date)) return;
+			self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
+		}
+	}
+
 	currentSelf = self;
 
 	if (self.selectedDates[0] && self.selectedDates.length <= 1) {
@@ -119,4 +135,4 @@ const handlerMultipleRanged = (self: IVanillaCalendar) => {
 	}
 };
 
-export default handlerMultipleRanged;
+export default handleDayRangedSelection;
