@@ -1,0 +1,97 @@
+import { IVanillaCalendar } from '@src/types';
+import getColumnID from '@helpers/getColumnID';
+import createMonths from '@methods/createMonths';
+import createYears from '@methods/createYears';
+import mainMethod from '@methods/mainMethod';
+
+type HandleType = 'month' | 'year';
+
+type HandleCSSClasses = {
+	header: string;
+	item: string;
+	column: string;
+};
+
+const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses, itemEl: HTMLElement) => {
+	const actionByType = {
+		year: () => self.actions.clickYear?.(event, self.selectedYear as number, self.selectedMonth as number),
+		month: () => self.actions.clickMonth?.(event, self.selectedMonth as number, self.selectedYear as number),
+	};
+	const selectByType = {
+		year: () => {
+			if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax) return;
+			if (self.type === 'multiple') {
+				const selectedYear = getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(itemEl.dataset.calendarYear), 'data-calendar-selected-year');
+
+				const isBeforeMinDate = self.selectedMonth < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear();
+				const isAfterMaxDate = self.selectedMonth > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear();
+				const isBeforeMinYear = selectedYear < self.dateMin.getFullYear();
+				const isAfterMaxYear = selectedYear > self.dateMax.getFullYear();
+
+				if (isBeforeMinDate || isBeforeMinYear) {
+					self.selectedYear = self.dateMin.getFullYear();
+					self.selectedMonth = self.dateMin.getMonth();
+				} else if (isAfterMaxDate || isAfterMaxYear) {
+					self.selectedYear = self.dateMax.getFullYear();
+					self.selectedMonth = self.dateMax.getMonth();
+				} else {
+					self.selectedYear = selectedYear;
+				}
+			} else {
+				self.selectedYear = Number(itemEl.dataset.calendarYear);
+			}
+		},
+		month: () => {
+			if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax) return;
+			if (self.type === 'multiple') {
+				const selectedMonth = getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(itemEl.dataset.calendarMonth), 'data-calendar-selected-month');
+				const column = itemEl.closest(`.${CSSClasses.column}`) as HTMLElement;
+				const year = column.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
+				self.selectedYear = Number(year.dataset.calendarSelectedYear);
+				const isBeforeMinDate = selectedMonth < self.dateMin.getMonth() && self.selectedYear <= self.dateMin.getFullYear();
+				const isAfterMaxDate = selectedMonth > self.dateMax.getMonth() && self.selectedYear >= self.dateMax.getFullYear();
+
+				if (isBeforeMinDate) {
+					self.selectedMonth = self.dateMin.getMonth();
+				} else if (isAfterMaxDate) {
+					self.selectedMonth = self.dateMax.getMonth();
+				} else {
+					self.selectedMonth = selectedMonth;
+				}
+			} else {
+				self.selectedMonth = Number(itemEl.dataset.calendarMonth);
+			}
+		},
+	};
+	selectByType[type]();
+	actionByType[type]();
+	self.currentType = self.type;
+	mainMethod(self);
+};
+
+const handleClickMonthOrYear = (self: IVanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses) => {
+	if (!self.settings.selection[type]) return;
+
+	const element = event.target as HTMLElement;
+	const closest = (className: string): HTMLElement | null => element.closest(`.${className}`);
+
+	const headerEl = closest(CSSClasses.header);
+	const itemEl = closest(CSSClasses.item);
+	const gridEl = closest(self.CSSClasses.grid);
+	const columnEl = closest(self.CSSClasses.column);
+
+	if (self.currentType !== type && headerEl) {
+		const createByType = {
+			year: () => createYears(self, element),
+			month: () => createMonths(self, element),
+		};
+		createByType[type]();
+	} else if (itemEl) {
+		handleItemClick(self, event, type, CSSClasses, itemEl);
+	} else if ((self.currentType === type && headerEl) || (self.type === 'multiple' && self.currentType === type && gridEl && !columnEl)) {
+		self.currentType = self.type;
+		mainMethod(self);
+	}
+};
+
+export default handleClickMonthOrYear;

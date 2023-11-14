@@ -1,7 +1,7 @@
-import { IVanillaCalendar } from '../../types';
-import resetCalendar from './resetCalendar';
-import handlerInput from './handlerInput';
-import clickCalendar from './clickCalendar';
+import { IVanillaCalendar } from '@src/types';
+import handlerInput from '@methods/handlerInput';
+import resetCalendar from '@methods/resetCalendar';
+import handleClick from '@methods/handles/handleClick';
 
 const initCalendar = (self: IVanillaCalendar) => {
 	if (!self.HTMLElement) return;
@@ -10,7 +10,7 @@ const initCalendar = (self: IVanillaCalendar) => {
 		handlerInput(self);
 	} else {
 		resetCalendar(self);
-		clickCalendar(self);
+		handleClick(self);
 	}
 };
 

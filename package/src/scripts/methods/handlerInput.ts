@@ -1,7 +1,7 @@
-import { IVanillaCalendar } from '../../types';
-import calendarInput from '../helpers/calendarInput';
-import clickCalendar from './clickCalendar';
-import resetCalendar from './resetCalendar';
+import { IVanillaCalendar } from '@src/types';
+import calendarInput from '@helpers/calendarInput';
+import resetCalendar from '@methods/resetCalendar';
+import handleClick from '@methods/handles/handleClick';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;
@@ -32,7 +32,7 @@ const handlerInput = (self: IVanillaCalendar) => {
 		setTimeout(() => calendarInput(self).show(), 0);
 
 		resetCalendar(self);
-		clickCalendar(self);
+		handleClick(self);
 	};
 
 	const documentClickEvent = (e: MouseEvent) => {

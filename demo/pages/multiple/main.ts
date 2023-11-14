@@ -9,6 +9,10 @@ import IVanillaCalendar, { Options } from '@/package/src';
 const config: Options = {
 	type: 'multiple',
 	settings: {
+		// range: {
+		// 	min: '2023-09-08',
+		// 	max: '2025-09-08',
+		// },
 		selection: {
 			day: 'multiple-ranged',
 		},
@@ -17,6 +21,14 @@ const config: Options = {
 			year: 2023,
 		},
 	},
+	// actions: {
+	// 	clickMonth(e, month, year) {
+	// 		console.log(e, month, year);
+	// 	},
+	// 	clickYear(e, year, month) {
+	// 		console.log(e, year, month);
+	// 	},
+	// },
 };
 
 document.addEventListener('DOMContentLoaded', () => {
