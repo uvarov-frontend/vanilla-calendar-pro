@@ -1,11 +1,11 @@
-import { IVanillaCalendar } from '../../types';
-import changeMonth from './changeMonth';
-import createMonths from './createMonths';
-import createYears from './createYears';
-import mainMethod from './mainMethod';
+import { IVanillaCalendar } from '@src/types';
+import getColumnID from '@helpers/getColumnID';
 
-import getColumnID from '../helpers/getColumnID';
-import handleClickDay from './handleClick/handleClickDay';
+import changeMonth from '@methods/changeMonth';
+import createMonths from '@methods/createMonths';
+import createYears from '@methods/createYears';
+import mainMethod from '@methods/mainMethod';
+import handleClickDay from '@methods/handles/handleClickDay';
 
 const clickCalendar = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {

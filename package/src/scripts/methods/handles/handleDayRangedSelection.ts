@@ -1,6 +1,7 @@
-import { FormatDateString, IVanillaCalendar } from '../../../types';
-import generateDate from '../../helpers/generateDate';
-import mainMethod from '../mainMethod';
+import { FormatDateString, IVanillaCalendar } from '@src/types';
+import generateDate from '@helpers/generateDate';
+
+import mainMethod from '@methods/mainMethod';
 
 let currentSelf: null | IVanillaCalendar = null;
 
@@ -105,7 +106,7 @@ const resetDisabledDates = () => {
 };
 
 const handleDayRangedSelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement) => {
-	if (!self || !self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
+	if (!self || !self.selectedDates || !dayBtnEl.dataset.calendarDay) return;
 	const formattedDate = dayBtnEl.dataset.calendarDay as FormatDateString;
 	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay);
 	self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];

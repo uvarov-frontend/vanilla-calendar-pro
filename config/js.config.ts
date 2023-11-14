@@ -16,6 +16,14 @@ export default defineConfig({
 			entry: resolve(__dirname, '../package/src/scripts/vanilla-calendar.ts'),
 		},
 	},
+	resolve: {
+		alias: {
+			'@': resolve(__dirname, '../'),
+			'@src': resolve(__dirname, '../package/src'),
+			'@helpers': resolve(__dirname, '../package/src/scripts/helpers'),
+			'@methods': resolve(__dirname, '../package/src/scripts/methods'),
+		},
+	},
 	plugins: [
 		banner({
 			outDir: './package/build',

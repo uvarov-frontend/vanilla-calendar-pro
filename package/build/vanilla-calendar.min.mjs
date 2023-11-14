@@ -21,21 +21,19 @@ var __publicField = (obj, key, value) => {
 };
 const generateDate = (date) => {
   const year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
-  month = month < 10 ? `0${month}` : month;
-  day = day < 10 ? `0${day}` : day;
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
-const parserDates = (dates) => {
+const parseDates = (dates) => {
   const newDates = [];
   dates.forEach((date) => {
     if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
       newDates.push(date);
     } else {
-      date.replace(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/g, (_, d1, d2) => {
-        const startDate = /* @__PURE__ */ new Date(`${d1}T00:00:00`);
-        const endDate = /* @__PURE__ */ new Date(`${d2}T00:00:00`);
+      date.replace(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/g, (_, startDateStr, endDateStr) => {
+        const startDate = /* @__PURE__ */ new Date(`${startDateStr}T00:00:00`);
+        const endDate = /* @__PURE__ */ new Date(`${endDateStr}T00:00:00`);
         const currentDate = new Date(startDate.getTime());
         for (currentDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
           newDates.push(generateDate(currentDate));
@@ -47,43 +45,30 @@ const parserDates = (dates) => {
   return newDates;
 };
 const transformTime12 = (hour) => {
-  const oldHour = Number(hour);
-  let newHour = String(oldHour);
-  if (oldHour === 0) {
-    newHour = "12";
-  } else if (oldHour === 13) {
-    newHour = "01";
-  } else if (oldHour === 14) {
-    newHour = "02";
-  } else if (oldHour === 15) {
-    newHour = "03";
-  } else if (oldHour === 16) {
-    newHour = "04";
-  } else if (oldHour === 17) {
-    newHour = "05";
-  } else if (oldHour === 18) {
-    newHour = "06";
-  } else if (oldHour === 19) {
-    newHour = "07";
-  } else if (oldHour === 20) {
-    newHour = "08";
-  } else if (oldHour === 21) {
-    newHour = "09";
-  } else if (oldHour === 22) {
-    newHour = "10";
-  } else if (oldHour === 23) {
-    newHour = "11";
-  }
-  return newHour;
+  const hourMap = {
+    0: "12",
+    13: "01",
+    14: "02",
+    15: "03",
+    16: "04",
+    17: "05",
+    18: "06",
+    19: "07",
+    20: "08",
+    21: "09",
+    22: "10",
+    23: "11"
+  };
+  return hour ? hourMap[Number(hour)] || String(hour) : "";
 };
 const setVariablesDates = (self) => {
   var _a, _b;
   self.rangeMin = self.settings.range.min;
   self.rangeMax = self.settings.range.max;
-  self.rangeDisabled = self.settings.range.disabled ? parserDates([...self.settings.range.disabled]) : [];
-  self.rangeEnabled = self.settings.range.enabled ? parserDates([...self.settings.range.enabled]) : [];
-  self.selectedDates = self.settings.selected.dates ? parserDates([...self.settings.selected.dates]) : [];
-  self.selectedHolidays = self.settings.selected.holidays ? parserDates([...self.settings.selected.holidays]) : [];
+  self.rangeDisabled = self.settings.range.disabled ? parseDates([...self.settings.range.disabled]) : [];
+  self.rangeEnabled = self.settings.range.enabled ? parseDates([...self.settings.range.enabled]) : [];
+  self.selectedDates = self.settings.selected.dates ? parseDates([...self.settings.selected.dates]) : [];
+  self.selectedHolidays = self.settings.selected.holidays ? parseDates([...self.settings.selected.holidays]) : [];
   if (self.settings.range.disablePast && !self.settings.range.disableAllDays && /* @__PURE__ */ new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
     self.rangeMin = generateDate(self.date.today);
   }
@@ -454,15 +439,13 @@ const createDays = (self) => {
 const ArrowPrev = (self) => `
 	<button type="button"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowPrev}"
-		data-calendar-arrow="prev"
-		title="Prev">
+		data-calendar-arrow="prev">
 	</button>
 `;
 const ArrowNext = (self) => `
 	<button type="button"
-	class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
-	data-calendar-arrow="next"
-	title="Next">
+		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
+		data-calendar-arrow="next">
 	</button>
 `;
 const Month = (self) => `
@@ -495,42 +478,20 @@ const WeekNumbers = (self) => self.settings.visibility.weekNumbers ? `
 const ControlTime = (self) => self.settings.selection.time ? `
 	<div class="${self.CSSClasses.time}"></div>
 ` : "";
-const getComponent = (pattern) => {
-  let FC = null;
-  switch (pattern) {
-    case "ArrowPrev":
-      FC = ArrowPrev;
-      break;
-    case "ArrowNext":
-      FC = ArrowNext;
-      break;
-    case "Month":
-      FC = Month;
-      break;
-    case "Year":
-      FC = Year;
-      break;
-    case "Week":
-      FC = Week;
-      break;
-    case "Days":
-      FC = Days;
-      break;
-    case "Months":
-      FC = Months;
-      break;
-    case "Years":
-      FC = Years;
-      break;
-    case "WeekNumbers":
-      FC = WeekNumbers;
-      break;
-    case "ControlTime":
-      FC = ControlTime;
-      break;
-  }
-  return FC;
-};
+const components = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  ArrowNext,
+  ArrowPrev,
+  ControlTime,
+  Days,
+  Month,
+  Months,
+  Week,
+  WeekNumbers,
+  Year,
+  Years
+}, Symbol.toStringTag, { value: "Module" }));
+const getComponent = (pattern) => components[pattern];
 const DOMParser = (self, template) => template.replace(/<#(.*?)\/>/g, (_, p1) => {
   const component = getComponent(p1.replace(/[\s\n\t]/g, ""));
   return component ? component(self) : "";
@@ -686,38 +647,22 @@ const calendarInput = (self) => ({
   HTMLElement: self.HTMLElement
 });
 const transformTime24 = (hour, keeping) => {
-  const oldHour = Number(hour);
-  let newHour = String(oldHour);
-  if (keeping === "AM") {
-    if (oldHour === 12) {
-      newHour = "00";
-    }
-  } else if (keeping === "PM") {
-    if (oldHour === 1) {
-      newHour = "13";
-    } else if (oldHour === 2) {
-      newHour = "14";
-    } else if (oldHour === 3) {
-      newHour = "15";
-    } else if (oldHour === 4) {
-      newHour = "16";
-    } else if (oldHour === 5) {
-      newHour = "17";
-    } else if (oldHour === 6) {
-      newHour = "18";
-    } else if (oldHour === 7) {
-      newHour = "19";
-    } else if (oldHour === 8) {
-      newHour = "20";
-    } else if (oldHour === 9) {
-      newHour = "21";
-    } else if (oldHour === 10) {
-      newHour = "22";
-    } else if (oldHour === 11) {
-      newHour = "23";
-    }
-  }
-  return newHour;
+  const hourMap = {
+    0: { AM: "00", PM: "12" },
+    1: { AM: "01", PM: "13" },
+    2: { AM: "02", PM: "14" },
+    3: { AM: "03", PM: "15" },
+    4: { AM: "04", PM: "16" },
+    5: { AM: "05", PM: "17" },
+    6: { AM: "06", PM: "18" },
+    7: { AM: "07", PM: "19" },
+    8: { AM: "08", PM: "20" },
+    9: { AM: "09", PM: "21" },
+    10: { AM: "10", PM: "22" },
+    11: { AM: "11", PM: "23" },
+    12: { AM: "12", PM: "12" }
+  };
+  return hour && keeping ? hourMap[Number(hour)][keeping] : "";
 };
 const controlTime = (self, keepingTime) => {
   const rangeHours = self.HTMLElement.querySelector(`.${self.CSSClasses.timeRange} input[name="hours"]`);
@@ -1113,20 +1058,27 @@ const updateCalendar = (self) => {
   self.settings.selected.month = tempSelectedMonth;
   self.settings.selected.year = tempSelectedYear;
 };
+const getColumnID = (self, columnClass, personalClass, id, dataAttr) => {
+  const columnEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
+  const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(columnClass));
+  const currentValue = Number(columnEls[indexColumn].querySelector(`.${personalClass}`).getAttribute(dataAttr));
+  if (self.currentType === "month" && indexColumn >= 0)
+    return id - indexColumn;
+  if (self.currentType === "year" && self.selectedYear !== currentValue)
+    return id - 1;
+  return id;
+};
 const changeMonth = (self, route) => {
-  if (self.selectedMonth === void 0 || self.selectedYear === void 0)
+  const { selectedMonth, selectedYear, jumpMonths } = self;
+  if (selectedMonth === void 0 || selectedYear === void 0)
     return;
-  const jumpDate = /* @__PURE__ */ new Date(`${generateDate(new Date(self.selectedYear, self.selectedMonth, 1))}T00:00:00`);
-  switch (route) {
-    case "prev":
-      jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths);
-      break;
-    case "next":
-      jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths);
-      break;
-  }
-  self.selectedMonth = jumpDate.getMonth();
-  self.selectedYear = jumpDate.getFullYear();
+  const jumpDate = /* @__PURE__ */ new Date(`${generateDate(new Date(selectedYear, selectedMonth, 1))}T00:00:00`);
+  const routeMap = {
+    prev: () => jumpDate.setMonth(jumpDate.getMonth() - jumpMonths),
+    next: () => jumpDate.setMonth(jumpDate.getMonth() + jumpMonths)
+  };
+  routeMap[route]();
+  [self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
   showMonth(self);
   showYear(self);
   controlArrows(self);
@@ -1226,9 +1178,24 @@ const resetDisabledDates = () => {
     currentSelf.rangeMin = generateDate(currentSelf.date.today);
   }
 };
-const handlerMultipleRanged = (self) => {
-  if (!self || !self.selectedDates)
+const handleDayRangedSelection = (self, dayBtnEl) => {
+  var _a, _b;
+  if (!self || !self.selectedDates || !dayBtnEl.dataset.calendarDay)
     return;
+  const formattedDate = dayBtnEl.dataset.calendarDay;
+  const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay);
+  self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+  if ((_a = self.selectedDates) == null ? void 0 : _a[1]) {
+    const [startDate, endDate] = self.selectedDates.map((selectedDate) => /* @__PURE__ */ new Date(`${selectedDate}T00:00:00`));
+    const dateIncrement = endDate > startDate ? 1 : -1;
+    self.selectedDates = [];
+    for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
+      const date = generateDate(i);
+      if ((_b = self.rangeDisabled) == null ? void 0 : _b.includes(date))
+        return;
+      self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
+    }
+  }
   currentSelf = self;
   if (self.selectedDates[0] && self.selectedDates.length <= 1) {
     self.HTMLElement.addEventListener("mousemove", hoverDaysEvent);
@@ -1242,136 +1209,69 @@ const handlerMultipleRanged = (self) => {
       resetDisabledDates();
   }
 };
-const getColumnID = (self, columnClass, personalClass, id, dataAttr) => {
-  const columnEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
-  const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(columnClass));
-  const currentValue = Number(columnEls[indexColumn].querySelector(`.${personalClass}`).getAttribute(dataAttr));
-  if (self.currentType === "month" && indexColumn >= 0)
-    return id - indexColumn;
-  if (self.currentType === "year" && self.selectedYear !== currentValue)
-    return id - 1;
-  return id;
+const handleDaySelection = (self, dayBtnEl, multiple) => {
+  if (!self.selectedDates || !dayBtnEl.dataset.calendarDay)
+    return;
+  const selectedDay = dayBtnEl.dataset.calendarDay;
+  const isSelected = dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected);
+  self.selectedDates = isSelected ? self.selectedDates.filter((date) => date !== selectedDay) : multiple ? [...self.selectedDates, selectedDay] : [selectedDay];
+};
+const handleClickDay = (self, event) => {
+  const element = event.target;
+  const closest = (className) => element.closest(`.${className}`);
+  const dayBtnEl = closest(self.CSSClasses.dayBtn);
+  if (!self.settings.selection.day || !["single", "multiple", "multiple-ranged"].includes(self.settings.selection.day) || !dayBtnEl)
+    return;
+  const daySelectionActions = {
+    single: () => handleDaySelection(self, dayBtnEl, false),
+    multiple: () => handleDaySelection(self, dayBtnEl, false),
+    "multiple-ranged": () => handleDayRangedSelection(self, dayBtnEl)
+  };
+  daySelectionActions[self.settings.selection.day]();
+  if (self.actions.clickDay)
+    self.actions.clickDay(event, self.selectedDates);
+  const isInitAsInput = self.input && self.HTMLInputElement && self.HTMLElement;
+  if (isInitAsInput && self.actions.changeToInput) {
+    self.actions.changeToInput(
+      event,
+      calendarInput(self),
+      self.selectedDates,
+      self.selectedTime,
+      self.selectedHours,
+      self.selectedMinutes,
+      self.selectedKeeping
+    );
+  }
+  const dayBtnPrevEl = closest(self.CSSClasses.dayBtnPrev);
+  const dayBtnNextEl = closest(self.CSSClasses.dayBtnNext);
+  const actionMapping = {
+    prev: () => changeMonth(self, "prev"),
+    next: () => changeMonth(self, "next"),
+    default: () => createDays(self)
+  };
+  actionMapping[dayBtnPrevEl ? "prev" : dayBtnNextEl ? "next" : "default"]();
 };
 const clickCalendar = (self) => {
   self.HTMLElement.addEventListener("click", (e) => {
     const element = e.target;
-    const arrowEl = element.closest(`.${self.CSSClasses.arrow}`);
-    const arrowPrevEl = element.closest(`.${self.CSSClasses.arrowPrev}`);
-    const arrowNextEl = element.closest(`.${self.CSSClasses.arrowNext}`);
-    const dayBtnEl = element.closest(`.${self.CSSClasses.dayBtn}`);
-    const dayBtnPrevEl = element.closest(`.${self.CSSClasses.dayBtnPrev}`);
-    const dayBtnNextEl = element.closest(`.${self.CSSClasses.dayBtnNext}`);
-    const weekNumberEl = element.closest(`.${self.CSSClasses.weekNumber}`);
-    const yearHeaderEl = element.closest(`.${self.CSSClasses.year}`);
-    const yearItemEl = element.closest(`.${self.CSSClasses.yearsYear}`);
-    const monthHeaderEl = element.closest(`.${self.CSSClasses.month}`);
-    const monthItemEl = element.closest(`.${self.CSSClasses.monthsMonth}`);
-    const gridEl = element.closest(`.${self.CSSClasses.grid}`);
-    const columnEl = element.closest(`.${self.CSSClasses.column}`);
-    const clickArrowMonth = () => {
-      if (arrowEl && self.currentType !== "year" && self.currentType !== "month") {
+    const closest = (className) => element.closest(`.${className}`);
+    const arrowEl = closest(self.CSSClasses.arrow);
+    const arrowPrevEl = closest(self.CSSClasses.arrowPrev);
+    const arrowNextEl = closest(self.CSSClasses.arrowNext);
+    const weekNumberEl = closest(self.CSSClasses.weekNumber);
+    const yearHeaderEl = closest(self.CSSClasses.year);
+    const yearItemEl = closest(self.CSSClasses.yearsYear);
+    const monthHeaderEl = closest(self.CSSClasses.month);
+    const monthItemEl = closest(self.CSSClasses.monthsMonth);
+    const gridEl = closest(self.CSSClasses.grid);
+    const columnEl = closest(self.CSSClasses.column);
+    const handleClickArrowMonth = () => {
+      if (!arrowEl)
+        return;
+      if (self.currentType !== "year" && self.currentType !== "month")
         changeMonth(self, element.dataset.calendarArrow);
-      }
-      if (arrowEl) {
-        if (self.actions.clickArrow)
-          self.actions.clickArrow(e, Number(self.selectedYear), Number(self.selectedMonth));
-      }
-    };
-    const clickDaySingle = () => {
-      if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay)
-        return;
-      if (dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected)) {
-        self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
-      } else {
-        self.selectedDates = [];
-        self.selectedDates.push(dayBtnEl.dataset.calendarDay);
-      }
-    };
-    const clickDayMultiple = () => {
-      if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay)
-        return;
-      if (dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected)) {
-        self.selectedDates.splice(self.selectedDates.indexOf(dayBtnEl.dataset.calendarDay), 1);
-      } else {
-        self.selectedDates.push(dayBtnEl.dataset.calendarDay);
-      }
-    };
-    const clickDayMultipleRanged = () => {
-      if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay)
-        return;
-      if (self.selectedDates.length <= 1 && self.selectedDates[0] && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay)) {
-        self.selectedDates = [];
-      } else {
-        if (self.selectedDates.length > 1)
-          self.selectedDates = [];
-        self.selectedDates.push(dayBtnEl.dataset.calendarDay);
-      }
-      if (self.selectedDates[1]) {
-        const startDate = new Date(
-          (/* @__PURE__ */ new Date(`${self.selectedDates[0]}T00:00:00`)).getFullYear(),
-          (/* @__PURE__ */ new Date(`${self.selectedDates[0]}T00:00:00`)).getMonth(),
-          (/* @__PURE__ */ new Date(`${self.selectedDates[0]}T00:00:00`)).getDate()
-        );
-        const endDate = new Date(
-          (/* @__PURE__ */ new Date(`${self.selectedDates[1]}T00:00:00`)).getFullYear(),
-          (/* @__PURE__ */ new Date(`${self.selectedDates[1]}T00:00:00`)).getMonth(),
-          (/* @__PURE__ */ new Date(`${self.selectedDates[1]}T00:00:00`)).getDate()
-        );
-        const addSelectedDate = (day) => {
-          if (!self.selectedDates)
-            return;
-          const date = generateDate(day);
-          if (self.rangeDisabled && self.rangeDisabled.includes(date))
-            return;
-          self.selectedDates.push(date);
-        };
-        self.selectedDates = [];
-        if (endDate > startDate) {
-          for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
-            addSelectedDate(i);
-          }
-        } else {
-          for (let i = startDate; i >= endDate; i.setDate(i.getDate() - 1)) {
-            addSelectedDate(i);
-          }
-        }
-      }
-      handlerMultipleRanged(self);
-    };
-    const clickDay = () => {
-      if (self.settings.selection.day && ["single", "multiple", "multiple-ranged"].includes(self.settings.selection.day) && dayBtnEl) {
-        switch (self.settings.selection.day) {
-          case "single":
-            clickDaySingle();
-            break;
-          case "multiple":
-            clickDayMultiple();
-            break;
-          case "multiple-ranged":
-            clickDayMultipleRanged();
-            break;
-        }
-        if (self.actions.clickDay)
-          self.actions.clickDay(e, self.selectedDates);
-        if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) {
-          self.actions.changeToInput(
-            e,
-            calendarInput(self),
-            self.selectedDates,
-            self.selectedTime,
-            self.selectedHours,
-            self.selectedMinutes,
-            self.selectedKeeping
-          );
-        }
-        if (dayBtnPrevEl) {
-          changeMonth(self, "prev");
-        } else if (dayBtnNextEl) {
-          changeMonth(self, "next");
-        } else {
-          createDays(self);
-        }
-      }
+      if (self.actions.clickArrow)
+        self.actions.clickArrow(e, Number(self.selectedYear), Number(self.selectedMonth));
     };
     const clickWeekNumber = () => {
       var _a;
@@ -1455,8 +1355,8 @@ const clickCalendar = (self) => {
         mainMethod(self);
       }
     };
-    clickArrowMonth();
-    clickDay();
+    handleClickArrowMonth();
+    handleClickDay(self, e);
     clickWeekNumber();
     clickYear();
     clickMonth();

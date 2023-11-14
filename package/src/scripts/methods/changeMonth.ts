@@ -1,9 +1,10 @@
-import { IVanillaCalendar } from '../../types';
-import generateDate from '../helpers/generateDate';
-import controlArrows from './controlArrows';
-import createDays from './createDays';
-import showMonth from './showMonth';
-import showYear from './showYear';
+import { IVanillaCalendar } from '@src/types';
+import generateDate from '@helpers/generateDate';
+
+import controlArrows from '@methods/controlArrows';
+import createDays from '@methods/createDays';
+import showMonth from '@methods/showMonth';
+import showYear from '@methods/showYear';
 
 const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
 	const { selectedMonth, selectedYear, jumpMonths } = self;

@@ -1,8 +1,10 @@
-import { FormatDateString, IVanillaCalendar } from '../../../types';
-import calendarInput from '../../helpers/calendarInput';
-import changeMonth from '../changeMonth';
-import createDays from '../createDays';
-import handleDayRangedSelection from './handleDayRangedSelection';
+import { IVanillaCalendar } from '@src/types';
+import calendarInput from '@helpers/calendarInput';
+
+import changeMonth from '@methods/changeMonth';
+import createDays from '@methods/createDays';
+import handleDayRangedSelection from '@methods/handles/handleDayRangedSelection';
+import handleDaySelection from '@methods/handles/handleDaySelection';
 
 const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;
@@ -11,18 +13,9 @@ const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
 
 	if (!self.settings.selection.day || !['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) || !dayBtnEl) return;
 
-	const handleDaySelection = (multiple: boolean) => {
-		if (!self.selectedDates || !dayBtnEl || !dayBtnEl.dataset.calendarDay) return;
-		const selectedDay = dayBtnEl.dataset.calendarDay as FormatDateString;
-		const isSelected = dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected);
-
-		self.selectedDates = isSelected ? self.selectedDates.filter((date) => date !== selectedDay)
-			: multiple ? [...self.selectedDates, selectedDay] : [selectedDay];
-	};
-
 	const daySelectionActions = {
-		single: () => handleDaySelection(false),
-		multiple: () => handleDaySelection(true),
+		single: () => handleDaySelection(self, dayBtnEl, false),
+		multiple: () => handleDaySelection(self, dayBtnEl, false),
 		'multiple-ranged': () => handleDayRangedSelection(self, dayBtnEl),
 	};
 	daySelectionActions[self.settings.selection.day]();
