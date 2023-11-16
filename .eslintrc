@@ -26,7 +26,7 @@
 		"class-methods-use-this": "off",
 		"max-len": ["error", { "code": 180 }],
 		"prefer-destructuring": ["error", { "object": true, "array": false }],
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"indent": "off",
 		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1 }]
 	},
 	"overrides": [
