@@ -1,139 +1,102 @@
 import { FormatDateString, IVanillaCalendar } from '@src/types';
 import generateDate from '@helpers/generateDate';
-
 import mainMethod from '@methods/mainMethod';
 
 let currentSelf: null | IVanillaCalendar = null;
 
-const removeHover = () => {
-	if (!currentSelf) return;
-	const daysEl = currentSelf.HTMLElement?.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
-	if (daysEl) daysEl.forEach((d) => d.classList.remove((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover));
+const removeHoverEffect = () => {
+	const dayEls = currentSelf?.HTMLElement?.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
+	dayEls?.forEach((d) => d.classList.remove((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover));
 };
 
-const addHover = (day: Date) => {
-	if (!currentSelf || !currentSelf.selectedDates) return;
-	const date = generateDate(day);
+const addHoverEffect = (day: Date) => {
+	if (!currentSelf?.selectedDates) return;
+	const formattedDate = generateDate(day);
 
-	if (currentSelf.rangeDisabled && currentSelf.rangeDisabled.includes(date)) return;
-	const dayEls = currentSelf.HTMLElement?.querySelectorAll(`[data-calendar-day="${date}"]`) as NodeListOf<HTMLElement>;
+	if (currentSelf.rangeDisabled?.includes(formattedDate)) return;
 
-	dayEls?.forEach((dayEl) => {
-		dayEl.classList.add((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover);
-	});
+	const dayEls: NodeListOf<HTMLElement> | undefined = currentSelf.HTMLElement?.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
+	dayEls?.forEach((d) => d.classList.add((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover));
 };
 
-const hoverDaysEvent = (e: MouseEvent) => {
-	if (!e.target || !currentSelf || !currentSelf.selectedDates) return;
+const handleHoverDaysEvent = (e: MouseEvent) => {
+	if (!e.target || !currentSelf?.selectedDates) return;
+	removeHoverEffect();
 
-	if (!(e.target as HTMLElement).closest(`.${currentSelf.CSSClasses.days}`)) {
-		removeHover();
-		return;
-	}
+	const dayEl: HTMLElement | null = (e.target as HTMLElement).closest('[data-calendar-day]');
+	if (!dayEl) return;
 
-	const date = (e.target as HTMLElement).dataset.calendarDay;
-	if (!date) return;
-	removeHover();
+	const formattedDate = dayEl.dataset.calendarDay;
+	const startDate = new Date(`${currentSelf.selectedDates[0]}T00:00:00`);
+	const endDate = new Date(`${formattedDate}T00:00:00`);
+	const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];
 
-	const startDate = new Date(
-		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getFullYear(),
-		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getMonth(),
-		new Date(`${currentSelf.selectedDates[0]}T00:00:00`).getDate(),
-	);
-
-	const endDate = new Date(
-		new Date(`${date}T00:00:00`).getFullYear(),
-		new Date(`${date}T00:00:00`).getMonth(),
-		new Date(`${date}T00:00:00`).getDate(),
-	);
-
-	if (endDate > startDate) {
-		for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
-			addHover(i);
-		}
-	} else {
-		for (let i = startDate; i >= endDate; i.setDate(i.getDate() - 1)) {
-			addHover(i);
-		}
+	for (let i = new Date(start); i <= end; i.setDate(i.getDate() + 1)) {
+		addHoverEffect(i);
 	}
 };
 
-const cancelSelectionDays = (e: KeyboardEvent) => {
+const handleCancelSelectionDays = (e: KeyboardEvent) => {
 	if (!currentSelf || e.key !== 'Escape') return;
-
 	currentSelf.selectedDates = [];
-	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
-	document.removeEventListener('keydown', cancelSelectionDays);
+	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', handleHoverDaysEvent);
+	document.removeEventListener('keydown', handleCancelSelectionDays);
 	mainMethod(currentSelf);
 };
 
-const setDisabledDates = () => {
-	if (!currentSelf || !currentSelf.selectedDates?.[0] || !currentSelf.rangeDisabled || currentSelf.rangeDisabled.length < 2) return;
+const updateDisabledDates = () => {
+	if (!currentSelf?.selectedDates?.[0] || !currentSelf.rangeDisabled || currentSelf.rangeDisabled?.length < 2) return;
 	const selectedDate = new Date(`${currentSelf.selectedDates[0]}T00:00:00`);
 
-	let startDate = null;
-	let endDate = null;
+	const [startDate, endDate] = currentSelf.rangeDisabled
+		.map((dateStr) => new Date(`${dateStr}T00:00:00`))
+		.reduce<[Date | null, Date | null]>(([start, end], disabledDate) => [
+		selectedDate >= disabledDate ? disabledDate : start,
+		selectedDate < disabledDate && end === null ? disabledDate : end,
+	], [null, null]);
 
-	for (let index = 0; index < currentSelf.rangeDisabled.length; index++) {
-		const disabledDate = new Date(`${currentSelf.rangeDisabled[index]}T00:00:00`);
-		if (selectedDate >= disabledDate) {
-			startDate = disabledDate;
-		} else {
-			endDate = disabledDate;
-			break;
-		}
-	}
-
-	if (startDate) {
-		startDate = new Date(startDate.setDate(startDate.getDate() + 1));
-		currentSelf.rangeMin = generateDate(startDate);
-	}
-
-	if (endDate) {
-		endDate = new Date(endDate.setDate(endDate.getDate() - 1));
-		currentSelf.rangeMax = generateDate(endDate);
-	}
+	if (startDate) currentSelf.rangeMin = generateDate(new Date(startDate.setDate(startDate.getDate() + 1)));
+	if (endDate) currentSelf.rangeMax = generateDate(new Date(endDate.setDate(endDate.getDate() - 1)));
 };
 
 const resetDisabledDates = () => {
 	if (!currentSelf) return;
-	currentSelf.rangeMin = currentSelf.settings.range.min;
+	const minDate = new Date(`${currentSelf.settings.range.min}T00:00:00`);
+	currentSelf.rangeMin = currentSelf.settings.range.disablePast && minDate < currentSelf.date.today
+		? generateDate(currentSelf.date.today)
+		: currentSelf.settings.range.min;
 	currentSelf.rangeMax = currentSelf.settings.range.max;
-
-	if (currentSelf.settings.range.disablePast && new Date(`${currentSelf.settings.range.min}T00:00:00`) < currentSelf.date.today) {
-		currentSelf.rangeMin = generateDate(currentSelf.date.today);
-	}
 };
 
 const handleDayRangedSelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement) => {
-	if (!self || !self.selectedDates || !dayBtnEl.dataset.calendarDay) return;
+	if (!self.selectedDates) return;
 	const formattedDate = dayBtnEl.dataset.calendarDay as FormatDateString;
-	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(dayBtnEl.dataset.calendarDay);
+	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
 	self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
-
-	if (self.selectedDates?.[1]) {
-		const [startDate, endDate] = self.selectedDates.map((selectedDate) => new Date(`${selectedDate}T00:00:00`));
-		const dateIncrement = endDate > startDate ? 1 : -1;
-		self.selectedDates = [];
-
-		for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
-			const date = generateDate(i);
-			if (self.rangeDisabled?.includes(date)) return;
-			self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
-		}
-	}
-
 	currentSelf = self;
 
-	if (self.selectedDates[0] && self.selectedDates.length <= 1) {
-		(self.HTMLElement as HTMLElement).addEventListener('mousemove', hoverDaysEvent);
-		document.addEventListener('keydown', cancelSelectionDays);
-		if (self.settings.range.disableGaps) setDisabledDates();
-	} else {
-		(self.HTMLElement as HTMLElement).removeEventListener('mousemove', hoverDaysEvent);
-		document.removeEventListener('keydown', cancelSelectionDays);
-		if (self.settings.range.disableGaps) resetDisabledDates();
-	}
+	const selectionHandlers = {
+		set: () => {
+			(self.HTMLElement as HTMLElement).addEventListener('mousemove', handleHoverDaysEvent);
+			document.addEventListener('keydown', handleCancelSelectionDays);
+			if (self.settings.range.disableGaps) updateDisabledDates();
+		},
+		reset: () => {
+			const [startDate, endDate] = (self.selectedDates as FormatDateString[]).map((selectedDate) => new Date(`${selectedDate}T00:00:00`));
+			const dateIncrement = endDate > startDate ? 1 : -1;
+			self.selectedDates = [];
+
+			for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
+				const date = generateDate(i);
+				if (!self.rangeDisabled?.includes(date)) self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
+			}
+
+			(self.HTMLElement as HTMLElement).removeEventListener('mousemove', handleHoverDaysEvent);
+			document.removeEventListener('keydown', handleCancelSelectionDays);
+			if (self.settings.range.disableGaps) resetDisabledDates();
+		},
+	};
+	selectionHandlers[self.selectedDates.length === 1 ? 'set' : 'reset']();
 };
 
 export default handleDayRangedSelection;
