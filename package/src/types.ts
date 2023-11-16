@@ -20,8 +20,8 @@ export interface IRange {
 	disableGaps: boolean;
 	disableAllDays: boolean;
 	disableWeekday: number[] | null;
-	disabled: FormatDateString[] | null;
-	enabled: FormatDateString[] | null;
+	disabled:string[] | null;
+	enabled: string[] | null;
 }
 
 export interface ISelection {
@@ -35,10 +35,10 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates: FormatDateString[] | undefined | null;
+	dates?: string[] | null;
 	month: number | null;
 	year: number | null;
-	holidays: FormatDateString[] | null;
+	holidays: string[] | null;
 	time: string | null;
 }
 
