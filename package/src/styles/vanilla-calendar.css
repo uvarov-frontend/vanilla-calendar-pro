@@ -63,7 +63,7 @@
 }
 
 .vanilla-calendar-header {
-	@apply relative flex items-center px-1 mb-3
+	@apply relative flex items-center mb-3
 }
 
 .vanilla-calendar-header__content {
