@@ -1,57 +1,65 @@
-import { IVanillaCalendar } from '../../types';
-import { DOMParser, MultipleParser } from '../helpers/parseComponent';
+import { IVanillaCalendar } from '@src/types';
+import { DOMParser, MultipleParser } from '@helpers/parseComponent';
 
 const createDOM = (self: IVanillaCalendar, target?: HTMLElement) => {
-	const calendarElement = (self.HTMLElement as HTMLElement);
-	calendarElement.classList.add(self.CSSClasses.calendar);
+	if (!self.HTMLElement) return;
+	const {
+		HTMLElement,
+		CSSClasses,
+		DOMTemplates,
+		type,
+		currentType,
+		correctMonths,
+	} = self;
 
-	const switcherTypeMultiple = (columnClass: string, DOMTemplates: string) => {
+	const updateGridAndControls = (columnClass: string, DOMTemplate: string) => {
 		if (!target) return;
-		const controls = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.controls}`);
-		if (controls) (self.HTMLElement as HTMLElement).removeChild(controls);
-		const grid = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.grid}`) as HTMLElement;
-		grid.classList.add(self.CSSClasses.gridDisabled);
-		const columnElement = target.closest(`.${self.CSSClasses.column}`) as HTMLElement;
+
+		const controls = HTMLElement.querySelector(`.${CSSClasses.controls}`);
+		if (controls) HTMLElement.removeChild(controls);
+
+		const grid = HTMLElement.querySelector(`.${CSSClasses.grid}`) as HTMLElement;
+		grid.classList.add(CSSClasses.gridDisabled);
+
+		const columnElement = target.closest(`.${CSSClasses.column}`) as HTMLElement;
 		columnElement.classList.add(columnClass);
-		columnElement.innerHTML = DOMParser(self, DOMTemplates);
+		columnElement.innerHTML = DOMParser(self, DOMTemplate);
 	};
 
-	switch (self.currentType) {
-		case 'default':
-			calendarElement.classList.add(self.CSSClasses.calendarDefault);
-			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
-			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.default);
-			break;
-		case 'multiple':
-			if (!self.correctMonths) break;
-			calendarElement.classList.add(self.CSSClasses.calendarMultiple);
-			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
-			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = MultipleParser(self, DOMParser(self, self.DOMTemplates.multiple));
-			break;
-		case 'month':
-			if (self.type === 'multiple') {
-				switcherTypeMultiple(self.CSSClasses.columnMonth, self.DOMTemplates.month);
-				break;
+	const typeHandlers = {
+		default: () => {
+			HTMLElement.classList.add(CSSClasses.calendarDefault);
+			HTMLElement.classList.remove(CSSClasses.calendarMonth, CSSClasses.calendarYear);
+			HTMLElement.innerHTML = DOMParser(self, DOMTemplates.default);
+		},
+		multiple: () => {
+			if (!correctMonths) return;
+			HTMLElement.classList.add(CSSClasses.calendarMultiple);
+			HTMLElement.classList.remove(CSSClasses.calendarMonth, CSSClasses.calendarYear);
+			HTMLElement.innerHTML = MultipleParser(self, DOMParser(self, DOMTemplates.multiple));
+		},
+		month: () => {
+			if (type === 'multiple') {
+				updateGridAndControls(CSSClasses.columnMonth, DOMTemplates.month);
+				return;
 			}
-			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
-			calendarElement.classList.add(self.CSSClasses.calendarMonth);
-			calendarElement.classList.remove(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.month);
-			break;
-		case 'year':
-			if (self.type === 'multiple') {
-				switcherTypeMultiple(self.CSSClasses.columnYear, self.DOMTemplates.year);
-				break;
+			HTMLElement.classList.add(CSSClasses.calendarMonth);
+			HTMLElement.classList.remove(CSSClasses.calendarDefault, CSSClasses.calendarYear);
+			HTMLElement.innerHTML = DOMParser(self, DOMTemplates.month);
+		},
+		year: () => {
+			if (type === 'multiple') {
+				updateGridAndControls(CSSClasses.columnYear, DOMTemplates.year);
+				return;
 			}
-			calendarElement.classList.remove(self.CSSClasses.calendarDefault);
-			calendarElement.classList.remove(self.CSSClasses.calendarMonth);
-			calendarElement.classList.add(self.CSSClasses.calendarYear);
-			calendarElement.innerHTML = DOMParser(self, self.DOMTemplates.year);
-			break;
-		// no default
-	}
+			HTMLElement.classList.add(CSSClasses.calendarYear);
+			HTMLElement.classList.remove(CSSClasses.calendarDefault, CSSClasses.calendarMonth);
+			HTMLElement.innerHTML = DOMParser(self, DOMTemplates.year);
+		},
+	};
+
+	HTMLElement.classList.add(CSSClasses.calendar);
+	typeHandlers[currentType]();
 };
 
 export default createDOM;
