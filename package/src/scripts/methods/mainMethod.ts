@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '../../types';
-import controlArrows from './controlArrows';
+import updateArrowVisibility from './updateArrowVisibility';
 import createDays from './createDays';
 import createDOM from './createDOM';
 import showMonth from './showMonth';
@@ -34,7 +34,7 @@ const mainMethod = (self: IVanillaCalendar) => {
 	createDOM(self);
 	showMonth(self);
 	showYear(self);
-	controlArrows(self);
+	updateArrowVisibility(self);
 	createTime(self);
 
 	typeMapper[self.currentType]();
