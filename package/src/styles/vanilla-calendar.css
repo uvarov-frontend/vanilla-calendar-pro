@@ -169,7 +169,7 @@
 	@apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg
 }
 
-.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_intermediate {
+.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected_intermediate {
 	@apply rounded-none
 }
 
