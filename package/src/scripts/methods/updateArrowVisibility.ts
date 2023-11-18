@@ -31,6 +31,7 @@ const updateArrowVisibility = (self: IVanillaCalendar) => {
 		},
 		year: () => {
 			if (!self.dateMin || !self.dateMax || self.viewYear === undefined) return;
+			// TODO: Add check self.settings.selection.year
 			arrowPrev.style.visibility = self.dateMin.getFullYear() && (self.viewYear - 7) <= self.dateMin.getFullYear() ? 'hidden' : '';
 			arrowNext.style.visibility = self.dateMax.getFullYear() && (self.viewYear + 7) >= self.dateMax.getFullYear() ? 'hidden' : '';
 		},
