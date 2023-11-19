@@ -19,6 +19,7 @@ const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
 		'multiple-ranged': () => handleDayRangedSelection(self, dayBtnEl),
 	};
 	daySelectionActions[self.settings.selection.day]();
+	self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
 	if (self.actions.clickDay) self.actions.clickDay(event, self.selectedDates);
 

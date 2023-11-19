@@ -11,30 +11,6 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	self.selectedDates = self.settings.selected.dates ? parseDates([...self.settings.selected.dates]) : [];
 	self.selectedHolidays = self.settings.selected.holidays ? parseDates([...self.settings.selected.holidays]) : [];
 
-	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
-		self.rangeMin = generateDate(self.date.today);
-	}
-
-	if (self.settings.range.disableAllDays) {
-		self.rangeMin = generateDate(self.date.today);
-		self.rangeMax = generateDate(self.date.today);
-		self.rangeDisabled?.push(generateDate(self.date.today));
-	}
-
-	if (self.rangeEnabled) self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
-
-	if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
-		self.rangeMin = self.rangeEnabled[0];
-		self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
-	}
-
-	const firstDay = new Date(`${self.rangeMin}T00:00:00`);
-	const lastDay = new Date(`${self.rangeMax}T00:00:00`);
-	firstDay.setDate(firstDay.getDate() - 1);
-	lastDay.setDate(lastDay.getDate() + 1);
-	self.rangeDisabled.push(generateDate(firstDay));
-	self.rangeDisabled.push(generateDate(lastDay));
-
 	if (self.settings.selected.month !== null && self.settings.selected.month >= 0 && self.settings.selected.month < 12) {
 		self.selectedMonth = self.settings.selected.month;
 	} else {
@@ -48,6 +24,33 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	}
 
 	self.viewYear = self.selectedYear;
+
+	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
+		self.rangeMin = generateDate(self.date.today);
+	}
+
+	if (self.settings.range.disableAllDays) {
+		const shownDate = new Date(self.selectedYear, self.selectedMonth, 1);
+
+		self.rangeMin = generateDate(shownDate);
+		self.rangeMax = generateDate(shownDate);
+		self.rangeDisabled?.push(generateDate(shownDate));
+	}
+
+	if (self.rangeEnabled) self.rangeDisabled = self.rangeDisabled?.filter((d) => !self.rangeEnabled?.includes(d));
+
+	if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
+		self.rangeMin = self.rangeEnabled[0];
+		self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
+	}
+
+	const firstDay = new Date(`${self.rangeMin}T00:00:00`);
+	const lastDay = new Date(`${self.rangeMax}T00:00:00`);
+	firstDay.setDate(firstDay.getDate() - 1);
+	lastDay.setDate(lastDay.getDate() + 1);
+	self.rangeDisabled.push(generateDate(firstDay));
+	self.rangeDisabled.push(generateDate(lastDay));
+
 	self.dateMin = self.settings.visibility.disabled ? new Date(`${self.date.min}T00:00:00`) : new Date(`${self.rangeMin}T00:00:00`);
 	self.dateMax = self.settings.visibility.disabled ? new Date(`${self.date.max}T00:00:00`) : new Date(`${self.rangeMax}T00:00:00`);
 

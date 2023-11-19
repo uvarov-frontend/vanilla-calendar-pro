@@ -5,6 +5,13 @@ import createPopup from '@methods/createPopup';
 import createWeekNumbers from '@methods/createWeekNumbers';
 import getWeekNumber from '@methods/getWeekNumber';
 
+const setDisableWeekday = (self: IVanillaCalendar, date: FormatDateString, dayWeekID: number) => {
+	if (self.settings.range.disableWeekday?.includes(dayWeekID) && !self.rangeDisabled?.includes(date)) {
+		self.rangeDisabled = self.rangeDisabled ? [...self.rangeDisabled, date] : [date];
+		self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
+	}
+};
+
 const setDayModifier = (
 	self: IVanillaCalendar,
 	year: number,
@@ -92,20 +99,7 @@ const createDay = (
 		dayEl.append(dayBtnEl);
 	}
 
-	// TODO: refactoring this code
-	if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays && !self.rangeDisabled?.includes(date as FormatDateString)) {
-		self.rangeDisabled?.push(date as FormatDateString);
-	}
-
-	if (self.rangeEnabled?.[0] && self.rangeDisabled?.includes(date as FormatDateString)) {
-		self.rangeDisabled = self.rangeDisabled?.filter((d: FormatDateString) => !self.rangeEnabled?.includes(d));
-	}
-
-	if (self.settings.range.disableWeekday?.includes(dayWeekID) && !self.rangeDisabled?.includes(date as FormatDateString)) {
-		self.rangeDisabled?.push(date as FormatDateString);
-	}
-	// end
-
+	setDisableWeekday(self, date, dayWeekID);
 	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
 
 	daysEl.append(dayEl);
@@ -153,7 +147,6 @@ const createDays = (self: IVanillaCalendar) => {
 	const daysEls: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.days}`);
 	const weekNumbersEls: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.weekNumbers}`);
 	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
-	self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
 	daysEls.forEach((daysEl, index: number) => {
 		const selectedDate = new Date(initDate);
@@ -175,8 +168,6 @@ const createDays = (self: IVanillaCalendar) => {
 		createWeekNumbers(self, firstDayWeek, daysSelectedMonth, weekNumbersEls[index], daysEl);
 		createPopup(self, daysEl);
 	});
-
-	self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
 };
 
 export default createDays;
