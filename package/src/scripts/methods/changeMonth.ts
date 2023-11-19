@@ -1,7 +1,7 @@
 import { IVanillaCalendar } from '@src/types';
 import generateDate from '@helpers/generateDate';
 
-import updateArrowVisibility from '@methods/updateArrowVisibility';
+import updateVisibilityArrows from '@methods/updateVisibilityArrows';
 import createDays from '@methods/createDays';
 import showMonth from '@methods/showMonth';
 import showYear from '@methods/showYear';
@@ -23,7 +23,7 @@ const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
 
 	showMonth(self);
 	showYear(self);
-	updateArrowVisibility(self);
+	updateVisibilityArrows(self);
 	createDays(self);
 };
 

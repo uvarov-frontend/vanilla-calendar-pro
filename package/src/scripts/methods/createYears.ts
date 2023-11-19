@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '../../types';
-import updateArrowVisibility from './updateArrowVisibility';
+import updateVisibilityArrows from './updateVisibilityArrows';
 import createDOM from './createDOM';
 import showMonth from './showMonth';
 import showYear from './showYear';
@@ -11,7 +11,7 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	createDOM(self, target);
 	showMonth(self);
 	showYear(self);
-	updateArrowVisibility(self);
+	updateVisibilityArrows(self);
 
 	const yearsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.years}`);
 	if (!yearsEl) return;
