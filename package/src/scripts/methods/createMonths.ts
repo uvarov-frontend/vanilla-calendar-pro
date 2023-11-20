@@ -1,9 +1,10 @@
 import { IVanillaCalendar } from '@src/types';
+import { button } from '@helpers/createElements';
 import createDOM from '@methods/createDOM';
 import showMonth from '@methods/showMonth';
 import showYear from '@methods/showYear';
 
-const columnID = (self: IVanillaCalendar) => {
+const relationshipID = (self: IVanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;
 	const columnEls: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.column}`);
 	const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
@@ -11,8 +12,7 @@ const columnID = (self: IVanillaCalendar) => {
 };
 
 const createMonthEl = (self: IVanillaCalendar, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
-	const monthEl = document.createElement('button');
-	monthEl.type = 'button';
+	const monthEl = button.cloneNode(false) as HTMLButtonElement;
 	monthEl.className = `${self.CSSClasses.monthsMonth}${selectedMonth === i ? ` ${self.CSSClasses.monthsMonthSelected}`
 		: monthDisabled ? ` ${self.CSSClasses.monthsMonthDisabled}` : ''}`;
 	monthEl.title = monthTitle;
@@ -32,7 +32,7 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 	showYear(self);
 
 	const monthsEl = self.HTMLElement?.querySelector(`.${self.CSSClasses.months}`);
-	if (!self.settings.selection.month || !self.dateMin || !self.dateMax || !monthsEl) return;
+	if (!self.settings.selection.month || !monthsEl) return;
 
 	monthsEl.classList.add(self.CSSClasses.monthsSelecting);
 
@@ -43,8 +43,8 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 
 	for (let i = 0; i < 12; i++) {
 		const monthTitle = self.locale.months[i];
-		const monthDisabled = (i < self.dateMin.getMonth() + columnID(self) && selectedYear <= self.dateMin.getFullYear())
-		|| (i > self.dateMax.getMonth() + columnID(self) && selectedYear >= self.dateMax.getFullYear())
+		const monthDisabled = (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear())
+		|| (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear())
 		|| (i !== selectedMonth && !activeMonthsID.includes(i));
 		monthsEl.append(createMonthEl(self, selectedMonth, monthTitle, monthDisabled, i));
 	}
