@@ -130,8 +130,8 @@ const currentMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedM
 
 const nextMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {
 	const currentTotalDays = firstDayWeek + daysSelectedMonth;
-	const rowsDays = Math.ceil(currentTotalDays / self.locale.weekday.length);
-	const daysNextMonth = (self.locale.weekday.length * rowsDays) - currentTotalDays;
+	const rowsDays = Math.ceil(currentTotalDays / 7);
+	const daysNextMonth = (7 * rowsDays) - currentTotalDays;
 	const year = (selectedMonth + 1) === 12 ? selectedYear + 1 : selectedYear;
 	const month = (selectedMonth + 1) === 12 ? '01' : (selectedMonth + 2) < 10 ? `0${selectedMonth + 2}` : selectedMonth + 2;
 
