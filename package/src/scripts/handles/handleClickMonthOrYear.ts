@@ -2,7 +2,7 @@ import { IVanillaCalendar } from '@src/types';
 import getColumnID from '@scripts/helpers/getColumnID';
 import createMonths from '@scripts/methods/createMonths';
 import createYears from '@scripts/methods/createYears';
-import create from '@scripts/main/create';
+import create from '@/package/src/scripts/create';
 
 type HandleType = 'month' | 'year';
 

@@ -1,4 +1,4 @@
-import themes from './scripts/themes';
+import themes from '@scripts/helpers/getThemes';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;

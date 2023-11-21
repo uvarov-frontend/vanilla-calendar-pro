@@ -1,7 +1,7 @@
 import { IVanillaCalendar } from '@src/types';
 import calendarInput from '@scripts/helpers/calendarInput';
 import handleClick from '@scripts/handles/handleClick';
-import reset from '@scripts/main/reset';
+import reset from '@scripts/reset';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;

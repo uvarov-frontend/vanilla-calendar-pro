@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '../../types';
-import themes from '../themes';
+import themes from '../helpers/getThemes';
 
 let haveListener = false;
 

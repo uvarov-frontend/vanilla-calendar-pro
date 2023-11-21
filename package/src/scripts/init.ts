@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import reset from '@scripts/main/reset';
+import reset from '@scripts/reset';
 import handleInput from '@scripts/handles/handleInput';
 import handleClick from '@scripts/handles/handleClick';
 

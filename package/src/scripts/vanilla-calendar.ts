@@ -10,10 +10,10 @@ import {
 	TypesCalendar,
 } from '@src/types';
 import classes from '@src/classes';
-import reset from '@scripts/main/reset';
-import update from '@scripts/main/update';
-import init from '@scripts/main/init';
-import destroy from '@scripts/main/destroy';
+import reset from '@scripts/reset';
+import update from '@scripts/update';
+import init from '@scripts/init';
+import destroy from '@scripts/destroy';
 import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMMonth from '@scripts/templates/DOMMonth';

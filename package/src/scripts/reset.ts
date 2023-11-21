@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import create from '@scripts/main/create';
+import create from '@/package/src/scripts/create';
 import setVariablesDates from '@scripts/methods/setVariablesDates';
 
 const reset = (self: IVanillaCalendar) => {
