@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import create from '@/package/src/scripts/create';
+import create from '@scripts/create';
 import setVariablesDates from '@scripts/methods/setVariablesDates';
 
 const update = (self: IVanillaCalendar) => {

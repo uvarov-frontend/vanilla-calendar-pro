@@ -1,6 +1,6 @@
 import { FormatDateString, IVanillaCalendar } from '@src/types';
 import generateDate from '@scripts/helpers/generateDate';
-import create from '@/package/src/scripts/create';
+import create from '@scripts/create';
 
 let currentSelf: null | IVanillaCalendar = null;
 
