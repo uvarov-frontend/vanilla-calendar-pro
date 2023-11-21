@@ -93,11 +93,13 @@ export interface IActions {
 	showCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
 }
 
+export type IPopup = {
+	modifier?: string | null;
+	html?: string | null;
+} | null;
+
 export type IPopups = {
-	[date in FormatDateString]: {
-		modifier?: string | null;
-		html: string;
-	} | null;
+	[date in FormatDateString]: IPopup;
 };
 
 export interface IDOMTemplates {
