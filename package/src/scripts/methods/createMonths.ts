@@ -1,5 +1,4 @@
 import { IVanillaCalendar } from '@src/types';
-import { button } from '@helpers/createElements';
 import createDOM from '@methods/createDOM';
 import showMonth from '@methods/showMonth';
 import showYear from '@methods/showYear';
@@ -11,8 +10,8 @@ const relationshipID = (self: IVanillaCalendar) => {
 	return indexColumn > 0 ? indexColumn : 0;
 };
 
-const createMonthEl = (self: IVanillaCalendar, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
-	const monthEl = button.cloneNode(false) as HTMLButtonElement;
+const createMonthEl = (self: IVanillaCalendar, templateMonthEl: HTMLButtonElement, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
+	const monthEl = templateMonthEl.cloneNode(false) as HTMLButtonElement;
 	monthEl.className = `${self.CSSClasses.monthsMonth}${selectedMonth === i ? ` ${self.CSSClasses.monthsMonthSelected}`
 		: monthDisabled ? ` ${self.CSSClasses.monthsMonthDisabled}` : ''}`;
 	monthEl.title = monthTitle;
@@ -41,12 +40,15 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 		.concat(self.locale.months.map((_, i) => selectedMonth + self.jumpMonths * i))
 		.filter((monthID) => monthID >= 0 && monthID <= 12) : Array.from(Array(12).keys());
 
+	const templateMonthEl = document.createElement('button');
+	templateMonthEl.type = 'button';
+
 	for (let i = 0; i < 12; i++) {
 		const monthTitle = self.locale.months[i];
 		const monthDisabled = (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear())
 		|| (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear())
 		|| (i !== selectedMonth && !activeMonthsID.includes(i));
-		monthsEl.append(createMonthEl(self, selectedMonth, monthTitle, monthDisabled, i));
+		monthsEl.append(createMonthEl(self, templateMonthEl, selectedMonth, monthTitle, monthDisabled, i));
 	}
 };
 

@@ -1,12 +1,11 @@
 import { IVanillaCalendar } from '@src/types';
-import { button } from '@helpers/createElements';
 import updateVisibilityArrows from '@methods/updateVisibilityArrows';
 import createDOM from '@methods/createDOM';
 import showMonth from '@methods/showMonth';
 import showYear from '@methods/showYear';
 
-const createYearEl = (self: IVanillaCalendar, selectedYear: number, yearDisabled: boolean, i: number) => {
-	const yearEl = button.cloneNode(false) as HTMLButtonElement;
+const createYearEl = (self: IVanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
+	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;
 	yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}`
 		: yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ''}`;
 	yearEl.dataset.calendarYear = String(i);
@@ -31,9 +30,12 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 
 	const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
 
+	const templateYearEl = document.createElement('button');
+	templateYearEl.type = 'button';
+
 	for (let i = (self.viewYear as number) - 7; i < (self.viewYear as number) + 8; i++) {
 		const yearDisabled = i < (self.dateMin as Date).getFullYear() + relationshipID || i > (self.dateMax as Date).getFullYear();
-		yearsEl.append(createYearEl(self, selectedYear, yearDisabled, i));
+		yearsEl.append(createYearEl(self, templateYearEl, selectedYear, yearDisabled, i));
 	}
 };
 
