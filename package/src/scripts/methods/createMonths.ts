@@ -1,7 +1,7 @@
 import { IVanillaCalendar } from '@src/types';
-import createDOM from '@methods/createDOM';
-import showMonth from '@methods/showMonth';
-import showYear from '@methods/showYear';
+import createDOM from '@scripts/methods/createDOM';
+import showMonth from '@scripts/methods/showMonth';
+import showYear from '@scripts/methods/showYear';
 
 const relationshipID = (self: IVanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;

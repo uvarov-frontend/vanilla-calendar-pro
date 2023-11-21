@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import generateDate from '@helpers/generateDate';
+import generateDate from '@scripts/helpers/generateDate';
 
 const setVisibilityArrows = ({
 	arrowPrev, arrowNext, isPrevHidden, isNextHidden,

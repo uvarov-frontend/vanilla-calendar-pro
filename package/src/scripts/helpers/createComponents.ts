@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../../types';
+import { IVanillaCalendar } from '@src/types';
 
 export const ArrowPrev = (self: IVanillaCalendar) => (`
 	<button type="button"

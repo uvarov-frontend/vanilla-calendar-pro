@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '../../types';
+import { IVanillaCalendar } from '@src/types';
 
 const getColumnID = (self: IVanillaCalendar, columnClass: string, personalClass: string, id: number, dataAttr: string) => {
 	const columnEls = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.column}`) as NodeListOf<HTMLElement>;

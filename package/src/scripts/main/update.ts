@@ -1,8 +1,8 @@
-import { IVanillaCalendar } from '../../types';
-import setVariablesDates from './setVariablesDates';
-import mainMethod from './mainMethod';
+import { IVanillaCalendar } from '@src/types';
+import create from '@scripts/main/create';
+import setVariablesDates from '@scripts/methods/setVariablesDates';
 
-const updateCalendar = (self: IVanillaCalendar) => {
+const update = (self: IVanillaCalendar) => {
 	let tempSelectedDates = null;
 	let tempSelectedMonth = null;
 	let tempSelectedYear = null;
@@ -20,10 +20,10 @@ const updateCalendar = (self: IVanillaCalendar) => {
 		self.settings.selected.year = self.selectedYear as number;
 	}
 	setVariablesDates(self);
-	mainMethod(self);
+	create(self);
 	self.settings.selected.dates = tempSelectedDates;
 	self.settings.selected.month = tempSelectedMonth;
 	self.settings.selected.year = tempSelectedYear;
 };
 
-export default updateCalendar;
+export default update;

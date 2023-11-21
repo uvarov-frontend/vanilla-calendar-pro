@@ -18,8 +18,7 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@src/*": ["./package/src/*"],
-			"@helpers/*": ["./package/src/scripts/helpers/*"],
-			"@methods/*": ["./package/src/scripts/methods/*"]
+			"@scripts/*": ["./package/src/scripts/*"],
 		}
 	},
 	"include": ["**/*.ts", "**/*.js", "**/*.cy.ts"],

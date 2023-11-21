@@ -20,8 +20,7 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, '../'),
 			'@src': resolve(__dirname, '../package/src'),
-			'@helpers': resolve(__dirname, '../package/src/scripts/helpers'),
-			'@methods': resolve(__dirname, '../package/src/scripts/methods'),
+			'@scripts': resolve(__dirname, '../package/src/scripts'),
 		},
 	},
 	plugins: [

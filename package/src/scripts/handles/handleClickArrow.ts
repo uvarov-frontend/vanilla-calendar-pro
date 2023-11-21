@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
-import changeMonth from '@methods/changeMonth';
-import createYears from '@methods/createYears';
+import changeMonth from '@scripts/methods/changeMonth';
+import createYears from '@scripts/methods/createYears';
 
 const handleClickArrow = (self: IVanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;

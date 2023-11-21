@@ -1,4 +1,4 @@
-import { ICSSClasses } from '../../types';
+import { ICSSClasses } from '@src/types';
 
 const DOMDefault = (styles: ICSSClasses) => (`
 	<div class="${styles.header}">

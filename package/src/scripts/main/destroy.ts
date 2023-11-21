@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
 
-const destroyCalendar = (self: IVanillaCalendar) => {
+const destroy = (self: IVanillaCalendar) => {
 	if (!self.HTMLOriginalElement) return;
 
 	if (self.input) {
@@ -14,4 +14,4 @@ const destroyCalendar = (self: IVanillaCalendar) => {
 	self.HTMLElement = self.HTMLOriginalElement;
 };
 
-export default destroyCalendar;
+export default destroy;

@@ -8,16 +8,16 @@ import {
 	ICSSClasses,
 	IDOMTemplates,
 	TypesCalendar,
-} from '../types';
-import resetCalendar from './methods/resetCalendar';
-import updateCalendar from './methods/updateCalendar';
-import initCalendar from './methods/initCalendar';
-import DOMDefault from './templates/DOMDefault';
-import DOMMultiple from './templates/DOMMultiple';
-import DOMMonth from './templates/DOMMonth';
-import DOMYear from './templates/DOMYear';
-import classes from '../classes';
-import destroyCalendar from './methods/destroyCalendar';
+} from '@src/types';
+import classes from '@src/classes';
+import reset from '@scripts/main/reset';
+import update from '@scripts/main/update';
+import init from '@scripts/main/init';
+import destroy from '@scripts/main/destroy';
+import DOMDefault from '@scripts/templates/DOMDefault';
+import DOMMultiple from '@scripts/templates/DOMMultiple';
+import DOMMonth from '@scripts/templates/DOMMonth';
+import DOMYear from '@scripts/templates/DOMYear';
 
 export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
 	HTMLElement: HTMLElement | null;
@@ -135,11 +135,11 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 		this.currentType = this.type;
 	}
 
-	reset = () => resetCalendar(this);
+	reset = () => reset(this);
 
-	update = () => updateCalendar(this);
+	update = () => update(this);
 
-	init = () => initCalendar(this);
+	init = () => init(this);
 
-	destroy = () => destroyCalendar(this);
+	destroy = () => destroy(this);
 }

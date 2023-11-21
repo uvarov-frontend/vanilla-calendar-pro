@@ -1,7 +1,7 @@
 import { IVanillaCalendar } from '@src/types';
-import calendarInput from '@helpers/calendarInput';
-import resetCalendar from '@methods/resetCalendar';
-import handleClick from '@methods/handles/handleClick';
+import calendarInput from '@scripts/helpers/calendarInput';
+import handleClick from '@scripts/handles/handleClick';
+import reset from '@scripts/main/reset';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;
@@ -15,7 +15,7 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 
-const handlerInput = (self: IVanillaCalendar) => {
+const handleInput = (self: IVanillaCalendar) => {
 	if (!self) return;
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
 	self.HTMLElement = null;
@@ -31,7 +31,7 @@ const handlerInput = (self: IVanillaCalendar) => {
 
 		setTimeout(() => calendarInput(self).show(), 0);
 
-		resetCalendar(self);
+		reset(self);
 		handleClick(self);
 	};
 
@@ -52,4 +52,4 @@ const handlerInput = (self: IVanillaCalendar) => {
 	});
 };
 
-export default handlerInput;
+export default handleInput;

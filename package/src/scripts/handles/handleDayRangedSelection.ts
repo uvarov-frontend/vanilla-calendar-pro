@@ -1,6 +1,6 @@
 import { FormatDateString, IVanillaCalendar } from '@src/types';
-import generateDate from '@helpers/generateDate';
-import mainMethod from '@methods/mainMethod';
+import generateDate from '@scripts/helpers/generateDate';
+import create from '@scripts/main/create';
 
 let currentSelf: null | IVanillaCalendar = null;
 
@@ -41,7 +41,7 @@ const handleCancelSelectionDays = (e: KeyboardEvent) => {
 	currentSelf.selectedDates = [];
 	(currentSelf.HTMLElement as HTMLElement).removeEventListener('mousemove', handleHoverDaysEvent);
 	document.removeEventListener('keydown', handleCancelSelectionDays);
-	mainMethod(currentSelf);
+	create(currentSelf);
 };
 
 const updateDisabledDates = () => {

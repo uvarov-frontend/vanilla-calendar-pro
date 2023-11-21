@@ -1,5 +1,5 @@
-import { FormatDateString } from '../../types';
-import generateDate from './generateDate';
+import { FormatDateString } from '@src/types';
+import generateDate from '@scripts/helpers/generateDate';
 
 const parseDates = (dates: string[]): FormatDateString[] => {
 	const newDates: FormatDateString[] = [];

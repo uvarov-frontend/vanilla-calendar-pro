@@ -1,10 +1,9 @@
 import { IVanillaCalendar } from '@src/types';
-import calendarInput from '@helpers/calendarInput';
-
-import changeMonth from '@methods/changeMonth';
-import createDays from '@methods/createDays';
-import handleDayRangedSelection from '@methods/handles/handleDayRangedSelection';
-import handleDaySelection from '@methods/handles/handleDaySelection';
+import calendarInput from '@scripts/helpers/calendarInput';
+import changeMonth from '@scripts/methods/changeMonth';
+import createDays from '@scripts/methods/createDays';
+import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
+import handleDaySelection from '@scripts/handles/handleDaySelection';
 
 const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;

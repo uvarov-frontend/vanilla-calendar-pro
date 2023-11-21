@@ -1,8 +1,8 @@
 import { IVanillaCalendar } from '@src/types';
-import handleClickArrow from '@methods/handles/handleClickArrow';
-import handleClickWeekNumber from '@methods/handles/handleClickWeekNumber';
-import handleClickDay from '@methods/handles/handleClickDay';
-import handleClickMonthOrYear from '@methods/handles/handleClickMonthOrYear';
+import handleClickArrow from '@scripts/handles/handleClickArrow';
+import handleClickWeekNumber from '@scripts/handles/handleClickWeekNumber';
+import handleClickDay from '@scripts/handles/handleClickDay';
+import handleClickMonthOrYear from '@scripts/handles/handleClickMonthOrYear';
 
 const handleClick = (self: IVanillaCalendar) => {
 	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {

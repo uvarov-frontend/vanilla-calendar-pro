@@ -1,4 +1,4 @@
-import { FormatDateString } from '../../types';
+import { FormatDateString } from '@src/types';
 
 const generateDate = (date: Date) => {
 	const year = date.getFullYear();

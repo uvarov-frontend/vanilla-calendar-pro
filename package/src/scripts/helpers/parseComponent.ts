@@ -1,5 +1,5 @@
-import { IVanillaCalendar } from '../../types';
-import getComponent from './getComponent';
+import { IVanillaCalendar } from '@src/types';
+import getComponent from '@scripts/helpers/getComponent';
 
 export const DOMParser = (self: IVanillaCalendar, template: string) => (
 	template.replace(/<#(.*?)\/>/g, (_, p1) => {

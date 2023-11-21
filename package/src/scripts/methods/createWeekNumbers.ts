@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import getWeekNumber from '@helpers/getWeekNumber';
+import getWeekNumber from '@scripts/helpers/getWeekNumber';
 
 const createWeekNumber = (
 	self: IVanillaCalendar,

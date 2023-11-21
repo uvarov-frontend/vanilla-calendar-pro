@@ -1,9 +1,9 @@
 import { FormatDateString, IVanillaCalendar } from '@src/types';
-import generateDate from '@helpers/generateDate';
-import getDate from '@helpers/getDate';
-import getWeekNumber from '@helpers/getWeekNumber';
-import createPopup from '@methods/createPopup';
-import createWeekNumbers from '@methods/createWeekNumbers';
+import generateDate from '@scripts/helpers/generateDate';
+import getDate from '@scripts/helpers/getDate';
+import getWeekNumber from '@scripts/helpers/getWeekNumber';
+import createPopup from '@scripts/methods/createPopup';
+import createWeekNumbers from '@scripts/methods/createWeekNumbers';
 
 const setDisableWeekday = (self: IVanillaCalendar, date: FormatDateString, dayWeekID: number) => {
 	if (self.settings.range.disableWeekday?.includes(dayWeekID) && !self.rangeDisabled?.includes(date)) {

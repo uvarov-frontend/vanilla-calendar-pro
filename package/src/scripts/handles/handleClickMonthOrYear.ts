@@ -1,8 +1,8 @@
 import { IVanillaCalendar } from '@src/types';
-import getColumnID from '@helpers/getColumnID';
-import createMonths from '@methods/createMonths';
-import createYears from '@methods/createYears';
-import mainMethod from '@methods/mainMethod';
+import getColumnID from '@scripts/helpers/getColumnID';
+import createMonths from '@scripts/methods/createMonths';
+import createYears from '@scripts/methods/createYears';
+import create from '@scripts/main/create';
 
 type HandleType = 'month' | 'year';
 
@@ -66,7 +66,7 @@ const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: Handle
 	selectByType[type]();
 	actionByType[type]();
 	self.currentType = self.type;
-	mainMethod(self);
+	create(self);
 };
 
 const handleClickMonthOrYear = (self: IVanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses) => {
@@ -90,7 +90,7 @@ const handleClickMonthOrYear = (self: IVanillaCalendar, event: MouseEvent, type:
 		handleItemClick(self, event, type, CSSClasses, itemEl);
 	} else if ((self.currentType === type && headerEl) || (self.type === 'multiple' && self.currentType === type && gridEl && !columnEl)) {
 		self.currentType = self.type;
-		mainMethod(self);
+		create(self);
 	}
 };
 
