@@ -1,5 +1,5 @@
-import { IVanillaCalendar } from '../../types';
-import getWeekNumber from './getWeekNumber';
+import { IVanillaCalendar } from '@src/types';
+import getWeekNumber from '@helpers/getWeekNumber';
 
 const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
