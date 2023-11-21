@@ -37,7 +37,7 @@ const handlerInput = (self: IVanillaCalendar) => {
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
-		calendarInput(self as IVanillaCalendar).hide();
+		if (self.HTMLInputElement && self.HTMLElement) calendarInput(self as IVanillaCalendar).hide();
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
