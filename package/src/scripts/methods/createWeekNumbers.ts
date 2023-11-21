@@ -1,12 +1,27 @@
 import { IVanillaCalendar } from '@src/types';
 import getWeekNumber from '@helpers/getWeekNumber';
 
+const createWeekNumber = (
+	self: IVanillaCalendar,
+	dayEls: NodeListOf<HTMLElement>,
+	index: number,
+	templateWeekNumberEl: HTMLButtonElement,
+	weekNumbersContentEl: HTMLDivElement,
+) => {
+	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector(`.${self.CSSClasses.dayBtn}`);
+	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay, self.settings.iso8601);
+
+	if (!weekNumber) return;
+
+	const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
+	weekNumberEl.innerText = String(weekNumber.week);
+	weekNumberEl.dataset.calendarYearWeek = String(weekNumber.year);
+	weekNumbersContentEl.append(weekNumberEl);
+};
+
 const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
-	const dayEls = daysEl.querySelectorAll(`.${self.CSSClasses.day}`) as NodeListOf<HTMLElement>;
-
 	weekNumbersEl.innerHTML = '';
-	const countWeek = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
 	const weekNumbersTitleEl = document.createElement('b');
 	weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
@@ -17,25 +32,15 @@ const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSel
 	weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
 	weekNumbersEl.append(weekNumbersContentEl);
 
-	const templateWeekNumberEl = document.createElement('span');
+	const templateWeekNumberEl = document.createElement('button');
+	templateWeekNumberEl.type = 'button';
 	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
-	for (let i = 0; i < countWeek; i++) {
-		let dayBtnEl: HTMLElement | null = null;
+	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll(`.${self.CSSClasses.day}`);
+	const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
-		if (i === 0) {
-			dayBtnEl = dayEls[6].querySelector(`.${self.CSSClasses.dayBtn}`) as HTMLElement;
-		} else {
-			dayBtnEl = dayEls[i * 7].querySelector(`.${self.CSSClasses.dayBtn}`) as HTMLElement;
-		}
-
-		const weekNumber = getWeekNumber(dayBtnEl.dataset.calendarDay, self.settings.iso8601);
-		if (!weekNumber) return;
-
-		const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
-		weekNumberEl.innerText = `${weekNumber.week}`;
-		weekNumberEl.dataset.calendarYearWeek = `${weekNumber.year}`;
-		weekNumbersContentEl.append(weekNumberEl);
+	for (let i = 0; i < weeksCount; i++) {
+		createWeekNumber(self, dayEls, i === 0 ? 6 : i * 7, templateWeekNumberEl, weekNumbersContentEl);
 	}
 };
 
