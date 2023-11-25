@@ -1,8 +1,8 @@
 import { IVanillaCalendar } from '@src/types';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDOM from '@scripts/methods/createDOM';
-import showMonth from '@scripts/methods/showMonth';
-import showYear from '@scripts/methods/showYear';
+import visibilityMonth from '@scripts/methods/visibilityMonth';
+import visibilityYear from '@scripts/methods/visibilityYear';
 
 const createYearEl = (self: IVanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
 	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;
@@ -19,8 +19,8 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'year';
 	createDOM(self, target);
-	showMonth(self);
-	showYear(self);
+	visibilityMonth(self);
+	visibilityYear(self);
 	visibilityArrows(self);
 
 	const yearsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.years}`);

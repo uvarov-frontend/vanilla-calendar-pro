@@ -1,7 +1,7 @@
 import { IVanillaCalendar } from '@src/types';
 import createDOM from '@scripts/methods/createDOM';
-import showMonth from '@scripts/methods/showMonth';
-import showYear from '@scripts/methods/showYear';
+import visibilityMonth from '@scripts/methods/visibilityMonth';
+import visibilityYear from '@scripts/methods/visibilityYear';
 
 const relationshipID = (self: IVanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;
@@ -27,8 +27,8 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'month';
 	createDOM(self, target);
-	showMonth(self);
-	showYear(self);
+	visibilityMonth(self);
+	visibilityYear(self);
 
 	const monthsEl = self.HTMLElement?.querySelector(`.${self.CSSClasses.months}`);
 	if (!self.settings.selection.month || !monthsEl) return;

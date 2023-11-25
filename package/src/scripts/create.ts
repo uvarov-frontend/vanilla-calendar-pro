@@ -3,8 +3,8 @@ import getLocale from '@scripts/helpers/getLocale';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDays from '@scripts/methods/createDays';
 import createDOM from '@scripts/methods/createDOM';
-import showMonth from '@scripts/methods/showMonth';
-import showYear from '@scripts/methods/showYear';
+import visibilityMonth from '@scripts/methods/visibilityMonth';
+import visibilityYear from '@scripts/methods/visibilityYear';
 import createMonths from '@scripts/methods/createMonths';
 import createTime from '@scripts/methods/createTime';
 import createWeek from '@scripts/methods/createWeek';
@@ -28,8 +28,8 @@ const create = (self: IVanillaCalendar) => {
 	changeTheme(self);
 	getLocale(self);
 	createDOM(self);
-	showMonth(self);
-	showYear(self);
+	visibilityMonth(self);
+	visibilityYear(self);
 	visibilityArrows(self);
 	createTime(self);
 

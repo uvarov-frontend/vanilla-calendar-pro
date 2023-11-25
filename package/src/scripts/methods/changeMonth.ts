@@ -3,8 +3,8 @@ import generateDate from '@scripts/helpers/generateDate';
 
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDays from '@scripts/methods/createDays';
-import showMonth from '@scripts/methods/showMonth';
-import showYear from '@scripts/methods/showYear';
+import visibilityMonth from '@scripts/methods/visibilityMonth';
+import visibilityYear from '@scripts/methods/visibilityYear';
 
 const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
 	const { selectedMonth, selectedYear, jumpMonths } = self;
@@ -21,8 +21,8 @@ const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
 
 	[self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
 
-	showMonth(self);
-	showYear(self);
+	visibilityMonth(self);
+	visibilityYear(self);
 	visibilityArrows(self);
 	createDays(self);
 };
