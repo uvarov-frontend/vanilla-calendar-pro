@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
 
-const calendarInput = (self: IVanillaCalendar) => ({
+const actionsInput = (self: IVanillaCalendar) => ({
 	hide() {
 		(self.HTMLElement as HTMLElement).classList.add(self.CSSClasses.calendarHidden);
 		if (self.actions.hideCalendar) self.actions.hideCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement as HTMLElement);
@@ -13,4 +13,4 @@ const calendarInput = (self: IVanillaCalendar) => ({
 	HTMLElement: self.HTMLElement as HTMLDivElement,
 });
 
-export default calendarInput;
+export default actionsInput;

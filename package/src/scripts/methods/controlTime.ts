@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '../../types';
-import calendarInput from '../helpers/calendarInput';
+import actionsInput from '../helpers/actionsInput';
 import transformTime12 from '../helpers/transformTime12';
 import transformTime24 from '../helpers/transformTime24';
 
@@ -33,7 +33,7 @@ const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
 		if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
 			self.actions.changeToInput(
 				e,
-				calendarInput(self),
+				actionsInput(self),
 				self.selectedDates,
 				self.selectedTime,
 				self.selectedHours,

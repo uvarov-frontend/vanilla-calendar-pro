@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
 import getLocale from '@scripts/helpers/getLocale';
-import updateVisibilityArrows from '@scripts/methods/updateVisibilityArrows';
+import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDays from '@scripts/methods/createDays';
 import createDOM from '@scripts/methods/createDOM';
 import showMonth from '@scripts/methods/showMonth';
@@ -9,7 +9,7 @@ import createMonths from '@scripts/methods/createMonths';
 import createTime from '@scripts/methods/createTime';
 import createWeek from '@scripts/methods/createWeek';
 import createYears from '@scripts/methods/createYears';
-import setTheme from '@scripts/methods/setTheme';
+import changeTheme from '@scripts/methods/changeTheme';
 
 const create = (self: IVanillaCalendar) => {
 	const typeMapper = {
@@ -25,12 +25,12 @@ const create = (self: IVanillaCalendar) => {
 		year: () => createYears(self),
 	};
 
-	setTheme(self);
+	changeTheme(self);
 	getLocale(self);
 	createDOM(self);
 	showMonth(self);
 	showYear(self);
-	updateVisibilityArrows(self);
+	visibilityArrows(self);
 	createTime(self);
 
 	typeMapper[self.currentType]();

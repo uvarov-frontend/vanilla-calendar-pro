@@ -13,7 +13,7 @@ const setVisibilityArrows = ({
 	arrowNext.style.visibility = isNextHidden ? 'hidden' : '';
 };
 
-const updateVisibilityArrows = (self: IVanillaCalendar) => {
+const visibilityArrows = (self: IVanillaCalendar) => {
 	if (self.currentType === 'month') return;
 
 	const arrowPrev: HTMLElement | null | undefined = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowPrev}`);
@@ -62,4 +62,4 @@ const updateVisibilityArrows = (self: IVanillaCalendar) => {
 	updateType[self.currentType === 'multiple' ? 'default' : self.currentType]();
 };
 
-export default updateVisibilityArrows;
+export default visibilityArrows;

@@ -1,9 +1,9 @@
-import { IVanillaCalendar } from '../../types';
-import parseDates from '../helpers/parseDates';
-import generateDate from '../helpers/generateDate';
-import transformTime12 from '../helpers/transformTime12';
+import { IVanillaCalendar } from '@src/types';
+import parseDates from '@scripts/helpers/parseDates';
+import generateDate from '@scripts/helpers/generateDate';
+import transformTime12 from '@scripts/helpers/transformTime12';
 
-const setVariablesDates = (self: IVanillaCalendar) => {
+const setVariables = (self: IVanillaCalendar) => {
 	self.rangeMin = self.settings.range.min;
 	self.rangeMax = self.settings.range.max;
 	self.rangeDisabled = self.settings.range.disabled ? parseDates([...self.settings.range.disabled]) : [];
@@ -110,4 +110,4 @@ const setVariablesDates = (self: IVanillaCalendar) => {
 	}
 };
 
-export default setVariablesDates;
+export default setVariables;

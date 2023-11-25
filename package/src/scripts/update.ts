@@ -1,6 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
 import create from '@scripts/create';
-import setVariablesDates from '@scripts/methods/setVariablesDates';
+import setVariables from '@scripts/helpers/setVariables';
 
 const update = (self: IVanillaCalendar) => {
 	let tempSelectedDates = null;
@@ -19,7 +19,7 @@ const update = (self: IVanillaCalendar) => {
 		tempSelectedYear = self.settings.selected.year;
 		self.settings.selected.year = self.selectedYear as number;
 	}
-	setVariablesDates(self);
+	setVariables(self);
 	create(self);
 	self.settings.selected.dates = tempSelectedDates;
 	self.settings.selected.month = tempSelectedMonth;

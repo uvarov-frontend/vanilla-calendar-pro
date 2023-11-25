@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import calendarInput from '@scripts/helpers/calendarInput';
+import actionsInput from '@scripts/helpers/actionsInput';
 import changeMonth from '@scripts/methods/changeMonth';
 import createDays from '@scripts/methods/createDays';
 import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
@@ -26,7 +26,7 @@ const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
 	if (isInitAsInput && self.actions.changeToInput) {
 		self.actions.changeToInput(
 			event,
-			calendarInput(self),
+			actionsInput(self),
 			self.selectedDates,
 			self.selectedTime,
 			self.selectedHours,

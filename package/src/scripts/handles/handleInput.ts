@@ -1,5 +1,5 @@
 import { IVanillaCalendar } from '@src/types';
-import calendarInput from '@scripts/helpers/calendarInput';
+import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
 
@@ -29,7 +29,7 @@ const handleInput = (self: IVanillaCalendar) => {
 		self.HTMLElement = calendar;
 		document.body.append(self.HTMLElement);
 
-		setTimeout(() => calendarInput(self).show(), 0);
+		setTimeout(() => actionsInput(self).show(), 0);
 
 		reset(self);
 		handleClick(self);
@@ -37,14 +37,14 @@ const handleInput = (self: IVanillaCalendar) => {
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
-		if (self.HTMLInputElement && self.HTMLElement) calendarInput(self as IVanillaCalendar).hide();
+		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as IVanillaCalendar).hide();
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
 	self.HTMLInputElement.addEventListener('click', () => {
 		if (self.HTMLElement) {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
-			calendarInput(self as IVanillaCalendar).show();
+			actionsInput(self as IVanillaCalendar).show();
 		} else {
 			createCalendarToInput();
 		}
