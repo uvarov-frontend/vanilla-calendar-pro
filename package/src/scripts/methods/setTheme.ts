@@ -1,60 +1,33 @@
-import { IVanillaCalendar } from '../../types';
-import themes from '../helpers/getThemes';
+import { IVanillaCalendar } from '@src/types';
+import themes from '@scripts/helpers/getThemes';
 
-let haveListener = false;
-
-const getActiveTheme = (htmlEl: HTMLElement, attr: string) => {
-	let activeTheme: typeof themes[number] | null = null;
-
-	for (let i = 0; i < themes.length; i++) {
-		const theme = themes[i];
-		if (theme === 'system') return;
-		if (htmlEl.getAttribute(attr)?.includes(themes[i])) {
-			activeTheme = themes[i];
-			break;
-		}
-	}
-
-	// eslint-disable-next-line consistent-return
-	return activeTheme;
+const haveListener = {
+	value: false,
+	set: () => { haveListener.value = true; },
+	check: () => haveListener.value,
 };
 
-const set = (self: IVanillaCalendar, theme: typeof themes[number]) => {
-	if (!self.HTMLElement) return;
+const getTheme = (htmlEl: HTMLElement, attr: string) => themes.find((t) => t !== 'system' && htmlEl.getAttribute(attr)?.includes(t)) as 'dark' | 'light' | undefined;
 
-	if (themes.includes(theme)) {
-		self.HTMLElement.dataset.calendarTheme = theme;
-		return;
-	}
-	// eslint-disable-next-line no-console
-	console.error('Incorrect name of theme in settings.visibility.theme');
+const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light'): void => { htmlEl.dataset.calendarTheme = theme; };
+
+const trackChangesThemeInSystemSettings = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) => {
+	const setDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => setTheme(self.HTMLElement as HTMLElement, event.matches ? 'dark' : 'light');
+	setDataAttrTheme(supportDarkTheme);
+
+	if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
+
+	supportDarkTheme.addEventListener('change', setDataAttrTheme);
+	haveListener.set();
 };
 
-const get = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList | undefined) => {
-	if (!supportDarkTheme) {
-		set(self, 'light');
-		return;
-	}
-
-	const theme = (e: MediaQueryList | MediaQueryListEvent) => (e.matches ? 'dark' : 'light');
-	(self.HTMLElement as HTMLElement).dataset.calendarTheme = theme(supportDarkTheme);
-
-	if (!haveListener) {
-		supportDarkTheme.onchange = (e) => {
-			if (self.settings.visibility.theme !== 'system') return;
-			(self.HTMLElement as HTMLElement).dataset.calendarTheme = theme(e);
-		};
-		haveListener = true;
-	}
-};
-
-const track = (self: IVanillaCalendar, htmlEl: HTMLElement, attr: string) => {
+const trackChangesThemeInHTMLElement = (self: IVanillaCalendar, htmlEl: HTMLElement, attr: string) => {
 	const changes = (mutationsList: MutationRecord[]) => {
 		for (let i = 0; i < mutationsList.length; i++) {
 			const record = mutationsList[i];
 			if (record.attributeName === attr) {
-				const activeTheme = getActiveTheme(htmlEl, attr);
-				if (activeTheme) set(self, activeTheme);
+				const activeTheme = getTheme(htmlEl, attr);
+				if (activeTheme) setTheme(self.HTMLElement as HTMLElement, activeTheme);
 				break;
 			}
 		}
@@ -66,47 +39,44 @@ const track = (self: IVanillaCalendar, htmlEl: HTMLElement, attr: string) => {
 	});
 };
 
-const detect = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList | undefined) => {
-	if (!self.HTMLElement) return;
-
-	const detectedThemeEl = self.settings.visibility.themeDetect ? document.querySelector(self.settings.visibility.themeDetect) : false;
+const detectTheme = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) => {
+	const detectedThemeEl: HTMLElement | null = self.settings.visibility.themeDetect
+		? document.querySelector(self.settings.visibility.themeDetect)
+		: null;
 
 	if (!detectedThemeEl) {
-		get(self, supportDarkTheme);
-		return;
-	}
-
-	const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
-	const strValues = detectedThemeEl.hasAttribute(attr);
-
-	if (!attr || !strValues) {
-		get(self, supportDarkTheme);
-		return;
-	}
-
-	const activeTheme = getActiveTheme(detectedThemeEl as HTMLElement, attr);
-
-	if (activeTheme) {
-		set(self, activeTheme);
-		track(self, detectedThemeEl as HTMLElement, attr);
+		trackChangesThemeInSystemSettings(self, supportDarkTheme);
 	} else {
-		get(self, supportDarkTheme);
+		const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
+		const activeTheme = getTheme(detectedThemeEl, attr);
+
+		if (activeTheme) {
+			setTheme(self.HTMLElement as HTMLElement, activeTheme);
+			trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
+		} else {
+			trackChangesThemeInSystemSettings(self, supportDarkTheme);
+		}
 	}
 };
 
-const setTheme = (self: IVanillaCalendar) => {
-	if (!self.HTMLElement) return;
-	let supportDarkTheme: MediaQueryList | undefined;
+const changeTheme = (self: IVanillaCalendar) => {
+	if (!themes.includes(self.settings.visibility.theme)) throw new Error('Incorrect name of theme in "settings.visibility.theme"');
+
+	let supportDarkTheme: MediaQueryList;
 
 	if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
 		supportDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
+	} else {
+		setTheme(self.HTMLElement as HTMLElement, 'light');
+		return;
 	}
 
-	if (self.settings.visibility.theme === 'system') {
-		detect(self, supportDarkTheme);
-	} else {
-		set(self, self.settings.visibility.theme);
-	}
+	const mapThemes = {
+		light: () => setTheme(self.HTMLElement as HTMLElement, 'light'),
+		dark: () => setTheme(self.HTMLElement as HTMLElement, 'dark'),
+		system: () => detectTheme(self, supportDarkTheme),
+	};
+	mapThemes[self.settings.visibility.theme]();
 };
 
-export default setTheme;
+export default changeTheme;
