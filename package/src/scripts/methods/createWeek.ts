@@ -23,7 +23,7 @@ const createWeek = (self: IVanillaCalendar) => {
 	const weekday = [...self.locale.weekday];
 	if (!weekday[0]) return;
 	if (self.settings.iso8601) weekday.push((weekday.shift() as string));
-	const weekEls: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.week}`);
+	const weekEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.week}`);
 	weekEls.forEach((weekEl) => createWeekDays(self, weekEl, weekday));
 };
 

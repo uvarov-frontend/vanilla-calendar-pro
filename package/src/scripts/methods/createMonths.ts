@@ -4,7 +4,7 @@ import visibilityTitle from '@scripts/methods/visibilityTitle';
 
 const relationshipID = (self: IVanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;
-	const columnEls: NodeListOf<HTMLElement> = (self.HTMLElement as HTMLElement).querySelectorAll(`.${self.CSSClasses.column}`);
+	const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
 	const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
 	return indexColumn > 0 ? indexColumn : 0;
 };
@@ -26,8 +26,7 @@ const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'month';
 	createDOM(self, target);
-	visibilityTitle(self, '[data-calendar-selected-month]', 'month');
-	visibilityTitle(self, '[data-calendar-selected-year]', 'year');
+	visibilityTitle(self);
 
 	const monthsEl = self.HTMLElement?.querySelector(`.${self.CSSClasses.months}`);
 	if (!self.settings.selection.month || !monthsEl) return;

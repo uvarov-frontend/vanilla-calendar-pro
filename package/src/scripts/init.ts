@@ -4,7 +4,6 @@ import handleInput from '@scripts/handles/handleInput';
 import handleClick from '@scripts/handles/handleClick';
 
 const init = (self: IVanillaCalendar) => {
-	if (!self.HTMLElement) return;
 	self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
 	if (self.input) {
 		handleInput(self);

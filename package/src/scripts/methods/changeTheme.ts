@@ -12,7 +12,7 @@ const getTheme = (htmlEl: HTMLElement, attr: string) => themes.find((t) => t !==
 const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light'): void => { htmlEl.dataset.calendarTheme = theme; };
 
 const trackChangesThemeInSystemSettings = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) => {
-	const setDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => setTheme(self.HTMLElement as HTMLElement, event.matches ? 'dark' : 'light');
+	const setDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => setTheme(self.HTMLElement, event.matches ? 'dark' : 'light');
 	setDataAttrTheme(supportDarkTheme);
 
 	if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
@@ -27,7 +27,7 @@ const trackChangesThemeInHTMLElement = (self: IVanillaCalendar, htmlEl: HTMLElem
 			const record = mutationsList[i];
 			if (record.attributeName === attr) {
 				const activeTheme = getTheme(htmlEl, attr);
-				if (activeTheme) setTheme(self.HTMLElement as HTMLElement, activeTheme);
+				if (activeTheme) setTheme(self.HTMLElement, activeTheme);
 				break;
 			}
 		}
@@ -51,7 +51,7 @@ const detectTheme = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) =
 		const activeTheme = getTheme(detectedThemeEl, attr);
 
 		if (activeTheme) {
-			setTheme(self.HTMLElement as HTMLElement, activeTheme);
+			setTheme(self.HTMLElement, activeTheme);
 			trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
 		} else {
 			trackChangesThemeInSystemSettings(self, supportDarkTheme);
@@ -67,13 +67,13 @@ const changeTheme = (self: IVanillaCalendar) => {
 	if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
 		supportDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
 	} else {
-		setTheme(self.HTMLElement as HTMLElement, 'light');
+		setTheme(self.HTMLElement, 'light');
 		return;
 	}
 
 	const mapThemes = {
-		light: () => setTheme(self.HTMLElement as HTMLElement, 'light'),
-		dark: () => setTheme(self.HTMLElement as HTMLElement, 'dark'),
+		light: () => setTheme(self.HTMLElement, 'light'),
+		dark: () => setTheme(self.HTMLElement, 'dark'),
 		system: () => detectTheme(self, supportDarkTheme),
 	};
 	mapThemes[self.settings.visibility.theme]();

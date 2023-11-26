@@ -16,18 +16,16 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => 
 };
 
 const handleInput = (self: IVanillaCalendar) => {
-	if (!self) return;
+	let firstInit = true;
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
-	self.HTMLElement = null;
 
 	const createCalendarToInput = () => {
-		if (!self.HTMLInputElement) return;
-
 		const calendar = document.createElement('div');
 		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-		setPositionCalendar(self.HTMLInputElement, calendar);
+		setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar);
 		self.HTMLElement = calendar;
 		document.body.append(self.HTMLElement);
+		firstInit = false;
 
 		setTimeout(() => actionsInput(self).show(), 0);
 
@@ -42,11 +40,11 @@ const handleInput = (self: IVanillaCalendar) => {
 	};
 
 	self.HTMLInputElement.addEventListener('click', () => {
-		if (self.HTMLElement) {
+		if (firstInit) {
+			createCalendarToInput();
+		} else {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
 			actionsInput(self as IVanillaCalendar).show();
-		} else {
-			createCalendarToInput();
 		}
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});

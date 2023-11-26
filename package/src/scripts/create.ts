@@ -11,7 +11,7 @@ import createYears from '@scripts/methods/createYears';
 import changeTheme from '@scripts/methods/changeTheme';
 
 const create = (self: IVanillaCalendar) => {
-	const typeMapper = {
+	const types = {
 		default: () => {
 			createWeek(self);
 			createDays(self);
@@ -27,12 +27,11 @@ const create = (self: IVanillaCalendar) => {
 	changeTheme(self);
 	getLocale(self);
 	createDOM(self);
-	visibilityTitle(self, '[data-calendar-selected-month]', 'month');
-	visibilityTitle(self, '[data-calendar-selected-year]', 'year');
+	visibilityTitle(self);
 	visibilityArrows(self);
 	createTime(self);
 
-	typeMapper[self.currentType]();
+	types[self.currentType]();
 };
 
 export default create;

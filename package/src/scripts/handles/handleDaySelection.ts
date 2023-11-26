@@ -1,7 +1,7 @@
 import { FormatDateString, IVanillaCalendar } from '@src/types';
 
 const handleDaySelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement, multiple: boolean) => {
-	if (!self.selectedDates || !dayBtnEl.dataset.calendarDay) return;
+	if (!dayBtnEl.dataset.calendarDay) return;
 
 	const selectedDay = dayBtnEl.dataset.calendarDay as FormatDateString;
 	const isSelected = dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected);

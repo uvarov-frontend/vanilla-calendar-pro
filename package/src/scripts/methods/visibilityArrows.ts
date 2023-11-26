@@ -1,5 +1,6 @@
 import { IVanillaCalendar } from '@src/types';
 import generateDate from '@scripts/helpers/generateDate';
+import getDate from '@scripts/helpers/getDate';
 
 const setVisibilityArrows = ({
 	arrowPrev, arrowNext, isPrevHidden, isNextHidden,
@@ -16,15 +17,14 @@ const setVisibilityArrows = ({
 const visibilityArrows = (self: IVanillaCalendar) => {
 	if (self.currentType === 'month') return;
 
-	const arrowPrev: HTMLElement | null | undefined = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowPrev}`);
-	const arrowNext: HTMLElement | null | undefined = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowNext}`);
+	const arrowPrev: HTMLElement | null = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowPrev}`);
+	const arrowNext: HTMLElement | null = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowNext}`);
 
 	if (!arrowPrev || !arrowNext) return;
 
 	const updateType = {
 		default: () => {
-			if (!self.dateMin || !self.dateMax) return;
-			const currentSelectedDate = new Date(`${generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1))}T00:00:00`);
+			const currentSelectedDate = getDate(generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
 			const jumpDateMin = new Date(currentSelectedDate.getTime());
 			const jumpDateMax = new Date(currentSelectedDate.getTime());
 			jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
@@ -49,7 +49,6 @@ const visibilityArrows = (self: IVanillaCalendar) => {
 			});
 		},
 		year: () => {
-			if (!self.dateMin || !self.dateMax || self.viewYear === undefined) return;
 			setVisibilityArrows({
 				arrowPrev,
 				arrowNext,

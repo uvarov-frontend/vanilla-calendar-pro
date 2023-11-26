@@ -31,7 +31,7 @@ export type Options = {
 	settings?: Partial<Settings>;
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
-	popups?: IPopups | null;
+	popups?: IPopups;
 	CSSClasses?: Partial<ICSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
 };
@@ -63,13 +63,13 @@ declare class VanillaCalendar<T extends (HTMLElement | string), R extends Partia
 
 	actions: Partial<IActions>;
 
-	popups: IPopups | null;
+	popups: IPopups;
 
 	CSSClasses: Partial<ICSSClasses>;
 
 	DOMTemplates: Partial<IDOMTemplates>;
 
-	readonly HTMLElement: HTMLElement | null;
+	readonly HTMLElement: HTMLElement;
 
 	readonly HTMLInputElement?: HTMLInputElement;
 

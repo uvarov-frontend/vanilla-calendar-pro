@@ -18,11 +18,10 @@ const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
 	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'year';
 	createDOM(self, target);
-	visibilityTitle(self, '[data-calendar-selected-month]', 'month');
-	visibilityTitle(self, '[data-calendar-selected-year]', 'year');
+	visibilityTitle(self);
 	visibilityArrows(self);
 
-	const yearsEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.years}`);
+	const yearsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.years}`);
 	if (!self.settings.selection.year || !yearsEl) return;
 
 	yearsEl.classList.add(self.CSSClasses.yearsSelecting);

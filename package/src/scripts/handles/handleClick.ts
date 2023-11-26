@@ -5,7 +5,7 @@ import handleClickDay from '@scripts/handles/handleClickDay';
 import handleClickMonthOrYear from '@scripts/handles/handleClickMonthOrYear';
 
 const handleClick = (self: IVanillaCalendar) => {
-	(self.HTMLElement as HTMLElement).addEventListener('click', (e) => {
+	self.HTMLElement.addEventListener('click', (e) => {
 		handleClickArrow(self, e);
 		handleClickWeekNumber(self, e);
 		handleClickDay(self, e);

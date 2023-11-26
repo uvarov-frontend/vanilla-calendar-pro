@@ -9,7 +9,7 @@ const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasse
 
 const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
 	if (!self.popups) return;
-	Object.entries(self.popups).forEach(([date, dayInfo]: [string, IPopup]) => handleDay(date, dayInfo, daysEl, self.CSSClasses.dayPopup));
+	Object.entries(self.popups).forEach(([date, dayInfo]) => handleDay(date, dayInfo, daysEl, self.CSSClasses.dayPopup));
 };
 
 export default createPopup;

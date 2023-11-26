@@ -8,9 +8,13 @@ import IVanillaCalendar, { Options } from '@/package/src';
 
 const config: Options = {
 	settings: {
-		selected: {
-			month: 3,
-			year: 2023,
+		// selected: {
+		// 	month: 3,
+		// 	year: 2023,
+		// },
+		range: {
+			// disableAllDays: true,
+			disablePast: true,
 		},
 	},
 };

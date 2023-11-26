@@ -3,7 +3,7 @@ import controlTime from './controlTime';
 import transformTime24 from '../helpers/transformTime24';
 
 const createTime = (self: IVanillaCalendar) => {
-	const timeEl = (self.HTMLElement as HTMLElement).querySelector(`.${self.CSSClasses.time}`);
+	const timeEl = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
 	if (!timeEl) return;
 	const keepingTime = self.settings.selection.time === true ? 12 : self.settings.selection.time;
 	const range = self.settings.selection.controlTime === 'range';

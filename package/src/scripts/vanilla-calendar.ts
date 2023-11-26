@@ -19,34 +19,8 @@ import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMYear from '@scripts/templates/DOMYear';
 
-export default class VanillaCalendar<T extends (HTMLElement | string), R extends IOptions> {
-	HTMLElement: HTMLElement | null;
-
-	input!: boolean;
-
-	type!: TypesCalendar;
-
-	months!: number;
-
-	jumpMonths!: number;
-
-	date!: IDate;
-
-	settings!: ISettings;
-
-	locale!: ILocale;
-
-	actions!: IActions;
-
-	popups!: IPopups | null;
-
-	CSSClasses!: ICSSClasses;
-
-	DOMTemplates!: IDOMTemplates;
-
-	currentType!: TypesCalendar;
-
-	constructor(selector: T, option?: R) {
+export default class VanillaCalendar {
+	constructor(selector, option) {
 		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
 		if (!this.HTMLElement) return;
 		this.input = option?.input ?? false;
@@ -67,9 +41,9 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				disablePast: option?.settings?.range?.disablePast ?? false,
 				disableGaps: option?.settings?.range?.disableGaps ?? false,
 				disableAllDays: option?.settings?.range?.disableAllDays ?? false,
-				disableWeekday: option?.settings?.range?.disableWeekday ?? null,
-				disabled: option?.settings?.range?.disabled ?? null,
-				enabled: option?.settings?.range?.enabled ?? null,
+				disableWeekday: option?.settings?.range?.disableWeekday ?? undefined,
+				disabled: option?.settings?.range?.disabled ?? undefined,
+				enabled: option?.settings?.range?.enabled ?? undefined,
 			},
 			selection: {
 				day: option?.settings?.selection?.day ?? 'single',
@@ -81,11 +55,11 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 				stepMinutes: option?.settings?.selection?.stepMinutes ?? 1,
 			},
 			selected: {
-				dates: option?.settings?.selected?.dates ?? null,
-				month: option?.settings?.selected?.month ?? null,
-				year: option?.settings?.selected?.year ?? null,
-				holidays: option?.settings?.selected?.holidays ?? null,
-				time: option?.settings?.selected?.time ?? null,
+				dates: option?.settings?.selected?.dates ?? undefined,
+				month: option?.settings?.selected?.month ?? undefined,
+				year: option?.settings?.selected?.year ?? undefined,
+				holidays: option?.settings?.selected?.holidays ?? undefined,
+				time: option?.settings?.selected?.time ?? undefined,
 			},
 			visibility: {
 				theme: option?.settings?.visibility?.theme ?? 'system',
@@ -114,7 +88,7 @@ export default class VanillaCalendar<T extends (HTMLElement | string), R extends
 			hideCalendar: option?.actions?.hideCalendar ?? null,
 			showCalendar: option?.actions?.showCalendar ?? null,
 		};
-		this.popups = option?.popups ?? null;
+		this.popups = option?.popups;
 		this.CSSClasses = (() => {
 			const classesObj = { ...classes };
 			(Object.keys(classes) as Array<keyof typeof classes>).forEach((className) => {

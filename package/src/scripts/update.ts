@@ -3,9 +3,9 @@ import create from '@scripts/create';
 import setVariables from '@scripts/helpers/setVariables';
 
 const update = (self: IVanillaCalendar) => {
-	let tempSelectedDates = null;
-	let tempSelectedMonth = null;
-	let tempSelectedYear = null;
+	let tempSelectedDates;
+	let tempSelectedMonth;
+	let tempSelectedYear;
 
 	if (!self.settings.selected.dates?.[0]) {
 		tempSelectedDates = self.settings.selected.dates;

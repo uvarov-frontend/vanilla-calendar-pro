@@ -19,9 +19,9 @@ export interface IRange {
 	disablePast: boolean;
 	disableGaps: boolean;
 	disableAllDays: boolean;
-	disableWeekday: number[] | null;
-	disabled:string[] | null;
-	enabled: string[] | null;
+	disableWeekday?: number[];
+	disabled?: string[];
+	enabled?: string[];
 }
 
 export interface ISelection {
@@ -35,11 +35,11 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates?: string[] | null;
-	month: number | null;
-	year: number | null;
-	holidays: string[] | null;
-	time: string | null;
+	dates?: string[];
+	month?: number;
+	year?: number;
+	holidays?: string[];
+	time?: string;
 }
 
 export interface IVisibility {
@@ -80,7 +80,7 @@ export interface IActions {
 			hide(): void;
 			show(): void;
 			HTMLInputElement: HTMLInputElement;
-			HTMLElement: HTMLDivElement;
+			HTMLElement: HTMLElement;
 		},
 		dates?: FormatDateString[],
 		time?: string,
@@ -94,9 +94,9 @@ export interface IActions {
 }
 
 export type IPopup = {
-	modifier?: string | null;
-	html?: string | null;
-} | null;
+	modifier?: string;
+	html?: string;
+};
 
 export type IPopups = {
 	[date in FormatDateString]: IPopup;
@@ -190,37 +190,38 @@ export interface IOptions {
 	settings: ISettings;
 	locale: ILocale;
 	actions: IActions;
-	popups?: IPopups | null;
+	popups: IPopups;
 	DOMTemplates: IDOMTemplates;
 	CSSClasses: ICSSClasses;
 }
 
-export interface IVariables extends IOptions {
-	HTMLElement: HTMLElement | null;
-	currentType: TypesCalendar;
+export interface IMethods extends IOptions {
 	reset: () => void;
 	update: () => void;
 	init: () => void;
+	destroy: () => void;
 }
 
-export interface IVanillaCalendar extends IVariables {
-	HTMLOriginalElement?: HTMLElement;
+export interface IVanillaCalendar extends IOptions {
+	HTMLElement: HTMLElement;
+	currentType: TypesCalendar;
+	HTMLOriginalElement: HTMLElement;
 	HTMLInputElement?: HTMLInputElement;
-	rangeMin?: FormatDateString;
-	rangeMax?: FormatDateString;
-	rangeDisabled?: FormatDateString[];
-	rangeEnabled?: FormatDateString[];
-	selectedDates?: FormatDateString[];
-	selectedHolidays?: FormatDateString[];
-	selectedMonth?: number;
-	selectedYear?: number;
-	selectedHours?: string;
-	selectedMinutes?: string;
-	selectedKeeping?: string;
-	selectedTime?: string;
-	userTime?: boolean;
-	correctMonths?: number;
-	viewYear?: number;
-	dateMin?: Date;
-	dateMax?: Date;
+	rangeMin: FormatDateString;
+	rangeMax: FormatDateString;
+	rangeDisabled: FormatDateString[];
+	rangeEnabled: FormatDateString[];
+	selectedDates: FormatDateString[];
+	selectedHolidays: FormatDateString[];
+	selectedMonth: number;
+	selectedYear: number;
+	selectedHours: string;
+	selectedMinutes: string;
+	selectedKeeping: string;
+	selectedTime: string;
+	userTime: boolean;
+	correctMonths: number;
+	viewYear: number;
+	dateMin: Date;
+	dateMax: Date;
 }

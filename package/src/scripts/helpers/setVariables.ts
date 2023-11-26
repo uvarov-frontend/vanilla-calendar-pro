@@ -2,58 +2,59 @@ import { IVanillaCalendar } from '@src/types';
 import parseDates from '@scripts/helpers/parseDates';
 import generateDate from '@scripts/helpers/generateDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
+import getDate from '@scripts/helpers/getDate';
 
-const setVariables = (self: IVanillaCalendar) => {
-	self.rangeMin = self.settings.range.min;
-	self.rangeMax = self.settings.range.max;
-	self.rangeDisabled = self.settings.range.disabled ? parseDates([...self.settings.range.disabled]) : [];
-	self.rangeEnabled = self.settings.range.enabled ? parseDates([...self.settings.range.enabled]) : [];
-	self.selectedDates = self.settings.selected.dates ? parseDates([...self.settings.selected.dates]) : [];
-	self.selectedHolidays = self.settings.selected.holidays ? parseDates([...self.settings.selected.holidays]) : [];
+const initSelectedMonthYear = (self: IVanillaCalendar) => {
+	const isValidMonth = self.settings.selected.month !== undefined && self.settings.selected.month >= 0 && self.settings.selected.month < 12;
+	const isValidYear = self.settings.selected.year !== undefined && self.settings.selected.year >= 0 && self.settings.selected.year <= 9999;
 
-	if (self.settings.selected.month !== null && self.settings.selected.month >= 0 && self.settings.selected.month < 12) {
-		self.selectedMonth = self.settings.selected.month;
-	} else {
-		self.selectedMonth = self.date.today.getMonth();
-	}
-
-	if (self.settings.selected.year !== null && self.settings.selected.year >= 0 && self.settings.selected.year <= 9999) {
-		self.selectedYear = self.settings.selected.year;
-	} else {
-		self.selectedYear = self.date.today.getFullYear();
-	}
-
+	self.selectedMonth = isValidMonth ? self.settings.selected.month as number : self.date.today.getMonth();
+	self.selectedYear = isValidYear ? self.settings.selected.year as number : self.date.today.getFullYear();
 	self.viewYear = self.selectedYear;
+};
 
-	if (self.settings.range.disablePast && !self.settings.range.disableAllDays && new Date(`${self.settings.range.min}T00:00:00`) < self.date.today) {
-		self.rangeMin = generateDate(self.date.today);
-	}
+const initRange = (self: IVanillaCalendar) => {
+	// set self.rangeMin and self.rangeMax
+	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
+	self.rangeMin = isDisablePast
+		? generateDate(self.date.today)
+		: self.settings.range.disableAllDays
+			? generateDate(new Date(self.selectedYear, self.selectedMonth, 1))
+			: self.settings.range.min;
+	self.rangeMax = self.settings.range.disableAllDays
+		? generateDate(new Date(self.selectedYear, self.selectedMonth, 1))
+		: self.settings.range.max;
 
-	if (self.settings.range.disableAllDays) {
-		const shownDate = new Date(self.selectedYear, self.selectedMonth, 1);
+	// set self.rangeDisabled
+	const firstDay = getDate(self.rangeMin);
+	const lastDay = getDate(self.rangeMax);
+	firstDay.setDate(firstDay.getDate() - 1);
+	lastDay.setDate(lastDay.getDate() + 1);
+	self.rangeDisabled = self.settings.range.disabled ? parseDates(self.settings.range.disabled) : [];
+	if (self.settings.range.disableAllDays) self.rangeDisabled?.push(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+	self.rangeDisabled.push(generateDate(firstDay));
+	self.rangeDisabled.push(generateDate(lastDay));
 
-		self.rangeMin = generateDate(shownDate);
-		self.rangeMax = generateDate(shownDate);
-		self.rangeDisabled?.push(generateDate(shownDate));
-	}
-
-	if (self.rangeEnabled) self.rangeDisabled = self.rangeDisabled?.filter((d) => !self.rangeEnabled?.includes(d));
-
+	// set self.rangeEnabled
+	self.rangeEnabled = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
+	if (self.rangeEnabled?.[0]) self.rangeDisabled = self.rangeDisabled?.filter((d) => !self.rangeEnabled?.includes(d));
 	if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
 		self.rangeMin = self.rangeEnabled[0];
 		self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
 	}
+};
 
-	const firstDay = new Date(`${self.rangeMin}T00:00:00`);
-	const lastDay = new Date(`${self.rangeMax}T00:00:00`);
-	firstDay.setDate(firstDay.getDate() - 1);
-	lastDay.setDate(lastDay.getDate() + 1);
-	self.rangeDisabled.push(generateDate(firstDay));
-	self.rangeDisabled.push(generateDate(lastDay));
+const initSelectedDates = (self: IVanillaCalendar) => {
+	self.selectedDates = self.settings.selected.dates?.[0] ? parseDates(self.settings.selected.dates) : [];
+	self.selectedHolidays = self.settings.selected.holidays?.[0] ? parseDates(self.settings.selected.holidays) : [];
+};
 
-	self.dateMin = self.settings.visibility.disabled ? new Date(`${self.date.min}T00:00:00`) : new Date(`${self.rangeMin}T00:00:00`);
-	self.dateMax = self.settings.visibility.disabled ? new Date(`${self.date.max}T00:00:00`) : new Date(`${self.rangeMax}T00:00:00`);
+const initDateMinMax = (self: IVanillaCalendar) => {
+	self.dateMin = self.settings.visibility.disabled ? getDate(self.date.min) : getDate(self.rangeMin);
+	self.dateMax = self.settings.visibility.disabled ? getDate(self.date.max) : getDate(self.rangeMax);
+};
 
+const initTime = (self: IVanillaCalendar) => {
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {
 		self.userTime = false;
@@ -94,20 +95,25 @@ const setVariables = (self: IVanillaCalendar) => {
 		// eslint-disable-next-line no-console
 		console.error('The value of the time property can be: false, true, 12 or 24.');
 	}
+};
 
-	if (self.type !== 'multiple') return;
+const initCorrectMonths = (self: IVanillaCalendar) => {
+	self.correctMonths = self.type === 'multiple'
+		? self.months === 1
+			? 2
+			: self.months > 12
+				? 12
+				: self.months
+		: 1;
+};
 
-	if (self.months === 1) {
-		// eslint-disable-next-line no-console
-		console.warn('The value of the «months» parameter cannot be less than «2», the minimum available value will be initialized.');
-		self.correctMonths = 2;
-	} else if (self.months > 12) {
-		// eslint-disable-next-line no-console
-		console.warn('The value of the «months» parameter cannot be greater than «12», the maximum available value will be initialized.');
-		self.correctMonths = 12;
-	} else {
-		self.correctMonths = self.months;
-	}
+const setVariables = (self: IVanillaCalendar) => {
+	initSelectedMonthYear(self);
+	initRange(self);
+	initSelectedDates(self);
+	initDateMinMax(self);
+	initTime(self);
+	initCorrectMonths(self);
 };
 
 export default setVariables;

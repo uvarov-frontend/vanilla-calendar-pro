@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import { FormatDateString, IVanillaCalendar } from '@src/types';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 
 const createWeekNumber = (
@@ -9,7 +9,7 @@ const createWeekNumber = (
 	weekNumbersContentEl: HTMLDivElement,
 ) => {
 	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector(`.${self.CSSClasses.dayBtn}`);
-	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay, self.settings.iso8601);
+	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay as FormatDateString | undefined, self.settings.iso8601);
 
 	if (!weekNumber) return;
 

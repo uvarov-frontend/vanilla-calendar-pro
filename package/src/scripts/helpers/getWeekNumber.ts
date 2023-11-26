@@ -1,6 +1,9 @@
-const getWeekNumber = (date: string | undefined, iso8601: boolean) => {
+import { FormatDateString } from '@src/types';
+import getDate from '@scripts/helpers/getDate';
+
+const getWeekNumber = (date: FormatDateString | undefined, iso8601: boolean) => {
 	if (!date) return null;
-	const currentDate = new Date(`${date}T00:00:00`);
+	const currentDate = getDate(date);
 	const dayNum = iso8601 ? currentDate.getDay() || 7 : currentDate.getDay();
 	currentDate.setDate(currentDate.getDate() + 4 - dayNum);
 	const yearStart = new Date(currentDate.getFullYear(), 0, 1);

@@ -2,7 +2,6 @@ import { IVanillaCalendar } from '@src/types';
 import { DOMParser, MultipleParser } from '@scripts/helpers/parseComponent';
 
 const createDOM = (self: IVanillaCalendar, target?: HTMLElement) => {
-	if (!self.HTMLElement) return;
 	const {
 		HTMLElement,
 		CSSClasses,

@@ -19,7 +19,6 @@ const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: Handle
 	};
 	const selectByType = {
 		year: () => {
-			if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax) return;
 			if (self.type === 'multiple') {
 				const selectedYear = getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(itemEl.dataset.calendarYear), 'data-calendar-selected-year');
 
@@ -42,7 +41,6 @@ const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: Handle
 			}
 		},
 		month: () => {
-			if (self.selectedMonth === undefined || self.selectedYear === undefined || !self.dateMin || !self.dateMax) return;
 			if (self.type === 'multiple') {
 				const selectedMonth = getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(itemEl.dataset.calendarMonth), 'data-calendar-selected-month');
 				const column = itemEl.closest(`.${CSSClasses.column}`) as HTMLElement;
