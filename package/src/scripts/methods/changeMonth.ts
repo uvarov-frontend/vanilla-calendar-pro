@@ -1,12 +1,11 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
-
+import getDate from '@scripts/helpers/getDate';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDays from '@scripts/methods/createDays';
 import visibilityTitle from '@scripts/methods/visibilityTitle';
-import getDate from '@scripts/helpers/getDate';
 
-const changeMonth = (self: IVanillaCalendar, route: 'prev' | 'next') => {
+const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
 	const jumpDate = getDate(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
 
 	const routeMap: Record<string, () => void> = {

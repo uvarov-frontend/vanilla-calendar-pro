@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const actionsInput = (self: IVanillaCalendar) => ({
+const actionsInput = (self: VanillaCalendar) => ({
 	hide() {
 		self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
 		if (self.actions.hideCalendar) self.actions.hideCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);

@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import getColumnID from '@scripts/helpers/getColumnID';
 import createMonths from '@scripts/methods/createMonths';
 import createYears from '@scripts/methods/createYears';
@@ -12,7 +12,7 @@ type HandleCSSClasses = {
 	column: string;
 };
 
-const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses, itemEl: HTMLElement) => {
+const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses, itemEl: HTMLElement) => {
 	const actionByType = {
 		year: () => self.actions.clickYear?.(event, self.selectedYear as number, self.selectedMonth as number),
 		month: () => self.actions.clickMonth?.(event, self.selectedMonth as number, self.selectedYear as number),
@@ -67,7 +67,7 @@ const handleItemClick = (self: IVanillaCalendar, event: MouseEvent, type: Handle
 	create(self);
 };
 
-const handleClickMonthOrYear = (self: IVanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses) => {
+const handleClickMonthOrYear = (self: VanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses) => {
 	if (!self.settings.selection[type]) return;
 
 	const element = event.target as HTMLElement;

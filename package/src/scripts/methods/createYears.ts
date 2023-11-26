@@ -1,9 +1,9 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDOM from '@scripts/methods/createDOM';
 import visibilityTitle from '@scripts/methods/visibilityTitle';
 
-const createYearEl = (self: IVanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
+const createYearEl = (self: VanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
 	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;
 	yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}`
 		: yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ''}`;
@@ -14,7 +14,7 @@ const createYearEl = (self: IVanillaCalendar, templateYearEl: HTMLButtonElement,
 	return yearEl;
 };
 
-const createYears = (self: IVanillaCalendar, target?: HTMLElement) => {
+const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
 	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear as number;
 	self.currentType = 'year';
 	createDOM(self, target);

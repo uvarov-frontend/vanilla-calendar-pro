@@ -1,29 +1,18 @@
-import { IVanillaCalendar } from '@src/types';
-import create from '@scripts/create';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import setVariables from '@scripts/helpers/setVariables';
+import create from '@scripts/create';
 
-const update = (self: IVanillaCalendar) => {
-	let tempSelectedDates;
-	let tempSelectedMonth;
-	let tempSelectedYear;
+const update = (self: VanillaCalendar) => {
+	const { dates, month, year } = self.settings.selected;
 
-	if (!self.settings.selected.dates?.[0]) {
-		tempSelectedDates = self.settings.selected.dates;
-		self.settings.selected.dates = self.selectedDates;
-	}
-	if (!self.settings.selected.month) {
-		tempSelectedMonth = self.settings.selected.month;
-		self.settings.selected.month = self.selectedMonth as number;
-	}
-	if (!self.settings.selected.year) {
-		tempSelectedYear = self.settings.selected.year;
-		self.settings.selected.year = self.selectedYear as number;
-	}
+	self.settings.selected.dates = self.selectedDates;
+	self.settings.selected.month = self.selectedMonth;
+	self.settings.selected.year = self.selectedYear;
+
 	setVariables(self);
 	create(self);
-	self.settings.selected.dates = tempSelectedDates;
-	self.settings.selected.month = tempSelectedMonth;
-	self.settings.selected.year = tempSelectedYear;
+
+	self.settings.selected = { dates, month, year };
 };
 
 export default update;

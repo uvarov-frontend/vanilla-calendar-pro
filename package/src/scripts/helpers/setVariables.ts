@@ -1,10 +1,10 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import parseDates from '@scripts/helpers/parseDates';
 import generateDate from '@scripts/helpers/generateDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
 
-const initSelectedMonthYear = (self: IVanillaCalendar) => {
+const initSelectedMonthYear = (self: VanillaCalendar) => {
 	const isValidMonth = self.settings.selected.month !== undefined && self.settings.selected.month >= 0 && self.settings.selected.month < 12;
 	const isValidYear = self.settings.selected.year !== undefined && self.settings.selected.year >= 0 && self.settings.selected.year <= 9999;
 
@@ -13,7 +13,7 @@ const initSelectedMonthYear = (self: IVanillaCalendar) => {
 	self.viewYear = self.selectedYear;
 };
 
-const initRange = (self: IVanillaCalendar) => {
+const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
 	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
 	self.rangeMin = isDisablePast
@@ -44,17 +44,17 @@ const initRange = (self: IVanillaCalendar) => {
 	}
 };
 
-const initSelectedDates = (self: IVanillaCalendar) => {
+const initSelectedDates = (self: VanillaCalendar) => {
 	self.selectedDates = self.settings.selected.dates?.[0] ? parseDates(self.settings.selected.dates) : [];
 	self.selectedHolidays = self.settings.selected.holidays?.[0] ? parseDates(self.settings.selected.holidays) : [];
 };
 
-const initDateMinMax = (self: IVanillaCalendar) => {
+const initDateMinMax = (self: VanillaCalendar) => {
 	self.dateMin = self.settings.visibility.disabled ? getDate(self.date.min) : getDate(self.rangeMin);
 	self.dateMax = self.settings.visibility.disabled ? getDate(self.date.max) : getDate(self.rangeMax);
 };
 
-const initTime = (self: IVanillaCalendar) => {
+const initTime = (self: VanillaCalendar) => {
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {
 		self.userTime = false;
@@ -97,7 +97,7 @@ const initTime = (self: IVanillaCalendar) => {
 	}
 };
 
-const initCorrectMonths = (self: IVanillaCalendar) => {
+const initCorrectMonths = (self: VanillaCalendar) => {
 	self.correctMonths = self.type === 'multiple'
 		? self.months === 1
 			? 2
@@ -107,7 +107,8 @@ const initCorrectMonths = (self: IVanillaCalendar) => {
 		: 1;
 };
 
-const setVariables = (self: IVanillaCalendar) => {
+const setVariables = (self: VanillaCalendar) => {
+	self.currentType = self.type;
 	initSelectedMonthYear(self);
 	initRange(self);
 	initSelectedDates(self);

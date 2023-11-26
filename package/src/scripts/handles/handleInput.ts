@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
@@ -15,7 +15,7 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 
-const handleInput = (self: IVanillaCalendar) => {
+const handleInput = (self: VanillaCalendar) => {
 	let firstInit = true;
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
 
@@ -35,7 +35,7 @@ const handleInput = (self: IVanillaCalendar) => {
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
-		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as IVanillaCalendar).hide();
+		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as VanillaCalendar).hide();
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
@@ -44,7 +44,7 @@ const handleInput = (self: IVanillaCalendar) => {
 			createCalendarToInput();
 		} else {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
-			actionsInput(self as IVanillaCalendar).show();
+			actionsInput(self as VanillaCalendar).show();
 		}
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});

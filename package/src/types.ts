@@ -180,8 +180,7 @@ export interface ICSSClasses {
 	weekNumber: string;
 	isFocus: string;
 }
-
-export interface IOptions {
+export interface IVanillaCalendar {
 	input: boolean;
 	type: TypesCalendar;
 	months: number;
@@ -193,18 +192,7 @@ export interface IOptions {
 	popups: IPopups;
 	DOMTemplates: IDOMTemplates;
 	CSSClasses: ICSSClasses;
-}
-
-export interface IMethods extends IOptions {
-	reset: () => void;
-	update: () => void;
-	init: () => void;
-	destroy: () => void;
-}
-
-export interface IVanillaCalendar extends IOptions {
 	HTMLElement: HTMLElement;
-	currentType: TypesCalendar;
 	HTMLOriginalElement: HTMLElement;
 	HTMLInputElement?: HTMLInputElement;
 	rangeMin: FormatDateString;
@@ -221,7 +209,12 @@ export interface IVanillaCalendar extends IOptions {
 	selectedTime: string;
 	userTime: boolean;
 	correctMonths: number;
+	currentType: TypesCalendar;
 	viewYear: number;
 	dateMin: Date;
 	dateMax: Date;
+	reset: () => void;
+	update: () => void;
+	init: () => void;
+	destroy: () => void;
 }

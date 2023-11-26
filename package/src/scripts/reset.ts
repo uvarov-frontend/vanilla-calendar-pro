@@ -1,8 +1,8 @@
-import { IVanillaCalendar } from '@src/types';
-import create from '@scripts/create';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import setVariables from '@scripts/helpers/setVariables';
+import create from '@scripts/create';
 
-const reset = (self: IVanillaCalendar) => {
+const reset = (self: VanillaCalendar) => {
 	setVariables(self);
 	create(self);
 };

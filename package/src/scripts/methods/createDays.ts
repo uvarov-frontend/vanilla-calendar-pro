@@ -1,11 +1,12 @@
-import { FormatDateString, IVanillaCalendar } from '@src/types';
+import { FormatDateString } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
 import getDate from '@scripts/helpers/getDate';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import createPopup from '@scripts/methods/createPopup';
 import createWeekNumbers from '@scripts/methods/createWeekNumbers';
 
-const setDisableWeekday = (self: IVanillaCalendar, date: FormatDateString, dayWeekID: number) => {
+const setDisableWeekday = (self: VanillaCalendar, date: FormatDateString, dayWeekID: number) => {
 	if (self.settings.range.disableWeekday?.includes(dayWeekID) && !self.rangeDisabled?.includes(date)) {
 		self.rangeDisabled = self.rangeDisabled ? [...self.rangeDisabled, date] : [date];
 		self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
@@ -13,7 +14,7 @@ const setDisableWeekday = (self: IVanillaCalendar, date: FormatDateString, dayWe
 };
 
 const setDayModifier = (
-	self: IVanillaCalendar,
+	self: VanillaCalendar,
 	year: number,
 	dayEl: HTMLElement,
 	dayBtnEl: HTMLElement,
@@ -67,7 +68,7 @@ const setDayModifier = (
 };
 
 const createDay = (
-	self: IVanillaCalendar,
+	self: VanillaCalendar,
 	year: number,
 	daysEl: HTMLElement,
 	day: number,
@@ -106,7 +107,7 @@ const createDay = (
 	if (self.actions.getDays) self.actions.getDays(day, date, dayEl, dayBtnEl);
 };
 
-const prevMonth = (self: IVanillaCalendar, daysEl: HTMLElement, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {
+const prevMonth = (self: VanillaCalendar, daysEl: HTMLElement, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {
 	let day = new Date(selectedYear, selectedMonth, 0).getDate() - (firstDayWeek - 1);
 	const year = selectedMonth === 0 ? selectedYear - 1 : selectedYear;
 	const month = selectedMonth === 0 ? 12 : selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth;
@@ -118,7 +119,7 @@ const prevMonth = (self: IVanillaCalendar, daysEl: HTMLElement, selectedYear: nu
 	}
 };
 
-const currentMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number) => {
+const currentMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number) => {
 	for (let i = 1; i <= daysSelectedMonth; i++) {
 		const day = new Date(selectedYear, selectedMonth, i);
 		const date = generateDate(day);
@@ -128,7 +129,7 @@ const currentMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedM
 	}
 };
 
-const nextMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {
+const nextMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {
 	const currentTotalDays = firstDayWeek + daysSelectedMonth;
 	const rowsDays = Math.ceil(currentTotalDays / 7);
 	const daysNextMonth = (7 * rowsDays) - currentTotalDays;
@@ -143,7 +144,7 @@ const nextMonth = (self: IVanillaCalendar, daysEl: HTMLElement, daysSelectedMont
 	}
 };
 
-const createDays = (self: IVanillaCalendar) => {
+const createDays = (self: VanillaCalendar) => {
 	const daysEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.days}`);
 	const weekNumbersEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.weekNumbers}`);
 	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);

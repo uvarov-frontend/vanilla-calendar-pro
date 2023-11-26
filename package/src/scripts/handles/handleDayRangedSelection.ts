@@ -1,13 +1,14 @@
-import { FormatDateString, IVanillaCalendar } from '@src/types';
+import { FormatDateString } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
 import getDate from '@scripts/helpers/getDate';
 import create from '@scripts/create';
 
-let currentSelf: null | IVanillaCalendar = null;
+let currentSelf: null | VanillaCalendar = null;
 
 const removeHoverEffect = () => {
 	const dayEls = currentSelf?.HTMLElement?.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
-	dayEls?.forEach((d) => d.classList.remove((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover));
+	dayEls?.forEach((d) => d.classList.remove((currentSelf as VanillaCalendar).CSSClasses.dayBtnHover));
 };
 
 const addHoverEffect = (day: Date) => {
@@ -17,7 +18,7 @@ const addHoverEffect = (day: Date) => {
 	if (currentSelf.rangeDisabled?.includes(formattedDate)) return;
 
 	const dayEls: NodeListOf<HTMLElement> | undefined = currentSelf.HTMLElement?.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
-	dayEls?.forEach((d) => d.classList.add((currentSelf as IVanillaCalendar).CSSClasses.dayBtnHover));
+	dayEls?.forEach((d) => d.classList.add((currentSelf as VanillaCalendar).CSSClasses.dayBtnHover));
 };
 
 const handleHoverDaysEvent = (e: MouseEvent) => {
@@ -69,7 +70,7 @@ const resetDisabledDates = () => {
 	currentSelf.rangeMax = currentSelf.settings.range.max;
 };
 
-const handleDayRangedSelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement) => {
+const handleDayRangedSelection = (self: VanillaCalendar, dayBtnEl: HTMLElement) => {
 	const formattedDate = dayBtnEl.dataset.calendarDay as FormatDateString;
 	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
 	self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];

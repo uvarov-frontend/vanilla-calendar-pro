@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const createWeekDays = (self: IVanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
+const createWeekDays = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
 	const templateWeekDayEl = document.createElement('b');
 	weekEl.innerHTML = '';
 
@@ -19,7 +19,7 @@ const createWeekDays = (self: IVanillaCalendar, weekEl: HTMLElement, weekday: st
 	}
 };
 
-const createWeek = (self: IVanillaCalendar) => {
+const createWeek = (self: VanillaCalendar) => {
 	const weekday = [...self.locale.weekday];
 	if (!weekday[0]) return;
 	if (self.settings.iso8601) weekday.push((weekday.shift() as string));

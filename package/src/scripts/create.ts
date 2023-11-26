@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import getLocale from '@scripts/helpers/getLocale';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDays from '@scripts/methods/createDays';
@@ -10,7 +10,7 @@ import createWeek from '@scripts/methods/createWeek';
 import createYears from '@scripts/methods/createYears';
 import changeTheme from '@scripts/methods/changeTheme';
 
-const create = (self: IVanillaCalendar) => {
+const create = (self: VanillaCalendar) => {
 	const types = {
 		default: () => {
 			createWeek(self);

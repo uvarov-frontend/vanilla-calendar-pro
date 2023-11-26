@@ -1,14 +1,16 @@
-import { IVanillaCalendar } from '@src/types';
-import reset from '@scripts/reset';
+import VanillaCalendar from '@scripts/vanilla-calendar';
+import setVariables from '@scripts/helpers/setVariables';
 import handleInput from '@scripts/handles/handleInput';
 import handleClick from '@scripts/handles/handleClick';
+import create from '@scripts/create';
 
-const init = (self: IVanillaCalendar) => {
+const init = (self: VanillaCalendar) => {
 	self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
 	if (self.input) {
 		handleInput(self);
 	} else {
-		reset(self);
+		setVariables(self);
+		create(self);
 		handleClick(self);
 	}
 };

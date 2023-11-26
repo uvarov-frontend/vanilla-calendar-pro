@@ -1,11 +1,11 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import actionsInput from '@scripts/helpers/actionsInput';
 import changeMonth from '@scripts/methods/changeMonth';
 import createDays from '@scripts/methods/createDays';
 import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
 import handleDaySelection from '@scripts/handles/handleDaySelection';
 
-const handleClickDay = (self: IVanillaCalendar, event: MouseEvent) => {
+const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;
 	const closest = (className: string): HTMLElement | null => element.closest(`.${className}`);
 	const dayBtnEl: HTMLElement | null = closest(self.CSSClasses.dayBtn);

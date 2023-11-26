@@ -1,10 +1,10 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import handleClickArrow from '@scripts/handles/handleClickArrow';
 import handleClickWeekNumber from '@scripts/handles/handleClickWeekNumber';
 import handleClickDay from '@scripts/handles/handleClickDay';
 import handleClickMonthOrYear from '@scripts/handles/handleClickMonthOrYear';
 
-const handleClick = (self: IVanillaCalendar) => {
+const handleClick = (self: VanillaCalendar) => {
 	self.HTMLElement.addEventListener('click', (e) => {
 		handleClickArrow(self, e);
 		handleClickWeekNumber(self, e);

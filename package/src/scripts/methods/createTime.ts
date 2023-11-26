@@ -1,8 +1,8 @@
-import { IVanillaCalendar } from '../../types';
-import controlTime from './controlTime';
-import transformTime24 from '../helpers/transformTime24';
+import VanillaCalendar from '@scripts/vanilla-calendar';
+import transformTime24 from '@scripts/helpers/transformTime24';
+import controlTime from '@scripts/methods/controlTime';
 
-const createTime = (self: IVanillaCalendar) => {
+const createTime = (self: VanillaCalendar) => {
 	const timeEl = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
 	if (!timeEl) return;
 	const keepingTime = self.settings.selection.time === true ? 12 : self.settings.selection.time;

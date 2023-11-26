@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const destroy = (self: IVanillaCalendar) => {
+const destroy = (self: VanillaCalendar) => {
 	if (self.input) {
 		self.HTMLElement?.parentNode?.removeChild(self.HTMLElement);
 		self.HTMLInputElement?.replaceWith(self.HTMLOriginalElement);

@@ -1,112 +1,53 @@
-import {
-	IOptions,
-	IDate,
-	ISettings,
-	ILocale,
-	IActions,
-	IPopups,
-	ICSSClasses,
-	IDOMTemplates,
-	TypesCalendar,
-} from '@src/types';
-import classes from '@src/classes';
+import * as T from '@src/types';
+import DefaultOptionsCalendar from '@scripts/default';
 import reset from '@scripts/reset';
 import update from '@scripts/update';
 import init from '@scripts/init';
 import destroy from '@scripts/destroy';
-import DOMDefault from '@scripts/templates/DOMDefault';
-import DOMMultiple from '@scripts/templates/DOMMultiple';
-import DOMMonth from '@scripts/templates/DOMMonth';
-import DOMYear from '@scripts/templates/DOMYear';
 
-export default class VanillaCalendar {
-	constructor(selector, option) {
-		this.HTMLElement = typeof selector === 'string' ? document.querySelector(selector) : selector;
-		if (!this.HTMLElement) return;
-		this.input = option?.input ?? false;
-		this.type = option?.type ?? 'default';
-		this.months = option?.months ?? 2;
-		this.jumpMonths = option?.jumpMonths ?? 1;
-		this.date = {
-			min: option?.date?.min ?? '1970-01-01',
-			max: option?.date?.max ?? '2470-12-31',
-			today: option?.date?.today ?? new Date(),
-		};
-		this.settings = {
-			lang: option?.settings?.lang ?? 'en',
-			iso8601: option?.settings?.iso8601 ?? true,
-			range: {
-				min: option?.settings?.range?.min ?? this.date.min,
-				max: option?.settings?.range?.max ?? this.date.max,
-				disablePast: option?.settings?.range?.disablePast ?? false,
-				disableGaps: option?.settings?.range?.disableGaps ?? false,
-				disableAllDays: option?.settings?.range?.disableAllDays ?? false,
-				disableWeekday: option?.settings?.range?.disableWeekday ?? undefined,
-				disabled: option?.settings?.range?.disabled ?? undefined,
-				enabled: option?.settings?.range?.enabled ?? undefined,
-			},
-			selection: {
-				day: option?.settings?.selection?.day ?? 'single',
-				month: option?.settings?.selection?.month ?? true,
-				year: option?.settings?.selection?.year ?? true,
-				time: option?.settings?.selection?.time ?? false,
-				controlTime: option?.settings?.selection?.controlTime ?? 'all',
-				stepHours: option?.settings?.selection?.stepHours ?? 1,
-				stepMinutes: option?.settings?.selection?.stepMinutes ?? 1,
-			},
-			selected: {
-				dates: option?.settings?.selected?.dates ?? undefined,
-				month: option?.settings?.selected?.month ?? undefined,
-				year: option?.settings?.selected?.year ?? undefined,
-				holidays: option?.settings?.selected?.holidays ?? undefined,
-				time: option?.settings?.selected?.time ?? undefined,
-			},
-			visibility: {
-				theme: option?.settings?.visibility?.theme ?? 'system',
-				themeDetect: option?.settings?.visibility?.themeDetect ?? 'html[data-theme]',
-				monthShort: option?.settings?.visibility?.monthShort ?? true,
-				weekNumbers: option?.settings?.visibility?.weekNumbers ?? false,
-				weekend: option?.settings?.visibility?.weekend ?? true,
-				today: option?.settings?.visibility?.today ?? true,
-				disabled: option?.settings?.visibility?.disabled ?? false,
-				daysOutside: option?.settings?.visibility?.daysOutside ?? true,
-			},
-		};
-		this.locale = {
-			months: option?.locale?.months ?? [],
-			weekday: option?.locale?.weekday ?? [],
-		};
-		this.actions = {
-			clickDay: option?.actions?.clickDay ?? null,
-			clickWeekNumber: option?.actions?.clickWeekNumber ?? null,
-			clickMonth: option?.actions?.clickMonth ?? null,
-			clickYear: option?.actions?.clickYear ?? null,
-			clickArrow: option?.actions?.clickArrow ?? null,
-			changeTime: option?.actions?.changeTime ?? null,
-			changeToInput: option?.actions?.changeToInput ?? null,
-			getDays: option?.actions?.getDays ?? null,
-			hideCalendar: option?.actions?.hideCalendar ?? null,
-			showCalendar: option?.actions?.showCalendar ?? null,
-		};
-		this.popups = option?.popups;
-		this.CSSClasses = (() => {
-			const classesObj = { ...classes };
-			(Object.keys(classes) as Array<keyof typeof classes>).forEach((className) => {
-				if (option?.CSSClasses?.[className]) {
-					classesObj[className] = option.CSSClasses[className];
+export interface IOptions {
+	input?: boolean;
+	type?: T.TypesCalendar;
+	months?: number;
+	jumpMonths?: number;
+	date?: Partial<T.IDate>;
+	settings?: Partial<{
+		lang: string;
+		iso8601: boolean;
+		range: Partial<T.IRange>;
+		selection: Partial<T.ISelection>;
+		selected: Partial<T.ISelected>;
+		visibility: Partial<T.IVisibility>;
+	}>;
+	locale?: Partial<T.ILocale>;
+	actions?: Partial<T.IActions>;
+	popups?: T.IPopups;
+	CSSClasses?: Partial<T.ICSSClasses>;
+	DOMTemplates?: Partial<T.IDOMTemplates>;
+}
+
+export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
+	constructor(selector: HTMLElement | string, options?: Partial<IOptions>) {
+		super();
+
+		this.HTMLElement = (typeof selector === 'string' ? document.querySelector(selector) : selector) as HTMLElement;
+		if (!this.HTMLElement) throw new Error(`${selector} is not found, check the first argument passed to new VanillaCalendar.`);
+		if (!options) return;
+
+		this.settings.range.min = options?.settings?.range?.min ?? this.date.min;
+		this.settings.range.max = options?.settings?.range?.max ?? this.date.max;
+
+		const replaceProperties = <T extends object>(original: T, replacement: T) => {
+			(Object.keys(replacement) as Array<keyof T>).forEach((key) => {
+				if (typeof original[key] === 'object' && typeof replacement[key] === 'object') {
+					replaceProperties(original[key] as object, replacement[key] as object);
 				} else {
-					classesObj[className] = classes[className];
+					original[key] = replacement[key];
 				}
 			});
-			return classesObj;
-		})();
-		this.DOMTemplates = {
-			default: option?.DOMTemplates?.default ?? DOMDefault(this.CSSClasses),
-			multiple: option?.DOMTemplates?.multiple ?? DOMMultiple(this.CSSClasses),
-			month: option?.DOMTemplates?.month ?? DOMMonth(this.CSSClasses),
-			year: option?.DOMTemplates?.year ?? DOMYear(this.CSSClasses),
 		};
-		this.currentType = this.type;
+
+		replaceProperties(this, options);
 	}
 
 	reset = () => reset(this);

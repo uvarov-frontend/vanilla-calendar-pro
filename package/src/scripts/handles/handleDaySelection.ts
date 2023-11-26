@@ -1,6 +1,7 @@
-import { FormatDateString, IVanillaCalendar } from '@src/types';
+import { FormatDateString } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const handleDaySelection = (self: IVanillaCalendar, dayBtnEl: HTMLElement, multiple: boolean) => {
+const handleDaySelection = (self: VanillaCalendar, dayBtnEl: HTMLElement, multiple: boolean) => {
 	if (!dayBtnEl.dataset.calendarDay) return;
 
 	const selectedDay = dayBtnEl.dataset.calendarDay as FormatDateString;

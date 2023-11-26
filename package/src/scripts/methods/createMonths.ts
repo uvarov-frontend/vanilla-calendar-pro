@@ -1,15 +1,15 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import createDOM from '@scripts/methods/createDOM';
 import visibilityTitle from '@scripts/methods/visibilityTitle';
 
-const relationshipID = (self: IVanillaCalendar) => {
+const relationshipID = (self: VanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;
 	const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
 	const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
 	return indexColumn > 0 ? indexColumn : 0;
 };
 
-const createMonthEl = (self: IVanillaCalendar, templateMonthEl: HTMLButtonElement, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
+const createMonthEl = (self: VanillaCalendar, templateMonthEl: HTMLButtonElement, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
 	const monthEl = templateMonthEl.cloneNode(false) as HTMLButtonElement;
 	monthEl.className = `${self.CSSClasses.monthsMonth}${selectedMonth === i ? ` ${self.CSSClasses.monthsMonthSelected}`
 		: monthDisabled ? ` ${self.CSSClasses.monthsMonthDisabled}` : ''}`;
@@ -20,7 +20,7 @@ const createMonthEl = (self: IVanillaCalendar, templateMonthEl: HTMLButtonElemen
 	return monthEl;
 };
 
-const createMonths = (self: IVanillaCalendar, target?: HTMLElement) => {
+const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 	const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target.dataset.calendarSelectedMonth) : self.selectedMonth as number;
 	const yearEl = target?.closest(`.${self.CSSClasses.column}`)?.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
 	const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : self.selectedYear as number;

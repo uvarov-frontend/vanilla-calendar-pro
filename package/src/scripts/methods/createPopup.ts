@@ -1,4 +1,5 @@
-import { IPopup, IVanillaCalendar } from '@src/types';
+import { IPopup } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
 const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasses: string) => {
 	const dayBtnEl: HTMLElement | null = daysEl.querySelector(`[data-calendar-day="${date}"]`);
@@ -7,9 +8,9 @@ const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasse
 	if (dayInfo?.html) (dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="${CSSClasses}">${dayInfo.html}</div>`;
 };
 
-const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
+const createPopup = (self: VanillaCalendar, daysEl: HTMLElement) => {
 	if (!self.popups) return;
-	Object.entries(self.popups).forEach(([date, dayInfo]) => handleDay(date, dayInfo, daysEl, self.CSSClasses.dayPopup));
+	Object.entries(self.popups)?.forEach(([date, dayInfo]) => handleDay(date, dayInfo, daysEl, self.CSSClasses.dayPopup));
 };
 
 export default createPopup;

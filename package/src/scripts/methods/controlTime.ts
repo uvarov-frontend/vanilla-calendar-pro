@@ -1,9 +1,9 @@
-import { IVanillaCalendar } from '../../types';
-import actionsInput from '../helpers/actionsInput';
-import transformTime12 from '../helpers/transformTime12';
-import transformTime24 from '../helpers/transformTime24';
+import VanillaCalendar from '@scripts/vanilla-calendar';
+import actionsInput from '@scripts/helpers/actionsInput';
+import transformTime12 from '@scripts/helpers/transformTime12';
+import transformTime24 from '@scripts/helpers/transformTime24';
 
-const controlTime = (self: IVanillaCalendar, keepingTime: number | false) => {
+const controlTime = (self: VanillaCalendar, keepingTime: number | false) => {
 	const rangeHours = self.HTMLElement.querySelector(`.${self.CSSClasses.timeRange} input[name="hours"]`);
 	const rangeMinutes = self.HTMLElement.querySelector(`.${self.CSSClasses.timeRange} input[name="minutes"]`);
 	const inputHours = self.HTMLElement.querySelector(`.${self.CSSClasses.timeHours} input[name="hours"]`);

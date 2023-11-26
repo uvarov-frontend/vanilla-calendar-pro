@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import themes from '@scripts/helpers/getThemes';
 
 const haveListener = {
@@ -11,7 +11,7 @@ const getTheme = (htmlEl: HTMLElement, attr: string) => themes.find((t) => t !==
 
 const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light'): void => { htmlEl.dataset.calendarTheme = theme; };
 
-const trackChangesThemeInSystemSettings = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) => {
+const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
 	const setDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => setTheme(self.HTMLElement, event.matches ? 'dark' : 'light');
 	setDataAttrTheme(supportDarkTheme);
 
@@ -21,7 +21,7 @@ const trackChangesThemeInSystemSettings = (self: IVanillaCalendar, supportDarkTh
 	haveListener.set();
 };
 
-const trackChangesThemeInHTMLElement = (self: IVanillaCalendar, htmlEl: HTMLElement, attr: string) => {
+const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLElement, attr: string) => {
 	const changes = (mutationsList: MutationRecord[]) => {
 		for (let i = 0; i < mutationsList.length; i++) {
 			const record = mutationsList[i];
@@ -39,7 +39,7 @@ const trackChangesThemeInHTMLElement = (self: IVanillaCalendar, htmlEl: HTMLElem
 	});
 };
 
-const detectTheme = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) => {
+const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
 	const detectedThemeEl: HTMLElement | null = self.settings.visibility.themeDetect
 		? document.querySelector(self.settings.visibility.themeDetect)
 		: null;
@@ -59,7 +59,7 @@ const detectTheme = (self: IVanillaCalendar, supportDarkTheme: MediaQueryList) =
 	}
 };
 
-const changeTheme = (self: IVanillaCalendar) => {
+const changeTheme = (self: VanillaCalendar) => {
 	if (!themes.includes(self.settings.visibility.theme)) throw new Error('Incorrect name of theme in "settings.visibility.theme"');
 
 	let supportDarkTheme: MediaQueryList;

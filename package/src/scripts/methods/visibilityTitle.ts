@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const visibilityMonth = (self: IVanillaCalendar, monthEl: HTMLElement, index: number, initDate: Date) => {
+const visibilityMonth = (self: VanillaCalendar, monthEl: HTMLElement, index: number, initDate: Date) => {
 	const month = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
 	const isSelectionDisabled = self.settings.selection.month === false || self.settings.selection.month === 'only-arrows';
 
@@ -10,7 +10,7 @@ const visibilityMonth = (self: IVanillaCalendar, monthEl: HTMLElement, index: nu
 	monthEl.innerText = self.locale.months[month];
 };
 
-const visibilityYear = (self: IVanillaCalendar, yearEl: HTMLElement, index: number, initDate: Date) => {
+const visibilityYear = (self: VanillaCalendar, yearEl: HTMLElement, index: number, initDate: Date) => {
 	const year = new Date(initDate.setFullYear((self.selectedYear as number), (self.selectedMonth as number) + index)).getFullYear();
 	const isSelectionDisabled = self.settings.selection.year === false || self.settings.selection.year === 'only-arrows';
 
@@ -20,7 +20,7 @@ const visibilityYear = (self: IVanillaCalendar, yearEl: HTMLElement, index: numb
 	yearEl.innerText = String(year);
 };
 
-const visibilityTitle = (self: IVanillaCalendar) => {
+const visibilityTitle = (self: VanillaCalendar) => {
 	const monthEls: NodeListOf<HTMLElement> | undefined = self.HTMLElement?.querySelectorAll('[data-calendar-selected-month]');
 	const yearEls: NodeListOf<HTMLElement> | undefined = self.HTMLElement?.querySelectorAll('[data-calendar-selected-year]');
 

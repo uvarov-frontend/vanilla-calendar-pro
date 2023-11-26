@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const getColumnID = (self: IVanillaCalendar, columnClass: string, personalClass: string, id: number, dataAttr: string) => {
+const getColumnID = (self: VanillaCalendar, columnClass: string, personalClass: string, id: number, dataAttr: string) => {
 	const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
 	const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(columnClass));
 	const currentValue = Number((columnEls[indexColumn].querySelector(`.${personalClass}`) as HTMLElement).getAttribute(dataAttr));

@@ -1,6 +1,6 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 
-const handleClickWeekNumber = (self: IVanillaCalendar, event: MouseEvent) => {
+const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
 	if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber) return;
 
 	const weekNumberEl: HTMLElement | null = (event.target as HTMLElement).closest(`.${self.CSSClasses.weekNumber}`);

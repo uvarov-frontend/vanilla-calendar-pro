@@ -1,8 +1,9 @@
-import { FormatDateString, IVanillaCalendar } from '@src/types';
+import { FormatDateString } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 
 const createWeekNumber = (
-	self: IVanillaCalendar,
+	self: VanillaCalendar,
 	dayEls: NodeListOf<HTMLElement>,
 	index: number,
 	templateWeekNumberEl: HTMLButtonElement,
@@ -19,7 +20,7 @@ const createWeekNumber = (
 	weekNumbersContentEl.append(weekNumberEl);
 };
 
-const createWeekNumbers = (self: IVanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
+const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
 	weekNumbersEl.innerHTML = '';
 

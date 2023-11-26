@@ -1,4 +1,4 @@
-import { IVanillaCalendar } from '@src/types';
+import VanillaCalendar from '@scripts/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
 import getDate from '@scripts/helpers/getDate';
 
@@ -14,7 +14,7 @@ const setVisibilityArrows = ({
 	arrowNext.style.visibility = isNextHidden ? 'hidden' : '';
 };
 
-const visibilityArrows = (self: IVanillaCalendar) => {
+const visibilityArrows = (self: VanillaCalendar) => {
 	if (self.currentType === 'month') return;
 
 	const arrowPrev: HTMLElement | null = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowPrev}`);
