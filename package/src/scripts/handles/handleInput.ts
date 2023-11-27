@@ -1,7 +1,7 @@
-import { IVanillaCalendar } from '../../types';
-import calendarInput from '../helpers/calendarInput';
-import clickCalendar from './clickCalendar';
-import resetCalendar from './resetCalendar';
+import VanillaCalendar from '@src/vanilla-calendar';
+import actionsInput from '@scripts/helpers/actionsInput';
+import handleClick from '@scripts/handles/handleClick';
+import reset from '@scripts/reset';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;
@@ -15,41 +15,39 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 
-const handlerInput = (self: IVanillaCalendar) => {
-	if (!self) return;
+const handleInput = (self: VanillaCalendar) => {
+	let firstInit = true;
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
-	self.HTMLElement = null;
 
 	const createCalendarToInput = () => {
-		if (!self.HTMLInputElement) return;
-
 		const calendar = document.createElement('div');
 		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-		setPositionCalendar(self.HTMLInputElement, calendar);
+		setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar);
 		self.HTMLElement = calendar;
 		document.body.append(self.HTMLElement);
+		firstInit = false;
 
-		setTimeout(() => calendarInput(self).show(), 0);
+		setTimeout(() => actionsInput(self).show(), 0);
 
-		resetCalendar(self);
-		clickCalendar(self);
+		reset(self);
+		handleClick(self);
 	};
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
-		calendarInput(self as IVanillaCalendar).hide();
+		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as VanillaCalendar).hide();
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
 	self.HTMLInputElement.addEventListener('click', () => {
-		if (self.HTMLElement) {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
-			calendarInput(self as IVanillaCalendar).show();
-		} else {
+		if (firstInit) {
 			createCalendarToInput();
+		} else {
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
+			actionsInput(self as VanillaCalendar).show();
 		}
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});
 };
 
-export default handlerInput;
+export default handleInput;

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import '@/package/src/styles/vanilla-calendar.css';
-import '@/package/src/styles/themes/light.css';
-import '@/package/src/styles/themes/dark.css';
+import '@src/styles/vanilla-calendar.css';
+import '@src/styles/themes/light.css';
+import '@src/styles/themes/dark.css';
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-import VanillaCalendar from '@/package/src/scripts/vanilla-calendar';
-import IVanillaCalendar, { Options } from '@/package/src';
+import VanillaCalendar from '@src/vanilla-calendar';
+import { IOptions } from '@src/types';
 
-const configInput: Options = {
+const configInput: IOptions = {
 	input: true,
 	actions: {
 		changeToInput(e, calendar, dates) {
@@ -21,7 +21,7 @@ const configInput: Options = {
 	},
 };
 
-const configDiv: Options = {
+const configDiv: IOptions = {
 	input: true,
 	actions: {
 		changeToInput(e, calendar, dates) {
@@ -37,10 +37,9 @@ const configDiv: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	// @ts-ignore: VanillaCalendar config
-	const calendarInput: IVanillaCalendar<string, Options> = new VanillaCalendar('#calendar-input', configInput);
+	const calendarInput = new VanillaCalendar('#calendar-input', configInput);
 	calendarInput.init();
-	// @ts-ignore: VanillaCalendar config
-	const calendarDiv: IVanillaCalendar<string, Options> = new VanillaCalendar('#calendar-div', configDiv);
+
+	const calendarDiv = new VanillaCalendar('#calendar-div', configDiv);
 	calendarDiv.init();
 });

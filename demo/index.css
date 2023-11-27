@@ -23,5 +23,5 @@
 }
 
 .input {
-	@apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left
+	@apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left inline-block
 }

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import '@/package/src/styles/vanilla-calendar.css';
-import '@/package/src/styles/themes/light.css';
-import '@/package/src/styles/themes/dark.css';
+import '@src/styles/vanilla-calendar.css';
+import '@src/styles/themes/light.css';
+import '@src/styles/themes/dark.css';
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-import VanillaCalendar from '@/package/src/scripts/vanilla-calendar';
-import IVanillaCalendar, { Options } from '@/package/src';
+import VanillaCalendar from '@src/vanilla-calendar';
+import { IOptions } from '@src/types';
 
-const config: Options = {
+const config: IOptions = {
 	settings: {
 		selected: {
 			month: 3,
@@ -16,7 +16,6 @@ const config: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	// @ts-ignore: VanillaCalendar config
-	const calendar: IVanillaCalendar<string, Options> = new VanillaCalendar('#calendar', config);
+	const calendar = new VanillaCalendar('#calendar', config);
 	calendar.init();
 });

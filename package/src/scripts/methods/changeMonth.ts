@@ -1,30 +1,23 @@
-import { IVanillaCalendar } from '../../types';
-import generateDate from '../helpers/generateDate';
-import controlArrows from './controlArrows';
-import createDays from './createDays';
-import showMonth from './showMonth';
-import showYear from './showYear';
+import VanillaCalendar from '@src/vanilla-calendar';
+import generateDate from '@scripts/helpers/generateDate';
+import getDate from '@scripts/helpers/getDate';
+import visibilityArrows from '@scripts/methods/visibilityArrows';
+import createDays from '@scripts/methods/createDays';
+import visibilityTitle from '@scripts/methods/visibilityTitle';
 
-const changeMonth = (self: IVanillaCalendar, route: string | undefined) => {
-	if (self.selectedMonth === undefined || self.selectedYear === undefined) return;
-	const jumpDate = new Date(`${generateDate(new Date(self.selectedYear, self.selectedMonth, 1))}T00:00:00`);
+const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
+	const jumpDate = getDate(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
 
-	switch (route) {
-		case 'prev':
-			jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths);
-			break;
-		case 'next':
-			jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths);
-			break;
-		// no default
-	}
+	const routeMap: Record<string, () => void> = {
+		prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths),
+		next: () => jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths),
+	};
 
-	self.selectedMonth = jumpDate.getMonth();
-	self.selectedYear = jumpDate.getFullYear();
+	routeMap[route]();
+	[self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
 
-	showMonth(self);
-	showYear(self);
-	controlArrows(self);
+	visibilityTitle(self);
+	visibilityArrows(self);
 	createDays(self);
 };
 

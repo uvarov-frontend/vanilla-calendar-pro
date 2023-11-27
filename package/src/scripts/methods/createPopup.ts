@@ -1,17 +1,16 @@
-import { FormatDateString, IVanillaCalendar } from '../../types';
+import { IPopup } from '@src/types';
+import VanillaCalendar from '@src/vanilla-calendar';
 
-const createPopup = (self: IVanillaCalendar, daysEl: HTMLElement) => {
+const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasses: string) => {
+	const dayBtnEl: HTMLElement | null = daysEl.querySelector(`[data-calendar-day="${date}"]`);
+	if (!dayBtnEl) return;
+	if (dayInfo?.modifier) dayBtnEl.classList.add(...dayInfo.modifier.trim().split(' '));
+	if (dayInfo?.html) (dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="${CSSClasses}">${dayInfo.html}</div>`;
+};
+
+const createPopup = (self: VanillaCalendar, daysEl: HTMLElement) => {
 	if (!self.popups) return;
-
-	Object.keys(self.popups).forEach((date: string) => {
-		const dayBtnEl = daysEl.querySelector(`[data-calendar-day="${date}"]`);
-
-		if (dayBtnEl) {
-			const dayInfo = self.popups?.[date as FormatDateString];
-			if (dayInfo?.modifier) dayInfo.modifier.trim().split(' ').forEach((cl) => { dayBtnEl.classList.add(cl); });
-			if (dayInfo?.html) (dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="${self.CSSClasses.dayPopup}">${dayInfo.html}</div>`;
-		}
-	});
+	Object.entries(self.popups)?.forEach(([date, dayInfo]) => handleDay(date, dayInfo, daysEl, self.CSSClasses.dayPopup));
 };
 
 export default createPopup;

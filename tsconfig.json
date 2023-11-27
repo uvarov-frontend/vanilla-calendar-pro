@@ -14,9 +14,11 @@
 		"resolveJsonModule": true,
 		"isolatedModules": false,
 		"noEmit": true,
-		"types": ["cypress", "node"],
+		"types": ["cypress", "node", "vite"],
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"@src/*": ["./package/src/*"],
+			"@scripts/*": ["./package/src/scripts/*"],
 		}
 	},
 	"include": ["**/*.ts", "**/*.js", "**/*.cy.ts"],

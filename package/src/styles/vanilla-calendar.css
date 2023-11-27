@@ -3,7 +3,7 @@
 }
 
 .vanilla-calendar_multiple {
-	@apply w-auto
+	@apply w-[550px]
 }
 
 .vanilla-calendar button:focus-visible {
@@ -63,7 +63,7 @@
 }
 
 .vanilla-calendar-header {
-	@apply relative flex items-center px-1 mb-3
+	@apply relative flex items-center mb-3
 }
 
 .vanilla-calendar-header__content {
@@ -169,7 +169,7 @@
 	@apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg
 }
 
-.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_intermediate {
+.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected_intermediate {
 	@apply rounded-none
 }
 
