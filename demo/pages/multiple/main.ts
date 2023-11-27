@@ -9,10 +9,6 @@ import { IOptions } from '@src/types';
 const config: IOptions = {
 	type: 'multiple',
 	settings: {
-		// range: {
-		// 	min: '2023-09-08',
-		// 	max: '2025-09-08',
-		// },
 		selection: {
 			day: 'multiple-ranged',
 		},
@@ -21,14 +17,6 @@ const config: IOptions = {
 			year: 2023,
 		},
 	},
-	// actions: {
-	// 	clickMonth(e, month, year) {
-	// 		console.log(e, month, year);
-	// 	},
-	// 	clickYear(e, year, month) {
-	// 		console.log(e, year, month);
-	// 	},
-	// },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

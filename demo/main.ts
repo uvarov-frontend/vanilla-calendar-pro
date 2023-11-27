@@ -8,13 +8,9 @@ import { IOptions } from '@src/types';
 
 const config: IOptions = {
 	settings: {
-		// selected: {
-		// 	month: 3,
-		// 	year: 2023,
-		// },
-		range: {
-			// disableAllDays: true,
-			disablePast: true,
+		selected: {
+			month: 3,
+			year: 2023,
 		},
 	},
 };
