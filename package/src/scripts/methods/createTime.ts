@@ -4,7 +4,7 @@ import transformTime24 from '@scripts/helpers/transformTime24';
 import changeTime from '@scripts/methods/changeTime';
 
 const createTime = (self: VanillaCalendar) => {
-	const timeEl = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
+	const timeEl: HTMLElement | null = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
 	if (!timeEl) return;
 
 	const keepingTime = self.settings.selection.time === true ? 12 : self.settings.selection.time;
@@ -27,7 +27,7 @@ const createTime = (self: VanillaCalendar) => {
 		</div>
 	`);
 
-	changeTime(self, keepingTime);
+	changeTime(self, timeEl, keepingTime);
 };
 
 export default createTime;
