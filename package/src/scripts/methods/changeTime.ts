@@ -3,7 +3,7 @@ import actionsInput from '@scripts/helpers/actionsInput';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import transformTime24 from '@scripts/helpers/transformTime24';
 
-const controlTime = (self: VanillaCalendar, keepingTime: number | false) => {
+const changeTime = (self: VanillaCalendar, keepingTime: number | false) => {
 	const rangeHours = self.HTMLElement.querySelector(`.${self.CSSClasses.timeRange} input[name="hours"]`);
 	const rangeMinutes = self.HTMLElement.querySelector(`.${self.CSSClasses.timeRange} input[name="minutes"]`);
 	const inputHours = self.HTMLElement.querySelector(`.${self.CSSClasses.timeHours} input[name="hours"]`);
@@ -132,4 +132,4 @@ const controlTime = (self: VanillaCalendar, keepingTime: number | false) => {
 	});
 };
 
-export default controlTime;
+export default changeTime;

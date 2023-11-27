@@ -1,7 +1,7 @@
 import VanillaCalendar from '@scripts/vanilla-calendar';
 import { InputTime, RangeTime } from '@scripts/helpers/createComponents';
 import transformTime24 from '@scripts/helpers/transformTime24';
-import controlTime from '@scripts/methods/controlTime';
+import changeTime from '@scripts/methods/changeTime';
 
 const createTime = (self: VanillaCalendar) => {
 	const timeEl = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
@@ -27,7 +27,7 @@ const createTime = (self: VanillaCalendar) => {
 		</div>
 	`);
 
-	controlTime(self, keepingTime);
+	changeTime(self, keepingTime);
 };
 
 export default createTime;
