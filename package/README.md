@@ -8,7 +8,7 @@ VanillaCalendar is a versatile JavaScript date and time picker with TypeScript s
 
 ## Key Features
 
-- **Lightweight**: The final minified .js file is only approximately **44.4 KB**, and with gzip compression, it's just around **10.8 KB**.
+- **Lightweight**: The final minified .js file is only approximately **37.3 KB**, and with gzip compression, it's just around **9.9 KB**.
 - **No Dependencies**: VanillaCalendar is entirely self-contained, ensuring you don't need to include additional libraries.
 - **Simple Localization**: Supports simple localization for any language.
 - **Customizable**: Can be easily configured using CSS and HTML markup.
