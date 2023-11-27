@@ -180,6 +180,28 @@ export interface ICSSClasses {
 	weekNumber: string;
 	isFocus: string;
 }
+
+export interface IOptions {
+	input?: boolean;
+	type?: TypesCalendar;
+	months?: number;
+	jumpMonths?: number;
+	date?: Partial<IDate>;
+	settings?: Partial<{
+		lang: string;
+		iso8601: boolean;
+		range: Partial<IRange>;
+		selection: Partial<ISelection>;
+		selected: Partial<ISelected>;
+		visibility: Partial<IVisibility>;
+	}>;
+	locale?: Partial<ILocale>;
+	actions?: Partial<IActions>;
+	popups?: IPopups;
+	CSSClasses?: Partial<ICSSClasses>;
+	DOMTemplates?: Partial<IDOMTemplates>;
+}
+
 export interface IVanillaCalendar {
 	input: boolean;
 	type: TypesCalendar;

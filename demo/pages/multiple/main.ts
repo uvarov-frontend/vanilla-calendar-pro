@@ -3,7 +3,8 @@ import '@src/styles/vanilla-calendar.css';
 import '@src/styles/themes/light.css';
 import '@src/styles/themes/dark.css';
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-import VanillaCalendar, { IOptions } from '@src/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
+import { IOptions } from '@src/types';
 
 const config: IOptions = {
 	type: 'multiple',
