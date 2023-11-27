@@ -51,3 +51,24 @@ export const WeekNumbers = (self: VanillaCalendar) => (self.settings.visibility.
 export const ControlTime = (self: VanillaCalendar) => (self.settings.selection.time ? (`
 	<div class="${self.CSSClasses.time}"></div>
 `) : '');
+
+export const InputTime = (name:string, CSSClass: string, value: string, range: boolean) => (`
+	<label class="${CSSClass}">
+		<input type="text"
+			name="${name}"
+			maxlength="2"
+			value="${value}"
+			${range ? 'disabled' : ''}>
+	</label>
+`);
+
+export const RangeTime = (name: string, CSSClass: string, min: number, max: number, step: number, value: string) => (`
+	<label class="${CSSClass}">
+		<input type="range"
+			name="${name}"
+			min="${min}"
+			max="${max}"
+			step="${step}"
+			value="${value}">
+	</label>
+`);

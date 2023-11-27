@@ -1,53 +1,31 @@
 import VanillaCalendar from '@scripts/vanilla-calendar';
+import { InputTime, RangeTime } from '@scripts/helpers/createComponents';
 import transformTime24 from '@scripts/helpers/transformTime24';
 import controlTime from '@scripts/methods/controlTime';
 
 const createTime = (self: VanillaCalendar) => {
 	const timeEl = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
 	if (!timeEl) return;
+
 	const keepingTime = self.settings.selection.time === true ? 12 : self.settings.selection.time;
 	const range = self.settings.selection.controlTime === 'range';
+	const [minHour, maxHour] = [0, 23];
+	const [minMinutes, maxMinutes] = [0, 59];
 
-	timeEl.innerHTML = `
-	<div class="${self.CSSClasses.timeContent}">
-		<label class="${self.CSSClasses.timeHours}">
-			<input type="text"
-				name="hours"
-				maxlength="2"
-				value="${self.selectedHours}"
-				${range ? 'disabled' : ''}>
-		</label>
-		<label class="${self.CSSClasses.timeMinutes}">
-			<input type="text"
-				name="minutes"
-				maxlength="2"
-				value="${self.selectedMinutes}"
-				${range ? 'disabled' : ''}>
-		</label>
-		${keepingTime === 12 ? `
-		<button type="button"
-			class="${self.CSSClasses.timeKeeping}"
-			${range ? 'disabled' : ''}>${self.selectedKeeping}</button>
-		` : ''}
-	</div>
-	<div class="${self.CSSClasses.timeRanges}">
-		<label class="${self.CSSClasses.timeRange}">
-			<input type="range"
-				name="hours"
-				min="0"
-				max="23"
-				step="${self.settings.selection.stepHours}"
-				value="${self.selectedKeeping ? transformTime24(self.selectedHours, self.selectedKeeping) : self.selectedHours}">
-		</label>
-		<label class="${self.CSSClasses.timeRange}">
-			<input type="range"
-				name="minutes"
-				min="0"
-				max="59"
-				step="${self.settings.selection.stepMinutes}"
-				value="${self.selectedMinutes}">
-		</label>
-	</div>`;
+	timeEl.innerHTML = (`
+		<div class="${self.CSSClasses.timeContent}">
+			${InputTime('hours', self.CSSClasses.timeHours, self.selectedHours, range)}
+			${InputTime('minutes', self.CSSClasses.timeMinutes, self.selectedMinutes, range)}
+			${keepingTime === 12 ? `
+			<button type="button" class="${self.CSSClasses.timeKeeping}"
+				${range ? 'disabled' : ''}>${self.selectedKeeping}</button>` : ''}
+		</div>
+		<div class="${self.CSSClasses.timeRanges}">
+			${RangeTime('hours', self.CSSClasses.timeRange, minHour, maxHour, self.settings.selection.stepHours, self.selectedKeeping
+			? transformTime24(self.selectedHours, self.selectedKeeping) : self.selectedHours)}
+			${RangeTime('minutes', self.CSSClasses.timeRange, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
+		</div>
+	`);
 
 	controlTime(self, keepingTime);
 };
