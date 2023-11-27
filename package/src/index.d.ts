@@ -1,5 +1,18 @@
 import * as T from './types';
 
+export type Options = T.IOptions;
+export type TypesCalendar = T.TypesCalendar;
+export type Date = T.IDate;
+export type Range = T.IRange;
+export type Selection = T.ISelection;
+export type Selected = T.ISelected;
+export type Visibility = T.IVisibility;
+export type Locale = T.ILocale;
+export type Actions = T.IActions;
+export type Popups = T.IPopups;
+export type CSSClasses = T.ICSSClasses;
+export type DOMTemplates = T.IDOMTemplates;
+
 export default class VanillaCalendar {
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);
 
