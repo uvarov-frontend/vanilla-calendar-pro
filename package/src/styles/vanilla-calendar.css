@@ -3,7 +3,7 @@
 }
 
 .vanilla-calendar_multiple {
-	@apply w-auto
+	@apply w-[550px]
 }
 
 .vanilla-calendar button:focus-visible {
