@@ -1,7 +1,27 @@
 import VanillaCalendar from '@scripts/vanilla-calendar';
-import { InputTime, RangeTime } from '@scripts/helpers/createComponents';
 import transformTime24 from '@scripts/helpers/transformTime24';
 import changeTime from '@scripts/methods/changeTime';
+
+export const InputTime = (name:string, CSSClass: string, value: string, range: boolean) => (`
+	<label class="${CSSClass}">
+		<input type="text"
+			name="${name}"
+			maxlength="2"
+			value="${value}"
+			${range ? 'disabled' : ''}>
+	</label>
+`);
+
+export const RangeTime = (name: string, CSSClass: string, min: number, max: number, step: number, value: string) => (`
+	<label class="${CSSClass}">
+		<input type="range"
+			name="${name}"
+			min="${min}"
+			max="${max}"
+			step="${step}"
+			value="${value}">
+	</label>
+`);
 
 const createTime = (self: VanillaCalendar) => {
 	const timeEl: HTMLElement | null = self.HTMLElement.querySelector(`.${self.CSSClasses.time}`);
