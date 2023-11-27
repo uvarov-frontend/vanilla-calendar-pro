@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const getColumnID = (self: VanillaCalendar, columnClass: string, personalClass: string, id: number, dataAttr: string) => {
 	const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);

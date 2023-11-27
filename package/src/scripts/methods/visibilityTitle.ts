@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const visibilityMonth = (self: VanillaCalendar, monthEl: HTMLElement, index: number, initDate: Date) => {
 	const month = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();

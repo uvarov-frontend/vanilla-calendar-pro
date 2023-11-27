@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import setVariables from '@scripts/helpers/setVariables';
 import create from '@scripts/create';
 

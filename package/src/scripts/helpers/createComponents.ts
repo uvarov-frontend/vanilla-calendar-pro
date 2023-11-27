@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 export const ArrowPrev = (self: VanillaCalendar) => (`
 	<button type="button"

@@ -1,5 +1,5 @@
 import { FormatDateString } from '@src/types';
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 
 const createWeekNumber = (

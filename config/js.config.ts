@@ -13,7 +13,7 @@ export default defineConfig({
 		lib: {
 			name: 'VanillaCalendar',
 			fileName(format, entryName) { return `${entryName}.min${format === 'es' ? '.mjs' : '.js'}`; },
-			entry: resolve(__dirname, '../package/src/scripts/vanilla-calendar.ts'),
+			entry: resolve(__dirname, '../package/src/vanilla-calendar.ts'),
 		},
 	},
 	resolve: {

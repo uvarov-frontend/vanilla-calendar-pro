@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
 	if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber) return;

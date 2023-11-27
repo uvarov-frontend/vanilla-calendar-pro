@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import getComponent from '@scripts/helpers/getComponent';
 
 export const DOMParser = (self: VanillaCalendar, template: string) => (

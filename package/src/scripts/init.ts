@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import setVariables from '@scripts/helpers/setVariables';
 import handleInput from '@scripts/handles/handleInput';
 import handleClick from '@scripts/handles/handleClick';

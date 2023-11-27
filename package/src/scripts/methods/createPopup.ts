@@ -1,5 +1,5 @@
 import { IPopup } from '@src/types';
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasses: string) => {
 	const dayBtnEl: HTMLElement | null = daysEl.querySelector(`[data-calendar-day="${date}"]`);

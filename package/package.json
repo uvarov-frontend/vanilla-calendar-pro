@@ -33,8 +33,9 @@
 	"license": "MIT",
 	"main": "./build/vanilla-calendar.min.js",
 	"module": "./build/vanilla-calendar.min.mjs",
-	"source": "./src/scripts/vanilla-calendar.ts",
 	"style": "./build/vanilla-calendar.min.css",
+	"source": "./src/vanilla-calendar.ts",
+	"types": "./src/index.d.ts",
 	"devDependencies": {},
 	"dependencies": {}
 }

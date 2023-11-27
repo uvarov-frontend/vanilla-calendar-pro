@@ -1,5 +1,5 @@
 import { FormatDateString } from '@src/types';
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const handleDaySelection = (self: VanillaCalendar, dayBtnEl: HTMLElement, multiple: boolean) => {
 	if (!dayBtnEl.dataset.calendarDay) return;

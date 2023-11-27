@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import actionsInput from '@scripts/helpers/actionsInput';
 import changeMonth from '@scripts/methods/changeMonth';
 import createDays from '@scripts/methods/createDays';

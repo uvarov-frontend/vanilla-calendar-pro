@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import transformTime24 from '@scripts/helpers/transformTime24';
 import changeTime from '@scripts/methods/changeTime';
 

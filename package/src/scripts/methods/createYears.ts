@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import visibilityArrows from '@scripts/methods/visibilityArrows';
 import createDOM from '@scripts/methods/createDOM';
 import visibilityTitle from '@scripts/methods/visibilityTitle';

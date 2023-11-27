@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
 import getDate from '@scripts/helpers/getDate';
 import visibilityArrows from '@scripts/methods/visibilityArrows';

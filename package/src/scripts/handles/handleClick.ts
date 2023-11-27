@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import handleClickArrow from '@scripts/handles/handleClickArrow';
 import handleClickWeekNumber from '@scripts/handles/handleClickWeekNumber';
 import handleClickDay from '@scripts/handles/handleClickDay';

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import '@/package/src/styles/vanilla-calendar.css';
-import '@/package/src/styles/themes/light.css';
-import '@/package/src/styles/themes/dark.css';
+import '@src/styles/vanilla-calendar.css';
+import '@src/styles/themes/light.css';
+import '@src/styles/themes/dark.css';
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-import VanillaCalendar, { IOptions } from '@/package/src/scripts/vanilla-calendar';
+import VanillaCalendar, { IOptions } from '@src/vanilla-calendar';
 
 const configInput: IOptions = {
 	input: true,

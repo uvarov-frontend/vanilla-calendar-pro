@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import getColumnID from '@scripts/helpers/getColumnID';
 import createMonths from '@scripts/methods/createMonths';
 import createYears from '@scripts/methods/createYears';

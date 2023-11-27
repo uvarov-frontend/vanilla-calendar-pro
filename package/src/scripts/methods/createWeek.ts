@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 
 const createWeekDays = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
 	const templateWeekDayEl = document.createElement('b');

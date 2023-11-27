@@ -1,4 +1,4 @@
-import VanillaCalendar from '@scripts/vanilla-calendar';
+import VanillaCalendar from '@src/vanilla-calendar';
 import { DOMParser, MultipleParser } from '@scripts/helpers/parseComponent';
 
 const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {

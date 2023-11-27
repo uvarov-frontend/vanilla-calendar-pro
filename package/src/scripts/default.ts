@@ -1,9 +1,9 @@
 import * as T from '@src/types';
+import classes from '@src/classes';
 import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMYear from '@scripts/templates/DOMYear';
-import classes from '@src/classes';
 
 export default class DefaultOptionsCalendar {
 	input = false;
