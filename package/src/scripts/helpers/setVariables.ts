@@ -5,11 +5,11 @@ import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
-	const isValidMonth = self.settings.selected.month !== undefined && self.settings.selected.month >= 0 && self.settings.selected.month < 12;
-	const isValidYear = self.settings.selected.year !== undefined && self.settings.selected.year >= 0 && self.settings.selected.year <= 9999;
+	const isValidMonth = self.settings.selected.month !== undefined && Number(self.settings.selected.month) >= 0 && Number(self.settings.selected.month) < 12;
+	const isValidYear = self.settings.selected.year !== undefined && Number(self.settings.selected.year) >= 0 && Number(self.settings.selected.year) <= 9999;
 
-	self.selectedMonth = isValidMonth ? self.settings.selected.month as number : self.date.today.getMonth();
-	self.selectedYear = isValidYear ? self.settings.selected.year as number : self.date.today.getFullYear();
+	self.selectedMonth = isValidMonth ? Number(self.settings.selected.month) : self.date.today.getMonth();
+	self.selectedYear = isValidYear ? Number(self.settings.selected.year) : self.date.today.getFullYear();
 	self.viewYear = self.selectedYear;
 };
 
