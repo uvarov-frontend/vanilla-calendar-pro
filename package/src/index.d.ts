@@ -39,4 +39,26 @@ export default class VanillaCalendar {
 	update: () => void;
 	init: () => void;
 	destroy: () => void;
+
+	readonly HTMLElement: HTMLElement;
+	readonly HTMLOriginalElement: HTMLElement;
+	readonly HTMLInputElement?: HTMLInputElement;
+	readonly rangeMin: T.FormatDateString;
+	readonly rangeMax: T.FormatDateString;
+	readonly rangeDisabled: T.FormatDateString[];
+	readonly rangeEnabled: T.FormatDateString[];
+	readonly selectedDates: T.FormatDateString[];
+	readonly selectedHolidays: T.FormatDateString[];
+	readonly selectedMonth: number;
+	readonly selectedYea: number;
+	readonly selectedHours: string;
+	readonly selectedMinutes: string;
+	readonly selectedKeeping: string;
+	readonly selectedTime: string;
+	readonly userTime: boolean;
+	readonly currentType: T.TypesCalendar;
+	readonly correctMonths: number;
+	readonly viewYear: number;
+	readonly dateMin: Date;
+	readonly dateMax: Date;
 }
