@@ -177,8 +177,8 @@ class DefaultOptionsCalendar {
       lang: "en",
       iso8601: true,
       range: {
-        min: "1970-01-01",
-        max: "2470-12-31",
+        min: this.date.min,
+        max: this.date.max,
         disablePast: false,
         disableGaps: false,
         disableAllDays: false,
@@ -308,7 +308,7 @@ const initSelectedMonthYear = (self) => {
   self.viewYear = self.selectedYear;
 };
 const initRange = (self) => {
-  var _a, _b, _c, _d;
+  var _a, _b, _c;
   const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
   self.rangeMin = isDisablePast ? generateDate(self.date.today) : self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.min;
   self.rangeMax = self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.max;
@@ -317,17 +317,23 @@ const initRange = (self) => {
   firstDay.setDate(firstDay.getDate() - 1);
   lastDay.setDate(lastDay.getDate() + 1);
   self.rangeDisabled = self.settings.range.disabled ? parseDates(self.settings.range.disabled) : [];
-  if (self.settings.range.disableAllDays)
-    (_a = self.rangeDisabled) == null ? void 0 : _a.push(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+  if (self.settings.range.disableAllDays) {
+    const daysInCurrentMonth = new Date(self.selectedYear, self.selectedMonth + 1, 0).getDate();
+    for (let i = 1; i <= daysInCurrentMonth; i++) {
+      self.rangeDisabled.push(generateDate(new Date(self.selectedYear, self.selectedMonth, i)));
+    }
+  }
   self.rangeDisabled.push(generateDate(firstDay));
   self.rangeDisabled.push(generateDate(lastDay));
+  self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
   self.rangeEnabled = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
-  if ((_b = self.rangeEnabled) == null ? void 0 : _b[0])
-    self.rangeDisabled = (_c = self.rangeDisabled) == null ? void 0 : _c.filter((d) => {
+  if ((_a = self.rangeEnabled) == null ? void 0 : _a[0])
+    self.rangeDisabled = (_b = self.rangeDisabled) == null ? void 0 : _b.filter((d) => {
       var _a2;
       return !((_a2 = self.rangeEnabled) == null ? void 0 : _a2.includes(d));
     });
-  if (((_d = self.rangeEnabled) == null ? void 0 : _d[0]) && self.settings.range.disableAllDays) {
+  self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
+  if (((_c = self.rangeEnabled) == null ? void 0 : _c[0]) && self.settings.range.disableAllDays) {
     self.rangeMin = self.rangeEnabled[0];
     self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
   }
@@ -1170,9 +1176,9 @@ const reset = (self) => {
 };
 const update = (self) => {
   const { dates, month, year } = self.settings.selected;
-  self.settings.selected.dates = self.selectedDates;
-  self.settings.selected.month = self.selectedMonth;
-  self.settings.selected.year = self.selectedYear;
+  self.settings.selected.dates = !(dates == null ? void 0 : dates[0]) ? self.selectedDates : dates;
+  self.settings.selected.month = !month ? self.selectedMonth : month;
+  self.settings.selected.year = !year ? self.selectedYear : year;
   setVariables(self);
   create(self);
   self.settings.selected = { dates, month, year };
@@ -1216,31 +1222,36 @@ const handleClickWeekNumber = (self, event) => {
   const daysOfThisWeek = [...daysToWeeks].filter((day) => Number(day.dataset.calendarWeekNumber) === weekNumberValue);
   self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek);
 };
-let currentSelf = null;
+const current = {
+  self: null,
+  rangeMin: void 0,
+  rangeMax: void 0
+};
 const removeHoverEffect = () => {
-  var _a;
-  const dayEls = (_a = currentSelf == null ? void 0 : currentSelf.HTMLElement) == null ? void 0 : _a.querySelectorAll(`.${currentSelf.CSSClasses.dayBtnHover}`);
-  dayEls == null ? void 0 : dayEls.forEach((d) => d.classList.remove(currentSelf.CSSClasses.dayBtnHover));
+  var _a, _b;
+  const dayEls = (_b = (_a = current.self) == null ? void 0 : _a.HTMLElement) == null ? void 0 : _b.querySelectorAll(`.${current.self.CSSClasses.dayBtnHover}`);
+  dayEls == null ? void 0 : dayEls.forEach((d) => d.classList.remove(current.self.CSSClasses.dayBtnHover));
 };
 const addHoverEffect = (day) => {
-  var _a, _b;
-  if (!(currentSelf == null ? void 0 : currentSelf.selectedDates))
+  var _a, _b, _c;
+  if (!((_a = current.self) == null ? void 0 : _a.selectedDates))
     return;
   const formattedDate = generateDate(day);
-  if ((_a = currentSelf.rangeDisabled) == null ? void 0 : _a.includes(formattedDate))
+  if ((_b = current.self.rangeDisabled) == null ? void 0 : _b.includes(formattedDate))
     return;
-  const dayEls = (_b = currentSelf.HTMLElement) == null ? void 0 : _b.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
-  dayEls == null ? void 0 : dayEls.forEach((d) => d.classList.add(currentSelf.CSSClasses.dayBtnHover));
+  const dayEls = (_c = current.self.HTMLElement) == null ? void 0 : _c.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
+  dayEls == null ? void 0 : dayEls.forEach((d) => d.classList.add(current.self.CSSClasses.dayBtnHover));
 };
 const handleHoverDaysEvent = (e) => {
-  if (!e.target || !(currentSelf == null ? void 0 : currentSelf.selectedDates))
+  var _a;
+  if (!e.target || !((_a = current.self) == null ? void 0 : _a.selectedDates))
     return;
   removeHoverEffect();
   const dayEl = e.target.closest("[data-calendar-day]");
   if (!dayEl)
     return;
   const formattedDate = dayEl.dataset.calendarDay;
-  const startDate = getDate(currentSelf.selectedDates[0]);
+  const startDate = getDate(current.self.selectedDates[0]);
   const endDate = getDate(formattedDate);
   const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];
   for (let i = new Date(start); i <= end; i.setDate(i.getDate() + 1)) {
@@ -1248,39 +1259,42 @@ const handleHoverDaysEvent = (e) => {
   }
 };
 const handleCancelSelectionDays = (e) => {
-  if (!currentSelf || e.key !== "Escape")
+  if (!current.self || e.key !== "Escape")
     return;
-  currentSelf.selectedDates = [];
-  currentSelf.HTMLElement.removeEventListener("mousemove", handleHoverDaysEvent);
+  current.self.selectedDates = [];
+  current.self.HTMLElement.removeEventListener("mousemove", handleHoverDaysEvent);
   document.removeEventListener("keydown", handleCancelSelectionDays);
-  create(currentSelf);
+  create(current.self);
 };
 const updateDisabledDates = () => {
-  var _a, _b;
-  if (!((_a = currentSelf == null ? void 0 : currentSelf.selectedDates) == null ? void 0 : _a[0]) || !currentSelf.rangeDisabled || ((_b = currentSelf.rangeDisabled) == null ? void 0 : _b.length) < 2)
+  var _a, _b, _c;
+  if (!((_b = (_a = current.self) == null ? void 0 : _a.selectedDates) == null ? void 0 : _b[0]) || !current.self.rangeDisabled || ((_c = current.self.rangeDisabled) == null ? void 0 : _c.length) < 2)
     return;
-  const selectedDate = getDate(currentSelf.selectedDates[0]);
-  const [startDate, endDate] = currentSelf.rangeDisabled.map((dateStr) => getDate(dateStr)).reduce(([start, end], disabledDate) => [
+  const selectedDate = getDate(current.self.selectedDates[0]);
+  const [startDate, endDate] = current.self.rangeDisabled.map((dateStr) => getDate(dateStr)).reduce(([start, end], disabledDate) => [
     selectedDate >= disabledDate ? disabledDate : start,
     selectedDate < disabledDate && end === null ? disabledDate : end
   ], [null, null]);
   if (startDate)
-    currentSelf.rangeMin = generateDate(new Date(startDate.setDate(startDate.getDate() + 1)));
+    current.self.rangeMin = generateDate(new Date(startDate.setDate(startDate.getDate() + 1)));
   if (endDate)
-    currentSelf.rangeMax = generateDate(new Date(endDate.setDate(endDate.getDate() - 1)));
+    current.self.rangeMax = generateDate(new Date(endDate.setDate(endDate.getDate() - 1)));
 };
 const resetDisabledDates = () => {
-  if (!currentSelf)
+  if (!current.self)
     return;
-  const minDate = getDate(currentSelf.settings.range.min);
-  currentSelf.rangeMin = currentSelf.settings.range.disablePast && minDate < currentSelf.date.today ? generateDate(currentSelf.date.today) : currentSelf.settings.range.min;
-  currentSelf.rangeMax = currentSelf.settings.range.max;
+  current.self.rangeMin = current.rangeMin;
+  current.self.rangeMax = current.rangeMax;
 };
 const handleDayRangedSelection = (self, dayBtnEl) => {
   const formattedDate = dayBtnEl.dataset.calendarDay;
   const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
   self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
-  currentSelf = self;
+  if (self.settings.range.disableGaps) {
+    current.rangeMin = current.rangeMin ? current.rangeMin : self.rangeMin;
+    current.rangeMax = current.rangeMax ? current.rangeMax : self.rangeMax;
+  }
+  current.self = self;
   const selectionHandlers = {
     set: () => {
       self.HTMLElement.addEventListener("mousemove", handleHoverDaysEvent);
@@ -1322,7 +1336,7 @@ const handleClickDay = (self, event) => {
     return;
   const daySelectionActions = {
     single: () => handleDaySelection(self, dayBtnEl, false),
-    multiple: () => handleDaySelection(self, dayBtnEl, false),
+    multiple: () => handleDaySelection(self, dayBtnEl, true),
     "multiple-ranged": () => handleDayRangedSelection(self, dayBtnEl)
   };
   daySelectionActions[self.settings.selection.day]();
@@ -1531,11 +1545,9 @@ class VanillaCalendar extends DefaultOptionsCalendar {
       throw new Error(`${selector} is not found, check the first argument passed to new VanillaCalendar.`);
     if (!options)
       return;
-    this.settings.range.min = (_c = (_b = (_a = options == null ? void 0 : options.settings) == null ? void 0 : _a.range) == null ? void 0 : _b.min) != null ? _c : this.date.min;
-    this.settings.range.max = (_f = (_e = (_d = options == null ? void 0 : options.settings) == null ? void 0 : _d.range) == null ? void 0 : _e.max) != null ? _f : this.date.max;
     const replaceProperties = (original, replacement) => {
       Object.keys(replacement).forEach((key) => {
-        if (typeof original[key] === "object" && typeof replacement[key] === "object") {
+        if (typeof original[key] === "object" && typeof replacement[key] === "object" && !(replacement[key] instanceof Date)) {
           replaceProperties(original[key], replacement[key]);
         } else {
           original[key] = replacement[key];
@@ -1543,6 +1555,8 @@ class VanillaCalendar extends DefaultOptionsCalendar {
       });
     };
     replaceProperties(this, options);
+    this.settings.range.min = (_c = (_b = (_a = options == null ? void 0 : options.settings) == null ? void 0 : _a.range) == null ? void 0 : _b.min) != null ? _c : this.date.min;
+    this.settings.range.max = (_f = (_e = (_d = options == null ? void 0 : options.settings) == null ? void 0 : _d.range) == null ? void 0 : _e.max) != null ? _f : this.date.max;
   }
 }
 export {
