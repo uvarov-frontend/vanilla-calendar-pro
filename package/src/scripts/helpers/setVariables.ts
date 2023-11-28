@@ -31,13 +31,24 @@ const initRange = (self: VanillaCalendar) => {
 	firstDay.setDate(firstDay.getDate() - 1);
 	lastDay.setDate(lastDay.getDate() + 1);
 	self.rangeDisabled = self.settings.range.disabled ? parseDates(self.settings.range.disabled) : [];
-	if (self.settings.range.disableAllDays) self.rangeDisabled?.push(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+
+	if (self.settings.range.disableAllDays) {
+		const daysInCurrentMonth = new Date(self.selectedYear, self.selectedMonth + 1, 0).getDate();
+		for (let i = 1; i <= daysInCurrentMonth; i++) {
+			self.rangeDisabled.push(generateDate(new Date(self.selectedYear, self.selectedMonth, i)));
+		}
+	}
+
 	self.rangeDisabled.push(generateDate(firstDay));
 	self.rangeDisabled.push(generateDate(lastDay));
+	self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
 
 	// set self.rangeEnabled
 	self.rangeEnabled = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
 	if (self.rangeEnabled?.[0]) self.rangeDisabled = self.rangeDisabled?.filter((d) => !self.rangeEnabled?.includes(d));
+
+	self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
+
 	if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
 		self.rangeMin = self.rangeEnabled[0];
 		self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
