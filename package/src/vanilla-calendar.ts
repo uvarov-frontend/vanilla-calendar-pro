@@ -13,20 +13,19 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 		if (!this.HTMLElement) throw new Error(`${selector} is not found, check the first argument passed to new VanillaCalendar.`);
 		if (!options) return;
 
-		this.settings.range.min = options?.settings?.range?.min ?? this.date.min;
-		this.settings.range.max = options?.settings?.range?.max ?? this.date.max;
-
 		const replaceProperties = <T extends object>(original: T, replacement: T) => {
 			(Object.keys(replacement) as Array<keyof T>).forEach((key) => {
-				if (typeof original[key] === 'object' && typeof replacement[key] === 'object') {
+				if (typeof original[key] === 'object' && typeof replacement[key] === 'object' && !(replacement[key] instanceof Date)) {
 					replaceProperties(original[key] as object, replacement[key] as object);
 				} else {
 					original[key] = replacement[key];
 				}
 			});
 		};
-
 		replaceProperties(this, options);
+
+		this.settings.range.min = options?.settings?.range?.min ?? this.date.min;
+		this.settings.range.max = options?.settings?.range?.max ?? this.date.max;
 	}
 
 	reset = () => reset(this);

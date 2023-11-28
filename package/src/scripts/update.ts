@@ -5,9 +5,9 @@ import create from '@scripts/create';
 const update = (self: VanillaCalendar) => {
 	const { dates, month, year } = self.settings.selected;
 
-	self.settings.selected.dates = self.selectedDates;
-	self.settings.selected.month = self.selectedMonth;
-	self.settings.selected.year = self.selectedYear;
+	self.settings.selected.dates = !dates?.[0] ? self.selectedDates : dates;
+	self.settings.selected.month = !month ? self.selectedMonth : month;
+	self.settings.selected.year = !year ? self.selectedYear : year;
 
 	setVariables(self);
 	create(self);

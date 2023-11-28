@@ -19,8 +19,8 @@ export default class DefaultOptionsCalendar {
 		lang: 'en',
 		iso8601: true,
 		range: {
-			min: '1970-01-01',
-			max: '2470-12-31',
+			min: this.date.min,
+			max: this.date.max,
 			disablePast: false,
 			disableGaps: false,
 			disableAllDays: false,
