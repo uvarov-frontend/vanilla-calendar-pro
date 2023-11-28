@@ -1,5 +1,5 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[275px] max-w-full h-max w-max
+	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] max-w-full h-max w-max box-border
 }
 
 .vanilla-calendar_multiple {
@@ -109,7 +109,7 @@
 }
 
 .vanilla-calendar-week-numbers {
-	@apply flex flex-col grow
+	@apply flex flex-col
 }
 
 .vanilla-calendar-week-numbers__title {
@@ -121,7 +121,7 @@
 }
 
 .vanilla-calendar-week-number {
-	@apply text-xs font-semibold w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer
+	@apply text-xs font-semibold w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0
 }
 
 .vanilla-calendar-wrapper {
