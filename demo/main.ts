@@ -14,15 +14,6 @@ import VanillaCalendar from '@src/vanilla-calendar';
 
 const config: IOptions = {
 	settings: {
-		range: {
-			disableAllDays: true,
-			// disablePast: true,
-			disableGaps: true,
-			enabled: ['2023-04-11:2023-04-16', '2023-04-26'],
-		},
-		selection: {
-			day: 'multiple-ranged',
-		},
 		selected: {
 			month: 3,
 			year: 2023,
