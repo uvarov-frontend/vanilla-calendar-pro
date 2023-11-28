@@ -14,7 +14,7 @@ const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 
 	const daySelectionActions = {
 		single: () => handleDaySelection(self, dayBtnEl, false),
-		multiple: () => handleDaySelection(self, dayBtnEl, false),
+		multiple: () => handleDaySelection(self, dayBtnEl, true),
 		'multiple-ranged': () => handleDayRangedSelection(self, dayBtnEl),
 	};
 	daySelectionActions[self.settings.selection.day]();
