@@ -1,6 +1,9 @@
 import VanillaCalendar from '@src/vanilla-calendar';
+import messages from '@scripts/helpers/getMessages';
 
 const destroy = (self: VanillaCalendar) => {
+	if (!self.isInit) throw new Error(messages.notInit);
+
 	if (self.input) {
 		self.HTMLElement?.parentNode?.removeChild(self.HTMLElement);
 		self.HTMLInputElement?.replaceWith(self.HTMLOriginalElement);

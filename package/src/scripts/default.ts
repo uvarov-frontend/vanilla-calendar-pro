@@ -6,6 +6,7 @@ import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMYear from '@scripts/templates/DOMYear';
 
 export default class DefaultOptionsCalendar {
+	isInit = false;
 	input = false;
 	type: T.TypesCalendar = 'default';
 	months = 2;

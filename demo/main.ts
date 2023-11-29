@@ -23,5 +23,5 @@ const config: IOptions = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	const calendar = new VanillaCalendar('#calendar', config);
-	calendar.reset();
+	calendar.init();
 });

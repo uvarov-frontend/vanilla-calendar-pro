@@ -5,7 +5,7 @@ import update from '@scripts/update';
 import init from '@scripts/init';
 import destroy from '@scripts/destroy';
 
-export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
+export default class VanillaCalendar extends DefaultOptionsCalendar {
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
 		super();
 
