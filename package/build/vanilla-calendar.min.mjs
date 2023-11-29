@@ -164,6 +164,7 @@ const DOMYears = (styles) => `
 `;
 class DefaultOptionsCalendar {
   constructor() {
+    __publicField(this, "isInit", false);
     __publicField(this, "input", false);
     __publicField(this, "type", "default");
     __publicField(this, "months", 2);
@@ -260,6 +261,13 @@ class DefaultOptionsCalendar {
     __publicField(this, "dateMax");
   }
 }
+const messages = {
+  notFoundSelector: (selector) => `${selector} is not found, check the first argument passed to new VanillaCalendar.`,
+  notInit: 'The calendar has not been initialized, please initialize it using the "init()" method first.',
+  notLocale: 'You specified "define" for "settings.lang" but did not provide the required values for "locale.weekday" or "locale.months".',
+  incorrectTheme: 'Incorrect name of theme in "settings.visibility.theme".',
+  incorrectTime: "The value of the time property can be: false, true, 12 or 24."
+};
 const generateDate = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -309,6 +317,8 @@ const initSelectedMonthYear = (self) => {
 };
 const initRange = (self) => {
   var _a, _b, _c;
+  self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
+  self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
   const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
   self.rangeMin = isDisablePast ? generateDate(self.date.today) : self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.min;
   self.rangeMax = self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.max;
@@ -379,8 +389,7 @@ const initTime = (self) => {
     self.selectedMinutes = Number(self.selectedMinutes) < 10 ? `0${Number(self.selectedMinutes)}` : `${self.selectedMinutes}`;
     self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ""}`;
   } else if (self.settings.selection.time) {
-    self.settings.selection.time = false;
-    console.error("The value of the time property can be: false, true, 12 or 24.");
+    throw new Error(messages.incorrectTime);
   }
 };
 const initCorrectMonths = (self) => {
@@ -408,7 +417,7 @@ const getLocale = (self) => {
   if (self.settings.lang === "define" && self.locale.weekday[6] && self.locale.months[11])
     return;
   if (self.settings.lang === "define") {
-    throw new Error('You specified "define" for "settings.lang" but did not provide the required values for "locale.weekday" or "locale.months".');
+    throw new Error(messages.notLocale);
   }
   self.locale.weekday = [];
   self.locale.months = [];
@@ -1134,7 +1143,7 @@ const detectTheme = (self, supportDarkTheme) => {
 };
 const changeTheme = (self) => {
   if (!themes.includes(self.settings.visibility.theme))
-    throw new Error('Incorrect name of theme in "settings.visibility.theme"');
+    throw new Error(messages.incorrectTheme);
   let supportDarkTheme;
   if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
     supportDarkTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -1171,10 +1180,14 @@ const create = (self) => {
   types[self.currentType]();
 };
 const reset = (self) => {
+  if (!self.isInit)
+    throw new Error(messages.notInit);
   setVariables(self);
   create(self);
 };
 const update = (self) => {
+  if (!self.isInit)
+    throw new Error(messages.notInit);
   const { dates, month, year } = self.settings.selected;
   self.settings.selected.dates = !(dates == null ? void 0 : dates[0]) ? self.selectedDates : dates;
   self.settings.selected.month = !month ? self.selectedMonth : month;
@@ -1513,6 +1526,7 @@ const handleInput = (self) => {
 };
 const init = (self) => {
   self.HTMLOriginalElement = self.HTMLElement.cloneNode(true);
+  self.isInit = true;
   if (self.input) {
     handleInput(self);
   } else {
@@ -1523,6 +1537,8 @@ const init = (self) => {
 };
 const destroy = (self) => {
   var _a, _b, _c, _d;
+  if (!self.isInit)
+    throw new Error(messages.notInit);
   if (self.input) {
     (_b = (_a = self.HTMLElement) == null ? void 0 : _a.parentNode) == null ? void 0 : _b.removeChild(self.HTMLElement);
     (_c = self.HTMLInputElement) == null ? void 0 : _c.replaceWith(self.HTMLOriginalElement);
@@ -1534,7 +1550,6 @@ const destroy = (self) => {
 };
 class VanillaCalendar extends DefaultOptionsCalendar {
   constructor(selector, options) {
-    var _a, _b, _c, _d, _e, _f;
     super();
     __publicField(this, "reset", () => reset(this));
     __publicField(this, "update", () => update(this));
@@ -1542,7 +1557,7 @@ class VanillaCalendar extends DefaultOptionsCalendar {
     __publicField(this, "destroy", () => destroy(this));
     this.HTMLElement = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (!this.HTMLElement)
-      throw new Error(`${selector} is not found, check the first argument passed to new VanillaCalendar.`);
+      throw new Error(messages.notFoundSelector(selector));
     if (!options)
       return;
     const replaceProperties = (original, replacement) => {
@@ -1555,8 +1570,6 @@ class VanillaCalendar extends DefaultOptionsCalendar {
       });
     };
     replaceProperties(this, options);
-    this.settings.range.min = (_c = (_b = (_a = options == null ? void 0 : options.settings) == null ? void 0 : _a.range) == null ? void 0 : _b.min) != null ? _c : this.date.min;
-    this.settings.range.max = (_f = (_e = (_d = options == null ? void 0 : options.settings) == null ? void 0 : _d.range) == null ? void 0 : _e.max) != null ? _f : this.date.max;
   }
 }
 export {
