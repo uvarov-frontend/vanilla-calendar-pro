@@ -23,9 +23,6 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 			});
 		};
 		replaceProperties(this, options);
-
-		this.settings.range.min = options?.settings?.range?.min ?? this.date.min;
-		this.settings.range.max = options?.settings?.range?.max ?? this.date.max;
 	}
 
 	reset = () => reset(this);

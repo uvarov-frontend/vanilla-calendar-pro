@@ -15,6 +15,9 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 
 const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
+	self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
+	self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
+
 	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
 	self.rangeMin = isDisablePast
 		? generateDate(self.date.today)
