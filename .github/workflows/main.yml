@@ -15,7 +15,7 @@ jobs:
       - name: Testing
         uses: cypress-io/github-action@v5
         with:
-          start: npm run start
+          start: npm run dev
   deploy:
     runs-on: ubuntu-latest
     needs: cypress
