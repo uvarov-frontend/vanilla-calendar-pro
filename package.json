@@ -37,7 +37,7 @@
 		"fix": "eslint --fix --ext .js,.ts package/src cypress examples",
 		"cypress:open": "cypress open",
 		"cypress:run": "cypress run",
-		"test:cypress": "start-server-and-test start http://localhost:5173 cypress:run"
+		"test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"
 	},
 	"devDependencies": {
 		"@testing-library/cypress": "^9.0.0",
