@@ -1,4 +1,4 @@
-import { FormatDateString } from '@src/types';
+import { FormatDateString } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 

@@ -17,6 +17,7 @@
 		"types": ["cypress", "node", "vite"],
 		"paths": {
 			"@/*": ["./*"],
+			"@package/*": ["./package/*"],
 			"@src/*": ["./package/src/*"],
 			"@scripts/*": ["./package/src/scripts/*"],
 		}

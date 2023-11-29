@@ -1,5 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import themes from '@scripts/helpers/getThemes';
+
+const themes = ['light', 'dark', 'system'];
 
 const haveListener = {
 	value: false,

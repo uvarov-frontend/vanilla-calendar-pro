@@ -1,5 +1,5 @@
-import * as T from '@src/types';
-import classes from '@src/classes';
+import classes from '@package/classes';
+import * as T from '@package/types';
 import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMMonth from '@scripts/templates/DOMMonth';

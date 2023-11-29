@@ -1,4 +1,4 @@
-import { ICSSClasses } from '@src/types';
+import { ICSSClasses } from '@package/types';
 
 const DOMMultiple = (styles: ICSSClasses) => (`
 	<div class="${styles.controls}">

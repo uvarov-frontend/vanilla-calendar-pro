@@ -35,7 +35,7 @@
 	"module": "./build/vanilla-calendar.min.mjs",
 	"style": "./build/vanilla-calendar.min.css",
 	"source": "./src/vanilla-calendar.ts",
-	"types": "./src/index.d.ts",
+	"types": "./index.d.ts",
 	"devDependencies": {},
 	"dependencies": {}
 }

@@ -1,4 +1,4 @@
-import { FormatDateString } from '@src/types';
+import { FormatDateString } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 import generateDate from '@scripts/helpers/generateDate';
 import getDate from '@scripts/helpers/getDate';

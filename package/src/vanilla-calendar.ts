@@ -1,4 +1,4 @@
-import * as T from '@src/types';
+import * as T from '@package/types';
 import DefaultOptionsCalendar from '@scripts/default';
 import reset from '@scripts/reset';
 import update from '@scripts/update';
