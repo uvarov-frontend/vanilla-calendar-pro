@@ -1,4 +1,4 @@
-import { FormatDateString } from '@src/types';
+import { FormatDateString } from '@package/types';
 import getDate from '@scripts/helpers/getDate';
 
 const getWeekNumber = (date: FormatDateString | undefined, iso8601: boolean) => {

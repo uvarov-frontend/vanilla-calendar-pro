@@ -3,6 +3,7 @@ import parseDates from '@scripts/helpers/parseDates';
 import generateDate from '@scripts/helpers/generateDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
+import messages from './getMessages';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
 	const isValidMonth = self.settings.selected.month !== undefined && Number(self.settings.selected.month) >= 0 && Number(self.settings.selected.month) < 12;
@@ -15,6 +16,9 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 
 const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
+	self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
+	self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
+
 	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
 	self.rangeMin = isDisablePast
 		? generateDate(self.date.today)
@@ -102,9 +106,7 @@ const initTime = (self: VanillaCalendar) => {
 		self.selectedMinutes = Number(self.selectedMinutes) < 10 ? `0${Number(self.selectedMinutes)}` : `${self.selectedMinutes}`;
 		self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ''}`;
 	} else if (self.settings.selection.time) {
-		self.settings.selection.time = false;
-		// eslint-disable-next-line no-console
-		console.error('The value of the time property can be: false, true, 12 or 24.');
+		throw new Error(messages.incorrectTime);
 	}
 };
 

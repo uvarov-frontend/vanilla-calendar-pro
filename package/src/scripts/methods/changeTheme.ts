@@ -1,5 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import themes from '@scripts/helpers/getThemes';
+import messages from '@scripts/helpers/getMessages';
+
+const themes = ['light', 'dark', 'system'];
 
 const haveListener = {
 	value: false,
@@ -60,7 +62,7 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
 };
 
 const changeTheme = (self: VanillaCalendar) => {
-	if (!themes.includes(self.settings.visibility.theme)) throw new Error('Incorrect name of theme in "settings.visibility.theme"');
+	if (!themes.includes(self.settings.visibility.theme)) throw new Error(messages.incorrectTheme);
 
 	let supportDarkTheme: MediaQueryList;
 

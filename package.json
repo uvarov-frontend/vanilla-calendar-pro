@@ -32,12 +32,12 @@
 	"scripts": {
 		"package": "tsc && vite build --config config/js.config.ts && vite build --config config/assets.config.ts",
 		"build": "tsc && vite build",
-		"start": "tsc && vite",
+		"dev": "tsc && vite",
 		"lint": "eslint --ext .js,.ts package/src cypress examples",
 		"fix": "eslint --fix --ext .js,.ts package/src cypress examples",
 		"cypress:open": "cypress open",
 		"cypress:run": "cypress run",
-		"test:cypress": "start-server-and-test start http://localhost:5173 cypress:run"
+		"test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"
 	},
 	"devDependencies": {
 		"@testing-library/cypress": "^9.0.0",

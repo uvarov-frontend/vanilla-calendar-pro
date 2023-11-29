@@ -1,4 +1,5 @@
 import VanillaCalendar from '@src/vanilla-calendar';
+import messages from '@scripts/helpers/getMessages';
 
 const capitalizeFirstLetter = (str: string) => `${str.charAt(0).toUpperCase()}${str.substring(1, str.length)}`.replace(/\./, '');
 
@@ -16,7 +17,7 @@ const getLocale = (self: VanillaCalendar) => {
 	if (self.settings.lang === 'define' && self.locale.weekday[6] && self.locale.months[11]) return;
 
 	if (self.settings.lang === 'define') {
-		throw new Error('You specified "define" for "settings.lang" but did not provide the required values for "locale.weekday" or "locale.months".');
+		throw new Error(messages.notLocale);
 	}
 
 	self.locale.weekday = [];

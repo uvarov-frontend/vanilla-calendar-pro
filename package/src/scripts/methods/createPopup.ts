@@ -1,4 +1,4 @@
-import { IPopup } from '@src/types';
+import { IPopup } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 
 const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasses: string) => {

@@ -61,4 +61,5 @@ export default class VanillaCalendar {
 	readonly viewYear: number;
 	readonly dateMin: Date;
 	readonly dateMax: Date;
+	readonly isInit: boolean;
 }

@@ -1,5 +1,3 @@
-import themes from './scripts/helpers/getThemes';
-
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;
 type DD = LeadingZero | `${1 | 2}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}` | 30 | 31;
@@ -43,7 +41,7 @@ export interface ISelected {
 }
 
 export interface IVisibility {
-	theme: typeof themes[number];
+	theme: 'light' | 'dark' | 'system';
 	themeDetect: string | false;
 	monthShort: boolean;
 	weekNumbers: boolean;
@@ -200,43 +198,4 @@ export interface IOptions {
 	popups?: IPopups;
 	CSSClasses?: Partial<ICSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
-}
-
-export interface IVanillaCalendar {
-	input: boolean;
-	type: TypesCalendar;
-	months: number;
-	jumpMonths: number;
-	date: IDate;
-	settings: ISettings;
-	locale: ILocale;
-	actions: IActions;
-	popups: IPopups;
-	DOMTemplates: IDOMTemplates;
-	CSSClasses: ICSSClasses;
-	HTMLElement: HTMLElement;
-	HTMLOriginalElement: HTMLElement;
-	HTMLInputElement?: HTMLInputElement;
-	rangeMin: FormatDateString;
-	rangeMax: FormatDateString;
-	rangeDisabled: FormatDateString[];
-	rangeEnabled: FormatDateString[];
-	selectedDates: FormatDateString[];
-	selectedHolidays: FormatDateString[];
-	selectedMonth: number;
-	selectedYear: number;
-	selectedHours: string;
-	selectedMinutes: string;
-	selectedKeeping: string;
-	selectedTime: string;
-	userTime: boolean;
-	correctMonths: number;
-	currentType: TypesCalendar;
-	viewYear: number;
-	dateMin: Date;
-	dateMax: Date;
-	reset: () => void;
-	update: () => void;
-	init: () => void;
-	destroy: () => void;
 }

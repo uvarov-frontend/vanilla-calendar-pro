@@ -6,6 +6,8 @@ import create from '@scripts/create';
 
 const init = (self: VanillaCalendar) => {
 	self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
+	self.isInit = true;
+
 	if (self.input) {
 		handleInput(self);
 	} else {
