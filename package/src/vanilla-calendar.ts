@@ -4,13 +4,16 @@ import reset from '@scripts/reset';
 import update from '@scripts/update';
 import init from '@scripts/init';
 import destroy from '@scripts/destroy';
+import messages from '@scripts/helpers/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar {
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
 		super();
 
 		this.HTMLElement = (typeof selector === 'string' ? document.querySelector(selector) : selector) as HTMLElement;
-		if (!this.HTMLElement) throw new Error(`${selector} is not found, check the first argument passed to new VanillaCalendar.`);
+
+		if (!this.HTMLElement) throw new Error(messages.notFoundSelector(selector));
+
 		if (!options) return;
 
 		const replaceProperties = <T extends object>(original: T, replacement: T) => {
