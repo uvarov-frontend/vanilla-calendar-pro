@@ -68,12 +68,8 @@ To add the necessary styles and scripts, you can use the following code:
 // JS Script
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 
-// Basic styles
+// Styles
 import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
-
-// Additional styles
-import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
-import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 
 // Initialize the calendar
 const calendar = new VanillaCalendar('#calendar');
@@ -90,8 +86,6 @@ If you're not using a package manager and prefer manual installation or CDN usag
   <head>
     <!-- Plugin CSS -->
     <link href="./vanilla-calendar.min.css" rel="stylesheet">
-    <link href="./themes/light.min.css" rel="stylesheet">
-    <link href="./themes/dark.min.css" rel="stylesheet">
     <!-- Plugin JS -->
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
@@ -110,13 +104,24 @@ If you're not using a package manager and prefer manual installation or CDN usag
 
 ## CSS Themes
 
+```js
+// Only layout calendar
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.layout.min.css';
+
+// Themes
+import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
+import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
+```
+
 VanillaCalendar includes two CSS themes: the **light theme** and the **dark theme**.
 
-- The **vanilla-calendar.min.css** file contains the essential structural styles for the calendar.
-- The **light.min.css** theme provides a light color scheme.
-- The **dark.min.css** theme offers a dark color scheme.
+- The **vanilla-calendar.min.css** file contains all styles with all themes.
+- The **vanilla-calendar.layout.min.css** file contains the essential structural styles for the calendar.
+- The **themes/light.min.css** theme provides a light color scheme.
+- The **themes/dark.min.css** theme offers a dark color scheme.
 
-The calendar will automatically display the theme based on the user's system preferences. If you want to enforce a specific theme, you can do so manually without the need to import all themes separately.
+
+The calendar will automatically display the theme according to the user's system preferences. If you want to apply a specific theme, it is recommended to import **«vanilla-calendar.layout.min.css»** along with the theme you prefer: **«light.min.css»** or **«dark.min.css»**, instead of **«vanilla-calendar.min.css»**.
 
 ## DOM Templates
 
