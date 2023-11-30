@@ -16,6 +16,14 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: npm run dev
+  codecov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   deploy:
     runs-on: ubuntu-latest
     needs: cypress
