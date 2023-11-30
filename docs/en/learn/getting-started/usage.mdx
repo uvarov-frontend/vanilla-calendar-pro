@@ -25,24 +25,26 @@ As an example in this documentation, an **«id»** attribute with the value **«
 If you installed VanillaCalendar using NPM or Yarn, you need to import JavaScript and the necessary styles. If you connected VanillaCalendar locally or used a CDN, you can skip this step.
 
 ```js
-// JS Script
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-
-// Basic styles
 import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+```
 
-// Additional styles
+<Info>
+  In addition to the file **«vanilla-calendar.min.css»**, which contains all possible calendar styles, there are separate style files in the **«build»** directory. Please include them instead of **«vanilla-calendar.min.css»** if you find it necessary.
+</Info>
+
+```js
+// Only layout calendar
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.layout.min.css';
+
+// Themes
 import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
 import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 ```
 
 <Info>
-  The file **«vanilla-calendar.min.css»** contains the calendar's skeleton properties. Other CSS files in the **«themes»** directory contain only the color scheme of the calendar.
-</Info>
-
-<Info>
   The calendar automatically displays the theme used in the user's system. You can disable this default behavior and forcibly set any of the themes.
-	In this case, you don't need to import all the themes.
+  In this case, you don't need to import all the themes.
 </Info>
 
 Now, create an instance of VanillaCalendar with default parameters and initialize it.
@@ -63,11 +65,7 @@ If you want to use CDN, insert the scripts and styles into your HTML document fr
 ```html
 <html>
   <head>
-    <!-- Plugin CSS -->
     <link href="./vanilla-calendar.min.css" rel="stylesheet">
-    <link href="./themes/light.min.css" rel="stylesheet">
-    <link href="./themes/dark.min.css" rel="stylesheet">
-    <!-- Plugin JS -->
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>

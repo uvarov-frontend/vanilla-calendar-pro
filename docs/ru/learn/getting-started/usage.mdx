@@ -25,20 +25,22 @@
 Если вы установили VanillaCalendar с помощью NPM или Yarn, вам нужно импортировать JavaScript и необходимые стили. Если вы подключили VanillaCalendar локально или использовали CDN, вы можете пропустить этот шаг.
 
 ```js
-// JS Script
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-
-// Basic styles
 import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
-
-// Additional styles
-import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
-import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
 ```
 
 <Info>
-  Файл **«vanilla-calendar.min.css»** содержит свойства скелета календаря, другие файлы css в каталоге **«themes»** содержат только цветовую схему календаря.
+  Помимо файла **«vanilla-calendar.min.css»**, содержащего все возможные стили календаря, в каталоге **«build»** существуют отдельные файлы стилей. Пожалуйста, включите их вместо **«vanilla-calendar.min.css»**, если считаете это необходимым.
 </Info>
+
+```js
+// Only layout calendar
+import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.layout.min.css';
+
+// Themes
+import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
+import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
+```
 
 <Info>
   Календарь автоматически отображает тему, используемую в системе пользователя.
@@ -63,11 +65,7 @@ calendar.init();
 ```html
 <html>
   <head>
-    <!-- Plugin CSS -->
     <link href="./vanilla-calendar.min.css" rel="stylesheet">
-    <link href="./themes/light.min.css" rel="stylesheet">
-    <link href="./themes/dark.min.css" rel="stylesheet">
-    <!-- Plugin JS -->
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
