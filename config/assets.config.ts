@@ -23,9 +23,10 @@ export default defineConfig({
 				},
 			},
 			input: {
+				main: resolve(__dirname, '../package/src/styles/vanilla-calendar.css'),
+				layout: resolve(__dirname, '../package/src/styles/vanilla-calendar.layout.css'),
 				light: resolve(__dirname, '../package/src/styles/themes/light.css'),
 				dark: resolve(__dirname, '../package/src/styles/themes/dark.css'),
-				'vanilla-calendar': resolve(__dirname, '../package/src/styles/vanilla-calendar.css'),
 			},
 		},
 	},

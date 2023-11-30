@@ -6,6 +6,10 @@
 	@apply outline-orange-300
 }
 
+[data-calendar-theme="light"] .vanilla-calendar-arrow {
+	@apply bg-transparent
+}
+
 [data-calendar-theme="light"] .vanilla-calendar-arrow::before {
 	@apply bg-slate-900;
 }
