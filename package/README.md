@@ -2,7 +2,9 @@
 
 [![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar-preview.png)](https://vanilla-calendar.com/)
 
-[![package-badge]][package]
+[![version](https://img.shields.io/npm/v/@uvarov.frontend/vanilla-calendar.svg)](https://npmjs.com/package/@uvarov.frontend/vanilla-calendar)
+[![tests](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml/badge.svg)](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml)
+[![downloads](https://img.shields.io/npm/dm/@uvarov.frontend/vanilla-calendar.svg)](https://npmjs.com/package/@uvarov.frontend/vanilla-calendar)
 
 VanillaCalendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.
 
@@ -173,6 +175,3 @@ MIT License
 ## Author
 
 Yury Uvarov (*uvarov.frontend@gmail.com*)
-
-[package]: https://www.npmjs.com/package/@uvarov.frontend/vanilla-calendar
-[package-badge]: https://img.shields.io/npm/v/@uvarov.frontend/vanilla-calendar
