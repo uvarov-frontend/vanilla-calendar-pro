@@ -167,7 +167,7 @@
 }
 
 .vanilla-calendar-day__btn {
-	@apply text-xs font-normal w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center rounded-lg border-0 cursor-default
+	@apply text-xs font-normal w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center rounded-lg border-0 p-0 cursor-default
 }
 
 .vanilla-calendar-day__btn_today {
