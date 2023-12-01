@@ -1,5 +1,5 @@
-import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+import VanillaCalendar from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options = {
   actions: {
