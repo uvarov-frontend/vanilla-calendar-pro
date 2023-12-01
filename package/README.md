@@ -1,10 +1,10 @@
 # VanillaCalendar - A Lightweight, Feature-Rich JavaScript Date and Time Picker
 
-[![vanilla-calendar preview](https://vanilla-calendar.com/vanilla-calendar-preview.png)](https://vanilla-calendar.com/)
+[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview.png)](https://vanilla-calendar.pro/)
 
-[![version](https://img.shields.io/npm/v/@uvarov.frontend/vanilla-calendar.svg)](https://npmjs.com/package/@uvarov.frontend/vanilla-calendar)
+[![version](https://img.shields.io/npm/v/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 [![tests](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml/badge.svg)](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml)
-[![downloads](https://img.shields.io/npm/dm/@uvarov.frontend/vanilla-calendar.svg)](https://npmjs.com/package/@uvarov.frontend/vanilla-calendar)
+[![downloads](https://img.shields.io/npm/dm/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 
 VanillaCalendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.
 
@@ -41,12 +41,12 @@ If you like VanillaCalendar, please consider giving it a 🌟 star on GitHub.
 You can install VanillaCalendar using npm or yarn:
 
 ```sh
-npm install @uvarov.frontend/vanilla-calendar
+npm install vanilla-calendar-pro
 # or
-yarn add @uvarov.frontend/vanilla-calendar
+yarn add vanilla-calendar-pro
 ```
 
-If you prefer not to use a package manager, you can also include it via [CDN](https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/) or [download](https://vanilla-calendar.com/vanilla-calendar.zip) it from the website.
+If you prefer not to use a package manager, you can also include it via [CDN](https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/) or [download](https://vanilla-calendar.pro/vanilla-calendar.zip) it from the website.
 
 ### Usage
 
@@ -67,11 +67,8 @@ Here's a simple example of how to use VanillaCalendar in your HTML:
 To add the necessary styles and scripts, you can use the following code:
 
 ```js
-// JS Script
-import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-
-// Styles
-import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css';
+import VanillaCalendar from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 // Initialize the calendar
 const calendar = new VanillaCalendar('#calendar');
@@ -86,9 +83,7 @@ If you're not using a package manager and prefer manual installation or CDN usag
 ```html
 <html>
   <head>
-    <!-- Plugin CSS -->
     <link href="./vanilla-calendar.min.css" rel="stylesheet">
-    <!-- Plugin JS -->
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
@@ -108,11 +103,11 @@ If you're not using a package manager and prefer manual installation or CDN usag
 
 ```js
 // Only layout calendar
-import '@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.layout.min.css';
+import 'vanilla-calendar-pro/build/vanilla-calendar.layout.min.css';
 
 // Themes
-import '@uvarov.frontend/vanilla-calendar/build/themes/light.min.css';
-import '@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css';
+import 'vanilla-calendar-pro/build/themes/light.min.css';
+import 'vanilla-calendar-pro/build/themes/dark.min.css';
 ```
 
 VanillaCalendar includes two CSS themes: the **light theme** and the **dark theme**.
@@ -158,11 +153,11 @@ new VanillaCalendar('#calendar', {
 
 ## React Component
 
-For detailed instructions on using VanillaCalendar in a React component with TypeScript, please visit the [website](https://vanilla-calendar.com/docs/learn/additional-features/react-component) for comprehensive documentation and examples.
+For detailed instructions on using VanillaCalendar in a React component with TypeScript, please visit the [website](https://vanilla-calendar.pro/docs/learn/additional-features/react-component) for comprehensive documentation and examples.
 
 ## API Reference
 
-For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.com/docs/reference/).
+For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference/).
 
 ## Sponsor
 
