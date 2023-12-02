@@ -33,7 +33,7 @@ export default defineConfig({
 	plugins: [
 		banner({
 			outDir: './package/build',
-			content: 'name: @uvarov.frontend/vanilla-calendar | url: https://github.com/uvarov-frontend/vanilla-calendar',
+			content: 'name: vanilla-calendar-pro | url: https://github.com/uvarov-frontend/vanilla-calendar-pro',
 		}),
 	],
 });
