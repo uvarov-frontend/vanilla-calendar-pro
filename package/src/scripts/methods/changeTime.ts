@@ -25,27 +25,9 @@ const setTime = (self: VanillaCalendar, e: Event, value: string, type: TypeTime)
 
 	self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ''}`;
 
-	if (self.actions.changeTime) {
-		self.actions.changeTime(
-			e,
-			self.selectedTime,
-			self.selectedHours,
-			self.selectedMinutes,
-			self.selectedKeeping,
-		);
-	}
+	if (self.actions.changeTime) self.actions.changeTime(e, self);
 
-	if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-		self.actions.changeToInput(
-			e,
-			actionsInput(self),
-			self.selectedDates,
-			self.selectedTime,
-			self.selectedHours,
-			self.selectedMinutes,
-			self.selectedKeeping,
-		);
-	}
+	if (self.input && self.HTMLInputElement && self.actions.changeToInput) self.actions.changeToInput(e, actionsInput(self), self);
 };
 
 const changeRange = (self: VanillaCalendar, range: HTMLInputElement, input: HTMLInputElement, btnKeepingTime: HTMLButtonElement | null, type: TypeTime, max: number) => {

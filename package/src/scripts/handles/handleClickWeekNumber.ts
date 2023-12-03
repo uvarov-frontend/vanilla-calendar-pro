@@ -12,7 +12,7 @@ const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
 	const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
 	const daysOfThisWeek = [...daysToWeeks].filter((day) => Number((day as HTMLElement).dataset.calendarWeekNumber) === weekNumberValue);
 
-	self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek);
+	self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
 };
 
 export default handleClickWeekNumber;

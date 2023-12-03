@@ -14,8 +14,8 @@ type HandleCSSClasses = {
 
 const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: HandleType, CSSClasses: HandleCSSClasses, itemEl: HTMLElement) => {
 	const actionByType = {
-		year: () => self.actions.clickYear?.(event, self.selectedYear as number, self.selectedMonth as number),
-		month: () => self.actions.clickMonth?.(event, self.selectedMonth as number, self.selectedYear as number),
+		year: () => self.actions.clickYear?.(event, self),
+		month: () => self.actions.clickMonth?.(event, self),
 	};
 	const selectByType = {
 		year: () => {
