@@ -7,6 +7,8 @@ const handleDaySelection = (self: VanillaCalendar, dayBtnEl: HTMLElement, multip
 	const selectedDay = dayBtnEl.dataset.calendarDay as FormatDateString;
 	const isSelected = dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected);
 
+	if (isSelected && !self.settings.selection.cancelableDay) return;
+
 	self.selectedDates = isSelected ? self.selectedDates.filter((date) => date !== selectedDay)
 		: multiple ? [...self.selectedDates, selectedDay] : [selectedDay];
 };
