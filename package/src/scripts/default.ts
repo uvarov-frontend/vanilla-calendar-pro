@@ -11,7 +11,7 @@ export default class DefaultOptionsCalendar {
 	type: T.TypesCalendar = 'default';
 	months = 2;
 	jumpMonths = 1;
-	date: T.IDate = {
+	date: T.IDates = {
 		min: '1970-01-01',
 		max: '2470-12-31',
 		today: new Date(),

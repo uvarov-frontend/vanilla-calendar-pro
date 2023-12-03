@@ -20,18 +20,14 @@ const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	daySelectionActions[self.settings.selection.day]();
 	self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
-	if (self.actions.clickDay) self.actions.clickDay(event, self.selectedDates);
+	if (self.actions.clickDay) self.actions.clickDay(event, self);
 
 	const isInitAsInput = self.input && self.HTMLInputElement && self.HTMLElement;
 	if (isInitAsInput && self.actions.changeToInput) {
 		self.actions.changeToInput(
 			event,
 			actionsInput(self),
-			self.selectedDates,
-			self.selectedTime,
-			self.selectedHours,
-			self.selectedMinutes,
-			self.selectedKeeping,
+			self,
 		);
 	}
 

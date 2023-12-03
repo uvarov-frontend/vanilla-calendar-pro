@@ -2,7 +2,7 @@ import * as T from './types';
 
 export type Options = T.IOptions;
 export type TypesCalendar = T.TypesCalendar;
-export type Date = T.IDate;
+export type Dates = T.IDates;
 export type Range = T.IRange;
 export type Selection = T.ISelection;
 export type Selected = T.ISelected;
@@ -13,14 +13,14 @@ export type Popups = T.IPopups;
 export type CSSClasses = T.ICSSClasses;
 export type DOMTemplates = T.IDOMTemplates;
 
-export default class VanillaCalendar {
+export default class VanillaCalendar implements T.IVanillaCalendar {
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);
 
 	input: boolean;
 	type: T.TypesCalendar;
 	months: number;
 	jumpMonths: number;
-	date: T.IDate;
+	date: T.IDates;
 	settings: {
 		lang: string;
 		iso8601: boolean;
@@ -50,12 +50,12 @@ export default class VanillaCalendar {
 	readonly selectedDates: T.FormatDateString[];
 	readonly selectedHolidays: T.FormatDateString[];
 	readonly selectedMonth: number;
-	readonly selectedYea: number;
-	readonly selectedHours: string;
-	readonly selectedMinutes: string;
-	readonly selectedKeeping: string;
-	readonly selectedTime: string;
-	readonly userTime: boolean;
+	readonly selectedYear: number;
+	readonly selectedHours?: string;
+	readonly selectedMinutes?: string;
+	readonly selectedKeeping?: string;
+	readonly selectedTime?: string;
+	readonly userTime?: boolean;
 	readonly currentType: T.TypesCalendar;
 	readonly correctMonths: number;
 	readonly viewYear: number;

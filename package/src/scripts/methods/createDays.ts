@@ -104,7 +104,7 @@ const createDay = (
 	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
 
 	daysEl.append(dayEl);
-	if (self.actions.getDays) self.actions.getDays(day, date, dayEl, dayBtnEl);
+	if (self.actions.getDays) self.actions.getDays(day, date, dayEl, dayBtnEl, self);
 };
 
 const prevMonth = (self: VanillaCalendar, daysEl: HTMLElement, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {

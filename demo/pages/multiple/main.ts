@@ -17,6 +17,7 @@ const config: IOptions = {
 	settings: {
 		selection: {
 			day: 'multiple-ranged',
+			cancelableDay: false,
 		},
 		selected: {
 			month: 3,

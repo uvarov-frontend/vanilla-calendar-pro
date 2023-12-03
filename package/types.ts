@@ -5,7 +5,7 @@ export type FormatDateString = `${number}-${MM}-${DD}`;
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 
-export interface IDate {
+export interface IDates {
 	min: FormatDateString;
 	max: FormatDateString;
 	today: Date;
@@ -67,29 +67,23 @@ export interface ILocale {
 }
 
 export interface IActions {
-	clickDay: ((e: MouseEvent, dates: FormatDateString[] | undefined) => void) | null;
-	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number) => void) | null;
-	clickMonth: ((e: MouseEvent, month: number, year: number) => void) | null;
-	clickYear: ((e: MouseEvent, year: number, month: number) => void) | null;
-	clickArrow: ((e: MouseEvent, year: number, month: number) => void) | null;
-	changeTime: ((e: Event, time: string, hours: string, minutes: string, keeping: string) => void) | null;
+	clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
+	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
+	clickMonth: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
+	clickYear: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
+	clickArrow: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
+	changeTime: ((e: Event, self: IVanillaCalendar) => void) | null;
 	changeToInput: ((
 		e: Event,
 		calendar: {
 			hide(): void;
 			show(): void;
-			HTMLInputElement: HTMLInputElement;
-			HTMLElement: HTMLElement;
 		},
-		dates?: FormatDateString[],
-		time?: string,
-		hours?: string,
-		minutes?: string,
-		keeping?: string
+		self: IVanillaCalendar,
 	) => void) | null;
-	getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement) => void) | null;
-	hideCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
-	showCalendar: ((HTMLInputElement: HTMLInputElement, HTMLElement: HTMLElement) => void) | null;
+	getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement, self: IVanillaCalendar) => void) | null;
+	hideCalendar: ((self: IVanillaCalendar) => void) | null;
+	showCalendar: ((self: IVanillaCalendar) => void) | null;
 }
 
 export type IPopup = {
@@ -185,7 +179,7 @@ export interface IOptions {
 	type?: TypesCalendar;
 	months?: number;
 	jumpMonths?: number;
-	date?: Partial<IDate>;
+	date?: Partial<IDates>;
 	settings?: Partial<{
 		lang: string;
 		iso8601: boolean;
@@ -199,4 +193,53 @@ export interface IOptions {
 	popups?: IPopups;
 	CSSClasses?: Partial<ICSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
+}
+
+export interface IVanillaCalendar {
+	input: boolean;
+	type: TypesCalendar;
+	months: number;
+	jumpMonths: number;
+	date: IDates;
+	settings: {
+		lang: string;
+		iso8601: boolean;
+		range: IRange;
+		selection: ISelection;
+		selected: ISelected;
+		visibility: IVisibility;
+	};
+	locale: ILocale;
+	actions: IActions;
+	popups: IPopups;
+	CSSClasses: ICSSClasses;
+	DOMTemplates: IDOMTemplates;
+
+	reset: () => void;
+	update: () => void;
+	init: () => void;
+	destroy: () => void;
+
+	readonly HTMLElement: HTMLElement;
+	readonly HTMLOriginalElement: HTMLElement;
+	readonly HTMLInputElement?: HTMLInputElement;
+	readonly rangeMin: FormatDateString;
+	readonly rangeMax: FormatDateString;
+	readonly rangeDisabled: FormatDateString[];
+	readonly rangeEnabled: FormatDateString[];
+	readonly selectedDates: FormatDateString[];
+	readonly selectedHolidays: FormatDateString[];
+	readonly selectedMonth: number;
+	readonly selectedYear: number;
+	readonly selectedHours?: string;
+	readonly selectedMinutes?: string;
+	readonly selectedKeeping?: string;
+	readonly selectedTime?: string;
+	readonly userTime?: boolean;
+	readonly currentType: TypesCalendar;
+	readonly correctMonths: number;
+	readonly viewYear: number;
+	readonly dateMin: Date;
+	readonly dateMax: Date;
+	readonly isInit: boolean;
 }

@@ -15,12 +15,12 @@ import '@src/styles/themes/dark.css';
 const configInput: IOptions = {
 	input: true,
 	actions: {
-		changeToInput(e, calendar, dates) {
-			if (!dates) return;
-			if (dates[0]) {
-				calendar.HTMLInputElement.value = dates[0];
+		changeToInput(e, calendar, self) {
+			if (!self.selectedDates || !self.HTMLInputElement) return;
+			if (self.selectedDates[0]) {
+				self.HTMLInputElement.value = self.selectedDates[0];
 			} else {
-				calendar.HTMLInputElement.value = '';
+				self.HTMLInputElement.value = '';
 			}
 			calendar.hide();
 		},
@@ -30,12 +30,12 @@ const configInput: IOptions = {
 const configDiv: IOptions = {
 	input: true,
 	actions: {
-		changeToInput(e, calendar, dates) {
-			if (!dates) return;
-			if (dates[0]) {
-				calendar.HTMLInputElement.innerHTML = dates[0];
+		changeToInput(e, calendar, self) {
+			if (!self.selectedDates || !self.HTMLInputElement) return;
+			if (self.selectedDates[0]) {
+				self.HTMLInputElement.innerHTML = self.selectedDates[0];
 			} else {
-				calendar.HTMLInputElement.innerHTML = '';
+				self.HTMLInputElement.innerHTML = '';
 			}
 			calendar.hide();
 		},
