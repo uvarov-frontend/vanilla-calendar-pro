@@ -12,6 +12,7 @@ export type Actions = T.IActions;
 export type Popups = T.IPopups;
 export type CSSClasses = T.ICSSClasses;
 export type DOMTemplates = T.IDOMTemplates;
+export type FormatDateString = T.FormatDateString;
 
 export default class VanillaCalendar implements T.IVanillaCalendar {
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);
