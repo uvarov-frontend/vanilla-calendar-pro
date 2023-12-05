@@ -215,9 +215,14 @@ export interface IVanillaCalendar {
 	CSSClasses: ICSSClasses;
 	DOMTemplates: IDOMTemplates;
 
-	reset: () => void;
-	update: () => void;
 	init: () => void;
+	update: (reset?: {
+		year?: boolean;
+		month?: boolean;
+		dates?: boolean;
+		holidays?: boolean;
+		time?: boolean;
+	}) => void;
 	destroy: () => void;
 
 	readonly HTMLElement: HTMLElement;
@@ -235,7 +240,6 @@ export interface IVanillaCalendar {
 	readonly selectedMinutes?: string;
 	readonly selectedKeeping?: string;
 	readonly selectedTime?: string;
-	readonly userTime?: boolean;
 	readonly currentType: TypesCalendar;
 	readonly correctMonths: number;
 	readonly viewYear: number;

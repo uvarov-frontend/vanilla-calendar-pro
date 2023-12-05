@@ -1,8 +1,7 @@
 import * as T from '@package/types';
 import DefaultOptionsCalendar from '@scripts/default';
-import reset from '@scripts/reset';
-import update from '@scripts/update';
 import init from '@scripts/init';
+import update from '@scripts/update';
 import destroy from '@scripts/destroy';
 import messages from '@scripts/helpers/getMessages';
 
@@ -28,11 +27,15 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 		replaceProperties(this, options);
 	}
 
-	reset = () => reset(this);
-
-	update = () => update(this);
-
 	init = () => init(this);
+
+	update = (reset?: {
+		year?: boolean;
+		month?: boolean;
+		dates?: boolean;
+		holidays?: boolean;
+		time?: boolean;
+	}) => update(this, reset);
 
 	destroy = () => destroy(this);
 }

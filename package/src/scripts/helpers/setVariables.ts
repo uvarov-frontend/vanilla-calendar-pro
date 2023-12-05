@@ -72,7 +72,7 @@ const initDateMinMax = (self: VanillaCalendar) => {
 const initTime = (self: VanillaCalendar) => {
 	const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
 	if (time12 || self.settings.selection.time === 24) {
-		self.userTime = false;
+		let userTime = false;
 
 		if (typeof self.settings.selected.time === 'string') {
 			const regExr = time12 ? /^([0-9]|0[1-9]|1[0-2]):([0-5][0-9])|(AM|PM)/g
@@ -80,7 +80,7 @@ const initTime = (self: VanillaCalendar) => {
 
 			self.settings.selected.time.replace(regExr, (_, p1: string, p2: string, p3: string) => {
 				if (p1 && p2) {
-					self.userTime = true;
+					userTime = true;
 					self.selectedHours = p1;
 					self.selectedMinutes = p2;
 				}
@@ -93,11 +93,11 @@ const initTime = (self: VanillaCalendar) => {
 			});
 		}
 
-		if (!self.userTime && (time12)) {
+		if (!userTime && (time12)) {
 			self.selectedHours = transformTime12(String(self.date.today.getHours()));
 			self.selectedMinutes = String(self.date.today.getMinutes());
 			self.selectedKeeping = Number(self.date.today.getHours()) >= 12 ? 'PM' : 'AM';
-		} else if (!self.userTime) {
+		} else if (!userTime) {
 			self.selectedHours = String(self.date.today.getHours());
 			self.selectedMinutes = String(self.date.today.getMinutes());
 		}
