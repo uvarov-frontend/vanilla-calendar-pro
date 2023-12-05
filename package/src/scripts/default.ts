@@ -96,7 +96,6 @@ export default class DefaultOptionsCalendar {
 	selectedMinutes!: string;
 	selectedKeeping!: string;
 	selectedTime!: string;
-	userTime!: boolean;
 	currentType!: T.TypesCalendar;
 	correctMonths!: number;
 	viewYear!: number;

@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
-import reset from '@scripts/reset';
+import update from '@scripts/update';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
 	let top = input.offsetHeight;
@@ -29,7 +29,7 @@ const handleInput = (self: VanillaCalendar) => {
 
 		setTimeout(() => actionsInput(self).show(), 0);
 
-		reset(self);
+		update(self);
 		handleClick(self);
 	};
 
