@@ -75,14 +75,15 @@ const resetDisabledDates = () => {
 	current.self.rangeMax = current.rangeMax as FormatDateString;
 };
 
-const handleDayRangedSelection = (self: VanillaCalendar, dayBtnEl: HTMLElement) => {
-	const formattedDate = dayBtnEl.dataset.calendarDay as FormatDateString;
-	const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
-	self.selectedDates = selectedDateExists && !self.settings.selection.cancelableDay
-		? [formattedDate]
-		: selectedDateExists && self.settings.selection.cancelableDay
-			? []
-			: self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatDateString) => {
+	if (formattedDate) {
+		const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
+		self.selectedDates = selectedDateExists && !self.settings.selection.cancelableDay
+			? [formattedDate]
+			: selectedDateExists && self.settings.selection.cancelableDay
+				? []
+				: self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+	}
 
 	if (self.settings.range.disableGaps) {
 		current.rangeMin = current.rangeMin ? current.rangeMin : self.rangeMin;

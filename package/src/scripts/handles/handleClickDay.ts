@@ -1,4 +1,5 @@
 import VanillaCalendar from '@src/vanilla-calendar';
+import { FormatDateString } from '@package/types';
 import actionsInput from '@scripts/helpers/actionsInput';
 import changeMonth from '@scripts/methods/changeMonth';
 import createDays from '@scripts/methods/createDays';
@@ -15,7 +16,7 @@ const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	const daySelectionActions = {
 		single: () => handleDaySelection(self, dayBtnEl, false),
 		multiple: () => handleDaySelection(self, dayBtnEl, true),
-		'multiple-ranged': () => handleDayRangedSelection(self, dayBtnEl),
+		'multiple-ranged': () => handleDayRangedSelection(self, dayBtnEl.dataset.calendarDay as FormatDateString),
 	};
 	daySelectionActions[self.settings.selection.day]();
 	self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));

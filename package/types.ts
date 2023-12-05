@@ -66,6 +66,16 @@ export interface ILocale {
 	weekday: string[] | [];
 }
 
+export interface IMethods {
+	forceSelectOnlyFirstDay: () => void;
+}
+
+export interface IUtilities {
+	getDateString: (date: Date) => void;
+	getDate: (date: FormatDateString) => void;
+	parseDates: (dates: string[]) => void;
+}
+
 export interface IActions {
 	clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
@@ -212,6 +222,8 @@ export interface IVanillaCalendar {
 	locale: ILocale;
 	actions: IActions;
 	popups: IPopups;
+	methods: IMethods;
+	utilities: IUtilities;
 	CSSClasses: ICSSClasses;
 	DOMTemplates: IDOMTemplates;
 
