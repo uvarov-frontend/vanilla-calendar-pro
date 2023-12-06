@@ -1,5 +1,5 @@
 import { FormatDateString } from '@package/types';
-import generateDate from '@scripts/helpers/generateDate';
+import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 
 const parseDates = (dates: string[]): FormatDateString[] => dates.reduce((accumulator: FormatDateString[], date) => {
@@ -12,7 +12,7 @@ const parseDates = (dates: string[]): FormatDateString[] => dates.reduce((accumu
 			const currentDate = new Date(startDate.getTime());
 
 			for (currentDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-				accumulator.push(generateDate(currentDate));
+				accumulator.push(getDateString(currentDate));
 			}
 			return _;
 		});

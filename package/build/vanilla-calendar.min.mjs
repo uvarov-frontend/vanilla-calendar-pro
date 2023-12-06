@@ -194,7 +194,8 @@ class DefaultOptionsCalendar {
         time: false,
         controlTime: "all",
         stepHours: 1,
-        stepMinutes: 1
+        stepMinutes: 1,
+        cancelableDay: true
       },
       selected: {
         dates: void 0,
@@ -253,7 +254,6 @@ class DefaultOptionsCalendar {
     __publicField(this, "selectedMinutes");
     __publicField(this, "selectedKeeping");
     __publicField(this, "selectedTime");
-    __publicField(this, "userTime");
     __publicField(this, "currentType");
     __publicField(this, "correctMonths");
     __publicField(this, "viewYear");
@@ -261,14 +261,7 @@ class DefaultOptionsCalendar {
     __publicField(this, "dateMax");
   }
 }
-const messages = {
-  notFoundSelector: (selector) => `${selector} is not found, check the first argument passed to new VanillaCalendar.`,
-  notInit: 'The calendar has not been initialized, please initialize it using the "init()" method first.',
-  notLocale: 'You specified "define" for "settings.lang" but did not provide the required values for "locale.weekday" or "locale.months".',
-  incorrectTheme: 'Incorrect name of theme in "settings.visibility.theme".',
-  incorrectTime: "The value of the time property can be: false, true, 12 or 24."
-};
-const generateDate = (date) => {
+const getDateString = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -284,7 +277,7 @@ const parseDates = (dates) => dates.reduce((accumulator, date) => {
       const endDate = getDate(endDateStr);
       const currentDate = new Date(startDate.getTime());
       for (currentDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-        accumulator.push(generateDate(currentDate));
+        accumulator.push(getDateString(currentDate));
       }
       return _;
     });
@@ -308,6 +301,13 @@ const transformTime12 = (hour) => {
   };
   return hour ? hourMap[Number(hour)] || String(hour) : "";
 };
+const messages = {
+  notFoundSelector: (selector) => `${selector} is not found, check the first argument passed to new VanillaCalendar.`,
+  notInit: 'The calendar has not been initialized, please initialize it using the "init()" method first.',
+  notLocale: 'You specified "define" for "settings.lang" but did not provide the required values for "locale.weekday" or "locale.months".',
+  incorrectTheme: 'Incorrect name of theme in "settings.visibility.theme".',
+  incorrectTime: "The value of the time property can be: false, true, 12 or 24."
+};
 const initSelectedMonthYear = (self) => {
   const isValidMonth = self.settings.selected.month !== void 0 && Number(self.settings.selected.month) >= 0 && Number(self.settings.selected.month) < 12;
   const isValidYear = self.settings.selected.year !== void 0 && Number(self.settings.selected.year) >= 0 && Number(self.settings.selected.year) <= 9999;
@@ -320,8 +320,8 @@ const initRange = (self) => {
   self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
   self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
   const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
-  self.rangeMin = isDisablePast ? generateDate(self.date.today) : self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.min;
-  self.rangeMax = self.settings.range.disableAllDays ? generateDate(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.max;
+  self.rangeMin = isDisablePast ? getDateString(self.date.today) : self.settings.range.disableAllDays ? getDateString(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.min;
+  self.rangeMax = self.settings.range.disableAllDays ? getDateString(new Date(self.selectedYear, self.selectedMonth, 1)) : self.settings.range.max;
   const firstDay = getDate(self.rangeMin);
   const lastDay = getDate(self.rangeMax);
   firstDay.setDate(firstDay.getDate() - 1);
@@ -330,11 +330,11 @@ const initRange = (self) => {
   if (self.settings.range.disableAllDays) {
     const daysInCurrentMonth = new Date(self.selectedYear, self.selectedMonth + 1, 0).getDate();
     for (let i = 1; i <= daysInCurrentMonth; i++) {
-      self.rangeDisabled.push(generateDate(new Date(self.selectedYear, self.selectedMonth, i)));
+      self.rangeDisabled.push(getDateString(new Date(self.selectedYear, self.selectedMonth, i)));
     }
   }
-  self.rangeDisabled.push(generateDate(firstDay));
-  self.rangeDisabled.push(generateDate(lastDay));
+  self.rangeDisabled.push(getDateString(firstDay));
+  self.rangeDisabled.push(getDateString(lastDay));
   self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
   self.rangeEnabled = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
   if ((_a = self.rangeEnabled) == null ? void 0 : _a[0])
@@ -360,12 +360,12 @@ const initDateMinMax = (self) => {
 const initTime = (self) => {
   const time12 = self.settings.selection.time === true || self.settings.selection.time === 12;
   if (time12 || self.settings.selection.time === 24) {
-    self.userTime = false;
+    let userTime = false;
     if (typeof self.settings.selected.time === "string") {
       const regExr = time12 ? /^([0-9]|0[1-9]|1[0-2]):([0-5][0-9])|(AM|PM)/g : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])/g;
       self.settings.selected.time.replace(regExr, (_, p1, p2, p3) => {
         if (p1 && p2) {
-          self.userTime = true;
+          userTime = true;
           self.selectedHours = p1;
           self.selectedMinutes = p2;
         }
@@ -377,11 +377,11 @@ const initTime = (self) => {
         return "";
       });
     }
-    if (!self.userTime && time12) {
+    if (!userTime && time12) {
       self.selectedHours = transformTime12(String(self.date.today.getHours()));
       self.selectedMinutes = String(self.date.today.getMinutes());
       self.selectedKeeping = Number(self.date.today.getHours()) >= 12 ? "PM" : "AM";
-    } else if (!self.userTime) {
+    } else if (!userTime) {
       self.selectedHours = String(self.date.today.getHours());
       self.selectedMinutes = String(self.date.today.getMinutes());
     }
@@ -404,28 +404,19 @@ const setVariables = (self) => {
   initTime(self);
   initCorrectMonths(self);
 };
-const capitalizeFirstLetter = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1, str.length)}`.replace(/\./, "");
-const getLocaleWeekday = (self, i) => {
-  const weekday = new Date(0, 0, i).toLocaleString(self.settings.lang, { weekday: "short" });
-  self.locale.weekday.push(capitalizeFirstLetter(weekday));
-};
-const getLocaleMonth = (self, i) => {
-  const month = new Date(0, i).toLocaleString(self.settings.lang, { month: "long" });
-  self.locale.months.push(capitalizeFirstLetter(month));
-};
-const getLocale = (self) => {
-  if (self.settings.lang === "define" && self.locale.weekday[6] && self.locale.months[11])
-    return;
-  if (self.settings.lang === "define") {
-    throw new Error(messages.notLocale);
-  }
-  self.locale.weekday = [];
-  self.locale.months = [];
-  for (let i = 0; i < 7; i++)
-    getLocaleWeekday(self, i);
-  for (let i = 0; i < 12; i++)
-    getLocaleMonth(self, i);
-};
+const actionsInput = (self) => ({
+  hide() {
+    self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+    if (self.actions.hideCalendar)
+      self.actions.hideCalendar(self);
+  },
+  show() {
+    self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+    if (self.actions.showCalendar)
+      self.actions.showCalendar(self);
+  },
+  self
+});
 const setVisibilityArrows = ({
   arrowPrev,
   arrowNext,
@@ -445,7 +436,7 @@ const visibilityArrows = (self) => {
     return;
   const updateType = {
     default: () => {
-      const currentSelectedDate = getDate(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
+      const currentSelectedDate = getDate(getDateString(new Date(self.selectedYear, self.selectedMonth, 1)));
       const jumpDateMin = new Date(currentSelectedDate.getTime());
       const jumpDateMax = new Date(currentSelectedDate.getTime());
       jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
@@ -545,7 +536,7 @@ const setDayModifier = (self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth
     dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
     dayBtnEl.tabIndex = -1;
   }
-  if (self.settings.visibility.today && generateDate(self.date.today) === date) {
+  if (self.settings.visibility.today && getDateString(self.date.today) === date) {
     dayBtnEl.classList.add(self.CSSClasses.dayBtnToday);
   }
   if (self.settings.visibility.weekend && (dayWeekID === 0 || dayWeekID === 6)) {
@@ -597,7 +588,7 @@ const createDay = (self, year, daysEl, day, dayWeekID, date, otherMonth, modifie
   setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
   daysEl.append(dayEl);
   if (self.actions.getDays)
-    self.actions.getDays(day, date, dayEl, dayBtnEl);
+    self.actions.getDays(day, date, dayEl, dayBtnEl, self);
 };
 const prevMonth = (self, daysEl, selectedYear, selectedMonth, firstDayWeek) => {
   let day = new Date(selectedYear, selectedMonth, 0).getDate() - (firstDayWeek - 1);
@@ -612,7 +603,7 @@ const prevMonth = (self, daysEl, selectedYear, selectedMonth, firstDayWeek) => {
 const currentMonth = (self, daysEl, daysSelectedMonth, selectedYear, selectedMonth) => {
   for (let i = 1; i <= daysSelectedMonth; i++) {
     const day = new Date(selectedYear, selectedMonth, i);
-    const date = generateDate(day);
+    const date = getDateString(day);
     const dayWeekID = day.getDay();
     createDay(self, selectedYear, daysEl, i, dayWeekID, date, false, null);
   }
@@ -651,6 +642,44 @@ const createDays = (self) => {
     createWeekNumbers(self, firstDayWeek, daysSelectedMonth, weekNumbersEls[index], daysEl);
     createPopup(self, daysEl);
   });
+};
+const visibilityMonth = (self, monthEl, index, initDate) => {
+  const month = new Date(initDate.setMonth(self.selectedMonth + index)).getMonth();
+  const isSelectionDisabled = self.settings.selection.month === false || self.settings.selection.month === "only-arrows";
+  monthEl.tabIndex = isSelectionDisabled ? -1 : 0;
+  monthEl.classList.toggle(self.CSSClasses.monthDisabled, isSelectionDisabled);
+  monthEl.setAttribute("data-calendar-selected-month", String(month));
+  monthEl.innerText = self.locale.months[month];
+};
+const visibilityYear = (self, yearEl, index, initDate) => {
+  const year = new Date(initDate.setFullYear(self.selectedYear, self.selectedMonth + index)).getFullYear();
+  const isSelectionDisabled = self.settings.selection.year === false || self.settings.selection.year === "only-arrows";
+  yearEl.tabIndex = isSelectionDisabled ? -1 : 0;
+  yearEl.classList.toggle(self.CSSClasses.yearDisabled, isSelectionDisabled);
+  yearEl.setAttribute("data-calendar-selected-year", String(year));
+  yearEl.innerText = String(year);
+};
+const visibilityTitle = (self) => {
+  var _a, _b;
+  const monthEls = (_a = self.HTMLElement) == null ? void 0 : _a.querySelectorAll("[data-calendar-selected-month]");
+  const yearEls = (_b = self.HTMLElement) == null ? void 0 : _b.querySelectorAll("[data-calendar-selected-year]");
+  if (!(monthEls == null ? void 0 : monthEls[0]) && (yearEls == null ? void 0 : yearEls[0]))
+    return;
+  const initDate = new Date(self.selectedYear, self.selectedMonth, 1);
+  monthEls == null ? void 0 : monthEls.forEach((monthEl, index) => visibilityMonth(self, monthEl, index, initDate));
+  yearEls == null ? void 0 : yearEls.forEach((yearEl, index) => visibilityYear(self, yearEl, index, initDate));
+};
+const changeMonth = (self, route) => {
+  const jumpDate = getDate(getDateString(new Date(self.selectedYear, self.selectedMonth, 1)));
+  const routeMap = {
+    prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths),
+    next: () => jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths)
+  };
+  routeMap[route]();
+  [self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
+  visibilityTitle(self);
+  visibilityArrows(self);
+  createDays(self);
 };
 const ArrowPrev = (self) => `
 	<button type="button"
@@ -775,31 +804,82 @@ const createDOM = (self, target) => {
   HTMLElement.classList.add(CSSClasses.calendar);
   typeHandlers[currentType]();
 };
-const visibilityMonth = (self, monthEl, index, initDate) => {
-  const month = new Date(initDate.setMonth(self.selectedMonth + index)).getMonth();
-  const isSelectionDisabled = self.settings.selection.month === false || self.settings.selection.month === "only-arrows";
-  monthEl.tabIndex = isSelectionDisabled ? -1 : 0;
-  monthEl.classList.toggle(self.CSSClasses.monthDisabled, isSelectionDisabled);
-  monthEl.setAttribute("data-calendar-selected-month", String(month));
-  monthEl.innerText = self.locale.months[month];
+const createYearEl = (self, templateYearEl, selectedYear, yearDisabled, i) => {
+  const yearEl = templateYearEl.cloneNode(false);
+  yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}` : yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ""}`;
+  yearEl.dataset.calendarYear = String(i);
+  yearEl.title = String(i);
+  yearEl.innerText = String(i);
+  if (yearDisabled)
+    yearEl.tabIndex = -1;
+  return yearEl;
 };
-const visibilityYear = (self, yearEl, index, initDate) => {
-  const year = new Date(initDate.setFullYear(self.selectedYear, self.selectedMonth + index)).getFullYear();
-  const isSelectionDisabled = self.settings.selection.year === false || self.settings.selection.year === "only-arrows";
-  yearEl.tabIndex = isSelectionDisabled ? -1 : 0;
-  yearEl.classList.toggle(self.CSSClasses.yearDisabled, isSelectionDisabled);
-  yearEl.setAttribute("data-calendar-selected-year", String(year));
-  yearEl.innerText = String(year);
-};
-const visibilityTitle = (self) => {
-  var _a, _b;
-  const monthEls = (_a = self.HTMLElement) == null ? void 0 : _a.querySelectorAll("[data-calendar-selected-month]");
-  const yearEls = (_b = self.HTMLElement) == null ? void 0 : _b.querySelectorAll("[data-calendar-selected-year]");
-  if (!(monthEls == null ? void 0 : monthEls[0]) && (yearEls == null ? void 0 : yearEls[0]))
+const createYears = (self, target) => {
+  const selectedYear = (target == null ? void 0 : target.dataset.calendarSelectedYear) ? Number(target == null ? void 0 : target.dataset.calendarSelectedYear) : self.selectedYear;
+  self.currentType = "year";
+  createDOM(self, target);
+  visibilityTitle(self);
+  visibilityArrows(self);
+  const yearsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.years}`);
+  if (!self.settings.selection.year || !yearsEl)
     return;
-  const initDate = new Date(self.selectedYear, self.selectedMonth, 1);
-  monthEls == null ? void 0 : monthEls.forEach((monthEl, index) => visibilityMonth(self, monthEl, index, initDate));
-  yearEls == null ? void 0 : yearEls.forEach((yearEl, index) => visibilityYear(self, yearEl, index, initDate));
+  yearsEl.classList.add(self.CSSClasses.yearsSelecting);
+  const relationshipID2 = self.type !== "multiple" ? 0 : self.selectedYear === selectedYear ? 0 : 1;
+  const templateYearEl = document.createElement("button");
+  templateYearEl.type = "button";
+  for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
+    const yearDisabled = i < self.dateMin.getFullYear() + relationshipID2 || i > self.dateMax.getFullYear();
+    yearsEl.append(createYearEl(self, templateYearEl, selectedYear, yearDisabled, i));
+  }
+};
+const handleClickArrow = (self, event) => {
+  const element = event.target;
+  const arrowEl = element.closest(`.${self.CSSClasses.arrow}`);
+  if (!arrowEl)
+    return;
+  if (["default", "multiple"].includes(self.currentType)) {
+    changeMonth(self, arrowEl.dataset.calendarArrow);
+  } else if (self.currentType === "year" && self.viewYear !== void 0) {
+    self.viewYear += { prev: -15, next: 15 }[arrowEl.dataset.calendarArrow];
+    createYears(self, event.target);
+  }
+  if (self.actions.clickArrow)
+    self.actions.clickArrow(event, self);
+};
+const handleClickWeekNumber = (self, event) => {
+  var _a;
+  if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber)
+    return;
+  const weekNumberEl = event.target.closest(`.${self.CSSClasses.weekNumber}`);
+  const daysToWeeks = (_a = self.HTMLElement) == null ? void 0 : _a.querySelectorAll("[data-calendar-week-number]");
+  if (!weekNumberEl || !daysToWeeks)
+    return;
+  const weekNumberValue = Number(weekNumberEl.innerText);
+  const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
+  const daysOfThisWeek = [...daysToWeeks].filter((day) => Number(day.dataset.calendarWeekNumber) === weekNumberValue);
+  self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
+};
+const capitalizeFirstLetter = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1, str.length)}`.replace(/\./, "");
+const getLocaleWeekday = (self, i) => {
+  const weekday = new Date(0, 0, i).toLocaleString(self.settings.lang, { weekday: "short" });
+  self.locale.weekday.push(capitalizeFirstLetter(weekday));
+};
+const getLocaleMonth = (self, i) => {
+  const month = new Date(0, i).toLocaleString(self.settings.lang, { month: "long" });
+  self.locale.months.push(capitalizeFirstLetter(month));
+};
+const getLocale = (self) => {
+  if (self.settings.lang === "define" && self.locale.weekday[6] && self.locale.months[11])
+    return;
+  if (self.settings.lang === "define") {
+    throw new Error(messages.notLocale);
+  }
+  self.locale.weekday = [];
+  self.locale.months = [];
+  for (let i = 0; i < 7; i++)
+    getLocaleWeekday(self, i);
+  for (let i = 0; i < 12; i++)
+    getLocaleMonth(self, i);
 };
 const relationshipID = (self) => {
   if (self.type !== "multiple")
@@ -857,20 +937,6 @@ const transformTime24 = (hour, keeping) => {
   };
   return hour && keeping ? hourMap[Number(hour)][keeping] : "";
 };
-const actionsInput = (self) => ({
-  hide() {
-    self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
-    if (self.actions.hideCalendar)
-      self.actions.hideCalendar(self.HTMLInputElement, self.HTMLElement);
-  },
-  show() {
-    self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
-    if (self.actions.showCalendar)
-      self.actions.showCalendar(self.HTMLInputElement, self.HTMLElement);
-  },
-  HTMLInputElement: self.HTMLInputElement,
-  HTMLElement: self.HTMLElement
-});
 const getInputElement = (timeEl, className, name) => timeEl.querySelector(`.${className}${name ? ` input[name="${name}"]` : ""}`);
 const addMouseEvents = (range, input, CSSClass) => {
   range.addEventListener("mouseover", () => input.classList.add(CSSClass));
@@ -887,26 +953,10 @@ const setTime = (self, e, value, type) => {
   };
   typeMap[type]();
   self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ""}`;
-  if (self.actions.changeTime) {
-    self.actions.changeTime(
-      e,
-      self.selectedTime,
-      self.selectedHours,
-      self.selectedMinutes,
-      self.selectedKeeping
-    );
-  }
-  if (self.input && self.HTMLInputElement && self.actions.changeToInput) {
-    self.actions.changeToInput(
-      e,
-      actionsInput(self),
-      self.selectedDates,
-      self.selectedTime,
-      self.selectedHours,
-      self.selectedMinutes,
-      self.selectedKeeping
-    );
-  }
+  if (self.actions.changeTime)
+    self.actions.changeTime(e, self);
+  if (self.input && self.HTMLInputElement && self.actions.changeToInput)
+    self.actions.changeToInput(e, actionsInput(self), self);
 };
 const changeRange = (self, range, input, btnKeepingTime, type, max) => {
   range.addEventListener("input", (e) => {
@@ -1058,34 +1108,6 @@ const createWeek = (self) => {
   const weekEls = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.week}`);
   weekEls.forEach((weekEl) => createWeekDays(self, weekEl, weekday));
 };
-const createYearEl = (self, templateYearEl, selectedYear, yearDisabled, i) => {
-  const yearEl = templateYearEl.cloneNode(false);
-  yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}` : yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ""}`;
-  yearEl.dataset.calendarYear = String(i);
-  yearEl.title = String(i);
-  yearEl.innerText = String(i);
-  if (yearDisabled)
-    yearEl.tabIndex = -1;
-  return yearEl;
-};
-const createYears = (self, target) => {
-  const selectedYear = (target == null ? void 0 : target.dataset.calendarSelectedYear) ? Number(target == null ? void 0 : target.dataset.calendarSelectedYear) : self.selectedYear;
-  self.currentType = "year";
-  createDOM(self, target);
-  visibilityTitle(self);
-  visibilityArrows(self);
-  const yearsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.years}`);
-  if (!self.settings.selection.year || !yearsEl)
-    return;
-  yearsEl.classList.add(self.CSSClasses.yearsSelecting);
-  const relationshipID2 = self.type !== "multiple" ? 0 : self.selectedYear === selectedYear ? 0 : 1;
-  const templateYearEl = document.createElement("button");
-  templateYearEl.type = "button";
-  for (let i = self.viewYear - 7; i < self.viewYear + 8; i++) {
-    const yearDisabled = i < self.dateMin.getFullYear() + relationshipID2 || i > self.dateMax.getFullYear();
-    yearsEl.append(createYearEl(self, templateYearEl, selectedYear, yearDisabled, i));
-  }
-};
 const themes = ["light", "dark", "system"];
 const haveListener = {
   value: false,
@@ -1179,62 +1201,6 @@ const create = (self) => {
   createTime(self);
   types[self.currentType]();
 };
-const reset = (self) => {
-  if (!self.isInit)
-    throw new Error(messages.notInit);
-  setVariables(self);
-  create(self);
-};
-const update = (self) => {
-  if (!self.isInit)
-    throw new Error(messages.notInit);
-  const { dates, month, year } = self.settings.selected;
-  self.settings.selected.dates = !(dates == null ? void 0 : dates[0]) ? self.selectedDates : dates;
-  self.settings.selected.month = !month ? self.selectedMonth : month;
-  self.settings.selected.year = !year ? self.selectedYear : year;
-  setVariables(self);
-  create(self);
-  self.settings.selected = { dates, month, year };
-};
-const changeMonth = (self, route) => {
-  const jumpDate = getDate(generateDate(new Date(self.selectedYear, self.selectedMonth, 1)));
-  const routeMap = {
-    prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths),
-    next: () => jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths)
-  };
-  routeMap[route]();
-  [self.selectedMonth, self.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
-  visibilityTitle(self);
-  visibilityArrows(self);
-  createDays(self);
-};
-const handleClickArrow = (self, event) => {
-  const element = event.target;
-  const arrowEl = element.closest(`.${self.CSSClasses.arrow}`);
-  if (!arrowEl)
-    return;
-  if (["default", "multiple"].includes(self.currentType)) {
-    changeMonth(self, arrowEl.dataset.calendarArrow);
-  } else if (self.currentType === "year" && self.viewYear !== void 0) {
-    self.viewYear += { prev: -15, next: 15 }[arrowEl.dataset.calendarArrow];
-    createYears(self, event.target);
-  }
-  if (self.actions.clickArrow)
-    self.actions.clickArrow(event, self.selectedYear, self.selectedMonth);
-};
-const handleClickWeekNumber = (self, event) => {
-  var _a;
-  if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber)
-    return;
-  const weekNumberEl = event.target.closest(`.${self.CSSClasses.weekNumber}`);
-  const daysToWeeks = (_a = self.HTMLElement) == null ? void 0 : _a.querySelectorAll("[data-calendar-week-number]");
-  if (!weekNumberEl || !daysToWeeks)
-    return;
-  const weekNumberValue = Number(weekNumberEl.innerText);
-  const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
-  const daysOfThisWeek = [...daysToWeeks].filter((day) => Number(day.dataset.calendarWeekNumber) === weekNumberValue);
-  self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek);
-};
 const current = {
   self: null,
   rangeMin: void 0,
@@ -1249,7 +1215,7 @@ const addHoverEffect = (day) => {
   var _a, _b, _c;
   if (!((_a = current.self) == null ? void 0 : _a.selectedDates))
     return;
-  const formattedDate = generateDate(day);
+  const formattedDate = getDateString(day);
   if ((_b = current.self.rangeDisabled) == null ? void 0 : _b.includes(formattedDate))
     return;
   const dayEls = (_c = current.self.HTMLElement) == null ? void 0 : _c.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
@@ -1289,9 +1255,9 @@ const updateDisabledDates = () => {
     selectedDate < disabledDate && end === null ? disabledDate : end
   ], [null, null]);
   if (startDate)
-    current.self.rangeMin = generateDate(new Date(startDate.setDate(startDate.getDate() + 1)));
+    current.self.rangeMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
   if (endDate)
-    current.self.rangeMax = generateDate(new Date(endDate.setDate(endDate.getDate() - 1)));
+    current.self.rangeMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
 };
 const resetDisabledDates = () => {
   if (!current.self)
@@ -1299,10 +1265,11 @@ const resetDisabledDates = () => {
   current.self.rangeMin = current.rangeMin;
   current.self.rangeMax = current.rangeMax;
 };
-const handleDayRangedSelection = (self, dayBtnEl) => {
-  const formattedDate = dayBtnEl.dataset.calendarDay;
-  const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
-  self.selectedDates = selectedDateExists ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+const handleDayRangedSelection = (self, formattedDate) => {
+  if (formattedDate) {
+    const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
+    self.selectedDates = selectedDateExists && !self.settings.selection.cancelableDay ? [formattedDate] : selectedDateExists && self.settings.selection.cancelableDay ? [] : self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+  }
   if (self.settings.range.disableGaps) {
     current.rangeMin = current.rangeMin ? current.rangeMin : self.rangeMin;
     current.rangeMax = current.rangeMax ? current.rangeMax : self.rangeMax;
@@ -1321,7 +1288,7 @@ const handleDayRangedSelection = (self, dayBtnEl) => {
       const dateIncrement = endDate > startDate ? 1 : -1;
       self.selectedDates = [];
       for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
-        const date = generateDate(i);
+        const date = getDateString(i);
         if (!((_a = self.rangeDisabled) == null ? void 0 : _a.includes(date)))
           self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
       }
@@ -1338,6 +1305,8 @@ const handleDaySelection = (self, dayBtnEl, multiple) => {
     return;
   const selectedDay = dayBtnEl.dataset.calendarDay;
   const isSelected = dayBtnEl.classList.contains(self.CSSClasses.dayBtnSelected);
+  if (isSelected && !self.settings.selection.cancelableDay)
+    return;
   self.selectedDates = isSelected ? self.selectedDates.filter((date) => date !== selectedDay) : multiple ? [...self.selectedDates, selectedDay] : [selectedDay];
 };
 const handleClickDay = (self, event) => {
@@ -1350,22 +1319,18 @@ const handleClickDay = (self, event) => {
   const daySelectionActions = {
     single: () => handleDaySelection(self, dayBtnEl, false),
     multiple: () => handleDaySelection(self, dayBtnEl, true),
-    "multiple-ranged": () => handleDayRangedSelection(self, dayBtnEl)
+    "multiple-ranged": () => handleDayRangedSelection(self, dayBtnEl.dataset.calendarDay)
   };
   daySelectionActions[self.settings.selection.day]();
   (_a = self.selectedDates) == null ? void 0 : _a.sort((a, b) => +new Date(a) - +new Date(b));
   if (self.actions.clickDay)
-    self.actions.clickDay(event, self.selectedDates);
+    self.actions.clickDay(event, self);
   const isInitAsInput = self.input && self.HTMLInputElement && self.HTMLElement;
   if (isInitAsInput && self.actions.changeToInput) {
     self.actions.changeToInput(
       event,
       actionsInput(self),
-      self.selectedDates,
-      self.selectedTime,
-      self.selectedHours,
-      self.selectedMinutes,
-      self.selectedKeeping
+      self
     );
   }
   const dayBtnPrevEl = closest(self.CSSClasses.dayBtnPrev);
@@ -1391,11 +1356,11 @@ const handleItemClick = (self, event, type, CSSClasses, itemEl) => {
   const actionByType = {
     year: () => {
       var _a, _b;
-      return (_b = (_a = self.actions).clickYear) == null ? void 0 : _b.call(_a, event, self.selectedYear, self.selectedMonth);
+      return (_b = (_a = self.actions).clickYear) == null ? void 0 : _b.call(_a, event, self);
     },
     month: () => {
       var _a, _b;
-      return (_b = (_a = self.actions).clickMonth) == null ? void 0 : _b.call(_a, event, self.selectedMonth, self.selectedYear);
+      return (_b = (_a = self.actions).clickMonth) == null ? void 0 : _b.call(_a, event, self);
     }
   };
   const selectByType = {
@@ -1483,6 +1448,28 @@ const handleClick = (self) => {
     });
   });
 };
+const update = (self, {
+  year,
+  month,
+  dates,
+  holidays,
+  time
+} = {}) => {
+  var _a;
+  if (!self.isInit)
+    throw new Error(messages.notInit);
+  const previousSelected = __spreadValues({}, self.settings.selected);
+  self.settings.selected.year = year && previousSelected.year ? previousSelected.year : self.selectedYear;
+  self.settings.selected.month = month && (previousSelected.month || previousSelected.month === 0) ? previousSelected.month : self.selectedMonth;
+  self.settings.selected.holidays = holidays && previousSelected.holidays ? previousSelected.holidays : self.selectedHolidays;
+  self.settings.selected.time = time && previousSelected.time ? previousSelected.time : self.selectedTime;
+  self.settings.selected.dates = dates === "only-first" && ((_a = self.selectedDates) == null ? void 0 : _a[0]) ? [self.selectedDates[0]] : dates === true && previousSelected.dates ? previousSelected.dates : self.selectedDates;
+  setVariables(self);
+  create(self);
+  self.settings.selected = previousSelected;
+  if (self.settings.selection.day === "multiple-ranged" && self.selectedDates.length === 1)
+    handleDayRangedSelection(self);
+};
 const setPositionCalendar = (input, calendar) => {
   let top = input.offsetHeight;
   let left = 0;
@@ -1503,7 +1490,7 @@ const handleInput = (self) => {
     document.body.append(self.HTMLElement);
     firstInit = false;
     setTimeout(() => actionsInput(self).show(), 0);
-    reset(self);
+    update(self);
     handleClick(self);
   };
   const documentClickEvent = (e) => {
@@ -1551,9 +1538,8 @@ const destroy = (self) => {
 class VanillaCalendar extends DefaultOptionsCalendar {
   constructor(selector, options) {
     super();
-    __publicField(this, "reset", () => reset(this));
-    __publicField(this, "update", () => update(this));
     __publicField(this, "init", () => init(this));
+    __publicField(this, "update", (reset) => update(this, reset));
     __publicField(this, "destroy", () => destroy(this));
     this.HTMLElement = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (!this.HTMLElement)

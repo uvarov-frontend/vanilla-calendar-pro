@@ -66,16 +66,6 @@ export interface ILocale {
 	weekday: string[] | [];
 }
 
-export interface IMethods {
-	forceSelectOnlyFirstDay: () => void;
-}
-
-export interface IUtilities {
-	getDateString: (date: Date) => void;
-	getDate: (date: FormatDateString) => void;
-	parseDates: (dates: string[]) => void;
-}
-
 export interface IActions {
 	clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
 	clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
@@ -184,6 +174,14 @@ export interface ICSSClasses {
 	isFocus: string;
 }
 
+export interface IReset {
+	year?: boolean;
+	month?: boolean;
+	dates?: boolean | 'only-first';
+	holidays?: boolean;
+	time?: boolean;
+}
+
 export interface IOptions {
 	input?: boolean;
 	type?: TypesCalendar;
@@ -222,19 +220,11 @@ export interface IVanillaCalendar {
 	locale: ILocale;
 	actions: IActions;
 	popups: IPopups;
-	methods: IMethods;
-	utilities: IUtilities;
 	CSSClasses: ICSSClasses;
 	DOMTemplates: IDOMTemplates;
 
 	init: () => void;
-	update: (reset?: {
-		year?: boolean;
-		month?: boolean;
-		dates?: boolean;
-		holidays?: boolean;
-		time?: boolean;
-	}) => void;
+	update: (reset?: IReset) => void;
 	destroy: () => void;
 
 	readonly HTMLElement: HTMLElement;

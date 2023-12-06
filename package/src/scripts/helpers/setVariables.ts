@@ -1,6 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import parseDates from '@scripts/helpers/parseDates';
-import generateDate from '@scripts/helpers/generateDate';
+import getDateString from '@scripts/helpers/getDateString';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
 import messages from './getMessages';
@@ -21,12 +21,12 @@ const initRange = (self: VanillaCalendar) => {
 
 	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
 	self.rangeMin = isDisablePast
-		? generateDate(self.date.today)
+		? getDateString(self.date.today)
 		: self.settings.range.disableAllDays
-			? generateDate(new Date(self.selectedYear, self.selectedMonth, 1))
+			? getDateString(new Date(self.selectedYear, self.selectedMonth, 1))
 			: self.settings.range.min;
 	self.rangeMax = self.settings.range.disableAllDays
-		? generateDate(new Date(self.selectedYear, self.selectedMonth, 1))
+		? getDateString(new Date(self.selectedYear, self.selectedMonth, 1))
 		: self.settings.range.max;
 
 	// set self.rangeDisabled
@@ -39,12 +39,12 @@ const initRange = (self: VanillaCalendar) => {
 	if (self.settings.range.disableAllDays) {
 		const daysInCurrentMonth = new Date(self.selectedYear, self.selectedMonth + 1, 0).getDate();
 		for (let i = 1; i <= daysInCurrentMonth; i++) {
-			self.rangeDisabled.push(generateDate(new Date(self.selectedYear, self.selectedMonth, i)));
+			self.rangeDisabled.push(getDateString(new Date(self.selectedYear, self.selectedMonth, i)));
 		}
 	}
 
-	self.rangeDisabled.push(generateDate(firstDay));
-	self.rangeDisabled.push(generateDate(lastDay));
+	self.rangeDisabled.push(getDateString(firstDay));
+	self.rangeDisabled.push(getDateString(lastDay));
 	self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
 
 	// set self.rangeEnabled

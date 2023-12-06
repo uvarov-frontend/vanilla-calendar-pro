@@ -1,6 +1,6 @@
 import { FormatDateString } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
-import generateDate from '@scripts/helpers/generateDate';
+import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import createPopup from '@scripts/methods/createPopup';
@@ -33,7 +33,7 @@ const setDayModifier = (
 	}
 
 	// if today
-	if (self.settings.visibility.today && generateDate(self.date.today) === date) {
+	if (self.settings.visibility.today && getDateString(self.date.today) === date) {
 		dayBtnEl.classList.add(self.CSSClasses.dayBtnToday);
 	}
 
@@ -122,7 +122,7 @@ const prevMonth = (self: VanillaCalendar, daysEl: HTMLElement, selectedYear: num
 const currentMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number) => {
 	for (let i = 1; i <= daysSelectedMonth; i++) {
 		const day = new Date(selectedYear, selectedMonth, i);
-		const date = generateDate(day);
+		const date = getDateString(day);
 		const dayWeekID = day.getDay();
 
 		createDay(self, selectedYear, daysEl, i, dayWeekID, date, false, null);
