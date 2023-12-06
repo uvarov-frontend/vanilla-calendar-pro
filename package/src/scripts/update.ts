@@ -21,17 +21,19 @@ const update = (self: VanillaCalendar, {
 	self.settings.selected.holidays = holidays && previousSelected.holidays ? previousSelected.holidays : self.selectedHolidays;
 	self.settings.selected.time = time && previousSelected.time ? previousSelected.time : self.selectedTime;
 
-	self.settings.selected.dates = dates === 'only-first' && self.selectedDates?.[0]
-		? [self.selectedDates[0]]
-		: dates === true && previousSelected.dates
-			? previousSelected.dates
-			: self.selectedDates;
+	self.settings.selected.dates = dates === 'reset-all'
+		? []
+		: dates === 'only-first' && self.selectedDates?.[0]
+			? [self.selectedDates[0]]
+			: dates === true && previousSelected.dates
+				? previousSelected.dates
+				: self.selectedDates;
 
 	setVariables(self);
 	create(self);
 
 	self.settings.selected = previousSelected;
-	if (self.settings.selection.day === 'multiple-ranged' && self.selectedDates.length === 1) handleDayRangedSelection(self);
+	if (self.settings.selection.day === 'multiple-ranged' && (self.selectedDates.length === 1 || dates === 'reset-all')) handleDayRangedSelection(self);
 };
 
 export default update;

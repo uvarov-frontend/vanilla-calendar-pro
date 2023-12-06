@@ -177,7 +177,7 @@ export interface ICSSClasses {
 export interface IReset {
 	year?: boolean;
 	month?: boolean;
-	dates?: boolean | 'only-first';
+	dates?: boolean | 'only-first' | 'reset-all';
 	holidays?: boolean;
 	time?: boolean;
 }
