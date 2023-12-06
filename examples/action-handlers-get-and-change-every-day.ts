@@ -3,7 +3,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: Options = {
   actions: {
-    getDays(day, date, HTMLElement, HTMLButtonElement) {
+    getDays(day, date, HTMLElement, HTMLButtonElement, self) {
       const randomBoolean = Math.random() < 0.5;
       if (!randomBoolean) return;
       const randomPrice = Math.floor(Math.random() * (999 - 100 + 1) + 100);

@@ -3,8 +3,8 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: Options = {
   actions: {
-    clickDay(event, dates) {
-      console.log(dates);
+    clickDay(event, self) {
+      console.log(self.selectedDates);
     },
   },
 };

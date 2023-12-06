@@ -8,8 +8,8 @@ const options: Options = {
     },
   },
   actions: {
-    clickDay(event, dates) {
-      console.log(dates);
+    clickDay(event, self) {
+      console.log(self.selectedDates);
     },
   },
 };

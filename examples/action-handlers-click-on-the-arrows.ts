@@ -3,8 +3,8 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: Options = {
   actions: {
-    clickArrow(event, year, month) {
-      console.log(year, month);
+    clickArrow(event, self) {
+      console.log(self.selectedYear, self.selectedMonth);
     },
   },
 };

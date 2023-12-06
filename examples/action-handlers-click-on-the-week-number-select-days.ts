@@ -11,7 +11,7 @@ const options: Options = {
     },
   },
   actions: {
-    clickWeekNumber(event, number, days, year) {
+    clickWeekNumber(event, number, days, year, self) {
       calendar.settings.selected.dates = days.map((day) => day.dataset.calendarDay);
       calendar.update();
     },

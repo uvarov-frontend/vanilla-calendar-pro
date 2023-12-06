@@ -8,7 +8,7 @@ const options: Options = {
     },
   },
   actions: {
-    clickWeekNumber(event, number, days, year) {
+    clickWeekNumber(event, number, days, year, self) {
       console.log(`Week number: ${number}`);
       console.log(`Year of the week: ${year}`);
       console.log('Days of this week:', days);

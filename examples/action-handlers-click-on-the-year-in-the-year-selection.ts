@@ -4,8 +4,8 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: Options = {
   type: 'year',
   actions: {
-    clickYear(event, year) {
-      console.log(year);
+    clickYear(event, self) {
+      console.log(self.selectedYear);
     },
   },
 };

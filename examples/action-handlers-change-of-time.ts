@@ -8,8 +8,8 @@ const options: Options = {
     },
   },
   actions: {
-    changeTime(event, time, hours, minutes, keeping) {
-      console.log(time);
+    changeTime(event, self) {
+      console.log(self.selectedTime);
     },
   },
 };
