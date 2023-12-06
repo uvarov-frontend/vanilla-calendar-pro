@@ -1,5 +1,5 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import generateDate from '@scripts/helpers/generateDate';
+import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 
 const setVisibilityArrows = ({
@@ -24,7 +24,7 @@ const visibilityArrows = (self: VanillaCalendar) => {
 
 	const updateType = {
 		default: () => {
-			const currentSelectedDate = getDate(generateDate(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
+			const currentSelectedDate = getDate(getDateString(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
 			const jumpDateMin = new Date(currentSelectedDate.getTime());
 			const jumpDateMax = new Date(currentSelectedDate.getTime());
 			jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);

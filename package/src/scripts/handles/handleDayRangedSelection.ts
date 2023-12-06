@@ -1,6 +1,6 @@
 import { FormatDateString } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
-import generateDate from '@scripts/helpers/generateDate';
+import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 import create from '@scripts/create';
 
@@ -21,7 +21,7 @@ const removeHoverEffect = () => {
 
 const addHoverEffect = (day: Date) => {
 	if (!current.self?.selectedDates) return;
-	const formattedDate = generateDate(day);
+	const formattedDate = getDateString(day);
 
 	if (current.self.rangeDisabled?.includes(formattedDate)) return;
 
@@ -65,8 +65,8 @@ const updateDisabledDates = () => {
 		selectedDate < disabledDate && end === null ? disabledDate : end,
 	], [null, null]);
 
-	if (startDate) current.self.rangeMin = generateDate(new Date(startDate.setDate(startDate.getDate() + 1)));
-	if (endDate) current.self.rangeMax = generateDate(new Date(endDate.setDate(endDate.getDate() - 1)));
+	if (startDate) current.self.rangeMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
+	if (endDate) current.self.rangeMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
 };
 
 const resetDisabledDates = () => {
@@ -104,7 +104,7 @@ const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatD
 			self.selectedDates = [];
 
 			for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
-				const date = generateDate(i);
+				const date = getDateString(i);
 				if (!self.rangeDisabled?.includes(date)) self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
 			}
 
