@@ -10,8 +10,6 @@ export type Visibility = T.IVisibility;
 export type Locale = T.ILocale;
 export type Actions = T.IActions;
 export type Popups = T.IPopups;
-export type Utilities = T.IUtilities;
-export type Methods = T.IMethods;
 export type CSSClasses = T.ICSSClasses;
 export type DOMTemplates = T.IDOMTemplates;
 export type FormatDateString = T.FormatDateString;
@@ -35,19 +33,11 @@ export default class VanillaCalendar implements T.IVanillaCalendar {
 	locale: T.ILocale;
 	actions: T.IActions;
 	popups: T.IPopups;
-	utilities: T.IUtilities;
-	methods: T.IMethods;
 	CSSClasses: T.ICSSClasses;
 	DOMTemplates: T.IDOMTemplates;
 
 	init: () => void;
-	update: (reset?: {
-		year?: boolean;
-		month?: boolean;
-		dates?: boolean;
-		holidays?: boolean;
-		time?: boolean;
-	}) => void;
+	update: (reset?: T.IReset) => void;
 	destroy: () => void;
 
 	readonly HTMLElement: HTMLElement;
