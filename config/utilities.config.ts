@@ -8,11 +8,12 @@ export default defineConfig({
 	build: {
 		target: 'ES6',
 		assetsDir: '',
-		outDir: './package/build/utilities',
+		outDir: './package/utilities',
 		minify: 'terser',
+		emptyOutDir: false,
 		lib: {
 			name: 'VanillaCalendarUtilities',
-			fileName(format, entryName) { return `${entryName}.min${format === 'es' ? '.mjs' : '.js'}`; },
+			fileName(format) { return `index${format === 'es' ? '.mjs' : '.js'}`; },
 			entry: resolve(__dirname, '../package/src/utilities.ts'),
 		},
 	},
@@ -26,7 +27,7 @@ export default defineConfig({
 	},
 	plugins: [
 		banner({
-			outDir: './package/build/utilities',
+			outDir: './package/utilities',
 			content: 'name: vanilla-calendar-pro | url: https://github.com/uvarov-frontend/vanilla-calendar-pro',
 		}),
 		eslint(),
