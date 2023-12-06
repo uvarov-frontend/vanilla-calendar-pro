@@ -204,7 +204,7 @@ new VanillaCalendar('#calendar', {
 This parameter allows you to disable specific dates regardless of the specified range.
 
 <Info>
-  To specify a range of disabled dates, use any delimiter between dates within a single string.
+  To specify a range dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -230,7 +230,7 @@ new VanillaCalendar('#calendar', {
 This parameter allows you to enable specific dates regardless of the range and disabled dates.
 
 <Info>
-  To specify a range of disabled dates, use any delimiter between dates within a single string.
+  To specify a range dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -389,6 +389,28 @@ This parameter sets the step for the minute controller. You can choose any numbe
 
 ---
 
+## settings.selection.cancelableDay
+
+`Type: Number`
+
+`Default: true`
+
+`Options: boolean`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    selection: {
+      cancelableDay: false,
+    },
+  },
+});
+```
+
+This option allows you to enable/disable cancellation of the selected date by pressing again.
+
+---
+
 ## settings.selected.dates
 
 `Type: String[]`
@@ -410,7 +432,7 @@ new VanillaCalendar('#calendar', {
 This parameter allows you to specify a list of dates that will be selected when the calendar is initialized.
 
 <Info>
-  To specify a range of disabled dates, use any delimiter between dates within a single string.
+  To specify a range dates, use any delimiter between dates within a single string.
 </Info>
 
 ---
@@ -480,7 +502,7 @@ new VanillaCalendar('#calendar', {
 This parameter allows you to specify dates that will be considered holidays and will receive additional CSS modifiers.
 
 <Info>
-  To specify a range of disabled dates, use any delimiter between dates within a single string.
+  To specify a range dates, use any delimiter between dates within a single string.
 </Info>
 
 ---

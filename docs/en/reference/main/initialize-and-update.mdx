@@ -7,12 +7,9 @@ const calendar = new VanillaCalendar(element, params);
 calendar.init();
 ```
 
-It's essential to note that you also have the ability to update the calendar with new settings at any time using the `update()` or `reset()` methods.
+The `update()` method allows you to apply new settings to the calendar and reset it. This method takes an object with optional arguments to control the reset, by default retaining the user-selected date, month, and year after the update.
 
-- The `update()` method allows you to apply new settings to the calendar while preserving the user-selected dates, month, and year after the update.
-- The `reset()` method completely resets the calendar to its initial state, discarding any user-selected dates.
-
-Example of usage:
+All arguments, default `false`:
 
 ```js
 calendar.settings.lang = 'de-AT';

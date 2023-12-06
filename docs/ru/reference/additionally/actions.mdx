@@ -3,6 +3,10 @@
 Действия в VanillaCalendar представляют собой обработчики событий, которые позволяют получать и обрабатывать различные данные взаимодействия с календарем.
 
 <Info>
+  Начиная с версии 2.9.0 все методы содержат `self` — ссылку на инициализированный календарь. Это позволяет получить максимальное количество данных. `self` содержит все [параметры для чтения](/docs/reference/main/readonly-options) и многое другое.
+</Info>
+
+<Info>
   Обратите внимание, что нумерация месяцев начинаются с `0`, поэтому декабрь — это 11-й месяц. Это связано с работой стандартного метода <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth" target="_blank" rel="nofollow noreferrer">`.getMonth()`</a>.
 </Info>
 
@@ -12,19 +16,19 @@
 
 `Default: null`
 
-`Options: clickDay(e, dates) => void | null`
+`Options: clickDay(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickDay(e, dates) {},
+    clickDay(e, self) {},
   },
 });
 ```
 
 Этот метод срабатывает после нажатия на день в календаре. Вы можете получить следующие параметры:
 - `e` - событие мыши;
-- `dates` - массив выбранных дат.
+- `self` - ссылка на инициализированный календарь.
 
 <Info>
   Важно знать, что каждый HTML-элемент дня, на который нажали, содержит data-атрибут, внутри которого находится полная дата в формате `YYYY-MM-DD`.
@@ -40,12 +44,12 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: clickWeekNumber(e, number, days, year) => void | null`
+`Options: clickWeekNumber(e, number, days, year, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickWeekNumber(e, number, days, year) {},
+    clickWeekNumber(e, number, days, year, self) {},
   },
 });
 ```
@@ -54,7 +58,8 @@ new VanillaCalendar('#calendar', {
 - `e` - событие мыши;
 - `number` - номер недели;
 - `days` - массив дней (html-элементов);
-- `year` - год недели.
+- `year` - год недели;
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -64,19 +69,19 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: clickMonth(e, month) => void | null`
+`Options: clickMonth(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickMonth(e, month) {},
+    clickMonth(e, self) {},
   },
 });
 ```
 
 Этот метод срабатывает после выбора месяца в календаре. Вы можете получить следующие параметры:
 - `e` - событие мыши;
-- `month` - номер выбранного месяца.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -86,19 +91,19 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: clickYear(e, year) => void | null`
+`Options: clickYear(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickYear(e, year) {},
+    clickYear(e, self) {},
   },
 });
 ```
 
 Этот метод срабатывает после выбора года в календаре. Вы можете получить следующие параметры:
 - `e` - событие мыши;
-- `year` - выбранный год.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -108,20 +113,19 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: clickArrow(e, year, month) => void | null`
+`Options: clickArrow(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    clickArrow(e, year, month) {},
+    clickArrow(e, self) {},
   },
 });
 ```
 
 Этот метод срабатывает после клика на стрелочку в календаре. Вы можете получить следующие параметры:
 - `e` - событие мыши;
-- `year` - выбранный год;
-- `month` - номер выбранного месяца.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -131,22 +135,19 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: changeTime(e, time, hours, minutes, keeping) => void | null`
+`Options: changeTime(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeTime(e, time, hours, minutes, keeping) {},
+    changeTime(e, self) {},
   },
 });
 ```
 
 Этот метод срабатывает после изменения времени в календаре. Вы можете получить следующие параметры:
 - `e` - событие change;
-- `time` - выбранное время;
-- `hours` - выбранный час;
-- `minutes` - выбранные минуты;
-- `keeping` - выбранный маркер AM/PM для 12-часового формата времени.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -156,12 +157,12 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: changeToInput(e, calendar, dates, time, hours, minutes, keeping) => void | null`
+`Options: changeToInput(e, calendar, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeToInput(e, calendar, dates, time, hours, minutes, keeping) {},
+    changeToInput(e, calendar, self) {},
   },
 });
 ```
@@ -170,12 +171,8 @@ new VanillaCalendar('#calendar', {
 Этот метод срабатывает после нажатия на день в календаре или изменения времени любым способом.
 Вы можете получить следующие параметры:
 - `e` - событие;
-- `calendar` - объект, содержащий `HTMLInputElement`, `HTMLElement` и методы `show()`, `hide()`;
-- `dates` - массив выбранных дат;
-- `time` - выбранное время;
-- `hours` - выбранный час;
-- `minutes` - выбранные минуты;
-- `keeping` - выбранный маркер AM/PM.
+- `calendar` - объект, содержащий методы `show()`, `hide()`;
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -185,12 +182,12 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: getDays(day, date, HTMLElement, HTMLButtonElement) => void | null`
+`Options: getDays(day, date, HTMLElement, HTMLButtonElement, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    getDays(day, date, HTMLElement, HTMLButtonElement) {},
+    getDays(day, date, HTMLElement, HTMLButtonElement, self) {},
   },
 });
 ```
@@ -200,6 +197,7 @@ new VanillaCalendar('#calendar', {
 - `date` - полная дата в формате `YYYY-MM-DD`;
 - `HTMLElement` - родительский (обертка) HTML-элемент дня;
 - `HTMLButtonElement` - дочерний (кнопка) HTML-элемент дня.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -209,19 +207,18 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: hideCalendar(HTMLInputElement, HTMLElement) => void | null`
+`Options: hideCalendar(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    hideCalendar(HTMLInputElement, HTMLElement) {},
+    hideCalendar(self) {},
   },
 });
 ```
 
 Этот метод срабатывает при скрытии календаря, но только если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`.
-- `HTMLInputElement` - представляет корневой элемент HTML, который является полем ввода;
-- `HTMLElement` - корневой HTML-элемент календаря.
+- `self` - ссылка на инициализированный календарь.
 
 ---
 
@@ -231,16 +228,15 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: showCalendar(HTMLInputElement, HTMLElement) => void | null`
+`Options: showCalendar(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    showCalendar(HTMLInputElement, HTMLElement) {},
+    showCalendar(self) {},
   },
 });
 ```
 
 Этот метод срабатывает при отображении календаря пользователю, но только если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`.
-- `HTMLInputElement` - представляет корневой элемент HTML, который является полем ввода;
-- `HTMLElement` - корневой HTML-элемент календаря.
+- `self` - ссылка на инициализированный календарь.

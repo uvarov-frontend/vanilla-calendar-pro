@@ -9,11 +9,3 @@ Example with logging the selected day to the console:
 Please note that the selected day is represented as an array because the user can select not only one day but also a range of dates if allowed by the calendar parameters.
 
 <Sandbox example="action-handlers-click-a-day-ranged" />
-
-By default, an array of all selected dates is provided, which is logical. However, most of the time, you will want to obtain only the start and end dates.
-
-To ensure that the dates are in the correct order, you can use the standard `.sort()` method:
-
-```js
-dates.sort((a, b) => +new Date(a) - +new Date(b))
-```
