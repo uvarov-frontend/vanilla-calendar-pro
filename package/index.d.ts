@@ -55,7 +55,6 @@ export default class VanillaCalendar implements T.IVanillaCalendar {
 	readonly selectedMinutes?: string;
 	readonly selectedKeeping?: string;
 	readonly selectedTime?: string;
-	readonly userTime?: boolean;
 	readonly currentType: T.TypesCalendar;
 	readonly correctMonths: number;
 	readonly viewYear: number;
