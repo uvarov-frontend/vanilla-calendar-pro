@@ -9,7 +9,7 @@ export default defineConfig({
 		target: 'ES6',
 		assetsDir: '',
 		outDir: './package/build',
-		minify: 'terser',
+		minify: false,
 		lib: {
 			name: 'VanillaCalendar',
 			fileName(format, entryName) { return `${entryName}.min${format === 'es' ? '.mjs' : '.js'}`; },
