@@ -1,6 +1,6 @@
 {
 	"name": "vanilla-calendar-pro",
-	"version": "2.9.0",
+	"version": "2.9.1",
 	"description": "Vanilla Calendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.",
 	"homepage": "https://vanilla-calendar.pro",
 	"keywords": [

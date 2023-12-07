@@ -9,7 +9,7 @@ export default defineConfig({
 		target: 'ES6',
 		assetsDir: '',
 		outDir: './package/utilities',
-		minify: 'terser',
+		minify: false,
 		emptyOutDir: false,
 		lib: {
 			name: 'VanillaCalendarUtilities',
