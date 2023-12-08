@@ -704,3 +704,25 @@ new VanillaCalendar('#calendar', {
 ```
 
 With this parameter, you can decide whether to display days from the previous and next months.
+
+---
+
+## settings.visibility.positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'left' | 'center' | 'right'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      positionToInput: 'center',
+    },
+  },
+});
+```
+
+This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter.
