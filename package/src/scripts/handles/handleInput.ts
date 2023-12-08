@@ -3,11 +3,17 @@ import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
 import update from '@scripts/update';
 
-const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement) => {
-	let top = input.offsetHeight;
-	let left = 0;
+const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: 'left' | 'center' | 'right') => {
+	const getPosition = {
+		left: 0,
+		center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+		right: input.offsetWidth - calendar.offsetWidth,
+	};
 
-	for (let el: HTMLElement | null = input; el; el = el.offsetParent as HTMLElement) {
+	let top = input.offsetHeight;
+	let left = getPosition[position];
+
+	for (let el: HTMLElement = input; el; el = el.offsetParent as HTMLElement) {
 		top += el.offsetTop || 0;
 		left += el.offsetLeft || 0;
 	}
@@ -22,9 +28,9 @@ const handleInput = (self: VanillaCalendar) => {
 	const createCalendarToInput = () => {
 		const calendar = document.createElement('div');
 		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
-		setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar);
 		self.HTMLElement = calendar;
 		document.body.append(self.HTMLElement);
+		setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput);
 		firstInit = false;
 
 		setTimeout(() => actionsInput(self).show(), 0);
@@ -33,9 +39,12 @@ const handleInput = (self: VanillaCalendar) => {
 		handleClick(self);
 	};
 
+	const handleResize = () => setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
+
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
 		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as VanillaCalendar).hide();
+		window.removeEventListener('resize', handleResize);
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
@@ -43,9 +52,10 @@ const handleInput = (self: VanillaCalendar) => {
 		if (firstInit) {
 			createCalendarToInput();
 		} else {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement);
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
 			actionsInput(self as VanillaCalendar).show();
 		}
+		window.addEventListener('resize', handleResize);
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});
 };

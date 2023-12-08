@@ -50,6 +50,7 @@ export interface IVisibility {
 	today: boolean;
 	disabled: boolean;
 	daysOutside: boolean;
+	positionToInput: 'left' | 'center' | 'right';
 }
 
 export interface ISettings {

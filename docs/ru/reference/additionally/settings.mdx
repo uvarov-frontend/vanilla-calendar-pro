@@ -705,3 +705,25 @@ new VanillaCalendar('#calendar', {
 ```
 
 С помощью этого параметра вы можете решить, будут ли отображаться дни из прошлого и следующего месяца.
+
+---
+
+## settings.visibility.positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'left' | 'center' | 'right'`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    visibility: {
+      positionToInput: 'center',
+    },
+  },
+});
+```
+
+Этот параметр определяет положение календаря относительно input, если каклендарь инициализирован с параметром `input`.

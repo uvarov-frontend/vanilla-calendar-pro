@@ -55,6 +55,7 @@ export default class DefaultOptionsCalendar {
 			today: true,
 			disabled: false,
 			daysOutside: true,
+			positionToInput: 'left',
 		},
 	};
 	locale: T.ILocale = {

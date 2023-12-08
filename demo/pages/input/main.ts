@@ -19,6 +19,11 @@ const configInput: IOptions = {
 			calendar.hide();
 		},
 	},
+	settings: {
+		visibility: {
+			positionToInput: 'center',
+		},
+	},
 };
 
 const configDiv: IOptions = {
