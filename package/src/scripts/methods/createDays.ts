@@ -6,9 +6,12 @@ import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import createPopup from '@scripts/methods/createPopup';
 import createWeekNumbers from '@scripts/methods/createWeekNumbers';
 
-const setDisableWeekday = (self: VanillaCalendar, date: FormatDateString, dayWeekID: number) => {
-	if (self.settings.range.disableWeekday?.includes(dayWeekID) && !self.rangeDisabled?.includes(date)) {
-		self.rangeDisabled = self.rangeDisabled ? [...self.rangeDisabled, date] : [date];
+const setDisabledDays = (self: VanillaCalendar, date: FormatDateString, dayWeekID: number) => {
+	const isDisableWeekday = self.settings.range.disableWeekday?.includes(dayWeekID);
+	const isDisableAllDays = self.settings.range.disableAllDays && self.rangeEnabled?.[0];
+
+	if ((isDisableWeekday || isDisableAllDays) && !self.rangeEnabled?.includes(date) && !self.rangeDisabled?.includes(date)) {
+		self.rangeDisabled.push(date);
 		self.rangeDisabled?.sort((a, b) => +new Date(a) - +new Date(b));
 	}
 };
@@ -100,7 +103,7 @@ const createDay = (
 		dayEl.append(dayBtnEl);
 	}
 
-	setDisableWeekday(self, date, dayWeekID);
+	setDisabledDays(self, date, dayWeekID);
 	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
 
 	daysEl.append(dayEl);
@@ -148,6 +151,8 @@ const createDays = (self: VanillaCalendar) => {
 	const daysEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.days}`);
 	const weekNumbersEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.weekNumbers}`);
 	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
+
+	if ((self.settings.range.disableAllDays || self.settings.range.disableWeekday) && self.rangeDisabled[0]) self.rangeDisabled = [];
 
 	daysEls.forEach((daysEl, index: number) => {
 		const selectedDate = new Date(initDate);
