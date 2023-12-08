@@ -18,6 +18,11 @@ const options: Options = {
       }
     },
   },
+  settings: {
+    visibility: {
+      positionToInput: 'center',
+    },
+  },
 };
 
 const calendarInput = new VanillaCalendar('#calendar-input', options);
