@@ -7,17 +7,34 @@ const calendar = new VanillaCalendar(element, params);
 calendar.init();
 ```
 
-The `update()` method allows you to apply new settings to the calendar and reset it. This method takes an object with optional arguments to control the reset, by default retaining the user-selected date, month, and year after the update.
+The `update()` method allows you to apply new settings to the calendar and reset it.
+This method takes an object with optional arguments to control the reset, by default retaining the user-selected date, month, and year after the update.
 
 All arguments, default `false`:
+
+```ts
+{
+  year: boolean;
+  month: boolean;
+  dates: boolean | 'only-first';
+  holidays: boolean;
+  time: boolean;
+}
+```
+
+- `true` - will reset to the parameters specified during initialization;
+- `false` - will leave the year selected by the user;
+- `'only-first'` - resets all selected dates, leaving the earliest one. If the date picker type is specified as `'multiple-ranged'`, a `'mousemove'` and `'keydown'` handler is added for the hover.
+
+Example of usage:
 
 ```js
 calendar.settings.lang = 'de-AT';
 calendar.settings.iso8601 = false;
 
-calendar.update();
-// or
-calendar.reset();
+calendar.update({
+	dates: true,
+});
 ```
 
 Additionally, if you want to completely remove the calendar instance, you can use the `destroy()` method.
