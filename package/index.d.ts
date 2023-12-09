@@ -10,7 +10,7 @@ export type Visibility = T.IVisibility;
 export type Locale = T.ILocale;
 export type Actions = T.IActions;
 export type Popups = T.IPopups;
-export type CSSClasses = T.ICSSClasses;
+export type CSSClasses = T.CSSClasses;
 export type DOMTemplates = T.IDOMTemplates;
 export type FormatDateString = T.FormatDateString;
 export type Reset = T.IReset;
@@ -34,7 +34,7 @@ export default class VanillaCalendar implements T.IVanillaCalendar {
 	locale: T.ILocale;
 	actions: T.IActions;
 	popups: T.IPopups;
-	CSSClasses: T.ICSSClasses;
+	CSSClasses: T.CSSClasses;
 	DOMTemplates: T.IDOMTemplates;
 
 	init: () => void;

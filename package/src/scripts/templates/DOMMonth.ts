@@ -1,6 +1,6 @@
-import { ICSSClasses } from '@package/types';
+import { CSSClasses } from '@package/types';
 
-const DOMMonths = (styles: ICSSClasses) => (`
+const DOMMonths = (styles: CSSClasses) => (`
 	<div class="${styles.header}">
 		<div class="${styles.headerContent}">
 			<#Month />

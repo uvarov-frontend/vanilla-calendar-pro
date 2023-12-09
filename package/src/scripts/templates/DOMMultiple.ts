@@ -1,6 +1,6 @@
-import { ICSSClasses } from '@package/types';
+import { CSSClasses } from '@package/types';
 
-const DOMMultiple = (styles: ICSSClasses) => (`
+const DOMMultiple = (styles: CSSClasses) => (`
 	<div class="${styles.controls}">
 		<#ArrowPrev />
 		<#ArrowNext />

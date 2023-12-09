@@ -1,6 +1,6 @@
-import { ICSSClasses } from '@package/types';
+import { CSSClasses } from '@package/types';
 
-const DOMDefault = (styles: ICSSClasses) => (`
+const DOMDefault = (styles: CSSClasses) => (`
 	<div class="${styles.header}">
 		<#ArrowPrev />
 		<div class="${styles.headerContent}">

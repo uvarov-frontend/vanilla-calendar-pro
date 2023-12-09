@@ -75,7 +75,7 @@ export default class DefaultOptionsCalendar {
 		showCalendar: null,
 	};
 	popups: T.IPopups = {};
-	CSSClasses: T.ICSSClasses = { ...classes };
+	CSSClasses: T.CSSClasses = { ...classes };
 	DOMTemplates: T.IDOMTemplates = {
 		default: DOMDefault(this.CSSClasses),
 		multiple: DOMMultiple(this.CSSClasses),
