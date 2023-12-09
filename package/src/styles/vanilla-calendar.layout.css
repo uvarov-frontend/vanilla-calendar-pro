@@ -162,6 +162,10 @@
 	@apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg
 }
 
+.vanilla-calendar-day_selected-first.vanilla-calendar-day_selected-last .vanilla-calendar-day__btn_selected {
+	@apply rounded-tl-lg rounded-bl-lg rounded-tr-lg rounded-br-lg
+}
+
 .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected_intermediate {
 	@apply rounded-none
 }

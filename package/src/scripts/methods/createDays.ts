@@ -59,10 +59,12 @@ const setDayModifier = (
 			if (self.selectedDates[0] === date) {
 				dayEl.classList.add(self.CSSClasses.daySelectedFirst);
 				dayBtnEl.classList.add(self.CSSClasses.daySelectedFirst);
-			} else if (self.selectedDates[self.selectedDates.length - 1] === date) {
+			}
+			if (self.selectedDates[self.selectedDates.length - 1] === date) {
 				dayEl.classList.add(self.CSSClasses.daySelectedLast);
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelectedLast);
-			} else {
+			}
+			if (self.selectedDates[0] !== date && self.selectedDates[self.selectedDates.length - 1] !== date) {
 				dayEl.classList.add(self.CSSClasses.daySelectedIntermediate);
 				dayBtnEl.classList.add(self.CSSClasses.dayBtnSelectedIntermediate);
 			}
