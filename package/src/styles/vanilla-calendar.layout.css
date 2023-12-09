@@ -138,7 +138,7 @@
 }
 
 .vanilla-calendar-days_selecting .vanilla-calendar-day__btn {
-	@apply cursor-pointer
+	@apply cursor-pointer transition-all duration-75
 }
 
 .vanilla-calendar-days_selecting .vanilla-calendar-day__btn_disabled {
@@ -147,6 +147,22 @@
 
 .vanilla-calendar-day {
 	@apply relative w-full h-full flex items-center justify-center
+}
+
+.vanilla-calendar-day_hover-intermediate .vanilla-calendar-day__btn {
+	@apply rounded-none
+}
+
+.vanilla-calendar-day_hover-first .vanilla-calendar-day__btn {
+	@apply rounded-tr-none rounded-br-none rounded-tl-lg rounded-bl-lg
+}
+
+.vanilla-calendar-day_hover-last .vanilla-calendar-day__btn {
+	@apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg
+}
+
+.vanilla-calendar-day_hover-first.vanilla-calendar-day_hover-last .vanilla-calendar-day__btn {
+	@apply rounded-lg
 }
 
 .vanilla-calendar-day:focus-visible .vanilla-calendar-day__popup,
@@ -166,7 +182,7 @@
 	@apply rounded-tl-lg rounded-bl-lg rounded-tr-lg rounded-br-lg
 }
 
-.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected_intermediate {
+.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected {
 	@apply rounded-none
 }
 
