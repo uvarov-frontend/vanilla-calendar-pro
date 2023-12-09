@@ -2,6 +2,7 @@ import { FormatDateString } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
+import parseDates from '@scripts/helpers/parseDates';
 import create from '@scripts/create';
 
 const current: {
@@ -79,10 +80,11 @@ const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatD
 	if (formattedDate) {
 		const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
 		self.selectedDates = selectedDateExists && !self.settings.selection.cancelableDay
-			? [formattedDate]
+			? [formattedDate, formattedDate]
 			: selectedDateExists && self.settings.selection.cancelableDay
 				? []
 				: self.selectedDates.length > 1 ? [formattedDate] : [...self.selectedDates, formattedDate];
+		self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 	}
 
 	if (self.settings.range.disableGaps) {
@@ -99,15 +101,10 @@ const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatD
 			if (self.settings.range.disableGaps) updateDisabledDates();
 		},
 		reset: () => {
-			const [startDate, endDate] = (self.selectedDates as FormatDateString[]).map((selectedDate) => getDate(selectedDate));
-			const dateIncrement = endDate > startDate ? 1 : -1;
-			self.selectedDates = [];
-
-			for (let i = new Date(startDate); endDate > startDate ? i <= endDate : i >= endDate; i.setDate(i.getDate() + dateIncrement)) {
-				const date = getDateString(i);
-				if (!self.rangeDisabled?.includes(date)) self.selectedDates = self.selectedDates ? [...self.selectedDates, date] : [date];
-			}
-
+			const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
+			self.selectedDates = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1]
+				? parseDates([`${startDate as string}:${endDate as string}`])
+				: [self.selectedDates[0], self.selectedDates[0]];
 			self.HTMLElement.removeEventListener('mousemove', handleHoverDaysEvent);
 			document.removeEventListener('keydown', handleCancelSelectionDays);
 			if (self.settings.range.disableGaps) resetDisabledDates();
