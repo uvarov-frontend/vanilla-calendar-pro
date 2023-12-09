@@ -1,9 +1,13 @@
+import classes from './classes';
+
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;
 type DD = LeadingZero | `${1 | 2}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}` | 30 | 31;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
+
+export type CSSClasses = typeof classes;
 
 export interface IDates {
 	min: FormatDateString;
@@ -103,78 +107,6 @@ export interface IDOMTemplates {
 	year: string;
 }
 
-export interface ICSSClasses {
-	calendar: string;
-	calendarDefault: string;
-	calendarMultiple: string;
-	calendarMonth: string;
-	calendarYear: string;
-	calendarHidden: string;
-	calendarToInput: string;
-	controls: string;
-	grid: string;
-	gridDisabled: string;
-	column: string;
-	columnMonth: string;
-	columnYear: string;
-	header: string;
-	headerContent: string;
-	month: string;
-	monthDisabled: string;
-	year: string;
-	yearDisabled: string;
-	arrow: string;
-	arrowPrev: string;
-	arrowNext: string;
-	wrapper: string;
-	content: string;
-	week: string;
-	weekDay: string;
-	weekDayWeekend: string;
-	days: string;
-	daysSelecting: string;
-	months: string;
-	monthsSelecting: string;
-	monthsMonth: string;
-	monthsMonthSelected: string;
-	monthsMonthDisabled: string;
-	years: string;
-	yearsSelecting: string;
-	yearsYear: string;
-	yearsYearSelected: string;
-	yearsYearDisabled: string;
-	time: string;
-	timeContent: string;
-	timeHours: string;
-	timeMinutes: string;
-	timeKeeping: string;
-	timeRanges: string;
-	timeRange: string;
-	day: string;
-	daySelected: string;
-	daySelectedFirst: string;
-	daySelectedLast: string;
-	daySelectedIntermediate: string;
-	dayPopup: string;
-	dayBtn: string;
-	dayBtnPrev: string;
-	dayBtnNext: string;
-	dayBtnSelected: string;
-	dayBtnSelectedFirst: string;
-	dayBtnSelectedLast: string;
-	dayBtnSelectedIntermediate: string;
-	dayBtnHover: string;
-	dayBtnDisabled: string;
-	dayBtnToday: string;
-	dayBtnWeekend: string;
-	dayBtnHoliday: string;
-	weekNumbers: string;
-	weekNumbersTitle: string;
-	weekNumbersContent: string;
-	weekNumber: string;
-	isFocus: string;
-}
-
 export interface IReset {
 	year?: boolean;
 	month?: boolean;
@@ -200,7 +132,7 @@ export interface IOptions {
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
 	popups?: IPopups;
-	CSSClasses?: Partial<ICSSClasses>;
+	CSSClasses?: Partial<CSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
 }
 
@@ -221,7 +153,7 @@ export interface IVanillaCalendar {
 	locale: ILocale;
 	actions: IActions;
 	popups: IPopups;
-	CSSClasses: ICSSClasses;
+	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
 
 	init: () => void;

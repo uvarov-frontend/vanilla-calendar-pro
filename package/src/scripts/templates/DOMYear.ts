@@ -1,6 +1,6 @@
-import { ICSSClasses } from '@package/types';
+import { CSSClasses } from '@package/types';
 
-const DOMYears = (styles: ICSSClasses) => (`
+const DOMYears = (styles: CSSClasses) => (`
 	<div class="${styles.header}">
 		<#ArrowPrev />
 		<div class="${styles.headerContent}">
