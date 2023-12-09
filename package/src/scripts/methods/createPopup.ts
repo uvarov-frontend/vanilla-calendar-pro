@@ -5,7 +5,7 @@ const handleDay = (date: string, dayInfo: IPopup, daysEl: HTMLElement, CSSClasse
 	const dayBtnEl: HTMLElement | null = daysEl.querySelector(`[data-calendar-day="${date}"]`);
 	if (!dayBtnEl) return;
 	if (dayInfo?.modifier) dayBtnEl.classList.add(...dayInfo.modifier.trim().split(' '));
-	if (dayInfo?.html) (dayBtnEl.parentNode as HTMLElement).innerHTML += `<div class="${CSSClasses}">${dayInfo.html}</div>`;
+	if (dayInfo?.html) (dayBtnEl.parentElement as HTMLElement).innerHTML += `<div class="${CSSClasses}">${dayInfo.html}</div>`;
 };
 
 const createPopup = (self: VanillaCalendar, daysEl: HTMLElement) => {
