@@ -157,7 +157,7 @@ For detailed instructions on using VanillaCalendar in a React component with Typ
 
 ## API Reference
 
-For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference/).
+For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference/main/create-an-instance).
 
 ## Sponsor
 
