@@ -127,6 +127,8 @@ const currentMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMo
 
 		createDay(self, selectedYear, daysEl, i, dayWeekID, date, false, null);
 	}
+
+	if (self.actions.getMonth) self.actions.getMonth(selectedYear, selectedMonth, daysSelectedMonth, self);
 };
 
 const nextMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth: number, selectedYear: number, selectedMonth: number, firstDayWeek: number) => {

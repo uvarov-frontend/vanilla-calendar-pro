@@ -87,6 +87,7 @@ export interface IActions {
 		self: IVanillaCalendar,
 	) => void) | null;
 	getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement, self: IVanillaCalendar) => void) | null;
+	getMonth: ((year: number, month: number, numberOfDays: number, self: IVanillaCalendar) => void) | null;
 	hideCalendar: ((self: IVanillaCalendar) => void) | null;
 	showCalendar: ((self: IVanillaCalendar) => void) | null;
 }

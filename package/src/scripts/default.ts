@@ -71,6 +71,7 @@ export default class DefaultOptionsCalendar {
 		changeTime: null,
 		changeToInput: null,
 		getDays: null,
+		getMonth: null,
 		hideCalendar: null,
 		showCalendar: null,
 	};
