@@ -199,6 +199,34 @@ This method triggers during the calendar initialization and any changes. It prov
 
 ---
 
+## actions.getMonth()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getMonth(year, month, numberOfDays, self) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getMonth(year, month, numberOfDays, self) {},
+  },
+});
+```
+
+This method triggers during the calendar initialization and any changes. It provides access to information about each month displayed. You can get the following parameters:
+- `year` - the year;
+- `month` - month currently displayed;
+- `numberOfDays` - number of days of this month;
+- `self` - reference to the initialized calendar.
+
+<Info>
+  Offset days' month won't trigger this event.
+</Info>
+
+---
+
 ## actions.hideCalendar()
 
 `Type: Function`
