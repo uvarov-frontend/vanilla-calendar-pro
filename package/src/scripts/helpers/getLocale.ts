@@ -4,12 +4,12 @@ import messages from '@scripts/helpers/getMessages';
 const capitalizeFirstLetter = (str: string) => `${str.charAt(0).toUpperCase()}${str.substring(1, str.length)}`.replace(/\./, '');
 
 const getLocaleWeekday = (self: VanillaCalendar, i: number) => {
-	const weekday = new Date(0, 0, i).toLocaleString(self.settings.lang, { weekday: 'short' });
+	const weekday = new Date(Date.UTC(0, 0, i)).toLocaleString(self.settings.lang, { weekday: 'short' });
 	(self.locale.weekday as string[]).push(capitalizeFirstLetter(weekday));
 };
 
 const getLocaleMonth = (self: VanillaCalendar, i: number) => {
-	const month = new Date(0, i).toLocaleString(self.settings.lang, { month: 'long' });
+	const month = new Date(Date.UTC(0, i)).toLocaleString(self.settings.lang, { month: 'long' });
 	(self.locale.months as string[]).push(capitalizeFirstLetter(month));
 };
 
