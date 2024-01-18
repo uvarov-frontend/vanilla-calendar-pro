@@ -30,6 +30,10 @@
 	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent before:content-[''] before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0 before:mask-image-arrow before:mask-center before:mask-no-repeat before:bg-current
 }
 
+.vanilla-calendar_hidden .vanilla-calendar-arrow {
+	@apply pointer-events-none
+}
+
 .vanilla-calendar-arrow.vanilla-calendar-arrow_prev::before {
 	transform: rotateZ(90deg);
 }
