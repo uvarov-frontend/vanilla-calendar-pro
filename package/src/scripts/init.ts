@@ -9,6 +9,7 @@ const init = (self: VanillaCalendar) => {
 	self.isInit = true;
 
 	if (self.input) {
+		setVariables(self);
 		handleInput(self);
 	} else {
 		setVariables(self);
