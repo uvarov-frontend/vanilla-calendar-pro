@@ -130,7 +130,7 @@
 }
 
 .vanilla-calendar-week__day {
-	@apply text-xs font-bold w-full h-full min-w-[1.875rem] flex items-center justify-center
+	@apply text-xs font-bold w-full h-auto min-w-[1.875rem] flex items-center justify-center
 }
 
 .vanilla-calendar-days {
