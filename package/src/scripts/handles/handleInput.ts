@@ -34,8 +34,9 @@ const handleInput = (self: VanillaCalendar) => {
 		firstInit = false;
 
 		setTimeout(() => actionsInput(self).show(), 0);
-
-		update(self);
+		update(self, {
+			year: true, month: true, dates: true, holidays: true, time: true,
+		});
 		handleClick(self);
 	};
 
