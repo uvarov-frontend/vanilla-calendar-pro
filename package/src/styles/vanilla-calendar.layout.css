@@ -12,6 +12,12 @@
 	@apply w-[550px]
 }
 
+@supports (width: fit-content) {
+	.vanilla-calendar_multiple {
+		@apply w-fit
+	}
+}
+
 .vanilla-calendar button:focus-visible {
 	@apply outline outline-1 rounded-lg
 }
@@ -46,7 +52,7 @@
 }
 
 .vanilla-calendar-grid {
-	@apply grid grid-cols-[repeat(auto-fill,_minmax(220px,_1fr))] gap-7 grow
+	@apply flex flex-wrap justify-center gap-7 grow
 }
 
 .vanilla-calendar-grid.vanilla-calendar-grid_disabled .vanilla-calendar-column {
