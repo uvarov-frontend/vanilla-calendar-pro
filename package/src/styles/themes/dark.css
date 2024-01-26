@@ -11,11 +11,11 @@
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-arrow::before {
-	@apply bg-white;
+	@apply bg-dark-arrow;
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-arrow:hover::before {
-	@apply bg-slate-500
+	@apply opacity-60
 }
 
 [data-calendar-theme="dark"] .vanilla-calendar-header__content {
