@@ -1,5 +1,11 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] max-w-full h-max w-max box-border
+	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] w-[300px] max-w-full box-border
+}
+
+@supports (width: max-content) and (height: max-content) {
+	.vanilla-calendar {
+		@apply h-max w-max
+	}
 }
 
 .vanilla-calendar_multiple {
@@ -27,7 +33,8 @@
 }
 
 .vanilla-calendar-arrow {
-	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent before:content-[''] before:absolute before:left-0 before:right-0 before:top-0 before:bottom-0 before:mask-image-arrow before:mask-center before:mask-no-repeat before:bg-current
+	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent
+	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full
 }
 
 .vanilla-calendar-arrow.vanilla-calendar-arrow_prev::before {
