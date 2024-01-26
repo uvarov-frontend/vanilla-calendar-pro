@@ -1,5 +1,11 @@
 .vanilla-calendar {
-	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] max-w-full h-max w-max box-border
+	@apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] w-[300px] max-w-full box-border
+}
+
+@supports (width: max-content) and (height: max-content) {
+	.vanilla-calendar {
+		@apply h-max w-max
+	}
 }
 
 .vanilla-calendar_multiple {
