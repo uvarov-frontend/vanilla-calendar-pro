@@ -19,7 +19,7 @@
 }
 
 .vanilla-calendar_to-input {
-	@apply absolute left-0 mt-1
+	@apply absolute mt-1
 }
 
 .vanilla-calendar-controls {
@@ -114,7 +114,7 @@
 }
 
 .vanilla-calendar-week-number {
-	@apply text-xs font-semibold w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0
+	@apply text-xs font-semibold w-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0
 }
 
 .vanilla-calendar-wrapper {
@@ -130,7 +130,7 @@
 }
 
 .vanilla-calendar-week__day {
-	@apply text-xs font-bold w-full h-full min-w-[1.875rem] flex items-center justify-center
+	@apply text-xs font-bold w-full min-w-[1.875rem] flex items-center justify-center
 }
 
 .vanilla-calendar-days {
@@ -146,7 +146,7 @@
 }
 
 .vanilla-calendar-day {
-	@apply relative w-full h-full flex items-center justify-center
+	@apply relative w-full flex items-center justify-center
 }
 
 .vanilla-calendar-day_hover-intermediate .vanilla-calendar-day__btn {
