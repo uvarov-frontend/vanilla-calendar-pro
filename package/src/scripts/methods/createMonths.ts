@@ -48,7 +48,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 		|| (i !== selectedMonth && !activeMonthsID.includes(i));
 		const monthEl = createMonthEl(self, templateMonthEl, selectedMonth, monthTitle, monthDisabled, i);
 		monthsEl.append(monthEl);
-		if (self.actions.getMonths) self.actions.getMonths(selectedMonth, monthEl, self);
+		if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
 	}
 };
 

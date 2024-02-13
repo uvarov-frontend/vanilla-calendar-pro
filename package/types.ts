@@ -158,7 +158,7 @@ export interface IVanillaCalendar {
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
 
-	init: () => void;
+	init: () => () => void;
 	update: (reset?: IReset) => void;
 	destroy: () => void;
 
