@@ -9,11 +9,11 @@ const init = (self: VanillaCalendar) => {
 	self.isInit = true;
 
 	if (self.input) {
-		handleInput(self);
+		return handleInput(self);
 	} else {
 		setVariables(self);
 		create(self);
-		handleClick(self);
+		return handleClick(self);
 	}
 };
 

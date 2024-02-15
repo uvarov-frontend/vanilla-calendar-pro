@@ -37,7 +37,7 @@ export default class VanillaCalendar implements T.IVanillaCalendar {
 	CSSClasses: T.CSSClasses;
 	DOMTemplates: T.IDOMTemplates;
 
-	init: () => void;
+	init: () => () => void;
 	update: (reset?: T.IReset) => void;
 	destroy: () => void;
 

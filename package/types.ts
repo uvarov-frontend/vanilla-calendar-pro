@@ -87,6 +87,8 @@ export interface IActions {
 		self: IVanillaCalendar,
 	) => void) | null;
 	getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement, self: IVanillaCalendar) => void) | null;
+	getMonths: ((month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void) | null;
+	getYears: ((year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void) | null;
 	hideCalendar: ((self: IVanillaCalendar) => void) | null;
 	showCalendar: ((self: IVanillaCalendar) => void) | null;
 }
@@ -156,7 +158,7 @@ export interface IVanillaCalendar {
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
 
-	init: () => void;
+	init: () => () => void;
 	update: (reset?: IReset) => void;
 	destroy: () => void;
 

@@ -23,6 +23,7 @@ const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, pos
 
 const handleInput = (self: VanillaCalendar) => {
 	let firstInit = true;
+	const cleanup: Array<() => void> = [];
 	self.HTMLInputElement = self.HTMLElement as HTMLInputElement;
 
 	const createCalendarToInput = () => {
@@ -37,7 +38,8 @@ const handleInput = (self: VanillaCalendar) => {
 		update(self, {
 			year: true, month: true, dates: true, holidays: true, time: true,
 		});
-		handleClick(self);
+
+		return handleClick(self);
 	};
 
 	const handleResize = () => setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
@@ -51,7 +53,7 @@ const handleInput = (self: VanillaCalendar) => {
 
 	self.HTMLInputElement.addEventListener('click', () => {
 		if (firstInit) {
-			createCalendarToInput();
+			cleanup.push(createCalendarToInput());
 		} else {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
 			actionsInput(self as VanillaCalendar).show();
@@ -59,6 +61,10 @@ const handleInput = (self: VanillaCalendar) => {
 		window.addEventListener('resize', handleResize);
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});
+
+	return () => {
+		cleanup.forEach(clean => clean());
+	}
 };
 
 export default handleInput;
