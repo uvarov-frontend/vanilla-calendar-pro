@@ -249,7 +249,7 @@
 }
 
 .vanilla-calendar-time__keeping {
-	@apply ml-[1px] cursor-pointer text-[11px] w-[22px] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0
+	@apply ml-[1px] cursor-pointer text-[0.69rem] w-[22px] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0
 }
 
 .vanilla-calendar-time__ranges {
