@@ -23,14 +23,18 @@ const initRange = (self: VanillaCalendar) => {
 	self.rangeMin = isDisablePast
 		? getDateString(self.date.today)
 		: self.settings.range.disableAllDays
-			? getDateString(new Date(self.selectedYear, self.selectedMonth, 1))
+			? getDateString(self.date.today)
 			: self.settings.range.min;
 	self.rangeMax = self.settings.range.disableAllDays
-		? getDateString(new Date(self.selectedYear, self.selectedMonth, 1))
+		? getDateString(self.date.today)
 		: self.settings.range.max;
 
 	// set self.rangeDisabled
-	self.rangeDisabled = self.settings.range.disabled && !self.settings.range.disableAllDays ? parseDates(self.settings.range.disabled) : [];
+	self.rangeDisabled = self.settings.range.disabled && !self.settings.range.disableAllDays
+		? parseDates(self.settings.range.disabled)
+		: self.settings.range.disableAllDays
+			? [self.rangeMin]
+			: [];
 	if (self.rangeDisabled.length > 1) self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
 
 	// set self.rangeEnabled
