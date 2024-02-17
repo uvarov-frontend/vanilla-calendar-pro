@@ -31,10 +31,12 @@ const handleInput = (self: VanillaCalendar) => {
 		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
 		self.HTMLElement = calendar;
 		document.body.append(self.HTMLElement);
-		setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput);
 		firstInit = false;
 
-		setTimeout(() => actionsInput(self).show(), 0);
+		setTimeout(() => {
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput);
+			actionsInput(self).show();
+		}, 0);
 		update(self, {
 			year: true, month: true, dates: true, holidays: true, time: true,
 		});
