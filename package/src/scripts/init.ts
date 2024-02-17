@@ -10,11 +10,11 @@ const init = (self: VanillaCalendar) => {
 
 	if (self.input) {
 		return handleInput(self);
-	} else {
-		setVariables(self);
-		create(self);
-		return handleClick(self);
 	}
+
+	setVariables(self);
+	create(self);
+	return handleClick(self);
 };
 
 export default init;

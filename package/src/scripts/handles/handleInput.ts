@@ -63,8 +63,8 @@ const handleInput = (self: VanillaCalendar) => {
 	});
 
 	return () => {
-		cleanup.forEach(clean => clean());
-	}
+		cleanup.forEach((clean) => clean());
+	};
 };
 
 export default handleInput;
