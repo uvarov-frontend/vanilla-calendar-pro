@@ -19,7 +19,11 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkThe
 
 	if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
 
-	supportDarkTheme.addEventListener('change', setDataAttrTheme);
+	if (supportDarkTheme.addEventListener) {
+		supportDarkTheme.addEventListener('change', setDataAttrTheme);
+	} else {
+		supportDarkTheme.addListener(setDataAttrTheme);
+	}
 	haveListener.set();
 };
 
@@ -48,27 +52,24 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
 
 	if (!detectedThemeEl) {
 		trackChangesThemeInSystemSettings(self, supportDarkTheme);
-	} else {
-		const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
-		const activeTheme = getTheme(detectedThemeEl, attr);
+		return;
+	}
 
-		if (activeTheme) {
-			setTheme(self.HTMLElement, activeTheme);
-			trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
-		} else {
-			trackChangesThemeInSystemSettings(self, supportDarkTheme);
-		}
+	const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
+	const activeTheme = getTheme(detectedThemeEl, attr);
+
+	if (activeTheme) {
+		setTheme(self.HTMLElement, activeTheme);
+		trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
+	} else {
+		trackChangesThemeInSystemSettings(self, supportDarkTheme);
 	}
 };
 
 const changeTheme = (self: VanillaCalendar) => {
 	if (!themes.includes(self.settings.visibility.theme)) throw new Error(messages.incorrectTheme);
 
-	let supportDarkTheme: MediaQueryList;
-
-	if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
-		supportDarkTheme = window.matchMedia('(prefers-color-scheme: dark)');
-	} else {
+	if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
 		setTheme(self.HTMLElement, 'light');
 		return;
 	}
@@ -76,7 +77,7 @@ const changeTheme = (self: VanillaCalendar) => {
 	const mapThemes = {
 		light: () => setTheme(self.HTMLElement, 'light'),
 		dark: () => setTheme(self.HTMLElement, 'dark'),
-		system: () => detectTheme(self, supportDarkTheme),
+		system: () => detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)')),
 	};
 	mapThemes[self.settings.visibility.theme]();
 };
