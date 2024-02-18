@@ -27,7 +27,7 @@
 }
 
 .vanilla-calendar_hidden {
-	@apply opacity-0 pointer-events-none
+	@apply opacity-0 pointer-events-none [&_*]:!pointer-events-none
 }
 
 .vanilla-calendar_to-input {
