@@ -19,10 +19,15 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkThe
 
 	if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
 
+	const changeDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => {
+		const calendarEls = document.querySelectorAll(`.${self.CSSClasses.calendar}`);
+		calendarEls?.forEach((calendarEl) => setTheme(calendarEl as HTMLElement, event.matches ? 'dark' : 'light'));
+	};
+
 	if (supportDarkTheme.addEventListener) {
-		supportDarkTheme.addEventListener('change', setDataAttrTheme);
+		supportDarkTheme.addEventListener('change', changeDataAttrTheme);
 	} else {
-		supportDarkTheme.addListener(setDataAttrTheme);
+		supportDarkTheme.addListener(changeDataAttrTheme);
 	}
 	haveListener.set();
 };
