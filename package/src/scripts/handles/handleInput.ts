@@ -2,19 +2,28 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
 import update from '@scripts/update';
+import { IVisibility, CSSClasses } from '@/package/types';
 
-const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: 'left' | 'center' | 'right') => {
-	const inputRect = input.getBoundingClientRect();
-	const calendarRect = calendar.getBoundingClientRect();
-
+const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
 	const getPosition = {
-		left: inputRect.left,
-		center: inputRect.left + inputRect.width / 2 - calendarRect.width / 2,
-		right: inputRect.right - calendarRect.width,
+		top: -calendar.offsetHeight,
+		bottom: input.offsetHeight,
+		left: 0,
+		center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+		right: input.offsetWidth - calendar.offsetWidth,
 	};
 
-	const top = inputRect.top + inputRect.height;
-	const left = getPosition[position];
+	const YPosition = !Array.isArray(position) ? 'bottom' : position[0];
+	const XPosition = !Array.isArray(position) ? position : position[1];
+
+	calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
+
+	const inputRect = input.getBoundingClientRect();
+	const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+	const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+	const top = inputRect.top + scrollTop + getPosition[YPosition];
+	const left = inputRect.left + scrollLeft + getPosition[XPosition];
 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
@@ -32,7 +41,7 @@ const handleInput = (self: VanillaCalendar) => {
 		firstInit = false;
 
 		setTimeout(() => {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput);
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
 			actionsInput(self).show();
 		}, 0);
 		update(self, {
@@ -42,7 +51,7 @@ const handleInput = (self: VanillaCalendar) => {
 		return handleClick(self);
 	};
 
-	const handleResize = () => setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
+	const handleResize = () => setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
@@ -55,7 +64,7 @@ const handleInput = (self: VanillaCalendar) => {
 		if (firstInit) {
 			cleanup.push(createCalendarToInput());
 		} else {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);
+			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
 			actionsInput(self as VanillaCalendar).show();
 		}
 		window.addEventListener('resize', handleResize);

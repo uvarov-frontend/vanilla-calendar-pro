@@ -6,6 +6,8 @@ const classes = {
 	calendarYear: 'vanilla-calendar_year',
 	calendarHidden: 'vanilla-calendar_hidden',
 	calendarToInput: 'vanilla-calendar_to-input',
+	calendarToInputTop: 'vanilla-calendar_to-input_top',
+	calendarToInputBottom: 'vanilla-calendar_to-input_bottom',
 	controls: 'vanilla-calendar-controls',
 	grid: 'vanilla-calendar-grid',
 	gridDisabled: 'vanilla-calendar-grid_disabled',

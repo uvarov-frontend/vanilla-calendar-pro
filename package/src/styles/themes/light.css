@@ -2,6 +2,10 @@
 	@apply bg-white text-slate-900
 }
 
+[data-calendar-theme="light"].vanilla-calendar_to-input {
+	@apply shadow-[0_9px_20px_rgba(0,0,0,.1)]
+}
+
 [data-calendar-theme="light"].vanilla-calendar button:focus-visible {
 	@apply outline-orange-300
 }
