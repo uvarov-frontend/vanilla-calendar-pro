@@ -201,6 +201,52 @@ new VanillaCalendar('#calendar', {
 
 ---
 
+## actions.getMonths()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getMonths(month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getMonths(month, HTMLElement, self) {},
+  },
+});
+```
+
+Этот метод срабатывает, когда тип календаря установлен на `'month'`. Тип календаря также становится `'month'`, когда пользователь кликает на заголовок месяца или при инициализации с параметром `type = 'month'`. Он предоставляет доступ к информации о каждом месяце и его HTML-элементе. Вы можете получить следующие параметры:
+- `month` - номер месяца (начинается с 0);
+- `HTMLElement` - HTML-элемент месяца;
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## actions.getYears()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getYears(year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getYears(year, HTMLElement, self) {},
+  },
+});
+```
+
+Этот метод срабатывает, когда тип календаря установлен на `'year'`. Тип календаря становится `'year'`, когда пользователь кликает на заголовок года или при инициализации с параметром `type = 'year'`. Он предоставляет доступ к информации о каждом месяце и его HTML-элементе. Вы можете получить следующие параметры:
+- `year` - номер года;
+- `HTMLElement` - HTML-элемент года;
+- `self` - ссылка на инициализированный календарь.
+
+---
+
 ## actions.hideCalendar()
 
 `Type: Function`

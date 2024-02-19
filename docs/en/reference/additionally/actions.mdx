@@ -199,6 +199,52 @@ This method triggers during the calendar initialization and any changes. It prov
 
 ---
 
+## actions.getMonths()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getMonths(month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getMonths(month, HTMLElement, self) {},
+  },
+});
+```
+
+This method is triggered when the calendar type is set to `'month'`. The calendar type also becomes `'month'` when the user clicks on the month header or during initialization with the `type = 'month'` parameter. It provides access to information about each month and its HTML element. You can retrieve the following parameters:
+- `month` - month number (starts at 0);
+- `HTMLElement` - HTML element of the month;
+- `self` - reference to the initialized calendar.
+
+---
+
+## actions.getYears()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: getYears(year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    getYears(year, HTMLElement, self) {},
+  },
+});
+```
+
+This method is triggered when the calendar type is set to `'year'`. The calendar type becomes `'year'` when the user clicks on the year header or during initialization with the `type = 'year'` parameter. It provides access to information about each month and its HTML element. You can retrieve the following parameters:
+- `year` - year number;
+- `HTMLElement` - HTML element of the year;
+- `self` - reference to the initialized calendar.
+
+---
+
 ## actions.hideCalendar()
 
 `Type: Function`
