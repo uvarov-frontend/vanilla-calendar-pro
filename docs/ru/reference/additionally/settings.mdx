@@ -714,16 +714,20 @@ new VanillaCalendar('#calendar', {
 
 `Default: 'left'`
 
-`Options: 'left' | 'center' | 'right'`
+`Options: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right']`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     visibility: {
       positionToInput: 'center',
+      // positionToInput: ['bottom', 'center'],
     },
   },
 });
 ```
 
 Этот параметр определяет положение календаря относительно input, если каклендарь инициализирован с параметром `input`.
+
+`positionToInput` принимает строку со значением `'left'`, `'center'` или `'right'`, либо массив значений `[ось Y, ось X]`, где ось Y может быть `'bottom'` или `'top'`, а ось X может быть `'left'`, `'center'` или `'right'`.
+Если ось Y не указана, то используется значение по умолчанию - `'bottom'`.

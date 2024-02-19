@@ -713,16 +713,20 @@ With this parameter, you can decide whether to display days from the previous an
 
 `Default: 'left'`
 
-`Options: 'left' | 'center' | 'right'`
+`Options: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right']`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     visibility: {
       positionToInput: 'center',
+      // positionToInput: ['bottom', 'center'],
     },
   },
 });
 ```
 
 This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter.
+
+`positionToInput` takes a string with a value of `'left'`, `'center'`, or `'right'`, or an array of values `[Y-axis, X-axis]`, where the Y-axis can take the values `'bottom'` or `'top'`, and the X-axis can take the values `'left'`, `'center'`, or `'right'`.
+If the Y-axis is not specified, the default is `'bottom'`.
