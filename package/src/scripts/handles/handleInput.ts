@@ -4,17 +4,19 @@ import handleClick from '@scripts/handles/handleClick';
 import update from '@scripts/update';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: 'left' | 'center' | 'right') => {
-	const inputRect = input.getBoundingClientRect();
-	const calendarRect = calendar.getBoundingClientRect();
-
 	const getPosition = {
-		left: inputRect.left,
-		center: inputRect.left + inputRect.width / 2 - calendarRect.width / 2,
-		right: inputRect.right - calendarRect.width,
+		left: 0,
+		center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+		right: input.offsetWidth - calendar.offsetWidth,
 	};
 
-	const top = inputRect.top + inputRect.height;
-	const left = getPosition[position];
+	let top = input.offsetHeight;
+	let left = getPosition[position];
+
+	for (let el: HTMLElement = input; el; el = el.offsetParent as HTMLElement) {
+		top += el.offsetTop || 0;
+		left += el.offsetLeft || 0;
+	}
 
 	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
