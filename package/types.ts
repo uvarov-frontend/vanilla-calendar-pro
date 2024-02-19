@@ -54,7 +54,7 @@ export interface IVisibility {
 	today: boolean;
 	disabled: boolean;
 	daysOutside: boolean;
-	positionToInput: 'left' | 'center' | 'right';
+	positionToInput: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right'];
 }
 
 export interface ISettings {

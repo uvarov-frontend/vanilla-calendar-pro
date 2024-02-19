@@ -31,7 +31,15 @@
 }
 
 .vanilla-calendar_to-input {
-	@apply absolute mt-1
+	@apply absolute
+}
+
+.vanilla-calendar_to-input_bottom {
+	@apply mt-1
+}
+
+.vanilla-calendar_to-input_top {
+	@apply -mt-1
 }
 
 .vanilla-calendar-controls {
