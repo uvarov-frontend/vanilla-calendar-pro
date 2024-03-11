@@ -9,14 +9,14 @@ import '@src/styles/vanilla-calendar.css';
 const configInput: IOptions = {
 	input: true,
 	actions: {
-		changeToInput(e, calendar, self) {
+		changeToInput(e, self) {
 			if (!self.selectedDates || !self.HTMLInputElement) return;
 			if (self.selectedDates[0]) {
 				self.HTMLInputElement.value = self.selectedDates[0];
 			} else {
 				self.HTMLInputElement.value = '';
 			}
-			calendar.hide();
+			self.hide();
 		},
 	},
 	settings: {
@@ -29,14 +29,14 @@ const configInput: IOptions = {
 const configDiv: IOptions = {
 	input: true,
 	actions: {
-		changeToInput(e, calendar, self) {
+		changeToInput(e, self) {
 			if (!self.selectedDates || !self.HTMLInputElement) return;
 			if (self.selectedDates[0]) {
 				self.HTMLInputElement.innerHTML = self.selectedDates[0];
 			} else {
 				self.HTMLInputElement.innerHTML = '';
 			}
-			calendar.hide();
+			self.hide();
 		},
 	},
 };

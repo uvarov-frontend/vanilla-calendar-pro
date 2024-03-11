@@ -1,6 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import handleClick from '@scripts/handles/handleClick';
-import update from '@scripts/update';
+import reset from '@scripts/reset';
 import { IVisibility, CSSClasses } from '@/package/types';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
@@ -43,10 +43,10 @@ const handleInput = (self: VanillaCalendar) => {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
 			self.show();
 		}, 0);
-		update(self, {
+		reset(self, {
 			year: true, month: true, dates: true, holidays: true, time: true,
 		});
-
+		if (self.actions.initCalendar) self.actions.initCalendar(self);
 		return handleClick(self);
 	};
 
