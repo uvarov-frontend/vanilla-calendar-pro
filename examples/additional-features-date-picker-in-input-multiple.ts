@@ -17,7 +17,7 @@ const options: IOptions = {
     },
   },
   actions: {
-    changeToInput(e, calendar, self) {
+    changeToInput(e, self) {
       if (!self.HTMLInputElement) return;
       if (self.selectedDates[1]) {
         self.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));

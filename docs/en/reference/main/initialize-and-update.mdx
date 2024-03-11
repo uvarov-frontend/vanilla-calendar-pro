@@ -1,4 +1,6 @@
-# Initialization, Update, Reset, and Destroy
+# Main Methods
+
+## init()
 
 The `init()` method is the main method of the instance, which initiates the calendar's initialization process.
 
@@ -6,6 +8,8 @@ The `init()` method is the main method of the instance, which initiates the cale
 const calendar = new VanillaCalendar(element, params);
 calendar.init();
 ```
+
+## update()
 
 The `update()` method allows you to apply new settings to the calendar and reset it.
 This method takes an object with optional arguments to control the reset, by default retaining the user-selected date, month, and year after the update.
@@ -37,10 +41,26 @@ calendar.update({
 });
 ```
 
-Additionally, if you want to completely remove the calendar instance, you can use the `destroy()` method.
+## destroy()
 
-Example of usage:
+If you want to completely remove the calendar instance, you can use the `destroy()` method.
 
 ```js
 calendar.destroy();
+```
+
+## show()
+
+The `show()` method allows you to show the calendar if it was hidden.
+
+```js
+calendar.show();
+```
+
+## hide()
+
+The `hide()` method allows you to hide the calendar if it has been shown.
+
+```js
+calendar.hide();
 ```

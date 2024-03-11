@@ -157,12 +157,12 @@ new VanillaCalendar('#calendar', {
 
 `Default: null`
 
-`Options: changeToInput(e, calendar, self) => void | null`
+`Options: changeToInput(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   actions: {
-    changeToInput(e, calendar, self) {},
+    changeToInput(e, self) {},
   },
 });
 ```
@@ -171,7 +171,6 @@ new VanillaCalendar('#calendar', {
 Этот метод срабатывает после нажатия на день в календаре или изменения времени любым способом.
 Вы можете получить следующие параметры:
 - `e` - событие;
-- `calendar` - объект, содержащий методы `show()`, `hide()`;
 - `self` - ссылка на инициализированный календарь.
 
 ---
@@ -285,4 +284,67 @@ new VanillaCalendar('#calendar', {
 ```
 
 Этот метод срабатывает при отображении календаря пользователю, но только если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## actions.initCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: initCalendar(self) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    initCalendar(self) {},
+  },
+});
+```
+
+Этот метод срабатывает при инициализации календаря. Если для параметра <a href="/docs/reference/main/main-settings#input">`input`</a> установлено значение `true`, то метод отработает при первом отображении календаря, поскольку в этот момент инициализируется календарь.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## actions.updateCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: updateCalendar(self) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    updateCalendar(self) {},
+  },
+});
+```
+
+Этот метод срабатывает при обновлении/сбросе календаря.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## actions.destroyCalendar()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: destroyCalendar(self) => void | null`
+
+```js
+new VanillaCalendar('#calendar', {
+  actions: {
+    destroyCalendar(self) {},
+  },
+});
+```
+
+Этот метод срабатывает при уничтожении календаря.
 - `self` - ссылка на инициализированный календарь.
