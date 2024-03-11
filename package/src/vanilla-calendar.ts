@@ -3,6 +3,8 @@ import DefaultOptionsCalendar from '@scripts/default';
 import init from '@scripts/init';
 import update from '@scripts/update';
 import destroy from '@scripts/destroy';
+import show from '@scripts/show';
+import hide from '@scripts/hide';
 import messages from '@scripts/helpers/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
@@ -32,4 +34,8 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 	update = (reset?: T.IReset) => update(this, reset);
 
 	destroy = () => destroy(this);
+
+	show = () => show(this);
+
+	hide = () => hide(this);
 }

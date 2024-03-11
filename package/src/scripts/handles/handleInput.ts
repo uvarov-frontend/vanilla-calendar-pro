@@ -1,5 +1,4 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import actionsInput from '@scripts/helpers/actionsInput';
 import handleClick from '@scripts/handles/handleClick';
 import update from '@scripts/update';
 import { IVisibility, CSSClasses } from '@/package/types';
@@ -42,7 +41,7 @@ const handleInput = (self: VanillaCalendar) => {
 
 		setTimeout(() => {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
-			actionsInput(self).show();
+			self.show();
 		}, 0);
 		update(self, {
 			year: true, month: true, dates: true, holidays: true, time: true,
@@ -55,7 +54,7 @@ const handleInput = (self: VanillaCalendar) => {
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
-		if (self.HTMLInputElement && self.HTMLElement) actionsInput(self as VanillaCalendar).hide();
+		if (self.HTMLInputElement && self.HTMLElement) self.hide();
 		window.removeEventListener('resize', handleResize);
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
@@ -65,7 +64,7 @@ const handleInput = (self: VanillaCalendar) => {
 			cleanup.push(createCalendarToInput());
 		} else {
 			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
-			actionsInput(self as VanillaCalendar).show();
+			self.show();
 		}
 		window.addEventListener('resize', handleResize);
 		document.addEventListener('click', documentClickEvent, { capture: true });

@@ -1,5 +1,4 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import actionsInput from '@scripts/helpers/actionsInput';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import transformTime24 from '@scripts/helpers/transformTime24';
 
@@ -27,7 +26,7 @@ const setTime = (self: VanillaCalendar, e: Event, value: string, type: TypeTime)
 
 	if (self.actions.changeTime) self.actions.changeTime(e, self);
 
-	if (self.input && self.HTMLInputElement && self.actions.changeToInput) self.actions.changeToInput(e, actionsInput(self), self);
+	if (self.input && self.HTMLInputElement && self.actions.changeToInput) self.actions.changeToInput(e, self);
 };
 
 const changeRange = (self: VanillaCalendar, range: HTMLInputElement, input: HTMLInputElement, btnKeepingTime: HTMLButtonElement | null, type: TypeTime, max: number) => {

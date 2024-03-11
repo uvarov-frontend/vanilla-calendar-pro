@@ -1,6 +1,5 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import { FormatDateString } from '@package/types';
-import actionsInput from '@scripts/helpers/actionsInput';
 import changeMonth from '@scripts/methods/changeMonth';
 import createDays from '@scripts/methods/createDays';
 import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
@@ -27,7 +26,6 @@ const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	if (isInitAsInput && self.actions.changeToInput) {
 		self.actions.changeToInput(
 			event,
-			actionsInput(self),
 			self,
 		);
 	}

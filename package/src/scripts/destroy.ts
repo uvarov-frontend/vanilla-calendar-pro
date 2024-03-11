@@ -13,6 +13,7 @@ const destroy = (self: VanillaCalendar) => {
 	}
 
 	self.HTMLElement = self.HTMLOriginalElement;
+	if (self.actions.destroyCalendar) self.actions.destroyCalendar(self);
 };
 
 export default destroy;

@@ -32,6 +32,7 @@ const update = (self: VanillaCalendar, {
 
 	self.settings.selected = previousSelected;
 	if (self.settings.selection.day === 'multiple-ranged' && dates) handleDayRangedSelection(self);
+	if (self.actions.updateCalendar) self.actions.updateCalendar(self);
 };
 
 export default update;
