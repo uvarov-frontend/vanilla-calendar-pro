@@ -1,4 +1,4 @@
-import { FormatDateString } from '..';
+import { FormatDateString } from '../types';
 
 export function parseDates(dates: string[]): FormatDateString[];
 export function getDateString(date: Date): FormatDateString;

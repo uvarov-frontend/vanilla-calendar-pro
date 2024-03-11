@@ -35,8 +35,8 @@
 		"package": "npm-run-all dist minify",
 		"build": "tsc && vite build",
 		"dev": "tsc && vite",
-		"lint": "eslint --ext .js,.ts package/src cypress examples",
-		"fix": "eslint --fix --ext .js,.ts package/src cypress examples",
+		"lint": "eslint --ext .js,.ts ./package/src ./cypress",
+		"fix": "eslint --fix --ext .js,.ts ./package/src ./cypress",
 		"cypress:open": "cypress open",
 		"cypress:run": "cypress run",
 		"test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"

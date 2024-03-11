@@ -1,6 +1,6 @@
 {
 	"name": "vanilla-calendar-pro",
-	"version": "2.9.5",
+	"version": "2.9.6",
 	"description": "Vanilla Calendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.",
 	"homepage": "https://vanilla-calendar.pro",
 	"keywords": [
@@ -36,6 +36,26 @@
 	"style": "./build/vanilla-calendar.min.css",
 	"source": "./src/vanilla-calendar.ts",
 	"types": "./index.d.ts",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"node": "./build/vanilla-calendar.min.js",
+			"require": "./build/vanilla-calendar.min.js",
+			"import": "./build/vanilla-calendar.min.mjs"
+		},
+		"./utilities": {
+			"types": "./utilities/index.d.ts",
+			"node": "./utilities/index.js",
+			"require": "./utilities/index.js",
+			"import": "./utilities/index.mjs"
+		},
+		"./types": "./types.ts",
+		"./package.json": "./package.json",
+		"./build/vanilla-calendar.min.css": "./build/vanilla-calendar.min.css",
+		"./build/vanilla-calendar.layout.min.css": "./build/vanilla-calendar.layout.min.css",
+		"./build/themes/light.min.css": "./build/themes/light.min.css",
+		"./build/themes/dark.min.css": "./build/themes/dark.min.css"
+	},
 	"devDependencies": {},
 	"dependencies": {}
 }

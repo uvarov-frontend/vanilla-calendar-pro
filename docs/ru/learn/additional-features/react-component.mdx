@@ -8,11 +8,12 @@
 
 ```js
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import VC, { Options } from "vanilla-calendar-pro";
+import VC from "vanilla-calendar-pro";
+import { IOptions } from "vanilla-calendar-pro/types";
 import "vanilla-calendar-pro/build/vanilla-calendar.min.css";
 
 interface VanillaCalendarProps extends HTMLAttributes<HTMLDivElement> {
-  config?: Options,
+  config?: IOptions,
 }
 
 function VanillaCalendar({ config, ...attributes }: VanillaCalendarProps) {
