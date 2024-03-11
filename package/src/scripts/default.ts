@@ -73,8 +73,11 @@ export default class DefaultOptionsCalendar {
 		getDays: null,
 		getMonths: null,
 		getYears: null,
-		hideCalendar: null,
+		initCalendar: null,
+		updateCalendar: null,
+		destroyCalendar: null,
 		showCalendar: null,
+		hideCalendar: null,
 	};
 	popups: T.IPopups = {};
 	CSSClasses: T.CSSClasses = { ...classes };

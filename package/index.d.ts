@@ -25,6 +25,8 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
 	init: () => () => void;
 	update: (reset?: T.IReset) => void;
 	destroy: () => void;
+	show: () => void;
+	hide: () => void;
 
 	readonly HTMLElement: HTMLElement;
 	readonly HTMLOriginalElement: HTMLElement;

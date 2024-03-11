@@ -14,6 +14,7 @@ const init = (self: VanillaCalendar) => {
 
 	setVariables(self);
 	create(self);
+	if (self.actions.initCalendar) self.actions.initCalendar(self);
 	return handleClick(self);
 };
 
