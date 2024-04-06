@@ -4,27 +4,29 @@ import reset from '@scripts/reset';
 import { IVisibility, CSSClasses } from '@/package/types';
 
 const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
-	const getPosition = {
-		top: -calendar.offsetHeight,
-		bottom: input.offsetHeight,
-		left: 0,
-		center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
-		right: input.offsetWidth - calendar.offsetWidth,
-	};
+	if (input) {
+		const getPosition = {
+			top: -calendar.offsetHeight,
+			bottom: input.offsetHeight,
+			left: 0,
+			center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+			right: input.offsetWidth - calendar.offsetWidth,
+		};
 
-	const YPosition = !Array.isArray(position) ? 'bottom' : position[0];
-	const XPosition = !Array.isArray(position) ? position : position[1];
+		const YPosition = !Array.isArray(position) ? 'bottom' : position[0];
+		const XPosition = !Array.isArray(position) ? position : position[1];
 
-	calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
+		calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
 
-	const inputRect = input.getBoundingClientRect();
-	const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-	const scrollTop = window.scrollY || document.documentElement.scrollTop;
+		const inputRect = input.getBoundingClientRect();
+		const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+		const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-	const top = inputRect.top + scrollTop + getPosition[YPosition];
-	const left = inputRect.left + scrollLeft + getPosition[XPosition];
+		const top = inputRect.top + scrollTop + getPosition[YPosition];
+		const left = inputRect.left + scrollLeft + getPosition[XPosition];
 
-	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+	}
 };
 
 const handleInput = (self: VanillaCalendar) => {
