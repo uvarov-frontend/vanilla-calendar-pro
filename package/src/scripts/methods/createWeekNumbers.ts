@@ -22,7 +22,7 @@ const createWeekNumber = (
 
 const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
 	if (!self.settings.visibility.weekNumbers) return;
-	weekNumbersEl.innerHTML = '';
+	weekNumbersEl.textContent = '';
 
 	const weekNumbersTitleEl = document.createElement('b');
 	weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
