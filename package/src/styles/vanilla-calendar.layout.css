@@ -48,7 +48,7 @@
 
 .vanilla-calendar-arrow {
 	@apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent
-	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full
+	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-no-repeat before:bg-center
 }
 
 .vanilla-calendar-arrow.vanilla-calendar-arrow_prev::before {
