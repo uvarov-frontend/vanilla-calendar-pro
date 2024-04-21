@@ -124,10 +124,10 @@ The `date.max` parameter sets the maximum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    today: new Date('2022-01-07'),
+    today: new Date('2022-01-07T00:00:00.000Z'),
   },
 });
 ```
 
 The `date.today` parameter determines which day is considered today for the calendar.
+`T00:00:00.000Z` - It is necessary that the date does not have problems with the client’s time zone.
