@@ -12,7 +12,7 @@ const options: IOptions = {
         // if you want to hide the calendar after picking a date
         self.hide();
       } else {
-        self.HTMLInputElement.innerHTML = '';
+        self.HTMLInputElement.textContent = '';
       }
     },
   },

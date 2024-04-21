@@ -2,7 +2,7 @@ import VanillaCalendar from '@src/vanilla-calendar';
 
 const createWeekDays = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
 	const templateWeekDayEl = document.createElement('b');
-	weekEl.innerHTML = '';
+	weekEl.textContent = '';
 
 	for (let i = 0; i < weekday.length; i++) {
 		const weekDayName = weekday[i];

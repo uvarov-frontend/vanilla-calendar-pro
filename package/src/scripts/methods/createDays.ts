@@ -161,7 +161,7 @@ const createDays = (self: VanillaCalendar) => {
 		const firstDayWeek = self.settings.iso8601 ? (firstDay.getDay() !== 0 ? firstDay.getDay() : 7) - 1 : firstDay.getDay();
 
 		if (self.settings.selection.day) daysEl.classList.add(self.CSSClasses.daysSelecting);
-		daysEl.innerHTML = '';
+		daysEl.textContent = '';
 
 		prevMonth(self, daysEl, selectedYear, selectedMonth, firstDayWeek);
 		currentMonth(self, daysEl, daysSelectedMonth, selectedYear, selectedMonth);

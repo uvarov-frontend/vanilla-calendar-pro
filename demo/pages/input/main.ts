@@ -34,7 +34,7 @@ const configDiv: IOptions = {
 			if (self.selectedDates[0]) {
 				self.HTMLInputElement.innerHTML = self.selectedDates[0];
 			} else {
-				self.HTMLInputElement.innerHTML = '';
+				self.HTMLInputElement.textContent = '';
 			}
 			self.hide();
 		},
