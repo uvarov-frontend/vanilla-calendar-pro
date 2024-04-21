@@ -3,7 +3,9 @@ import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
 import { IVisibility, CSSClasses } from '@/package/types';
 
-const setPositionCalendar = (input: HTMLInputElement, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
+const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
+	if (!input) return;
+
 	const getPosition = {
 		top: -calendar.offsetHeight,
 		bottom: input.offsetHeight,
@@ -40,7 +42,7 @@ const handleInput = (self: VanillaCalendar) => {
 		firstInit = false;
 
 		setTimeout(() => {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
+			setPositionCalendar(self.HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
 			self.show();
 		}, 0);
 		reset(self, {
@@ -50,7 +52,7 @@ const handleInput = (self: VanillaCalendar) => {
 		return handleClick(self);
 	};
 
-	const handleResize = () => setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
+	const handleResize = () => setPositionCalendar(self.HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
 
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
@@ -63,7 +65,7 @@ const handleInput = (self: VanillaCalendar) => {
 		if (firstInit) {
 			cleanup.push(createCalendarToInput());
 		} else {
-			setPositionCalendar(self.HTMLInputElement as HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
+			setPositionCalendar(self.HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
 			self.show();
 		}
 		window.addEventListener('resize', handleResize);
