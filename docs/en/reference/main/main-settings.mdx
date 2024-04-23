@@ -74,6 +74,24 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 - - -
 
+## sanitizer
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```js
+import DOMPurify from 'dompurify';
+
+new VanillaCalendar('#calendar', {
+  sanitizer: (html) => DOMPurify.sanitize(html),
+});
+```
+
+The `sanitizer` will sanitize HTML templates to be CSP safe.
+
+- - -
+
 ## date.min
 
 `Type: String`
