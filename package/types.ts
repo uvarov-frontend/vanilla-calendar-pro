@@ -16,8 +16,8 @@ export interface IDates {
 }
 
 export interface IRange {
-	min: FormatDateString;
-	max: FormatDateString;
+	min: FormatDateString | 'today';
+	max: FormatDateString | 'today';
 	disablePast: boolean;
 	disableGaps: boolean;
 	disableAllDays: boolean;
