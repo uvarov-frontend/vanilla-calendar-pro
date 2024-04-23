@@ -45,6 +45,8 @@ export interface ISelected {
 	time?: string;
 }
 
+export type ToggleSelected = boolean | ((self: IVanillaCalendar) => boolean);
+
 export interface IVisibility {
 	theme: 'light' | 'dark' | 'system';
 	themeDetect: string | false;
@@ -132,6 +134,7 @@ export interface IOptions {
 	popups?: IPopups;
 	CSSClasses?: Partial<CSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
+	toggleSelected?: ToggleSelected;
 }
 
 export interface IVanillaCalendar {
@@ -153,6 +156,7 @@ export interface IVanillaCalendar {
 	popups: IPopups;
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
+	toggleSelected: ToggleSelected;
 
 	init: () => () => void;
 	update: (reset?: IReset) => void;

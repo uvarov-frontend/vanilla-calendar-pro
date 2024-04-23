@@ -74,6 +74,26 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 - - -
 
+## toggleSelected
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```js
+new VanillaCalendar('#calendar', {
+  toggleSelected: false,
+	// or with a callback
+  toggleSelected: (self) => (self.selectedDates[0] < new Date()),
+});
+```
+
+If `toggleSelected` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
+
+- - -
+
 ## date.min
 
 `Type: String`

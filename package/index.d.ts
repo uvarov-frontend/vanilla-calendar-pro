@@ -21,6 +21,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
 	popups: T.IPopups;
 	CSSClasses: T.CSSClasses;
 	DOMTemplates: T.IDOMTemplates;
+	toggleSelected: T.ToggleSelected;
 
 	init: () => () => void;
 	update: (reset?: T.IReset) => void;
