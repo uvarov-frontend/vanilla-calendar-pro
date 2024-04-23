@@ -2,8 +2,11 @@ import { FormatDateString } from '@package/types';
 import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 
-const parseDates = (dates: string[]): FormatDateString[] => dates.reduce((accumulator: FormatDateString[], date) => {
-	if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
+const parseDates = (dates: Array<number | string | Date>): FormatDateString[] => dates.reduce((accumulator: FormatDateString[], date) => {
+	if (date instanceof Date || typeof date === 'number') {
+		const d = date instanceof Date ? date : new Date(date);
+		accumulator.push(d.toISOString().substring(0, 10) as FormatDateString);
+	} else if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
 		accumulator.push(date as FormatDateString);
 	} else {
 		date.replace(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/g, (_, startDateStr, endDateStr) => {

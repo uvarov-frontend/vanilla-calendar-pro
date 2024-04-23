@@ -76,7 +76,7 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 ## date.min
 
-`Type: String`
+`Type: String | Date`
 
 `Default: '1970-01-01'`
 
@@ -86,6 +86,8 @@ The `jumpMonths` parameter controls the number of months to jump.
 new VanillaCalendar('#calendar', {
   date: {
     min: '1970-01-01',
+		// or
+		min: new Date('2018-01-01'),
   },
 });
 ```
@@ -96,7 +98,7 @@ The `date.min` parameter sets the minimum allowable date that the calendar will 
 
 ## date.max
 
-`Type: String`
+`Type: String | Date`
 
 `Default: '2470-12-31'`
 
@@ -106,6 +108,8 @@ The `date.min` parameter sets the minimum allowable date that the calendar will 
 new VanillaCalendar('#calendar', {
   date: {
     max: '2470-12-31',
+		// or
+		max: new Date('2018-01-01'),
   },
 });
 ```
