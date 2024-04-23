@@ -2,7 +2,7 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import transformTime24 from '@scripts/helpers/transformTime24';
 import changeTime from '@scripts/methods/changeTime';
 
-export const InputTime = (name:string, CSSClass: string, value: string, range: boolean) => (`
+export const InputTime = (name: string, CSSClass: string, value: string, range: boolean) => (`
 	<label class="${CSSClass}">
 		<input type="text"
 			name="${name}"
@@ -32,7 +32,7 @@ const createTime = (self: VanillaCalendar) => {
 	const [minHour, maxHour] = [0, 23];
 	const [minMinutes, maxMinutes] = [0, 59];
 
-	timeEl.innerHTML = (`
+	timeEl.innerHTML = self.sanitizer(`
 		<div class="${self.CSSClasses.timeContent}">
 			${InputTime('hours', self.CSSClasses.timeHours, self.selectedHours, range)}
 			${InputTime('minutes', self.CSSClasses.timeMinutes, self.selectedMinutes, range)}
@@ -42,7 +42,7 @@ const createTime = (self: VanillaCalendar) => {
 		</div>
 		<div class="${self.CSSClasses.timeRanges}">
 			${RangeTime('hours', self.CSSClasses.timeRange, minHour, maxHour, self.settings.selection.stepHours, self.selectedKeeping
-			? transformTime24(self.selectedHours, self.selectedKeeping) : self.selectedHours)}
+		? transformTime24(self.selectedHours, self.selectedKeeping) : self.selectedHours)}
 			${RangeTime('minutes', self.CSSClasses.timeRange, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
 		</div>
 	`);

@@ -119,6 +119,7 @@ export interface IOptions {
 	months?: number;
 	jumpMonths?: number;
 	date?: Partial<IDates>;
+	sanitizer?: (dirtyHtml: string) => unknown;
 	settings?: Partial<{
 		lang: string;
 		iso8601: boolean;
