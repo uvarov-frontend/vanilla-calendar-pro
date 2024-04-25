@@ -1,9 +1,9 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import parseDates from '@scripts/helpers/parseDates';
 import getDateString from '@scripts/helpers/getDateString';
+import getLocalDate from '@scripts/helpers/getLocalDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
-import { FormatDateString } from '@/package/types';
 import messages from './getMessages';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
@@ -18,10 +18,10 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
 	if (self.settings.range.min === 'today') {
-		self.settings.range.min = new Date().toISOString().substring(0, 10) as FormatDateString;
+		self.settings.range.min = getLocalDate();
 	}
 	if (self.settings.range.max === 'today') {
-		self.settings.range.max = new Date().toISOString().substring(0, 10) as FormatDateString;
+		self.settings.range.max = getLocalDate();
 	}
 	self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
 	self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
