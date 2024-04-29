@@ -44,10 +44,10 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 	for (let i = 0; i < 12; i++) {
 		const monthTitle = self.locale.months[i];
 		const monthDisabled = (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear())
-		|| (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear())
-		|| (i !== selectedMonth && !activeMonthsID.includes(i));
+			|| (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear())
+			|| (i !== selectedMonth && !activeMonthsID.includes(i));
 		const monthEl = createMonthEl(self, templateMonthEl, selectedMonth, monthTitle, monthDisabled, i);
-		monthsEl.append(monthEl);
+		monthsEl.appendChild(monthEl);
 		if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
 	}
 };
