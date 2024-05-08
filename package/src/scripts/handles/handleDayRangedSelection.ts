@@ -47,7 +47,7 @@ const addHoverEffect = (day: Date, firstBtnDayEls: NodeListOf<HTMLDivElement>, l
 const handleHoverDaysEvent = (e: MouseEvent) => {
 	if (!e.target || !current.self?.selectedDates) return;
 
-	const days: HTMLDivElement | null = (e.target as HTMLElement).closest(`.${current.self.CSSClasses.days}`);
+	const days: HTMLDivElement | null = (e.target as HTMLElement).closest('[data-calendar-days]');
 
 	if (!days) {
 		removeHoverEffect();

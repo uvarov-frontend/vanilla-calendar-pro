@@ -107,4 +107,7 @@ export default class DefaultOptionsCalendar {
 	viewYear!: number;
 	dateMin!: Date;
 	dateMax!: Date;
+
+	// Some option to add an icon, e.g. to the arrow.
+	iconsSet?: T.IIconsSet;
 }

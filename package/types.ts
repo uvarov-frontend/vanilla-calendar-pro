@@ -132,6 +132,9 @@ export interface IOptions {
 	popups?: IPopups;
 	CSSClasses?: Partial<CSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
+
+	// Some option to add an icon, e.g. to the arrow.
+	iconsSet?: IIconsSet;
 }
 
 export interface IVanillaCalendar {
@@ -181,4 +184,12 @@ export interface IVanillaCalendar {
 	readonly dateMin: Date;
 	readonly dateMax: Date;
 	readonly isInit: boolean;
+
+	// Some option to add an icon, e.g. to the arrow.
+	iconsSet?: IIconsSet;
+}
+
+export interface IIconsSet {
+	arrowPrev?: string;
+	arrowNext?: string;
 }
