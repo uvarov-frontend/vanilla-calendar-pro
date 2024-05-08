@@ -147,8 +147,8 @@ const nextMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth
 };
 
 const createDays = (self: VanillaCalendar) => {
-	const daysEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.days}`);
-	const weekNumbersEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.weekNumbers}`);
+	const daysEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll('[data-calendar-days]');
+	const weekNumbersEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll('[data-calendar-week-numbers]');
 	const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
 
 	daysEls.forEach((daysEl, index: number) => {

@@ -13,6 +13,9 @@ const config: IOptions = {
 		arrow: 'vanilla-calendar-arrow arrow-1 arrow-2 arrow-3 arrow-4',
 		arrowPrev: 'vanilla-calendar-arrow_prev arrow-prev-1 arrow-prev-2 arrow-prev-3 arrow-prev-4',
 		arrowNext: 'vanilla-calendar-arrow_next arrow-next-1 arrow-next-2 arrow-next-3 arrow-next-4',
+		week: 'vanilla-calendar-week week-1 week-2 week-3 week-4',
+		weekDay: 'vanilla-calendar-week__day week-day-1 week-day-2 week-day-3 week-day-4',
+		weekDayWeekend: 'vanilla-calendar-week__day_weekend week-day-weekend-1 week-day-weekend-2 week-day-weekend-3 week-day-weekend-4',
 	},
 	settings: {
 		selected: {

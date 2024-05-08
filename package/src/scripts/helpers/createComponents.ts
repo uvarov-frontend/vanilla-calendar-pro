@@ -29,11 +29,11 @@ export const Year = (self: VanillaCalendar) => (`
 `);
 
 export const Week = (self: VanillaCalendar) => (`
-	<div class="${self.CSSClasses.week}"></div>
+	<div class="${self.CSSClasses.week}" data-calendar-week></div>
 `);
 
 export const Days = (self: VanillaCalendar) => (`
-	<div class="${self.CSSClasses.days}"></div>
+	<div class="${self.CSSClasses.days}" data-calendar-days></div>
 `);
 
 export const Months = (self: VanillaCalendar) => (`
