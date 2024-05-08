@@ -7,6 +7,9 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
+	CSSClasses: {
+		dayBtn: 'vanilla-calendar-day__btn class2 class3 class4',
+	},
 	settings: {
 		selected: {
 			month: 3,

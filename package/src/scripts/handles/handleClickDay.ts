@@ -7,8 +7,8 @@ import handleDaySelection from '@scripts/handles/handleDaySelection';
 
 const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;
-	const closest = (className: string): HTMLElement | null => element.closest(`.${className}`);
-	const dayBtnEl: HTMLElement | null = closest(self.CSSClasses.dayBtn);
+	const closest = (className: string, isClass = true): HTMLElement | null => element.closest(isClass ? `.${className}` : className);
+	const dayBtnEl: HTMLElement | null = closest('[data-element-day-btn]', false);
 
 	if (!self.settings.selection.day || !['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) || !dayBtnEl) return;
 

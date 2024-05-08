@@ -9,7 +9,7 @@ const createWeekNumber = (
 	templateWeekNumberEl: HTMLButtonElement,
 	weekNumbersContentEl: HTMLDivElement,
 ) => {
-	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector(`.${self.CSSClasses.dayBtn}`);
+	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector('[data-element-day-btn]');
 	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay as FormatDateString | undefined, self.settings.iso8601);
 
 	if (!weekNumber) return;
