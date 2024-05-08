@@ -3,14 +3,18 @@ import VanillaCalendar from '@src/vanilla-calendar';
 export const ArrowPrev = (self: VanillaCalendar) => (`
 	<button type="button"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowPrev}"
-		data-calendar-arrow="prev">
+		data-calendar-arrow="prev"
+	>
+		${self.iconsSet?.arrowPrev || ''}
 	</button>
 `);
 
 export const ArrowNext = (self: VanillaCalendar) => (`
 	<button type="button"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
-		data-calendar-arrow="next">
+		data-calendar-arrow="next"
+	>
+		${self.iconsSet?.arrowNext || ''}
 	</button>
 `);
 
