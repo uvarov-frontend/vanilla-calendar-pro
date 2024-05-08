@@ -9,7 +9,7 @@ const createWeekNumber = (
 	templateWeekNumberEl: HTMLButtonElement,
 	weekNumbersContentEl: HTMLDivElement,
 ) => {
-	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector('[data-element-day-btn]');
+	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector('[data-calendar-day-btn]');
 	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay as FormatDateString | undefined, self.settings.iso8601);
 
 	if (!weekNumber) return;
@@ -37,7 +37,7 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSele
 	templateWeekNumberEl.type = 'button';
 	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
-	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll('[data-element-day]');
+	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll('[data-calendar-day]');
 	const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
 	for (let i = 0; i < weeksCount; i++) {

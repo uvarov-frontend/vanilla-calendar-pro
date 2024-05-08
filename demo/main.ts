@@ -8,6 +8,7 @@ import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
 	CSSClasses: {
+		days: 'vanilla-calendar-days days-1 days-2 days-3 days-4',
 		day: 'vanilla-calendar-day day-1 day-2 day-3 day-4',
 		dayBtn: 'vanilla-calendar-day__btn day-btn-1 day-btn-2 day-btn-3 day-btn-4',
 		arrow: 'vanilla-calendar-arrow arrow-1 arrow-2 arrow-3 arrow-4',

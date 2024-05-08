@@ -79,12 +79,12 @@ const createDay = (
 ) => {
 	const dayEl = document.createElement('div');
 	dayEl.className = self.CSSClasses.day;
-	dayEl.setAttribute('data-element-day', '');
+	dayEl.setAttribute('data-calendar-day', '');
 
 	const dayBtnEl = document.createElement('button');
 	dayBtnEl.className = `${self.CSSClasses.dayBtn}${modifier ? ` ${modifier}` : ''}`;
 	dayBtnEl.type = 'button';
-	dayBtnEl.setAttribute('data-element-day-btn', '');
+	dayBtnEl.setAttribute('data-calendar-day-btn', '');
 	dayBtnEl.innerText = String(day);
 	dayBtnEl.dataset.calendarDay = date;
 
