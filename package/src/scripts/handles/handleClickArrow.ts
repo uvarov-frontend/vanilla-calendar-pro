@@ -4,7 +4,7 @@ import createYears from '@scripts/methods/createYears';
 
 const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;
-	const arrowEl: HTMLElement | null = element.closest(`.${self.CSSClasses.arrow}`);
+	const arrowEl: HTMLElement | null = element.closest('[data-calendar-arrow]');
 
 	if (!arrowEl) return;
 

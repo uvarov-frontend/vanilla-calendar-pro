@@ -17,8 +17,8 @@ const setVisibilityArrows = ({
 const visibilityArrows = (self: VanillaCalendar) => {
 	if (self.currentType === 'month') return;
 
-	const arrowPrev: HTMLElement | null = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowPrev}`);
-	const arrowNext: HTMLElement | null = self.HTMLElement?.querySelector(`.${self.CSSClasses.arrowNext}`);
+	const arrowPrev: HTMLElement | null = self.HTMLElement?.querySelector('[data-calendar-arrow="prev"]');
+	const arrowNext: HTMLElement | null = self.HTMLElement?.querySelector('[data-calendar-arrow="next"]');
 
 	if (!arrowPrev || !arrowNext) return;
 
