@@ -37,7 +37,7 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSele
 	templateWeekNumberEl.type = 'button';
 	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
-	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll(`.${self.CSSClasses.day}`);
+	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll('[data-element-day]');
 	const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
 	for (let i = 0; i < weeksCount; i++) {
