@@ -19,7 +19,7 @@
 }
 
 .vanilla-calendar button:focus-visible {
-	@apply outline outline-1 rounded-lg
+	@apply outline outline-1 -outline-offset-1 rounded-lg
 }
 
 .vanilla-calendar.vanilla-calendar_multiple .vanilla-calendar-days {
