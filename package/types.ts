@@ -16,8 +16,8 @@ export interface IDates {
 }
 
 export interface IRange {
-	min: FormatDateString;
-	max: FormatDateString;
+	min: FormatDateString | 'today';
+	max: FormatDateString | 'today';
 	disablePast: boolean;
 	disableGaps: boolean;
 	disableAllDays: boolean;
@@ -38,7 +38,7 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates?: string[];
+	dates?: Array<Date | number | string>;
 	month?: number;
 	year?: number;
 	holidays?: string[];
@@ -120,7 +120,9 @@ export interface IOptions {
 	type?: TypesCalendar;
 	months?: number;
 	jumpMonths?: number;
+	jumpToSelectedDate?: boolean;
 	date?: Partial<IDates>;
+	sanitizer?: (dirtyHtml: string) => unknown;
 	settings?: Partial<{
 		lang: string;
 		iso8601: boolean;

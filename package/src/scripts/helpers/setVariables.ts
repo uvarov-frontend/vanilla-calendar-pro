@@ -1,11 +1,17 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import parseDates from '@scripts/helpers/parseDates';
 import getDateString from '@scripts/helpers/getDateString';
+import getLocalDate from '@scripts/helpers/getLocalDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
 import messages from './getMessages';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
+	if (self.jumpToSelectedDate && self.settings.selected.dates?.length && (self.settings.selected.month === undefined && self.settings.selected.year === undefined)) {
+		const selectedDate = getDate(parseDates(self.settings.selected.dates)[0]);
+		self.settings.selected.month = selectedDate.getMonth();
+		self.settings.selected.year = selectedDate.getFullYear();
+	}
 	const isValidMonth = self.settings.selected.month !== undefined && Number(self.settings.selected.month) >= 0 && Number(self.settings.selected.month) < 12;
 	const isValidYear = self.settings.selected.year !== undefined && Number(self.settings.selected.year) >= 0 && Number(self.settings.selected.year) <= 9999;
 
@@ -16,6 +22,12 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 
 const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
+	if (self.settings.range.min === 'today') {
+		self.settings.range.min = getLocalDate();
+	}
+	if (self.settings.range.max === 'today') {
+		self.settings.range.max = getLocalDate();
+	}
 	self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
 	self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
 
