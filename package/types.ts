@@ -38,7 +38,7 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates?: string[];
+	dates?: Array<Date | number | string>;
 	month?: number;
 	year?: number;
 	holidays?: string[];

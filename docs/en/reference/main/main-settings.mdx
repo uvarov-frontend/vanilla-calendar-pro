@@ -125,16 +125,20 @@ The `sanitizer` will sanitize HTML templates to be CSP safe.
 
 ## date.min
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     min: '1970-01-01',
+    // or
+    min: 1722152977141, // in milliseconds from 1970-01-01
+    // or
+    min: new Date('2018-01-01'),
   },
 });
 ```
@@ -145,16 +149,20 @@ The `date.min` parameter sets the minimum allowable date that the calendar will 
 
 ## date.max
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     max: '2470-12-31',
+    // or
+    max: 1722152977141, // in milliseconds from 1970-01-01
+    // or
+    max: new Date('2018-01-01'),
   },
 });
 ```
