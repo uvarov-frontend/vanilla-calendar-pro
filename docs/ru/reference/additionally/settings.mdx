@@ -45,17 +45,21 @@ new VanillaCalendar('#calendar', {
 
 ## settings.range.min
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
       min: '2022-07-01',
+      // or
+      min: 1722152977141, // in milliseconds from 1970-01-01
+      // or
+      min: new Date('2018-01-01'),
     }
   },
 });
@@ -71,17 +75,21 @@ new VanillaCalendar('#calendar', {
 
 ## settings.range.max
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
       max: '2024-07-01',
+      // or
+      max: 1722152977141, // in milliseconds from 1970-01-01
+      // or
+      max: new Date('2018-01-01'),
     }
   },
 });
@@ -185,17 +193,17 @@ new VanillaCalendar('#calendar', {
 
 ## settings.range.disabled
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
-      disabled: ['2022-08-10:2022-08-15', '2022-08-20'],
+      disabled: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     }
   },
 });
@@ -211,17 +219,17 @@ new VanillaCalendar('#calendar', {
 
 ## settings.range.enabled
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
-      enabled: ['2022-08-11:2022-08-16', '2022-08-20'],
+      enabled: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
     }
   },
 });
@@ -413,17 +421,17 @@ new VanillaCalendar('#calendar', {
 
 ## settings.selected.dates
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      dates: ['2022-08-10:2022-08-15', '2022-08-20'],
+      dates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     },
   },
 });
@@ -483,17 +491,17 @@ new VanillaCalendar('#calendar', {
 
 ## settings.selected.holidays
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      holidays: ['2022-08-10:2022-08-15', '2022-08-20'],
+      holidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     },
   },
 });
