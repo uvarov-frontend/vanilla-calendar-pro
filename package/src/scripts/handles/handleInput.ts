@@ -17,7 +17,7 @@ const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTML
 	const YPosition = !Array.isArray(position) ? 'bottom' : position[0];
 	const XPosition = !Array.isArray(position) ? position : position[1];
 
-	calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
+	calendar.classList.add(...(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop).trim().split(' '));
 
 	const inputRect = input.getBoundingClientRect();
 	const scrollLeft = window.scrollX || document.documentElement.scrollLeft;

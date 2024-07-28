@@ -2,7 +2,7 @@ import VanillaCalendar from '@src/vanilla-calendar';
 
 const hide = (self: VanillaCalendar) => {
 	if (!self.currentType) return;
-	self.HTMLElement.classList.add(self.CSSClasses.calendarHidden);
+	self.HTMLElement.classList.add(...self.CSSClasses.calendarHidden.trim().split(' '));
 	if (self.actions.hideCalendar) self.actions.hideCalendar(self);
 };
 

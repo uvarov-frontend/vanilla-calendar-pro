@@ -7,8 +7,7 @@ import handleDaySelection from '@scripts/handles/handleDaySelection';
 
 const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;
-	const closest = (className: string, isClass = true): HTMLElement | null => element.closest(isClass ? `.${className}` : className);
-	const dayBtnEl: HTMLElement | null = closest('[data-calendar-day-btn]', false);
+	const dayBtnEl: HTMLElement | null = element.closest('[data-calendar-day-btn]');
 
 	if (!self.settings.selection.day || !['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) || !dayBtnEl) return;
 
@@ -30,8 +29,8 @@ const handleClickDay = (self: VanillaCalendar, event: MouseEvent) => {
 		);
 	}
 
-	const dayBtnPrevEl = closest(self.CSSClasses.dayBtnPrev);
-	const dayBtnNextEl = closest(self.CSSClasses.dayBtnNext);
+	const dayBtnPrevEl = element.closest('[data-calendar-day-btn="prev"]');
+	const dayBtnNextEl = element.closest('[data-calendar-day-btn="next"]');
 
 	const actionMapping = {
 		prev: () => changeMonth(self, 'prev'),

@@ -21,8 +21,12 @@ const removeHoverEffect = () => {
 
 	const dayEls: NodeListOf<HTMLDivElement> = current.self.HTMLElement.querySelectorAll(`.${current.self.CSSClasses.dayBtnHover}`);
 	dayEls.forEach((d) => {
-		d.classList.remove((current.self as VanillaCalendar).CSSClasses.dayBtnHover);
-		d.parentElement?.classList.remove(CSSClasses.dayHoverIntermediate, CSSClasses.dayHoverFirst, CSSClasses.dayHoverLast);
+		d.classList.remove(...(current.self as VanillaCalendar).CSSClasses.dayBtnHover.trim().split(' '));
+		d.parentElement?.classList.remove(
+			...CSSClasses.dayHoverIntermediate.trim().split(' '),
+			...CSSClasses.dayHoverFirst.trim().split(' '),
+			...CSSClasses.dayHoverLast.trim().split(' '),
+		);
 	});
 };
 
@@ -36,12 +40,12 @@ const addHoverEffect = (day: Date, firstBtnDayEls: NodeListOf<HTMLDivElement>, l
 
 	const dayEls: NodeListOf<HTMLDivElement> = current.self.HTMLElement?.querySelectorAll(`[data-calendar-day="${formattedDate}"]`);
 	dayEls?.forEach((d) => {
-		d.classList.add(CSSClasses.dayBtnHover);
-		d.parentElement?.classList.add(CSSClasses.dayHoverIntermediate);
+		d.classList.add(...CSSClasses.dayBtnHover.trim().split(' '));
+		d.parentElement?.classList.add(...CSSClasses.dayHoverIntermediate.trim().split(' '));
 	});
 
-	firstBtnDayEls?.forEach((d) => d.parentElement?.classList.add(CSSClasses.dayHoverFirst));
-	lastBtnDayEls?.forEach((d) => d.parentElement?.classList.add(CSSClasses.dayHoverLast));
+	firstBtnDayEls?.forEach((d) => d.parentElement?.classList.add(...CSSClasses.dayHoverFirst.trim().split(' ')));
+	lastBtnDayEls?.forEach((d) => d.parentElement?.classList.add(...CSSClasses.dayHoverLast.trim().split(' ')));
 };
 
 const handleHoverDaysEvent = (e: MouseEvent) => {

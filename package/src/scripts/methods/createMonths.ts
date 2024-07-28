@@ -31,7 +31,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 	const monthsEl = self.HTMLElement?.querySelector(`.${self.CSSClasses.months}`);
 	if (!self.settings.selection.month || !monthsEl) return;
 
-	monthsEl.classList.add(self.CSSClasses.monthsSelecting);
+	monthsEl.classList.add(...self.CSSClasses.monthsSelecting.trim().split(' '));
 
 	const activeMonthsID = self.jumpMonths > 1 ? self.locale.months
 		.map((_, i) => selectedMonth - self.jumpMonths * i)

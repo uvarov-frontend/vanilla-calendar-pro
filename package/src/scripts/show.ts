@@ -5,7 +5,7 @@ const show = (self: VanillaCalendar) => {
 		self.HTMLElement.click();
 		return;
 	}
-	self.HTMLElement.classList.remove(self.CSSClasses.calendarHidden);
+	self.HTMLElement.classList.remove(...self.CSSClasses.calendarHidden.trim().split(' '));
 	if (self.actions.showCalendar) self.actions.showCalendar(self);
 };
 

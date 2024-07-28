@@ -11,8 +11,8 @@ const getInputElement = (
 ) => timeEl.querySelector(`.${className}${name ? ` input[name="${name}"]` : ''}`) as HTMLInputElement;
 
 const addMouseEvents = (range: HTMLInputElement, input: HTMLInputElement, CSSClass: string) => {
-	range.addEventListener('mouseover', () => input.classList.add(CSSClass));
-	range.addEventListener('mouseout', () => input.classList.remove(CSSClass));
+	range.addEventListener('mouseover', () => input.classList.add(...CSSClass.trim().split(' ')));
+	range.addEventListener('mouseout', () => input.classList.remove(...CSSClass.trim().split(' ')));
 };
 
 const setTime = (self: VanillaCalendar, e: Event, value: string, type: TypeTime) => {

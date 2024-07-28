@@ -24,7 +24,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
 	const yearsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.years}`);
 	if (!self.settings.selection.year || !yearsEl) return;
 
-	yearsEl.classList.add(self.CSSClasses.yearsSelecting);
+	yearsEl.classList.add(...self.CSSClasses.yearsSelecting.trim().split(' '));
 
 	const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
 
