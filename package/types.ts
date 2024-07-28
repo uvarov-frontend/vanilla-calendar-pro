@@ -118,6 +118,7 @@ export interface IOptions {
 	type?: TypesCalendar;
 	months?: number;
 	jumpMonths?: number;
+	jumpToSelectedDate?: boolean;
 	date?: Partial<IDates>;
 	settings?: Partial<{
 		lang: string;
