@@ -19,7 +19,7 @@ const createWeekDays = (self: VanillaCalendar, weekEl: HTMLElement, weekday: str
 				? (i === 0 || i === 6 ? ` ${self.CSSClasses.weekDayWeekend}` : '')
 				: ''}`;
 		weekDayEl.innerText = `${weekDayName}`;
-		weekEl.append(weekDayEl);
+		weekEl.appendChild(weekDayEl);
 	}
 };
 

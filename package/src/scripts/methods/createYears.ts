@@ -34,7 +34,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
 	for (let i = (self.viewYear as number) - 7; i < (self.viewYear as number) + 8; i++) {
 		const yearDisabled = i < (self.dateMin as Date).getFullYear() + relationshipID || i > (self.dateMax as Date).getFullYear();
 		const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
-		yearsEl.append(yearEl);
+		yearsEl.appendChild(yearEl);
 		if (self.actions.getYears) self.actions.getYears(i, yearEl, self);
 	}
 };

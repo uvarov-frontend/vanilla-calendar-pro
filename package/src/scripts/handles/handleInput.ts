@@ -38,7 +38,7 @@ const handleInput = (self: VanillaCalendar) => {
 		const calendar = document.createElement('div');
 		calendar.className = `${self.CSSClasses.calendar} ${self.CSSClasses.calendarToInput} ${self.CSSClasses.calendarHidden}`;
 		self.HTMLElement = calendar;
-		document.body.append(self.HTMLElement);
+		document.body.appendChild(self.HTMLElement);
 		firstInit = false;
 
 		setTimeout(() => {

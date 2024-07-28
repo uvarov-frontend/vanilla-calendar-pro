@@ -17,6 +17,7 @@ new VanillaCalendar('#calendar', {
   },
 });
 ```
+
 This parameter sets the language localization of the calendar.
 You can specify a language label according to <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or use `'define'` to customize your own month and weekday names, see <a href="/docs/reference/additionally/localization">`locale`</a> for more details.
 
@@ -44,17 +45,23 @@ This parameter sets the start of the week in accordance with the international s
 
 ## settings.range.min
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
       min: '2022-07-01',
+      // or
+      min: 1722152977141, // in milliseconds from 1970-01-01
+      // or
+      min: new Date('2018-01-01'),
+      // or
+      min: 'today',
     }
   },
 });
@@ -66,21 +73,31 @@ This parameter sets the minimum date that the user can choose. Dates earlier tha
   It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
 </Info>
 
+<Info>
+  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
+</Info>
+
 ---
 
 ## settings.range.max
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
       max: '2024-07-01',
+      // or
+      max: 1722152977141, // in milliseconds from 1970-01-01
+      // or
+      max: new Date('2018-01-01'),
+      // or
+      ma: 'today',
     }
   },
 });
@@ -90,6 +107,10 @@ This parameter sets the maximum date that the user can choose. Dates later than 
 
 <Info>
   It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+</Info>
+
+<Info>
+  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
 </Info>
 
 ---
@@ -158,7 +179,6 @@ new VanillaCalendar('#calendar', {
 
 This parameter disables all days and can be useful when using <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
 
-
 ---
 
 ## settings.range.disableWeekday
@@ -185,17 +205,17 @@ This parameter allows you to disable specified weekdays. Specify an array with n
 
 ## settings.range.disabled
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
-      disabled: ['2022-08-10:2022-08-15', '2022-08-20'],
+      disabled: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     }
   },
 });
@@ -211,17 +231,17 @@ This parameter allows you to disable specific dates regardless of the specified 
 
 ## settings.range.enabled
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     range: {
-      enabled: ['2022-08-11:2022-08-16', '2022-08-20'],
+      enabled: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
     }
   },
 });
@@ -413,17 +433,17 @@ This option allows you to enable/disable cancellation of the selected date by pr
 
 ## settings.selected.dates
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      dates: ['2022-08-10:2022-08-15', '2022-08-20'],
+      dates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     },
   },
 });
@@ -483,17 +503,17 @@ This parameter determines the year that will be displayed when the calendar is i
 
 ## settings.selected.holidays
 
-`Type: String[]`
+`Type: String[] | Number[] | Date[]`
 
 `Default: null`
 
-`Options: ['YYYY-MM-DD'] | null`
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     selected: {
-      holidays: ['2022-08-10:2022-08-15', '2022-08-20'],
+      holidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
     },
   },
 });

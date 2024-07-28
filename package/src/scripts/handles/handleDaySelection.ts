@@ -9,8 +9,20 @@ const handleDaySelection = (self: VanillaCalendar, dayBtnEl: HTMLElement, multip
 
 	if (isSelected && !self.settings.selection.cancelableDay) return;
 
-	self.selectedDates = isSelected ? self.selectedDates.filter((date) => date !== selectedDay)
-		: multiple ? [...self.selectedDates, selectedDay] : [selectedDay];
+	let canToggle = true;
+	if (self.toggleSelected !== undefined) {
+		canToggle = (typeof self.toggleSelected === 'function')
+			? self.toggleSelected(self)
+			: self.toggleSelected;
+	}
+
+	if (isSelected && !canToggle) return;
+
+	self.selectedDates = isSelected
+		? self.selectedDates.filter((date) => date !== selectedDay)
+		: multiple
+			? [...self.selectedDates, selectedDay]
+			: [selectedDay];
 };
 
 export default handleDaySelection;

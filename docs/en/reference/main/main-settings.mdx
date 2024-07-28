@@ -74,18 +74,91 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 - - -
 
+## jumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  jumpToSelectedDate: true,
+  settings: {
+    selected: {
+      dates: ['2018-05-02'],
+    }
+  },
+});
+```
+
+When the option is enabled and 1 or more selected date(s) are provided but without providing `selected.month` and `selected.year`, it will make the calendar jump to the first selected date. If set to `false`, the calendar will always open to the current month and year.
+
+<Info>
+  This option has no effect when `selected.month` and `selected.year` are provided.
+</Info>
+
+- - -
+
+## sanitizer
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```js
+import DOMPurify from 'dompurify';
+
+new VanillaCalendar('#calendar', {
+  sanitizer: (html) => DOMPurify.sanitize(html),
+});
+```
+
+The `sanitizer` will sanitize HTML templates to be CSP safe.
+
+<Info>
+  Please note that the external library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a> is used as an example. Since `sanitizer` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code size.
+</Info>
+
+- - -
+
+## toggleSelected
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```js
+new VanillaCalendar('#calendar', {
+  toggleSelected: false,
+  // or with a callback
+  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+If `toggleSelected` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
+
+- - -
+
 ## date.min
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     min: '1970-01-01',
+    // or
+    min: 1722152977141, // in milliseconds from 1970-01-01
+    // or
+    min: new Date('2018-01-01'),
   },
 });
 ```
@@ -96,16 +169,20 @@ The `date.min` parameter sets the minimum allowable date that the calendar will 
 
 ## date.max
 
-`Type: String`
+`Type: String | Number | Date`
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | Number | Date`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     max: '2470-12-31',
+    // or
+    max: 1722152977141, // in milliseconds from 1970-01-01
+    // or
+    max: new Date('2018-01-01'),
   },
 });
 ```
@@ -124,6 +201,7 @@ The `date.max` parameter sets the maximum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
+  date: {
     today: new Date('2022-01-07T00:00:00.000Z'),
   },
 });

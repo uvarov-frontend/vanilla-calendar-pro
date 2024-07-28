@@ -7,6 +7,8 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
 	type: T.TypesCalendar;
 	months: number;
 	jumpMonths: number;
+	jumpToSelectedDate: boolean;
+	toggleSelected: T.ToggleSelected;
 	date: T.IDates;
 	settings: {
 		lang: string;
@@ -18,6 +20,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
 	};
 	locale: T.ILocale;
 	actions: T.IActions;
+	sanitizer: (dirtyHtml: string) => unknown;
 	popups: T.IPopups;
 	CSSClasses: T.CSSClasses;
 	DOMTemplates: T.IDOMTemplates;
