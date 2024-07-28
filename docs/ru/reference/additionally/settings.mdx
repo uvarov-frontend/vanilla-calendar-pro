@@ -49,7 +49,7 @@ new VanillaCalendar('#calendar', {
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD' | Number | Date`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -60,6 +60,8 @@ new VanillaCalendar('#calendar', {
       min: 1722152977141, // in milliseconds from 1970-01-01
       // or
       min: new Date('2018-01-01'),
+      // or
+      min: 'today',
     }
   },
 });
@@ -71,6 +73,10 @@ new VanillaCalendar('#calendar', {
   Важно отметить, что `settings.range.min` и `settings.range.max` отключают даты, выходящие за пределы диапазона, в то время как `date.min` и `date.max` вообще их не создают.
 </Info>
 
+<Info>
+  Вы можете указать `'today'` как ярлык для `settings.range.min` и/или `settings.range.max`.
+</Info>
+
 ---
 
 ## settings.range.max
@@ -79,7 +85,7 @@ new VanillaCalendar('#calendar', {
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD' | Number | Date`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -90,6 +96,8 @@ new VanillaCalendar('#calendar', {
       max: 1722152977141, // in milliseconds from 1970-01-01
       // or
       max: new Date('2018-01-01'),
+      // or
+      max: 'today',
     }
   },
 });
@@ -99,6 +107,10 @@ new VanillaCalendar('#calendar', {
 
 <Info>
   Важно отметить, что `settings.range.min` и `settings.range.max` отключают даты, выходящие за пределы диапазона, в то время как `date.min` и `date.max` вообще их не создают.
+</Info>
+
+<Info>
+  Вы можете указать `'today'` как ярлык для `settings.range.min` и/или `settings.range.max`.
 </Info>
 
 ---

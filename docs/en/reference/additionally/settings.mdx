@@ -49,7 +49,7 @@ This parameter sets the start of the week in accordance with the international s
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD' | Number | Date`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -60,6 +60,8 @@ new VanillaCalendar('#calendar', {
       min: 1722152977141, // in milliseconds from 1970-01-01
       // or
       min: new Date('2018-01-01'),
+      // or
+      min: 'today',
     }
   },
 });
@@ -71,6 +73,10 @@ This parameter sets the minimum date that the user can choose. Dates earlier tha
   It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
 </Info>
 
+<Info>
+  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
+</Info>
+
 ---
 
 ## settings.range.max
@@ -79,7 +85,7 @@ This parameter sets the minimum date that the user can choose. Dates earlier tha
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD' | Number | Date`
+`Options: 'YYYY-MM-DD' | Number | Date | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -90,6 +96,8 @@ new VanillaCalendar('#calendar', {
       max: 1722152977141, // in milliseconds from 1970-01-01
       // or
       max: new Date('2018-01-01'),
+      // or
+      ma: 'today',
     }
   },
 });
@@ -99,6 +107,10 @@ This parameter sets the maximum date that the user can choose. Dates later than 
 
 <Info>
   It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+</Info>
+
+<Info>
+  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
 </Info>
 
 ---
