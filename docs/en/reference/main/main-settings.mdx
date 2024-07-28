@@ -74,6 +74,33 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 - - -
 
+## jumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+	jumpToSelectedDate: true,
+  settings: {
+		selected: {
+			dates: ['2018-05-02'],
+		}
+  },
+});
+```
+
+When the option is enabled and 1 or more selected date(s) are provided but without providing `selected.month` and `selected.year`, it will make the calendar jump to the first selected date. If set to `false`, the calendar will always open to the current month and year.
+
+<Info>
+  This option has no effect when `selected.month` and `selected.year` are provided.
+</Info>
+
+- - -
+
 ## sanitizer
 
 `Type: Function`
