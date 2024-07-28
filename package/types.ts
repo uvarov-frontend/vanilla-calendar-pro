@@ -144,6 +144,8 @@ export interface IVanillaCalendar {
 	type: TypesCalendar;
 	months: number;
 	jumpMonths: number;
+	jumpToSelectedDate: boolean;
+	toggleSelected: ToggleSelected
 	date: IDates;
 	settings: {
 		lang: string;
@@ -155,10 +157,10 @@ export interface IVanillaCalendar {
 	};
 	locale: ILocale;
 	actions: IActions;
+	sanitizer: (dirtyHtml: string) => unknown;
 	popups: IPopups;
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
-	toggleSelected: ToggleSelected;
 
 	init: () => () => void;
 	update: (reset?: IReset) => void;
