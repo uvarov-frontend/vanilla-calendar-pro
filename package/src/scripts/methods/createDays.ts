@@ -95,15 +95,15 @@ const createDay = (
 	if (self.settings.visibility.weekNumbers) addWeekNumber();
 
 	if (otherMonth) {
-		if (self.settings.visibility.daysOutside) dayEl.append(dayBtnEl);
+		if (self.settings.visibility.daysOutside) dayEl.appendChild(dayBtnEl);
 	} else {
-		dayEl.append(dayBtnEl);
+		dayEl.appendChild(dayBtnEl);
 	}
 
 	setDisabledDays(self, date, dayWeekID);
 	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
 
-	daysEl.append(dayEl);
+	daysEl.appendChild(dayEl);
 	if (self.actions.getDays) self.actions.getDays(day, date, dayEl, dayBtnEl, self);
 };
 
