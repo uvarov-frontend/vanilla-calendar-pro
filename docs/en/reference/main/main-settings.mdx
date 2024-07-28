@@ -84,11 +84,11 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 ```js
 new VanillaCalendar('#calendar', {
-	jumpToSelectedDate: true,
+  jumpToSelectedDate: true,
   settings: {
-		selected: {
-			dates: ['2018-05-02'],
-		}
+    selected: {
+      dates: ['2018-05-02'],
+    }
   },
 });
 ```
@@ -120,6 +120,26 @@ The `sanitizer` will sanitize HTML templates to be CSP safe.
 <Info>
   Please note that the external library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a> is used as an example. Since `sanitizer` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code size.
 </Info>
+
+- - -
+
+## toggleSelected
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```js
+new VanillaCalendar('#calendar', {
+  toggleSelected: false,
+  // or with a callback
+  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+If `toggleSelected` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
 
 - - -
 
@@ -181,6 +201,7 @@ The `date.max` parameter sets the maximum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
+  date: {
     today: new Date('2022-01-07T00:00:00.000Z'),
   },
 });

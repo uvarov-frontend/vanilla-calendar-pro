@@ -45,6 +45,8 @@ export interface ISelected {
 	time?: string;
 }
 
+export type ToggleSelected = boolean | ((self: IVanillaCalendar) => boolean);
+
 export interface IVisibility {
 	theme: 'light' | 'dark' | 'system';
 	themeDetect: string | false;
@@ -119,6 +121,7 @@ export interface IOptions {
 	months?: number;
 	jumpMonths?: number;
 	jumpToSelectedDate?: boolean;
+	toggleSelected?: ToggleSelected;
 	date?: Partial<IDates>;
 	sanitizer?: (dirtyHtml: string) => unknown;
 	settings?: Partial<{
@@ -141,6 +144,8 @@ export interface IVanillaCalendar {
 	type: TypesCalendar;
 	months: number;
 	jumpMonths: number;
+	jumpToSelectedDate: boolean;
+	toggleSelected: ToggleSelected
 	date: IDates;
 	settings: {
 		lang: string;
@@ -152,6 +157,7 @@ export interface IVanillaCalendar {
 	};
 	locale: ILocale;
 	actions: IActions;
+	sanitizer: (dirtyHtml: string) => unknown;
 	popups: IPopups;
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
