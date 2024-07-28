@@ -120,6 +120,7 @@ export interface IOptions {
 	jumpMonths?: number;
 	jumpToSelectedDate?: boolean;
 	date?: Partial<IDates>;
+	sanitizer?: (dirtyHtml: string) => unknown;
 	settings?: Partial<{
 		lang: string;
 		iso8601: boolean;

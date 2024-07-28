@@ -94,8 +94,31 @@ new VanillaCalendar('#calendar', {
 ```
 
 Если эта опция включена и указаны одна или несколько выбранных дат, но без указания `selected.month` и `selected.year`, календарь перейдет к первой выбранной дате. Если установлено значение `false`, календарь всегда будет открываться для текущего месяца и года.
+
 <Info>
   Эта опция не имеет эффекта, если указаны `selected.month` и `selected.year`.
+</Info>
+
+- - -
+
+## sanitizer
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```js
+import DOMPurify from 'dompurify';
+
+new VanillaCalendar('#calendar', {
+  sanitizer: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizer` будет очищать HTML-шаблоны, чтобы они были безопасными для CSP.
+
+<Info>
+  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. Поскольку `sanitizer` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
 </Info>
 
 - - -

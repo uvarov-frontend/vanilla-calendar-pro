@@ -63,6 +63,7 @@ export default class DefaultOptionsCalendar {
 		months: [],
 		weekday: [],
 	};
+	sanitizer = (dirtyHtml: string) => dirtyHtml;
 	actions: T.IActions = {
 		clickDay: null,
 		clickWeekNumber: null,
