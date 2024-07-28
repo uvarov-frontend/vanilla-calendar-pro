@@ -121,6 +121,7 @@ export interface IOptions {
 	months?: number;
 	jumpMonths?: number;
 	jumpToSelectedDate?: boolean;
+	toggleSelected?: ToggleSelected;
 	date?: Partial<IDates>;
 	sanitizer?: (dirtyHtml: string) => unknown;
 	settings?: Partial<{
@@ -136,7 +137,6 @@ export interface IOptions {
 	popups?: IPopups;
 	CSSClasses?: Partial<CSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
-	toggleSelected?: ToggleSelected;
 }
 
 export interface IVanillaCalendar {
