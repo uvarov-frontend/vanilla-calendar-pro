@@ -74,6 +74,28 @@ new VanillaCalendar('#calendar', {
 
 - - -
 
+## sanitizer
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```js
+import DOMPurify from 'dompurify';
+
+new VanillaCalendar('#calendar', {
+  sanitizer: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizer` будет очищать HTML-шаблоны, чтобы они были безопасными для CSP.
+
+<Info>
+  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. Поскольку `sanitizer` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
+</Info>
+
+- - -
+
 ## date.min
 
 `Type: String`
