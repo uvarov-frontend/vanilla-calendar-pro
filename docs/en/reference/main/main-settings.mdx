@@ -135,7 +135,7 @@ The `sanitizer` will sanitize HTML templates to be CSP safe.
 new VanillaCalendar('#calendar', {
   toggleSelected: false,
   // or with a callback
-  toggleSelected: (self) => (self.selectedDates[0] < new Date()),
+  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
 });
 ```
 
@@ -201,7 +201,9 @@ The `date.max` parameter sets the maximum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
-  today: new Date('2022-01-07T00:00:00.000Z'),
+  date: {
+    today: new Date('2022-01-07T00:00:00.000Z'),
+  },
 });
 ```
 
