@@ -87,9 +87,9 @@ const updateDisabledDates = () => {
 	const [startDate, endDate] = current.self.rangeDisabled
 		.map((dateStr) => getDate(dateStr))
 		.reduce<[Date | null, Date | null]>(([start, end], disabledDate) => [
-		selectedDate >= disabledDate ? disabledDate : start,
-		selectedDate < disabledDate && end === null ? disabledDate : end,
-	], [null, null]);
+			selectedDate >= disabledDate ? disabledDate : start,
+			selectedDate < disabledDate && end === null ? disabledDate : end,
+		], [null, null]);
 
 	if (startDate) current.self.rangeMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
 	if (endDate) current.self.rangeMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
@@ -128,7 +128,9 @@ const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatD
 		reset: () => {
 			const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
 			self.selectedDates = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1]
-				? parseDates([`${startDate as string}:${endDate as string}`])
+				? self.settings.range.edgesOnly
+					? [startDate, endDate]
+					: parseDates([`${startDate as string}:${endDate as string}`])
 				: [self.selectedDates[0], self.selectedDates[0]];
 			self.HTMLElement.removeEventListener('mousemove', handleHoverDaysEvent);
 			document.removeEventListener('keydown', handleCancelSelectionDays);

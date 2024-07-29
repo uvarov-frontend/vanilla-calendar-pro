@@ -65,6 +65,18 @@ const setDayModifier = (
 			}
 		}
 	}
+
+	// when using multiple-ranged with range edges only (only includes start/end selected dates)
+	if (self.settings.range.edgesOnly && self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
+		const firstDate = +new Date(self.selectedDates[0]);
+		const lastDate = +new Date(self.selectedDates[self.selectedDates.length - 1]);
+		const nextDate = +new Date(date);
+
+		if (nextDate > firstDate && nextDate < lastDate) {
+			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
+			dayEl.classList.add(self.CSSClasses.daySelectedIntermediate);
+		}
+	}
 };
 
 const createDay = (
