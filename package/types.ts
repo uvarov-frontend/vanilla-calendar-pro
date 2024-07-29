@@ -31,7 +31,7 @@ export interface IRange {
 	 * This parameter will only keep references of the date range edges (start/end dates) in the `settings.selected.dates` array.
 	 * Only works when `settings.selection.day` is set to `'multiple-ranged'`.
 	 */
-	edgesOnly: boolean;
+	edgesOnly?: boolean;
 	/** This parameter disables all days and can be useful when using `settings.range.enabled` */
 	disableAllDays: boolean;
 	/** This parameter allows you to disable specified weekdays. */
