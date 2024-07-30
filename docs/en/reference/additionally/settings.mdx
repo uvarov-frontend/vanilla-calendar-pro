@@ -733,7 +733,7 @@ With this parameter, you can decide whether to display days from the previous an
 
 `Default: 'left'`
 
-`Options: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right']`
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
 
 ```js
 new VanillaCalendar('#calendar', {
@@ -750,3 +750,7 @@ This parameter specifies the position of the calendar relative to input, if the 
 
 `positionToInput` takes a string with a value of `'left'`, `'center'`, or `'right'`, or an array of values `[Y-axis, X-axis]`, where the Y-axis can take the values `'bottom'` or `'top'`, and the X-axis can take the values `'left'`, `'center'`, or `'right'`.
 If the Y-axis is not specified, the default is `'bottom'`.
+
+You can use the `positionToInput: 'auto'` value to automatically detect the best position depending on the available space in the viewport. 
+Behind the scene, it calculates the available space on all 4 sides, and it will first try to display the picker at the bottom of the input
+which is the default position. If there is not enough space at the bottom, it will evaluate what would be the other best available position.

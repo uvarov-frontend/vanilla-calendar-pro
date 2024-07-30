@@ -5,6 +5,13 @@ type MM = LeadingZero | 10 | 11 | 12;
 type DD = LeadingZero | `${1 | 2}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}` | 30 | 31;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
+export interface HtmlElementPosition {
+	top: number;
+	bottom: number;
+	left: number;
+	right: number;
+}
+
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 
 export type CSSClasses = typeof classes;
@@ -48,15 +55,24 @@ export interface ISelected {
 export type ToggleSelected = boolean | ((self: IVanillaCalendar) => boolean);
 
 export interface IVisibility {
+	/** This parameter determines the theme of the calendar. By default, the theme is determined by the user's system or website settings. */
 	theme: 'light' | 'dark' | 'system';
+	/** To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector. */
 	themeDetect: string | false;
+	/** This parameter allows you to use abbreviated month names when selecting a month. */
 	monthShort: boolean;
+	/** With this parameter, you can decide whether to display week numbers in the calendar. */
 	weekNumbers: boolean;
+	/** This parameter allows you to highlight weekends in the calendar. */
 	weekend: boolean;
+	/** With this parameter, you can highlight the current day in the calendar. */
 	today: boolean;
+	/** This parameter determines whether all days, including disabled days, will be displayed. */
 	disabled: boolean;
+	/** With this parameter, you can decide whether to display days from the previous and next months. */
 	daysOutside: boolean;
-	positionToInput: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right'];
+	/** This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter. */
+	positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'];
 }
 
 export interface ISettings {
