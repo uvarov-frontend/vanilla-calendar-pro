@@ -1,4 +1,4 @@
-import { CSSClasses, IVisibility, HtmlElementPosition } from '@/package/types';
+import { HtmlElementPosition } from '@/package/types';
 
 type Position = 'center' | 'left' | 'right';
 type PositionList = ['bottom' | 'top', 'center' | 'left' | 'right'];
