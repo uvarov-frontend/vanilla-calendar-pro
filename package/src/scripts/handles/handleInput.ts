@@ -1,8 +1,8 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
+import { findBestPickerPosition } from '@scripts/helpers/position';
 import { IVisibility, CSSClasses } from '@/package/types';
-import { findBestPickerPosition } from '../helpers/position';
 
 const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
 	if (input) {

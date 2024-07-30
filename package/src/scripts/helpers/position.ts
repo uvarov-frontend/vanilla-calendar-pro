@@ -133,33 +133,3 @@ export function findBestPickerPosition(input: HTMLInputElement, calendar: HTMLEl
 
 	return position;
 }
-
-export const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
-	if (input) {
-		const pos = position === 'auto'
-			? findBestPickerPosition(input, calendar)
-			: position;
-
-		const getPosition = {
-			top: -calendar.offsetHeight,
-			bottom: input.offsetHeight,
-			left: 0,
-			center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
-			right: input.offsetWidth - calendar.offsetWidth,
-		};
-
-		const YPosition = !Array.isArray(pos) ? 'bottom' : pos[0];
-		const XPosition = !Array.isArray(pos) ? pos : pos[1];
-
-		calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
-
-		const inputRect = input.getBoundingClientRect();
-		const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-		const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-		const top = inputRect.top + scrollTop + getPosition[YPosition];
-		const left = inputRect.left + scrollLeft + getPosition[XPosition];
-
-		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
-	}
-};
