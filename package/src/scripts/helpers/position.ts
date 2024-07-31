@@ -4,9 +4,9 @@ type Position = 'center' | 'left' | 'right';
 type PositionList = ['bottom' | 'top', 'center' | 'left' | 'right'];
 
 /** Get HTML element offset with pure JS */
-export function getOffset(elm?: HTMLElement | null): HtmlElementPosition | undefined {
+export function getOffset(elm?: HTMLElement | null): HtmlElementPosition {
 	if (!elm || !elm.getBoundingClientRect) {
-		return undefined;
+		return { top: 0, bottom: 0, left: 0, right: 0 };
 	}
 	const box = elm.getBoundingClientRect();
 	const docElem = document.documentElement;
@@ -51,8 +51,8 @@ export function calculateAvailableSpace(element: HTMLElement): { top: number; bo
 	const pageScrollLeft = scrollPosition.left;
 
 	if (elmOffset) {
-		const elementOffsetTop = elmOffset.top ?? 0;
-		const elementOffsetLeft = elmOffset.left ?? 0;
+		const elementOffsetTop = elmOffset.top;
+		const elementOffsetLeft = elmOffset.left;
 		top = elementOffsetTop - pageScrollTop;
 		left = elementOffsetLeft - pageScrollLeft;
 		bottom = vh - (elementOffsetTop - pageScrollTop + element.clientHeight);

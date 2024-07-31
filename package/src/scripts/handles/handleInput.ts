@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
-import { findBestPickerPosition } from '@scripts/helpers/position';
+import { findBestPickerPosition, getOffset } from '@scripts/helpers/position';
 import { IVisibility, CSSClasses } from '@/package/types';
 
 const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
@@ -21,14 +21,18 @@ const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTML
 		const YPosition = !Array.isArray(pos) ? 'bottom' : pos[0];
 		const XPosition = !Array.isArray(pos) ? pos : pos[1];
 
-		calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
+		// add CSS class to extra margin but make sure to only keep 1 class and remove previous one
+		if (YPosition === 'bottom') {
+			calendar.classList.remove(css.calendarToInputTop);
+			calendar.classList.add(css.calendarToInputBottom);
+		} else {
+			calendar.classList.remove(css.calendarToInputBottom);
+			calendar.classList.add(css.calendarToInputTop);
+		}
 
-		const inputRect = input.getBoundingClientRect();
-		const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-		const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-		const top = inputRect.top + scrollTop + getPosition[YPosition];
-		const left = inputRect.left + scrollLeft + getPosition[XPosition];
+		const { top: offsetTop, left: offsetLeft } = getOffset(input);
+		const top = offsetTop + getPosition[YPosition];
+		const left = offsetLeft + getPosition[XPosition];
 
 		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 	}
