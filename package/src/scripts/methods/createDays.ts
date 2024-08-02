@@ -23,45 +23,45 @@ const setDayModifier = (
 	dayBtnEl: HTMLElement,
 	dayWeekID: number,
 	date: FormatDateString,
-	otherMonth: boolean,
+	month: string,
 ) => {
 	if (
 		getDate(self.rangeMin) > getDate(date)
 		|| getDate(self.rangeMax) < getDate(date)
 		|| self.rangeDisabled?.includes(date)
-		|| (!self.settings.selection.month && otherMonth)
+		|| (!self.settings.selection.month && (month === 'prev' || month === 'next'))
 		|| (!self.settings.selection.year && getDate(date).getFullYear() !== year)) {
-		dayBtnEl.classList.add(self.CSSClasses.dayBtnDisabled);
+		dayBtnEl.classList.add(...self.CSSClasses.dayBtnDisabled.trim().split(' '));
 		dayBtnEl.tabIndex = -1;
 	}
 
 	// if today
 	if (self.settings.visibility.today && getDateString(self.date.today) === date) {
-		dayBtnEl.classList.add(self.CSSClasses.dayBtnToday);
+		dayBtnEl.classList.add(...self.CSSClasses.dayBtnToday.trim().split(' '));
 	}
 
 	// if weekend
 	if (self.settings.visibility.weekend && (dayWeekID === 0 || dayWeekID === 6)) {
-		dayBtnEl.classList.add(self.CSSClasses.dayBtnWeekend);
+		dayBtnEl.classList.add(...self.CSSClasses.dayBtnWeekend.trim().split(' '));
 	}
 
 	// if holidays
 	if (self.selectedHolidays?.includes(date)) {
-		dayBtnEl.classList.add(self.CSSClasses.dayBtnHoliday);
+		dayBtnEl.classList.add(...self.CSSClasses.dayBtnHoliday.trim().split(' '));
 	}
 
 	// if selected day
 	if (self.selectedDates?.includes(date)) {
-		dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
+		dayBtnEl.classList.add(...self.CSSClasses.dayBtnSelected.trim().split(' '));
 		if (self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
 			if (self.selectedDates[0] === date) {
-				dayEl.classList.add(self.CSSClasses.daySelectedFirst);
+				dayEl.classList.add(...self.CSSClasses.daySelectedFirst.trim().split(' '));
 			}
 			if (self.selectedDates[self.selectedDates.length - 1] === date) {
-				dayEl.classList.add(self.CSSClasses.daySelectedLast);
+				dayEl.classList.add(...self.CSSClasses.daySelectedLast.trim().split(' '));
 			}
 			if (self.selectedDates[0] !== date && self.selectedDates[self.selectedDates.length - 1] !== date) {
-				dayEl.classList.add(self.CSSClasses.daySelectedIntermediate);
+				dayEl.classList.add(...self.CSSClasses.daySelectedIntermediate.trim().split(' '));
 			}
 		}
 	}
@@ -86,15 +86,17 @@ const createDay = (
 	day: number,
 	dayWeekID: number,
 	date: FormatDateString,
-	otherMonth: boolean,
+	month: string,
 	modifier: string | null,
 ) => {
 	const dayEl = document.createElement('div');
 	dayEl.className = self.CSSClasses.day;
+	dayEl.setAttribute('data-calendar-day', '');
 
 	const dayBtnEl = document.createElement('button');
 	dayBtnEl.className = `${self.CSSClasses.dayBtn}${modifier ? ` ${modifier}` : ''}`;
 	dayBtnEl.type = 'button';
+	dayBtnEl.setAttribute('data-calendar-day-btn', month);
 	dayBtnEl.innerText = String(day);
 	dayBtnEl.dataset.calendarDay = date;
 
@@ -106,14 +108,14 @@ const createDay = (
 
 	if (self.settings.visibility.weekNumbers) addWeekNumber();
 
-	if (otherMonth) {
+	if (month === 'prev' || month === 'next') {
 		if (self.settings.visibility.daysOutside) dayEl.appendChild(dayBtnEl);
 	} else {
 		dayEl.appendChild(dayBtnEl);
 	}
 
 	setDisabledDays(self, date, dayWeekID);
-	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, otherMonth);
+	setDayModifier(self, year, dayEl, dayBtnEl, dayWeekID, date, month);
 
 	daysEl.appendChild(dayEl);
 	if (self.actions.getDays) self.actions.getDays(day, date, dayEl, dayBtnEl, self);
@@ -127,7 +129,7 @@ const prevMonth = (self: VanillaCalendar, daysEl: HTMLElement, selectedYear: num
 	for (let i = firstDayWeek; i > 0; i--, day++) {
 		const date = `${year}-${month}-${day}` as FormatDateString;
 		const dayWeekID = getDate(date).getDay();
-		createDay(self, selectedYear, daysEl, day, dayWeekID, date, true, self.CSSClasses.dayBtnPrev);
+		createDay(self, selectedYear, daysEl, day, dayWeekID, date, 'prev', self.CSSClasses.dayBtnPrev);
 	}
 };
 
@@ -137,7 +139,7 @@ const currentMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMo
 		const date = getDateString(day);
 		const dayWeekID = day.getDay();
 
-		createDay(self, selectedYear, daysEl, i, dayWeekID, date, false, null);
+		createDay(self, selectedYear, daysEl, i, dayWeekID, date, 'current', null);
 	}
 };
 
@@ -152,7 +154,7 @@ const nextMonth = (self: VanillaCalendar, daysEl: HTMLElement, daysSelectedMonth
 		const day = i < 10 ? `0${i}` : String(i);
 		const date = `${year}-${month}-${day}` as FormatDateString;
 		const dayWeekID = getDate(date).getDay();
-		createDay(self, selectedYear, daysEl, i, dayWeekID, date, true, self.CSSClasses.dayBtnNext);
+		createDay(self, selectedYear, daysEl, i, dayWeekID, date, 'next', self.CSSClasses.dayBtnNext);
 	}
 };
 
