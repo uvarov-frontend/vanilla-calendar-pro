@@ -87,9 +87,9 @@ const updateDisabledDates = () => {
 	const [startDate, endDate] = current.self.rangeDisabled
 		.map((dateStr) => getDate(dateStr))
 		.reduce<[Date | null, Date | null]>(([start, end], disabledDate) => [
-			selectedDate >= disabledDate ? disabledDate : start,
-			selectedDate < disabledDate && end === null ? disabledDate : end,
-		], [null, null]);
+		selectedDate >= disabledDate ? disabledDate : start,
+		selectedDate < disabledDate && end === null ? disabledDate : end,
+	], [null, null]);
 
 	if (startDate) current.self.rangeMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
 	if (endDate) current.self.rangeMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
