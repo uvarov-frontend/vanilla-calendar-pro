@@ -51,10 +51,8 @@
 		},
 		"./types": "./types.ts",
 		"./package.json": "./package.json",
-		"./build/vanilla-calendar.min.css": "./build/vanilla-calendar.min.css",
-		"./build/vanilla-calendar.layout.min.css": "./build/vanilla-calendar.layout.min.css",
-		"./build/themes/light.min.css": "./build/themes/light.min.css",
-		"./build/themes/dark.min.css": "./build/themes/dark.min.css"
+		"./build/*": "./build/*",
+		"./build/themes/*": "./build/themes/*"
 	},
 	"devDependencies": {},
 	"dependencies": {}
