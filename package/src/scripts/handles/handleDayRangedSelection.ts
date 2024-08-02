@@ -128,7 +128,9 @@ const handleDayRangedSelection = (self: VanillaCalendar, formattedDate?: FormatD
 		reset: () => {
 			const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
 			self.selectedDates = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1]
-				? parseDates([`${startDate as string}:${endDate as string}`])
+				? self.settings.range.edgesOnly
+					? [startDate, endDate]
+					: parseDates([`${startDate as string}:${endDate as string}`])
 				: [self.selectedDates[0], self.selectedDates[0]];
 			self.HTMLElement.removeEventListener('mousemove', handleHoverDaysEvent);
 			document.removeEventListener('keydown', handleCancelSelectionDays);

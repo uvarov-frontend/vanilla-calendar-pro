@@ -115,6 +115,32 @@ new VanillaCalendar('#calendar', {
 
 ---
 
+## settings.range.edgesOnly
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```js
+new VanillaCalendar('#calendar', {
+  settings: {
+    range: {
+      edgesOnly: true,
+    }
+  },
+});
+```
+
+Этот параметр позволяет получить только начальную и конечную выбранную пользователем дату, игнорируя промежуточные даты. Этот параметр работает только в том случае, если для <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> установлено значение `'multiple-ranged'`.
+
+<Info>
+  Важно отметить, что при использовании этой настройки отключение дат в пределах диапазона дат не будет иметь никакого эффекта. Поэтому обязательно используйте этот параметр, если вас интересуют только начальная и конечная выбранная пользователем дата.
+</Info>
+
+---
+
 ## settings.range.disablePast
 
 `Type: Boolean`
