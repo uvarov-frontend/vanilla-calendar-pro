@@ -5,6 +5,8 @@ type MM = LeadingZero | 10 | 11 | 12;
 type DD = LeadingZero | `${1 | 2}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}` | 30 | 31;
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
+export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
+
 export interface HtmlElementPosition {
 	top: number;
 	bottom: number;
