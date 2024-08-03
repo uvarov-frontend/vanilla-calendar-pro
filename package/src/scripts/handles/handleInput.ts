@@ -68,6 +68,12 @@ const handleInput = (self: VanillaCalendar) => {
 
 	const handleResize = () => setPositionCalendar(self.HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput, self.CSSClasses);
 
+	const handleEscapeKey = (e: KeyboardEvent) => {
+		if (e.key !== 'Escape') return;
+		if (self?.HTMLInputElement && self?.HTMLElement) self.hide();
+		document.removeEventListener('keydown', handleEscapeKey);
+	};
+
 	const documentClickEvent = (e: MouseEvent) => {
 		if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as Node)) return;
 		if (self.HTMLInputElement && self.HTMLElement) self.hide();
@@ -75,7 +81,7 @@ const handleInput = (self: VanillaCalendar) => {
 		document.removeEventListener('click', documentClickEvent, { capture: true });
 	};
 
-	self.HTMLInputElement.addEventListener('click', () => {
+	const handleOpenCalendar = () => {
 		if (firstInit) {
 			cleanup.push(createCalendarToInput());
 		} else {
@@ -84,7 +90,12 @@ const handleInput = (self: VanillaCalendar) => {
 		}
 		window.addEventListener('resize', handleResize);
 		document.addEventListener('click', documentClickEvent, { capture: true });
-	});
+		document.addEventListener('keydown', handleEscapeKey);
+	};
+
+	self.HTMLInputElement.addEventListener('click', handleOpenCalendar);
+	self.HTMLInputElement.addEventListener('focus', handleOpenCalendar);
+
 	return () => {
 		cleanup.forEach((clean) => clean());
 	};
