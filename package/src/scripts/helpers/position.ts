@@ -6,7 +6,9 @@ type PositionList = ['bottom' | 'top', 'center' | 'left' | 'right'];
 /** Get HTML element offset with pure JS */
 export function getOffset(elm?: HTMLElement | null): HtmlElementPosition {
 	if (!elm || !elm.getBoundingClientRect) {
-		return { top: 0, bottom: 0, left: 0, right: 0 };
+		return {
+			top: 0, bottom: 0, left: 0, right: 0,
+		};
 	}
 	const box = elm.getBoundingClientRect();
 	const docElem = document.documentElement;
@@ -14,8 +16,8 @@ export function getOffset(elm?: HTMLElement | null): HtmlElementPosition {
 	return {
 		bottom: box.bottom,
 		right: box.right,
-		top: box.top + window.pageYOffset - docElem.clientTop,
-		left: box.left + window.pageXOffset - docElem.clientLeft,
+		top: box.top + window.scrollY - docElem.clientTop,
+		left: box.left + window.scrollX - docElem.clientLeft,
 	};
 }
 
@@ -25,8 +27,8 @@ export function getOffset(elm?: HTMLElement | null): HtmlElementPosition {
  */
 export function windowScrollPosition(): { left: number; top: number; } {
 	return {
-		left: window.pageXOffset || document.documentElement.scrollLeft || 0,
-		top: window.pageYOffset || document.documentElement.scrollTop || 0,
+		left: window.scrollX || document.documentElement.scrollLeft || 0,
+		top: window.scrollY || document.documentElement.scrollTop || 0,
 	};
 }
 
@@ -59,7 +61,9 @@ export function calculateAvailableSpace(element: HTMLElement): { top: number; bo
 		right = vw - (elementOffsetLeft - pageScrollLeft + element.clientWidth);
 	}
 
-	return { top, bottom, left, right };
+	return {
+		top, bottom, left, right,
+	};
 }
 
 /**
@@ -71,7 +75,9 @@ export function calculateAvailableSpace(element: HTMLElement): { top: number; bo
  * @returns
  */
 export function getAvailablePosition(parentElm: HTMLElement, pickerElm: HTMLElement, marginOffset = 5) {
-	const canShow = { top: true, bottom: true, left: true, right: true };
+	const canShow = {
+		top: true, bottom: true, left: true, right: true,
+	};
 	const parentPositions: PositionList = [] as unknown as PositionList;
 
 	if (pickerElm && parentElm) {
