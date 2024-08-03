@@ -81,7 +81,7 @@ const handleCancelSelectionDays = (e: KeyboardEvent) => {
 };
 
 const updateDisabledDates = () => {
-	if (!current.self?.selectedDates?.[0] || !current.self.rangeDisabled || current.self.rangeDisabled?.length < 2) return;
+	if (!current.self?.selectedDates?.[0] || !current.self.rangeDisabled?.[0]) return;
 	const selectedDate = getDate(current.self.selectedDates[0]);
 
 	const [startDate, endDate] = current.self.rangeDisabled
