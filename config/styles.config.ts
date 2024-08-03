@@ -2,6 +2,8 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import banner from 'vite-plugin-banner';
+// eslint-disable-next-line import/no-relative-packages
+import { version } from '../package/package.json';
 
 export default defineConfig({
 	publicDir: './package/public',
@@ -33,7 +35,7 @@ export default defineConfig({
 	plugins: [
 		banner({
 			outDir: './package/build',
-			content: 'name: vanilla-calendar-pro | url: https://github.com/uvarov-frontend/vanilla-calendar-pro',
+			content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro`,
 		}),
 	],
 });
