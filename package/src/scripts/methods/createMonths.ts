@@ -5,7 +5,7 @@ import visibilityTitle from '@scripts/methods/visibilityTitle';
 const relationshipID = (self: VanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;
 	const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
-	const indexColumn = [...columnEls].findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
+	const indexColumn = Array.from(columnEls).findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
 	return indexColumn > 0 ? indexColumn : 0;
 };
 

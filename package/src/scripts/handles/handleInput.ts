@@ -1,32 +1,41 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import handleClick from '@scripts/handles/handleClick';
 import reset from '@scripts/reset';
+import { findBestPickerPosition, getOffset } from '@scripts/helpers/position';
 import { IVisibility, CSSClasses } from '@/package/types';
 
 const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
-	if (!input) return;
+	if (input) {
+		const pos = position === 'auto'
+			? findBestPickerPosition(input, calendar)
+			: position;
 
-	const getPosition = {
-		top: -calendar.offsetHeight,
-		bottom: input.offsetHeight,
-		left: 0,
-		center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
-		right: input.offsetWidth - calendar.offsetWidth,
-	};
+		const getPosition = {
+			top: -calendar.offsetHeight,
+			bottom: input.offsetHeight,
+			left: 0,
+			center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+			right: input.offsetWidth - calendar.offsetWidth,
+		};
 
-	const YPosition = !Array.isArray(position) ? 'bottom' : position[0];
-	const XPosition = !Array.isArray(position) ? position : position[1];
+		const YPosition = !Array.isArray(pos) ? 'bottom' : pos[0];
+		const XPosition = !Array.isArray(pos) ? pos : pos[1];
 
-	calendar.classList.add(YPosition === 'bottom' ? css.calendarToInputBottom : css.calendarToInputTop);
+		// add CSS class to extra margin but make sure to only keep 1 class and remove previous one
+		if (YPosition === 'bottom') {
+			calendar.classList.remove(css.calendarToInputTop);
+			calendar.classList.add(css.calendarToInputBottom);
+		} else {
+			calendar.classList.remove(css.calendarToInputBottom);
+			calendar.classList.add(css.calendarToInputTop);
+		}
 
-	const inputRect = input.getBoundingClientRect();
-	const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-	const scrollTop = window.scrollY || document.documentElement.scrollTop;
+		const { top: offsetTop, left: offsetLeft } = getOffset(input);
+		const top = offsetTop + getPosition[YPosition];
+		const left = offsetLeft + getPosition[XPosition];
 
-	const top = inputRect.top + scrollTop + getPosition[YPosition];
-	const left = inputRect.left + scrollLeft + getPosition[XPosition];
-
-	Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+	}
 };
 
 const handleInput = (self: VanillaCalendar) => {
@@ -41,8 +50,13 @@ const handleInput = (self: VanillaCalendar) => {
 		document.body.appendChild(self.HTMLElement);
 		firstInit = false;
 
+		// because of a positioning delay, it might flicker for a short period
+		// we can hide the picker, reposition it, and finally show it back to avoid flickering because of the positioning delay below
+		self.HTMLElement.style.visibility = 'hidden';
+
 		setTimeout(() => {
 			setPositionCalendar(self.HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
+			self.HTMLElement.style.visibility = 'visible';
 			self.show();
 		}, 0);
 		reset(self, {
@@ -71,10 +85,8 @@ const handleInput = (self: VanillaCalendar) => {
 		window.addEventListener('resize', handleResize);
 		document.addEventListener('click', documentClickEvent, { capture: true });
 	});
-
 	return () => {
 		cleanup.forEach((clean) => clean());
 	};
 };
-
 export default handleInput;

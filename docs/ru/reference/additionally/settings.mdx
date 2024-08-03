@@ -760,13 +760,13 @@ new VanillaCalendar('#calendar', {
 
 `Default: 'left'`
 
-`Options: 'left' | 'center' | 'right' | ['bottom', 'left'] | ['bottom', 'center'] | ['bottom', 'right'] | ['top', 'left'] | ['top', 'center'] | ['top', 'right']`
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
 
 ```js
 new VanillaCalendar('#calendar', {
   settings: {
     visibility: {
-      positionToInput: 'center',
+      positionToInput: 'auto',
       // positionToInput: ['bottom', 'center'],
     },
   },
@@ -777,3 +777,7 @@ new VanillaCalendar('#calendar', {
 
 `positionToInput` принимает строку со значением `'left'`, `'center'` или `'right'`, либо массив значений `[ось Y, ось X]`, где ось Y может быть `'bottom'` или `'top'`, а ось X может быть `'left'`, `'center'` или `'right'`.
 Если ось Y не указана, то используется значение по умолчанию - `'bottom'`.
+
+Вы можете использовать значение `positionToInput: 'auto'` для автоматического определения наилучшей позиции в зависимости от доступного места в области просмотра.
+Опция позволяет рассчитать доступное пространство со всех 4 сторон и сначала попытается отобразить календарь внизу относительно input, это позиция по умолчанию.
+Если внизу недостаточно места, он оценит другую лучшую доступную позицию.
