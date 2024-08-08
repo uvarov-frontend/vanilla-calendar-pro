@@ -135,6 +135,7 @@ export function findBestPickerPosition(input: HTMLInputElement, calendar: HTMLEl
 	return bestPosition || position;
 }
 
+/** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
 export const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
 	if (input) {
 		const pos = position === 'auto'
