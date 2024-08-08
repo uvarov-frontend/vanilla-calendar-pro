@@ -75,7 +75,7 @@ export function calculateAvailableSpace(element: HTMLElement): { top: number; bo
  * @returns {{ canShow: { top: boolean, bottom: boolean, left: boolean, right: boolean }, parentPositions: Positions[] }}
  * An object containing the possible display positions and parent element positions.
  */
-export function getAvailablePosition(parentElm: HTMLInputElement, pickerElm: HTMLElement, marginOffset = 5) {
+export function getAvailablePosition(parentElm: HTMLElement, pickerElm: HTMLElement, marginOffset = 5) {
 	const canShow = {
 		top: true,
 		bottom: true,
