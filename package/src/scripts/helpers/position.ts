@@ -1,4 +1,4 @@
-import { HtmlElementPosition, Positions } from '@package/types';
+import { CSSClasses, HtmlElementPosition, IVisibility, Positions } from '@package/types';
 
 /**
  * Get the offset position of an HTML element relative to the viewport.
@@ -134,3 +134,38 @@ export function findBestPickerPosition(input: HTMLInputElement, calendar: HTMLEl
 
 	return bestPosition || position;
 }
+
+/** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
+export const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
+	if (input) {
+		const pos = position === 'auto'
+			? findBestPickerPosition(input, calendar)
+			: position;
+
+		const getPosition = {
+			top: -calendar.offsetHeight,
+			bottom: input.offsetHeight,
+			left: 0,
+			center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+			right: input.offsetWidth - calendar.offsetWidth,
+		};
+
+		const YPosition = !Array.isArray(pos) ? 'bottom' : pos[0];
+		const XPosition = !Array.isArray(pos) ? pos : pos[1];
+
+		// add CSS class to extra margin but make sure to only keep 1 class and remove previous one
+		if (YPosition === 'bottom') {
+			calendar.classList.remove(css.calendarToInputTop);
+			calendar.classList.add(css.calendarToInputBottom);
+		} else {
+			calendar.classList.remove(css.calendarToInputBottom);
+			calendar.classList.add(css.calendarToInputTop);
+		}
+
+		const { top: offsetTop, left: offsetLeft } = getOffset(input);
+		const top = offsetTop + getPosition[YPosition];
+		const left = offsetLeft + getPosition[XPosition];
+
+		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+	}
+};
