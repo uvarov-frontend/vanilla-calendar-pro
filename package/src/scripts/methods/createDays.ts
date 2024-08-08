@@ -41,7 +41,7 @@ const setDayModifier = (
 	}
 
 	// if weekend
-	if (self.settings.visibility.weekend && (dayWeekID === 0 || dayWeekID === 6)) {
+	if (self.settings.visibility.weekend && (self.date.weekends || [0, 6]).includes(dayWeekID)) {
 		dayBtnEl.classList.add(self.CSSClasses.dayBtnWeekend);
 	}
 

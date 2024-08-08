@@ -8,12 +8,18 @@ const createWeekDays = (self: VanillaCalendar, weekEl: HTMLElement, weekday: str
 		const weekDayName = weekday[i];
 		const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
 		weekDayEl.className = `${self.CSSClasses.weekDay}`;
-		weekDayEl.className = `${self.CSSClasses.weekDay}${self.settings.visibility.weekend && self.settings.iso8601
-			? (i === 5 || i === 6
-				? ` ${self.CSSClasses.weekDayWeekend}` : '')
-			: self.settings.visibility.weekend && !self.settings.iso8601
-				? (i === 0 || i === 6 ? ` ${self.CSSClasses.weekDayWeekend}` : '')
+		if (self.date.weekends) {
+			weekDayEl.className = `${self.CSSClasses.weekDay}${self.settings.visibility.weekend
+				? (self.date.weekends?.includes(i) ? ` ${self.CSSClasses.weekDayWeekend}` : '')
 				: ''}`;
+		} else {
+			weekDayEl.className = `${self.CSSClasses.weekDay}${self.settings.visibility.weekend && self.settings.iso8601
+				? (i === 5 || i === 6
+					? ` ${self.CSSClasses.weekDayWeekend}` : '')
+				: self.settings.visibility.weekend && !self.settings.iso8601
+					? (i === 0 || i === 6 ? ` ${self.CSSClasses.weekDayWeekend}` : '')
+					: ''}`;
+		}
 		weekDayEl.innerText = `${weekDayName}`;
 		weekEl.appendChild(weekDayEl);
 	}
