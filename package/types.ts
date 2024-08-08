@@ -223,4 +223,5 @@ export interface IVanillaCalendar {
 	readonly dateMin: Date;
 	readonly dateMax: Date;
 	readonly isInit: boolean;
+	readonly isInputInit: boolean;
 }
