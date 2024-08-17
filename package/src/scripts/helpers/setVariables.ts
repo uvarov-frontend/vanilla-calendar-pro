@@ -4,7 +4,8 @@ import getDateString from '@scripts/helpers/getDateString';
 import getLocalDate from '@scripts/helpers/getLocalDate';
 import transformTime12 from '@scripts/helpers/transformTime12';
 import getDate from '@scripts/helpers/getDate';
-import messages from './getMessages';
+import messages from '@scripts/helpers/getMessages';
+import { FormatDateString } from '@package/types';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
 	if (self.jumpToSelectedDate && self.settings.selected.dates?.length && (self.settings.selected.month === undefined && self.settings.selected.year === undefined)) {
@@ -22,14 +23,23 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 
 const initRange = (self: VanillaCalendar) => {
 	// set self.rangeMin and self.rangeMax
-	if (self.settings.range.min === 'today') {
-		self.settings.range.min = getLocalDate();
-	}
-	if (self.settings.range.max === 'today') {
-		self.settings.range.max = getLocalDate();
-	}
-	self.settings.range.min = getDate(self.date.min) >= getDate(self.settings.range.min) ? self.date.min : self.settings.range.min;
-	self.settings.range.max = getDate(self.date.max) <= getDate(self.settings.range.max) ? self.date.max : self.settings.range.max;
+	if (self.date.min === 'today') self.date.min = getLocalDate();
+	if (self.date.max === 'today') self.date.max = getLocalDate();
+
+	if (self.settings.range.min === 'today') self.settings.range.min = getLocalDate();
+	if (self.settings.range.max === 'today') self.settings.range.max = getLocalDate();
+
+	self.settings.range.min = self.settings.range.min
+		? getDate(self.date.min) >= getDate(self.settings.range.min)
+			? self.date.min
+			: self.settings.range.min
+		: self.date.min;
+
+	self.settings.range.max = self.settings.range.max
+		? getDate(self.date.max) <= getDate(self.settings.range.max)
+			? self.date.max
+			: self.settings.range.max
+		: self.date.max;
 
 	const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
 	self.rangeMin = isDisablePast
@@ -66,8 +76,8 @@ const initSelectedDates = (self: VanillaCalendar) => {
 };
 
 const initDateMinMax = (self: VanillaCalendar) => {
-	self.dateMin = self.settings.visibility.disabled ? getDate(self.date.min) : getDate(self.rangeMin);
-	self.dateMax = self.settings.visibility.disabled ? getDate(self.date.max) : getDate(self.rangeMax);
+	self.dateMin = self.settings.visibility.disabled ? getDate(self.date.min as FormatDateString) : getDate(self.rangeMin);
+	self.dateMax = self.settings.visibility.disabled ? getDate(self.date.max as FormatDateString) : getDate(self.rangeMax);
 };
 
 const initTime = (self: VanillaCalendar) => {
