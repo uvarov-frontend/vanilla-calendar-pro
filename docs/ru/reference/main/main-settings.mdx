@@ -145,20 +145,18 @@ new VanillaCalendar('#calendar', {
 
 ## date.min
 
-`Type: String | Number | Date`
+`Type: String`
 
 `Default: '1970-01-01'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     min: '1970-01-01',
     // or
-    min: 1722152977141, // in milliseconds from 1970-01-01
-    // or
-    min: new Date('2018-01-01'),
+    min: 'today',
   },
 });
 ```
@@ -169,20 +167,18 @@ new VanillaCalendar('#calendar', {
 
 ## date.max
 
-`Type: String | Number | Date`
+`Type: String`
 
 `Default: '2470-12-31'`
 
-`Options: 'YYYY-MM-DD'`
+`Options: 'YYYY-MM-DD' | 'today'`
 
 ```js
 new VanillaCalendar('#calendar', {
   date: {
     max: '2470-12-31',
     // or
-    max: 1722152977141, // in milliseconds from 1970-01-01
-    // or
-    max: new Date('2018-01-01'),
+    max: 'today',
   },
 });
 ```
