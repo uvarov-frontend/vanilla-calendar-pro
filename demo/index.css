@@ -25,3 +25,15 @@
 .input {
 	@apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left inline-block
 }
+
+.bg-orange {
+	@apply !bg-orange-500 !text-white
+}
+
+.bg-red {
+	@apply !bg-red-500 !text-white
+}
+
+.text-bold {
+	@apply !font-bold
+}

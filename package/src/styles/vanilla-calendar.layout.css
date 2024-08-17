@@ -221,18 +221,12 @@
 
 .vanilla-calendar-day__popup {
 	transform: translateX(-50%);
-	@apply absolute z-20 left-1/2 top-full w-32 pt-4 pb-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto before:absolute after:absolute
+	@apply absolute z-20 left-1/2 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto before:absolute after:absolute
 }
 
 .vanilla-calendar-day__popup::before {
 	content: '';
-	@apply -z-10 left-0 bottom-0 w-full h-[calc(100%_-_8px)] block rounded-lg
-}
-
-.vanilla-calendar-day__popup::after {
-	content: '';
-	transform: translateX(-50%);
-	@apply -z-10 left-1/2 top-[1px] block h-0 w-0 border-t-0 border-x-8 border-b-8 border-solid border-t-transparent border-x-transparent
+	@apply -z-10 left-0 bottom-0 w-full h-[calc(100%_-_4px)] block rounded-lg
 }
 
 .vanilla-calendar-time {
