@@ -201,10 +201,6 @@
 	@apply bg-slate-900 shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)]
 }
 
-[data-calendar-theme="dark"] .vanilla-calendar-day__popup::after {
-	@apply border-b-slate-700
-}
-
 [data-calendar-theme="dark"] .vanilla-calendar-time {
 	@apply border-slate-800
 }
