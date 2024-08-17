@@ -166,7 +166,17 @@ export const setPositionCalendar = (input: HTMLInputElement | undefined, calenda
 
 		const { top: offsetTop, left: offsetLeft } = getOffset(input);
 		const top = offsetTop + getPosition[YPosition];
-		const left = offsetLeft + getPosition[XPosition];
+		let left = offsetLeft + getPosition[XPosition];
+
+		// make sure the new position is not outside the viewport,
+		// if so then change position to have enough space to show full picker
+		const { vw } = getViewportDimensions();
+		if (left + calendar.clientWidth > vw) {
+			const scrollbarWidth = (window.innerWidth - document.body.clientWidth);
+			left = vw - calendar.clientWidth - scrollbarWidth;
+		} else if (left < 0) {
+			left = 0;
+		}
 
 		Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 	}
