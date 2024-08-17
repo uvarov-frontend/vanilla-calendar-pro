@@ -1,4 +1,6 @@
-import { CSSClasses, HtmlElementPosition, IVisibility, Positions } from '@package/types';
+import {
+	CSSClasses, HtmlElementPosition, IVisibility, Positions,
+} from '@package/types';
 
 /**
  * Get the offset position of an HTML element relative to the viewport.

@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			month: true,
 			year: true,
 		});
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		calendarInput.HTMLInputElement!.value = '2023-04-07';
 	});
 });
