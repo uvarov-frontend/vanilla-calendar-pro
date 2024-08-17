@@ -210,10 +210,6 @@
 	@apply bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.2)]
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__popup::after {
-	@apply border-b-white
-}
-
 [data-calendar-theme="light"] .vanilla-calendar-time {
 	@apply border-slate-300
 }
