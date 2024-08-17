@@ -23,8 +23,8 @@ export default class DefaultOptionsCalendar {
 		lang: 'en',
 		iso8601: true,
 		range: {
-			min: this.date.min,
-			max: this.date.max,
+			min: undefined,
+			max: undefined,
 			disablePast: false,
 			disableGaps: false,
 			edgesOnly: false,

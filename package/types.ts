@@ -19,16 +19,16 @@ export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 export type CSSClasses = typeof classes;
 
 export interface IDates {
-	min: FormatDateString;
-	max: FormatDateString;
+	min: FormatDateString | 'today';
+	max: FormatDateString | 'today';
 	today: Date;
 }
 
 export interface IRange {
 	/** This parameter sets the minimum date that the user can choose */
-	min: FormatDateString | 'today';
+	min?: FormatDateString | 'today';
 	/** This parameter sets the maximum date that the user can choose */
-	max: FormatDateString | 'today';
+	max?: FormatDateString | 'today';
 	/** This parameter disables all past days. */
 	disablePast: boolean;
 	/**
@@ -46,9 +46,9 @@ export interface IRange {
 	/** This parameter allows you to disable specified weekdays. */
 	disableWeekday?: number[];
 	/** This parameter allows you to disable specific dates regardless of the specified range. */
-	disabled?: string[];
+	disabled?: Array<Date | number | FormatDateString>;
 	/** This parameter allows you to enable specific dates regardless of the range and disabled dates. */
-	enabled?: string[];
+	enabled?: Array<Date | number | FormatDateString>;
 }
 
 export interface ISelection {
@@ -63,10 +63,10 @@ export interface ISelection {
 }
 
 export interface ISelected {
-	dates?: Array<Date | number | string>;
+	dates?: Array<Date | number | FormatDateString>;
 	month?: number;
 	year?: number;
-	holidays?: string[];
+	holidays?: Array<Date | number | FormatDateString>;
 	time?: string;
 }
 
