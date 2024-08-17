@@ -47,4 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const calendarDiv = new VanillaCalendar('#calendar-div', configDiv);
 	calendarDiv.init();
+
+	document.querySelector('#set-date')?.addEventListener('click', () => {
+		calendarInput.settings.selected = {
+			dates: ['2023-04-07'],
+			month: 3,
+			year: 2023,
+		};
+		calendarInput.update({
+			dates: true,
+			month: true,
+			year: true,
+		});
+		calendarInput.HTMLInputElement!.value = '2023-04-07';
+	});
 });
