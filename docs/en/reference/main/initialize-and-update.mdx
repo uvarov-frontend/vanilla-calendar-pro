@@ -64,3 +64,18 @@ The `hide()` method allows you to hide the calendar if it has been shown.
 ```js
 calendar.hide();
 ```
+
+## changeSetting()
+
+The `changeSetting()` method allows you to change a single setting.
+The first argument is the name of the setting you want to change and the second argument is the value.
+
+```js
+calendar.changeSetting('range', { min: 'today' });
+```
+
+<Info>
+  Please note that when the value provided is an object, it will be merged with any existing setting object properties.
+	For example if our internal setting is `{ range: { min: '1970-01-01', max: '2099-12-31' }}` and we provide the new setting `{ range: { max: 'today' }}`
+	then the new settings will become `{ range: { min: '1970-01-01', max: 'today' }}`
+</Info>
