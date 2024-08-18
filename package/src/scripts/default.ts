@@ -66,6 +66,7 @@ export default class DefaultOptionsCalendar {
 	locale: T.ILocale = {
 		months: [],
 		weekday: [],
+		longWeekday: [],
 	};
 	sanitizer = (dirtyHtml: string) => dirtyHtml;
 	actions: T.IActions = {
