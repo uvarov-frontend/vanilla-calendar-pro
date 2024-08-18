@@ -10,8 +10,8 @@ const DOMMultiple = (styles: CSSClasses) => (`
 			<div class="${styles.column}">
 				<div class="${styles.header}">
 					<div class="${styles.headerContent}">
-						<#Month [month] />
-						<#Year [month] />
+						<#Month />
+						<#Year />
 					</div>
 				</div>
 				<div class="${styles.wrapper}">
