@@ -4,6 +4,7 @@ import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMYear from '@scripts/templates/DOMYear';
+import labels from '@/package/labels';
 
 export default class DefaultOptionsCalendar {
 	isInit = false;
@@ -85,6 +86,7 @@ export default class DefaultOptionsCalendar {
 		hideCalendar: null,
 	};
 	popups: T.IPopups = {};
+	ariaLabels: T.AriaLabels = { ...labels };
 	CSSClasses: T.CSSClasses = { ...classes };
 	DOMTemplates: T.IDOMTemplates = {
 		default: DOMDefault(this.CSSClasses),

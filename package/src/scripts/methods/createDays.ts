@@ -52,6 +52,7 @@ const setDayModifier = (
 
 	// if selected day
 	if (self.selectedDates?.includes(date)) {
+		dayBtnEl.ariaSelected = 'true';
 		dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 		if (self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
 			if (self.selectedDates[0] === date) {
@@ -73,6 +74,7 @@ const setDayModifier = (
 		const nextDate = +new Date(date);
 
 		if (nextDate > firstDate && nextDate < lastDate) {
+			dayBtnEl.ariaSelected = 'true';
 			dayBtnEl.classList.add(self.CSSClasses.dayBtnSelected);
 			dayEl.classList.add(self.CSSClasses.daySelectedIntermediate);
 		}
@@ -93,6 +95,8 @@ const createDay = (
 	dayEl.className = self.CSSClasses.day;
 
 	const dayBtnEl = document.createElement('button');
+	dayBtnEl.ariaLabel = date;
+	dayBtnEl.ariaSelected = 'false';
 	dayBtnEl.className = `${self.CSSClasses.dayBtn}${modifier ? ` ${modifier}` : ''}`;
 	dayBtnEl.type = 'button';
 	dayBtnEl.innerText = String(day);

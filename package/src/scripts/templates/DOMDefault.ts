@@ -2,12 +2,12 @@ import { CSSClasses } from '@package/types';
 
 const DOMDefault = (styles: CSSClasses) => (`
 	<div class="${styles.header}">
-		<#ArrowPrev />
+		<#ArrowPrev [month] />
 		<div class="${styles.headerContent}">
 			<#Month />
 			<#Year />
 		</div>
-		<#ArrowNext />
+		<#ArrowNext [month] />
 	</div>
 	<div class="${styles.wrapper}">
 		<#WeekNumbers />

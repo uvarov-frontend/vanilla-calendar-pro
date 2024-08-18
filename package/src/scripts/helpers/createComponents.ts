@@ -1,14 +1,16 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 
-export const ArrowPrev = (self: VanillaCalendar) => (`
+export const ArrowPrev = (self: VanillaCalendar, type = '') => (`
 	<button type="button"
+		aria-label="${self.ariaLabels[type === 'year' ? 'previousYear' : 'previousMonth']}"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowPrev}"
 		data-calendar-arrow="prev">
 	</button>
 `);
 
-export const ArrowNext = (self: VanillaCalendar) => (`
+export const ArrowNext = (self: VanillaCalendar, type = '') => (`
 	<button type="button"
+		aria-label="${self.ariaLabels[type === 'year' ? 'nextYear' : 'nextMonth']}"
 		class="${self.CSSClasses.arrow} ${self.CSSClasses.arrowNext}"
 		data-calendar-arrow="next">
 	</button>

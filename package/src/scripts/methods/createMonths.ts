@@ -11,8 +11,11 @@ const relationshipID = (self: VanillaCalendar) => {
 
 const createMonthEl = (self: VanillaCalendar, templateMonthEl: HTMLButtonElement, selectedMonth: number, monthTitle: string, monthDisabled: boolean, i: number) => {
 	const monthEl = templateMonthEl.cloneNode(false) as HTMLButtonElement;
-	monthEl.className = `${self.CSSClasses.monthsMonth}${selectedMonth === i ? ` ${self.CSSClasses.monthsMonthSelected}`
+	const isMonthSelected = selectedMonth === i;
+	monthEl.className = `${self.CSSClasses.monthsMonth}${isMonthSelected ? ` ${self.CSSClasses.monthsMonthSelected}`
 		: monthDisabled ? ` ${self.CSSClasses.monthsMonthDisabled}` : ''}`;
+	monthEl.ariaLabel = monthTitle;
+	monthEl.ariaSelected = String(isMonthSelected);
 	monthEl.title = monthTitle;
 	monthEl.innerText = `${self.settings.visibility.monthShort ? monthTitle.substring(0, 3) : monthTitle}`;
 	monthEl.dataset.calendarMonth = String(i);

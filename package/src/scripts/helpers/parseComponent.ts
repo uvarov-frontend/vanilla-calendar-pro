@@ -3,8 +3,9 @@ import getComponent from '@scripts/helpers/getComponent';
 
 export const DOMParser = (self: VanillaCalendar, template: string) => (
 	template.replace(/[\n\t]/g, '').replace(/<#(?!\/?Multiple)(.*?)>/g, (_, p1) => {
-		const component = getComponent(p1.replace(/[/\s\n\t]/g, ''));
-		const html = component ? component(self) : '';
+		const [__, comp, attribute] = /(.*)\s?\[(.*)\].*/g.exec(p1) || [];
+		const component = getComponent((comp || p1).replace(/[/\s\n\t]/g, ''));
+		const html = component ? component(self, attribute) : '';
 		return self.sanitizer(html);
 	})
 ).replace(/[\n\t]/g, '');
