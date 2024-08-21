@@ -14,6 +14,7 @@ export default class DefaultOptionsCalendar {
 	jumpMonths = 1;
 	jumpToSelectedDate = false;
 	toggleSelected: T.ToggleSelected = true;
+	minimumWidth = 300;
 	date: T.IDates = {
 		min: '1970-01-01',
 		max: '2470-12-31',

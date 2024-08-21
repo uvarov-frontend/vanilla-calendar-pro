@@ -16,7 +16,7 @@ const createCalendarToInput = (self: VanillaCalendar, isVisible = true) => {
 
 	if (isVisible) {
 		queueMicrotask(() => {
-			setPositionCalendar(self.HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses);
+			setPositionCalendar(self.HTMLInputElement, calendar, self.settings.visibility.positionToInput, self.CSSClasses, self.minimumWidth);
 			self.HTMLElement.style.visibility = 'visible';
 			self.show();
 		});

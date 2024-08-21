@@ -138,7 +138,7 @@ export function findBestPickerPosition(input: HTMLInputElement, calendar: HTMLEl
 }
 
 /** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
-export const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses) => {
+export const setPositionCalendar = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput'], css: CSSClasses, minimumWidth: number) => {
 	if (input) {
 		const pos = position === 'auto'
 			? findBestPickerPosition(input, calendar)
@@ -171,9 +171,11 @@ export const setPositionCalendar = (input: HTMLInputElement | undefined, calenda
 		// make sure the new position is not outside the viewport,
 		// if so then change position to have enough space to show full picker
 		const { vw } = getViewportDimensions();
-		if (left + calendar.clientWidth > vw) {
+		const calendarWidth = calendar.clientWidth === 0 ? minimumWidth : calendar.clientWidth
+
+		if (left + calendarWidth > vw) {
 			const scrollbarWidth = (window.innerWidth - document.body.clientWidth);
-			left = vw - calendar.clientWidth - scrollbarWidth;
+			left = vw - calendarWidth - scrollbarWidth;
 		} else if (left < 0) {
 			left = 0;
 		}
