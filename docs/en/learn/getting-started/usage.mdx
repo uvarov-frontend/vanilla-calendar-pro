@@ -21,7 +21,7 @@ As an example in this documentation, an **«id»** attribute with the value **«
 </html>
 ```
 
-## JS
+## JavaScript
 If you installed VanillaCalendar using NPM or Yarn, you need to import JavaScript and the necessary styles. If you connected VanillaCalendar locally or used a CDN, you can skip this step.
 
 ```js
@@ -61,38 +61,38 @@ The full example with html and js files can be viewed in the sandbox by clicking
 ## TypeScript
 If you installed VanillaCalendar using NPM or Yarn and you use TypeScript, the usage is similar to JavaScript except that the types use different imports as shown below.
 
-```typescript
+```ts
 import VanillaCalendar from 'vanilla-calendar-pro';
 import type { IOptions, ISettings } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 // use the types in your code
 import class Example {
-	init() {
-		const options: IOptions = {
-			settings: {
-				selected: {
-					dates: ['2024-08-20'],
-				},
-			},
-		};
+  init() {
+    const options: IOptions = {
+      settings: {
+        selected: {
+          dates: ['2024-08-20'],
+        },
+      },
+    };
 
-		const calendar = new VanillaCalendar('#calendar', options);
-		calendar.init();
+    const calendar = new VanillaCalendar('#calendar', options);
+    calendar.init();
 
-		const newOptions: IOptions['settings'] = {
-			selected: {
-				dates: ['2024-08-22'],
-			},
-		};
+    const newOptions: IOptions['settings'] = {
+      selected: {
+        dates: ['2024-08-22'],
+      },
+    };
 
-		this.changeSetting(calendar, newOptions as ISettings);
-		calendar.update({ dates: true });
-	}
+    this.changeSetting(calendar, newOptions as ISettings);
+    calendar.update({ dates: true });
+  }
 
-	changeSetting(calendar: VanillaCalendar, settings: ISettings) {
-		calendar.settings = { ...calendar.settings, ...settings };
-	}
+  changeSetting(calendar: VanillaCalendar, settings: ISettings) {
+    calendar.settings = { ...calendar.settings, ...settings };
+  }
 }
 ```
 

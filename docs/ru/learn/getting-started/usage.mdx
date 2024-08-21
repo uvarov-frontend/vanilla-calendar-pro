@@ -21,7 +21,7 @@
 </html>
 ```
 
-## JS
+## JavaScript
 Если вы установили VanillaCalendar с помощью NPM или Yarn, вам нужно импортировать JavaScript и необходимые стили. Если вы подключили VanillaCalendar локально или использовали CDN, вы можете пропустить этот шаг.
 
 ```js
@@ -57,6 +57,44 @@ calendar.init();
 Полный пример с файлами html и js можно просмотреть в песочнице, для этого нажмите кнопку **«Открыть»** вверху справа.
 
 <Sandbox example="try-vanilla-calendar" />
+
+## TypeScript
+Если вы установили VanillaCalendar с помощью NPM или Yarn и используете TypeScript, его использование аналогично JavaScript, за исключением того, что типы используют разные импорты, как показано ниже.
+
+```ts
+import VanillaCalendar from 'vanilla-calendar-pro';
+import type { IOptions, ISettings } from 'vanilla-calendar-pro/types';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+
+// use the types in your code
+import class Example {
+  init() {
+    const options: IOptions = {
+      settings: {
+        selected: {
+          dates: ['2024-08-20'],
+        },
+      },
+    };
+
+    const calendar = new VanillaCalendar('#calendar', options);
+    calendar.init();
+
+    const newOptions: IOptions['settings'] = {
+      selected: {
+        dates: ['2024-08-22'],
+      },
+    };
+
+    this.changeSetting(calendar, newOptions as ISettings);
+    calendar.update({ dates: true });
+  }
+
+  changeSetting(calendar: VanillaCalendar, settings: ISettings) {
+    calendar.settings = { ...calendar.settings, ...settings };
+  }
+}
+```
 
 ## Локально или CDN
 
