@@ -52,21 +52,37 @@ export interface IRange {
 }
 
 export interface ISelection {
+	/** This parameter determines whether it's allowed to select one or multiple days, or if day selection is completely disabled. */
 	day: false | 'single' | 'multiple' | 'multiple-ranged';
+	/** This parameter allows you to disable the selection of months, allow switching between months only using arrows, or allow switching between months in any way. */
 	month: boolean | 'only-arrows';
+	/** This parameter allows you to disable the selection of years, allow switching between years only using arrows, or allow switching between years in any way. */
 	year: boolean | 'only-arrows';
+	/** This parameter enables time selection. You can also specify the time format using a boolean value or a number: 24-hour or 12-hour format. */
 	time: boolean | 12 | 24;
+	/** This parameter determines how time selection is allowed: `'all'` (any method) or `'range'` (only with the controller). */
 	controlTime: 'all' | 'range';
+	/** This parameter sets the step for the hour controller. You can choose any number from 1 to 23. */
 	stepHours: number;
+	/** This parameter sets the step for the minute controller. You can choose any number from 1 to 59. */
 	stepMinutes: number;
+	/** This option allows you to enable/disable cancellation of the selected date by pressing again. */
 	cancelableDay: boolean;
 }
 
 export interface ISelected {
+	/** This parameter allows you to specify a list of dates that will be selected when the calendar is initialized. */
 	dates?: Array<Date | number | FormatDateString>;
+	/** This parameter determines the month that will be displayed when the calendar is initialized. Months are numbered from 0 to 11. */
 	month?: number;
+	/** This parameter determines the year that will be displayed when the calendar is initialized. */
 	year?: number;
+	/** This parameter allows you to specify dates that will be considered holidays and will receive additional CSS modifiers. */
 	holidays?: Array<Date | number | FormatDateString>;
+	/**
+	 * This parameter allows you to set the time that will be displayed when the calendar is initialized.
+	 * The time is specified in the `'hh:mm aa'` format, where `'aa'` is the AM/PM marker. If using the 24-hour format, the `'aa'` marker is not required.
+	 */
 	time?: string;
 }
 
@@ -94,13 +110,25 @@ export interface IVisibility {
 }
 
 export interface ISettings {
+	/** This parameter sets the language localization of the calendar. */
 	lang: string;
+	/**
+	 * This parameter sets the start of the week in accordance with the international standard ISO 8601.
+	 * If set to `'false'`, the week will start on Sunday; otherwise, it starts on Monday.
+	 */
 	iso8601: boolean;
 	range: IRange;
 	selection: ISelection;
 	selected: ISelected;
 	visibility: IVisibility;
 }
+
+export type IPartialSettings = Partial<Pick<ISettings, 'iso8601' | 'lang'> & {
+	range: Partial<IRange>;
+	selection: Partial<ISelection>;
+	selected: Partial<ISelected>;
+	visibility: Partial<IVisibility>;
+}>;
 
 export interface ILocale {
 	months: string[] | [];
@@ -158,14 +186,7 @@ export interface IOptions {
 	toggleSelected?: ToggleSelected;
 	date?: Partial<IDates>;
 	sanitizer?: (dirtyHtml: string) => unknown;
-	settings?: Partial<{
-		lang: string;
-		iso8601: boolean;
-		range: Partial<IRange>;
-		selection: Partial<ISelection>;
-		selected: Partial<ISelected>;
-		visibility: Partial<IVisibility>;
-	}>;
+	settings?: Partial<IPartialSettings>;
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
 	popups?: IPopups;
@@ -179,7 +200,7 @@ export interface IVanillaCalendar {
 	months: number;
 	jumpMonths: number;
 	jumpToSelectedDate: boolean;
-	toggleSelected: ToggleSelected
+	toggleSelected: ToggleSelected;
 	date: IDates;
 	settings: {
 		lang: string;

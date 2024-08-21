@@ -5,6 +5,7 @@ import update from '@scripts/update';
 import destroy from '@scripts/destroy';
 import show from '@scripts/show';
 import hide from '@scripts/hide';
+import { changeSetting } from '@scripts/changeSetting';
 import messages from '@scripts/helpers/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
@@ -38,4 +39,6 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 	show = () => show(this);
 
 	hide = () => hide(this);
+
+	changeSetting = <S extends keyof T.IPartialSettings, K extends T.IPartialSettings[S]>(option: S, value: K) => changeSetting(this, option, value);
 }
