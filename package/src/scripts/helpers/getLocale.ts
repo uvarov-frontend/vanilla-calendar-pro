@@ -5,7 +5,9 @@ const capitalizeFirstLetter = (str: string) => `${str.charAt(0).toUpperCase()}${
 
 const getLocaleWeekday = (self: VanillaCalendar, i: number) => {
 	const weekday = new Date(`1978-01-0${i + 1}T00:00:00.000Z`).toLocaleString(self.settings.lang, { weekday: 'short', timeZone: 'UTC' });
+	const longWeekday = new Date(`1978-01-0${i + 1}T00:00:00.000Z`).toLocaleString(self.settings.lang, { weekday: 'long', timeZone: 'UTC' });
 	(self.locale.weekday as string[]).push(capitalizeFirstLetter(weekday));
+	(self.locale.longWeekday as string[]).push(capitalizeFirstLetter(longWeekday));
 };
 
 const getLocaleMonth = (self: VanillaCalendar, i: number) => {
@@ -21,6 +23,7 @@ const getLocale = (self: VanillaCalendar) => {
 	}
 
 	self.locale.weekday = [];
+	self.locale.longWeekday = [];
 	self.locale.months = [];
 
 	for (let i = 0; i < 7; i++) getLocaleWeekday(self, i);

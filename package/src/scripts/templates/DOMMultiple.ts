@@ -2,8 +2,8 @@ import { CSSClasses } from '@package/types';
 
 const DOMMultiple = (styles: CSSClasses) => (`
 	<div class="${styles.controls}">
-		<#ArrowPrev />
-		<#ArrowNext />
+		<#ArrowPrev [month] />
+		<#ArrowNext [month] />
 	</div>
 	<div class="${styles.grid}">
 		<#Multiple>

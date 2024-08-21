@@ -22,6 +22,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
 	actions: T.IActions;
 	sanitizer: (dirtyHtml: string) => unknown;
 	popups: T.IPopups;
+	ariaLabels: T.AriaLabels;
 	CSSClasses: T.CSSClasses;
 	DOMTemplates: T.IDOMTemplates;
 

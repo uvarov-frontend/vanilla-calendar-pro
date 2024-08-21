@@ -1,4 +1,5 @@
 import classes from './classes';
+import labels from './labels';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;
@@ -17,6 +18,7 @@ export interface HtmlElementPosition {
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 
 export type CSSClasses = typeof classes;
+export type AriaLabels = typeof labels;
 
 export interface IDates {
 	min: FormatDateString | 'today';
@@ -105,6 +107,7 @@ export interface ISettings {
 export interface ILocale {
 	months: string[] | [];
 	weekday: string[] | [];
+	longWeekday: string[] | [];
 }
 
 export interface IActions {
@@ -169,6 +172,7 @@ export interface IOptions {
 	locale?: Partial<ILocale>;
 	actions?: Partial<IActions>;
 	popups?: IPopups;
+	ariaLabels?: Partial<AriaLabels>;
 	CSSClasses?: Partial<CSSClasses>;
 	DOMTemplates?: Partial<IDOMTemplates>;
 }
@@ -193,6 +197,7 @@ export interface IVanillaCalendar {
 	actions: IActions;
 	sanitizer: (dirtyHtml: string) => unknown;
 	popups: IPopups;
+	ariaLabels: AriaLabels;
 	CSSClasses: CSSClasses;
 	DOMTemplates: IDOMTemplates;
 

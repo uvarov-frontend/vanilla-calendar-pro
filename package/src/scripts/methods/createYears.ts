@@ -5,8 +5,11 @@ import visibilityTitle from '@scripts/methods/visibilityTitle';
 
 const createYearEl = (self: VanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
 	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;
-	yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}`
+	const isYearSelected = selectedYear === i;
+	yearEl.className = `${self.CSSClasses.yearsYear}${isYearSelected ? ` ${self.CSSClasses.yearsYearSelected}`
 		: yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ''}`;
+	yearEl.ariaLabel = String(i);
+	yearEl.ariaSelected = String(isYearSelected);
 	yearEl.dataset.calendarYear = String(i);
 	yearEl.title = String(i);
 	yearEl.innerText = String(i);
