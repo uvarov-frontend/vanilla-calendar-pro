@@ -58,6 +58,44 @@ The full example with html and js files can be viewed in the sandbox by clicking
 
 <Sandbox example="try-vanilla-calendar" />
 
+## TypeScript
+If you installed VanillaCalendar using NPM or Yarn and you use TypeScript, the usage is similar to JavaScript except that the types use different imports as shown below.
+
+```typescript
+import VanillaCalendar from 'vanilla-calendar-pro';
+import type { IOptions, ISettings } from 'vanilla-calendar-pro/types';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+
+// use the types in your code
+import class Example {
+	init() {
+		const options: IOptions = {
+			settings: {
+				selected: {
+					dates: ['2024-08-20'],
+				},
+			},
+		};
+
+		const calendar = new VanillaCalendar('#calendar', options);
+		calendar.init();
+
+		const newOptions: IOptions['settings'] = {
+			selected: {
+				dates: ['2024-08-22'],
+			},
+		};
+
+		this.changeSetting(calendar, newOptions as ISettings);
+		calendar.update({ dates: true });
+	}
+
+	changeSetting(calendar: VanillaCalendar, settings: ISettings) {
+		calendar.settings = { ...calendar.settings, ...settings };
+	}
+}
+```
+
 ## Locally or via CDN
 
 If you want to use CDN, insert the scripts and styles into your HTML document from the <a href="/docs/learn/getting-started/installation#cdn">«Connection via CDN»</a>.
