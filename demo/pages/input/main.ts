@@ -8,6 +8,9 @@ import '@src/styles/vanilla-calendar.css';
 
 const configInput: IOptions = {
 	input: true,
+	date: {
+		weekends: [5, 6]
+	},
 	actions: {
 		changeToInput(e, self) {
 			if (!self.selectedDates || !self.HTMLInputElement) return;
@@ -20,6 +23,7 @@ const configInput: IOptions = {
 		},
 	},
 	settings: {
+		iso8601: false,
 		visibility: {
 			positionToInput: 'center',
 		},

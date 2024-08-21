@@ -22,6 +22,7 @@ export interface IDates {
 	min: FormatDateString | 'today';
 	max: FormatDateString | 'today';
 	today: Date;
+	weekends?: number[];
 }
 
 export interface IRange {
