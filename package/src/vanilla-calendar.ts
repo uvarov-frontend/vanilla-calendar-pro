@@ -1,22 +1,30 @@
 import * as T from '@package/types';
+import * as methods from '@scripts/methods';
 import DefaultOptionsCalendar from '@scripts/default';
-import init from '@scripts/init';
-import update from '@scripts/update';
-import destroy from '@scripts/destroy';
-import show from '@scripts/show';
-import hide from '@scripts/hide';
 import messages from '@scripts/helpers/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
+	private static memoizedElements: Map<string, HTMLElement> = new Map();
+
 	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
 		super();
 
-		this.HTMLElement = (typeof selector === 'string' ? document.querySelector(selector) : selector) as HTMLElement;
+		this.HTMLElement = typeof selector === 'string'
+			? (VanillaCalendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector))
+			: selector;
 
-		if (!this.HTMLElement) throw new Error(messages.notFoundSelector(selector));
+		if (options) this.applyOptions(options);
+	}
 
-		if (!options) return;
+	private queryAndMemoize = (selector: string): HTMLElement => {
+		const element = document.querySelector<HTMLElement>(selector);
+		if (!element) throw new Error(messages.notFoundSelector(selector));
 
+		VanillaCalendar.memoizedElements.set(selector, element);
+		return element;
+	};
+
+	private applyOptions(options: Partial<T.IOptions>) {
 		const replaceProperties = <T extends object>(original: T, replacement: T) => {
 			(Object.keys(replacement) as Array<keyof T>).forEach((key) => {
 				if (typeof original[key] === 'object' && typeof replacement[key] === 'object' && !(replacement[key] instanceof Date)) {
@@ -29,13 +37,13 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 		replaceProperties(this, options);
 	}
 
-	init = () => init(this);
+	init = () => methods.init(this);
 
-	update = (reset?: T.IReset) => update(this, reset);
+	update = (reset?: T.IReset) => methods.update(this, reset);
 
-	destroy = () => destroy(this);
+	destroy = () => methods.destroy(this);
 
-	show = () => show(this);
+	show = () => methods.show(this);
 
-	hide = () => hide(this);
+	hide = () => methods.hide(this);
 }

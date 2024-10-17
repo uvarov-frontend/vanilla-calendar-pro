@@ -1,6 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import changeMonth from '@scripts/methods/changeMonth';
-import createYears from '@scripts/methods/createYears';
+import changeMonth from '@scripts/modules/changeMonth';
+import createYears from '@scripts/modules/createYears';
 
 const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
 	const element = event.target as HTMLElement;

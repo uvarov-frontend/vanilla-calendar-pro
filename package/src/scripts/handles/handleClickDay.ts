@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import { FormatDateString } from '@package/types';
-import changeMonth from '@scripts/methods/changeMonth';
-import createDays from '@scripts/methods/createDays';
+import changeMonth from '@scripts/modules/changeMonth';
+import createDays from '@scripts/modules/createDays';
 import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
 import handleDaySelection from '@scripts/handles/handleDaySelection';
 

@@ -1,9 +1,9 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
-import visibilityArrows from '@scripts/methods/visibilityArrows';
-import createDays from '@scripts/methods/createDays';
-import visibilityTitle from '@scripts/methods/visibilityTitle';
+import visibilityArrows from '@scripts/modules/visibilityArrows';
+import createDays from '@scripts/modules/createDays';
+import visibilityTitle from '@scripts/modules/visibilityTitle';
 
 const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
 	const jumpDate = getDate(getDateString(new Date(self.selectedYear, self.selectedMonth, 1)));

@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import getColumnID from '@scripts/helpers/getColumnID';
-import createMonths from '@scripts/methods/createMonths';
-import createYears from '@scripts/methods/createYears';
+import createMonths from '@scripts/modules/createMonths';
+import createYears from '@scripts/modules/createYears';
 import create from '@scripts/create';
 
 type HandleType = 'month' | 'year';

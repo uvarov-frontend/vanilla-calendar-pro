@@ -1,6 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import createDOM from '@scripts/methods/createDOM';
-import visibilityTitle from '@scripts/methods/visibilityTitle';
+import createDOM from '@scripts/modules/createDOM';
+import visibilityTitle from '@scripts/modules/visibilityTitle';
 
 const relationshipID = (self: VanillaCalendar) => {
 	if (self.type !== 'multiple') return 0;

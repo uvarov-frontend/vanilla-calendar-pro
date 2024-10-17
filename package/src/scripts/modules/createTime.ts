@@ -1,6 +1,6 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import transformTime24 from '@scripts/helpers/transformTime24';
-import changeTime from '@scripts/methods/changeTime';
+import changeTime from '@scripts/modules/changeTime';
 
 export const InputTime = (name: string, CSSClass: string, value: string, range: boolean) => (`
 	<label class="${CSSClass}">

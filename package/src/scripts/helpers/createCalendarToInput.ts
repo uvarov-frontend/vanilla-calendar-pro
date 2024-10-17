@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
 import handleClick from '@scripts/handles/handleClick';
 import { setPositionCalendar } from '@scripts/helpers/position';
-import reset from '@scripts/reset';
+import reset from '@/package/src/scripts/methods/reset';
 
 const createCalendarToInput = (self: VanillaCalendar, isVisible = true) => {
 	self.isInputInit = true;

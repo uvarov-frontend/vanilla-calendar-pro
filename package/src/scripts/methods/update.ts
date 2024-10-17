@@ -2,7 +2,7 @@ import { IReset } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 import createCalendarToInput from '@scripts/helpers/createCalendarToInput';
 import messages from '@scripts/helpers/getMessages';
-import reset from '@scripts/reset';
+import reset from '@scripts/methods/reset';
 
 const update = (self: VanillaCalendar, {
 	year,

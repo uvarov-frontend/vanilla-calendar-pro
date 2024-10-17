@@ -1,7 +1,7 @@
 import VanillaCalendar from '@src/vanilla-calendar';
-import visibilityArrows from '@scripts/methods/visibilityArrows';
-import createDOM from '@scripts/methods/createDOM';
-import visibilityTitle from '@scripts/methods/visibilityTitle';
+import visibilityArrows from '@scripts/modules/visibilityArrows';
+import createDOM from '@scripts/modules/createDOM';
+import visibilityTitle from '@scripts/modules/visibilityTitle';
 
 const createYearEl = (self: VanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
 	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;

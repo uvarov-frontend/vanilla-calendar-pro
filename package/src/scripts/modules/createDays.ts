@@ -3,8 +3,8 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import getDateString from '@scripts/helpers/getDateString';
 import getDate from '@scripts/helpers/getDate';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
-import createPopup from '@scripts/methods/createPopup';
-import createWeekNumbers from '@scripts/methods/createWeekNumbers';
+import createPopup from '@scripts/modules/createPopup';
+import createWeekNumbers from '@scripts/modules/createWeekNumbers';
 
 const setDisabledDays = (self: VanillaCalendar, date: FormatDateString, dayWeekID: number) => {
 	const isDisableWeekday = self.settings.range.disableWeekday?.includes(dayWeekID);
