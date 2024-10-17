@@ -1,16 +1,16 @@
 # VanillaCalendar - A Lightweight, Feature-Rich JavaScript Date and Time Picker
 
-[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview.png)](https://vanilla-calendar.pro/)
+[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview-v3.png)](https://vanilla-calendar.pro/)
 
 [![version](https://img.shields.io/npm/v/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 [![tests](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml/badge.svg)](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml)
 [![downloads](https://img.shields.io/npm/dm/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 
-VanillaCalendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.
+The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.
 
 ## Key Features
 
-- **Lightweight**: The final minified .js file is only approximately **37.3 KB**, and with gzip compression, it's just around **9.9 KB**.
+- **Lightweight**: The final minified .js file is only approximately **41.7 KB**, and with gzip compression, it's just around **11.3 KB**.
 - **No Dependencies**: VanillaCalendar is entirely self-contained, ensuring you don't need to include additional libraries.
 - **Simple Localization**: Supports simple localization for any language.
 - **Customizable**: Can be easily configured using CSS and HTML markup.
@@ -30,9 +30,13 @@ VanillaCalendar is compatible with a wide range of browsers:
 
 ## Support and Feedback
 
-This plugin is completely free, and your support is important. Please feel free to report any issues or share your new ideas; it's really important!
+Vanilla Calendar Pro is free to use for everyone, but maintaining it comes with costs. I personally cover expenses like hosting, domain, and development resources to keep the project running smoothly. Your donations help me continue improving the tool while keeping it accessible for the community. Any contribution, big or small, makes a difference!
 
-If you like VanillaCalendar, please consider giving it a 🌟 star on GitHub.
+If you’d like to support the project, please consider making a donation or giving it a 🌟 star on [GitHub](https://github.com/uvarov-frontend/vanilla-calendar-pro).
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://buymeacoffee.com/uvarov)
+
+Feel free to report any issues or share your ideas—your feedback is invaluable!
 
 ## Getting Started
 
@@ -161,7 +165,9 @@ For detailed information on the available parameters and settings, please refer 
 
 ## Sponsor
 
-This project is tested with BrowserStack.
+Everyone who supported the project is [here](https://buymeacoffee.com/uvarov).
+
+This project is tested with [BrowserStack](https://www.browserstack.com).
 
 ## License
 
