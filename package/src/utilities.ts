@@ -1,7 +1,7 @@
 import { FormatDateString } from '@package/types';
 import parseDatesOriginal from '@scripts/helpers/parseDates';
-import getDateStringOriginal from './scripts/helpers/getDateString';
-import getDateOriginal from './scripts/helpers/getDate';
+import getDateStringOriginal from '@scripts/helpers/getDateString';
+import getDateOriginal from '@scripts/helpers/getDate';
 
 export const parseDates = (dates: string[]) => parseDatesOriginal(dates);
 
