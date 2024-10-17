@@ -1,7 +1,7 @@
 {
 	"name": "vanilla-calendar-pro",
-	"version": "2.9.10",
-	"description": "Vanilla Calendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.",
+	"description": "The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.",
+	"version": "3.0.0",
 	"homepage": "https://vanilla-calendar.pro",
 	"keywords": [
 		"calendar",
@@ -29,6 +29,14 @@
 		"name": "Yury Uvarov",
 		"email": "uvarov.frontend@gmail.com",
 		"url": "https://frontend.uvarov.tech"
+	},
+	"bugs": {
+		"url": "https://github.com/uvarov-frontend/vanilla-calendar-pro/issues",
+		"email": "uvarov.frontend@gmail.com"
+	},
+	"funding": {
+		"type": "individual",
+		"url": "https://buymeacoffee.com/uvarov"
 	},
 	"license": "MIT",
 	"main": "./build/vanilla-calendar.min.js",
