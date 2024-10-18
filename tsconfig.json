@@ -19,7 +19,7 @@
 			"@/*": ["./*"],
 			"@package/*": ["./package/*"],
 			"@src/*": ["./package/src/*"],
-			"@scripts/*": ["./package/src/scripts/*"],
+			"@scripts/*": ["./package/src/scripts/*"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.js", "**/*.cy.ts"],

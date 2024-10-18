@@ -1,16 +1,16 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import banner from 'vite-plugin-banner';
-// eslint-disable-next-line import/no-relative-packages
 import { version } from '../package/package.json';
+
+const outDir = './package/build';
 
 export default defineConfig({
 	publicDir: './package/public',
 	build: {
 		target: 'ES6',
 		assetsDir: '',
-		outDir: './package/build',
+		outDir,
 		cssCodeSplit: true,
 		minify: true,
 		emptyOutDir: false,
@@ -34,7 +34,7 @@ export default defineConfig({
 	},
 	plugins: [
 		banner({
-			outDir: './package/build',
+			outDir,
 			content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro`,
 		}),
 	],

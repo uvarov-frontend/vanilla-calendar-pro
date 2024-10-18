@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
