@@ -1,27 +1,27 @@
 {
-	"compilerOptions": {
-		"baseUrl": "./",
-		"outDir": "./build/",
-		"target": "ESNext",
-		"allowJs": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": false,
-		"noEmit": true,
-		"types": ["cypress", "node", "vite"],
-		"paths": {
-			"@/*": ["./*"],
-			"@package/*": ["./package/*"],
-			"@src/*": ["./package/src/*"],
-			"@scripts/*": ["./package/src/scripts/*"]
-		}
-	},
-	"include": ["**/*.ts", "**/*.js", "**/*.cy.ts"],
-	"exclude": ["node_modules", "next/*", "examples/*"]
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./build/",
+    "target": "ESNext",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": true,
+    "types": ["cypress", "node", "vite"],
+    "paths": {
+      "@/*": ["./*"],
+      "@package/*": ["./package/*"],
+      "@src/*": ["./package/src/*"],
+      "@scripts/*": ["./package/src/scripts/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.js", "**/*.mjs", "**/*.cy.ts"],
+  "exclude": ["node_modules", "next/*", "examples/*"]
 }

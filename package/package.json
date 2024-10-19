@@ -1,67 +1,67 @@
 {
-	"name": "vanilla-calendar-pro",
-	"description": "The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.",
-	"version": "3.0.0",
-	"homepage": "https://vanilla-calendar.pro",
-	"keywords": [
-		"calendar",
-		"js",
-		"ts",
-		"javascript",
-		"typescript",
-		"native",
-		"react",
-		"pure",
-		"default",
-		"vanilla",
-		"vanilla-js",
-		"picker",
-		"date-picker",
-		"datepicker",
-		"timepicker",
-		"iso8601"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/uvarov-frontend/vanilla-calendar-pro.git"
-	},
-	"author": {
-		"name": "Yury Uvarov",
-		"email": "uvarov.frontend@gmail.com",
-		"url": "https://frontend.uvarov.tech"
-	},
-	"bugs": {
-		"url": "https://github.com/uvarov-frontend/vanilla-calendar-pro/issues",
-		"email": "uvarov.frontend@gmail.com"
-	},
-	"funding": {
-		"type": "individual",
-		"url": "https://buymeacoffee.com/uvarov"
-	},
-	"license": "MIT",
-	"main": "./build/vanilla-calendar.min.js",
-	"module": "./build/vanilla-calendar.min.mjs",
-	"style": "./build/vanilla-calendar.min.css",
-	"source": "./src/vanilla-calendar.ts",
-	"types": "./index.d.ts",
-	"exports": {
-		".": {
-			"types": "./index.d.ts",
-			"node": "./build/vanilla-calendar.min.js",
-			"require": "./build/vanilla-calendar.min.js",
-			"import": "./build/vanilla-calendar.min.mjs"
-		},
-		"./utilities": {
-			"types": "./utilities/index.d.ts",
-			"node": "./utilities/index.js",
-			"require": "./utilities/index.js",
-			"import": "./utilities/index.mjs"
-		},
-		"./types": "./types.ts",
-		"./package.json": "./package.json",
-		"./build/*": "./build/*",
-		"./build/themes/*": "./build/themes/*"
-	},
-	"devDependencies": {},
-	"dependencies": {}
+  "name": "vanilla-calendar-pro",
+  "description": "The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.",
+  "version": "3.0.0",
+  "homepage": "https://vanilla-calendar.pro",
+  "keywords": [
+    "calendar",
+    "js",
+    "ts",
+    "javascript",
+    "typescript",
+    "native",
+    "react",
+    "pure",
+    "default",
+    "vanilla",
+    "vanilla-js",
+    "picker",
+    "date-picker",
+    "datepicker",
+    "timepicker",
+    "iso8601"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uvarov-frontend/vanilla-calendar-pro.git"
+  },
+  "author": {
+    "name": "Yury Uvarov",
+    "email": "uvarov.frontend@gmail.com",
+    "url": "https://frontend.uvarov.tech"
+  },
+  "bugs": {
+    "url": "https://github.com/uvarov-frontend/vanilla-calendar-pro/issues",
+    "email": "uvarov.frontend@gmail.com"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://buymeacoffee.com/uvarov"
+  },
+  "license": "MIT",
+  "main": "./build/vanilla-calendar.min.js",
+  "module": "./build/vanilla-calendar.min.mjs",
+  "style": "./build/vanilla-calendar.min.css",
+  "source": "./src/vanilla-calendar.ts",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "node": "./build/vanilla-calendar.min.js",
+      "require": "./build/vanilla-calendar.min.js",
+      "import": "./build/vanilla-calendar.min.mjs"
+    },
+    "./utilities": {
+      "types": "./utilities/index.d.ts",
+      "node": "./utilities/index.js",
+      "require": "./utilities/index.js",
+      "import": "./utilities/index.mjs"
+    },
+    "./types": "./types.ts",
+    "./package.json": "./package.json",
+    "./build/*": "./build/*",
+    "./build/themes/*": "./build/themes/*"
+  },
+  "devDependencies": {},
+  "dependencies": {}
 }

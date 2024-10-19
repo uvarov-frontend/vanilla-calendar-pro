@@ -3,37 +3,37 @@
 @tailwind utilities;
 
 @layer components {
-	#calendar {
-		@apply shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)] mx-auto;
-	}
+  #calendar {
+    @apply shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)] mx-auto;
+  }
 
-	.popup-btn-orange {
-		background-color: rgb(251 146 60) !important;
-		color: white !important;
-	}
+  .popup-btn-orange {
+    background-color: rgb(251 146 60) !important;
+    color: white !important;
+  }
 
-	.popup-btn-red {
-		background-color: rgb(239 68 68) !important;
-		color: white !important;
-	}
+  .popup-btn-red {
+    background-color: rgb(239 68 68) !important;
+    color: white !important;
+  }
 }
 
 .wrapper-calendar {
-	@apply w-[550px]
+  @apply w-[550px];
 }
 
 .input {
-	@apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left inline-block
+  @apply bg-white py-2 px-3 rounded text-sm text-slate-900 w-64 border-gray-200 outline-none h-9 text-left inline-block;
 }
 
 .bg-orange {
-	@apply !bg-orange-500 !text-white
+  @apply !bg-orange-500 !text-white;
 }
 
 .bg-red {
-	@apply !bg-red-500 !text-white
+  @apply !bg-red-500 !text-white;
 }
 
 .text-bold {
-	@apply !font-bold
+  @apply !font-bold;
 }

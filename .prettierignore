@@ -1,0 +1,11 @@
+**/.git
+**/node_modules
+**/next/**
+**/examples/**
+**/demo/build/**
+**/package/build/**
+**/package/utilities/**
+**/package.json
+**/package-lock.json
+**/yarn.lock
+**/README.md

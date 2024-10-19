@@ -188,8 +188,7 @@
   @apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg;
 }
 
-.vanilla-calendar-day_hover-first.vanilla-calendar-day_hover-last
-  .vanilla-calendar-day__btn {
+.vanilla-calendar-day_hover-first.vanilla-calendar-day_hover-last .vanilla-calendar-day__btn {
   @apply rounded-lg;
 }
 
@@ -211,8 +210,7 @@
   @apply rounded-tl-lg rounded-bl-lg rounded-tr-lg rounded-br-lg;
 }
 
-.vanilla-calendar-day_selected-intermediate
-  .vanilla-calendar-day__btn_selected {
+.vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected {
   @apply rounded-none;
 }
 
@@ -234,7 +232,7 @@
 }
 
 .vanilla-calendar-day__popup::before {
-  content: "";
+  content: '';
   @apply -z-10 left-0 bottom-0 w-full h-[calc(100%_-_4px)] block rounded-lg;
 }
 
@@ -273,7 +271,7 @@
 
 .vanilla-calendar-time__range::before,
 .vanilla-calendar-time__range::after {
-  content: "";
+  content: '';
   transform: translateY(-50%);
   @apply w-[1px] h-2 absolute z-10 pointer-events-none top-1/2;
 }

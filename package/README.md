@@ -58,8 +58,7 @@ Here's a simple example of how to use VanillaCalendar in your HTML:
 
 ```html
 <html>
-  <head>
-  </head>
+  <head></head>
   <body>
     <div id="calendar"></div>
     <!-- or -->
@@ -87,7 +86,7 @@ If you're not using a package manager and prefer manual installation or CDN usag
 ```html
 <html>
   <head>
-    <link href="./vanilla-calendar.min.css" rel="stylesheet">
+    <link href="./vanilla-calendar.min.css" rel="stylesheet" />
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>
@@ -121,7 +120,6 @@ VanillaCalendar includes two CSS themes: the **light theme** and the **dark them
 - The **themes/light.min.css** theme provides a light color scheme.
 - The **themes/dark.min.css** theme offers a dark color scheme.
 
-
 The calendar will automatically display the theme according to the user's system preferences. If you want to apply a specific theme, it is recommended to import **«vanilla-calendar.layout.min.css»** along with the theme you prefer: **«light.min.css»** or **«dark.min.css»**, instead of **«vanilla-calendar.min.css»**.
 
 ## DOM Templates
@@ -150,8 +148,8 @@ new VanillaCalendar('#calendar', {
         </div>
       </div>
       <#ControlTime />
-    `
-  }
+    `,
+  },
 });
 ```
 

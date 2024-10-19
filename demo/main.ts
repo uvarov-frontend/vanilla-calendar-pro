@@ -4,18 +4,19 @@
 
 import { IOptions } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
+
 import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
-	settings: {
-		selected: {
-			month: 3,
-			year: 2023,
-		},
-	},
+  settings: {
+    selected: {
+      month: 3,
+      year: 2023,
+    },
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	const calendar = new VanillaCalendar('#calendar', config);
-	calendar.init();
+  const calendar = new VanillaCalendar('#calendar', config);
+  calendar.init();
 });

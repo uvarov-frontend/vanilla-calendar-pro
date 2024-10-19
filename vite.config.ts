@@ -30,29 +30,29 @@ const getInputVite: () => { [key: string]: string } = () => {
     acc[(index + 1).toString()] = resolve(__dirname, current);
     return acc;
   }, {});
-}
+};
 
 export default defineConfig({
-	root: './demo',
-	build: {
-		assetsDir: '',
-		outDir: 'build',
-		target: 'ES6',
-		cssCodeSplit: true,
-		minify: 'terser',
-		rollupOptions: {
-			input: getInputVite(),
-		},
-	},
-	server: {
-		port: 5173,
-	},
-	resolve: {
-		alias: {
-			'@': resolve(__dirname, './'),
-			'@package': resolve(__dirname, './package'),
-			'@src': resolve(__dirname, './package/src'),
-			'@scripts': resolve(__dirname, './package/src/scripts'),
-		},
-	},
+  root: './demo',
+  build: {
+    assetsDir: '',
+    outDir: 'build',
+    target: 'ES6',
+    cssCodeSplit: true,
+    minify: 'terser',
+    rollupOptions: {
+      input: getInputVite(),
+    },
+  },
+  server: {
+    port: 5173,
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './'),
+      '@package': resolve(__dirname, './package'),
+      '@src': resolve(__dirname, './package/src'),
+      '@scripts': resolve(__dirname, './package/src/scripts'),
+    },
+  },
 });
