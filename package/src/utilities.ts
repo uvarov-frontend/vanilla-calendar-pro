@@ -1,4 +1,4 @@
-import { FormatDateString } from '@package/types';
+import type { FormatDateString } from '@package/types';
 import getDateOriginal from '@scripts/helpers/getDate';
 import getDateStringOriginal from '@scripts/helpers/getDateString';
 import parseDatesOriginal from '@scripts/helpers/parseDates';

@@ -1,4 +1,4 @@
-import * as T from './types';
+import type * as T from './types';
 
 declare class VanillaCalendar implements T.IVanillaCalendar {
   constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);

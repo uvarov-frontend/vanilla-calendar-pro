@@ -1,10 +1,11 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
+import type { IOptions } from 'vanilla-calendar-pro/types';
+
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   actions: {
-    getDays(day, date, HTMLElement, HTMLButtonElement, self) {
+    getDays(day, date, HTMLElement, HTMLButtonElement, _self) {
       const randomBoolean = Math.random() < 0.5;
       if (!randomBoolean) return;
       const randomPrice = Math.floor(Math.random() * (999 - 100 + 1) + 100);

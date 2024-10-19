@@ -1,4 +1,4 @@
-import classes from './classes';
+import type classes from './classes';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;
@@ -46,9 +46,9 @@ export interface IRange {
   /** This parameter allows you to disable specified weekdays. */
   disableWeekday?: number[];
   /** This parameter allows you to disable specific dates regardless of the specified range. */
-  disabled?: Array<Date | number | FormatDateString>;
+  disabled?: Array<Date | number | string>;
   /** This parameter allows you to enable specific dates regardless of the range and disabled dates. */
-  enabled?: Array<Date | number | FormatDateString>;
+  enabled?: Array<Date | number | string>;
 }
 
 export interface ISelection {
@@ -63,10 +63,10 @@ export interface ISelection {
 }
 
 export interface ISelected {
-  dates?: Array<Date | number | FormatDateString>;
+  dates?: Array<Date | number | string>;
   month?: number;
   year?: number;
-  holidays?: Array<Date | number | FormatDateString>;
+  holidays?: Array<Date | number | string>;
   time?: string;
 }
 

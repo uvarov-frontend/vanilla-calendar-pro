@@ -20,14 +20,7 @@ export default [
     files: ['**/*.{js,mjs,cjs,ts}'],
   },
   {
-    ignores: [
-      'node_modules',
-      'next',
-      'examples',
-      'demo/build',
-      'package/build',
-      'package/utilities',
-    ],
+    ignores: ['node_modules', 'next', 'demo/build', 'package/build', 'package/utilities'],
   },
   {
     languageOptions: {
@@ -45,6 +38,8 @@ export default [
     rules: {
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'arrow-parens': ['error', 'always'],
       'simple-import-sort/imports': [
         'error',

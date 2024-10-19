@@ -1,5 +1,6 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
+import type { FormatDateString, IOptions } from 'vanilla-calendar-pro/types';
+
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
@@ -13,7 +14,9 @@ const options: IOptions = {
   },
   actions: {
     clickWeekNumber(event, number, days, year, self) {
-      self.settings.selected.dates = days.map((day) => day.dataset.calendarDay);
+      self.settings.selected.dates = days.map(
+        (day) => day.dataset.calendarDay,
+      ) as FormatDateString[];
       self.update({ dates: true });
     },
   },

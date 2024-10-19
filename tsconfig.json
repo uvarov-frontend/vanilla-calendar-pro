@@ -19,9 +19,11 @@
       "@/*": ["./*"],
       "@package/*": ["./package/*"],
       "@src/*": ["./package/src/*"],
-      "@scripts/*": ["./package/src/scripts/*"]
+      "@scripts/*": ["./package/src/scripts/*"],
+      "vanilla-calendar-pro": ["./package/src/vanilla-calendar.ts"],
+      "vanilla-calendar-pro/types": ["./package/types.ts"]
     }
   },
   "include": ["**/*.ts", "**/*.js", "**/*.mjs", "**/*.cy.ts"],
-  "exclude": ["node_modules", "next/*", "examples/*"]
+  "exclude": ["node_modules", "next/*"]
 }

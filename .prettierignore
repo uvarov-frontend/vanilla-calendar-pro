@@ -1,7 +1,6 @@
 **/.git
 **/node_modules
 **/next/**
-**/examples/**
 **/demo/build/**
 **/package/build/**
 **/package/utilities/**

@@ -1,5 +1,6 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
+import type { IOptions } from 'vanilla-calendar-pro/types';
+
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
@@ -9,7 +10,7 @@ const options: IOptions = {
     },
   },
   actions: {
-    clickWeekNumber(event, number, days, year, self) {
+    clickWeekNumber(event, number, days, year, _self) {
       console.log(`Week number: ${number}`);
       console.log(`Year of the week: ${year}`);
       console.log('Days of this week:', days);

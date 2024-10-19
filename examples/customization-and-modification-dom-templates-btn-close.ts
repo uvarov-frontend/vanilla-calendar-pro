@@ -1,5 +1,6 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
+import type { IOptions } from 'vanilla-calendar-pro/types';
+
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
@@ -14,9 +15,9 @@ const options: IOptions = {
       }
     },
     initCalendar(self) {
-      const btnEl = self.HTMLElement.querySelector("#btn-close");
+      const btnEl = self.HTMLElement.querySelector('#btn-close');
       if (!btnEl) return;
-      btnEl.addEventListener("click", self.hide);
+      btnEl.addEventListener('click', self.hide);
     },
   },
   DOMTemplates: {

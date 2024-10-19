@@ -1,4 +1,4 @@
-import * as T from '@package/types';
+import type * as T from '@package/types';
 import DefaultOptionsCalendar from '@scripts/default';
 import messages from '@scripts/helpers/getMessages';
 import * as methods from '@scripts/methods';
