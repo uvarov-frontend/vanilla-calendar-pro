@@ -1,6 +1,6 @@
 import { CSSClasses } from '@package/types';
 
-const DOMYears = (styles: CSSClasses) => (`
+const DOMYears = (styles: CSSClasses) => `
 	<div class="${styles.header}">
 		<#ArrowPrev />
 		<div class="${styles.headerContent}">
@@ -14,6 +14,6 @@ const DOMYears = (styles: CSSClasses) => (`
 			<#Years />
 		</div>
 	</div>
-`);
+`;
 
 export default DOMYears;

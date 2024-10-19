@@ -45,6 +45,7 @@ export default [
     rules: {
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
+      'arrow-parens': ['error', 'always'],
       'simple-import-sort/imports': [
         'error',
         {

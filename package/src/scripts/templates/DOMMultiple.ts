@@ -1,6 +1,6 @@
 import { CSSClasses } from '@package/types';
 
-const DOMMultiple = (styles: CSSClasses) => (`
+const DOMMultiple = (styles: CSSClasses) => `
 	<div class="${styles.controls}">
 		<#ArrowPrev />
 		<#ArrowNext />
@@ -25,6 +25,6 @@ const DOMMultiple = (styles: CSSClasses) => (`
 		<#/Multiple>
 	</div>
 	<#ControlTime />
-`);
+`;
 
 export default DOMMultiple;

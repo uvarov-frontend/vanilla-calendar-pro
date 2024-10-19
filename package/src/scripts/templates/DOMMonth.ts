@@ -1,6 +1,6 @@
 import { CSSClasses } from '@package/types';
 
-const DOMMonths = (styles: CSSClasses) => (`
+const DOMMonths = (styles: CSSClasses) => `
 	<div class="${styles.header}">
 		<div class="${styles.headerContent}">
 			<#Month />
@@ -12,5 +12,5 @@ const DOMMonths = (styles: CSSClasses) => (`
 			<#Months />
 		</div>
 	</div>
-`);
+`;
 export default DOMMonths;

@@ -1,6 +1,6 @@
 import { CSSClasses } from '@package/types';
 
-const DOMDefault = (styles: CSSClasses) => (`
+const DOMDefault = (styles: CSSClasses) => `
 	<div class="${styles.header}">
 		<#ArrowPrev />
 		<div class="${styles.headerContent}">
@@ -17,6 +17,6 @@ const DOMDefault = (styles: CSSClasses) => (`
 		</div>
 	</div>
 	<#ControlTime />
-`);
+`;
 
 export default DOMDefault;
