@@ -4,8 +4,8 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {
   if (self.type !== 'multiple') return 0;
-  const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll(`.${self.CSSClasses.column}`);
-  const indexColumn = Array.from(columnEls).findIndex((column) => column.classList.contains(`${self.CSSClasses.columnMonth}`));
+  const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll('[data-vc="column"]');
+  const indexColumn = Array.from(columnEls).findIndex((column) => column.classList.contains('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
 };
 
