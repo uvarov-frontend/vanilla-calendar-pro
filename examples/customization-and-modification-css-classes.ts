@@ -5,7 +5,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   CSSClasses: {
-    arrow: 'arrow-smile',
+    arrowPrev: 'arrow-smile',
   },
 };
 
