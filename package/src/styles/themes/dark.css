@@ -36,8 +36,8 @@
   @apply text-slate-500;
 }
 
-[data-calendar-theme='dark'] .vanilla-calendar-month.vanilla-calendar-month_disabled,
-[data-calendar-theme='dark'] .vanilla-calendar-year.vanilla-calendar-year_disabled {
+[data-calendar-theme='dark'] .vanilla-calendar-month:disabled,
+[data-calendar-theme='dark'] .vanilla-calendar-year:disabled {
   @apply text-slate-700 opacity-80;
 }
 

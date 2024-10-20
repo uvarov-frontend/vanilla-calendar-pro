@@ -91,8 +91,8 @@
   @apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent;
 }
 
-.vanilla-calendar-month.vanilla-calendar-month_disabled,
-.vanilla-calendar-year.vanilla-calendar-year_disabled {
+.vanilla-calendar-month:disabled,
+.vanilla-calendar-year:disabled {
   @apply pointer-events-none;
 }
 

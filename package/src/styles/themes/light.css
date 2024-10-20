@@ -36,8 +36,8 @@
   @apply text-slate-400;
 }
 
-[data-calendar-theme='light'] .vanilla-calendar-month.vanilla-calendar-month_disabled,
-[data-calendar-theme='light'] .vanilla-calendar-year.vanilla-calendar-year_disabled {
+[data-calendar-theme='light'] .vanilla-calendar-month:disabled,
+[data-calendar-theme='light'] .vanilla-calendar-year:disabled {
   @apply text-slate-300;
 }
 

@@ -20,7 +20,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: HandleT
 	const selectByType = {
 		year: () => {
 			if (self.type === 'multiple') {
-				const selectedYear = getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(itemEl.dataset.calendarYear), 'data-calendar-selected-year');
+				const selectedYear = getColumnID(self, self.CSSClasses.columnYear, self.CSSClasses.year, Number(itemEl.dataset.calendarYear), 'data-vc-year');
 
 				const isBeforeMinDate = self.selectedMonth < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear();
 				const isAfterMaxDate = self.selectedMonth > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear();
@@ -42,7 +42,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: HandleT
 		},
 		month: () => {
 			if (self.type === 'multiple') {
-				const selectedMonth = getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(itemEl.dataset.calendarMonth), 'data-calendar-selected-month');
+				const selectedMonth = getColumnID(self, self.CSSClasses.columnMonth, self.CSSClasses.month, Number(itemEl.dataset.calendarMonth), 'data-vc-month');
 				const column = itemEl.closest(`.${CSSClasses.column}`) as HTMLElement;
 				const year = column.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
 				self.selectedYear = Number(year.dataset.calendarSelectedYear);
