@@ -68,7 +68,7 @@
   @apply text-white;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-week__day_weekend {
+[data-vc-theme='dark'] .vanilla-calendar-week__day[data-vc-week-day="off"] {
   @apply text-rose-500;
 }
 

@@ -102,19 +102,9 @@
   @apply grid gap-y-4 gap-x-2 grid-cols-5 items-center grow;
 }
 
-.vanilla-calendar-months_selecting .vanilla-calendar-months__month,
-.vanilla-calendar-years_selecting .vanilla-calendar-years__year {
-  @apply cursor-pointer;
-}
-
-.vanilla-calendar-months_selecting .vanilla-calendar-months__month .vanilla-calendar-months__month_disabled,
-.vanilla-calendar-years_selecting .vanilla-calendar-years__year .vanilla-calendar-years__year_disabled {
-  @apply cursor-default;
-}
-
 .vanilla-calendar-months__month,
 .vanilla-calendar-years__year {
-  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all;
+  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer;
 }
 
 .vanilla-calendar-months__month.vanilla-calendar-months__month_disabled,
@@ -158,11 +148,7 @@
   @apply grid grid-cols-[repeat(7,_1fr)] gap-y-1 justify-items-center items-center grow;
 }
 
-.vanilla-calendar-days_selecting .vanilla-calendar-day__btn {
-  @apply cursor-pointer transition-all duration-75;
-}
-
-.vanilla-calendar-days_selecting .vanilla-calendar-day__btn_disabled {
+.vanilla-calendar-days[data-vc-days="disabled"] .vanilla-calendar-day__btn {
   @apply cursor-default;
 }
 
@@ -208,15 +194,15 @@
 }
 
 .vanilla-calendar-day__btn {
-  @apply text-xs font-normal w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center rounded-lg border-0 p-0 cursor-default;
+  @apply text-xs font-normal w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center rounded-lg border-0 p-0 cursor-pointer transition-all duration-75;
 }
 
-.vanilla-calendar-day__btn_today {
+.vanilla-calendar-day__btn.vanilla-calendar-day__btn_today {
   @apply font-bold;
 }
 
-.vanilla-calendar-day__btn_disabled {
-  @apply pointer-events-none;
+.vanilla-calendar-day__btn.vanilla-calendar-day__btn_disabled {
+  @apply cursor-default;
 }
 
 .vanilla-calendar-day__popup {

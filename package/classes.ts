@@ -11,17 +11,15 @@ const classes = {
   arrowNext: 'vanilla-calendar-arrow vanilla-calendar-arrow_next',
   wrapper: 'vanilla-calendar-wrapper',
   content: 'vanilla-calendar-content',
-
   week: 'vanilla-calendar-week',
   weekDay: 'vanilla-calendar-week__day',
-  weekDayWeekend: 'vanilla-calendar-week__day_weekend',
   days: 'vanilla-calendar-days',
-  daysSelecting: 'vanilla-calendar-days_selecting',
   months: 'vanilla-calendar-months',
-  monthsSelecting: 'vanilla-calendar-months_selecting',
+
   monthsMonth: 'vanilla-calendar-months__month',
   monthsMonthSelected: 'vanilla-calendar-months__month_selected',
   monthsMonthDisabled: 'vanilla-calendar-months__month_disabled',
+
   years: 'vanilla-calendar-years',
   yearsSelecting: 'vanilla-calendar-years_selecting',
   yearsYear: 'vanilla-calendar-years__year',

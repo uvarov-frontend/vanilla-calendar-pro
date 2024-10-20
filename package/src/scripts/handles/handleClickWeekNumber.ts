@@ -1,18 +1,18 @@
-import VanillaCalendar from '@src/vanilla-calendar';
+import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
-	if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber) return;
+  if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber) return;
 
-	const weekNumberEl: HTMLElement | null = (event.target as HTMLElement).closest(`.${self.CSSClasses.weekNumber}`);
-	const daysToWeeks: NodeListOf<HTMLElement> | undefined = self.HTMLElement?.querySelectorAll('[data-calendar-week-number]');
+  const weekNumberEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc="week-numbers"]');
+  const daysToWeeks = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-week-number]');
 
-	if (!weekNumberEl || !daysToWeeks) return;
+  if (!weekNumberEl || !daysToWeeks) return;
 
-	const weekNumberValue = Number(weekNumberEl.innerText);
-	const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
-	const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.calendarWeekNumber) === weekNumberValue);
+  const weekNumberValue = Number(weekNumberEl.innerText);
+  const yearWeek = Number(weekNumberEl.dataset.calendarYearWeek);
+  const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.vcWeekNumber) === weekNumberValue);
 
-	self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
+  self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
 };
 
 export default handleClickWeekNumber;
