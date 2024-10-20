@@ -67,10 +67,8 @@
   @apply opacity-30 pointer-events-none;
 }
 
-.vanilla-calendar-grid.vanilla-calendar-grid_disabled
-  .vanilla-calendar-column.vanilla-calendar-column_month,
-.vanilla-calendar-grid.vanilla-calendar-grid_disabled
-  .vanilla-calendar-column.vanilla-calendar-column_year {
+.vanilla-calendar-grid.vanilla-calendar-grid_disabled .vanilla-calendar-column.vanilla-calendar-column_month,
+.vanilla-calendar-grid.vanilla-calendar-grid_disabled .vanilla-calendar-column.vanilla-calendar-column_year {
   @apply opacity-100 pointer-events-auto;
 }
 
@@ -109,12 +107,8 @@
   @apply cursor-pointer;
 }
 
-.vanilla-calendar-months_selecting
-  .vanilla-calendar-months__month
-  .vanilla-calendar-months__month_disabled,
-.vanilla-calendar-years_selecting
-  .vanilla-calendar-years__year
-  .vanilla-calendar-years__year_disabled {
+.vanilla-calendar-months_selecting .vanilla-calendar-months__month .vanilla-calendar-months__month_disabled,
+.vanilla-calendar-years_selecting .vanilla-calendar-years__year .vanilla-calendar-years__year_disabled {
   @apply cursor-default;
 }
 
@@ -205,8 +199,7 @@
   @apply rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg;
 }
 
-.vanilla-calendar-day_selected-first.vanilla-calendar-day_selected-last
-  .vanilla-calendar-day__btn_selected {
+.vanilla-calendar-day_selected-first.vanilla-calendar-day_selected-last .vanilla-calendar-day__btn_selected {
   @apply rounded-tl-lg rounded-bl-lg rounded-tr-lg rounded-br-lg;
 }
 

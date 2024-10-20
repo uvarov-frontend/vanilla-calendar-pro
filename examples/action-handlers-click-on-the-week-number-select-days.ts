@@ -14,9 +14,7 @@ const options: IOptions = {
   },
   actions: {
     clickWeekNumber(event, number, days, year, self) {
-      self.settings.selected.dates = days.map(
-        (day) => day.dataset.calendarDay,
-      ) as FormatDateString[];
+      self.settings.selected.dates = days.map((day) => day.dataset.calendarDay) as FormatDateString[];
       self.update({ dates: true });
     },
   },

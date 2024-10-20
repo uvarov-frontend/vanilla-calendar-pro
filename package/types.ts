@@ -90,12 +90,7 @@ export interface IVisibility {
   /** With this parameter, you can decide whether to display days from the previous and next months. */
   daysOutside: boolean;
   /** This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter. */
-  positionToInput:
-    | 'auto'
-    | 'center'
-    | 'left'
-    | 'right'
-    | ['bottom' | 'top', 'center' | 'left' | 'right'];
+  positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'];
 }
 
 export interface ISettings {
@@ -114,29 +109,13 @@ export interface ILocale {
 
 export interface IActions {
   clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
-  clickWeekNumber:
-    | ((
-        e: MouseEvent,
-        number: number,
-        days: HTMLElement[],
-        year: number,
-        self: IVanillaCalendar,
-      ) => void)
-    | null;
+  clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
   clickMonth: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickYear: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickArrow: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   changeTime: ((e: Event, self: IVanillaCalendar) => void) | null;
   changeToInput: ((e: Event, self: IVanillaCalendar) => void) | null;
-  getDays:
-    | ((
-        day: number,
-        date: FormatDateString,
-        HTMLElement: HTMLElement,
-        HTMLButtonElement: HTMLButtonElement,
-        self: IVanillaCalendar,
-      ) => void)
-    | null;
+  getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement, self: IVanillaCalendar) => void) | null;
   getMonths: ((month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void) | null;
   getYears: ((year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void) | null;
   initCalendar: ((self: IVanillaCalendar) => void) | null;

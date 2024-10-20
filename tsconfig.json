@@ -16,10 +16,10 @@
     "noEmit": true,
     "types": ["cypress", "node", "vite"],
     "paths": {
-      "@/*": ["./*"],
-      "@package/*": ["./package/*"],
-      "@src/*": ["./package/src/*"],
       "@scripts/*": ["./package/src/scripts/*"],
+      "@src/*": ["./package/src/*"],
+      "@package/*": ["./package/*"],
+      "@/*": ["./*"],
       "vanilla-calendar-pro": ["./package/src/vanilla-calendar.ts"],
       "vanilla-calendar-pro/types": ["./package/types.ts"]
     }
