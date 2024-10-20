@@ -1,17 +1,17 @@
-import { CSSClasses } from '@package/types';
+import type { CSSClasses } from '@package/types';
 
 const DOMDefault = (styles: CSSClasses) => `
-  <div class="${styles.header}">
+  <div class="${styles.header}" data-vc="header">
     <#ArrowPrev />
-    <div class="${styles.headerContent}">
+    <div class="${styles.headerContent}" data-vc="header-content">
       <#Month />
       <#Year />
     </div>
     <#ArrowNext />
   </div>
-  <div class="${styles.wrapper}">
+  <div class="${styles.wrapper}" data-vc="wrapper">
     <#WeekNumbers />
-    <div class="${styles.content}">
+    <div class="${styles.content}" data-vc="content">
       <#Week />
       <#Days />
     </div>
