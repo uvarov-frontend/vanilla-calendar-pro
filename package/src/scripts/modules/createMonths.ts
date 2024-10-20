@@ -18,25 +18,25 @@ const createMonthEl = (
   i: number,
 ) => {
   const monthEl = templateMonthEl.cloneNode(false) as HTMLButtonElement;
-  monthEl.className = `${self.CSSClasses.monthsMonth}${
-    selectedMonth === i ? ` ${self.CSSClasses.monthsMonthSelected}` : monthDisabled ? ` ${self.CSSClasses.monthsMonthDisabled}` : ''
-  }`;
+  monthEl.className = self.CSSClasses.monthsMonth;
+  monthEl.dataset.vcMonth = `${i}`;
+  if (selectedMonth === i) monthEl.dataset.vcMonthSelected = 'true';
+  if (monthDisabled) monthEl.tabIndex = -1;
+  monthEl.disabled = monthDisabled;
   monthEl.title = monthTitle;
   monthEl.innerText = `${self.settings.visibility.monthShort ? monthTitle.substring(0, 3) : monthTitle}`;
-  monthEl.dataset.calendarMonth = String(i);
-  if (monthDisabled) monthEl.tabIndex = -1;
   return monthEl;
 };
 
 const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target.dataset.calendarSelectedMonth) : (self.selectedMonth as number);
-  const yearEl = target?.closest(`.${self.CSSClasses.column}`)?.querySelector(`.${self.CSSClasses.year}`) as HTMLElement;
+  const yearEl = target?.closest('[data-vc="column"]')?.querySelector('[data-vc="year"]') as HTMLElement;
   const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : (self.selectedYear as number);
   self.currentType = 'month';
   createDOM(self, target);
   visibilityTitle(self);
 
-  const monthsEl = self.HTMLElement?.querySelector(`.${self.CSSClasses.months}`);
+  const monthsEl = self.HTMLElement.querySelector('[data-vc="months"]');
   if (!self.settings.selection.month || !monthsEl) return;
 
   const activeMonthsID =
