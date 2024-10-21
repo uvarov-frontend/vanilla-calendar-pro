@@ -12,13 +12,10 @@ const haveListener = {
 const getTheme = (htmlEl: HTMLElement, attr: string) =>
   themes.find((t) => t !== 'system' && htmlEl.getAttribute(attr)?.includes(t)) as 'dark' | 'light' | undefined;
 
-const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light'): void => {
-  htmlEl.dataset.vcTheme = theme;
-};
+const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light') => (htmlEl.dataset.vcTheme = theme);
 
 const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
-  const setDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => setTheme(self.HTMLElement, event.matches ? 'dark' : 'light');
-  setDataAttrTheme(supportDarkTheme);
+  setTheme(self.HTMLElement, supportDarkTheme.matches ? 'dark' : 'light');
 
   if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
 
@@ -32,6 +29,7 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkThe
   } else {
     supportDarkTheme.addListener(changeDataAttrTheme);
   }
+
   haveListener.set();
 };
 
@@ -48,9 +46,7 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
   };
 
   const observer = new MutationObserver(changes);
-  observer.observe(htmlEl, {
-    attributes: true,
-  });
+  observer.observe(htmlEl, { attributes: true });
 };
 
 const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
