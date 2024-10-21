@@ -107,8 +107,8 @@
   @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer;
 }
 
-.vanilla-calendar-months__month.vanilla-calendar-months__month_disabled,
-.vanilla-calendar-years__year.vanilla-calendar-years__year_disabled {
+.vanilla-calendar-months__month:disabled,
+.vanilla-calendar-years__year:disabled {
   @apply pointer-events-none;
 }
 

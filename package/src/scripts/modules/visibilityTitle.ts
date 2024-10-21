@@ -1,14 +1,21 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
-  const isDisabled = self.settings.selection[type] === false || self.settings.selection[type] === 'only-arrows';
+  const yearID = new Date(initDate.setFullYear(self.selectedYear as number, (self.selectedMonth as number) + index)).getFullYear();
+  const monthID = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
+  const monthLabel = self.locale.months[monthID];
+
   const value = {
-    month: self.locale.months[new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth()],
-    year: new Date(initDate.setFullYear(self.selectedYear as number, (self.selectedMonth as number) + index)).getFullYear(),
+    month: { id: monthID, label: monthLabel },
+    year: { id: yearID, label: yearID },
   };
+
+  el.innerText = String(value[type].label);
+  el.dataset[`vc${type.charAt(0).toUpperCase() + type.slice(1)}`] = String(value[type].id);
+
+  const isDisabled = self.settings.selection[type] === false || self.settings.selection[type] === 'only-arrows';
   if (isDisabled) el.tabIndex = -1;
   el.disabled = isDisabled;
-  el.innerText = String(value[type]);
 };
 
 const visibilityTitle = (self: VanillaCalendar) => {

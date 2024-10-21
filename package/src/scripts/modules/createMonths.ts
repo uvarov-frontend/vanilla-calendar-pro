@@ -4,34 +4,28 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {
   if (self.type !== 'multiple') return 0;
-  const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll('[data-vc="column"]');
-  const indexColumn = Array.from(columnEls).findIndex((column) => column.classList.contains('[data-vc-column="month"]'));
+  const columnEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
+  const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
 };
 
-const createMonthEl = (
-  self: VanillaCalendar,
-  templateMonthEl: HTMLButtonElement,
-  selectedMonth: number,
-  monthTitle: string,
-  monthDisabled: boolean,
-  i: number,
-) => {
-  const monthEl = templateMonthEl.cloneNode(false) as HTMLButtonElement;
+const createMonthEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, title: string, disabled: boolean, i: number) => {
+  const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
   monthEl.className = self.CSSClasses.monthsMonth;
-  monthEl.dataset.vcMonth = `${i}`;
-  if (selectedMonth === i) monthEl.dataset.vcMonthSelected = 'true';
-  if (monthDisabled) monthEl.tabIndex = -1;
-  monthEl.disabled = monthDisabled;
-  monthEl.title = monthTitle;
-  monthEl.innerText = `${self.settings.visibility.monthShort ? monthTitle.substring(0, 3) : monthTitle}`;
+  monthEl.innerText = `${self.settings.visibility.monthShort ? title.substring(0, 3) : title}`;
+  monthEl.title = title;
+  monthEl.dataset.vcMonthsMonth = `${i}`;
+  if (selected === i) monthEl.ariaSelected = '';
+  if (disabled) monthEl.tabIndex = -1;
+  monthEl.disabled = disabled;
   return monthEl;
 };
 
 const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
-  const selectedMonth = target?.dataset.calendarSelectedMonth ? Number(target.dataset.calendarSelectedMonth) : (self.selectedMonth as number);
-  const yearEl = target?.closest('[data-vc="column"]')?.querySelector('[data-vc="year"]') as HTMLElement;
-  const selectedYear = yearEl ? Number(yearEl.dataset.calendarSelectedYear) : (self.selectedYear as number);
+  const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
+  const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.selectedYear as number);
+  const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.selectedMonth;
+
   self.currentType = 'month';
   createDOM(self, target);
   visibilityTitle(self);

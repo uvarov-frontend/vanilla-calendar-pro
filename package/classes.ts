@@ -15,16 +15,10 @@ const classes = {
   weekDay: 'vanilla-calendar-week__day',
   days: 'vanilla-calendar-days',
   months: 'vanilla-calendar-months',
-
   monthsMonth: 'vanilla-calendar-months__month',
-  monthsMonthSelected: 'vanilla-calendar-months__month_selected',
-  monthsMonthDisabled: 'vanilla-calendar-months__month_disabled',
-
   years: 'vanilla-calendar-years',
-  yearsSelecting: 'vanilla-calendar-years_selecting',
   yearsYear: 'vanilla-calendar-years__year',
-  yearsYearSelected: 'vanilla-calendar-years__year_selected',
-  yearsYearDisabled: 'vanilla-calendar-years__year_disabled',
+
   time: 'vanilla-calendar-time',
   timeContent: 'vanilla-calendar-time__content',
   timeHours: 'vanilla-calendar-time__hours',

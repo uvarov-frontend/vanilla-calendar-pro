@@ -1,42 +1,41 @@
-import VanillaCalendar from '@src/vanilla-calendar';
-import visibilityArrows from '@scripts/modules/visibilityArrows';
 import createDOM from '@scripts/modules/createDOM';
+import visibilityArrows from '@scripts/modules/visibilityArrows';
 import visibilityTitle from '@scripts/modules/visibilityTitle';
+import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createYearEl = (self: VanillaCalendar, templateYearEl: HTMLButtonElement, selectedYear: number, yearDisabled: boolean, i: number) => {
-	const yearEl = templateYearEl.cloneNode(false) as HTMLButtonElement;
-	yearEl.className = `${self.CSSClasses.yearsYear}${selectedYear === i ? ` ${self.CSSClasses.yearsYearSelected}`
-		: yearDisabled ? ` ${self.CSSClasses.yearsYearDisabled}` : ''}`;
-	yearEl.dataset.calendarYear = String(i);
-	yearEl.title = String(i);
-	yearEl.innerText = String(i);
-	if (yearDisabled) yearEl.tabIndex = -1;
-	return yearEl;
+const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
+  const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
+  yearEl.className = self.CSSClasses.yearsYear;
+  yearEl.innerText = String(i);
+  yearEl.dataset.vcYearsYear = `${i}`;
+  if (selected === i) yearEl.ariaSelected = '';
+  if (disabled) yearEl.tabIndex = -1;
+  yearEl.disabled = disabled;
+  return yearEl;
 };
 
 const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
-	const selectedYear = target?.dataset.calendarSelectedYear ? Number(target?.dataset.calendarSelectedYear) : self.selectedYear as number;
-	self.currentType = 'year';
-	createDOM(self, target);
-	visibilityTitle(self);
-	visibilityArrows(self);
+  const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.selectedYear;
 
-	const yearsEl = self.HTMLElement.querySelector(`.${self.CSSClasses.years}`);
-	if (!self.settings.selection.year || !yearsEl) return;
+  self.currentType = 'year';
+  createDOM(self, target);
+  visibilityTitle(self);
+  visibilityArrows(self);
 
-	yearsEl.classList.add(self.CSSClasses.yearsSelecting);
+  const yearsEl = self.HTMLElement.querySelector('[data-vc="years"]');
+  if (!self.settings.selection.year || !yearsEl) return;
 
-	const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
+  const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
 
-	const templateYearEl = document.createElement('button');
-	templateYearEl.type = 'button';
+  const templateYearEl = document.createElement('button');
+  templateYearEl.type = 'button';
 
-	for (let i = (self.viewYear as number) - 7; i < (self.viewYear as number) + 8; i++) {
-		const yearDisabled = i < (self.dateMin as Date).getFullYear() + relationshipID || i > (self.dateMax as Date).getFullYear();
-		const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
-		yearsEl.appendChild(yearEl);
-		if (self.actions.getYears) self.actions.getYears(i, yearEl, self);
-	}
+  for (let i = (self.viewYear as number) - 7; i < (self.viewYear as number) + 8; i++) {
+    const yearDisabled = i < (self.dateMin as Date).getFullYear() + relationshipID || i > (self.dateMax as Date).getFullYear();
+    const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
+    yearsEl.appendChild(yearEl);
+    if (self.actions.getYears) self.actions.getYears(i, yearEl, self);
+  }
 };
 
 export default createYears;

@@ -46,13 +46,13 @@
   @apply bg-slate-900 text-white hover:bg-slate-800;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-months__month.vanilla-calendar-months__month_selected,
-[data-vc-theme='dark'] .vanilla-calendar-years__year.vanilla-calendar-years__year_selected {
+[data-vc-theme='dark'] .vanilla-calendar-months__month[aria-selected],
+[data-vc-theme='dark'] .vanilla-calendar-years__year[aria-selected] {
   @apply bg-slate-500 text-white hover:bg-slate-500 hover:text-white;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-months__month.vanilla-calendar-months__month_disabled,
-[data-vc-theme='dark'] .vanilla-calendar-years__year.vanilla-calendar-years__year_disabled {
+[data-vc-theme='dark'] .vanilla-calendar-months__month:disabled,
+[data-vc-theme='dark'] .vanilla-calendar-years__year:disabled {
   @apply text-slate-700 opacity-80  hover:text-slate-700;
 }
 
