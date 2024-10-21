@@ -3,14 +3,14 @@ import { getAvailablePosition } from '@scripts/positions';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleDay = (self: VanillaCalendar, date: string, dayInfo: IPopup, daysEl: HTMLElement) => {
-  const CSSClasses = self.CSSClasses.dayPopup;
-  const dayBtnEl: HTMLElement | null = daysEl.querySelector(`[data-calendar-day="${date}"]`);
+  const dayBtnEl = daysEl.querySelector<HTMLElement>(`[data-vc-day="${date}"]`);
   if (!dayBtnEl) return;
+
   if (dayInfo?.modifier) dayBtnEl.classList.add(...dayInfo.modifier.trim().split(' '));
   if (dayInfo?.html) {
     const dayEl = dayBtnEl.parentElement as HTMLElement;
     const dayPopup = document.createElement('div');
-    dayPopup.className = CSSClasses;
+    dayPopup.className = self.CSSClasses.dayPopup;
     dayPopup.innerHTML = self.sanitizer(dayInfo.html);
     dayEl.appendChild(dayPopup);
 
