@@ -1,4 +1,4 @@
-import { FormatDateString } from '@package/types';
+import type { FormatDateString } from '@package/types';
 
 const getDate = (date: FormatDateString) => new Date(`${date}T00:00:00`);
 

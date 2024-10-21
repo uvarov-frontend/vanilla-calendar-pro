@@ -8,8 +8,8 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
   const calendar = document.createElement('div');
   calendar.className = self.CSSClasses.calendar;
   calendar.dataset.vc = 'calendar';
-  calendar.dataset.vcInput = 'true';
-  calendar.dataset.vcHidden = 'true';
+  calendar.dataset.vcInput = '';
+  calendar.ariaHidden = '';
   calendar.style.visibility = 'hidden';
 
   self.isInputInit = true;

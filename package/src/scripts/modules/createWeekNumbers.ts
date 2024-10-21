@@ -1,48 +1,39 @@
-import { FormatDateString } from '@package/types';
-import VanillaCalendar from '@src/vanilla-calendar';
+import type { FormatDateString } from '@package/types';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
-
-const createWeekNumber = (
-	self: VanillaCalendar,
-	dayEls: NodeListOf<HTMLElement>,
-	index: number,
-	templateWeekNumberEl: HTMLButtonElement,
-	weekNumbersContentEl: HTMLDivElement,
-) => {
-	const dayBtnEl: HTMLElement | null = dayEls[index].querySelector(`.${self.CSSClasses.dayBtn}`);
-	const weekNumber = getWeekNumber(dayBtnEl?.dataset.calendarDay as FormatDateString | undefined, self.settings.iso8601);
-
-	if (!weekNumber) return;
-
-	const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
-	weekNumberEl.innerText = String(weekNumber.week);
-	weekNumberEl.dataset.calendarYearWeek = String(weekNumber.year);
-	weekNumbersContentEl.appendChild(weekNumberEl);
-};
+import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
-	if (!self.settings.visibility.weekNumbers) return;
-	weekNumbersEl.textContent = '';
+  if (!self.settings.visibility.weekNumbers) return;
+  weekNumbersEl.textContent = '';
 
-	const weekNumbersTitleEl = document.createElement('b');
-	weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
-	weekNumbersTitleEl.innerText = '#';
-	weekNumbersEl.appendChild(weekNumbersTitleEl);
+  const weekNumbersTitleEl = document.createElement('b');
+  weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
+  weekNumbersTitleEl.innerText = '#';
+  weekNumbersEl.appendChild(weekNumbersTitleEl);
 
-	const weekNumbersContentEl = document.createElement('div');
-	weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
-	weekNumbersEl.appendChild(weekNumbersContentEl);
+  const weekNumbersContentEl = document.createElement('div');
+  weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
+  weekNumbersEl.appendChild(weekNumbersContentEl);
 
-	const templateWeekNumberEl = document.createElement('button');
-	templateWeekNumberEl.type = 'button';
-	templateWeekNumberEl.className = self.CSSClasses.weekNumber;
+  const templateWeekNumberEl = document.createElement('button');
+  templateWeekNumberEl.type = 'button';
+  templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
-	const dayEls: NodeListOf<HTMLElement> = daysEl.querySelectorAll(`.${self.CSSClasses.day}`);
-	const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
+  const dayBtnEl = daysEl.querySelectorAll<HTMLButtonElement>('[data-vc-date]');
+  const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
 
-	for (let i = 0; i < weeksCount; i++) {
-		createWeekNumber(self, dayEls, i === 0 ? 6 : i * 7, templateWeekNumberEl, weekNumbersContentEl);
-	}
+  for (let i = 0; i < weeksCount; i++) {
+    const index = i === 0 ? 6 : i * 7;
+    const date = dayBtnEl[index].dataset.vcDate as FormatDateString;
+    const weekNumber = getWeekNumber(date, self.settings.iso8601);
+
+    if (!weekNumber) return;
+
+    const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
+    weekNumberEl.innerText = String(weekNumber.week);
+    weekNumberEl.dataset.vcYearWeek = String(weekNumber.year);
+    weekNumbersContentEl.appendChild(weekNumberEl);
+  }
 };
 
 export default createWeekNumbers;

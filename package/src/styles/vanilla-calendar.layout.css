@@ -26,19 +26,19 @@
   @apply grow-0;
 }
 
-.vanilla-calendar[data-vc-hidden="true"] {
+.vanilla-calendar[aria-hidden] {
   @apply opacity-0 pointer-events-none [&_*]:!pointer-events-none;
 }
 
-.vanilla-calendar[data-vc-input="true"] {
+.vanilla-calendar[data-vc-input] {
   @apply absolute;
 }
 
-.vanilla-calendar[data-vc-input="true"][data-vc-position="bottom"] {
+.vanilla-calendar[data-vc-input][data-vc-position="bottom"] {
   @apply mt-1;
 }
 
-.vanilla-calendar[data-vc-input="true"][data-vc-position="top"] {
+.vanilla-calendar[data-vc-input][data-vc-position="top"] {
   @apply -mt-1;
 }
 
@@ -148,7 +148,7 @@
   @apply grid grid-cols-[repeat(7,_1fr)] gap-y-1 justify-items-center items-center grow;
 }
 
-.vanilla-calendar-days[data-vc-days="disabled"] .vanilla-calendar-day__btn {
+.vanilla-calendar-days[aria-disabled] .vanilla-calendar-day__btn {
   @apply cursor-default;
 }
 

@@ -5,7 +5,7 @@ const show = (self: VanillaCalendar) => {
     self.HTMLElement.click();
     return;
   }
-  self.HTMLElement.dataset.vcHidden = 'false';
+  self.HTMLElement.ariaHidden = null;
   if (self.actions.showCalendar) self.actions.showCalendar(self);
 };
 

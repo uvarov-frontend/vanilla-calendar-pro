@@ -18,14 +18,11 @@ const classes = {
   monthsMonth: 'vanilla-calendar-months__month',
   years: 'vanilla-calendar-years',
   yearsYear: 'vanilla-calendar-years__year',
+  weekNumbers: 'vanilla-calendar-week-numbers',
+  weekNumbersTitle: 'vanilla-calendar-week-numbers__title',
+  weekNumbersContent: 'vanilla-calendar-week-numbers__content',
+  weekNumber: 'vanilla-calendar-week-number',
 
-  time: 'vanilla-calendar-time',
-  timeContent: 'vanilla-calendar-time__content',
-  timeHours: 'vanilla-calendar-time__hours',
-  timeMinutes: 'vanilla-calendar-time__minutes',
-  timeKeeping: 'vanilla-calendar-time__keeping',
-  timeRanges: 'vanilla-calendar-time__ranges',
-  timeRange: 'vanilla-calendar-time__range',
   day: 'vanilla-calendar-day',
   dayHoverFirst: 'vanilla-calendar-day_hover-first',
   dayHoverLast: 'vanilla-calendar-day_hover-last',
@@ -33,7 +30,9 @@ const classes = {
   daySelectedFirst: 'vanilla-calendar-day_selected-first',
   daySelectedLast: 'vanilla-calendar-day_selected-last',
   daySelectedIntermediate: 'vanilla-calendar-day_selected-intermediate',
+
   dayPopup: 'vanilla-calendar-day__popup',
+
   dayBtn: 'vanilla-calendar-day__btn',
   dayBtnPrev: 'vanilla-calendar-day__btn_prev',
   dayBtnNext: 'vanilla-calendar-day__btn_next',
@@ -43,10 +42,15 @@ const classes = {
   dayBtnDisabled: 'vanilla-calendar-day__btn_disabled',
   dayBtnWeekend: 'vanilla-calendar-day__btn_weekend',
   dayBtnHoliday: 'vanilla-calendar-day__btn_holiday',
-  weekNumbers: 'vanilla-calendar-week-numbers',
-  weekNumbersTitle: 'vanilla-calendar-week-numbers__title',
-  weekNumbersContent: 'vanilla-calendar-week-numbers__content',
-  weekNumber: 'vanilla-calendar-week-number',
+
+  time: 'vanilla-calendar-time',
+  timeContent: 'vanilla-calendar-time__content',
+  timeHours: 'vanilla-calendar-time__hours',
+  timeMinutes: 'vanilla-calendar-time__minutes',
+  timeKeeping: 'vanilla-calendar-time__keeping',
+  timeRanges: 'vanilla-calendar-time__ranges',
+  timeRange: 'vanilla-calendar-time__range',
+
   isFocus: 'vanilla-calendar-is-focus',
 };
 
