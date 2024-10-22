@@ -27,8 +27,8 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
     self.actions.changeToInput(event, self);
   }
 
-  const dayPrevEl = element.closest('[data-vc-date="prev"]');
-  const dayNextEl = element.closest('[data-vc-date="next"]');
+  const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
+  const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
     prev: () => changeMonth(self, 'prev'),
