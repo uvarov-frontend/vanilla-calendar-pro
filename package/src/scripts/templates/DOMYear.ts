@@ -3,7 +3,7 @@ import type { CSSClasses } from '@package/types';
 const DOMYears = (styles: CSSClasses) => `
   <div class="${styles.header}" data-vc="header">
     <#ArrowPrev />
-    <div class="${styles.headerContent}" data-vc="header-content">
+    <div class="${styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>

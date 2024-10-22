@@ -5,7 +5,7 @@ const show = (self: VanillaCalendar) => {
     self.HTMLElement.click();
     return;
   }
-  self.HTMLElement.ariaHidden = null;
+  self.HTMLElement.removeAttribute('data-vc-calendar-hidden');
   if (self.actions.showCalendar) self.actions.showCalendar(self);
 };
 

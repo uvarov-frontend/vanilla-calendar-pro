@@ -10,7 +10,7 @@ const canToggleSelection = (self: VanillaCalendar): boolean => {
 
 const handleSelectDate = (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => {
   const selectedDate = dateEl.dataset.vcDate as FormatDateString;
-  const isSelected = dateEl.closest('[data-vc-date][aria-selected]');
+  const isSelected = dateEl.closest('[data-vc-date][data-vc-date-selected]');
 
   if (isSelected && !self.settings.selection.cancelableDay) return;
 

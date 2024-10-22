@@ -8,7 +8,7 @@ const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sele
   yearEl.className = self.CSSClasses.yearsYear;
   yearEl.innerText = String(i);
   yearEl.dataset.vcYearsYear = `${i}`;
-  if (selected === i) yearEl.ariaSelected = '';
+  if (selected === i) yearEl.dataset.vcYearsYearSelected = '';
   if (disabled) yearEl.tabIndex = -1;
   yearEl.disabled = disabled;
   return yearEl;

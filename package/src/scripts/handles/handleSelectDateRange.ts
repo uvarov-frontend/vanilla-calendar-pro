@@ -14,7 +14,7 @@ const current: { self: VanillaCalendar | null; rangeMin: FormatDateString | unde
 const removeHoverEffect = () => {
   if (!current.self?.HTMLElement) return;
   const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date-hover]');
-  dateEls.forEach((d) => d.removeAttribute('data-vc-date-hover'));
+  dateEls.forEach((d) => ['data-vc-date-hover', 'data-vc-date-hover-first', 'data-vc-date-hover-last'].forEach((attr) => d.removeAttribute(attr)));
 };
 
 const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, lastDateEls: NodeListOf<HTMLDivElement>) => {
@@ -26,8 +26,8 @@ const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, la
   const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`);
   dateEls?.forEach((d) => (d.dataset.vcDateHover = ''));
 
-  firstDateEls?.forEach((d) => (d.dataset.vcDateHover = 'first'));
-  lastDateEls?.forEach((d) => (d.dataset.vcDateHover = 'last'));
+  firstDateEls?.forEach((d) => (d.dataset.vcDateHoverFirst = ''));
+  lastDateEls?.forEach((d) => (d.dataset.vcDateHoverLast = ''));
 };
 
 const handleHoverDatesEvent = (e: MouseEvent) => {
@@ -40,7 +40,7 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
     return;
   }
 
-  const dateEl = datesEl.closest<HTMLElement>('[data-calendar-date]');
+  const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date]');
   if (!dateEl) return;
 
   const lastDateString = dateEl.dataset.vcDate as FormatDateString;

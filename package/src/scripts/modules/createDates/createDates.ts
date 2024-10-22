@@ -8,10 +8,10 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const createDays = (self: VanillaCalendar) => {
   const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
   const datesEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
-  const weekNumbersEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week-numbers"]');
+  const weekNumbersEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
   datesEls.forEach((dateEl, index: number) => {
-    if (!self.settings.selection.day) dateEl.ariaDisabled = '';
+    if (!self.settings.selection.day) dateEl.dataset.vcDatesDisabled = '';
 
     const currentDate = new Date(initDate);
     currentDate.setMonth(currentDate.getMonth() + index);

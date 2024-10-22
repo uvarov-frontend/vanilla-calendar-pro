@@ -9,7 +9,7 @@ const DOMMultiple = (styles: CSSClasses) => `
     <#Multiple>
       <div class="${styles.column}" data-vc="column">
         <div class="${styles.header}" data-vc="header">
-          <div class="${styles.headerContent}" data-vc="header-content">
+          <div class="${styles.headerContent}" data-vc-header="content">
             <#Month />
             <#Year />
           </div>

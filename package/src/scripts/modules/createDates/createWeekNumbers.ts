@@ -9,10 +9,12 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
   const weekNumbersTitleEl = document.createElement('b');
   weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
   weekNumbersTitleEl.innerText = '#';
+  weekNumbersTitleEl.dataset.vcWeekNumbers = 'title';
   weekNumbersEl.appendChild(weekNumbersTitleEl);
 
   const weekNumbersContentEl = document.createElement('div');
   weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
+  weekNumbersContentEl.dataset.vcWeekNumbers = 'content';
   weekNumbersEl.appendChild(weekNumbersContentEl);
 
   const templateWeekNumberEl = document.createElement('button');
@@ -31,7 +33,8 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
 
     const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
     weekNumberEl.innerText = String(weekNumber.week);
-    weekNumberEl.dataset.vcYearWeek = String(weekNumber.year);
+    weekNumberEl.dataset.vcWeek = 'number';
+    weekNumberEl.dataset.vcWeekYear = String(weekNumber.year);
     weekNumbersContentEl.appendChild(weekNumberEl);
   }
 };

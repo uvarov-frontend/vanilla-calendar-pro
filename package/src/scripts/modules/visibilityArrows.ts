@@ -41,8 +41,8 @@ const handleYearType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arrowNe
 const visibilityArrows = (self: VanillaCalendar) => {
   if (self.currentType === 'month') return;
 
-  const arrowPrevEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc="arrow-prev"]');
-  const arrowNextEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc="arrow-next"]');
+  const arrowPrevEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc-arrow="prev"]');
+  const arrowNextEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc-arrow="next"]');
   if (!arrowPrevEl || !arrowNextEl) return;
 
   const updateType = {

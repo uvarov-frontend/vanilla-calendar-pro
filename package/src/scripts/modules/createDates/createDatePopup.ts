@@ -11,6 +11,7 @@ const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesE
   if (dateInfo?.html) {
     const datePopup = document.createElement('div');
     datePopup.className = self.CSSClasses.datePopup;
+    datePopup.dataset.vcDatePopup = '';
     datePopup.innerHTML = self.sanitizer(dateInfo.html);
     dateEl.appendChild(datePopup);
 

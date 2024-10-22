@@ -9,7 +9,7 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
   calendar.className = self.CSSClasses.calendar;
   calendar.dataset.vc = 'calendar';
   calendar.dataset.vcInput = '';
-  calendar.ariaHidden = '';
+  calendar.dataset.vcCalendarHidden = '';
   calendar.style.visibility = 'hidden';
 
   self.isInputInit = true;

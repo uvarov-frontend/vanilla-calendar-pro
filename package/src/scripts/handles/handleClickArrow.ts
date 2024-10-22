@@ -4,16 +4,14 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
   const element = event.target as HTMLElement;
-  const arrowEl: HTMLElement | null = element.closest('[data-vc="arrow-prev"], [data-vc="arrow-next"]');
+  const arrowEl: HTMLElement | null = element.closest('[data-vc-arrow]');
 
   if (!arrowEl) return;
 
-  const direction = (arrowEl.dataset.vc as string).split('-')[1] as 'prev' | 'next';
-
   if (['default', 'multiple'].includes(self.currentType)) {
-    changeMonth(self, direction);
+    changeMonth(self, arrowEl.dataset.vcArrow as 'prev' | 'next');
   } else if (self.currentType === 'year' && self.viewYear !== undefined) {
-    self.viewYear += { prev: -15, next: 15 }[direction];
+    self.viewYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
     createYears(self, event.target as HTMLElement);
   }
 

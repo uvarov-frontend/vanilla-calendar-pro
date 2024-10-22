@@ -15,7 +15,7 @@ const createMonthEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sel
   monthEl.innerText = `${self.settings.visibility.monthShort ? title.substring(0, 3) : title}`;
   monthEl.title = title;
   monthEl.dataset.vcMonthsMonth = `${i}`;
-  if (selected === i) monthEl.ariaSelected = '';
+  if (selected === i) monthEl.dataset.vcMonthsMonthSelected = '';
   if (disabled) monthEl.tabIndex = -1;
   monthEl.disabled = disabled;
   return monthEl;
