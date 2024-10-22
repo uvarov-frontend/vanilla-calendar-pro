@@ -1,5 +1,5 @@
 import handleClickArrow from '@scripts/handles/handleClickArrow';
-import handleClickDay from '@scripts/handles/handleClickDay';
+import handleClickDate from '@scripts/handles/handleClickDate';
 import handleClickMonthOrYear from '@scripts/handles/handleClickMonthOrYear';
 import handleClickWeekNumber from '@scripts/handles/handleClickWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -8,7 +8,7 @@ const handleClick = (self: VanillaCalendar) => {
   const clickEventHandler = (e: MouseEvent) => {
     handleClickArrow(self, e);
     handleClickWeekNumber(self, e);
-    handleClickDay(self, e);
+    handleClickDate(self, e);
     handleClickMonthOrYear(self, e);
   };
 

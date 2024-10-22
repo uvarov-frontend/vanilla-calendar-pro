@@ -13,7 +13,7 @@ const DOMDefault = (styles: CSSClasses) => `
     <#WeekNumbers />
     <div class="${styles.content}" data-vc="content">
       <#Week />
-      <#Days />
+      <#Dates />
     </div>
   </div>
   <#ControlTime />

@@ -114,8 +114,8 @@ const changeTime = (self: VanillaCalendar, timeEl: HTMLElement, keepingTime: fal
 	const inputMinutes = getInputElement(timeEl, self.CSSClasses.timeMinutes, 'minutes');
 	const btnKeepingTime: HTMLButtonElement | null = timeEl.querySelector(`.${self.CSSClasses.timeKeeping}`);
 
-	addMouseEvents(rangeHours, inputHours, self.CSSClasses.isFocus);
-	addMouseEvents(rangeMinutes, inputMinutes, self.CSSClasses.isFocus);
+	// addMouseEvents(rangeHours, inputHours, self.CSSClasses.isFocus);
+	// addMouseEvents(rangeMinutes, inputMinutes, self.CSSClasses.isFocus);
 
 	changeRange(self, rangeHours, inputHours, btnKeepingTime, 'hours', maxTime);
 	changeRange(self, rangeMinutes, inputMinutes, btnKeepingTime, 'minutes', 0);

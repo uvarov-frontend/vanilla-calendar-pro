@@ -1,6 +1,6 @@
 import getLocale from '@scripts/helpers/getLocale';
 import changeTheme from '@scripts/modules/changeTheme';
-import createDays from '@scripts/modules/createDays';
+import createDates from '@scripts/modules/createDates/createDates';
 import createDOM from '@scripts/modules/createDOM';
 import createMonths from '@scripts/modules/createMonths';
 import createTime from '@scripts/modules/createTime';
@@ -14,11 +14,11 @@ const create = (self: VanillaCalendar) => {
   const types = {
     default: () => {
       createWeek(self);
-      createDays(self);
+      createDates(self);
     },
     multiple: () => {
       createWeek(self);
-      createDays(self);
+      createDates(self);
     },
     month: () => createMonths(self),
     year: () => createYears(self),

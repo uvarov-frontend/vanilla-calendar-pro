@@ -1,6 +1,6 @@
 import type { IReset } from '@package/types';
 import create from '@scripts/create';
-import handleDayRangedSelection from '@scripts/handles/handleDayRangedSelection';
+import handleDayRangedSelection from '@scripts/handles/handleDateRangedSelection';
 import setVariables from '@scripts/helpers/setVariables';
 import type VanillaCalendar from '@src/vanilla-calendar';
 

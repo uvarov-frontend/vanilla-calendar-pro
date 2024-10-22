@@ -2,7 +2,7 @@ import type { FormatDateString } from '@package/types';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSelectedMonth: number, weekNumbersEl: HTMLElement, daysEl: HTMLElement) => {
+const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => {
   if (!self.settings.visibility.weekNumbers) return;
   weekNumbersEl.textContent = '';
 
@@ -19,12 +19,12 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, daysSele
   templateWeekNumberEl.type = 'button';
   templateWeekNumberEl.className = self.CSSClasses.weekNumber;
 
-  const dayBtnEl = daysEl.querySelectorAll<HTMLButtonElement>('[data-vc-date]');
-  const weeksCount = Math.ceil((firstDayWeek + daysSelectedMonth) / 7);
+  const dateBtnEl = datesEl.querySelectorAll<HTMLButtonElement>('[data-vc-date]');
+  const weeksCount = Math.ceil((firstDayWeek + days) / 7);
 
   for (let i = 0; i < weeksCount; i++) {
     const index = i === 0 ? 6 : i * 7;
-    const date = dayBtnEl[index].dataset.vcDate as FormatDateString;
+    const date = dateBtnEl[index].dataset.vcDate as FormatDateString;
     const weekNumber = getWeekNumber(date, self.settings.iso8601);
 
     if (!weekNumber) return;

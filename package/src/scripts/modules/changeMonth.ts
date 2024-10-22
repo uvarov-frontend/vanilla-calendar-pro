@@ -1,6 +1,6 @@
 import getDate from '@scripts/helpers/getDate';
 import getDateString from '@scripts/helpers/getDateString';
-import createDays from '@scripts/modules/createDays';
+import createDates from '@scripts/modules/createDates/createDates';
 import visibilityArrows from '@scripts/modules/visibilityArrows';
 import visibilityTitle from '@scripts/modules/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -18,7 +18,7 @@ const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
 
   visibilityTitle(self);
   visibilityArrows(self);
-  createDays(self);
+  createDates(self);
 };
 
 export default changeMonth;

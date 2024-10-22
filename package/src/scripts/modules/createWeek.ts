@@ -1,6 +1,6 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createDaysOfTheWeek = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
+const createWeekDay = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
   const templateWeekDayEl: HTMLElement = document.createElement('b');
 
   for (let i = 0; i < weekday.length; i++) {
@@ -28,7 +28,7 @@ const createWeek = (self: VanillaCalendar) => {
   if (!weekday[0]) return;
 
   if (self.settings.iso8601) weekday.push(weekday.shift() as string);
-  self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => createDaysOfTheWeek(self, weekEl, weekday));
+  self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => createWeekDay(self, weekEl, weekday));
 };
 
 export default createWeek;
