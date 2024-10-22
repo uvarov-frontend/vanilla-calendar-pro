@@ -26,22 +26,6 @@ const classes = {
   dateBtn: 'vanilla-calendar-date__btn',
   datePopup: 'vanilla-calendar-date__popup',
 
-  // dayHoverFirst: 'vanilla-calendar-day_hover-first',
-  // dayHoverLast: 'vanilla-calendar-day_hover-last',
-  // dayHoverIntermediate: 'vanilla-calendar-day_hover-intermediate',
-  // daySelectedFirst: 'vanilla-calendar-day_selected-first',
-  // daySelectedLast: 'vanilla-calendar-day_selected-last',
-  // daySelectedIntermediate: 'vanilla-calendar-day_selected-intermediate',
-
-  // dayBtnPrev: 'vanilla-calendar-day__btn_prev',
-  // dayBtnNext: 'vanilla-calendar-day__btn_next',
-  // dayBtnToday: 'vanilla-calendar-day__btn_today',
-  // dayBtnSelected: 'vanilla-calendar-day__btn_selected',
-  // dayBtnHover: 'vanilla-calendar-day__btn_hover',
-  // dayBtnDisabled: 'vanilla-calendar-day__btn_disabled',
-  // dayBtnWeekend: 'vanilla-calendar-day__btn_weekend',
-  // dayBtnHoliday: 'vanilla-calendar-day__btn_holiday',
-
   time: 'vanilla-calendar-time',
   timeContent: 'vanilla-calendar-time__content',
   timeHours: 'vanilla-calendar-time__hours',
