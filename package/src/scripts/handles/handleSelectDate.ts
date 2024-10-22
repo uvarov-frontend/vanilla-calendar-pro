@@ -8,7 +8,7 @@ const canToggleSelection = (self: VanillaCalendar): boolean => {
   return true;
 };
 
-const handleDateSelection = (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => {
+const handleSelectDate = (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => {
   const selectedDate = dateEl.dataset.vcDate as FormatDateString;
   const isSelected = dateEl.closest('[data-vc-date][aria-selected]');
 
@@ -24,4 +24,4 @@ const handleDateSelection = (self: VanillaCalendar, dateEl: HTMLElement, multipl
       : [selectedDate];
 };
 
-export default handleDateSelection;
+export default handleSelectDate;

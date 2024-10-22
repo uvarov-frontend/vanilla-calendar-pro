@@ -41,4 +41,5 @@ const handleInput = (self: VanillaCalendar) => {
     cleanup.forEach((clean) => clean());
   };
 };
+
 export default handleInput;

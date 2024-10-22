@@ -1,6 +1,6 @@
 import type { FormatDateString } from '@package/types';
-import handleDateRangedSelection from '@scripts/handles/handleDateRangedSelection';
-import handleDateSelection from '@scripts/handles/handleDateSelection';
+import handleSelectDate from '@scripts/handles/handleSelectDate';
+import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
 import changeMonth from '@scripts/modules/changeMonth';
 import createDates from '@scripts/modules/createDates/createDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -13,9 +13,9 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
 
   const dateEl = dateBtnEl.closest('[data-vc-date]') as HTMLElement;
   const daySelectionActions = {
-    single: () => handleDateSelection(self, dateEl, false),
-    multiple: () => handleDateSelection(self, dateEl, true),
-    'multiple-ranged': () => handleDateRangedSelection(self, dateEl.dataset.vcDate as FormatDateString),
+    single: () => handleSelectDate(self, dateEl, false),
+    multiple: () => handleSelectDate(self, dateEl, true),
+    'multiple-ranged': () => handleSelectDateRanged(self, dateEl.dataset.vcDate as FormatDateString),
   };
   daySelectionActions[self.settings.selection.day]();
   self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));

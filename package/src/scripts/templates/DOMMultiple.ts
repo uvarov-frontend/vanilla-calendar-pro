@@ -18,7 +18,7 @@ const DOMMultiple = (styles: CSSClasses) => `
           <#WeekNumbers />
           <div class="${styles.content}" data-vc="content">
             <#Week />
-            <#Days />
+            <#Dates />
           </div>
         </div>
       </div>
