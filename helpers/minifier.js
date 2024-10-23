@@ -14,7 +14,7 @@ function removeTabsAndNewLines() {
       if (err) throw new Error(`Error reading file: ${err}`);
 
       const result = await minify(data);
-      fs.writeFile(file, result.code.replace(/\\[nt](?!\]|\\t\])/g, ''), (error) => {
+      fs.writeFile(file, result.code.replace(/\\n\s+/g, ''), (error) => {
         if (error) throw new Error(`Error write file: ${err}`);
       });
     });

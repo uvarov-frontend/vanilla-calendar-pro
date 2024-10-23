@@ -19,8 +19,8 @@ const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: 
 };
 
 const visibilityTitle = (self: VanillaCalendar) => {
-  const monthEls = self.HTMLElement?.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
-  const yearEls = self.HTMLElement?.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
+  const monthEls = self.HTMLElement.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
+  const yearEls = self.HTMLElement.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
   const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
 
   [monthEls, yearEls].forEach((els) => els?.forEach((el, index) => visibilityHandler(self, el, index, initDate, el.dataset.vc as 'month' | 'year')));

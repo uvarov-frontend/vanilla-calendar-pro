@@ -15,7 +15,7 @@ const handleInput = (self: VanillaCalendar) => {
   };
 
   const documentClickEvent = (e: MouseEvent) => {
-    if (!self || e.target === self.HTMLInputElement || self.HTMLElement?.contains(e.target as HTMLElement)) return;
+    if (!self || e.target === self.HTMLInputElement || self.HTMLElement.contains(e.target as HTMLElement)) return;
     if (self.HTMLInputElement && self.HTMLElement) self.hide();
     window.removeEventListener('resize', handleResize);
     document.removeEventListener('click', documentClickEvent, { capture: true });
