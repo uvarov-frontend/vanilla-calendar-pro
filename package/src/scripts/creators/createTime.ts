@@ -27,13 +27,13 @@ const createTime = (self: VanillaCalendar) => {
 
   timeEl.innerHTML = self.sanitizer(`
     <div class="${self.CSSClasses.timeContent}" data-vc-time="content">
-      ${InputTime('hours', self.CSSClasses.timeHours, self.selectedHours, range)}
-      ${InputTime('minutes', self.CSSClasses.timeMinutes, self.selectedMinutes, range)}
+      ${InputTime('hour', self.CSSClasses.timeHour, self.selectedHours, range)}
+      ${InputTime('minute', self.CSSClasses.timeMinute, self.selectedMinutes, range)}
       ${keepingTime === 12 ? `<button type="button" class="${self.CSSClasses.timeKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.selectedKeeping}</button>` : ''}
     </div>
     <div class="${self.CSSClasses.timeRanges}" data-vc-time="ranges">
-      ${RangeTime('hours', self.CSSClasses.timeRange, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
-      ${RangeTime('minutes', self.CSSClasses.timeRange, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
+      ${RangeTime('hour', self.CSSClasses.timeRange, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
+      ${RangeTime('minute', self.CSSClasses.timeRange, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
     </div>
   `);
 

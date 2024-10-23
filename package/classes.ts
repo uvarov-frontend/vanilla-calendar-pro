@@ -25,11 +25,10 @@ const classes = {
   date: 'vanilla-calendar-date',
   dateBtn: 'vanilla-calendar-date__btn',
   datePopup: 'vanilla-calendar-date__popup',
-
   time: 'vanilla-calendar-time',
   timeContent: 'vanilla-calendar-time__content',
-  timeHours: 'vanilla-calendar-time__hours',
-  timeMinutes: 'vanilla-calendar-time__minutes',
+  timeHour: 'vanilla-calendar-time__hour',
+  timeMinute: 'vanilla-calendar-time__minute',
   timeKeeping: 'vanilla-calendar-time__keeping',
   timeRanges: 'vanilla-calendar-time__ranges',
   timeRange: 'vanilla-calendar-time__range',

@@ -2,22 +2,19 @@ import transformTime12 from '@scripts/helpers/transformTime12';
 import transformTime24 from '@scripts/helpers/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-type TypeTime = 'hours' | 'minutes';
+type TypeTime = 'hour' | 'minute';
 
-const getInputElement = (timeEl: HTMLElement, className: string, name?: string) =>
-  timeEl.querySelector(`.${className}${name ? ` input[name="${name}"]` : ''}`) as HTMLInputElement;
-
-const addMouseEvents = (range: HTMLInputElement, input: HTMLInputElement) => {
-  range.addEventListener('mouseover', () => (input.dataset.vcInputFocus = ''));
-  range.addEventListener('mouseout', () => input.removeAttribute('data-vc-input-focus'));
+const addMouseEvents = (rangeEl: HTMLInputElement, inputEl: HTMLInputElement) => {
+  rangeEl.addEventListener('mouseover', () => (inputEl.dataset.vcInputFocus = ''));
+  rangeEl.addEventListener('mouseout', () => inputEl.removeAttribute('data-vc-input-focus'));
 };
 
 const setTime = (self: VanillaCalendar, e: Event, value: string, type: TypeTime) => {
   const typeMap = {
-    hours: () => {
+    hour: () => {
       self.selectedHours = value;
     },
-    minutes: () => {
+    minute: () => {
       self.selectedMinutes = value;
     },
   };
@@ -26,119 +23,119 @@ const setTime = (self: VanillaCalendar, e: Event, value: string, type: TypeTime)
   self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${self.selectedKeeping ? ` ${self.selectedKeeping}` : ''}`;
 
   if (self.actions.changeTime) self.actions.changeTime(e, self);
-
   if (self.input && self.HTMLInputElement && self.actions.changeToInput) self.actions.changeToInput(e, self);
 };
 
 const changeRange = (
   self: VanillaCalendar,
-  range: HTMLInputElement,
-  input: HTMLInputElement,
-  btnKeepingTime: HTMLButtonElement | null,
+  rangeEl: HTMLInputElement,
+  inputEl: HTMLInputElement,
+  keepingTimeEl: HTMLButtonElement | null,
   type: TypeTime,
   max: number,
 ) => {
-  range.addEventListener('input', (e) => {
-    const inputEl = e.target as HTMLInputElement;
-    const value = Number(inputEl.value);
+  rangeEl.addEventListener('input', (e) => {
+    const value = Number(rangeEl.value);
     const valueStr = value < 10 ? `0${value}` : `${value}`;
 
-    if (type !== 'hours' || max !== 12) {
-      input.value = valueStr;
+    if (type !== 'hour' || max !== 12) {
+      inputEl.value = valueStr;
       setTime(self, e, valueStr, type);
       return;
     }
 
     if (value < max && value > 0) {
-      input.value = valueStr;
+      inputEl.value = valueStr;
       self.selectedKeeping = 'AM';
-      (btnKeepingTime as HTMLButtonElement).innerText = self.selectedKeeping;
+      if (keepingTimeEl) keepingTimeEl.innerText = self.selectedKeeping;
       setTime(self, e, valueStr, type);
     } else {
       if (value === 0) {
         self.selectedKeeping = 'AM';
-        (btnKeepingTime as HTMLButtonElement).innerText = 'AM';
+        if (keepingTimeEl) keepingTimeEl.innerText = 'AM';
       } else {
         self.selectedKeeping = 'PM';
-        (btnKeepingTime as HTMLButtonElement).innerText = 'PM';
+        if (keepingTimeEl) keepingTimeEl.innerText = 'PM';
       }
-      input.value = transformTime12(inputEl.value);
-      setTime(self, e, transformTime12(inputEl.value), type);
+      inputEl.value = transformTime12(rangeEl.value);
+      setTime(self, e, transformTime12(rangeEl.value), type);
     }
   });
 };
 
 const changeInput = (
   self: VanillaCalendar,
-  range: HTMLInputElement,
-  input: HTMLInputElement,
-  btnKeepingTime: HTMLButtonElement | null,
+  rangeEl: HTMLInputElement,
+  inputEl: HTMLInputElement,
+  keepingTimeEl: HTMLButtonElement | null,
   type: TypeTime,
   max: number,
 ) => {
-  input.addEventListener('change', (e) => {
-    const inputEl = e.target as HTMLInputElement;
+  inputEl.addEventListener('change', (e) => {
     const value = Number(inputEl.value);
     const valueStr = value < 10 ? `0${value}` : `${value}`;
 
-    if (type === 'hours' && max === 12) {
+    if (type === 'hour' && max === 12) {
       if (inputEl.value && value <= max && value > 0) {
         inputEl.value = valueStr;
-        range.value = transformTime24(valueStr, self.selectedKeeping);
+        rangeEl.value = transformTime24(valueStr, self.selectedKeeping);
         setTime(self, e, valueStr, type);
       } else if (inputEl.value && value < 24 && (value > max || value === 0)) {
         if (value === 0) {
           self.selectedKeeping = 'AM';
-          (btnKeepingTime as HTMLButtonElement).innerText = 'AM';
+          if (keepingTimeEl) keepingTimeEl.innerText = 'AM';
         } else {
           self.selectedKeeping = 'PM';
-          (btnKeepingTime as HTMLButtonElement).innerText = 'PM';
+          if (keepingTimeEl) keepingTimeEl.innerText = 'PM';
         }
         inputEl.value = transformTime12(inputEl.value);
-        range.value = valueStr;
+        rangeEl.value = valueStr;
         setTime(self, e, transformTime12(inputEl.value), type);
       } else {
         inputEl.value = self.selectedHours;
       }
     } else if (inputEl.value && value <= max && value >= 0) {
       inputEl.value = valueStr;
-      range.value = valueStr;
+      rangeEl.value = valueStr;
       setTime(self, e, valueStr, type);
-    } else if (type === 'hours') {
+    } else if (type === 'hour') {
       inputEl.value = self.selectedHours;
-    } else if (type === 'minutes') {
+    } else if (type === 'minute') {
       inputEl.value = self.selectedMinutes;
     }
   });
 };
 
-const clickBtnKeepingTime = (self: VanillaCalendar, btnKeepingTime: HTMLButtonElement, rangeHours: HTMLInputElement) => {
-  btnKeepingTime.addEventListener('click', (e) => {
-    self.selectedKeeping = btnKeepingTime.innerText.includes('AM') ? 'PM' : 'AM';
-    btnKeepingTime.innerText = self.selectedKeeping;
-    rangeHours.value = transformTime24(self.selectedHours, self.selectedKeeping);
-    setTime(self, e, self.selectedHours, 'hours');
+const clickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement) => {
+  keepingTimeEl.addEventListener('click', (e) => {
+    self.selectedKeeping = keepingTimeEl.innerText.includes('AM') ? 'PM' : 'AM';
+    keepingTimeEl.innerText = self.selectedKeeping;
+    rangeHourEl.value = transformTime24(self.selectedHours, self.selectedKeeping);
+    setTime(self, e, self.selectedHours, 'hour');
   });
 };
 
 const handleTime = (self: VanillaCalendar, timeEl: HTMLElement, keepingTime: false | 12 | 24) => {
+  const rangeHourEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-range="hour"] input[name="hour"]');
+  const rangeMinuteEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-range="minute"] input[name="minute"]');
+  const inputHourEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-input="hour"] input[name="hour"]');
+  const inputMinuteEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-input="minute"] input[name="minute"]');
+  const keepingTimeEl = timeEl.querySelector<HTMLButtonElement>('[data-vc-time="keeping"]');
+
+  if (!rangeHourEl || !rangeMinuteEl || !inputHourEl || !inputMinuteEl) return;
+
   const maxTime = keepingTime === 24 ? 23 : keepingTime || 12;
-  const rangeHours = getInputElement(timeEl, self.CSSClasses.timeRange, 'hours');
-  const rangeMinutes = getInputElement(timeEl, self.CSSClasses.timeRange, 'minutes');
-  const inputHours = getInputElement(timeEl, self.CSSClasses.timeHours, 'hours');
-  const inputMinutes = getInputElement(timeEl, self.CSSClasses.timeMinutes, 'minutes');
-  const btnKeepingTime: HTMLButtonElement | null = timeEl.querySelector(`.${self.CSSClasses.timeKeeping}`);
 
-  addMouseEvents(rangeHours, inputHours);
-  addMouseEvents(rangeMinutes, inputMinutes);
+  addMouseEvents(rangeHourEl, inputHourEl);
+  addMouseEvents(rangeMinuteEl, inputMinuteEl);
 
-  changeRange(self, rangeHours, inputHours, btnKeepingTime, 'hours', maxTime);
-  changeRange(self, rangeMinutes, inputMinutes, btnKeepingTime, 'minutes', 0);
+  changeInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', maxTime);
+  changeInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 59);
 
-  changeInput(self, rangeHours, inputHours, btnKeepingTime, 'hours', maxTime);
-  changeInput(self, rangeMinutes, inputMinutes, btnKeepingTime, 'minutes', 59);
+  changeRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', maxTime);
+  changeRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 0);
 
-  if (btnKeepingTime) clickBtnKeepingTime(self, btnKeepingTime, rangeHours);
+  if (keepingTimeEl) clickKeepingTime(self, keepingTimeEl, rangeHourEl);
 };
 
 export default handleTime;

@@ -154,10 +154,10 @@
   @apply bg-white text-slate-400 hover:bg-slate-100;
 }
 
-[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-weekend][data-vc-date-month='prev'] .vanilla-calendar-date__btn,
-[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-holiday][data-vc-date-month='prev'] .vanilla-calendar-date__btn,
-[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-weekend][data-vc-date-month='next'] .vanilla-calendar-date__btn,
-[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-holiday][data-vc-date-month='next'] .vanilla-calendar-date__btn {
+[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month='prev'] .vanilla-calendar-date__btn,
+[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month='prev'] .vanilla-calendar-date__btn,
+[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month='next'] .vanilla-calendar-date__btn,
+[data-vc-theme='light'] .vanilla-calendar-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month='next'] .vanilla-calendar-date__btn {
   @apply bg-slate-100;
 }
 
@@ -208,17 +208,18 @@
   @apply border-slate-300;
 }
 
-[data-vc-theme='light'] .vanilla-calendar-time__hours {
+[data-vc-theme='light'] .vanilla-calendar-time__hour,
+[data-vc-theme='light'] .vanilla-calendar-time__minute {
   @apply after:text-slate-900;
 }
 
-[data-vc-theme='light'] .vanilla-calendar-time__hours input,
-[data-vc-theme='light'] .vanilla-calendar-time__minutes input {
+[data-vc-theme='light'] .vanilla-calendar-time__hour input,
+[data-vc-theme='light'] .vanilla-calendar-time__minute input {
   @apply text-slate-900 bg-white hover:bg-orange-100 focus-visible:outline-orange-300;
 }
 
-[data-vc-theme='light'] .vanilla-calendar-time__hours input[data-vc-input-focus],
-[data-vc-theme='light'] .vanilla-calendar-time__minutes input[data-vc-input-focus] {
+[data-vc-theme='light'] .vanilla-calendar-time__hour input[data-vc-input-focus],
+[data-vc-theme='light'] .vanilla-calendar-time__minute input[data-vc-input-focus] {
   @apply bg-orange-100;
 }
 

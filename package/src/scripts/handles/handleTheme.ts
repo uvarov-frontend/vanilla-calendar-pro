@@ -1,7 +1,5 @@
-import messages from '@scripts/helpers/getMessages';
+import type { IVisibility } from '@package/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
-
-const themes = ['light', 'dark', 'system'];
 
 const haveListener = {
   value: false,
@@ -9,10 +7,7 @@ const haveListener = {
   check: () => haveListener.value,
 };
 
-const getTheme = (htmlEl: HTMLElement, attr: string) =>
-  themes.find((t) => t !== 'system' && htmlEl.getAttribute(attr)?.includes(t)) as 'dark' | 'light' | undefined;
-
-const setTheme = (htmlEl: HTMLElement, theme: 'dark' | 'light') => (htmlEl.dataset.vcTheme = theme);
+const setTheme = (htmlEl: HTMLElement, theme: IVisibility['theme']) => (htmlEl.dataset.vcTheme = theme);
 
 const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
   setTheme(self.HTMLElement, supportDarkTheme.matches ? 'dark' : 'light');
@@ -38,7 +33,7 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
     for (let i = 0; i < mutationsList.length; i++) {
       const record = mutationsList[i];
       if (record.attributeName === attr) {
-        const activeTheme = getTheme(htmlEl, attr);
+        const activeTheme = htmlEl.getAttribute(attr);
         if (activeTheme) setTheme(self.HTMLElement, activeTheme);
         break;
       }
@@ -51,15 +46,14 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
 
 const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
   const detectedThemeEl: HTMLElement | null = self.settings.visibility.themeDetect ? document.querySelector(self.settings.visibility.themeDetect) : null;
+  const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
 
-  if (!detectedThemeEl) {
+  if (!detectedThemeEl || detectedThemeEl.getAttribute(attr) === 'system') {
     trackChangesThemeInSystemSettings(self, supportDarkTheme);
     return;
   }
 
-  const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
-  const activeTheme = getTheme(detectedThemeEl, attr);
-
+  const activeTheme = detectedThemeEl.getAttribute(attr);
   if (activeTheme) {
     setTheme(self.HTMLElement, activeTheme);
     trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
@@ -69,19 +63,16 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
 };
 
 const handleTheme = (self: VanillaCalendar) => {
-  if (!themes.includes(self.settings.visibility.theme)) throw new Error(messages.incorrectTheme);
-
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
     setTheme(self.HTMLElement, 'light');
     return;
   }
 
-  const mapThemes = {
-    light: () => setTheme(self.HTMLElement, 'light'),
-    dark: () => setTheme(self.HTMLElement, 'dark'),
-    system: () => detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)')),
-  };
-  mapThemes[self.settings.visibility.theme]();
+  if (self.settings.visibility.theme === 'system') {
+    detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)'));
+  } else {
+    setTheme(self.HTMLElement, self.settings.visibility.theme);
+  }
 };
 
 export default handleTheme;

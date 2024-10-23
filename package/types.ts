@@ -74,7 +74,7 @@ export type ToggleSelected = boolean | ((self: IVanillaCalendar) => boolean);
 
 export interface IVisibility {
   /** This parameter determines the theme of the calendar. By default, the theme is determined by the user's system or website settings. */
-  theme: 'light' | 'dark' | 'system';
+  theme: 'light' | 'dark' | 'system' | string;
   /** To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector. */
   themeDetect: string | false;
   /** This parameter allows you to use abbreviated month names when selecting a month. */

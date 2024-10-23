@@ -41,8 +41,8 @@
   @apply bg-slate-900 text-white hover:bg-slate-800;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-months__month[data-vc-date-months-month-selected],
-[data-vc-theme='dark'] .vanilla-calendar-years__year[data-vc-date-years-year-selected] {
+[data-vc-theme='dark'] .vanilla-calendar-months__month[data-vc-months-month-selected],
+[data-vc-theme='dark'] .vanilla-calendar-years__year[data-vc-years-year-selected] {
   @apply bg-slate-500 text-white hover:bg-slate-500 hover:text-white;
 }
 
@@ -208,17 +208,18 @@
   @apply border-slate-800;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-time__hours {
+[data-vc-theme='dark'] .vanilla-calendar-time__hour,
+[data-vc-theme='dark'] .vanilla-calendar-time__minute {
   @apply after:text-white;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-time__hours input,
-[data-vc-theme='dark'] .vanilla-calendar-time__minutes input {
+[data-vc-theme='dark'] .vanilla-calendar-time__hour input,
+[data-vc-theme='dark'] .vanilla-calendar-time__minute input {
   @apply text-white bg-slate-900 hover:bg-slate-700 focus-visible:outline-orange-300;
 }
 
-[data-vc-theme='dark'] .vanilla-calendar-time__hours input[data-vc-input-focus],
-[data-vc-theme='dark'] .vanilla-calendar-time__minutes input[data-vc-input-focus] {
+[data-vc-theme='dark'] .vanilla-calendar-time__hour input[data-vc-input-focus],
+[data-vc-theme='dark'] .vanilla-calendar-time__minute input[data-vc-input-focus] {
   @apply bg-slate-700;
 }
 
