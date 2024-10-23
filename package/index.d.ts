@@ -12,7 +12,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   date: T.IDates;
   settings: {
     lang: string;
-    iso8601: boolean;
     range: T.IRange;
     selection: T.ISelection;
     selected: T.ISelected;
@@ -20,11 +19,11 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   };
   locale: T.ILocale;
   actions: T.IActions;
-  sanitizer: (dirtyHtml: string) => unknown;
   popups: T.IPopups;
   CSSClasses: T.CSSClasses;
   DOMTemplates: T.IDOMTemplates;
 
+  sanitizer: (dirtyHtml: string) => unknown;
   init: () => () => void;
   update: (reset?: T.IReset) => void;
   destroy: () => void;
@@ -40,6 +39,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly rangeEnabled: T.FormatDateString[];
   readonly selectedDates: T.FormatDateString[];
   readonly selectedHolidays: T.FormatDateString[];
+  readonly selectedWeekend: T.WeekDays | [];
   readonly selectedMonth: number;
   readonly selectedYear: number;
   readonly selectedHours?: string;

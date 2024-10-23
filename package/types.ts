@@ -7,16 +7,20 @@ export type FormatDateString = `${number}-${MM}-${DD}`;
 
 export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
 
+export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
+
+export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+export type WeekDays = [...WeekDay[]] & { length: 1 | 2 | 3 | 4 | 5 | 6 | 7 };
+
+export type CSSClasses = typeof classes;
+
 export interface HtmlElementPosition {
   top: number;
   bottom: number;
   left: number;
   right: number;
 }
-
-export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
-
-export type CSSClasses = typeof classes;
 
 export interface IDates {
   min: FormatDateString | 'today';
@@ -63,10 +67,11 @@ export interface ISelection {
 }
 
 export interface ISelected {
-  dates?: Array<Date | number | string>;
   month?: number;
   year?: number;
+  dates?: Array<Date | number | string>;
   holidays?: Array<Date | number | string>;
+  weekend?: WeekDays | [];
   time?: string;
 }
 
@@ -81,8 +86,6 @@ export interface IVisibility {
   monthShort: boolean;
   /** With this parameter, you can decide whether to display week numbers in the calendar. */
   weekNumbers: boolean;
-  /** This parameter allows you to highlight weekends in the calendar. */
-  weekend: boolean;
   /** With this parameter, you can highlight the current day in the calendar. */
   today: boolean;
   /** This parameter determines whether all days, including disabled days, will be displayed. */
@@ -95,7 +98,6 @@ export interface IVisibility {
 
 export interface ISettings {
   lang: string;
-  iso8601: boolean;
   range: IRange;
   selection: ISelection;
   selected: ISelected;
@@ -146,6 +148,7 @@ export interface IReset {
   month?: boolean;
   dates?: boolean | 'only-first';
   holidays?: boolean;
+  weekend?: boolean;
   time?: boolean;
 }
 
@@ -160,7 +163,6 @@ export interface IOptions {
   sanitizer?: (dirtyHtml: string) => unknown;
   settings?: Partial<{
     lang: string;
-    iso8601: boolean;
     range: Partial<IRange>;
     selection: Partial<ISelection>;
     selected: Partial<ISelected>;
@@ -183,7 +185,6 @@ export interface IVanillaCalendar {
   date: IDates;
   settings: {
     lang: string;
-    iso8601: boolean;
     range: IRange;
     selection: ISelection;
     selected: ISelected;
@@ -211,6 +212,7 @@ export interface IVanillaCalendar {
   readonly rangeEnabled: FormatDateString[];
   readonly selectedDates: FormatDateString[];
   readonly selectedHolidays: FormatDateString[];
+  readonly selectedWeekend: WeekDays | [];
   readonly selectedMonth: number;
   readonly selectedYear: number;
   readonly selectedHours?: string;

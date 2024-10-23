@@ -1,4 +1,4 @@
-import type { FormatDateString } from '@package/types';
+import type { FormatDateString, WeekDay } from '@package/types';
 import createDate from '@scripts/creators/createDates/createDate';
 import getDate from '@scripts/helpers/getDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -10,7 +10,7 @@ const createPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYea
 
   for (let i = firstDayWeek; i > 0; i--, day++) {
     const date = `${year}-${month}-${day}` as FormatDateString;
-    const dayWeekID = getDate(date).getDay();
+    const dayWeekID = getDate(date).getDay() as WeekDay;
     createDate(self, currentYear, datesEl, day, dayWeekID, date, 'prev');
   }
 };

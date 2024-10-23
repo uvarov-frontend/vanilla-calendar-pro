@@ -1,4 +1,4 @@
-import type { FormatDateString } from '@package/types';
+import type { FormatDateString, WeekDay } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import setDaysAsDisabled from '@scripts/creators/createDates/setDatesAsDisabled';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
@@ -15,7 +15,7 @@ const createDate = (
   currentYear: number,
   datesEl: HTMLElement,
   dateID: number,
-  dayWeekID: number,
+  dayWeekID: WeekDay,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
 ) => {

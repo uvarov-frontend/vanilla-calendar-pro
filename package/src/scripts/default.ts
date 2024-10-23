@@ -21,7 +21,6 @@ export default class DefaultOptionsCalendar {
   };
   settings: T.ISettings = {
     lang: 'en',
-    iso8601: true,
     range: {
       min: undefined,
       max: undefined,
@@ -48,6 +47,7 @@ export default class DefaultOptionsCalendar {
       month: undefined,
       year: undefined,
       holidays: undefined,
+      weekend: [0, 6],
       time: undefined,
     },
     visibility: {
@@ -55,7 +55,6 @@ export default class DefaultOptionsCalendar {
       themeDetect: 'html[data-theme]',
       monthShort: true,
       weekNumbers: false,
-      weekend: true,
       today: true,
       disabled: false,
       daysOutside: true,
@@ -101,6 +100,7 @@ export default class DefaultOptionsCalendar {
   rangeEnabled!: T.FormatDateString[];
   selectedDates!: T.FormatDateString[];
   selectedHolidays!: T.FormatDateString[];
+  selectedWeekend!: T.WeekDays;
   selectedMonth!: number;
   selectedYear!: number;
   selectedHours!: string;
