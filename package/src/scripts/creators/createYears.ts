@@ -1,6 +1,6 @@
-import createDOM from '@scripts/modules/createDOM';
-import visibilityArrows from '@scripts/modules/visibilityArrows';
-import visibilityTitle from '@scripts/modules/visibilityTitle';
+import createDOM from '@scripts/creators/createDOM';
+import visibilityArrows from '@scripts/creators/visibilityArrows';
+import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {

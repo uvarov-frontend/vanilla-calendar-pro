@@ -24,7 +24,7 @@
     "build": "tsc && vite build",
     "dev": "tsc && vite",
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint . --ext js,jsx --fix",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --fix",
     "prettier": "prettier . --check --ignore-unknown",
     "prettier:fix": "prettier . -w",
     "cypress:open": "cypress open",

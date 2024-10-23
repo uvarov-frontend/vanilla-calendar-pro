@@ -1,11 +1,11 @@
+import createDates from '@scripts/creators/createDates/createDates';
+import visibilityArrows from '@scripts/creators/visibilityArrows';
+import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/helpers/getDate';
 import getDateString from '@scripts/helpers/getDateString';
-import createDates from '@scripts/modules/createDates/createDates';
-import visibilityArrows from '@scripts/modules/visibilityArrows';
-import visibilityTitle from '@scripts/modules/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
+const handleMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
   const jumpDate = getDate(getDateString(new Date(self.selectedYear, self.selectedMonth, 1)));
 
   const routeMap: Record<string, () => void> = {
@@ -21,4 +21,4 @@ const changeMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
   createDates(self);
 };
 
-export default changeMonth;
+export default handleMonth;

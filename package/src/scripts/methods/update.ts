@@ -1,7 +1,7 @@
 import type { IReset } from '@package/types';
+import createToInput from '@scripts/creators/createToInput';
 import messages from '@scripts/helpers/getMessages';
 import reset from '@scripts/methods/reset';
-import createToInput from '@scripts/modules/createToInput';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const update = (self: VanillaCalendar, { year, month, dates, holidays, time }: IReset = {}) => {

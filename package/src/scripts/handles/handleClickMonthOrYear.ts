@@ -1,6 +1,6 @@
 import create from '@scripts/create';
-import createMonths from '@scripts/modules/createMonths';
-import createYears from '@scripts/modules/createYears';
+import createMonths from '@scripts/creators/createMonths';
+import createYears from '@scripts/creators/createYears';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const typeClick = ['month', 'year'] as const;

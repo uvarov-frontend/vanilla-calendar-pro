@@ -1,5 +1,7 @@
 import type { Positions } from '@package/types';
-import { calculateAvailableSpace, getOffset, getViewportDimensions } from '@scripts/positions';
+import calculateAvailableSpace from '@scripts/helpers/positions/calculateAvailableSpace';
+import getOffset from '@scripts/helpers/positions/getOffset';
+import getViewportDimensions from '@scripts/helpers/positions/getViewportDimensions';
 
 /**
  * Determines available positions for displaying a picker element relative to a parent element,

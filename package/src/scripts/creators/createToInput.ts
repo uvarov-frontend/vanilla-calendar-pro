@@ -1,5 +1,5 @@
 import handleClick from '@scripts/handles/handleClick';
-import { setPosition } from '@scripts/positions';
+import setPosition from '@scripts/helpers/positions/setPosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 import reset from '@/package/src/scripts/methods/reset';

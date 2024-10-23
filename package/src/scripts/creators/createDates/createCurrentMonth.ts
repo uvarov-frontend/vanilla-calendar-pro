@@ -1,5 +1,5 @@
+import createDate from '@scripts/creators/createDates/createDate';
 import getDateString from '@scripts/helpers/getDateString';
-import createDate from '@scripts/modules/createDates/createDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createCurrentMonth = (self: VanillaCalendar, datesEl: HTMLElement, days: number, currentYear: number, currentMonth: number) => {

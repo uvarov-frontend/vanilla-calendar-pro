@@ -1,5 +1,5 @@
-import changeMonth from '@scripts/modules/changeMonth';
-import createYears from '@scripts/modules/createYears';
+import createYears from '@scripts/creators/createYears';
+import handleMonth from '@scripts/handles/handleMonth';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
@@ -9,7 +9,7 @@ const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
   if (!arrowEl) return;
 
   if (['default', 'multiple'].includes(self.currentType)) {
-    changeMonth(self, arrowEl.dataset.vcArrow as 'prev' | 'next');
+    handleMonth(self, arrowEl.dataset.vcArrow as 'prev' | 'next');
   } else if (self.currentType === 'year' && self.viewYear !== undefined) {
     self.viewYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
     createYears(self, event.target as HTMLElement);

@@ -68,7 +68,7 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
   }
 };
 
-const changeTheme = (self: VanillaCalendar) => {
+const handleTheme = (self: VanillaCalendar) => {
   if (!themes.includes(self.settings.visibility.theme)) throw new Error(messages.incorrectTheme);
 
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
@@ -84,4 +84,4 @@ const changeTheme = (self: VanillaCalendar) => {
   mapThemes[self.settings.visibility.theme]();
 };
 
-export default changeTheme;
+export default handleTheme;

@@ -22,27 +22,15 @@ describe('Init multiple calendar', () => {
   it('Check arrows', () => {
     cy.visit('/pages/multiple/index.html');
     cy.get('#calendar').find('.vanilla-calendar-arrow.vanilla-calendar-arrow_next').click();
-    cy.get('#calendar')
-      .find('.vanilla-calendar-month:first')
-      .should('have.attr', 'data-calendar-selected-month', '4');
-    cy.get('#calendar')
-      .find('.vanilla-calendar-month:last')
-      .should('have.attr', 'data-calendar-selected-month', '5');
+    cy.get('#calendar').find('.vanilla-calendar-month:first').should('have.attr', 'data-calendar-selected-month', '4');
+    cy.get('#calendar').find('.vanilla-calendar-month:last').should('have.attr', 'data-calendar-selected-month', '5');
     for (let n = 0; n < 5; n++) {
       cy.get('#calendar').find('.vanilla-calendar-arrow.vanilla-calendar-arrow_prev').click();
     }
-    cy.get('#calendar')
-      .find('.vanilla-calendar-month:first')
-      .should('have.attr', 'data-calendar-selected-month', '11');
-    cy.get('#calendar')
-      .find('.vanilla-calendar-month:last')
-      .should('have.attr', 'data-calendar-selected-month', '0');
-    cy.get('#calendar')
-      .find('.vanilla-calendar-year:first')
-      .should('have.attr', 'data-calendar-selected-year', '2022');
-    cy.get('#calendar')
-      .find('.vanilla-calendar-year:last')
-      .should('have.attr', 'data-calendar-selected-year', '2023');
+    cy.get('#calendar').find('.vanilla-calendar-month:first').should('have.attr', 'data-calendar-selected-month', '11');
+    cy.get('#calendar').find('.vanilla-calendar-month:last').should('have.attr', 'data-calendar-selected-month', '0');
+    cy.get('#calendar').find('.vanilla-calendar-year:first').should('have.attr', 'data-calendar-selected-year', '2022');
+    cy.get('#calendar').find('.vanilla-calendar-year:last').should('have.attr', 'data-calendar-selected-year', '2023');
   });
   it('Check days', () => {
     cy.visit('/pages/multiple/index.html');

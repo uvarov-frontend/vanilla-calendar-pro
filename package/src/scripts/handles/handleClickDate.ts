@@ -1,8 +1,8 @@
 import type { FormatDateString } from '@package/types';
+import createDates from '@scripts/creators/createDates/createDates';
+import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
-import changeMonth from '@scripts/modules/changeMonth';
-import createDates from '@scripts/modules/createDates/createDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
@@ -31,8 +31,8 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
-    prev: () => changeMonth(self, 'prev'),
-    next: () => changeMonth(self, 'next'),
+    prev: () => handleMonth(self, 'prev'),
+    next: () => handleMonth(self, 'next'),
     current: () => createDates(self),
   };
 

@@ -1,5 +1,5 @@
-import createDOM from '@scripts/modules/createDOM';
-import visibilityTitle from '@scripts/modules/visibilityTitle';
+import createDOM from '@scripts/creators/createDOM';
+import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {

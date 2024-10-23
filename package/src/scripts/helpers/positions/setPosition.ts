@@ -1,5 +1,7 @@
 import type { IVisibility } from '@package/types';
-import { findBestPickerPosition, getOffset, getViewportDimensions } from '@scripts/positions';
+import findBestPickerPosition from '@scripts/helpers/positions/findBestPickerPosition';
+import getOffset from '@scripts/helpers/positions/getOffset';
+import getViewportDimensions from '@scripts/helpers/positions/getViewportDimensions';
 
 /** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
 

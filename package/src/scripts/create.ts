@@ -1,13 +1,13 @@
+import createDates from '@scripts/creators/createDates/createDates';
+import createDOM from '@scripts/creators/createDOM';
+import createMonths from '@scripts/creators/createMonths';
+import createTime from '@scripts/creators/createTime';
+import createWeek from '@scripts/creators/createWeek';
+import createYears from '@scripts/creators/createYears';
+import visibilityArrows from '@scripts/creators/visibilityArrows';
+import visibilityTitle from '@scripts/creators/visibilityTitle';
+import handleTheme from '@scripts/handles/handleTheme';
 import getLocale from '@scripts/helpers/getLocale';
-import changeTheme from '@scripts/modules/changeTheme';
-import createDates from '@scripts/modules/createDates/createDates';
-import createDOM from '@scripts/modules/createDOM';
-import createMonths from '@scripts/modules/createMonths';
-import createTime from '@scripts/modules/createTime';
-import createWeek from '@scripts/modules/createWeek';
-import createYears from '@scripts/modules/createYears';
-import visibilityArrows from '@scripts/modules/visibilityArrows';
-import visibilityTitle from '@scripts/modules/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const create = (self: VanillaCalendar) => {
@@ -24,7 +24,7 @@ const create = (self: VanillaCalendar) => {
     year: () => createYears(self),
   };
 
-  changeTheme(self);
+  handleTheme(self);
   getLocale(self);
   createDOM(self);
   visibilityTitle(self);

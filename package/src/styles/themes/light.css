@@ -217,8 +217,8 @@
   @apply text-slate-900 bg-white hover:bg-orange-100 focus-visible:outline-orange-300;
 }
 
-[data-vc-theme='light'] .vanilla-calendar-time__hours input.vanilla-calendar-is-focus,
-[data-vc-theme='light'] .vanilla-calendar-time__minutes input.vanilla-calendar-is-focus {
+[data-vc-theme='light'] .vanilla-calendar-time__hours input[data-vc-input-focus],
+[data-vc-theme='light'] .vanilla-calendar-time__minutes input[data-vc-input-focus] {
   @apply bg-orange-100;
 }
 

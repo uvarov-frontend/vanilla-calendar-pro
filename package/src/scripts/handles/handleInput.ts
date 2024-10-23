@@ -1,5 +1,5 @@
-import createToInput from '@scripts/modules/createToInput';
-import { setPosition } from '@scripts/positions';
+import createToInput from '@scripts/creators/createToInput';
+import setPosition from '@scripts/helpers/positions/setPosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleInput = (self: VanillaCalendar) => {

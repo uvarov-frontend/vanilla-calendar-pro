@@ -1,8 +1,8 @@
-import createCurrentMonth from '@scripts/modules/createDates/createCurrentMonth';
-import createDatePopup from '@scripts/modules/createDates/createDatePopup';
-import createNextMonth from '@scripts/modules/createDates/createNextMonth';
-import createPrevMonth from '@scripts/modules/createDates/createPrevMonth';
-import createWeekNumbers from '@scripts/modules/createDates/createWeekNumbers';
+import createCurrentMonth from '@scripts/creators/createDates/createCurrentMonth';
+import createDatePopup from '@scripts/creators/createDates/createDatePopup';
+import createNextMonth from '@scripts/creators/createDates/createNextMonth';
+import createPrevMonth from '@scripts/creators/createDates/createPrevMonth';
+import createWeekNumbers from '@scripts/creators/createDates/createWeekNumbers';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDays = (self: VanillaCalendar) => {

@@ -1,4 +1,6 @@
-import { getOffset, getViewportDimensions, getWindowScrollPosition } from '@scripts/positions';
+import getOffset from '@scripts/helpers/positions/getOffset';
+import getViewportDimensions from '@scripts/helpers/positions/getViewportDimensions';
+import getWindowScrollPosition from '@scripts/helpers/positions/getWindowScrollPosition';
 
 /**
  * Calculates the available space for each side of the DOM element.

@@ -1,7 +1,7 @@
 import type { FormatDateString } from '@package/types';
+import setDateModifier from '@scripts/creators/createDates/setDateModifier';
+import setDaysAsDisabled from '@scripts/creators/createDates/setDatesAsDisabled';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
-import setDateModifier from '@scripts/modules/createDates/setDateModifier';
-import setDaysAsDisabled from '@scripts/modules/createDates/setDatesAsDisabled';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const addWeekNumberForDate = (self: VanillaCalendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
