@@ -4,7 +4,7 @@ import messages from '@scripts/helpers/getMessages';
 import reset from '@scripts/methods/reset';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const update = (self: VanillaCalendar, { year, month, dates, holidays, time }: IReset = {}) => {
+const update = (self: VanillaCalendar, { year, month, dates, time }: IReset = {}) => {
   if (!self.isInit) throw new Error(messages.notInit);
 
   if (self.input && !self.isInputInit) {
@@ -14,7 +14,6 @@ const update = (self: VanillaCalendar, { year, month, dates, holidays, time }: I
     year,
     month,
     dates,
-    holidays,
     time,
   });
   if (self.actions.updateCalendar) self.actions.updateCalendar(self);

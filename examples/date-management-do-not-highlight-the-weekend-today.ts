@@ -5,8 +5,10 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   settings: {
+    selected: {
+      weekend: [],
+    },
     visibility: {
-      weekend: false,
       today: false,
     },
   },

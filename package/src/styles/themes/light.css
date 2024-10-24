@@ -63,7 +63,7 @@
   @apply text-slate-500;
 }
 
-[data-vc-theme='light'] .vc-week__day[data-vc-week-day='off'] {
+[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off] {
   @apply text-rose-500;
 }
 

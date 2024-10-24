@@ -25,7 +25,12 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
   private applyOptions(options: Partial<T.IOptions>) {
     const replaceProperties = <T extends object>(original: T, replacement: T) => {
       (Object.keys(replacement) as Array<keyof T>).forEach((key) => {
-        if (typeof original[key] === 'object' && typeof replacement[key] === 'object' && !(replacement[key] instanceof Date)) {
+        if (
+          typeof original[key] === 'object' &&
+          typeof replacement[key] === 'object' &&
+          !(replacement[key] instanceof Date) &&
+          !Array.isArray(replacement[key])
+        ) {
           replaceProperties(original[key] as object, replacement[key] as object);
         } else {
           original[key] = replacement[key];

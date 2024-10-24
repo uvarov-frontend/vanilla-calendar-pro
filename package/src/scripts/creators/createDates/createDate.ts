@@ -1,11 +1,11 @@
-import type { FormatDateString, WeekDay } from '@package/types';
+import type { FormatDateString, WeekDayID } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import setDaysAsDisabled from '@scripts/creators/createDates/setDatesAsDisabled';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const addWeekNumberForDate = (self: VanillaCalendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
-  const weekNumber = getWeekNumber(dateStr, self.settings.iso8601);
+  const weekNumber = getWeekNumber(dateStr, self.weekStartDay);
   if (!weekNumber) return;
   dateEl.dataset.vcWeekNumber = String(weekNumber.week);
 };
@@ -15,7 +15,7 @@ const createDate = (
   currentYear: number,
   datesEl: HTMLElement,
   dateID: number,
-  dayWeekID: WeekDay,
+  dayWeekID: WeekDayID,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
 ) => {

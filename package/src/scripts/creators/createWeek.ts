@@ -1,34 +1,40 @@
+import type { WeekDayID } from '@package/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createWeekDay = (self: VanillaCalendar, weekEl: HTMLElement, weekday: string[]) => {
-  const templateWeekDayEl: HTMLElement = document.createElement('b');
-
-  for (let i = 0; i < weekday.length; i++) {
-    const weekDayName = weekday[i];
-    const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
-
-    weekDayEl.className = self.CSSClasses.weekDay;
-    weekDayEl.dataset.vcWeekDay =
-      self.settings.visibility.weekend && self.settings.iso8601
-        ? i === 5 || i === 6
-          ? `off`
-          : 'work'
-        : self.settings.visibility.weekend && !self.settings.iso8601
-          ? i === 0 || i === 6
-            ? `off`
-            : 'work'
-          : '';
-    weekDayEl.innerText = weekDayName;
-    weekEl.appendChild(weekDayEl);
-  }
-};
+type WeekdaysData = Array<{
+  id: WeekDayID;
+  value: string;
+  isWeekend: boolean;
+}>;
 
 const createWeek = (self: VanillaCalendar) => {
-  const weekday = [...self.locale.weekday];
-  if (!weekday[0]) return;
+  const weekend = self.settings.selected.weekend ? [...self.settings.selected.weekend] : [];
+  const weekdaysData = [...self.locale.weekday].reduce(
+    (acc, day, index) => [
+      ...acc,
+      {
+        id: index as WeekDayID,
+        value: day,
+        isWeekend: weekend.includes(index as WeekDayID),
+      },
+    ],
+    [] as WeekdaysData,
+  );
+  const weekdays = [...weekdaysData.slice(self.weekStartDay), ...weekdaysData.slice(0, self.weekStartDay)];
 
-  if (self.settings.iso8601) weekday.push(weekday.shift() as string);
-  self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => createWeekDay(self, weekEl, weekday));
+  self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
+    const templateWeekDayEl: HTMLElement = document.createElement('b');
+    weekdays.forEach((weekday) => {
+      const weekDayName = weekday.value;
+      const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
+      weekDayEl.innerText = weekDayName;
+      weekDayEl.className = self.CSSClasses.weekDay;
+      weekDayEl.dataset.vcWeekDay = String(weekday.id);
+      if (weekday.isWeekend) weekDayEl.dataset.vcWeekDayOff = '';
+
+      weekEl.appendChild(weekDayEl);
+    });
+  });
 };
 
 export default createWeek;

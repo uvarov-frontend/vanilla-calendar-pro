@@ -1,7 +1,7 @@
-import type { FormatDateString, WeekDay } from '@package/types';
+import type { FormatDateString, WeekDayID } from '@package/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const setDaysAsDisabled = (self: VanillaCalendar, date: FormatDateString, dayWeekID: WeekDay) => {
+const setDaysAsDisabled = (self: VanillaCalendar, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.settings.range.disableWeekday?.includes(dayWeekID);
   const isDisableAllDaysAndIsRangeEnabled = self.settings.range.disableAllDays && !!self.rangeEnabled?.[0];
 

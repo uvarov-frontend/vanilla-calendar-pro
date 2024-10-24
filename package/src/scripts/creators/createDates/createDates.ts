@@ -17,10 +17,8 @@ const createDays = (self: VanillaCalendar) => {
     currentDate.setMonth(currentDate.getMonth() + index);
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
+    const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.weekStartDay + 7) % 7;
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    const firstDayWeek = self.settings.iso8601 ? (firstDay.getDay() !== 0 ? firstDay.getDay() : 7) - 1 : firstDay.getDay();
 
     dateEl.textContent = '';
 

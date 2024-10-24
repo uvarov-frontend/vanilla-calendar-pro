@@ -9,6 +9,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   jumpMonths: number;
   jumpToSelectedDate: boolean;
   toggleSelected: T.ToggleSelected;
+  weekStartDay: T.WeekDayID;
   date: T.IDates;
   settings: {
     lang: string;
@@ -38,8 +39,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly rangeDisabled: T.FormatDateString[];
   readonly rangeEnabled: T.FormatDateString[];
   readonly selectedDates: T.FormatDateString[];
-  readonly selectedHolidays: T.FormatDateString[];
-  readonly selectedWeekend: T.WeekDays | [];
   readonly selectedMonth: number;
   readonly selectedYear: number;
   readonly selectedHours?: string;

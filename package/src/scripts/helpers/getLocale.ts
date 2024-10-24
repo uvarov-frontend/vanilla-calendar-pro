@@ -15,10 +15,7 @@ const getLocaleMonth = (self: VanillaCalendar, i: number) => {
 
 const getLocale = (self: VanillaCalendar) => {
   if (self.settings.lang === 'define' && self.locale.weekday[6] && self.locale.months[11]) return;
-
-  if (self.settings.lang === 'define') {
-    throw new Error(messages.notLocale);
-  }
+  if (self.settings.lang === 'define') throw new Error(messages.notLocale);
 
   self.locale.weekday = [];
   self.locale.months = [];

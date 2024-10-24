@@ -1,4 +1,4 @@
-import type { WeekDay } from '@package/types';
+import type { WeekDayID } from '@package/types';
 import createDate from '@scripts/creators/createDates/createDate';
 import getDateString from '@scripts/helpers/getDateString';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -6,7 +6,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const createCurrentMonth = (self: VanillaCalendar, datesEl: HTMLElement, days: number, currentYear: number, currentMonth: number) => {
   for (let dateID = 1; dateID <= days; dateID++) {
     const date = new Date(currentYear, currentMonth, dateID);
-    createDate(self, currentYear, datesEl, dateID, date.getDay() as WeekDay, getDateString(date), 'current');
+    createDate(self, currentYear, datesEl, dateID, date.getDay() as WeekDayID, getDateString(date), 'current');
   }
 };
 

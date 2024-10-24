@@ -14,6 +14,7 @@ export default class DefaultOptionsCalendar {
   jumpMonths = 1;
   jumpToSelectedDate = false;
   toggleSelected: T.ToggleSelected = true;
+  weekStartDay: T.WeekDayID = 1;
   date: T.IDates = {
     min: '1970-01-01',
     max: '2470-12-31',
@@ -99,8 +100,6 @@ export default class DefaultOptionsCalendar {
   rangeDisabled!: T.FormatDateString[];
   rangeEnabled!: T.FormatDateString[];
   selectedDates!: T.FormatDateString[];
-  selectedHolidays!: T.FormatDateString[];
-  selectedWeekend!: T.WeekDays;
   selectedMonth!: number;
   selectedYear!: number;
   selectedHours!: string;

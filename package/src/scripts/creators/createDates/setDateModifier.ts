@@ -1,4 +1,4 @@
-import type { FormatDateString, WeekDay } from '@package/types';
+import type { FormatDateString, WeekDayID } from '@package/types';
 import getDate from '@scripts/helpers/getDate';
 import getDateString from '@scripts/helpers/getDateString';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -7,7 +7,7 @@ const setDateModifier = (
   self: VanillaCalendar,
   currentYear: number,
   dateEl: HTMLElement,
-  dayWeekID: WeekDay,
+  dayWeekID: WeekDayID,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
 ) => {
@@ -27,10 +27,10 @@ const setDateModifier = (
   if (self.settings.visibility.today && getDateString(self.date.today) === dateStr) dateEl.dataset.vcDateToday = '';
 
   // if weekend
-  if (self.selectedWeekend?.includes(dayWeekID)) dateEl.dataset.vcDateWeekend = '';
+  if (self.settings.selected.weekend?.includes(dayWeekID)) dateEl.dataset.vcDateWeekend = '';
 
   // if holidays
-  if (self.selectedHolidays?.includes(dateStr)) dateEl.dataset.vcDateHoliday = '';
+  if (self.settings.selected.holidays?.includes(dateStr)) dateEl.dataset.vcDateHoliday = '';
 
   // if selected day
   if (self.selectedDates?.includes(dateStr)) {

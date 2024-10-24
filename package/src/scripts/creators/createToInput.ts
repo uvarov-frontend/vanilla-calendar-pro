@@ -28,7 +28,6 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
     year: true,
     month: true,
     dates: true,
-    holidays: true,
     time: true,
   });
 

@@ -27,7 +27,7 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
   for (let i = 0; i < weeksCount; i++) {
     const index = i === 0 ? 6 : i * 7;
     const date = dateBtnEl[index].dataset.vcDate as FormatDateString;
-    const weekNumber = getWeekNumber(date, self.settings.iso8601);
+    const weekNumber = getWeekNumber(date, self.weekStartDay);
 
     if (!weekNumber) return;
 

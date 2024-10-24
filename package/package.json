@@ -18,8 +18,7 @@
     "picker",
     "date-picker",
     "datepicker",
-    "timepicker",
-    "iso8601"
+    "timepicker"
   ],
   "repository": {
     "type": "git",

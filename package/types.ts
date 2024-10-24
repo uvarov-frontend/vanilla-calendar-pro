@@ -9,9 +9,9 @@ export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 
-export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type WeekDayID = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-export type WeekDays = [...WeekDay[]] & { length: 1 | 2 | 3 | 4 | 5 | 6 | 7 };
+export type WeekDays<T> = [...T[]];
 
 export type CSSClasses = typeof classes;
 
@@ -71,7 +71,7 @@ export interface ISelected {
   year?: number;
   dates?: Array<Date | number | string>;
   holidays?: Array<Date | number | string>;
-  weekend?: WeekDays | [];
+  weekend?: WeekDays<WeekDayID>;
   time?: string;
 }
 
@@ -105,8 +105,8 @@ export interface ISettings {
 }
 
 export interface ILocale {
-  months: string[] | [];
-  weekday: string[] | [];
+  months: string[];
+  weekday: string[];
 }
 
 export interface IActions {
@@ -147,8 +147,6 @@ export interface IReset {
   year?: boolean;
   month?: boolean;
   dates?: boolean | 'only-first';
-  holidays?: boolean;
-  weekend?: boolean;
   time?: boolean;
 }
 
@@ -159,6 +157,7 @@ export interface IOptions {
   jumpMonths?: number;
   jumpToSelectedDate?: boolean;
   toggleSelected?: ToggleSelected;
+  weekStartDay?: WeekDayID;
   date?: Partial<IDates>;
   sanitizer?: (dirtyHtml: string) => unknown;
   settings?: Partial<{
@@ -182,6 +181,7 @@ export interface IVanillaCalendar {
   jumpMonths: number;
   jumpToSelectedDate: boolean;
   toggleSelected: ToggleSelected;
+  weekStartDay?: WeekDayID;
   date: IDates;
   settings: {
     lang: string;
@@ -211,8 +211,6 @@ export interface IVanillaCalendar {
   readonly rangeDisabled: FormatDateString[];
   readonly rangeEnabled: FormatDateString[];
   readonly selectedDates: FormatDateString[];
-  readonly selectedHolidays: FormatDateString[];
-  readonly selectedWeekend: WeekDays | [];
   readonly selectedMonth: number;
   readonly selectedYear: number;
   readonly selectedHours?: string;
