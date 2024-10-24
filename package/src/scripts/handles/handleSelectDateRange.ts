@@ -1,5 +1,6 @@
 import type { FormatDateString } from '@package/types';
 import create from '@scripts/create';
+import canToggleSelection from '@scripts/helpers/canToggleSelection';
 import getDate from '@scripts/helpers/getDate';
 import getDateString from '@scripts/helpers/getDateString';
 import parseDates from '@scripts/helpers/parseDates';
@@ -92,9 +93,9 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
   if (formattedDate) {
     const selectedDateExists = self.selectedDates.length === 1 && self.selectedDates[0].includes(formattedDate);
     self.selectedDates =
-      selectedDateExists && !self.settings.selection.cancelableDay
+      selectedDateExists && !canToggleSelection(self)
         ? [formattedDate, formattedDate]
-        : selectedDateExists && self.settings.selection.cancelableDay
+        : selectedDateExists && canToggleSelection(self)
           ? []
           : self.selectedDates.length > 1
             ? [formattedDate]

@@ -41,7 +41,6 @@ export default class DefaultOptionsCalendar {
       controlTime: 'all',
       stepHours: 1,
       stepMinutes: 1,
-      cancelableDay: true,
     },
     selected: {
       dates: undefined,

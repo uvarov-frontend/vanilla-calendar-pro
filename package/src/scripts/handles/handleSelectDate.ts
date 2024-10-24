@@ -1,18 +1,10 @@
 import type { FormatDateString } from '@package/types';
+import canToggleSelection from '@scripts/helpers/canToggleSelection';
 import type VanillaCalendar from '@src/vanilla-calendar';
-
-const canToggleSelection = (self: VanillaCalendar): boolean => {
-  if (self.toggleSelected !== undefined) {
-    return typeof self.toggleSelected === 'function' ? self.toggleSelected(self) : self.toggleSelected;
-  }
-  return true;
-};
 
 const handleSelectDate = (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => {
   const selectedDate = dateEl.dataset.vcDate as FormatDateString;
   const isSelected = dateEl.closest('[data-vc-date][data-vc-date-selected]');
-
-  if (isSelected && !self.settings.selection.cancelableDay) return;
 
   const isToggleAllowed = canToggleSelection(self);
   if (isSelected && !isToggleAllowed) return;
