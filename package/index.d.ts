@@ -10,6 +10,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   jumpToSelectedDate: boolean;
   toggleSelected: T.ToggleSelected;
   weekStartDay: T.WeekDayID;
+  switchMonthForDate: boolean;
   date: T.IDates;
   settings: {
     lang: string;

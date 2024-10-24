@@ -157,6 +157,7 @@ export interface IOptions {
   jumpToSelectedDate?: boolean;
   toggleSelected?: ToggleSelected;
   weekStartDay?: WeekDayID;
+  switchMonthForDate?: boolean;
   date?: Partial<IDates>;
   sanitizer?: (dirtyHtml: string) => unknown;
   settings?: Partial<{
@@ -180,7 +181,8 @@ export interface IVanillaCalendar {
   jumpMonths: number;
   jumpToSelectedDate: boolean;
   toggleSelected: ToggleSelected;
-  weekStartDay?: WeekDayID;
+  weekStartDay: WeekDayID;
+  switchMonthForDate: boolean;
   date: IDates;
   settings: {
     lang: string;

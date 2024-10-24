@@ -31,8 +31,8 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
-    prev: () => handleMonth(self, 'prev'),
-    next: () => handleMonth(self, 'next'),
+    prev: () => (self.switchMonthForDate ? handleMonth(self, 'prev') : createDates(self)),
+    next: () => (self.switchMonthForDate ? handleMonth(self, 'next') : createDates(self)),
     current: () => createDates(self),
   };
 
