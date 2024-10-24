@@ -5,7 +5,7 @@ import createPrevMonth from '@scripts/creators/createDates/createPrevMonth';
 import createWeekNumbers from '@scripts/creators/createDates/createWeekNumbers';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createDays = (self: VanillaCalendar) => {
+const createDates = (self: VanillaCalendar) => {
   const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
   const datesEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
@@ -30,4 +30,4 @@ const createDays = (self: VanillaCalendar) => {
   });
 };
 
-export default createDays;
+export default createDates;

@@ -27,8 +27,8 @@ const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, la
   const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`);
   dateEls?.forEach((d) => (d.dataset.vcDateHover = ''));
 
-  firstDateEls?.forEach((d) => (d.dataset.vcDateHoverFirst = ''));
-  lastDateEls?.forEach((d) => (d.dataset.vcDateHoverLast = ''));
+  firstDateEls.forEach((d) => (d.dataset.vcDateHoverFirst = ''));
+  lastDateEls.forEach((d) => (d.dataset.vcDateHoverLast = ''));
 };
 
 const handleHoverDatesEvent = (e: MouseEvent) => {
@@ -109,6 +109,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
   }
 
   current.self = self;
+  removeHoverEffect();
 
   const selectionHandlers = {
     set: () => {

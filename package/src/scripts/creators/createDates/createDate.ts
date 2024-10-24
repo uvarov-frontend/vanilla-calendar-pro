@@ -1,6 +1,7 @@
 import type { FormatDateString, WeekDayID } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import setDaysAsDisabled from '@scripts/creators/createDates/setDatesAsDisabled';
+import getDate from '@scripts/helpers/getDate';
 import getWeekNumber from '@scripts/helpers/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
@@ -15,7 +16,6 @@ const createDate = (
   currentYear: number,
   datesEl: HTMLElement,
   dateID: number,
-  dayWeekID: WeekDayID,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
 ) => {
@@ -29,6 +29,8 @@ const createDate = (
   dateBtnEl.type = 'button';
   dateBtnEl.dataset.vcDateBtn = '';
   dateBtnEl.innerText = String(dateID);
+
+  const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
 
   if (self.settings.visibility.weekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
   if (monthType !== 'current' ? self.settings.visibility.daysOutside : true) dateEl.appendChild(dateBtnEl);

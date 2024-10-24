@@ -1,9 +1,19 @@
-import type { FormatDateString } from '@package/types';
-import createDates from '@scripts/creators/createDates/createDates';
+import type { FormatDateString, WeekDayID } from '@package/types';
+import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
+import getDate from '@scripts/helpers/getDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
+
+const updateDateModifier = (self: VanillaCalendar) => {
+  const dateEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date]');
+  dateEls.forEach((dateEl) => {
+    const dateStr = dateEl.dataset.vcDate as FormatDateString;
+    const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
+    setDateModifier(self, self.selectedYear, dateEl, dayWeekID, dateStr, 'current');
+  });
+};
 
 const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   const element = event.target as HTMLElement;
@@ -31,9 +41,9 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
-    prev: () => (self.switchMonthForDate ? handleMonth(self, 'prev') : createDates(self)),
-    next: () => (self.switchMonthForDate ? handleMonth(self, 'next') : createDates(self)),
-    current: () => createDates(self),
+    prev: () => (self.switchMonthForDate ? handleMonth(self, 'prev') : updateDateModifier(self)),
+    next: () => (self.switchMonthForDate ? handleMonth(self, 'next') : updateDateModifier(self)),
+    current: () => updateDateModifier(self),
   };
 
   actionMapping[dayPrevEl ? 'prev' : dayNextEl ? 'next' : 'current']();
