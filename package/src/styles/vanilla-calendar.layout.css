@@ -1,21 +1,5 @@
 [data-vc='calendar'] {
-  @apply p-4 rounded-xl opacity-100 transition-opacity relative flex flex-col min-w-[272px] w-[300px] max-w-full box-border;
-}
-
-@supports (width: max-content) and (height: max-content) {
-  [data-vc='calendar'] {
-    @apply h-max w-max;
-  }
-}
-
-[data-vc='calendar'][data-vc-type='multiple'] {
-  @apply w-[550px];
-}
-
-@supports (width: fit-content) {
-  [data-vc='calendar'][data-vc-type='multiple'] {
-    @apply w-fit;
-  }
+  @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity;
 }
 
 [data-vc='calendar'] button:focus-visible {
@@ -60,7 +44,7 @@
 }
 
 [data-vc='grid'] {
-  @apply flex flex-wrap justify-center gap-7 grow;
+  @apply flex flex-wrap gap-7 grow;
 }
 
 [data-vc='grid'][data-vc-grid='hidden'] [data-vc='column'] {
@@ -73,7 +57,7 @@
 }
 
 [data-vc='column'] {
-  @apply min-w-min flex flex-col;
+  @apply min-w-[240px] flex flex-col grow;
 }
 
 [data-vc='header'] {
