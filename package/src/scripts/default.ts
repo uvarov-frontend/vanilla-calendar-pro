@@ -1,5 +1,6 @@
 import classes from '@package/classes';
 import type * as T from '@package/types';
+import messages from '@scripts/helpers/getMessages';
 import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
@@ -55,6 +56,7 @@ export default class DefaultOptionsCalendar {
       theme: 'system',
       themeDetect: 'html[data-theme]',
       monthShort: true,
+      weekShort: true,
       weekNumbers: false,
       today: true,
       disabled: false,
@@ -65,11 +67,13 @@ export default class DefaultOptionsCalendar {
   locale: T.ILocale = {
     months: [],
     weekday: [],
+    ariaLabels: messages.ariaLabels,
   };
   sanitizer = (dirtyHtml: string) => dirtyHtml;
   actions: T.IActions = {
     clickDay: null,
     clickWeekNumber: null,
+    clickWeekDay: null,
     clickMonth: null,
     clickYear: null,
     clickArrow: null,

@@ -23,15 +23,16 @@ const createWeek = (self: VanillaCalendar) => {
   const weekdays = [...weekdaysData.slice(self.weekStartDay), ...weekdaysData.slice(0, self.weekStartDay)];
 
   self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
-    const templateWeekDayEl: HTMLElement = document.createElement('b');
+    const templateWeekDayEl = document.createElement('button');
+    templateWeekDayEl.type = 'button';
     weekdays.forEach((weekday) => {
       const weekDayName = weekday.value;
       const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
-      weekDayEl.innerText = weekDayName;
+      weekDayEl.innerText = `${self.settings.visibility.weekShort ? weekDayName.substring(0, 3) : weekDayName}`;
       weekDayEl.className = self.CSSClasses.weekDay;
+      weekDayEl.ariaLabel = weekDayName;
       weekDayEl.dataset.vcWeekDay = String(weekday.id);
       if (weekday.isWeekend) weekDayEl.dataset.vcWeekDayOff = '';
-
       weekEl.appendChild(weekDayEl);
     });
   });

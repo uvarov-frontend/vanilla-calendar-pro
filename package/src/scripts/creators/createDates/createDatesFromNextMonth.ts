@@ -2,7 +2,14 @@ import type { FormatDateString } from '@package/types';
 import createDate from '@scripts/creators/createDates/createDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createNextMonth = (self: VanillaCalendar, daysEl: HTMLElement, days: number, currentYear: number, currentMonth: number, firstDayWeek: number) => {
+const createDatesFromNextMonth = (
+  self: VanillaCalendar,
+  daysEl: HTMLElement,
+  days: number,
+  currentYear: number,
+  currentMonth: number,
+  firstDayWeek: number,
+) => {
   const currentTotalDays = firstDayWeek + days;
   const rowsDays = Math.ceil(currentTotalDays / 7);
   const daysNextMonth = 7 * rowsDays - currentTotalDays;
@@ -16,4 +23,4 @@ const createNextMonth = (self: VanillaCalendar, daysEl: HTMLElement, days: numbe
   }
 };
 
-export default createNextMonth;
+export default createDatesFromNextMonth;

@@ -106,7 +106,7 @@
   @apply grid grid-flow-row items-center justify-items-center gap-y-1;
 }
 
-[data-vc-week='number'] {
+[data-vc-week-number] {
   @apply text-xs font-semibold w-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
 }
 

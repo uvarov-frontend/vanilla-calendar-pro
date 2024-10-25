@@ -83,6 +83,7 @@ export interface IVisibility {
   themeDetect: string | false;
   /** This parameter allows you to use abbreviated month names when selecting a month. */
   monthShort: boolean;
+  weekShort: boolean;
   /** With this parameter, you can decide whether to display week numbers in the calendar. */
   weekNumbers: boolean;
   /** With this parameter, you can highlight the current day in the calendar. */
@@ -106,11 +107,31 @@ export interface ISettings {
 export interface ILocale {
   months: string[];
   weekday: string[];
+  ariaLabels: {
+    application: string;
+    navigation: string;
+    arrowNext: {
+      month: string;
+      year: string;
+    };
+    arrowPrev: {
+      month: string;
+      year: string;
+    };
+    month: string;
+    months: string;
+    year: string;
+    years: string;
+    week: string;
+    weekNumber: string;
+    dates: string;
+  };
 }
 
 export interface IActions {
   clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
+  clickWeekDay: ((e: MouseEvent, day: number, days: HTMLElement[], self: IVanillaCalendar) => void) | null;
   clickMonth: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickYear: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickArrow: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;

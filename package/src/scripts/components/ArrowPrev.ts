@@ -1,5 +1,7 @@
+import messages from '@scripts/helpers/getMessages';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-export const ArrowPrev = (self: VanillaCalendar) => `<button type="button" class="${self.CSSClasses.arrowPrev}" data-vc-arrow="prev"></button>`;
+const ArrowPrev = (self: VanillaCalendar, type: 'month' | 'year') =>
+  `<button type="button" class="${self.CSSClasses.arrowPrev}" data-vc-arrow="prev" aria-label="${messages.ariaLabels.arrowPrev[type]}"></button>`;
 
 export default ArrowPrev;

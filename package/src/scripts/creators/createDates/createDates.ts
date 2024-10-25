@@ -1,8 +1,8 @@
-import createCurrentMonth from '@scripts/creators/createDates/createCurrentMonth';
 import createDatePopup from '@scripts/creators/createDates/createDatePopup';
-import createNextMonth from '@scripts/creators/createDates/createNextMonth';
-import createPrevMonth from '@scripts/creators/createDates/createPrevMonth';
-import createWeekNumbers from '@scripts/creators/createDates/createWeekNumbers';
+import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
+import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
+import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
+import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDates = (self: VanillaCalendar) => {
@@ -22,11 +22,11 @@ const createDates = (self: VanillaCalendar) => {
 
     dateEl.textContent = '';
 
-    createPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);
-    createCurrentMonth(self, dateEl, days, currentYear, currentMonth);
-    createNextMonth(self, dateEl, days, currentYear, currentMonth, firstDayWeek);
-    createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], dateEl);
+    createDatesFromPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);
+    createDatesFromCurrentMonth(self, dateEl, days, currentYear, currentMonth);
+    createDatesFromNextMonth(self, dateEl, days, currentYear, currentMonth, firstDayWeek);
     createDatePopup(self, dateEl);
+    createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], dateEl);
   });
 };
 

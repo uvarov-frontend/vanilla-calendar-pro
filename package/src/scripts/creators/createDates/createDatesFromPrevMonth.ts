@@ -2,7 +2,7 @@ import type { FormatDateString } from '@package/types';
 import createDate from '@scripts/creators/createDates/createDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYear: number, currentMonth: number, firstDayWeek: number) => {
+const createDatesFromPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYear: number, currentMonth: number, firstDayWeek: number) => {
   let date = new Date(currentYear, currentMonth, 0).getDate() - (firstDayWeek - 1);
   const year = currentMonth === 0 ? currentYear - 1 : currentYear;
   const month = currentMonth === 0 ? 12 : currentMonth < 10 ? `0${currentMonth}` : currentMonth;
@@ -13,4 +13,4 @@ const createPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYea
   }
 };
 
-export default createPrevMonth;
+export default createDatesFromPrevMonth;

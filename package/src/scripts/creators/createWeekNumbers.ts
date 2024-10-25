@@ -33,7 +33,7 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
 
     const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
     weekNumberEl.innerText = String(weekNumber.week);
-    weekNumberEl.dataset.vcWeek = 'number';
+    weekNumberEl.dataset.vcWeekNumber = String(weekNumber.week);
     weekNumberEl.dataset.vcWeekYear = String(weekNumber.year);
     weekNumbersContentEl.appendChild(weekNumberEl);
   }

@@ -1,9 +1,10 @@
 import type { CSSClasses } from '@package/types';
+import messages from '@scripts/helpers/getMessages';
 
 const DOMMultiple = (styles: CSSClasses) => `
-  <div class="${styles.controls}" data-vc="controls">
-    <#ArrowPrev />
-    <#ArrowNext />
+  <div class="${styles.controls}" data-vc="controls" role="toolbar" aria-label="${messages.ariaLabels.navigation}">
+    <#ArrowPrev [month] />
+    <#ArrowNext [month] />
   </div>
   <div class="${styles.grid}" data-vc="grid">
     <#Multiple>
