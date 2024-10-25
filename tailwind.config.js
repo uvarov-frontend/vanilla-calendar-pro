@@ -3,6 +3,9 @@ module.exports = {
   content: ['./demo/**/*.{html,css}', './src/**/*.{js,ts}'],
   theme: {
     extend: {
+      screens: {
+        surehover: { raw: '(hover: hover) and (pointer: fine)' },
+      },
       backgroundImage: {
         'light-arrow':
           'url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCc+PHBhdGggZmlsbD0nIzBmMTcyYScgZD0nTTEyIDE2Yy0uMyAwLS41LS4xLS43LS4zbC02LTZjLS40LS40LS40LTEgMC0xLjRzMS0uNCAxLjQgMGw1LjMgNS4zIDUuMy01LjNjLjQtLjQgMS0uNCAxLjQgMHMuNCAxIDAgMS40bC02IDZjLS4yLjItLjQuMy0uNy4zeicvPjwvc3ZnPg==")',
