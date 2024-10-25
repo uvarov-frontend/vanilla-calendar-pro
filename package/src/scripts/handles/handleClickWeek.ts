@@ -19,7 +19,10 @@ export const handleClickWeekDay = (self: VanillaCalendar, event: MouseEvent) => 
   if (!self.actions.clickWeekDay) return;
 
   const weekDayEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-day]');
-  const daysToWeeks = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date-week-day]');
+  const columnEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc="column"]');
+  const daysToWeeks = columnEl
+    ? columnEl.querySelectorAll<HTMLElement>('[data-vc-date-week-day]')
+    : self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date-week-day]');
 
   if (!weekDayEl || !daysToWeeks[0]) return;
 
