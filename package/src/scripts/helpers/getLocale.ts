@@ -17,8 +17,8 @@ const getLocaleMonth = (self: VanillaCalendar, monthIndex: number): void => {
 };
 
 const getLocale = (self: VanillaCalendar): void => {
-  if (self.settings.lang === 'define' || self.locale.months.length || self.locale.weekday.length) {
-    if (self.settings.lang !== 'define' || !self.locale.weekday[6] || !self.locale.months[11]) throw new Error(messages.notLocale);
+  if (self.locale.months.length || self.locale.weekday.length) {
+    if (!self.locale.weekday[6] || !self.locale.months[11]) throw new Error(messages.notLocale);
     return;
   }
 
