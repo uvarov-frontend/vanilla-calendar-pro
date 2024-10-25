@@ -86,12 +86,7 @@
 
 [data-vc='month'],
 [data-vc='year'] {
-  @apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent;
-}
-
-[data-vc='month']:disabled,
-[data-vc='year']:disabled {
-  @apply pointer-events-none;
+  @apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent disabled:pointer-events-none;
 }
 
 [data-vc='wrapper'] {
@@ -103,21 +98,16 @@
 }
 
 [data-vc='months'] {
-  @apply grid gap-y-4 gap-x-2 grid-cols-4 items-center grow;
+  @apply grid gap-y-4 gap-x-1 grid-cols-4 items-center grow;
 }
 
 [data-vc='years'] {
-  @apply grid gap-y-4 gap-x-2 grid-cols-5 items-center grow;
+  @apply grid gap-y-4 gap-x-1 grid-cols-5 items-center grow;
 }
 
 [data-vc-months-month],
 [data-vc-years-year] {
-  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer;
-}
-
-[data-vc-months-month]:disabled,
-[data-vc-years-year]:disabled {
-  @apply pointer-events-none;
+  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer disabled:pointer-events-none;
 }
 
 [data-vc-week='numbers'] {
@@ -218,13 +208,8 @@
 }
 
 [data-vc-date-popup] {
-  transform: translateX(-50%);
-  @apply absolute z-20 left-1/2 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto before:absolute after:absolute;
-}
-
-[data-vc-date-popup]::before {
-  content: '';
-  @apply -z-10 left-0 bottom-0 w-full h-[calc(100%_-_4px)] block rounded-lg;
+  @apply absolute z-20 left-1/2 -translate-x-1/2 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto
+  before:absolute before:-z-10 before:left-0 before:bottom-0 before:w-full before:h-[calc(100%_-_4px)] before:block before:rounded-lg;
 }
 
 [data-vc="time"] {
