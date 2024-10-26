@@ -3,18 +3,20 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 type WeekdaysData = Array<{
   id: WeekDayID;
-  value: string;
+  titleShort: string;
+  titleLong: string;
   isWeekend: boolean;
 }>;
 
 const createWeek = (self: VanillaCalendar) => {
   const weekend = self.settings.selected.weekend ? [...self.settings.selected.weekend] : [];
-  const weekdaysData = [...self.locale.weekday].reduce(
+  const weekdaysData = [...self.locale.weekday.long].reduce(
     (acc, day, index) => [
       ...acc,
       {
         id: index as WeekDayID,
-        value: day,
+        titleShort: self.locale.weekday.short[index],
+        titleLong: day,
         isWeekend: weekend.includes(index as WeekDayID),
       },
     ],
@@ -26,12 +28,11 @@ const createWeek = (self: VanillaCalendar) => {
     const templateWeekDayEl = document.createElement('button');
     templateWeekDayEl.type = 'button';
     weekdays.forEach((weekday) => {
-      const weekDayName = weekday.value;
       const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
-      weekDayEl.innerText = `${self.settings.visibility.weekShort ? weekDayName.substring(0, 3) : weekDayName}`;
+      weekDayEl.innerText = weekday.titleShort;
       weekDayEl.className = self.CSSClasses.weekDay;
       weekDayEl.role = 'columnheader';
-      weekDayEl.ariaLabel = weekDayName;
+      weekDayEl.ariaLabel = weekday.titleLong;
       weekDayEl.dataset.vcWeekDay = String(weekday.id);
       if (weekday.isWeekend) weekDayEl.dataset.vcWeekDayOff = '';
       weekEl.appendChild(weekDayEl);

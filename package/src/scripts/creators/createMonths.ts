@@ -9,11 +9,19 @@ const relationshipID = (self: VanillaCalendar) => {
   return indexColumn > 0 ? indexColumn : 0;
 };
 
-const createMonthEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, title: string, disabled: boolean, i: number) => {
+const createMonthEl = (
+  self: VanillaCalendar,
+  templateEl: HTMLButtonElement,
+  selected: number,
+  titleShort: string,
+  titleLong: string,
+  disabled: boolean,
+  i: number,
+) => {
   const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
   monthEl.className = self.CSSClasses.monthsMonth;
-  monthEl.innerText = `${self.settings.visibility.monthShort ? title.substring(0, 3) : title}`;
-  monthEl.ariaLabel = title;
+  monthEl.innerText = titleShort;
+  monthEl.ariaLabel = titleLong;
   monthEl.role = 'gridcell';
   monthEl.dataset.vcMonthsMonth = `${i}`;
   if (selected === i) monthEl.dataset.vcMonthsMonthSelected = '';
@@ -38,9 +46,9 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 
   const activeMonthsID =
     self.jumpMonths > 1
-      ? self.locale.months
+      ? self.locale.months.long
           .map((_, i) => selectedMonth - self.jumpMonths * i)
-          .concat(self.locale.months.map((_, i) => selectedMonth + self.jumpMonths * i))
+          .concat(self.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
           .filter((monthID) => monthID >= 0 && monthID <= 12)
       : Array.from(Array(12).keys());
 
@@ -48,12 +56,11 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   templateMonthEl.type = 'button';
 
   for (let i = 0; i < 12; i++) {
-    const monthTitle = self.locale.months[i];
     const monthDisabled =
       (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear()) ||
       (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear()) ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
-    const monthEl = createMonthEl(self, templateMonthEl, selectedMonth, monthTitle, monthDisabled, i);
+    const monthEl = createMonthEl(self, templateMonthEl, selectedMonth, self.locale.months.short[i], self.locale.months.long[i], monthDisabled, i);
     monthsEl.appendChild(monthEl);
     if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
   }

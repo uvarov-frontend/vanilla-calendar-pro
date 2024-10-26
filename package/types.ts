@@ -81,9 +81,6 @@ export interface IVisibility {
   theme: 'light' | 'dark' | 'system' | string;
   /** To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector. */
   themeDetect: string | false;
-  /** This parameter allows you to use abbreviated month names when selecting a month. */
-  monthShort: boolean;
-  weekShort: boolean;
   /** With this parameter, you can decide whether to display week numbers in the calendar. */
   weekNumbers: boolean;
   /** With this parameter, you can highlight the current day in the calendar. */
@@ -124,9 +121,19 @@ export interface IAriaLabels {
   dates: string;
 }
 
+export interface IMonthsLocale {
+  long: string[];
+  short: string[];
+}
+
+export interface IWeekdayLocale {
+  long: string[];
+  short: string[];
+}
+
 export interface ILocale {
-  months: string[];
-  weekday: string[];
+  months: IMonthsLocale;
+  weekday: IWeekdayLocale;
   ariaLabels: IAriaLabels;
 }
 
@@ -191,8 +198,8 @@ export interface IOptions {
     visibility: Partial<IVisibility>;
   }>;
   locale?: Partial<{
-    months: Partial<string[]>;
-    weekday: Partial<string[]>;
+    months: Partial<IMonthsLocale>;
+    weekday: Partial<IWeekdayLocale>;
     ariaLabels: Partial<IAriaLabels>;
   }>;
   actions?: Partial<IActions>;
@@ -219,8 +226,14 @@ export interface IVanillaCalendar {
     visibility: IVisibility;
   };
   locale: {
-    months: string[];
-    weekday: string[];
+    months: {
+      short: string[];
+      long: string[];
+    };
+    weekday: {
+      short: string[];
+      long: string[];
+    };
     ariaLabels: IAriaLabels;
   };
   actions: IActions;

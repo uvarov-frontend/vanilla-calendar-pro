@@ -20,8 +20,8 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
     visibility: T.IVisibility;
   };
   locale: {
-    months: string[];
-    weekday: string[];
+    months: T.IMonthsLocale;
+    weekday: T.IWeekdayLocale;
     ariaLabels: T.IAriaLabels;
   };
   actions: T.IActions;

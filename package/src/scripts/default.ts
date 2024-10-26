@@ -51,8 +51,6 @@ export default class DefaultOptionsCalendar {
     visibility: {
       theme: 'system',
       themeDetect: 'html[data-theme]',
-      monthShort: true,
-      weekShort: true,
       weekNumbers: false,
       today: true,
       disabled: false,
@@ -61,8 +59,14 @@ export default class DefaultOptionsCalendar {
     },
   };
   locale: T.ILocale = {
-    months: [],
-    weekday: [],
+    months: {
+      long: [],
+      short: [],
+    },
+    weekday: {
+      long: [],
+      short: [],
+    },
     ariaLabels: messages.ariaLabels,
   };
   sanitizer = (dirtyHtml: string) => dirtyHtml;

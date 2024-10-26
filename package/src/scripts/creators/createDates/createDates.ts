@@ -12,6 +12,7 @@ const createDates = (self: VanillaCalendar) => {
 
   datesEls.forEach((dateEl, index: number) => {
     if (!self.settings.selection.day) dateEl.dataset.vcDatesDisabled = '';
+    dateEl.textContent = '';
 
     const currentDate = new Date(initDate);
     currentDate.setMonth(currentDate.getMonth() + index);
@@ -19,8 +20,6 @@ const createDates = (self: VanillaCalendar) => {
     const currentYear = currentDate.getFullYear();
     const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.weekStartDay + 7) % 7;
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    dateEl.textContent = '';
 
     createDatesFromPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);
     createDatesFromCurrentMonth(self, dateEl, days, currentYear, currentMonth);

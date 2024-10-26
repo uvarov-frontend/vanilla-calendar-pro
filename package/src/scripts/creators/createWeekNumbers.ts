@@ -35,6 +35,8 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
     weekNumberEl.innerText = String(weekNumber.week);
     weekNumberEl.dataset.vcWeekNumber = String(weekNumber.week);
     weekNumberEl.dataset.vcWeekYear = String(weekNumber.year);
+    weekNumberEl.role = 'rowheader';
+    weekNumberEl.ariaLabel = `${weekNumber.week}`;
     weekNumbersContentEl.appendChild(weekNumberEl);
   }
 };
