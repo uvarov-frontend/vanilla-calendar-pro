@@ -1,3 +1,4 @@
+import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick';
 import setPosition from '@scripts/helpers/positions/setPosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -32,6 +33,7 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
   });
 
   if (self.actions.initCalendar) self.actions.initCalendar(self);
+  handleArrowKeys(self);
   return handleClick(self);
 };
 

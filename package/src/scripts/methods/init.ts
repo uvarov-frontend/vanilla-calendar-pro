@@ -1,4 +1,5 @@
 import create from '@scripts/create';
+import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick';
 import handleInput from '@scripts/handles/handleInput';
 import setVariables from '@scripts/helpers/setVariables';
@@ -13,6 +14,7 @@ const init = (self: VanillaCalendar) => {
   setVariables(self);
   create(self);
   if (self.actions.initCalendar) self.actions.initCalendar(self);
+  handleArrowKeys(self);
   return handleClick(self);
 };
 
