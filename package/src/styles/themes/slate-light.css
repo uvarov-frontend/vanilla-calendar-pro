@@ -6,7 +6,9 @@
   @apply shadow-[0_9px_20px_rgba(0,0,0,.05)];
 }
 
-[data-vc-theme='slate-light'].vc button:focus-visible {
+[data-vc-theme='slate-light'].vc:focus-visible,
+[data-vc-theme='slate-light'].vc button:focus-visible,
+[data-vc-theme='slate-light'].vc [tabindex="0"]:focus-visible {
   @apply outline-blue-300;
 }
 
@@ -179,7 +181,7 @@
 }
 
 [data-vc-theme='slate-light'] .vc-date__popup {
-  @apply text-gray-800 before:bg-white before:shadow-[0_3px_15px_rgba(85,_85,_85,_0.1)];
+  @apply text-gray-800 bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.1)];
 }
 
 [data-vc-theme='slate-light'] .vc-time {

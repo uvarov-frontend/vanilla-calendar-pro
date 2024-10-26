@@ -24,6 +24,7 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
   self.HTMLElement.dataset.vc = 'calendar';
   self.HTMLElement.dataset.vcType = self.currentType;
   self.HTMLElement.role = 'application';
+  self.HTMLElement.tabIndex = 0;
   self.HTMLElement.ariaLabel = self.locale.ariaLabels.application;
 
   if (self.currentType === 'multiple' && self.correctMonths) {

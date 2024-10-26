@@ -2,7 +2,9 @@
   @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity;
 }
 
-[data-vc='calendar'] button:focus-visible {
+[data-vc='calendar']:focus-visible,
+[data-vc='calendar'] button:focus-visible,
+[data-vc='calendar'] [tabindex="0"]:focus-visible {
   @apply outline outline-1 -outline-offset-1 rounded-lg;
 }
 
@@ -162,8 +164,10 @@
   @apply rounded-tl-lg rounded-bl-lg rounded-tr-lg rounded-br-lg;
 }
 
-[data-vc-date]:focus-visible [data-vc-date-popup],
-[data-vc-date]:hover [data-vc-date-popup] {
+[data-vc-date-btn]:focus-visible+[data-vc-date-popup],
+[data-vc-date-btn]:hover+[data-vc-date-popup],
+[data-vc-date-popup]:focus-visible,
+[data-vc-date-popup]:hover {
   @apply opacity-100 pointer-events-auto;
 }
 
@@ -192,8 +196,7 @@
 }
 
 [data-vc-date-popup] {
-  @apply absolute z-20 left-1/2 -translate-x-1/2 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto
-  before:absolute before:-z-10 before:left-0 before:bottom-0 before:w-full before:h-[calc(100%_-_4px)] before:block before:rounded-lg;
+  @apply absolute z-20 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto rounded-lg;
 }
 
 [data-vc="time"] {

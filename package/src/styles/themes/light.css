@@ -6,7 +6,9 @@
   @apply shadow-[0_9px_20px_rgba(0,0,0,.1)];
 }
 
-[data-vc-theme='light'].vc button:focus-visible {
+[data-vc-theme='light'].vc:focus-visible,
+[data-vc-theme='light'].vc button:focus-visible,
+[data-vc-theme='light'].vc [tabindex="0"]:focus-visible {
   @apply outline-orange-300;
 }
 
@@ -179,7 +181,7 @@
 }
 
 [data-vc-theme='light'] .vc-date__popup {
-  @apply text-slate-900 before:bg-white before:shadow-[0_3px_15px_rgba(85,_85,_85,_0.2)];
+  @apply text-slate-900 bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.2)];
 }
 
 [data-vc-theme='light'] .vc-time {
