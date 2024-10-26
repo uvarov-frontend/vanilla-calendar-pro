@@ -104,28 +104,30 @@ export interface ISettings {
   visibility: IVisibility;
 }
 
+export interface IAriaLabels {
+  application: string;
+  navigation: string;
+  arrowNext: {
+    month: string;
+    year: string;
+  };
+  arrowPrev: {
+    month: string;
+    year: string;
+  };
+  month: string;
+  months: string;
+  year: string;
+  years: string;
+  week: string;
+  weekNumber: string;
+  dates: string;
+}
+
 export interface ILocale {
   months: string[];
   weekday: string[];
-  ariaLabels: {
-    application: string;
-    navigation: string;
-    arrowNext: {
-      month: string;
-      year: string;
-    };
-    arrowPrev: {
-      month: string;
-      year: string;
-    };
-    month: string;
-    months: string;
-    year: string;
-    years: string;
-    week: string;
-    weekNumber: string;
-    dates: string;
-  };
+  ariaLabels: IAriaLabels;
 }
 
 export interface IActions {
@@ -188,7 +190,11 @@ export interface IOptions {
     selected: Partial<ISelected>;
     visibility: Partial<IVisibility>;
   }>;
-  locale?: Partial<ILocale>;
+  locale?: Partial<{
+    months: Partial<string[]>;
+    weekday: Partial<string[]>;
+    ariaLabels: Partial<IAriaLabels>;
+  }>;
   actions?: Partial<IActions>;
   popups?: IPopups;
   CSSClasses?: Partial<CSSClasses>;
@@ -212,7 +218,11 @@ export interface IVanillaCalendar {
     selected: ISelected;
     visibility: IVisibility;
   };
-  locale: ILocale;
+  locale: {
+    months: string[];
+    weekday: string[];
+    ariaLabels: IAriaLabels;
+  };
   actions: IActions;
   sanitizer: (dirtyHtml: string) => unknown;
   popups: IPopups;

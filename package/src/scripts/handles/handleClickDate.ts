@@ -9,9 +9,10 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const updateDateModifier = (self: VanillaCalendar) => {
   const dateEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((dateEl) => {
+    const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;
     const dateStr = dateEl.dataset.vcDate as FormatDateString;
     const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
-    setDateModifier(self, self.selectedYear, dateEl, dayWeekID, dateStr, 'current');
+    setDateModifier(self, self.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, 'current');
   });
 };
 

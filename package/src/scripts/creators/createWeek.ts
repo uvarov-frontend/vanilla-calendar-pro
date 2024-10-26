@@ -30,6 +30,7 @@ const createWeek = (self: VanillaCalendar) => {
       const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
       weekDayEl.innerText = `${self.settings.visibility.weekShort ? weekDayName.substring(0, 3) : weekDayName}`;
       weekDayEl.className = self.CSSClasses.weekDay;
+      weekDayEl.role = 'columnheader';
       weekDayEl.ariaLabel = weekDayName;
       weekDayEl.dataset.vcWeekDay = String(weekday.id);
       if (weekday.isWeekend) weekDayEl.dataset.vcWeekDayOff = '';

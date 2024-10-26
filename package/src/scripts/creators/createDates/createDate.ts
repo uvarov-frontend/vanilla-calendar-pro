@@ -39,6 +39,8 @@ const createDate = (
   const dateBtnEl = document.createElement('button');
   dateBtnEl.className = self.CSSClasses.dateBtn;
   dateBtnEl.type = 'button';
+  dateBtnEl.role = 'gridcell';
+  if (self.settings.lang) dateBtnEl.ariaLabel = new Date(`${dateStr}T00:00:00.000Z`).toLocaleString(self.settings.lang, { dateStyle: 'long', timeZone: 'UTC' });
   dateBtnEl.dataset.vcDateBtn = '';
   dateBtnEl.innerText = String(dateID);
 
@@ -46,7 +48,7 @@ const createDate = (
   if (monthType !== 'current' ? self.settings.visibility.daysOutside : true) dateEl.appendChild(dateBtnEl);
 
   setDaysAsDisabled(self, dateStr, dayWeekID);
-  setDateModifier(self, currentYear, dateEl, dayWeekID, dateStr, monthType);
+  setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
   datesEl.appendChild(dateEl);
   if (self.actions.getDays) self.actions.getDays(dateID, dateStr, dateEl, dateBtnEl, self);

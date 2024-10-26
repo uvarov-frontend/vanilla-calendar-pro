@@ -5,6 +5,9 @@ const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: 
   const monthID = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
   const monthLabel = self.locale.months[monthID];
 
+  const columnEl = el.closest('[data-vc="column"]');
+  if (columnEl) columnEl.ariaLabel = `${monthLabel} ${yearID}`;
+
   const value = {
     month: { id: monthID, label: monthLabel },
     year: { id: yearID, label: yearID },
@@ -12,6 +15,7 @@ const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: 
 
   el.innerText = String(value[type].label);
   el.dataset[`vc${type.charAt(0).toUpperCase() + type.slice(1)}`] = String(value[type].id);
+  el.ariaLabel = `${self.locale.ariaLabels[type]} ${value[type].label}`;
 
   const isDisabled = self.settings.selection[type] === false || self.settings.selection[type] === 'only-arrows';
   if (isDisabled) el.tabIndex = -1;

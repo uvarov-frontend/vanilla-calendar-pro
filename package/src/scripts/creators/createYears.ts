@@ -7,8 +7,12 @@ const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sele
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
   yearEl.className = self.CSSClasses.yearsYear;
   yearEl.innerText = String(i);
+  yearEl.ariaLabel = String(i);
+  yearEl.role = 'gridcell';
   yearEl.dataset.vcYearsYear = `${i}`;
   if (selected === i) yearEl.dataset.vcYearsYearSelected = '';
+  if (selected === i) yearEl.ariaSelected = 'true';
+  if (disabled) yearEl.ariaDisabled = 'true';
   if (disabled) yearEl.tabIndex = -1;
   yearEl.disabled = disabled;
   return yearEl;

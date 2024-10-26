@@ -15,6 +15,7 @@ const setDateModifier = (
   self: VanillaCalendar,
   currentYear: number,
   dateEl: HTMLElement,
+  dateBtnEl: HTMLButtonElement,
   dayWeekID: WeekDayID,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
@@ -28,7 +29,8 @@ const setDateModifier = (
 
   // Check if the date is disabled
   updateAttribute(dateEl, isDisabled, 'data-vc-date-disabled');
-  updateAttribute(dateEl, isDisabled, 'tabindex', '-1');
+  updateAttribute(dateBtnEl, isDisabled, 'aria-disabled', 'true');
+  updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
 
   // Check if the date is today
   updateAttribute(dateEl, self.settings.visibility.today && getDateString(self.date.today) === dateStr, 'data-vc-date-today');
@@ -42,6 +44,7 @@ const setDateModifier = (
   // Check if the date is selected
   if (self.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
+    dateBtnEl.setAttribute('aria-selected', 'true');
     if (self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
       if (self.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
       if (self.selectedDates[self.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
@@ -50,6 +53,7 @@ const setDateModifier = (
     }
   } else if (dateEl.hasAttribute('data-vc-date-selected')) {
     dateEl.removeAttribute('data-vc-date-selected');
+    dateBtnEl.removeAttribute('aria-selected');
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)

@@ -5,7 +5,7 @@ const messages = {
   incorrectTime: 'The value of the time property can be: false, true, 12 or 24.',
   ariaLabels: {
     application: 'Calendar',
-    navigation: 'Calendar controls',
+    navigation: 'Calendar Navigation',
     arrowNext: {
       month: 'Next month',
       year: 'Next list of years',

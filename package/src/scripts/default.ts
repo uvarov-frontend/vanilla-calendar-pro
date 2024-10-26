@@ -1,10 +1,6 @@
 import classes from '@package/classes';
 import type * as T from '@package/types';
 import messages from '@scripts/helpers/getMessages';
-import DOMDefault from '@scripts/templates/DOMDefault';
-import DOMMonth from '@scripts/templates/DOMMonth';
-import DOMMultiple from '@scripts/templates/DOMMultiple';
-import DOMYear from '@scripts/templates/DOMYear';
 
 export default class DefaultOptionsCalendar {
   isInit = false;
@@ -91,10 +87,10 @@ export default class DefaultOptionsCalendar {
   popups: T.IPopups = {};
   CSSClasses: T.CSSClasses = { ...classes };
   DOMTemplates: T.IDOMTemplates = {
-    default: DOMDefault(this.CSSClasses),
-    multiple: DOMMultiple(this.CSSClasses),
-    month: DOMMonth(this.CSSClasses),
-    year: DOMYear(this.CSSClasses),
+    default: '',
+    multiple: '',
+    month: '',
+    year: '',
   };
   HTMLElement!: HTMLElement;
   HTMLOriginalElement!: HTMLElement;

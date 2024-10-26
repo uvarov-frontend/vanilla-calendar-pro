@@ -11,7 +11,7 @@ import getLocale from '@scripts/helpers/getLocale';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const create = (self: VanillaCalendar) => {
-  const types = {
+  const createDOMElements = {
     default: () => {
       createWeek(self);
       createDates(self);
@@ -30,8 +30,7 @@ const create = (self: VanillaCalendar) => {
   visibilityTitle(self);
   visibilityArrows(self);
   createTime(self);
-
-  types[self.currentType]();
+  createDOMElements[self.currentType]();
 };
 
 export default create;

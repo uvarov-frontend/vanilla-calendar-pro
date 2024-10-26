@@ -19,7 +19,11 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
     selected: T.ISelected;
     visibility: T.IVisibility;
   };
-  locale: T.ILocale;
+  locale: {
+    months: string[];
+    weekday: string[];
+    ariaLabels: T.IAriaLabels;
+  };
   actions: T.IActions;
   popups: T.IPopups;
   CSSClasses: T.CSSClasses;
