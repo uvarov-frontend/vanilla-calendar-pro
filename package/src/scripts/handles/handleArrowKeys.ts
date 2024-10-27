@@ -13,8 +13,7 @@ const handleArrowKeys = (self: VanillaCalendar) => {
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
-    if (!directionMapping[event.key]) return;
-
+    if (!directionMapping[event.key] || (event.target as HTMLElement)?.localName !== 'button') return;
     const buttons = updateButtons();
     const offset = buttons[currentFocusedIndex].hasAttribute('data-vc-date-btn')
       ? 7
