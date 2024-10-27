@@ -29,7 +29,11 @@ const createTime = (self: VanillaCalendar) => {
     <div class="${self.CSSClasses.timeContent}" data-vc-time="content">
       ${InputTime('hour', self.CSSClasses.timeHour, self.locale.ariaLabels as unknown as { [key: string]: string }, self.selectedHours, range)}
       ${InputTime('minute', self.CSSClasses.timeMinute, self.locale.ariaLabels as unknown as { [key: string]: string }, self.selectedMinutes, range)}
-      ${keepingTime === 12 ? `<button type="button" class="${self.CSSClasses.timeKeeping}" aria-label="${self.locale.ariaLabels.btnKeeping} ${self.selectedKeeping}"  data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.selectedKeeping}</button>` : ''}
+      ${
+        keepingTime === 12
+          ? `<button type="button" class="${self.CSSClasses.timeKeeping}" aria-label="${self.locale.ariaLabels.btnKeeping} ${self.selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.selectedKeeping}</button>`
+          : ''
+      }
     </div>
     <div class="${self.CSSClasses.timeRanges}" data-vc-time="ranges">
       ${RangeTime('hour', self.CSSClasses.timeRange, self.locale.ariaLabels as unknown as { [key: string]: string }, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
