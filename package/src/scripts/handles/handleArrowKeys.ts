@@ -1,20 +1,24 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleArrowKeys = (self: VanillaCalendar) => {
-  const dateBtnEls = self.HTMLElement.querySelectorAll<HTMLButtonElement>('[data-vc-date-btn]');
+  const updateButtons = () => Array.from(self.HTMLElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
+
   let currentFocusedIndex = 0;
 
-  const directionMapping: Record<string, (index: number) => number> = {
-    ArrowUp: (index) => Math.max(0, index - 7),
-    ArrowDown: (index) => Math.min(dateBtnEls.length - 1, index + 7),
+  const directionMapping: Record<string, (index: number, offset: number) => number> = {
+    ArrowUp: (index, offset) => Math.max(0, index - offset),
+    ArrowDown: (index, offset) => Math.min(updateButtons().length - 1, index + offset),
     ArrowLeft: (index) => Math.max(0, index - 1),
-    ArrowRight: (index) => Math.min(dateBtnEls.length - 1, index + 1),
+    ArrowRight: (index) => Math.min(updateButtons().length - 1, index + 1),
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
     if (!directionMapping[event.key]) return;
-    currentFocusedIndex = directionMapping[event.key](currentFocusedIndex);
-    dateBtnEls[currentFocusedIndex].focus();
+
+    const buttons = updateButtons();
+    const offset = buttons[currentFocusedIndex].hasAttribute('data-vc-date-btn') ? 7 : 1;
+    currentFocusedIndex = directionMapping[event.key](currentFocusedIndex, offset);
+    buttons[currentFocusedIndex]?.focus();
   };
 
   self.HTMLElement.addEventListener('keydown', onKeyDown);
