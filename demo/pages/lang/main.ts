@@ -8,15 +8,45 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
-  weekStartDay: 1,
+  // weekStartDay: 0,
+  type: 'multiple',
   settings: {
     lang: 'ru',
     visibility: {
       weekNumbers: true,
       positionToInput: 'auto',
     },
+    selection: {
+      day: 'multiple-ranged',
+      time: true,
+    },
+    range: {
+      min: '2024-05-01',
+      max: '2024-07-30',
+      // disablePast: true,
+      edgesOnly: true,
+      disabled: [
+        '2024-06-01',
+        '2024-06-02',
+        '2024-06-07',
+        '2024-06-08',
+        '2024-06-09',
+        '2024-06-10',
+        '2024-06-14',
+        '2024-06-15',
+        '2024-06-16',
+        '2024-06-20',
+        '2024-06-21',
+        '2024-06-22',
+        '2024-06-23',
+        '2024-06-28',
+        '2024-06-29',
+        '2024-06-30',
+      ],
+    },
     selected: {
-      weekend: [],
+      month: 5,
+      year: 2024,
     },
   },
   locale: {
@@ -73,4 +103,5 @@ const config: IOptions = {
 document.addEventListener('DOMContentLoaded', () => {
   const calendar = new VanillaCalendar('#calendar', config);
   calendar.init();
+  console.log(calendar);
 });

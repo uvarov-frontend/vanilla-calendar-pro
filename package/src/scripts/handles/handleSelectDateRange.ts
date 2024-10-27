@@ -114,19 +114,21 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
   const selectionHandlers = {
     set: () => {
       self.HTMLElement.addEventListener('mousemove', handleHoverDatesEvent);
-      document.addEventListener('keydown', handleCancelSelectionDates);
+      self.HTMLElement.addEventListener('keydown', handleCancelSelectionDates);
       if (self.settings.range.disableGaps) updateDisabledDates();
     },
     reset: () => {
       const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
-      self.selectedDates =
-        self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1]
-          ? self.settings.range.edgesOnly
-            ? [startDate, endDate]
-            : parseDates([`${startDate as string}:${endDate as string}`])
-          : [self.selectedDates[0], self.selectedDates[0]];
+      const notSameDate = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1];
+
+      self.selectedDates = notSameDate
+        ? self.settings.range.edgesOnly
+          ? [startDate, endDate]
+          : parseDates([`${startDate as string}:${endDate as string}`]) //! It's need fix
+        : [self.selectedDates[0], self.selectedDates[0]];
+
       self.HTMLElement.removeEventListener('mousemove', handleHoverDatesEvent);
-      document.removeEventListener('keydown', handleCancelSelectionDates);
+      self.HTMLElement.removeEventListener('keydown', handleCancelSelectionDates);
       if (self.settings.range.disableGaps) resetDisabledDates();
     },
   };

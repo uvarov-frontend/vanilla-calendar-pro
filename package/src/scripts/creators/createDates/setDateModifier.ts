@@ -6,8 +6,8 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const updateAttribute = (dateEl: HTMLElement, condition: boolean | undefined, attr: string, value = '') => {
   if (condition) {
     dateEl.setAttribute(attr, value);
-  } else if (dateEl.hasAttribute(attr)) {
-    dateEl.removeAttribute('data-vc-date-weekend');
+  } else if (dateEl.getAttribute(attr) === value) {
+    dateEl.removeAttribute(attr);
   }
 };
 
@@ -58,10 +58,9 @@ const setDateModifier = (
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
   if (self.settings.range.edgesOnly && self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
-    const firstDate = +new Date(self.selectedDates[0]);
-    const lastDate = +new Date(self.selectedDates[self.selectedDates.length - 1]);
-    const nextDate = +new Date(dateStr);
-
+    const firstDate = getDate(self.selectedDates[0]);
+    const lastDate = getDate(self.selectedDates[self.selectedDates.length - 1]);
+    const nextDate = getDate(dateStr);
     updateAttribute(dateEl, nextDate > firstDate && nextDate < lastDate, 'data-vc-date-selected', 'middle');
   }
 };
