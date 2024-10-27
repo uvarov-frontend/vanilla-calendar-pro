@@ -57,11 +57,16 @@ const setDateModifier = (
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
-  if (self.settings.range.edgesOnly && self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
+  if (
+    !self.rangeDisabled.includes(dateStr) &&
+    self.settings.range.edgesOnly &&
+    self.selectedDates.length > 1 &&
+    self.settings.selection.day === 'multiple-ranged'
+  ) {
     const firstDate = getDate(self.selectedDates[0]);
     const lastDate = getDate(self.selectedDates[self.selectedDates.length - 1]);
-    const nextDate = getDate(dateStr);
-    updateAttribute(dateEl, nextDate > firstDate && nextDate < lastDate, 'data-vc-date-selected', 'middle');
+    const currentDate = getDate(dateStr);
+    updateAttribute(dateEl, currentDate > firstDate && currentDate < lastDate, 'data-vc-date-selected', 'middle');
   }
 };
 

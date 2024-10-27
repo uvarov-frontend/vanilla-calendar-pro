@@ -120,13 +120,10 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
     reset: () => {
       const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
       const notSameDate = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1];
+      const allDates = parseDates([`${startDate as string}:${endDate as string}`]);
+      const actualDates = allDates.filter((d) => !self.rangeDisabled.includes(d));
 
-      self.selectedDates = notSameDate
-        ? self.settings.range.edgesOnly
-          ? [startDate, endDate]
-          : parseDates([`${startDate as string}:${endDate as string}`]) //! It's need fix
-        : [self.selectedDates[0], self.selectedDates[0]];
-
+      self.selectedDates = notSameDate ? (self.settings.range.edgesOnly ? [startDate, endDate] : actualDates) : [self.selectedDates[0], self.selectedDates[0]];
       self.HTMLElement.removeEventListener('mousemove', handleHoverDatesEvent);
       self.HTMLElement.removeEventListener('keydown', handleCancelSelectionDates);
       if (self.settings.range.disableGaps) resetDisabledDates();

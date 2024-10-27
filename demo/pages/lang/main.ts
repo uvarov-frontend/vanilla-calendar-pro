@@ -24,7 +24,7 @@ const config: IOptions = {
       min: '2024-05-01',
       max: '2024-07-30',
       // disablePast: true,
-      edgesOnly: true,
+      // edgesOnly: false,
       disabled: [
         '2024-06-01',
         '2024-06-02',

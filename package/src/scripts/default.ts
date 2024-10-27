@@ -25,7 +25,7 @@ export default class DefaultOptionsCalendar {
       max: undefined,
       disablePast: false,
       disableGaps: false,
-      edgesOnly: false,
+      edgesOnly: true,
       disableAllDays: false,
       disableWeekday: undefined,
       disabled: undefined,
