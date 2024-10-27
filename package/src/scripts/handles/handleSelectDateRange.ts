@@ -14,7 +14,7 @@ const current: { self: VanillaCalendar | null; rangeMin: FormatDateString | unde
 
 const removeHoverEffect = () => {
   if (!current.self?.HTMLElement) return;
-  const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date-hover]');
+  const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((d) => ['data-vc-date-hover', 'data-vc-date-hover-first', 'data-vc-date-hover-last'].forEach((attr) => d.removeAttribute(attr)));
 };
 

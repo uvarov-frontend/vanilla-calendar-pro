@@ -165,7 +165,7 @@
 }
 
 [data-vc-date][data-vc-date-selected='first'] [data-vc-date-btn] {
-  @apply !rounded-r-none !rounded-l-lg;
+  @apply rounded-r-none rounded-l-lg;
 }
 
 [data-vc-date][data-vc-date-selected='last'] [data-vc-date-btn] {
@@ -178,6 +178,20 @@
 
 [data-vc-date][data-vc-date-selected='middle'] [data-vc-date-btn] {
   @apply rounded-none;
+}
+
+[data-vc-date][data-vc-date-selected]:nth-child(7n+1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:nth-child(7n+1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
+[data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn] {
+  @apply rounded-l-lg;
+}
+
+[data-vc-date][data-vc-date-hover]:nth-child(7n) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:nth-child(7n) [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-disabled]) [data-vc-date-btn] {
+  @apply rounded-r-lg;
 }
 
 [data-vc-date-btn]:focus-visible+[data-vc-date-popup],
