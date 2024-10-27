@@ -9,7 +9,7 @@ import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
   // weekStartDay: 0,
-  type: 'multiple',
+  // type: 'multiple',
   settings: {
     lang: 'ru',
     visibility: {
@@ -68,6 +68,12 @@ const config: IOptions = {
       week: 'Дни недели',
       weekNumber: 'Номера недель в году',
       dates: 'Даты текущего месяца',
+      selectingTime: 'Выбора времени',
+      inputHour: 'Часы',
+      inputMinute: 'Минуты',
+      rangeHour: 'Ползунок для выбора часов',
+      rangeMinute: 'Ползунок для выбора минут',
+      btnKeeping: 'Переключить AM/PM, текущее положение:',
     },
   },
   popups: {

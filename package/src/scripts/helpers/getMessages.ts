@@ -21,6 +21,12 @@ const messages = {
     week: 'Days of the week',
     weekNumber: 'Numbers of weeks in a year',
     dates: 'Dates in the current month',
+    selectingTime: 'Selecting a time ',
+    inputHour: 'Hours',
+    inputMinute: 'Minutes',
+    rangeHour: 'Slider for selecting hours',
+    rangeMinute: 'Slider for selecting minutes',
+    btnKeeping: 'Switch AM/PM, current position:',
   },
 };
 

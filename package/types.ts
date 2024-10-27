@@ -119,6 +119,12 @@ export interface IAriaLabels {
   week: string;
   weekNumber: string;
   dates: string;
+  selectingTime: string;
+  inputHour: string;
+  rangeHour: string;
+  inputMinute: string;
+  rangeMinute: string;
+  btnKeeping: string;
 }
 
 export interface IMonthsLocale {
