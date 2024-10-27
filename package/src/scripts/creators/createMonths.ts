@@ -64,6 +64,8 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
     monthsEl.appendChild(monthEl);
     if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
   }
+
+  self.HTMLElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
 };
 
 export default createMonths;

@@ -16,7 +16,13 @@ const handleArrowKeys = (self: VanillaCalendar) => {
     if (!directionMapping[event.key]) return;
 
     const buttons = updateButtons();
-    const offset = buttons[currentFocusedIndex].hasAttribute('data-vc-date-btn') ? 7 : 1;
+    const offset = buttons[currentFocusedIndex].hasAttribute('data-vc-date-btn')
+      ? 7
+      : buttons[currentFocusedIndex].hasAttribute('data-vc-months-month')
+        ? 4
+        : buttons[currentFocusedIndex].hasAttribute('data-vc-years-year')
+          ? 5
+          : 1;
     currentFocusedIndex = directionMapping[event.key](currentFocusedIndex, offset);
     buttons[currentFocusedIndex]?.focus();
   };

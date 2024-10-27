@@ -60,6 +60,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
 
   self.currentType = self.type;
   create(self);
+  self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
 
 const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number]) => {
@@ -81,6 +82,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   if ((self.currentType === type && headerEl) || (self.type === 'multiple' && self.currentType === type && gridEl && !columnEl)) {
     self.currentType = self.type;
     create(self);
+    self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   }
 };
 

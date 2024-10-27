@@ -40,6 +40,8 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
     yearsEl.appendChild(yearEl);
     if (self.actions.getYears) self.actions.getYears(i, yearEl, self);
   }
+
+  self.HTMLElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
 };
 
 export default createYears;
