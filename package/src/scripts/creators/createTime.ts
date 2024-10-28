@@ -1,6 +1,6 @@
 import handleTime from '@scripts/handles/handleTime/handleTime';
-import { TimeInput } from '@scripts/templates/components/TimeInput';
-import { TimeRange } from '@scripts/templates/components/TimeRange';
+import TimeInput from '@scripts/templates/components/TimeInput';
+import TimeRange from '@scripts/templates/components/TimeRange';
 import transformTime24 from '@scripts/utils/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
@@ -16,7 +16,7 @@ const createTime = (self: VanillaCalendar) => {
 
   timeEl.innerHTML = self.sanitizer(`
     <div class="${self.CSSClasses.timeContent}" data-vc-time="content">
-      ${TimeInput('hour', self.CSSClasses.timeHour, self.locale.ariaLabels as unknown as { [key: string]: string }, self.selectedHours, range)}
+      ${TimeInput('hour', self.CSSClasses.timeHour, self.locale.ariaLabels as unknown as { [key: string]: string }, valueHours, range)}
       ${TimeInput('minute', self.CSSClasses.timeMinute, self.locale.ariaLabels as unknown as { [key: string]: string }, self.selectedMinutes, range)}
       ${
         self.settings.selection.time === 12

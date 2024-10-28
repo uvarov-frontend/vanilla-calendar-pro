@@ -16,8 +16,6 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
 
   if (!rangeHourEl || !rangeMinuteEl || !inputHourEl || !inputMinuteEl) return;
 
-  const maxTime = self.settings.selection.time === 24 ? 23 : 12;
-
   const handleMouseOverEvent = (event: MouseEvent) => {
     if (event.target === rangeHourEl) handleMouseOver(inputHourEl);
     if (event.target === rangeMinuteEl) handleMouseOver(inputMinuteEl);
@@ -31,11 +29,11 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
   timeEl.addEventListener('mouseover', handleMouseOverEvent);
   timeEl.addEventListener('mouseout', handleMouseOutEvent);
 
-  handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', maxTime);
-  handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 59);
+  handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', self.settings.range.hourMax, self.settings.range.hourMin);
+  handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', self.settings.range.minuteMax, self.settings.range.minuteMin);
 
-  handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', maxTime);
-  handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 0);
+  handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour');
+  handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute');
 
   if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl);
 

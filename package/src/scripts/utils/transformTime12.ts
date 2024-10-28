@@ -1,4 +1,4 @@
-const transformTime12 = (hour: string | undefined): string => {
+const transformTime12 = (hour: string): string => {
   const hourMap: { [key: number]: string } = {
     0: '12',
     13: '01',
@@ -14,7 +14,7 @@ const transformTime12 = (hour: string | undefined): string => {
     23: '11',
   };
 
-  return hour ? hourMap[Number(hour)] || String(hour) : '';
+  return hourMap[Number(hour)] || String(hour);
 };
 
 export default transformTime12;

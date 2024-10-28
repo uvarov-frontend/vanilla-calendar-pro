@@ -1,4 +1,4 @@
-const transformTime24 = (hour: string | undefined, keeping: string | undefined) => {
+const transformTime24 = (hour: string, keeping: string) => {
   const hourMap: { [key: number]: { [key: string]: string } } = {
     0: { AM: '00', PM: '12' },
     1: { AM: '01', PM: '13' },
@@ -12,10 +12,10 @@ const transformTime24 = (hour: string | undefined, keeping: string | undefined) 
     9: { AM: '09', PM: '21' },
     10: { AM: '10', PM: '22' },
     11: { AM: '11', PM: '23' },
-    12: { AM: '12', PM: '12' },
+    12: { AM: '00', PM: '12' },
   };
 
-  return hour && keeping ? hourMap[Number(hour)][keeping] : '';
+  return hourMap[Number(hour)]?.[keeping] || String(hour);
 };
 
 export default transformTime24;
