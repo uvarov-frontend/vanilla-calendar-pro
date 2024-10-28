@@ -30,6 +30,10 @@ export default class DefaultOptionsCalendar {
       disableWeekday: undefined,
       disabled: undefined,
       enabled: undefined,
+      hourMin: 0,
+      hourMax: 23,
+      minuteMin: 0,
+      minuteMax: 59,
     },
     selection: {
       day: 'single',

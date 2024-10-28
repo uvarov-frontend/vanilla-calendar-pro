@@ -1,7 +1,7 @@
 import type { IReset } from '@package/types';
 import create from '@scripts/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange';
-import setVariables from '@scripts/helpers/setVariables';
+import initAllVariables from '@scripts/initializations/initSelectedMonthYear';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const reset = (self: VanillaCalendar, { year, month, dates, time }: IReset = {}) => {
@@ -14,7 +14,7 @@ const reset = (self: VanillaCalendar, { year, month, dates, time }: IReset = {})
   self.settings.selected.dates =
     dates === 'only-first' && self.selectedDates?.[0] ? [self.selectedDates[0]] : dates === true ? previousSelected.dates : self.selectedDates;
 
-  setVariables(self);
+  initAllVariables(self);
   create(self);
 
   self.settings.selected = previousSelected;

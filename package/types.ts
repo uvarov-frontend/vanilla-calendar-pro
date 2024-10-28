@@ -13,6 +13,8 @@ export type WeekDayID = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type WeekDays<T> = [...T[]];
 
+export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
+
 export type CSSClasses = typeof classes;
 
 export interface HtmlElementPosition {
@@ -29,37 +31,26 @@ export interface IDates {
 }
 
 export interface IRange {
-  /** This parameter sets the minimum date that the user can choose */
   min?: FormatDateString | 'today';
-  /** This parameter sets the maximum date that the user can choose */
   max?: FormatDateString | 'today';
-  /** This parameter disables all past days. */
   disablePast: boolean;
-  /**
-   * This parameter disables the selection of days within a range with disabled dates.
-   * Only works when `settings.selection.day` is set to `'multiple-ranged'`.
-   */
   disableGaps: boolean;
-  /**
-   * This parameter will only keep references of the date range edges (start/end dates) in the `settings.selected.dates` array.
-   * Only works when `settings.selection.day` is set to `'multiple-ranged'`.
-   */
   edgesOnly?: boolean;
-  /** This parameter disables all days and can be useful when using `settings.range.enabled` */
   disableAllDays: boolean;
-  /** This parameter allows you to disable specified weekdays. */
   disableWeekday?: number[];
-  /** This parameter allows you to disable specific dates regardless of the specified range. */
   disabled?: Array<Date | number | string>;
-  /** This parameter allows you to enable specific dates regardless of the range and disabled dates. */
   enabled?: Array<Date | number | string>;
+  hourMin: Range<24>;
+  hourMax: Range<24>;
+  minuteMin: Range<60>;
+  minuteMax: Range<60>;
 }
 
 export interface ISelection {
   day: false | 'single' | 'multiple' | 'multiple-ranged';
   month: boolean | 'only-arrows';
   year: boolean | 'only-arrows';
-  time: boolean | 12 | 24;
+  time: false | 12 | 24;
   controlTime: 'all' | 'range';
   stepHours: number;
   stepMinutes: number;

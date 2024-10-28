@@ -12,19 +12,11 @@ const config: IOptions = {
   // type: 'multiple',
   settings: {
     lang: 'ru',
-    visibility: {
-      weekNumbers: true,
-      positionToInput: 'auto',
-    },
     selection: {
       day: 'multiple-ranged',
-      time: true,
+      time: 12,
     },
     range: {
-      // min: '2024-05-01',
-      // max: '2024-07-30',
-      // disablePast: true,
-      // edgesOnly: false,
       disabled: [
         '2024-06-01',
         '2024-06-02',
@@ -43,6 +35,10 @@ const config: IOptions = {
         '2024-06-29',
         '2024-06-30',
       ],
+      hourMin: 11,
+      hourMax: 20,
+      minuteMin: 10,
+      minuteMax: 20,
     },
     selected: {
       month: 5,

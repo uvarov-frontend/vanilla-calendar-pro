@@ -1,7 +1,7 @@
-import handleClickArrow from '@scripts/handles/handleClickArrow';
-import handleClickDate from '@scripts/handles/handleClickDate';
-import handleClickMonthOrYear from '@scripts/handles/handleClickMonthOrYear';
-import { handleClickWeekDay, handleClickWeekNumber } from '@scripts/handles/handleClickWeek';
+import handleClickArrow from '@scripts/handles/handleClick/handleClickArrow';
+import handleClickDate from '@scripts/handles/handleClick/handleClickDate';
+import handleClickMonthOrYear from '@scripts/handles/handleClick/handleClickMonthOrYear';
+import { handleClickWeekDay, handleClickWeekNumber } from '@scripts/handles/handleClick/handleClickWeek';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClick = (self: VanillaCalendar) => {
