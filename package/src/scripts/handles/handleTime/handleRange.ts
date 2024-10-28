@@ -2,6 +2,16 @@ import setTime from '@scripts/handles/handleTime/setTime';
 import transformTime12 from '@scripts/utils/transformTime12';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
+const updateKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
+  self.selectedKeeping = keeping;
+  if (keepingTimeEl) keepingTimeEl.innerText = keeping;
+};
+
+const updateInputAndTime = (self: VanillaCalendar, inputEl: HTMLInputElement, value: string, event: Event, type: 'hour' | 'minute') => {
+  inputEl.value = value;
+  setTime(self, event, value, type);
+};
+
 const handleRange = (
   self: VanillaCalendar,
   rangeEl: HTMLInputElement,
@@ -10,33 +20,21 @@ const handleRange = (
   type: 'hour' | 'minute',
   max: number,
 ) => {
-  rangeEl.addEventListener('input', (e) => {
+  const handleRangeAction = (event: Event) => {
     const value = Number(rangeEl.value);
-    const valueStr = value < 10 ? `0${value}` : `${value}`;
+    const valueStr = rangeEl.value.padStart(2, '0');
+    const isHourType = type === 'hour' || max === 12;
+    const ifTime = value < max && value > 0;
 
-    if (type !== 'hour' || max !== 12) {
-      inputEl.value = valueStr;
-      setTime(self, e, valueStr, type);
-      return;
-    }
+    updateInputAndTime(self, inputEl, isHourType || ifTime ? valueStr : transformTime12(rangeEl.value), event, type);
+    if (isHourType) updateKeepingTime(self, keepingTimeEl, value === 0 ? 'AM' : value < max ? 'AM' : 'PM');
+  };
 
-    if (value < max && value > 0) {
-      inputEl.value = valueStr;
-      self.selectedKeeping = 'AM';
-      if (keepingTimeEl) keepingTimeEl.innerText = self.selectedKeeping;
-      setTime(self, e, valueStr, type);
-    } else {
-      if (value === 0) {
-        self.selectedKeeping = 'AM';
-        if (keepingTimeEl) keepingTimeEl.innerText = 'AM';
-      } else {
-        self.selectedKeeping = 'PM';
-        if (keepingTimeEl) keepingTimeEl.innerText = 'PM';
-      }
-      inputEl.value = transformTime12(rangeEl.value);
-      setTime(self, e, transformTime12(rangeEl.value), type);
-    }
-  });
+  rangeEl.addEventListener('input', handleRangeAction);
+
+  return () => {
+    rangeEl.removeEventListener('input', handleRangeAction);
+  };
 };
 
 export default handleRange;
