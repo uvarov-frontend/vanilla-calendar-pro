@@ -1,5 +1,5 @@
 import setTime from '@scripts/handles/handleTime/setTime';
-import transformTime12 from '@scripts/helpers/transformTime12';
+import transformTime12 from '@scripts/utils/transformTime12';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleRange = (

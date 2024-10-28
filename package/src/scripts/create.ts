@@ -7,7 +7,7 @@ import createYears from '@scripts/creators/createYears';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import handleTheme from '@scripts/handles/handleTheme';
-import getLocale from '@scripts/helpers/getLocale';
+import getLocale from '@scripts/utils/getLocale';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const create = (self: VanillaCalendar) => {

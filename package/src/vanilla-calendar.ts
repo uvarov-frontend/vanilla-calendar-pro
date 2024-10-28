@@ -1,7 +1,7 @@
 import type * as T from '@package/types';
 import DefaultOptionsCalendar from '@scripts/default';
-import messages from '@scripts/helpers/getMessages';
 import * as methods from '@scripts/methods';
+import messages from '@scripts/utils/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();

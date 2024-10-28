@@ -1,4 +1,4 @@
-import parseDates from '@scripts/helpers/parseDates';
+import parseDates from '@scripts/utils/parseDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initSelectedDates = (self: VanillaCalendar) => {

@@ -1,5 +1,5 @@
 import type { FormatDateString } from '@package/types';
-import getDate from '@scripts/helpers/getDate';
+import getDate from '@scripts/utils/getDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initDateMinMax = (self: VanillaCalendar) => {

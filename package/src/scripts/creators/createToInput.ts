@@ -1,6 +1,6 @@
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
-import setPosition from '@scripts/helpers/positions/setPosition';
+import setPosition from '@scripts/utils/positions/setPosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 import reset from '@/package/src/scripts/methods/reset';

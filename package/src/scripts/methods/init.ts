@@ -2,7 +2,7 @@ import create from '@scripts/create';
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleInput from '@scripts/handles/handleInput';
-import initAllVariables from '@scripts/initializations/initAllVariables';
+import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const init = (self: VanillaCalendar) => {

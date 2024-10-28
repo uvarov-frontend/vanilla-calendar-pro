@@ -1,4 +1,4 @@
-import messages from '@scripts/helpers/getMessages';
+import messages from '@scripts/utils/getMessages';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const destroy = (self: VanillaCalendar) => {

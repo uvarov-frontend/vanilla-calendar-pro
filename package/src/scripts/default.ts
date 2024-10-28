@@ -1,6 +1,6 @@
 import classes from '@package/classes';
 import type * as T from '@package/types';
-import messages from '@scripts/helpers/getMessages';
+import messages from '@scripts/utils/getMessages';
 
 export default class DefaultOptionsCalendar {
   isInit = false;

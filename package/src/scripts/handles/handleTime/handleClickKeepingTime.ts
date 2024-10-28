@@ -1,5 +1,5 @@
 import setTime from '@scripts/handles/handleTime/setTime';
-import transformTime24 from '@scripts/helpers/transformTime24';
+import transformTime24 from '@scripts/utils/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement) => {

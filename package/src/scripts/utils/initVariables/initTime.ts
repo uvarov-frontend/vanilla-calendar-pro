@@ -1,5 +1,5 @@
-import messages from '@scripts/helpers/getMessages';
-import transformTime12 from '@scripts/helpers/transformTime12';
+import messages from '@scripts/utils/getMessages';
+import transformTime12 from '@scripts/utils/transformTime12';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initTime = (self: VanillaCalendar) => {

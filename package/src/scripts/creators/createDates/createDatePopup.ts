@@ -1,5 +1,5 @@
 import type { IPopup } from '@package/types';
-import getAvailablePosition from '@scripts/helpers/positions/getAvailablePosition';
+import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesEl: HTMLElement) => {

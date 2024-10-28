@@ -1,5 +1,5 @@
 import type { FormatDateString } from '@package/types';
-import canToggleSelection from '@scripts/helpers/canToggleSelection';
+import canToggleSelection from '@scripts/utils/canToggleSelection';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleSelectDate = (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => {

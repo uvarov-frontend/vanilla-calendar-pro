@@ -1,7 +1,7 @@
 import { TimeInput } from '@scripts/components/TimeInput';
 import { TimeRange } from '@scripts/components/TimeRange';
 import handleTime from '@scripts/handles/handleTime/handleTime';
-import transformTime24 from '@scripts/helpers/transformTime24';
+import transformTime24 from '@scripts/utils/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createTime = (self: VanillaCalendar) => {

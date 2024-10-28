@@ -1,8 +1,8 @@
-import { parseDOM, parseMultiple } from '@scripts/helpers/parseComponent';
 import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMYear from '@scripts/templates/DOMYear';
+import { parseDOM, parseMultiple } from '@scripts/utils/parseComponent';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {

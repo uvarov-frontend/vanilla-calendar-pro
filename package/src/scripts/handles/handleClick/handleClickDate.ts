@@ -3,7 +3,7 @@ import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
-import getDate from '@scripts/helpers/getDate';
+import getDate from '@scripts/utils/getDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const updateDateModifier = (self: VanillaCalendar) => {

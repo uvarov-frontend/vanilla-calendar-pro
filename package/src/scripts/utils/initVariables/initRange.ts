@@ -1,7 +1,7 @@
-import getDate from '@scripts/helpers/getDate';
-import getDateString from '@scripts/helpers/getDateString';
-import getLocalDate from '@scripts/helpers/getLocalDate';
-import parseDates from '@scripts/helpers/parseDates';
+import getDate from '@scripts/utils/getDate';
+import getDateString from '@scripts/utils/getDateString';
+import getLocalDate from '@scripts/utils/getLocalDate';
+import parseDates from '@scripts/utils/parseDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initRange = (self: VanillaCalendar) => {

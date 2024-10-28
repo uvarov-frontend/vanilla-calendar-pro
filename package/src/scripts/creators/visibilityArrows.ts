@@ -1,5 +1,5 @@
-import getDate from '@scripts/helpers/getDate';
-import getDateString from '@scripts/helpers/getDateString';
+import getDate from '@scripts/utils/getDate';
+import getDateString from '@scripts/utils/getDateString';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement, isArrowPrevHidden: boolean, isArrowNextHidden: boolean) => {
