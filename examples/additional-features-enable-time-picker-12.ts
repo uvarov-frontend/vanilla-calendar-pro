@@ -6,7 +6,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: IOptions = {
   settings: {
     selection: {
-      time: true, // or 12
+      time: 12,
     },
   },
 };

@@ -6,7 +6,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: IOptions = {
   settings: {
     selection: {
-      time: true,
+      time: 12,
       controlTime: 'range',
       stepHours: 5,
       stepMinutes: 5,
