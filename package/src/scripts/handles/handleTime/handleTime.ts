@@ -3,10 +3,9 @@ import handleInput from '@scripts/handles/handleTime/handleInput';
 import handleRange from '@scripts/handles/handleTime/handleRange';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const addMouseEvents = (rangeEl: HTMLInputElement, inputEl: HTMLInputElement) => {
-  rangeEl.addEventListener('mouseover', () => (inputEl.dataset.vcInputFocus = ''));
-  rangeEl.addEventListener('mouseout', () => inputEl.removeAttribute('data-vc-input-focus'));
-};
+const handleMouseOver = (inputEl: HTMLInputElement) => inputEl.setAttribute('data-vc-input-focus', '');
+
+const handleMouseOut = (inputEl: HTMLInputElement) => inputEl.removeAttribute('data-vc-input-focus');
 
 const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
   const rangeHourEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-range="hour"] input[name="hour"]');
@@ -17,10 +16,20 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
 
   if (!rangeHourEl || !rangeMinuteEl || !inputHourEl || !inputMinuteEl) return;
 
-  const maxTime = self.settings.selection.time === 24 ? 23 : self.settings.selection.time || 12;
+  const maxTime = self.settings.selection.time === 24 ? 23 : 12;
 
-  addMouseEvents(rangeHourEl, inputHourEl);
-  addMouseEvents(rangeMinuteEl, inputMinuteEl);
+  const handleMouseOverEvent = (event: MouseEvent) => {
+    if (event.target === rangeHourEl) handleMouseOver(inputHourEl);
+    if (event.target === rangeMinuteEl) handleMouseOver(inputMinuteEl);
+  };
+
+  const handleMouseOutEvent = (event: MouseEvent) => {
+    if (event.target === rangeHourEl) handleMouseOut(inputHourEl);
+    if (event.target === rangeMinuteEl) handleMouseOut(inputMinuteEl);
+  };
+
+  timeEl.addEventListener('mouseover', handleMouseOverEvent);
+  timeEl.addEventListener('mouseout', handleMouseOutEvent);
 
   handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', maxTime);
   handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 59);
@@ -29,6 +38,11 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
   handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', 0);
 
   if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl);
+
+  return () => {
+    timeEl.removeEventListener('mouseover', handleMouseOverEvent);
+    timeEl.removeEventListener('mouseout', handleMouseOutEvent);
+  };
 };
 
 export default handleTime;
