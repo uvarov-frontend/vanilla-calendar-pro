@@ -1,4 +1,4 @@
-import { getComponent } from '@scripts/components';
+import { getComponent } from '@scripts/templates/components';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 export const parseDOM = (self: VanillaCalendar, template: string): string => {
