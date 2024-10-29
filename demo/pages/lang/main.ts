@@ -35,7 +35,7 @@ const config: IOptions = {
         '2024-06-29',
         '2024-06-30',
       ],
-      hourMin: 11,
+      hourMin: 2,
       hourMax: 20,
       minuteMin: 10,
       minuteMax: 20,
@@ -90,14 +90,8 @@ const config: IOptions = {
     },
   },
   actions: {
-    changeToInput(e, self) {
-      if (!self.selectedDates || !self.HTMLInputElement) return;
-      if (self.selectedDates[0]) {
-        self.HTMLInputElement.innerHTML = self.selectedDates[0];
-      } else {
-        self.HTMLInputElement.textContent = '';
-      }
-      self.hide();
+    changeTime(event, self, isError) {
+      console.log(isError);
     },
   },
 };

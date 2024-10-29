@@ -35,7 +35,7 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
   handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour');
   handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute');
 
-  if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl);
+  if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.settings.range.hourMax, self.settings.range.hourMin);
 
   return () => {
     timeEl.removeEventListener('mouseover', handleMouseOverEvent);

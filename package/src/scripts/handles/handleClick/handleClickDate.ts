@@ -32,11 +32,7 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.actions.clickDay) self.actions.clickDay(event, self);
-
-  const isInitAsInput = self.input && self.HTMLInputElement && self.HTMLElement;
-  if (isInitAsInput && self.actions.changeToInput) {
-    self.actions.changeToInput(event, self);
-  }
+  if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) self.actions.changeToInput(event, self);
 
   const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
   const dayNextEl = element.closest('[data-vc-date-month="next"]');

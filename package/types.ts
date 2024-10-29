@@ -141,7 +141,7 @@ export interface IActions {
   clickMonth: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickYear: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickArrow: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
-  changeTime: ((e: Event, self: IVanillaCalendar) => void) | null;
+  changeTime: ((e: Event, self: IVanillaCalendar, isError: boolean) => void) | null;
   changeToInput: ((e: Event, self: IVanillaCalendar) => void) | null;
   getDays: ((day: number, date: FormatDateString, HTMLElement: HTMLElement, HTMLButtonElement: HTMLButtonElement, self: IVanillaCalendar) => void) | null;
   getMonths: ((month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void) | null;

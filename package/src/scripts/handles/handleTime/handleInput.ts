@@ -1,4 +1,4 @@
-import setTime from '@scripts/handles/handleTime/setTime';
+import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -30,30 +30,39 @@ const handleInput = (
       const timeMap = {
         12: () => {
           const correctValue = Number(transformTime24(valueStr, self.selectedKeeping));
-          const isCorrectValue = correctValue <= max && correctValue >= min;
-          if (!isCorrectValue) return updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+          if (!(correctValue <= max && correctValue >= min)) {
+            updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+            if (self.actions.changeTime) self.actions.changeTime(event, self, true);
+            return;
+          }
 
           updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.selectedKeeping));
           if (value > 12) updateKeepingTime(self, keepingTimeEl, 'PM');
-          setTime(self, event, valueStr, type);
+          handleActions(self, event, valueStr, type);
         },
         24: () => {
-          const isCorrectValue = value <= max && value >= min;
-          if (!isCorrectValue) return updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+          if (!(value <= max && value >= min)) {
+            updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+            if (self.actions.changeTime) self.actions.changeTime(event, self, true);
+            return;
+          }
 
           updateInputAndRange(inputEl, rangeEl, valueStr, valueStr);
-          setTime(self, event, valueStr, type);
+          handleActions(self, event, valueStr, type);
         },
       };
       timeMap[self.settings.selection.time]();
     },
     minute: (value: number, valueStr: string, event: Event) => {
-      const isCorrectValue = value <= max && value >= min;
-      if (!isCorrectValue) return (inputEl.value = self.selectedMinutes);
+      if (!(value <= max && value >= min)) {
+        inputEl.value = self.selectedMinutes;
+        if (self.actions.changeTime) self.actions.changeTime(event, self, true);
+        return;
+      }
 
       inputEl.value = valueStr;
       rangeEl.value = valueStr;
-      setTime(self, event, valueStr, type);
+      handleActions(self, event, valueStr, type);
     },
   };
 
