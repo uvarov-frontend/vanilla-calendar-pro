@@ -1,6 +1,6 @@
 import classes from '@package/classes';
+import labels from '@package/labels';
 import type * as T from '@package/types';
-import messages from '@scripts/utils/getMessages';
 
 export default class DefaultOptionsCalendar {
   isInit = false;
@@ -71,9 +71,11 @@ export default class DefaultOptionsCalendar {
       long: [],
       short: [],
     },
-    ariaLabels: messages.ariaLabels,
+    ariaLabels: { ...labels },
   };
+
   sanitizer = (dirtyHtml: string) => dirtyHtml;
+
   actions: T.IActions = {
     clickDay: null,
     clickWeekNumber: null,
@@ -100,6 +102,7 @@ export default class DefaultOptionsCalendar {
     month: '',
     year: '',
   };
+
   HTMLElement!: HTMLElement;
   HTMLOriginalElement!: HTMLElement;
   HTMLInputElement?: HTMLInputElement;
@@ -115,7 +118,6 @@ export default class DefaultOptionsCalendar {
   selectedKeeping!: string;
   selectedTime!: string;
   currentType!: T.TypesCalendar;
-  correctMonths!: number;
   viewYear!: number;
   dateMin!: Date;
   dateMax!: Date;

@@ -2,6 +2,7 @@ import DOMDefault from '@scripts/templates/DOMDefault';
 import DOMMonth from '@scripts/templates/DOMMonth';
 import DOMMultiple from '@scripts/templates/DOMMultiple';
 import DOMYear from '@scripts/templates/DOMYear';
+import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
 import { parseDOM, parseMultiple } from '@scripts/utils/parseComponent';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
@@ -27,7 +28,7 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
   self.HTMLElement.tabIndex = 0;
   self.HTMLElement.ariaLabel = self.locale.ariaLabels.application;
 
-  if (self.currentType === 'multiple' && self.correctMonths) {
+  if (self.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
     self.HTMLElement.innerHTML = parseMultiple(self, parseDOM(self, self.DOMTemplates[self.currentType]));
     return;
   }

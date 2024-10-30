@@ -1,4 +1,5 @@
 import type classes from './classes';
+import type labels from './labels';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 type MM = LeadingZero | 10 | 11 | 12;
@@ -16,6 +17,8 @@ export type WeekDays<T> = [...T[]];
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
 export type CSSClasses = typeof classes;
+
+export type AriaLabels = typeof labels;
 
 export interface HtmlElementPosition {
   top: number;
@@ -92,32 +95,6 @@ export interface ISettings {
   visibility: IVisibility;
 }
 
-export interface IAriaLabels {
-  application: string;
-  navigation: string;
-  arrowNext: {
-    month: string;
-    year: string;
-  };
-  arrowPrev: {
-    month: string;
-    year: string;
-  };
-  month: string;
-  months: string;
-  year: string;
-  years: string;
-  week: string;
-  weekNumber: string;
-  dates: string;
-  selectingTime: string;
-  inputHour: string;
-  rangeHour: string;
-  inputMinute: string;
-  rangeMinute: string;
-  btnKeeping: string;
-}
-
 export interface IMonthsLocale {
   long: string[];
   short: string[];
@@ -131,7 +108,7 @@ export interface IWeekdayLocale {
 export interface ILocale {
   months: IMonthsLocale;
   weekday: IWeekdayLocale;
-  ariaLabels: IAriaLabels;
+  ariaLabels: AriaLabels;
 }
 
 export interface IActions {
@@ -179,7 +156,7 @@ export interface IReset {
 export interface IOptions {
   input?: boolean;
   type?: TypesCalendar;
-  months?: number;
+  months?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   jumpMonths?: number;
   jumpToSelectedDate?: boolean;
   toggleSelected?: ToggleSelected;
@@ -197,7 +174,7 @@ export interface IOptions {
   locale?: Partial<{
     months: Partial<IMonthsLocale>;
     weekday: Partial<IWeekdayLocale>;
-    ariaLabels: Partial<IAriaLabels>;
+    ariaLabels: Partial<AriaLabels>;
   }>;
   actions?: Partial<IActions>;
   popups?: IPopups;
@@ -231,7 +208,7 @@ export interface IVanillaCalendar {
       short: string[];
       long: string[];
     };
-    ariaLabels: IAriaLabels;
+    ariaLabels: AriaLabels;
   };
   actions: IActions;
   sanitizer: (dirtyHtml: string) => unknown;
@@ -260,7 +237,6 @@ export interface IVanillaCalendar {
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
   readonly currentType: TypesCalendar;
-  readonly correctMonths: number;
   readonly viewYear: number;
   readonly dateMin: Date;
   readonly dateMax: Date;

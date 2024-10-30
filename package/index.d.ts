@@ -22,7 +22,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   locale: {
     months: T.IMonthsLocale;
     weekday: T.IWeekdayLocale;
-    ariaLabels: T.IAriaLabels;
+    ariaLabels: T.AriaLabels;
   };
   actions: T.IActions;
   popups: T.IPopups;
@@ -51,7 +51,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
   readonly currentType: T.TypesCalendar;
-  readonly correctMonths: number;
   readonly viewYear: number;
   readonly dateMin: Date;
   readonly dateMax: Date;

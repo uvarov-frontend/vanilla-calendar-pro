@@ -1,4 +1,4 @@
-import messages from '@scripts/utils/getMessages';
+import errorMessages from '@scripts/utils/getErrorMessages';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, '');
@@ -22,7 +22,7 @@ const getLocaleMonth = (self: VanillaCalendar, monthIndex: number): void => {
 const getLocale = (self: VanillaCalendar): void => {
   if (self.locale.months.short.length || self.locale.months.long.length || self.locale.weekday.short.length || self.locale.weekday.long.length) {
     if (!self.locale.weekday.short[6] || !self.locale.weekday.long[6] || !self.locale.months.short[11] || !self.locale.months.long[11])
-      throw new Error(messages.notLocale);
+      throw new Error(errorMessages.notLocale);
     return;
   }
 

@@ -1,4 +1,3 @@
-import initCorrectMonths from '@scripts/utils/initVariables/initCorrectMonths';
 import initDateMinMax from '@scripts/utils/initVariables/initDateMinMax';
 import initRange from '@scripts/utils/initVariables/initRange';
 import initSelectedDates from '@scripts/utils/initVariables/initSelectedDates';
@@ -12,7 +11,6 @@ const initAllVariables = (self: VanillaCalendar) => {
   initRange(self);
   initSelectedDates(self);
   initDateMinMax(self);
-  initCorrectMonths(self);
   initTime(self);
 };
 
