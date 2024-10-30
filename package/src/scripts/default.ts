@@ -83,6 +83,7 @@ export default class DefaultOptionsCalendar {
     clickMonth: null,
     clickYear: null,
     clickArrow: null,
+    clickTitle: null,
     changeTime: null,
     changeToInput: null,
     getDays: null,

@@ -71,6 +71,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
     year: () => createYears(self, target),
     month: () => createMonths(self, target),
   };
+  if (headerEl && self.actions.clickTitle) self.actions.clickTitle(event, self);
   if (headerEl && self.currentType !== type) return createByType[type]();
 
   const itemEl = target.closest<HTMLElement>(`[data-vc-${type}s-${type}]`);

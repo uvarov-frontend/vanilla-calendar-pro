@@ -115,6 +115,7 @@ export interface IActions {
   clickDay: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickWeekNumber: ((e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void) | null;
   clickWeekDay: ((e: MouseEvent, day: number, days: HTMLElement[], self: IVanillaCalendar) => void) | null;
+  clickTitle: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickMonth: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickYear: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
   clickArrow: ((e: MouseEvent, self: IVanillaCalendar) => void) | null;
