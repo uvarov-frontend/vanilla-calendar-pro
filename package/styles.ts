@@ -1,4 +1,4 @@
-const classes = {
+const styles = {
   calendar: 'vc',
   controls: 'vc-controls',
   grid: 'vc-grid',
@@ -34,4 +34,4 @@ const classes = {
   timeRange: 'vc-time__range',
 };
 
-export default classes;
+export default styles;

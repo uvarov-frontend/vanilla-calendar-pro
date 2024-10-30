@@ -1,5 +1,5 @@
-import classes from '@package/classes';
 import labels from '@package/labels';
+import styles from '@package/styles';
 import type * as T from '@package/types';
 
 export default class DefaultOptionsCalendar {
@@ -96,7 +96,7 @@ export default class DefaultOptionsCalendar {
     hideCalendar: null,
   };
   popups: T.IPopups = {};
-  CSSClasses: T.CSSClasses = { ...classes };
+  CSSClasses: T.CSSClasses = { ...styles };
   DOMTemplates: T.IDOMTemplates = {
     default: '',
     multiple: '',
