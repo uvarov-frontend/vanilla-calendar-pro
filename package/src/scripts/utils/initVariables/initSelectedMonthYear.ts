@@ -4,7 +4,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
   if (
-    self.jumpToSelectedDate &&
+    self.enableJumpToSelectedDate &&
     self.settings.selected.dates?.length &&
     self.settings.selected.month === undefined &&
     self.settings.selected.year === undefined

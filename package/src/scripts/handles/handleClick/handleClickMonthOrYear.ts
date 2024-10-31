@@ -54,11 +54,11 @@ const handleMultipleMonthSelection = (self: VanillaCalendar, itemEl: HTMLElement
 const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLElement) => {
   const selectByType = {
     year: () => {
-      if (self.type === 'multiple') return handleMultipleYearSelection(self, itemEl);
+      if (self.viewType === 'multiple') return handleMultipleYearSelection(self, itemEl);
       self.private.selectedYear = Number(itemEl.dataset.vcYearsYear);
     },
     month: () => {
-      if (self.type === 'multiple') return handleMultipleMonthSelection(self, itemEl);
+      if (self.viewType === 'multiple') return handleMultipleMonthSelection(self, itemEl);
       self.private.selectedMonth = Number(itemEl.dataset.vcMonthsMonth);
     },
   };
@@ -70,7 +70,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   };
   actionByType[type]();
 
-  self.private.currentType = self.type;
+  self.private.currentType = self.viewType;
   create(self);
   self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
@@ -92,8 +92,8 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   const gridEl = target.closest<HTMLElement>('[data-vc="grid"]');
   const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
-  if ((self.private.currentType === type && headerEl) || (self.type === 'multiple' && self.private.currentType === type && gridEl && !columnEl)) {
-    self.private.currentType = self.type;
+  if ((self.private.currentType === type && headerEl) || (self.viewType === 'multiple' && self.private.currentType === type && gridEl && !columnEl)) {
+    self.private.currentType = self.viewType;
     create(self);
     self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   }

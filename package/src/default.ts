@@ -19,14 +19,15 @@ export default class DefaultOptionsCalendar {
     };
   }
 
-  input = false;
-  type: T.TypesCalendar = 'default';
-  months = 2;
-  jumpMonths = 1;
-  jumpToSelectedDate = false;
-  toggleSelected: T.ToggleSelected = true;
-  weekStartDay: T.WeekDayID = 1;
-  switchMonthForDate = true;
+  viewType: T.TypesCalendar = 'default';
+  isInput = false;
+  displayMonthsCount = 2;
+  monthsToSwitch = 1;
+  enableJumpToSelectedDate = false;
+  enableDateToggle: T.ToggleSelected = true;
+  firstWeekday: T.WeekDayID = 1;
+  enableMonthChangeOnDayClick = true;
+
   date: T.IDates = {
     min: '1970-01-01',
     max: '2470-12-31',

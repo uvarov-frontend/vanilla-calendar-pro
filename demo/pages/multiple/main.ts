@@ -8,7 +8,7 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import '@src/styles/vanilla-calendar.css';
 
 const config: IOptions = {
-  type: 'multiple',
+  viewType: 'multiple',
   settings: {
     selection: {
       day: 'multiple-ranged',

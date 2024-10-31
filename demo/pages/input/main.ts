@@ -8,7 +8,7 @@ import VanillaCalendar from '@src/vanilla-calendar';
 import '@src/styles/vanilla-calendar.css';
 
 const configInput: IOptions = {
-  input: true,
+  isInput: true,
   onChangeToInput(e, self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
@@ -27,7 +27,7 @@ const configInput: IOptions = {
 };
 
 const configDiv: IOptions = {
-  input: true,
+  isInput: true,
   onChangeToInput(e, self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {

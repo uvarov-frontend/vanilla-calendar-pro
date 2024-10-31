@@ -32,14 +32,14 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.onClickDate) self.onClickDate(event, self);
-  if (self.input && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(event, self);
+  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(event, self);
 
   const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
   const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
-    prev: () => (self.switchMonthForDate ? handleMonth(self, 'prev') : updateDateModifier(self)),
-    next: () => (self.switchMonthForDate ? handleMonth(self, 'next') : updateDateModifier(self)),
+    prev: () => (self.enableMonthChangeOnDayClick ? handleMonth(self, 'prev') : updateDateModifier(self)),
+    next: () => (self.enableMonthChangeOnDayClick ? handleMonth(self, 'next') : updateDateModifier(self)),
     current: () => updateDateModifier(self),
   };
 

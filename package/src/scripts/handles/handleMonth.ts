@@ -9,8 +9,8 @@ const handleMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
   const jumpDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
 
   const routeMap: Record<string, () => void> = {
-    prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.jumpMonths),
-    next: () => jumpDate.setMonth(jumpDate.getMonth() + self.jumpMonths),
+    prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.monthsToSwitch),
+    next: () => jumpDate.setMonth(jumpDate.getMonth() + self.monthsToSwitch),
   };
 
   routeMap[route]();

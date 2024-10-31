@@ -11,8 +11,8 @@ const handleDefaultType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arro
   const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1)));
   const jumpDateMin = new Date(currentSelectedDate.getTime());
   const jumpDateMax = new Date(currentSelectedDate.getTime());
-  jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);
-  jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
+  jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
+  jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
 
   if (!self.settings.selection.year) {
     self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());

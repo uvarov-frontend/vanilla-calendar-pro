@@ -22,7 +22,7 @@ const createWeek = (self: VanillaCalendar) => {
     ],
     [] as WeekdaysData,
   );
-  const weekdays = [...weekdaysData.slice(self.weekStartDay), ...weekdaysData.slice(0, self.weekStartDay)];
+  const weekdays = [...weekdaysData.slice(self.firstWeekday), ...weekdaysData.slice(0, self.firstWeekday)];
 
   self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
     const templateWeekDayEl = document.createElement('button');

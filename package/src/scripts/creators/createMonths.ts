@@ -3,7 +3,7 @@ import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {
-  if (self.type !== 'multiple') return 0;
+  if (self.viewType !== 'multiple') return 0;
   const columnEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
@@ -45,10 +45,10 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   if (!self.settings.selection.month || !monthsEl) return;
 
   const activeMonthsID =
-    self.jumpMonths > 1
+    self.monthsToSwitch > 1
       ? self.private.locale.months.long
-          .map((_, i) => selectedMonth - self.jumpMonths * i)
-          .concat(self.private.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
+          .map((_, i) => selectedMonth - self.monthsToSwitch * i)
+          .concat(self.private.locale.months.long.map((_, i) => selectedMonth + self.monthsToSwitch * i))
           .filter((monthID) => monthID >= 0 && monthID <= 12)
       : Array.from(Array(12).keys());
 

@@ -4,7 +4,7 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  type: 'year',
+  viewType: 'year',
   onClickYear(event, self) {
     console.log(self.private.selectedYear);
   },

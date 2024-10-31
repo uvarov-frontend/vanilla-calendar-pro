@@ -4,8 +4,8 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  input: true,
-  type: 'multiple',
+  isInput: true,
+  viewType: 'multiple',
   settings: {
     range: {
       disablePast: true,

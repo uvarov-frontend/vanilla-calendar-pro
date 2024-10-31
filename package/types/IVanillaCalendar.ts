@@ -11,6 +11,7 @@ import type {
   IVisibility,
   Labels,
   Locale,
+  MonthsCount,
   Styles,
   ToggleSelected,
   TypesCalendar,
@@ -18,14 +19,15 @@ import type {
 } from '../types';
 
 export interface IVanillaCalendar extends IActions {
-  input: boolean;
-  type: TypesCalendar;
-  months: number;
-  jumpMonths: number;
-  jumpToSelectedDate: boolean;
-  toggleSelected: ToggleSelected;
-  weekStartDay: WeekDayID;
-  switchMonthForDate: boolean;
+  viewType: TypesCalendar;
+  isInput: boolean;
+  displayMonthsCount: MonthsCount;
+  monthsToSwitch: number;
+  enableJumpToSelectedDate: boolean;
+  enableDateToggle: ToggleSelected;
+  firstWeekday: WeekDayID;
+  enableMonthChangeOnDayClick: boolean;
+
   date: IDates;
   settings: {
     range: IRange;

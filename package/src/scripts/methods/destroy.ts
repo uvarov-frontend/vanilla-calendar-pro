@@ -4,7 +4,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const destroy = (self: VanillaCalendar) => {
   if (!self.private.isInit) throw new Error(errorMessages.notInit);
 
-  if (self.input) {
+  if (self.isInput) {
     self.private.mainElement.parentElement?.removeChild(self.private.mainElement);
     self.private.inputElement?.replaceWith?.(self.private.originalElement);
     self.private.inputElement = undefined;

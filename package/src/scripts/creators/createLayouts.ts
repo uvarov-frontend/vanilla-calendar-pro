@@ -33,7 +33,7 @@ const createLayouts = (self: VanillaCalendar, target?: HTMLElement) => {
     return;
   }
 
-  if (self.type === 'multiple' && target) {
+  if (self.viewType === 'multiple' && target) {
     const controlsEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="controls"]');
     const gridEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
     const columnEl = target.closest<HTMLElement>('[data-vc="column"]');

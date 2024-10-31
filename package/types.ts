@@ -16,6 +16,7 @@ import { ISelection } from './types/ISelection';
 import { ISettings } from './types/ISettings';
 import { IVanillaCalendar } from './types/IVanillaCalendar';
 import { IVisibility } from './types/IVisibility';
+import { MonthsCount } from './types/MonthsCount';
 import { Positions } from './types/Positions';
 import { Range } from './types/Range';
 import { ToggleSelected } from './types/ToggleSelected';
@@ -33,6 +34,7 @@ export {
   IHtmlElementPosition,
   Labels,
   ILayouts,
+  MonthsCount,
   ILocale,
   Locale,
   IOptions,

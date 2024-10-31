@@ -18,7 +18,7 @@ const createDates = (self: VanillaCalendar) => {
     currentDate.setMonth(currentDate.getMonth() + index);
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
-    const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.weekStartDay + 7) % 7;
+    const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.firstWeekday + 7) % 7;
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     createDatesFromPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);

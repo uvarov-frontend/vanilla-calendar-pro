@@ -4,9 +4,9 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  type: 'multiple',
-  months: 2,
-  jumpMonths: 2,
+  viewType: 'multiple',
+  displayMonthsCount: 2,
+  monthsToSwitch: 2,
   settings: {
     range: {
       disablePast: true,

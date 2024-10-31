@@ -3,14 +3,15 @@ import type * as T from './types';
 declare class VanillaCalendar implements T.IVanillaCalendar {
   constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);
 
-  input: boolean;
-  type: T.TypesCalendar;
-  months: number;
-  jumpMonths: number;
-  jumpToSelectedDate: boolean;
-  toggleSelected: T.ToggleSelected;
-  weekStartDay: T.WeekDayID;
-  switchMonthForDate: boolean;
+  viewType: T.TypesCalendar;
+  isInput: boolean;
+  displayMonthsCount: T.MonthsCount;
+  monthsToSwitch: number;
+  enableJumpToSelectedDate: boolean;
+  enableDateToggle: T.ToggleSelected;
+  firstWeekday: T.WeekDayID;
+  enableMonthChangeOnDayClick: boolean;
+
   date: T.IDates;
   settings: {
     range: T.IRange;

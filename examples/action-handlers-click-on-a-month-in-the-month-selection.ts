@@ -4,7 +4,7 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  type: 'month',
+  viewType: 'month',
   onClickMonth(e, self) {
     console.log(self.private.selectedMonth);
   },

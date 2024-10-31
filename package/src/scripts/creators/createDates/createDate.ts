@@ -6,7 +6,7 @@ import getWeekNumber from '@scripts/utils/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const addWeekNumberForDate = (self: VanillaCalendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
-  const weekNumber = getWeekNumber(dateStr, self.weekStartDay);
+  const weekNumber = getWeekNumber(dateStr, self.firstWeekday);
   if (!weekNumber) return;
   dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
 };
