@@ -153,7 +153,6 @@ export interface IOptions {
   weekStartDay?: WeekDayID;
   switchMonthForDate?: boolean;
   date?: Partial<IDates>;
-  sanitizer?: (dirtyHtml: string) => unknown;
   settings?: Partial<{
     range: Partial<IRange>;
     selection: Partial<ISelection>;
@@ -164,6 +163,7 @@ export interface IOptions {
   popups?: IPopups;
   DOMTemplates?: Partial<IDOMTemplates>;
 
+  sanitizerHTML?: (dirtyHtml: string) => unknown;
   locale?: Locale;
   labels?: Partial<Labels>;
   styles?: Partial<Styles>;
@@ -190,12 +190,12 @@ export interface IVanillaCalendar {
     visibility: IVisibility;
   };
 
+  sanitizerHTML: (dirtyHtml: string) => unknown;
   locale: Locale;
   labels: Labels;
   styles: Styles;
 
   actions: IActions;
-  sanitizer: (dirtyHtml: string) => unknown;
   popups: IPopups;
   DOMTemplates: IDOMTemplates;
 

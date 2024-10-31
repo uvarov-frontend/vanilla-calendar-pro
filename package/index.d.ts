@@ -19,6 +19,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
     visibility: T.IVisibility;
   };
 
+  sanitizerHTML: (dirtyHtml: string) => unknown;
   locale: T.Locale;
   labels: T.Labels;
   styles: T.Styles;
@@ -27,7 +28,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   popups: T.IPopups;
   DOMTemplates: T.IDOMTemplates;
 
-  sanitizer: (dirtyHtml: string) => unknown;
   init: () => () => void;
   update: (reset?: T.IReset) => void;
   destroy: () => void;

@@ -66,7 +66,7 @@ export default class DefaultOptionsCalendar {
   labels: T.Labels = { ...labels };
   styles: T.Styles = { ...styles };
 
-  sanitizer = (dirtyHtml: string) => dirtyHtml;
+  sanitizerHTML = (dirtyHtml: string) => dirtyHtml;
 
   actions: T.IActions = {
     clickDay: null,

@@ -14,7 +14,7 @@ const createTime = (self: VanillaCalendar) => {
   const valueHours = self.selectedKeeping ? transformTime24(self.selectedHours, self.selectedKeeping) : self.selectedHours;
   const range = self.settings.selection.controlTime === 'range';
 
-  timeEl.innerHTML = self.sanitizer(`
+  timeEl.innerHTML = self.sanitizerHTML(`
     <div class="${self.styles.timeContent}" data-vc-time="content">
       ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, valueHours, range)}
       ${TimeInput('minute', self.styles.timeMinute, self.labels as unknown as { [key: string]: string }, self.selectedMinutes, range)}

@@ -12,7 +12,7 @@ const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesE
     const datePopup = document.createElement('div');
     datePopup.className = self.styles.datePopup;
     datePopup.dataset.vcDatePopup = '';
-    datePopup.innerHTML = self.sanitizer(dateInfo.html);
+    datePopup.innerHTML = self.sanitizerHTML(dateInfo.html);
     dateBtnEl.ariaExpanded = 'true';
     dateBtnEl.ariaLabel = `${dateBtnEl.ariaLabel}, ${datePopup?.textContent?.replace(/^\s+|\s+(?=\s)|\s+$/g, '').replace(/&nbsp;/g, ' ')}`;
     dateEl.appendChild(datePopup);

@@ -10,7 +10,7 @@ export const parseDOM = (self: VanillaCalendar, template: string): string => {
       const componentName = tagContent.replace(/[/\s\n\t]|\[(.*?)\]/g, '');
       const component = getComponent(componentName);
       const htmlContent = component ? component(self, type ?? null) : '';
-      return self.sanitizer(htmlContent);
+      return self.sanitizerHTML(htmlContent);
     })
     .replace(/[\n\t]/g, '');
 };
@@ -21,7 +21,7 @@ export const parseMultiple = (self: VanillaCalendar, template: string): string =
       const repeatedContent = Array(getCorrectNumberOfMonths(self) as number)
         .fill(content)
         .join('');
-      return self.sanitizer(repeatedContent);
+      return self.sanitizerHTML(repeatedContent);
     })
     .replace(/[\n\t]/g, '');
 };
