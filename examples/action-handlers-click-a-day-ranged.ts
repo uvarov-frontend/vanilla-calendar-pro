@@ -11,7 +11,7 @@ const options: IOptions = {
   },
   actions: {
     clickDay(event, self) {
-      console.log(self.selectedDates);
+      console.log(self.private.selectedDates);
     },
   },
 };

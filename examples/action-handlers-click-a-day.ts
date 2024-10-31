@@ -6,7 +6,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: IOptions = {
   actions: {
     clickDay(event, self) {
-      console.log(self.selectedDates);
+      console.log(self.private.selectedDates);
     },
   },
 };

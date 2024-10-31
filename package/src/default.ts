@@ -110,7 +110,6 @@ export default class DefaultOptionsCalendar {
     year: '',
   };
 
-  selectedDates!: T.FormatDateString[];
   selectedMonth!: number;
   selectedYear!: number;
   selectedHours!: string;

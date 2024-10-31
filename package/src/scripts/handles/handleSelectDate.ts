@@ -9,10 +9,10 @@ const handleSelectDate = (self: VanillaCalendar, dateEl: HTMLElement, multiple: 
   const isToggleAllowed = canToggleSelection(self);
   if (isSelected && !isToggleAllowed) return;
 
-  self.selectedDates = isSelected
-    ? self.selectedDates.filter((date) => date !== selectedDate)
+  self.private.selectedDates = isSelected
+    ? self.private.selectedDates.filter((date) => date !== selectedDate)
     : multiple
-      ? [...self.selectedDates, selectedDate]
+      ? [...self.private.selectedDates, selectedDate]
       : [selectedDate];
 };
 

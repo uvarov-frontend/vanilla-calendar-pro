@@ -1,5 +1,4 @@
 import type {
-  FormatDateString,
   IActions,
   IDates,
   ILayouts,
@@ -49,7 +48,6 @@ export interface IVanillaCalendar {
   show: () => void;
   hide: () => void;
 
-  readonly selectedDates: FormatDateString[];
   readonly selectedMonth: number;
   readonly selectedYear: number;
   readonly selectedHours?: string;

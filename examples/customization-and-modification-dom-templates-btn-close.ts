@@ -8,8 +8,8 @@ const options: IOptions = {
   actions: {
     changeToInput(e, self) {
       if (!self.private.inputElement) return;
-      if (self.selectedDates[0]) {
-        self.private.inputElement.value = self.selectedDates[0];
+      if (self.private.selectedDates[0]) {
+        self.private.inputElement.value = self.private.selectedDates[0];
       } else {
         self.private.inputElement.value = '';
       }

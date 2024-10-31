@@ -29,7 +29,7 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
     'multiple-ranged': () => handleSelectDateRanged(self, dateEl.dataset.vcDate as FormatDateString),
   };
   daySelectionActions[self.settings.selection.day]();
-  self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.actions.clickDay) self.actions.clickDay(event, self);
   if (self.input && self.private.inputElement && self.private.mainElement && self.actions.changeToInput) self.actions.changeToInput(event, self);

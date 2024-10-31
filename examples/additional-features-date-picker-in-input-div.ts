@@ -8,8 +8,8 @@ const options: IOptions = {
   actions: {
     changeToInput(e, self) {
       if (!self.private.inputElement) return;
-      if (self.selectedDates[0]) {
-        self.private.inputElement.innerHTML = self.selectedDates[0];
+      if (self.private.selectedDates[0]) {
+        self.private.inputElement.innerHTML = self.private.selectedDates[0];
         // if you want to hide the calendar after picking a date
         self.hide();
       } else {

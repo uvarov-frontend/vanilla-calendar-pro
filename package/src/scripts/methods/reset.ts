@@ -12,7 +12,11 @@ const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IRes
   self.settings.selected.time = time ? previousSelected.time : self.selectedTime;
 
   self.settings.selected.dates =
-    dates === 'only-first' && self.selectedDates?.[0] ? [self.selectedDates[0]] : dates === true ? previousSelected.dates : self.selectedDates;
+    dates === 'only-first' && self.private.selectedDates?.[0]
+      ? [self.private.selectedDates[0]]
+      : dates === true
+        ? previousSelected.dates
+        : self.private.selectedDates;
 
   if (locale) {
     self.private.locale = {

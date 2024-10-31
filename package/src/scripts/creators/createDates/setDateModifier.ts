@@ -43,13 +43,13 @@ const setDateModifier = (
   updateAttribute(dateEl, self.settings.selected.holidays?.includes(dateStr), 'data-vc-date-holiday');
 
   // Check if the date is selected
-  if (self.selectedDates?.includes(dateStr)) {
+  if (self.private.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
     dateBtnEl.setAttribute('aria-selected', 'true');
-    if (self.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
-      if (self.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
-      if (self.selectedDates[self.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
-      if (self.selectedDates[0] !== dateStr && self.selectedDates[self.selectedDates.length - 1] !== dateStr)
+    if (self.private.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
+      if (self.private.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
+      if (self.private.selectedDates[self.private.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
+      if (self.private.selectedDates[0] !== dateStr && self.private.selectedDates[self.private.selectedDates.length - 1] !== dateStr)
         dateEl.setAttribute('data-vc-date-selected', 'middle');
     }
   } else if (dateEl.hasAttribute('data-vc-date-selected')) {
@@ -61,11 +61,11 @@ const setDateModifier = (
   if (
     !self.private.disableDates.includes(dateStr) &&
     self.settings.range.edgesOnly &&
-    self.selectedDates.length > 1 &&
+    self.private.selectedDates.length > 1 &&
     self.settings.selection.day === 'multiple-ranged'
   ) {
-    const firstDate = getDate(self.selectedDates[0]);
-    const lastDate = getDate(self.selectedDates[self.selectedDates.length - 1]);
+    const firstDate = getDate(self.private.selectedDates[0]);
+    const lastDate = getDate(self.private.selectedDates[self.private.selectedDates.length - 1]);
     const currentDate = getDate(dateStr);
     updateAttribute(dateEl, currentDate > firstDate && currentDate < lastDate, 'data-vc-date-selected', 'middle');
   }

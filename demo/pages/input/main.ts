@@ -11,9 +11,9 @@ const configInput: IOptions = {
   input: true,
   actions: {
     changeToInput(e, self) {
-      if (!self.selectedDates || !self.private.inputElement) return;
-      if (self.selectedDates[0]) {
-        self.private.inputElement.value = self.selectedDates[0];
+      if (!self.private.selectedDates || !self.private.inputElement) return;
+      if (self.private.selectedDates[0]) {
+        self.private.inputElement.value = self.private.selectedDates[0];
       } else {
         self.private.inputElement.value = '';
       }
@@ -31,9 +31,9 @@ const configDiv: IOptions = {
   input: true,
   actions: {
     changeToInput(e, self) {
-      if (!self.selectedDates || !self.private.inputElement) return;
-      if (self.selectedDates[0]) {
-        self.private.inputElement.innerHTML = self.selectedDates[0];
+      if (!self.private.selectedDates || !self.private.inputElement) return;
+      if (self.private.selectedDates[0]) {
+        self.private.inputElement.innerHTML = self.private.selectedDates[0];
       } else {
         self.private.inputElement.textContent = '';
       }
