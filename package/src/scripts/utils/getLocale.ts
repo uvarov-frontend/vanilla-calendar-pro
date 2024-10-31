@@ -3,31 +3,42 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, '');
 
-const getLocaleWeekday = (self: VanillaCalendar, dayIndex: number): void => {
+const getLocaleWeekday = (self: VanillaCalendar, dayIndex: number, locale: string): void => {
   const date = new Date(`1978-01-0${dayIndex + 1}T00:00:00.000Z`);
-  const weekdayShort = date.toLocaleString(self.settings.lang, { weekday: 'short', timeZone: 'UTC' });
-  const weekdayLong = date.toLocaleString(self.settings.lang, { weekday: 'long', timeZone: 'UTC' });
-  self.locale.weekday.short.push(capitalizeFirstLetter(weekdayShort));
-  self.locale.weekday.long.push(capitalizeFirstLetter(weekdayLong));
+  const weekdayShort = date.toLocaleString(locale, { weekday: 'short', timeZone: 'UTC' });
+  const weekdayLong = date.toLocaleString(locale, { weekday: 'long', timeZone: 'UTC' });
+  self.privateVariables.locale.weekdays.short.push(capitalizeFirstLetter(weekdayShort));
+  self.privateVariables.locale.weekdays.long.push(capitalizeFirstLetter(weekdayLong));
 };
 
-const getLocaleMonth = (self: VanillaCalendar, monthIndex: number): void => {
+const getLocaleMonth = (self: VanillaCalendar, monthIndex: number, locale: string): void => {
   const date = new Date(`1978-${String(monthIndex + 1).padStart(2, '0')}-01T00:00:00.000Z`);
-  const monthShort = date.toLocaleString(self.settings.lang, { month: 'short', timeZone: 'UTC' });
-  const monthLong = date.toLocaleString(self.settings.lang, { month: 'long', timeZone: 'UTC' });
-  self.locale.months.short.push(capitalizeFirstLetter(monthShort));
-  self.locale.months.long.push(capitalizeFirstLetter(monthLong));
+  const monthShort = date.toLocaleString(locale, { month: 'short', timeZone: 'UTC' });
+  const monthLong = date.toLocaleString(locale, { month: 'long', timeZone: 'UTC' });
+  self.privateVariables.locale.months.short.push(capitalizeFirstLetter(monthShort));
+  self.privateVariables.locale.months.long.push(capitalizeFirstLetter(monthLong));
 };
 
 const getLocale = (self: VanillaCalendar): void => {
-  if (self.locale.months.short.length || self.locale.months.long.length || self.locale.weekday.short.length || self.locale.weekday.long.length) {
-    if (!self.locale.weekday.short[6] || !self.locale.weekday.long[6] || !self.locale.months.short[11] || !self.locale.months.long[11])
-      throw new Error(errorMessages.notLocale);
+  const isHasPrivateLocale =
+    self.privateVariables.locale.weekdays.short[6] &&
+    self.privateVariables.locale.weekdays.long[6] &&
+    self.privateVariables.locale.months.short[11] &&
+    self.privateVariables.locale.months.long[11];
+
+  if (isHasPrivateLocale) return;
+
+  if (typeof self.locale !== 'string') {
+    const isManually = self.locale?.weekdays?.short[6] && self.locale?.weekdays?.long[6] && self.locale?.months?.short[11] && self.locale?.months?.long[11];
+    if (!isManually) throw new Error(errorMessages.notLocale);
+    self.privateVariables.locale = { ...self.locale };
     return;
   }
 
-  Array.from({ length: 7 }, (_, i) => getLocaleWeekday(self, i));
-  Array.from({ length: 12 }, (_, i) => getLocaleMonth(self, i));
+  if (typeof self.locale === 'string' && !self.locale.length) throw new Error(errorMessages.notLocale);
+
+  Array.from({ length: 7 }, (_, i) => getLocaleWeekday(self, i, self.locale as string));
+  Array.from({ length: 12 }, (_, i) => getLocaleMonth(self, i, self.locale as string));
 };
 
 export default getLocale;

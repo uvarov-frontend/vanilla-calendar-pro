@@ -18,7 +18,19 @@ export type Range<N extends number, Acc extends number[] = []> = Acc['length'] e
 
 export type CSSClasses = typeof styles;
 
-export type AriaLabels = typeof labels;
+export type Labels = typeof labels;
+
+export interface ILocaleType {
+  long: string[];
+  short: string[];
+}
+
+export interface ILocale {
+  months: ILocaleType;
+  weekdays: ILocaleType;
+}
+
+export type Locale = string | ILocale;
 
 export interface HtmlElementPosition {
   top: number;
@@ -71,44 +83,20 @@ export interface ISelected {
 export type ToggleSelected = boolean | ((self: IVanillaCalendar) => boolean);
 
 export interface IVisibility {
-  /** This parameter determines the theme of the calendar. By default, the theme is determined by the user's system or website settings. */
   theme: 'light' | 'dark' | 'system' | string;
-  /** To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector. */
   themeDetect: string | false;
-  /** With this parameter, you can decide whether to display week numbers in the calendar. */
   weekNumbers: boolean;
-  /** With this parameter, you can highlight the current day in the calendar. */
   today: boolean;
-  /** This parameter determines whether all days, including disabled days, will be displayed. */
   disabled: boolean;
-  /** With this parameter, you can decide whether to display days from the previous and next months. */
   daysOutside: boolean;
-  /** This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter. */
   positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'];
 }
 
 export interface ISettings {
-  lang: string;
   range: IRange;
   selection: ISelection;
   selected: ISelected;
   visibility: IVisibility;
-}
-
-export interface IMonthsLocale {
-  long: string[];
-  short: string[];
-}
-
-export interface IWeekdayLocale {
-  long: string[];
-  short: string[];
-}
-
-export interface ILocale {
-  months: IMonthsLocale;
-  weekday: IWeekdayLocale;
-  ariaLabels: AriaLabels;
 }
 
 export interface IActions {
@@ -152,6 +140,7 @@ export interface IReset {
   month?: boolean;
   dates?: boolean | 'only-first';
   time?: boolean;
+  locale?: boolean;
 }
 
 export interface IOptions {
@@ -166,21 +155,23 @@ export interface IOptions {
   date?: Partial<IDates>;
   sanitizer?: (dirtyHtml: string) => unknown;
   settings?: Partial<{
-    lang: string;
     range: Partial<IRange>;
     selection: Partial<ISelection>;
     selected: Partial<ISelected>;
     visibility: Partial<IVisibility>;
   }>;
-  locale?: Partial<{
-    months: Partial<IMonthsLocale>;
-    weekday: Partial<IWeekdayLocale>;
-    ariaLabels: Partial<AriaLabels>;
-  }>;
+
+  locale?: Locale;
+  labels?: Labels;
+
   actions?: Partial<IActions>;
   popups?: IPopups;
   CSSClasses?: Partial<CSSClasses>;
   DOMTemplates?: Partial<IDOMTemplates>;
+}
+
+export interface IPrivateVariables {
+  locale: ILocale;
 }
 
 export interface IVanillaCalendar {
@@ -194,23 +185,15 @@ export interface IVanillaCalendar {
   switchMonthForDate: boolean;
   date: IDates;
   settings: {
-    lang: string;
     range: IRange;
     selection: ISelection;
     selected: ISelected;
     visibility: IVisibility;
   };
-  locale: {
-    months: {
-      short: string[];
-      long: string[];
-    };
-    weekday: {
-      short: string[];
-      long: string[];
-    };
-    ariaLabels: AriaLabels;
-  };
+
+  locale: Locale;
+  labels: Labels;
+
   actions: IActions;
   sanitizer: (dirtyHtml: string) => unknown;
   popups: IPopups;
@@ -243,4 +226,6 @@ export interface IVanillaCalendar {
   readonly dateMax: Date;
   readonly isInit: boolean;
   readonly isInputInit: boolean;
+
+  readonly privateVariables: IPrivateVariables;
 }

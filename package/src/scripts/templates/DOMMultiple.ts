@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const DOMMultiple = (self: VanillaCalendar) => `
-  <div class="${self.CSSClasses.controls}" data-vc="controls" role="toolbar" aria-label="${self.locale.ariaLabels.navigation}">
+  <div class="${self.CSSClasses.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
     <#ArrowPrev [month] />
     <#ArrowNext [month] />
   </div>

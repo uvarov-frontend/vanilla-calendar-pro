@@ -17,7 +17,7 @@ const handleClickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButton
 
     handleActions(self, event, self.selectedHours, 'hour');
 
-    keepingTimeEl.ariaLabel = `${self.locale.ariaLabels.btnKeeping} ${self.selectedKeeping}`;
+    keepingTimeEl.ariaLabel = `${self.labels.btnKeeping} ${self.selectedKeeping}`;
     keepingTimeEl.innerText = self.selectedKeeping;
   };
 

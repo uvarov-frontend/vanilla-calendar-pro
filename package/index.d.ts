@@ -13,17 +13,13 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   switchMonthForDate: boolean;
   date: T.IDates;
   settings: {
-    lang: string;
     range: T.IRange;
     selection: T.ISelection;
     selected: T.ISelected;
     visibility: T.IVisibility;
   };
-  locale: {
-    months: T.IMonthsLocale;
-    weekday: T.IWeekdayLocale;
-    ariaLabels: T.AriaLabels;
-  };
+  locale: T.Locale;
+  labels: T.Labels;
   actions: T.IActions;
   popups: T.IPopups;
   CSSClasses: T.CSSClasses;
@@ -56,6 +52,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly dateMax: Date;
   readonly isInit: boolean;
   readonly isInputInit: boolean;
+  readonly privateVariables: T.IPrivateVariables;
 }
 
 export = VanillaCalendar;

@@ -46,9 +46,9 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 
   const activeMonthsID =
     self.jumpMonths > 1
-      ? self.locale.months.long
+      ? self.privateVariables.locale.months.long
           .map((_, i) => selectedMonth - self.jumpMonths * i)
-          .concat(self.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
+          .concat(self.privateVariables.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
           .filter((monthID) => monthID >= 0 && monthID <= 12)
       : Array.from(Array(12).keys());
 
@@ -60,7 +60,15 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
       (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear()) ||
       (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear()) ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
-    const monthEl = createMonthEl(self, templateMonthEl, selectedMonth, self.locale.months.short[i], self.locale.months.long[i], monthDisabled, i);
+    const monthEl = createMonthEl(
+      self,
+      templateMonthEl,
+      selectedMonth,
+      self.privateVariables.locale.months.short[i],
+      self.privateVariables.locale.months.long[i],
+      monthDisabled,
+      i,
+    );
     monthsEl.appendChild(monthEl);
     if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
   }

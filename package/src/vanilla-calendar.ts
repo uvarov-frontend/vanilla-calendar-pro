@@ -32,7 +32,7 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
           !Array.isArray(replacement[key])
         ) {
           replaceProperties(original[key] as object, replacement[key] as object);
-        } else {
+        } else if (replacement[key] !== undefined) {
           original[key] = replacement[key];
         }
       });

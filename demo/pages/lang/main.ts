@@ -11,7 +11,6 @@ const config: IOptions = {
   // weekStartDay: 0,
   // type: 'multiple',
   settings: {
-    lang: 'ru',
     selection: {
       day: 'multiple-ranged',
       time: 12,
@@ -45,32 +44,31 @@ const config: IOptions = {
       year: 2024,
     },
   },
-  locale: {
-    ariaLabels: {
-      application: 'Календарь',
-      navigation: 'Навигация календаря',
-      arrowNext: {
-        month: 'Следующий месяц',
-        year: 'Следующий список лет',
-      },
-      arrowPrev: {
-        month: 'Предыдущий месяц',
-        year: 'Предыдущий список лет',
-      },
-      month: 'Выбор месяца, текущий выбранный месяц:',
-      months: 'Список месяцев',
-      year: 'Выбор года, текущий выбранный год:',
-      years: 'Список лет',
-      week: 'Дни недели',
-      weekNumber: 'Номера недель в году',
-      dates: 'Даты текущего месяца',
-      selectingTime: 'Выбора времени',
-      inputHour: 'Часы',
-      inputMinute: 'Минуты',
-      rangeHour: 'Ползунок для выбора часов',
-      rangeMinute: 'Ползунок для выбора минут',
-      btnKeeping: 'Переключить AM/PM, текущее положение:',
+  locale: 'ru',
+  labels: {
+    application: 'Календарь',
+    navigation: 'Навигация календаря',
+    arrowNext: {
+      month: 'Следующий месяц',
+      year: 'Следующий список лет',
     },
+    arrowPrev: {
+      month: 'Предыдущий месяц',
+      year: 'Предыдущий список лет',
+    },
+    month: 'Выбор месяца, текущий выбранный месяц:',
+    months: 'Список месяцев',
+    year: 'Выбор года, текущий выбранный год:',
+    years: 'Список лет',
+    week: 'Дни недели',
+    weekNumber: 'Номера недель в году',
+    dates: 'Даты текущего месяца',
+    selectingTime: 'Выбора времени',
+    inputHour: 'Часы',
+    inputMinute: 'Минуты',
+    rangeHour: 'Ползунок для выбора часов',
+    rangeMinute: 'Ползунок для выбора минут',
+    btnKeeping: 'Переключить AM/PM, текущее положение:',
   },
   popups: {
     '2024-10-28': {

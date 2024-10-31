@@ -1,6 +1,7 @@
 import type { FormatDateString, WeekDayID } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
+import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
@@ -29,6 +30,7 @@ const createDate = (
   monthType: 'current' | 'prev' | 'next',
 ) => {
   const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
+  const localeDate = typeof self.locale === 'string' && self.locale.length ? self.locale : 'en';
 
   const dateEl = document.createElement('div');
   dateEl.className = self.CSSClasses.date;
@@ -40,7 +42,7 @@ const createDate = (
   dateBtnEl.className = self.CSSClasses.dateBtn;
   dateBtnEl.type = 'button';
   dateBtnEl.role = 'gridcell';
-  if (self.settings.lang) dateBtnEl.ariaLabel = new Date(`${dateStr}T00:00:00.000Z`).toLocaleString(self.settings.lang, { dateStyle: 'long', timeZone: 'UTC' });
+  dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
   dateBtnEl.dataset.vcDateBtn = '';
   dateBtnEl.innerText = String(dateID);
 

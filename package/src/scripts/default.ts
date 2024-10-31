@@ -19,7 +19,6 @@ export default class DefaultOptionsCalendar {
     today: new Date(),
   };
   settings: T.ISettings = {
-    lang: 'en',
     range: {
       min: undefined,
       max: undefined,
@@ -62,17 +61,9 @@ export default class DefaultOptionsCalendar {
       positionToInput: 'left',
     },
   };
-  locale: T.ILocale = {
-    months: {
-      long: [],
-      short: [],
-    },
-    weekday: {
-      long: [],
-      short: [],
-    },
-    ariaLabels: { ...labels },
-  };
+  locale: T.Locale = 'en';
+
+  labels = { ...labels };
 
   sanitizer = (dirtyHtml: string) => dirtyHtml;
 
@@ -122,4 +113,17 @@ export default class DefaultOptionsCalendar {
   viewYear!: number;
   dateMin!: Date;
   dateMax!: Date;
+
+  privateVariables: T.IPrivateVariables = {
+    locale: {
+      months: {
+        short: [],
+        long: [],
+      },
+      weekdays: {
+        short: [],
+        long: [],
+      },
+    },
+  };
 }

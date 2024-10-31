@@ -16,17 +16,17 @@ const createTime = (self: VanillaCalendar) => {
 
   timeEl.innerHTML = self.sanitizer(`
     <div class="${self.CSSClasses.timeContent}" data-vc-time="content">
-      ${TimeInput('hour', self.CSSClasses.timeHour, self.locale.ariaLabels as unknown as { [key: string]: string }, valueHours, range)}
-      ${TimeInput('minute', self.CSSClasses.timeMinute, self.locale.ariaLabels as unknown as { [key: string]: string }, self.selectedMinutes, range)}
+      ${TimeInput('hour', self.CSSClasses.timeHour, self.labels as unknown as { [key: string]: string }, valueHours, range)}
+      ${TimeInput('minute', self.CSSClasses.timeMinute, self.labels as unknown as { [key: string]: string }, self.selectedMinutes, range)}
       ${
         self.settings.selection.time === 12
-          ? `<button type="button" class="${self.CSSClasses.timeKeeping}" aria-label="${self.locale.ariaLabels.btnKeeping} ${self.selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.selectedKeeping}</button>`
+          ? `<button type="button" class="${self.CSSClasses.timeKeeping}" aria-label="${self.labels.btnKeeping} ${self.selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.selectedKeeping}</button>`
           : ''
       }
     </div>
     <div class="${self.CSSClasses.timeRanges}" data-vc-time="ranges">
-      ${TimeRange('hour', self.CSSClasses.timeRange, self.locale.ariaLabels as unknown as { [key: string]: string }, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
-      ${TimeRange('minute', self.CSSClasses.timeRange, self.locale.ariaLabels as unknown as { [key: string]: string }, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
+      ${TimeRange('hour', self.CSSClasses.timeRange, self.labels as unknown as { [key: string]: string }, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
+      ${TimeRange('minute', self.CSSClasses.timeRange, self.labels as unknown as { [key: string]: string }, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.selectedMinutes)}
     </div>
   `);
 
