@@ -10,12 +10,12 @@ type WeekdaysData = Array<{
 
 const createWeek = (self: VanillaCalendar) => {
   const weekend = self.settings.selected.weekend ? [...self.settings.selected.weekend] : [];
-  const weekdaysData = [...self.priv.locale.weekdays.long].reduce(
+  const weekdaysData = [...self.private.locale.weekdays.long].reduce(
     (acc, day, index) => [
       ...acc,
       {
         id: index as WeekDayID,
-        titleShort: self.priv.locale.weekdays.short[index],
+        titleShort: self.private.locale.weekdays.short[index],
         titleLong: day,
         isWeekend: weekend.includes(index as WeekDayID),
       },

@@ -53,7 +53,7 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly dateMin: Date;
   readonly dateMax: Date;
 
-  readonly priv: T.IPrivateVariables;
+  readonly private: T.IPrivateVariables;
 }
 
 export = VanillaCalendar;

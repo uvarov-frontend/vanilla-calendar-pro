@@ -3,7 +3,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
   const yearID = new Date(initDate.setFullYear(self.selectedYear as number, (self.selectedMonth as number) + index)).getFullYear();
   const monthID = new Date(initDate.setMonth((self.selectedMonth as number) + index)).getMonth();
-  const monthLabel = self.priv.locale.months.long[monthID];
+  const monthLabel = self.private.locale.months.long[monthID];
 
   const columnEl = el.closest('[data-vc="column"]');
   if (columnEl) columnEl.ariaLabel = `${monthLabel} ${yearID}`;

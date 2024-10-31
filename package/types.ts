@@ -226,5 +226,5 @@ export interface IVanillaCalendar {
   readonly dateMin: Date;
   readonly dateMax: Date;
 
-  readonly priv: IPrivateVariables;
+  readonly private: IPrivateVariables;
 }

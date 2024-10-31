@@ -46,9 +46,9 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 
   const activeMonthsID =
     self.jumpMonths > 1
-      ? self.priv.locale.months.long
+      ? self.private.locale.months.long
           .map((_, i) => selectedMonth - self.jumpMonths * i)
-          .concat(self.priv.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
+          .concat(self.private.locale.months.long.map((_, i) => selectedMonth + self.jumpMonths * i))
           .filter((monthID) => monthID >= 0 && monthID <= 12)
       : Array.from(Array(12).keys());
 
@@ -64,8 +64,8 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
       self,
       templateMonthEl,
       selectedMonth,
-      self.priv.locale.months.short[i],
-      self.priv.locale.months.long[i],
+      self.private.locale.months.short[i],
+      self.private.locale.months.long[i],
       monthDisabled,
       i,
     );
