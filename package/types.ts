@@ -157,7 +157,7 @@ export interface IReset {
 export interface IOptions {
   input?: boolean;
   type?: TypesCalendar;
-  months?: 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  months?: number;
   jumpMonths?: number;
   jumpToSelectedDate?: boolean;
   toggleSelected?: ToggleSelected;
