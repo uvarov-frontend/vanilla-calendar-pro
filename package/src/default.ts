@@ -27,12 +27,10 @@ export default class DefaultOptionsCalendar {
   enableDateToggle: T.ToggleSelected = true;
   firstWeekday: T.WeekDayID = 1;
   enableMonthChangeOnDayClick = true;
+  dateToday = new Date();
+  dateMin: T.FormatDateString | 'today' = '1970-01-01';
+  dateMax: T.FormatDateString | 'today' = '2470-12-31';
 
-  date: T.IDates = {
-    min: '1970-01-01',
-    max: '2470-12-31',
-    today: new Date(),
-  };
   settings: T.ISettings = {
     range: {
       min: undefined,

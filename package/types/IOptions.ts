@@ -1,6 +1,6 @@
 import type {
+  FormatDateString,
   IActions,
-  IDates,
   ILayouts,
   IPopups,
   IRange,
@@ -25,8 +25,10 @@ export interface IOptions extends IActions {
   enableDateToggle?: ToggleSelected;
   firstWeekday?: WeekDayID;
   enableMonthChangeOnDayClick?: boolean;
+  dateToday?: Date;
+  dateMin?: FormatDateString | 'today';
+  dateMax?: FormatDateString | 'today';
 
-  date?: Partial<IDates>;
   settings?: Partial<{
     range: Partial<IRange>;
     selection: Partial<ISelection>;

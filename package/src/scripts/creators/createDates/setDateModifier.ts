@@ -33,8 +33,8 @@ const setDateModifier = (
   updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
 
   // Check if the date is today
-  updateAttribute(dateEl, self.settings.visibility.today && getDateString(self.date.today) === dateStr, 'data-vc-date-today');
-  updateAttribute(dateEl, self.settings.visibility.today && getDateString(self.date.today) === dateStr, 'aria-current', 'date');
+  updateAttribute(dateEl, self.settings.visibility.today && getDateString(self.dateToday) === dateStr, 'data-vc-date-today');
+  updateAttribute(dateEl, self.settings.visibility.today && getDateString(self.dateToday) === dateStr, 'aria-current', 'date');
 
   // Check if the date is a weekend
   updateAttribute(dateEl, self.settings.selected.weekend?.includes(dayWeekID), 'data-vc-date-weekend');

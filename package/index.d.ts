@@ -11,8 +11,10 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   enableDateToggle: T.ToggleSelected;
   firstWeekday: T.WeekDayID;
   enableMonthChangeOnDayClick: boolean;
+  dateToday: Date;
+  dateMin: T.FormatDateString | 'today';
+  dateMax: T.FormatDateString | 'today';
 
-  date: T.IDates;
   settings: {
     range: T.IRange;
     selection: T.ISelection;

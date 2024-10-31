@@ -1,6 +1,6 @@
 import type {
+  FormatDateString,
   IActions,
-  IDates,
   ILayouts,
   IPopups,
   IPrivateVariables,
@@ -27,8 +27,10 @@ export interface IVanillaCalendar extends IActions {
   enableDateToggle: ToggleSelected;
   firstWeekday: WeekDayID;
   enableMonthChangeOnDayClick: boolean;
+  dateToday: Date;
+  dateMin: FormatDateString | 'today';
+  dateMax: FormatDateString | 'today';
 
-  date: IDates;
   settings: {
     range: IRange;
     selection: ISelection;
