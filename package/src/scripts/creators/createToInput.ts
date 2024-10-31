@@ -30,6 +30,7 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
     month: true,
     dates: true,
     time: true,
+    locale: true,
   });
 
   if (self.actions.initCalendar) self.actions.initCalendar(self);
