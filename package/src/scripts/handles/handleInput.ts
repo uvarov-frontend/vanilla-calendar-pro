@@ -22,7 +22,7 @@ const handleInput = (self: VanillaCalendar) => {
   };
 
   const handleOpenCalendar = () => {
-    if (!self.isInputInit) {
+    if (!self.priv.isInputInit) {
       cleanup.push(createToInput(self));
     } else {
       setPosition(self.HTMLInputElement, self.HTMLElement, self.settings.visibility.positionToInput);

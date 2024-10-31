@@ -2,7 +2,7 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const destroy = (self: VanillaCalendar) => {
-  if (!self.isInit) throw new Error(errorMessages.notInit);
+  if (!self.priv.isInit) throw new Error(errorMessages.notInit);
 
   if (self.input) {
     self.HTMLElement.parentElement?.removeChild(self.HTMLElement);

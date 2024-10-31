@@ -5,9 +5,9 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const update = (self: VanillaCalendar, { year, month, dates, time, locale }: IReset = {}) => {
-  if (!self.isInit) throw new Error(errorMessages.notInit);
+  if (!self.priv.isInit) throw new Error(errorMessages.notInit);
 
-  if (self.input && !self.isInputInit) {
+  if (self.input && !self.priv.isInputInit) {
     createToInput(self, false);
   }
   reset(self, {

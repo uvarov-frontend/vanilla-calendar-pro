@@ -52,9 +52,8 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly viewYear: number;
   readonly dateMin: Date;
   readonly dateMax: Date;
-  readonly isInit: boolean;
-  readonly isInputInit: boolean;
-  readonly privateVariables: T.IPrivateVariables;
+
+  readonly priv: T.IPrivateVariables;
 }
 
 export = VanillaCalendar;

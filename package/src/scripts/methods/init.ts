@@ -7,7 +7,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const init = (self: VanillaCalendar) => {
   self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
-  self.isInit = true;
+  self.priv.isInit = true;
 
   if (self.input) return handleInput(self);
 

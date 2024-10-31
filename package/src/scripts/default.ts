@@ -3,8 +3,6 @@ import styles from '@package/styles';
 import type * as T from '@package/types';
 
 export default class DefaultOptionsCalendar {
-  isInit = false;
-  isInputInit = false;
   input = false;
   type: T.TypesCalendar = 'default';
   months = 2;
@@ -115,7 +113,9 @@ export default class DefaultOptionsCalendar {
   dateMin!: Date;
   dateMax!: Date;
 
-  privateVariables: T.IPrivateVariables = {
+  priv: T.IPrivateVariables = {
+    isInit: false,
+    isInputInit: false,
     locale: {
       months: {
         short: [],

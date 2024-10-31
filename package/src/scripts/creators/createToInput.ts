@@ -13,7 +13,7 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
   calendar.dataset.vcCalendarHidden = '';
   calendar.style.visibility = 'hidden';
 
-  self.isInputInit = true;
+  self.priv.isInputInit = true;
   self.HTMLElement = calendar;
   document.body.appendChild(self.HTMLElement);
 

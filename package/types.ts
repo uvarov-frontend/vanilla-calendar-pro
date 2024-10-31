@@ -170,6 +170,8 @@ export interface IOptions {
 }
 
 export interface IPrivateVariables {
+  isInit: boolean;
+  isInputInit: boolean;
   locale: ILocale;
 }
 
@@ -194,9 +196,9 @@ export interface IVanillaCalendar {
   locale: Locale;
   labels: Labels;
   styles: Styles;
+  popups: IPopups;
 
   actions: IActions;
-  popups: IPopups;
   DOMTemplates: IDOMTemplates;
 
   init: () => () => void;
@@ -223,8 +225,6 @@ export interface IVanillaCalendar {
   readonly viewYear: number;
   readonly dateMin: Date;
   readonly dateMax: Date;
-  readonly isInit: boolean;
-  readonly isInputInit: boolean;
 
-  readonly privateVariables: IPrivateVariables;
+  readonly priv: IPrivateVariables;
 }
