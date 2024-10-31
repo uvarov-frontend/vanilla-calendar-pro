@@ -8,7 +8,7 @@ const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement,
 };
 
 const handleDefaultType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
-  const currentSelectedDate = getDate(getDateString(new Date(self.selectedYear as number, self.selectedMonth as number, 1)));
+  const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1)));
   const jumpDateMin = new Date(currentSelectedDate.getTime());
   const jumpDateMax = new Date(currentSelectedDate.getTime());
   jumpDateMin.setMonth(jumpDateMin.getMonth() - self.jumpMonths);

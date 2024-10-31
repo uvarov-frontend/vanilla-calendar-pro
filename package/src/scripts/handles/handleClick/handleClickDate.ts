@@ -12,7 +12,7 @@ const updateDateModifier = (self: VanillaCalendar) => {
     const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;
     const dateStr = dateEl.dataset.vcDate as FormatDateString;
     const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
-    setDateModifier(self, self.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, 'current');
+    setDateModifier(self, self.private.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, 'current');
   });
 };
 

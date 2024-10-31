@@ -33,13 +33,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   show: () => void;
   hide: () => void;
 
-  readonly selectedMonth: number;
-  readonly selectedYear: number;
-  readonly selectedHours?: string;
-  readonly selectedMinutes?: string;
-  readonly selectedKeeping?: string;
-  readonly selectedTime?: string;
-
   readonly private: T.IPrivateVariables;
 }
 

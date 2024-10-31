@@ -7,9 +7,9 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IReset = {}) => {
   const previousSelected = { ...self.settings.selected };
 
-  self.settings.selected.year = year ? previousSelected.year : self.selectedYear;
-  self.settings.selected.month = month ? previousSelected.month : self.selectedMonth;
-  self.settings.selected.time = time ? previousSelected.time : self.selectedTime;
+  self.settings.selected.year = year ? previousSelected.year : self.private.selectedYear;
+  self.settings.selected.month = month ? previousSelected.month : self.private.selectedMonth;
+  self.settings.selected.time = time ? previousSelected.time : self.private.selectedTime;
 
   self.settings.selected.dates =
     dates === 'only-first' && self.private.selectedDates?.[0]

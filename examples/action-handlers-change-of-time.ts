@@ -11,7 +11,7 @@ const options: IOptions = {
   },
   actions: {
     changeTime(event, self) {
-      console.log(self.selectedTime);
+      console.log(self.private.selectedTime);
     },
   },
 };

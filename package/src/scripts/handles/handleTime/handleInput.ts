@@ -10,7 +10,7 @@ const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElemen
 
 const updateKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
   if (!keepingTimeEl) return;
-  self.selectedKeeping = keeping;
+  self.private.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
 
@@ -29,20 +29,20 @@ const handleInput = (
 
       const timeMap = {
         12: () => {
-          const correctValue = Number(transformTime24(valueStr, self.selectedKeeping));
+          const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
           if (!(correctValue <= max && correctValue >= min)) {
-            updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+            updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
             if (self.actions.changeTime) self.actions.changeTime(event, self, true);
             return;
           }
 
-          updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.selectedKeeping));
+          updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.private.selectedKeeping));
           if (value > 12) updateKeepingTime(self, keepingTimeEl, 'PM');
           handleActions(self, event, valueStr, type);
         },
         24: () => {
           if (!(value <= max && value >= min)) {
-            updateInputAndRange(inputEl, rangeEl, self.selectedHours, self.selectedHours);
+            updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
             if (self.actions.changeTime) self.actions.changeTime(event, self, true);
             return;
           }
@@ -55,7 +55,7 @@ const handleInput = (
     },
     minute: (value: number, valueStr: string, event: Event) => {
       if (!(value <= max && value >= min)) {
-        inputEl.value = self.selectedMinutes;
+        inputEl.value = self.private.selectedMinutes;
         if (self.actions.changeTime) self.actions.changeTime(event, self, true);
         return;
       }

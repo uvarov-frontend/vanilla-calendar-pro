@@ -20,10 +20,10 @@ const initTime = (self: VanillaCalendar) => {
     keeping = 'AM';
   }
 
-  self.selectedHours = hours.padStart(2, '0');
-  self.selectedMinutes = minutes.padStart(2, '0');
-  self.selectedKeeping = keeping;
-  self.selectedTime = `${self.selectedHours}:${self.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
+  self.private.selectedHours = hours.padStart(2, '0');
+  self.private.selectedMinutes = minutes.padStart(2, '0');
+  self.private.selectedKeeping = keeping;
+  self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
 };
 
 export default initTime;

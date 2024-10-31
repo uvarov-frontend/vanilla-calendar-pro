@@ -4,21 +4,21 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleClickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
   const handleClickKeepingTimeAction = (event: Event) => {
-    const newSelectedKeeping = self.selectedKeeping === 'AM' ? 'PM' : 'AM';
-    const hour = transformTime24(self.selectedHours, newSelectedKeeping);
+    const newSelectedKeeping = self.private.selectedKeeping === 'AM' ? 'PM' : 'AM';
+    const hour = transformTime24(self.private.selectedHours, newSelectedKeeping);
 
     if (!(Number(hour) <= max && Number(hour) >= min)) {
       if (self.actions.changeTime) self.actions.changeTime(event, self, true);
       return;
     }
 
-    self.selectedKeeping = newSelectedKeeping;
+    self.private.selectedKeeping = newSelectedKeeping;
     rangeHourEl.value = hour;
 
-    handleActions(self, event, self.selectedHours, 'hour');
+    handleActions(self, event, self.private.selectedHours, 'hour');
 
-    keepingTimeEl.ariaLabel = `${self.labels.btnKeeping} ${self.selectedKeeping}`;
-    keepingTimeEl.innerText = self.selectedKeeping;
+    keepingTimeEl.ariaLabel = `${self.labels.btnKeeping} ${self.private.selectedKeeping}`;
+    keepingTimeEl.innerText = self.private.selectedKeeping;
   };
 
   keepingTimeEl.addEventListener('click', handleClickKeepingTimeAction);

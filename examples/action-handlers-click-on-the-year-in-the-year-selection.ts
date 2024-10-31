@@ -7,7 +7,7 @@ const options: IOptions = {
   type: 'year',
   actions: {
     clickYear(event, self) {
-      console.log(self.selectedYear);
+      console.log(self.private.selectedYear);
     },
   },
 };

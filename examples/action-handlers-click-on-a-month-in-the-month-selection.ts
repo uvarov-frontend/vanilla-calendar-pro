@@ -7,7 +7,7 @@ const options: IOptions = {
   type: 'month',
   actions: {
     clickMonth(e, self) {
-      console.log(self.selectedMonth);
+      console.log(self.private.selectedMonth);
     },
   },
 };

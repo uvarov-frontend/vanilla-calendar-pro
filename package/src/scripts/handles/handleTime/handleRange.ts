@@ -9,7 +9,7 @@ const updateInputAndTime = (self: VanillaCalendar, inputEl: HTMLInputElement, ev
 
 const updateKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
   if (!keepingTimeEl) return;
-  self.selectedKeeping = keeping;
+  self.private.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
 

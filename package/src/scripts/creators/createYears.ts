@@ -19,7 +19,7 @@ const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sele
 };
 
 const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
-  const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.selectedYear;
+  const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.private.selectedYear;
 
   self.private.currentType = 'year';
   createLayouts(self, target);
@@ -29,7 +29,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
   const yearsEl = self.private.mainElement.querySelector('[data-vc="years"]');
   if (!self.settings.selection.year || !yearsEl) return;
 
-  const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
+  const relationshipID = self.type !== 'multiple' ? 0 : self.private.selectedYear === selectedYear ? 0 : 1;
 
   const templateYearEl = document.createElement('button');
   templateYearEl.type = 'button';

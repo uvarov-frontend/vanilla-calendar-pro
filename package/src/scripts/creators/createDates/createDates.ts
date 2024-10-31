@@ -6,7 +6,7 @@ import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDates = (self: VanillaCalendar) => {
-  const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
+  const initDate = new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1);
   const datesEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 

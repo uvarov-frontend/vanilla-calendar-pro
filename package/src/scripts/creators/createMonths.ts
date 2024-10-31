@@ -34,8 +34,8 @@ const createMonthEl = (
 
 const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
-  const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.selectedYear as number);
-  const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.selectedMonth;
+  const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.private.selectedYear as number);
+  const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.private.selectedMonth;
 
   self.private.currentType = 'month';
   createLayouts(self, target);
