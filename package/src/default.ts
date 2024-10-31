@@ -119,7 +119,6 @@ export default class DefaultOptionsCalendar {
   selectedMinutes!: string;
   selectedKeeping!: string;
   selectedTime!: string;
-  viewYear!: number;
 
   private!: T.IPrivateVariables;
 }

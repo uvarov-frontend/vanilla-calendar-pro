@@ -58,7 +58,6 @@ export interface IVanillaCalendar {
   readonly selectedMinutes?: string;
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
-  readonly viewYear: number;
 
   readonly private: IPrivateVariables;
 }

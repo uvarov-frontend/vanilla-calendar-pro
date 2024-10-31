@@ -32,8 +32,8 @@ const handleDefaultType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arro
 };
 
 const handleYearType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
-  const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.viewYear - 7 <= self.private.dateMin.getFullYear());
-  const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.viewYear + 7 >= self.private.dateMax.getFullYear());
+  const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.private.displayYear - 7 <= self.private.dateMin.getFullYear());
+  const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.private.displayYear + 7 >= self.private.dateMax.getFullYear());
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };

@@ -18,7 +18,7 @@ const initSelectedMonthYear = (self: VanillaCalendar) => {
 
   self.selectedMonth = isValidMonth ? Number(self.settings.selected.month) : self.date.today.getMonth();
   self.selectedYear = isValidYear ? Number(self.settings.selected.year) : self.date.today.getFullYear();
-  self.viewYear = self.selectedYear;
+  self.private.displayYear = self.selectedYear;
 };
 
 export default initSelectedMonthYear;
