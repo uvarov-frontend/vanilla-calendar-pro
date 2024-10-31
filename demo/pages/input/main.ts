@@ -9,17 +9,16 @@ import '@src/styles/vanilla-calendar.css';
 
 const configInput: IOptions = {
   input: true,
-  actions: {
-    changeToInput(e, self) {
-      if (!self.private.selectedDates || !self.private.inputElement) return;
-      if (self.private.selectedDates[0]) {
-        self.private.inputElement.value = self.private.selectedDates[0];
-      } else {
-        self.private.inputElement.value = '';
-      }
-      self.hide();
-    },
+  onChangeToInput(e, self) {
+    if (!self.private.selectedDates || !self.private.inputElement) return;
+    if (self.private.selectedDates[0]) {
+      self.private.inputElement.value = self.private.selectedDates[0];
+    } else {
+      self.private.inputElement.value = '';
+    }
+    self.hide();
   },
+
   settings: {
     visibility: {
       positionToInput: 'center',
@@ -29,16 +28,14 @@ const configInput: IOptions = {
 
 const configDiv: IOptions = {
   input: true,
-  actions: {
-    changeToInput(e, self) {
-      if (!self.private.selectedDates || !self.private.inputElement) return;
-      if (self.private.selectedDates[0]) {
-        self.private.inputElement.innerHTML = self.private.selectedDates[0];
-      } else {
-        self.private.inputElement.textContent = '';
-      }
-      self.hide();
-    },
+  onChangeToInput(e, self) {
+    if (!self.private.selectedDates || !self.private.inputElement) return;
+    if (self.private.selectedDates[0]) {
+      self.private.inputElement.innerHTML = self.private.selectedDates[0];
+    } else {
+      self.private.inputElement.textContent = '';
+    }
+    self.hide();
   },
   popups: {
     '2024-08-28': {

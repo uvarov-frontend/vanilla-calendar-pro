@@ -13,7 +13,7 @@ const init = (self: VanillaCalendar) => {
 
   initAllVariables(self);
   create(self);
-  if (self.actions.initCalendar) self.actions.initCalendar(self);
+  if (self.onInit) self.onInit(self);
   handleArrowKeys(self);
   return handleClick(self);
 };

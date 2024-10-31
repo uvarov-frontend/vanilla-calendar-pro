@@ -9,10 +9,8 @@ const options: IOptions = {
       time: 12,
     },
   },
-  actions: {
-    changeTime(event, self) {
-      console.log(self.private.selectedTime);
-    },
+  onChangeTime(event, self) {
+    console.log(self.private.selectedTime);
   },
 };
 

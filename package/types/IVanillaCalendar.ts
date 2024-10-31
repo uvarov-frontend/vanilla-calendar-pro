@@ -17,7 +17,7 @@ import type {
   WeekDayID,
 } from '../types';
 
-export interface IVanillaCalendar {
+export interface IVanillaCalendar extends IActions {
   input: boolean;
   type: TypesCalendar;
   months: number;
@@ -33,7 +33,6 @@ export interface IVanillaCalendar {
     selected: ISelected;
     visibility: IVisibility;
   };
-  actions: IActions;
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
   locale: Locale;

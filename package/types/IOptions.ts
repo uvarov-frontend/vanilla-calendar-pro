@@ -15,7 +15,7 @@ import type {
   WeekDayID,
 } from '../types';
 
-export interface IOptions {
+export interface IOptions extends IActions {
   input?: boolean;
   type?: TypesCalendar;
   months?: number;
@@ -31,7 +31,6 @@ export interface IOptions {
     selected: Partial<ISelected>;
     visibility: Partial<IVisibility>;
   }>;
-  actions?: Partial<IActions>;
 
   sanitizerHTML?: (dirtyHtml: string) => unknown;
   popups?: IPopups;

@@ -15,7 +15,7 @@ const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
     createYears(self, event.target as HTMLElement);
   }
 
-  if (self.actions.clickArrow) self.actions.clickArrow(event, self);
+  if (self.onClickArrow) self.onClickArrow(event, self);
 };
 
 export default handleClickArrow;

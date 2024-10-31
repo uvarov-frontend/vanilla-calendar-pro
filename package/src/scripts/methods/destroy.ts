@@ -13,7 +13,7 @@ const destroy = (self: VanillaCalendar) => {
   }
 
   self.private.mainElement = self.private.originalElement;
-  if (self.actions.destroyCalendar) self.actions.destroyCalendar(self);
+  if (self.onDestroy) self.onDestroy(self);
 };
 
 export default destroy;

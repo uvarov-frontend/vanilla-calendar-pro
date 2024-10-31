@@ -18,7 +18,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
     selected: T.ISelected;
     visibility: T.IVisibility;
   };
-  actions: T.IActions;
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
   locale: T.Locale;

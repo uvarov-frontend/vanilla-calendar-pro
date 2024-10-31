@@ -8,7 +8,7 @@ const handleClickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButton
     const hour = transformTime24(self.private.selectedHours, newSelectedKeeping);
 
     if (!(Number(hour) <= max && Number(hour) >= min)) {
-      if (self.actions.changeTime) self.actions.changeTime(event, self, true);
+      if (self.onChangeTime) self.onChangeTime(event, self, true);
       return;
     }
 

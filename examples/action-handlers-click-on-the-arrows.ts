@@ -4,10 +4,8 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  actions: {
-    clickArrow(event, self) {
-      console.log(self.private.selectedYear, self.private.selectedMonth);
-    },
+  onClickArrow(event, self) {
+    console.log(self.private.selectedYear, self.private.selectedMonth);
   },
 };
 

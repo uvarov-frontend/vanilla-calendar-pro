@@ -9,12 +9,10 @@ const options: IOptions = {
       weekNumbers: true,
     },
   },
-  actions: {
-    clickWeekNumber(event, number, days, year, _self) {
-      console.log(`Week number: ${number}`);
-      console.log(`Year of the week: ${year}`);
-      console.log('Days of this week:', days);
-    },
+  onClickWeekNumber(event, number, days, year, _self) {
+    console.log(`Week number: ${number}`);
+    console.log(`Year of the week: ${year}`);
+    console.log('Days of this week:', days);
   },
 };
 

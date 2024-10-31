@@ -4,10 +4,8 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  actions: {
-    clickDay(event, self) {
-      console.log(self.private.selectedDates);
-    },
+  onClickDate(event, self) {
+    console.log(self.private.selectedDates);
   },
 };
 

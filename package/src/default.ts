@@ -77,38 +77,29 @@ export default class DefaultOptionsCalendar {
   };
 
   locale: T.Locale = 'en';
+  sanitizerHTML = (dirtyHtml: string) => dirtyHtml;
+  onClickDate!: T.IActions['onClickDate'];
+  onClickWeekDay!: T.IActions['onClickWeekDay'];
+  onClickWeekNumber!: T.IActions['onClickWeekNumber'];
+  onClickTitle!: T.IActions['onClickTitle'];
+  onClickMonth!: T.IActions['onClickMonth'];
+  onClickYear!: T.IActions['onClickYear'];
+  onClickArrow!: T.IActions['onClickArrow'];
+  onChangeTime!: T.IActions['onChangeTime'];
+  onChangeToInput!: T.IActions['onChangeToInput'];
+  onInit!: T.IActions['onInit'];
+  onUpdate!: T.IActions['onUpdate'];
+  onDestroy!: T.IActions['onDestroy'];
+  onShow!: T.IActions['onShow'];
+  onHide!: T.IActions['onHide'];
   labels: T.Labels = { ...labels };
   styles: T.Styles = { ...styles };
-
-  sanitizerHTML = (dirtyHtml: string) => dirtyHtml;
-
-  actions: T.IActions = {
-    clickDay: null,
-    clickWeekNumber: null,
-    clickWeekDay: null,
-    clickMonth: null,
-    clickYear: null,
-    clickArrow: null,
-    clickTitle: null,
-    changeTime: null,
-    changeToInput: null,
-    getDays: null,
-    getMonths: null,
-    getYears: null,
-    initCalendar: null,
-    updateCalendar: null,
-    destroyCalendar: null,
-    showCalendar: null,
-    hideCalendar: null,
-  };
   popups: T.IPopups = {};
-
   layouts: T.ILayouts = {
     default: '',
     multiple: '',
     month: '',
     year: '',
   };
-
   private!: T.IPrivateVariables;
 }

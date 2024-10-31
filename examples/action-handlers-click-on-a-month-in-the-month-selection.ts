@@ -5,10 +5,8 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   type: 'month',
-  actions: {
-    clickMonth(e, self) {
-      console.log(self.private.selectedMonth);
-    },
+  onClickMonth(e, self) {
+    console.log(self.private.selectedMonth);
   },
 };
 

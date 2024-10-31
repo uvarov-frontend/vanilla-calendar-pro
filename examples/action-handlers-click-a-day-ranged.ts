@@ -9,10 +9,8 @@ const options: IOptions = {
       day: 'multiple-ranged',
     },
   },
-  actions: {
-    clickDay(event, self) {
-      console.log(self.private.selectedDates);
-    },
+  onClickDate(event, self) {
+    console.log(self.private.selectedDates);
   },
 };
 

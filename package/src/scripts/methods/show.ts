@@ -6,7 +6,7 @@ const show = (self: VanillaCalendar) => {
     return;
   }
   self.private.mainElement.removeAttribute('data-vc-calendar-hidden');
-  if (self.actions.showCalendar) self.actions.showCalendar(self);
+  if (self.onShow) self.onShow(self);
 };
 
 export default show;

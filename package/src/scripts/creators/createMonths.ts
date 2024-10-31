@@ -70,7 +70,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
       i,
     );
     monthsEl.appendChild(monthEl);
-    if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
+    // if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
   }
 
   self.private.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();

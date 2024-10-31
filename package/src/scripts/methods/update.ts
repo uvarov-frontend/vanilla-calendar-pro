@@ -8,7 +8,7 @@ const update = (self: VanillaCalendar, { year, month, dates, time, locale }: IRe
   if (!self.private.isInit) throw new Error(errorMessages.notInit);
   if (self.input && !self.private.isInputInit) createToInput(self, false);
   reset(self, { year, month, dates, time, locale });
-  if (self.actions.updateCalendar) self.actions.updateCalendar(self);
+  if (self.onUpdate) self.onUpdate(self);
 };
 
 export default update;

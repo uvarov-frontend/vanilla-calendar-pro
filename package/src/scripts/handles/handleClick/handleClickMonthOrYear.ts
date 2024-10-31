@@ -65,8 +65,8 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   selectByType[type]();
 
   const actionByType = {
-    year: () => self.actions.clickYear?.(event, self),
-    month: () => self.actions.clickMonth?.(event, self),
+    year: () => self.onClickYear?.(event, self),
+    month: () => self.onClickMonth?.(event, self),
   };
   actionByType[type]();
 
@@ -83,7 +83,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
     year: () => createYears(self, target),
     month: () => createMonths(self, target),
   };
-  if (headerEl && self.actions.clickTitle) self.actions.clickTitle(event, self);
+  if (headerEl && self.onClickTitle) self.onClickTitle(event, self);
   if (headerEl && self.private.currentType !== type) return createByType[type]();
 
   const itemEl = target.closest<HTMLElement>(`[data-vc-${type}s-${type}]`);

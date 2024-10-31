@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
-  if (!self.settings.visibility.weekNumbers || !self.actions.clickWeekNumber) return;
+  if (!self.settings.visibility.weekNumbers || !self.onClickWeekNumber) return;
 
   const weekNumberEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-number]');
   const daysToWeeks = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-number]');
@@ -12,11 +12,11 @@ export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) 
   const yearWeek = Number(weekNumberEl.dataset.vcWeekYear);
   const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.vcDateWeekNumber) === weekNumberValue);
 
-  self.actions.clickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
+  self.onClickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
 };
 
 export const handleClickWeekDay = (self: VanillaCalendar, event: MouseEvent) => {
-  if (!self.actions.clickWeekDay) return;
+  if (!self.onClickWeekDay) return;
 
   const weekDayEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-day]');
   const columnEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc="column"]');
@@ -29,5 +29,5 @@ export const handleClickWeekDay = (self: VanillaCalendar, event: MouseEvent) => 
   const weekDayValue = Number(weekDayEl.dataset.vcWeekDay);
   const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.vcDateWeekDay) === weekDayValue);
 
-  self.actions.clickWeekDay(event, weekDayValue, daysOfThisWeek, self);
+  self.onClickWeekDay(event, weekDayValue, daysOfThisWeek, self);
 };

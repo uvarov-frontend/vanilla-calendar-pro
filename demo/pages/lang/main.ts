@@ -71,26 +71,21 @@ const config: IOptions = {
     btnKeeping: 'Переключить AM/PM, текущее положение:',
   },
   popups: {
-    '2024-10-28': {
-      modifier: 'bg-red',
-      html: 'Собрание в 9:00',
-    },
-    '2024-10-13': {
-      modifier: 'bg-orange text-bold',
-      html: 'Собрание в 18:00',
-    },
-    '2024-10-17': {
-      modifier: 'bg-orange',
-      html: `<div>
-        <u><b>13:00</b></u>
-        <p style="margin: 5px 0 0;">Самолет в Москву</p>
-      </div>`,
-    },
-  },
-  actions: {
-    changeTime(event, self, isError) {
-      console.log(isError);
-    },
+    // '2024-10-28': {
+    //   modifier: 'bg-red',
+    //   html: 'Собрание в 9:00',
+    // },
+    // '2024-10-13': {
+    //   modifier: 'bg-orange text-bold',
+    //   html: 'Собрание в 18:00',
+    // },
+    // '2024-10-17': {
+    //   modifier: 'bg-orange',
+    //   html: `<div>
+    //     <u><b>13:00</b></u>
+    //     <p style="margin: 5px 0 0;">Самолет в Москву</p>
+    //   </div>`,
+    // },
   },
 };
 
