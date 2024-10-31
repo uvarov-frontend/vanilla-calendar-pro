@@ -37,7 +37,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.selectedYear as number);
   const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.selectedMonth;
 
-  self.currentType = 'month';
+  self.private.currentType = 'month';
   createDOM(self, target);
   visibilityTitle(self);
 

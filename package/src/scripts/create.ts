@@ -30,7 +30,7 @@ const create = (self: VanillaCalendar) => {
   visibilityTitle(self);
   visibilityArrows(self);
   createTime(self);
-  createDOMElements[self.currentType]();
+  createDOMElements[self.private.currentType]();
 };
 
 export default create;

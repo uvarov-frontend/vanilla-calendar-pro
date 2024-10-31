@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const show = (self: VanillaCalendar) => {
-  if (!self.currentType) {
+  if (!self.private.currentType) {
     self.HTMLElement.click();
     return;
   }

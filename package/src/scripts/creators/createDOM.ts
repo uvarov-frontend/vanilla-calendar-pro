@@ -23,13 +23,13 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
 
   self.HTMLElement.className = self.styles.calendar;
   self.HTMLElement.dataset.vc = 'calendar';
-  self.HTMLElement.dataset.vcType = self.currentType;
+  self.HTMLElement.dataset.vcType = self.private.currentType;
   self.HTMLElement.role = 'application';
   self.HTMLElement.tabIndex = 0;
   self.HTMLElement.ariaLabel = self.labels.application;
 
-  if (self.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
-    self.HTMLElement.innerHTML = parseMultiple(self, parseDOM(self, self.DOMTemplates[self.currentType]));
+  if (self.private.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
+    self.HTMLElement.innerHTML = parseMultiple(self, parseDOM(self, self.DOMTemplates[self.private.currentType]));
     return;
   }
 
@@ -40,12 +40,12 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
 
     if (controlsEl) self.HTMLElement.removeChild(controlsEl);
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
-    if (columnEl) columnEl.dataset.vcColumn = self.currentType;
-    if (columnEl) columnEl.innerHTML = parseDOM(self, self.DOMTemplates[self.currentType]);
+    if (columnEl) columnEl.dataset.vcColumn = self.private.currentType;
+    if (columnEl) columnEl.innerHTML = parseDOM(self, self.DOMTemplates[self.private.currentType]);
     return;
   }
 
-  self.HTMLElement.innerHTML = parseDOM(self, self.DOMTemplates[self.currentType]);
+  self.HTMLElement.innerHTML = parseDOM(self, self.DOMTemplates[self.private.currentType]);
 };
 
 export default createDOM;

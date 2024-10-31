@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const hide = (self: VanillaCalendar) => {
-  if (!self.currentType) return;
+  if (!self.private.currentType) return;
   self.HTMLElement.dataset.vcCalendarHidden = '';
   if (self.actions.hideCalendar) self.actions.hideCalendar(self);
 };

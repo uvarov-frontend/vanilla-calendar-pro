@@ -48,7 +48,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly selectedMinutes?: string;
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
-  readonly currentType: T.TypesCalendar;
   readonly viewYear: number;
   readonly dateMin: Date;
   readonly dateMax: Date;

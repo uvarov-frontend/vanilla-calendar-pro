@@ -21,7 +21,7 @@ const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sele
 const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.selectedYear;
 
-  self.currentType = 'year';
+  self.private.currentType = 'year';
   createDOM(self, target);
   visibilityTitle(self);
   visibilityArrows(self);

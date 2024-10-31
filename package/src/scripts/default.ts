@@ -1,9 +1,24 @@
 import labels from '@package/labels';
 import styles from '@package/styles';
 import type * as T from '@package/types';
-import DefaultPrivateOptionsCalendar from '@scripts/private';
 
-export default class DefaultOptionsCalendar extends DefaultPrivateOptionsCalendar {
+export default class DefaultOptionsCalendar {
+  constructor() {
+    this.private = {
+      ...this.private,
+      locale: {
+        months: {
+          short: [],
+          long: [],
+        },
+        weekdays: {
+          short: [],
+          long: [],
+        },
+      },
+    };
+  }
+
   input = false;
   type: T.TypesCalendar = 'default';
   months = 2;
@@ -109,8 +124,9 @@ export default class DefaultOptionsCalendar extends DefaultPrivateOptionsCalenda
   selectedMinutes!: string;
   selectedKeeping!: string;
   selectedTime!: string;
-  currentType!: T.TypesCalendar;
   viewYear!: number;
   dateMin!: Date;
   dateMax!: Date;
+
+  private!: T.IPrivateVariables;
 }

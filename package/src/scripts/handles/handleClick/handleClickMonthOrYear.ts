@@ -10,7 +10,11 @@ const getColumnID = (self: VanillaCalendar, type: (typeof typeClick)[number], id
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest(`[data-vc-column="${type}"]`));
   const currentValue = Number((columnEls[indexColumn].querySelector(`[data-vc="${type}"]`) as HTMLElement).getAttribute(`data-vc-${type}`));
 
-  return self.currentType === 'month' && indexColumn >= 0 ? id - indexColumn : self.currentType === 'year' && self.selectedYear !== currentValue ? id - 1 : id;
+  return self.private.currentType === 'month' && indexColumn >= 0
+    ? id - indexColumn
+    : self.private.currentType === 'year' && self.selectedYear !== currentValue
+      ? id - 1
+      : id;
 };
 
 const handleMultipleYearSelection = (self: VanillaCalendar, itemEl: HTMLElement) => {
@@ -58,7 +62,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   };
   actionByType[type]();
 
-  self.currentType = self.type;
+  self.private.currentType = self.type;
   create(self);
   self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
@@ -72,7 +76,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
     month: () => createMonths(self, target),
   };
   if (headerEl && self.actions.clickTitle) self.actions.clickTitle(event, self);
-  if (headerEl && self.currentType !== type) return createByType[type]();
+  if (headerEl && self.private.currentType !== type) return createByType[type]();
 
   const itemEl = target.closest<HTMLElement>(`[data-vc-${type}s-${type}]`);
   if (itemEl) return handleItemClick(self, event, type, itemEl);
@@ -80,8 +84,8 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   const gridEl = target.closest<HTMLElement>('[data-vc="grid"]');
   const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
-  if ((self.currentType === type && headerEl) || (self.type === 'multiple' && self.currentType === type && gridEl && !columnEl)) {
-    self.currentType = self.type;
+  if ((self.private.currentType === type && headerEl) || (self.type === 'multiple' && self.private.currentType === type && gridEl && !columnEl)) {
+    self.private.currentType = self.type;
     create(self);
     self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   }

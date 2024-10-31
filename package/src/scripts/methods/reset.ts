@@ -16,14 +16,8 @@ const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IRes
 
   if (locale) {
     self.private.locale = {
-      months: {
-        short: [],
-        long: [],
-      },
-      weekdays: {
-        short: [],
-        long: [],
-      },
+      months: { short: [], long: [] },
+      weekdays: { short: [], long: [] },
     };
   }
 

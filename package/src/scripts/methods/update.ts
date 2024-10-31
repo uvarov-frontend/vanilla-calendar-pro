@@ -6,17 +6,8 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const update = (self: VanillaCalendar, { year, month, dates, time, locale }: IReset = {}) => {
   if (!self.private.isInit) throw new Error(errorMessages.notInit);
-
-  if (self.input && !self.private.isInputInit) {
-    createToInput(self, false);
-  }
-  reset(self, {
-    year,
-    month,
-    dates,
-    time,
-    locale,
-  });
+  if (self.input && !self.private.isInputInit) createToInput(self, false);
+  reset(self, { year, month, dates, time, locale });
   if (self.actions.updateCalendar) self.actions.updateCalendar(self);
 };
 
