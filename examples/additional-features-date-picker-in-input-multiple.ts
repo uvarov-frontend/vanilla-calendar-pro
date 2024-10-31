@@ -19,14 +19,14 @@ const options: IOptions = {
   },
   actions: {
     changeToInput(e, self) {
-      if (!self.HTMLInputElement) return;
+      if (!self.private.inputElement) return;
       if (self.selectedDates[1]) {
         self.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
-        self.HTMLInputElement.value = `${self.selectedDates[0]} — ${self.selectedDates[self.selectedDates.length - 1]}`;
+        self.private.inputElement.value = `${self.selectedDates[0]} — ${self.selectedDates[self.selectedDates.length - 1]}`;
       } else if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
+        self.private.inputElement.value = self.selectedDates[0];
       } else {
-        self.HTMLInputElement.value = '';
+        self.private.inputElement.value = '';
       }
     },
   },

@@ -7,15 +7,15 @@ const options: IOptions = {
   input: true,
   actions: {
     changeToInput(e, self) {
-      if (!self.HTMLInputElement) return;
+      if (!self.private.inputElement) return;
       if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
+        self.private.inputElement.value = self.selectedDates[0];
       } else {
-        self.HTMLInputElement.value = '';
+        self.private.inputElement.value = '';
       }
     },
     initCalendar(self) {
-      const btnEl = self.HTMLElement.querySelector('#btn-close');
+      const btnEl = self.private.mainElement.querySelector('#btn-close');
       if (!btnEl) return;
       btnEl.addEventListener('click', self.hide);
     },

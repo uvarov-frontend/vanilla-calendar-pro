@@ -7,7 +7,7 @@ export interface IPrivateVariables {
   locale: ILocale;
   mainElement: HTMLElement;
   originalElement: HTMLElement;
-  inputElement: HTMLInputElement;
+  inputElement?: HTMLInputElement;
   dateMin: Date;
   dateMax: Date;
   displayYear: number;
