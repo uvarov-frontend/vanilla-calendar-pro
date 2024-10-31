@@ -49,8 +49,6 @@ export interface IVanillaCalendar {
   show: () => void;
   hide: () => void;
 
-  readonly rangeMin: FormatDateString;
-  readonly rangeMax: FormatDateString;
   readonly rangeDisabled: FormatDateString[];
   readonly rangeEnabled: FormatDateString[];
   readonly selectedDates: FormatDateString[];

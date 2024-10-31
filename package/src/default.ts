@@ -110,8 +110,6 @@ export default class DefaultOptionsCalendar {
     year: '',
   };
 
-  rangeMin!: T.FormatDateString;
-  rangeMax!: T.FormatDateString;
   rangeDisabled!: T.FormatDateString[];
   rangeEnabled!: T.FormatDateString[];
   selectedDates!: T.FormatDateString[];

@@ -79,14 +79,14 @@ const updateDisabledDates = () => {
       [Date | null, Date | null]
     >(([start, end], disabledDate) => [selectedDate >= disabledDate ? disabledDate : start, selectedDate < disabledDate && end === null ? disabledDate : end], [null, null]);
 
-  if (startDate) current.self.rangeMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
-  if (endDate) current.self.rangeMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
+  if (startDate) current.self.private.displayDateMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
+  if (endDate) current.self.private.displayDateMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
 };
 
 const resetDisabledDates = () => {
   if (!current.self) return;
-  current.self.rangeMin = current.rangeMin as FormatDateString;
-  current.self.rangeMax = current.rangeMax as FormatDateString;
+  current.self.private.displayDateMin = current.rangeMin as FormatDateString;
+  current.self.private.displayDateMax = current.rangeMax as FormatDateString;
 };
 
 const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDateString) => {
@@ -104,8 +104,8 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
   }
 
   if (self.settings.range.disableGaps) {
-    current.rangeMin = current.rangeMin ? current.rangeMin : self.rangeMin;
-    current.rangeMax = current.rangeMax ? current.rangeMax : self.rangeMax;
+    current.rangeMin = current.rangeMin ? current.rangeMin : self.private.displayDateMin;
+    current.rangeMax = current.rangeMax ? current.rangeMax : self.private.displayDateMax;
   }
 
   current.self = self;

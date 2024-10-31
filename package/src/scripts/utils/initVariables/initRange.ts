@@ -5,7 +5,7 @@ import parseDates from '@scripts/utils/parseDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initRange = (self: VanillaCalendar) => {
-  // set self.rangeMin and self.rangeMax
+  // set self.private.displayDateMin and self.private.displayDateMax
   if (self.date.min === 'today') self.date.min = getLocalDate();
   if (self.date.max === 'today') self.date.max = getLocalDate();
 
@@ -25,19 +25,19 @@ const initRange = (self: VanillaCalendar) => {
     : self.date.max;
 
   const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.date.today;
-  self.rangeMin = isDisablePast
+  self.private.displayDateMin = isDisablePast
     ? getDateString(self.date.today)
     : self.settings.range.disableAllDays
       ? getDateString(self.date.today)
       : self.settings.range.min;
-  self.rangeMax = self.settings.range.disableAllDays ? getDateString(self.date.today) : self.settings.range.max;
+  self.private.displayDateMax = self.settings.range.disableAllDays ? getDateString(self.date.today) : self.settings.range.max;
 
   // set self.rangeDisabled
   self.rangeDisabled =
     self.settings.range.disabled && !self.settings.range.disableAllDays
       ? parseDates(self.settings.range.disabled)
       : self.settings.range.disableAllDays
-        ? [self.rangeMin]
+        ? [self.private.displayDateMin]
         : [];
   if (self.rangeDisabled.length > 1) self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
 
@@ -47,8 +47,8 @@ const initRange = (self: VanillaCalendar) => {
   if (self.rangeEnabled.length > 1) self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
-    self.rangeMin = self.rangeEnabled[0];
-    self.rangeMax = self.rangeEnabled[self.rangeEnabled.length - 1];
+    self.private.displayDateMin = self.rangeEnabled[0];
+    self.private.displayDateMax = self.rangeEnabled[self.rangeEnabled.length - 1];
   }
 };
 

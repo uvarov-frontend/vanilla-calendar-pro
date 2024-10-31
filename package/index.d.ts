@@ -33,8 +33,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   show: () => void;
   hide: () => void;
 
-  readonly rangeMin: T.FormatDateString;
-  readonly rangeMax: T.FormatDateString;
   readonly rangeDisabled: T.FormatDateString[];
   readonly rangeEnabled: T.FormatDateString[];
   readonly selectedDates: T.FormatDateString[];

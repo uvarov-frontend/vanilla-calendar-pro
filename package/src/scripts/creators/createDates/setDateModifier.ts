@@ -21,8 +21,8 @@ const setDateModifier = (
   monthType: 'current' | 'prev' | 'next',
 ) => {
   const isDisabled =
-    getDate(self.rangeMin) > getDate(dateStr) ||
-    getDate(self.rangeMax) < getDate(dateStr) ||
+    getDate(self.private.displayDateMin) > getDate(dateStr) ||
+    getDate(self.private.displayDateMax) < getDate(dateStr) ||
     self.rangeDisabled?.includes(dateStr) ||
     (!self.settings.selection.month && monthType !== 'current') ||
     (!self.settings.selection.year && getDate(dateStr).getFullYear() !== currentYear);

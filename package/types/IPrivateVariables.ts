@@ -8,7 +8,6 @@ export interface IPrivateVariables {
   mainElement: HTMLElement;
   originalElement: HTMLElement;
   inputElement?: HTMLInputElement;
-
   dateMin: Date;
   dateMax: Date;
 
