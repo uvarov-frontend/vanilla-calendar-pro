@@ -19,7 +19,7 @@ const createMonthEl = (
   i: number,
 ) => {
   const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
-  monthEl.className = self.CSSClasses.monthsMonth;
+  monthEl.className = self.styles.monthsMonth;
   monthEl.innerText = titleShort;
   monthEl.ariaLabel = titleLong;
   monthEl.role = 'gridcell';

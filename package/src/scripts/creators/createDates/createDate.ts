@@ -33,13 +33,13 @@ const createDate = (
   const localeDate = typeof self.locale === 'string' && self.locale.length ? self.locale : 'en';
 
   const dateEl = document.createElement('div');
-  dateEl.className = self.CSSClasses.date;
+  dateEl.className = self.styles.date;
   dateEl.dataset.vcDate = dateStr;
   dateEl.dataset.vcDateMonth = monthType;
   dateEl.dataset.vcDateWeekDay = String(dayWeekID);
 
   const dateBtnEl = document.createElement('button');
-  dateBtnEl.className = self.CSSClasses.dateBtn;
+  dateBtnEl.className = self.styles.dateBtn;
   dateBtnEl.type = 'button';
   dateBtnEl.role = 'gridcell';
   dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });

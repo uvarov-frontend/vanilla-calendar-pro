@@ -10,7 +10,7 @@ const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesE
   if (dateInfo?.modifier) dateBtnEl.classList.add(...dateInfo.modifier.trim().split(' '));
   if (dateInfo?.html) {
     const datePopup = document.createElement('div');
-    datePopup.className = self.CSSClasses.datePopup;
+    datePopup.className = self.styles.datePopup;
     datePopup.dataset.vcDatePopup = '';
     datePopup.innerHTML = self.sanitizer(dateInfo.html);
     dateBtnEl.ariaExpanded = 'true';

@@ -61,9 +61,10 @@ export default class DefaultOptionsCalendar {
       positionToInput: 'left',
     },
   };
-  locale: T.Locale = 'en';
 
-  labels = { ...labels };
+  locale: T.Locale = 'en';
+  labels: T.Labels = { ...labels };
+  styles: T.Styles = { ...styles };
 
   sanitizer = (dirtyHtml: string) => dirtyHtml;
 
@@ -87,7 +88,7 @@ export default class DefaultOptionsCalendar {
     hideCalendar: null,
   };
   popups: T.IPopups = {};
-  CSSClasses: T.CSSClasses = { ...styles };
+
   DOMTemplates: T.IDOMTemplates = {
     default: '',
     multiple: '',

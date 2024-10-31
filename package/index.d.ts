@@ -18,11 +18,13 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
     selected: T.ISelected;
     visibility: T.IVisibility;
   };
+
   locale: T.Locale;
   labels: T.Labels;
+  styles: T.Styles;
+
   actions: T.IActions;
   popups: T.IPopups;
-  CSSClasses: T.CSSClasses;
   DOMTemplates: T.IDOMTemplates;
 
   sanitizer: (dirtyHtml: string) => unknown;

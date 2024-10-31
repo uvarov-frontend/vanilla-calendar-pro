@@ -21,7 +21,7 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
     }
   });
 
-  self.HTMLElement.className = self.CSSClasses.calendar;
+  self.HTMLElement.className = self.styles.calendar;
   self.HTMLElement.dataset.vc = 'calendar';
   self.HTMLElement.dataset.vcType = self.currentType;
   self.HTMLElement.role = 'application';

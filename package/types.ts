@@ -16,7 +16,7 @@ export type WeekDays<T> = [...T[]];
 
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
-export type CSSClasses = typeof styles;
+export type Styles = typeof styles;
 
 export type Labels = typeof labels;
 
@@ -160,14 +160,13 @@ export interface IOptions {
     selected: Partial<ISelected>;
     visibility: Partial<IVisibility>;
   }>;
-
-  locale?: Locale;
-  labels?: Labels;
-
   actions?: Partial<IActions>;
   popups?: IPopups;
-  CSSClasses?: Partial<CSSClasses>;
   DOMTemplates?: Partial<IDOMTemplates>;
+
+  locale?: Locale;
+  labels?: Partial<Labels>;
+  styles?: Partial<Styles>;
 }
 
 export interface IPrivateVariables {
@@ -193,11 +192,11 @@ export interface IVanillaCalendar {
 
   locale: Locale;
   labels: Labels;
+  styles: Styles;
 
   actions: IActions;
   sanitizer: (dirtyHtml: string) => unknown;
   popups: IPopups;
-  CSSClasses: CSSClasses;
   DOMTemplates: IDOMTemplates;
 
   init: () => () => void;

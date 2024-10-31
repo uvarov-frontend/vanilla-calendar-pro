@@ -30,7 +30,7 @@ const createWeek = (self: VanillaCalendar) => {
     weekdays.forEach((weekday) => {
       const weekDayEl = templateWeekDayEl.cloneNode(true) as HTMLElement;
       weekDayEl.innerText = weekday.titleShort;
-      weekDayEl.className = self.CSSClasses.weekDay;
+      weekDayEl.className = self.styles.weekDay;
       weekDayEl.role = 'columnheader';
       weekDayEl.ariaLabel = weekday.titleLong;
       weekDayEl.dataset.vcWeekDay = String(weekday.id);

@@ -7,7 +7,7 @@ import reset from '@/package/src/scripts/methods/reset';
 
 const createToInput = (self: VanillaCalendar, isVisible = true) => {
   const calendar = document.createElement('div');
-  calendar.className = self.CSSClasses.calendar;
+  calendar.className = self.styles.calendar;
   calendar.dataset.vc = 'calendar';
   calendar.dataset.vcInput = '';
   calendar.dataset.vcCalendarHidden = '';

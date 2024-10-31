@@ -7,19 +7,19 @@ const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: nu
   weekNumbersEl.textContent = '';
 
   const weekNumbersTitleEl = document.createElement('b');
-  weekNumbersTitleEl.className = self.CSSClasses.weekNumbersTitle;
+  weekNumbersTitleEl.className = self.styles.weekNumbersTitle;
   weekNumbersTitleEl.innerText = '#';
   weekNumbersTitleEl.dataset.vcWeekNumbers = 'title';
   weekNumbersEl.appendChild(weekNumbersTitleEl);
 
   const weekNumbersContentEl = document.createElement('div');
-  weekNumbersContentEl.className = self.CSSClasses.weekNumbersContent;
+  weekNumbersContentEl.className = self.styles.weekNumbersContent;
   weekNumbersContentEl.dataset.vcWeekNumbers = 'content';
   weekNumbersEl.appendChild(weekNumbersContentEl);
 
   const templateWeekNumberEl = document.createElement('button');
   templateWeekNumberEl.type = 'button';
-  templateWeekNumberEl.className = self.CSSClasses.weekNumber;
+  templateWeekNumberEl.className = self.styles.weekNumber;
 
   const dateBtnEl = datesEl.querySelectorAll<HTMLButtonElement>('[data-vc-date]');
   const weeksCount = Math.ceil((firstDayWeek + days) / 7);

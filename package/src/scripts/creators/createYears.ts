@@ -5,7 +5,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
-  yearEl.className = self.CSSClasses.yearsYear;
+  yearEl.className = self.styles.yearsYear;
   yearEl.innerText = String(i);
   yearEl.ariaLabel = String(i);
   yearEl.role = 'gridcell';
