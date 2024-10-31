@@ -9,7 +9,7 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
   constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
     super();
 
-    this.HTMLElement = typeof selector === 'string' ? (VanillaCalendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
+    this.private.mainElement = typeof selector === 'string' ? (VanillaCalendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
 
     if (options) this.applyOptions(options);
   }

@@ -13,8 +13,8 @@ const current: { self: VanillaCalendar | null; rangeMin: FormatDateString | unde
 };
 
 const removeHoverEffect = () => {
-  if (!current.self?.HTMLElement) return;
-  const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date]');
+  if (!current.self?.private?.mainElement) return;
+  const dateEls = current.self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((d) => ['data-vc-date-hover', 'data-vc-date-hover-first', 'data-vc-date-hover-last'].forEach((attr) => d.removeAttribute(attr)));
 };
 
@@ -24,7 +24,7 @@ const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, la
   const formattedDate = getDateString(date);
   if (current.self.rangeDisabled?.includes(formattedDate)) return;
 
-  const dateEls = current.self.HTMLElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`);
+  const dateEls = current.self.private.mainElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`);
   dateEls?.forEach((d) => (d.dataset.vcDateHover = ''));
 
   firstDateEls.forEach((d) => (d.dataset.vcDateHoverFirst = ''));
@@ -48,8 +48,8 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   const startDate = getDate(current.self.selectedDates[0]);
   const endDate = getDate(lastDateString);
 
-  const firstDateEls = current.self.HTMLElement.querySelectorAll<HTMLDivElement>(`[data-vc-date="${current.self.selectedDates[0]}"]`);
-  const lastDateEls = current.self.HTMLElement.querySelectorAll<HTMLDivElement>(`[data-vc-date="${lastDateString}"]`);
+  const firstDateEls = current.self.private.mainElement.querySelectorAll<HTMLDivElement>(`[data-vc-date="${current.self.selectedDates[0]}"]`);
+  const lastDateEls = current.self.private.mainElement.querySelectorAll<HTMLDivElement>(`[data-vc-date="${lastDateString}"]`);
 
   const [firstDateElsCorrect, lastDateElsCorrect] = startDate < endDate ? [firstDateEls, lastDateEls] : [lastDateEls, firstDateEls];
   const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];
@@ -64,7 +64,7 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
 const handleCancelSelectionDates = (e: KeyboardEvent) => {
   if (!current.self || e.key !== 'Escape') return;
   current.self.selectedDates = [];
-  current.self.HTMLElement.removeEventListener('mousemove', handleHoverDatesEvent);
+  current.self.private.mainElement.removeEventListener('mousemove', handleHoverDatesEvent);
   document.removeEventListener('keydown', handleCancelSelectionDates);
   create(current.self);
 };
@@ -113,8 +113,8 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
 
   const selectionHandlers = {
     set: () => {
-      self.HTMLElement.addEventListener('mousemove', handleHoverDatesEvent);
-      self.HTMLElement.addEventListener('keydown', handleCancelSelectionDates);
+      self.private.mainElement.addEventListener('mousemove', handleHoverDatesEvent);
+      self.private.mainElement.addEventListener('keydown', handleCancelSelectionDates);
       if (self.settings.range.disableGaps) updateDisabledDates();
     },
     reset: () => {
@@ -124,8 +124,8 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
       const actualDates = allDates.filter((d) => !self.rangeDisabled.includes(d));
 
       self.selectedDates = notSameDate ? (self.settings.range.edgesOnly ? [startDate, endDate] : actualDates) : [self.selectedDates[0], self.selectedDates[0]];
-      self.HTMLElement.removeEventListener('mousemove', handleHoverDatesEvent);
-      self.HTMLElement.removeEventListener('keydown', handleCancelSelectionDates);
+      self.private.mainElement.removeEventListener('mousemove', handleHoverDatesEvent);
+      self.private.mainElement.removeEventListener('keydown', handleCancelSelectionDates);
       if (self.settings.range.disableGaps) resetDisabledDates();
     },
   };

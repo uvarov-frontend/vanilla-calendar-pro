@@ -5,7 +5,7 @@ import transformTime24 from '@scripts/utils/transformTime24';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createTime = (self: VanillaCalendar) => {
-  const timeEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc="time"]');
+  const timeEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="time"]');
   if (!self.settings.selection.time || !timeEl) return;
 
   const [minHour, maxHour] = [self.settings.range.hourMin, self.settings.range.hourMax];

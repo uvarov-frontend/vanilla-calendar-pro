@@ -26,7 +26,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
   visibilityTitle(self);
   visibilityArrows(self);
 
-  const yearsEl = self.HTMLElement.querySelector('[data-vc="years"]');
+  const yearsEl = self.private.mainElement.querySelector('[data-vc="years"]');
   if (!self.settings.selection.year || !yearsEl) return;
 
   const relationshipID = self.type !== 'multiple' ? 0 : self.selectedYear === selectedYear ? 0 : 1;
@@ -41,7 +41,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
     if (self.actions.getYears) self.actions.getYears(i, yearEl, self);
   }
 
-  self.HTMLElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
+  self.private.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
 };
 
 export default createYears;

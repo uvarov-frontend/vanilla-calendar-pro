@@ -11,11 +11,11 @@ const configInput: IOptions = {
   input: true,
   actions: {
     changeToInput(e, self) {
-      if (!self.selectedDates || !self.HTMLInputElement) return;
+      if (!self.selectedDates || !self.private.inputElement) return;
       if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
+        self.private.inputElement.value = self.selectedDates[0];
       } else {
-        self.HTMLInputElement.value = '';
+        self.private.inputElement.value = '';
       }
       self.hide();
     },
@@ -31,11 +31,11 @@ const configDiv: IOptions = {
   input: true,
   actions: {
     changeToInput(e, self) {
-      if (!self.selectedDates || !self.HTMLInputElement) return;
+      if (!self.selectedDates || !self.private.inputElement) return;
       if (self.selectedDates[0]) {
-        self.HTMLInputElement.innerHTML = self.selectedDates[0];
+        self.private.inputElement.innerHTML = self.selectedDates[0];
       } else {
-        self.HTMLInputElement.textContent = '';
+        self.private.inputElement.textContent = '';
       }
       self.hide();
     },
@@ -92,6 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
       year: true,
     });
 
-    calendarInput.HTMLInputElement!.value = '2023-04-07';
+    calendarInput.private.inputElement!.value = '2023-04-07';
   });
 });

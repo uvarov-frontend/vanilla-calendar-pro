@@ -4,7 +4,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {
   if (self.type !== 'multiple') return 0;
-  const columnEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
+  const columnEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
 };
@@ -41,7 +41,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   createLayouts(self, target);
   visibilityTitle(self);
 
-  const monthsEl = self.HTMLElement.querySelector('[data-vc="months"]');
+  const monthsEl = self.private.mainElement.querySelector('[data-vc="months"]');
   if (!self.settings.selection.month || !monthsEl) return;
 
   const activeMonthsID =
@@ -73,7 +73,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
     if (self.actions.getMonths) self.actions.getMonths(i, monthEl, self);
   }
 
-  self.HTMLElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
+  self.private.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
 };
 
 export default createMonths;

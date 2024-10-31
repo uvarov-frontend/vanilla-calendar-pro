@@ -14,13 +14,13 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
   calendar.style.visibility = 'hidden';
 
   self.private.isInputInit = true;
-  self.HTMLElement = calendar;
-  document.body.appendChild(self.HTMLElement);
+  self.private.mainElement = calendar;
+  document.body.appendChild(self.private.mainElement);
 
   if (isVisible) {
     queueMicrotask(() => {
-      setPosition(self.HTMLInputElement, calendar, self.settings.visibility.positionToInput);
-      self.HTMLElement.style.visibility = 'visible';
+      setPosition(self.private.inputElement, calendar, self.settings.visibility.positionToInput);
+      self.private.mainElement.style.visibility = 'visible';
       self.show();
     });
   }

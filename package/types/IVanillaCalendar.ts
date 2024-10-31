@@ -49,9 +49,6 @@ export interface IVanillaCalendar {
   show: () => void;
   hide: () => void;
 
-  readonly HTMLElement: HTMLElement;
-  readonly HTMLOriginalElement: HTMLElement;
-  readonly HTMLInputElement?: HTMLInputElement;
   readonly rangeMin: FormatDateString;
   readonly rangeMax: FormatDateString;
   readonly rangeDisabled: FormatDateString[];

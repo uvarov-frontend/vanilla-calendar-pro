@@ -2,10 +2,10 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const show = (self: VanillaCalendar) => {
   if (!self.private.currentType) {
-    self.HTMLElement.click();
+    self.private.mainElement.click();
     return;
   }
-  self.HTMLElement.removeAttribute('data-vc-calendar-hidden');
+  self.private.mainElement.removeAttribute('data-vc-calendar-hidden');
   if (self.actions.showCalendar) self.actions.showCalendar(self);
 };
 

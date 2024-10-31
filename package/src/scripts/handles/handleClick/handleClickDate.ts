@@ -7,7 +7,7 @@ import getDate from '@scripts/utils/getDate';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const updateDateModifier = (self: VanillaCalendar) => {
-  const dateEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-date]');
+  const dateEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((dateEl) => {
     const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;
     const dateStr = dateEl.dataset.vcDate as FormatDateString;
@@ -32,7 +32,7 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   self.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.actions.clickDay) self.actions.clickDay(event, self);
-  if (self.input && self.HTMLInputElement && self.HTMLElement && self.actions.changeToInput) self.actions.changeToInput(event, self);
+  if (self.input && self.private.inputElement && self.private.mainElement && self.actions.changeToInput) self.actions.changeToInput(event, self);
 
   const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
   const dayNextEl = element.closest('[data-vc-date-month="next"]');

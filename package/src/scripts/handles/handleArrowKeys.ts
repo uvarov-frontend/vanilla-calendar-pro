@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const handleArrowKeys = (self: VanillaCalendar) => {
-  const updateButtons = () => Array.from(self.HTMLElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
+  const updateButtons = () => Array.from(self.private.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
 
   let currentFocusedIndex = 0;
 
@@ -26,10 +26,10 @@ const handleArrowKeys = (self: VanillaCalendar) => {
     buttons[currentFocusedIndex]?.focus();
   };
 
-  self.HTMLElement.addEventListener('keydown', onKeyDown);
+  self.private.mainElement.addEventListener('keydown', onKeyDown);
 
   return () => {
-    self.HTMLElement.removeEventListener('keydown', onKeyDown);
+    self.private.mainElement.removeEventListener('keydown', onKeyDown);
   };
 };
 

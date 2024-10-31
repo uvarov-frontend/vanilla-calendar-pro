@@ -7,8 +7,8 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDates = (self: VanillaCalendar) => {
   const initDate = new Date(self.selectedYear as number, self.selectedMonth as number, 1);
-  const datesEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
-  const weekNumbersEls = self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
+  const datesEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
+  const weekNumbersEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
   datesEls.forEach((dateEl, index: number) => {
     if (!self.settings.selection.day) dateEl.dataset.vcDatesDisabled = '';

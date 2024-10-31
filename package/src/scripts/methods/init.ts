@@ -6,7 +6,7 @@ import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const init = (self: VanillaCalendar) => {
-  self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
+  self.private.originalElement = self.private.mainElement.cloneNode(true) as HTMLElement;
   self.private.isInit = true;
 
   if (self.input) return handleInput(self);

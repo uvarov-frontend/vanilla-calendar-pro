@@ -6,7 +6,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const typeClick = ['month', 'year'] as const;
 
 const getColumnID = (self: VanillaCalendar, type: (typeof typeClick)[number], id: number) => {
-  const columnEls: NodeListOf<HTMLElement> = self.HTMLElement.querySelectorAll('[data-vc="column"]');
+  const columnEls: NodeListOf<HTMLElement> = self.private.mainElement.querySelectorAll('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest(`[data-vc-column="${type}"]`));
   const currentValue = Number((columnEls[indexColumn].querySelector(`[data-vc="${type}"]`) as HTMLElement).getAttribute(`data-vc-${type}`));
 
@@ -64,7 +64,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
 
   self.private.currentType = self.type;
   create(self);
-  self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+  self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
 
 const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number]) => {
@@ -87,7 +87,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   if ((self.private.currentType === type && headerEl) || (self.type === 'multiple' && self.private.currentType === type && gridEl && !columnEl)) {
     self.private.currentType = self.type;
     create(self);
-    self.HTMLElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+    self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   }
 };
 

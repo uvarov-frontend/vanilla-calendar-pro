@@ -21,31 +21,31 @@ const createLayouts = (self: VanillaCalendar, target?: HTMLElement) => {
     }
   });
 
-  self.HTMLElement.className = self.styles.calendar;
-  self.HTMLElement.dataset.vc = 'calendar';
-  self.HTMLElement.dataset.vcType = self.private.currentType;
-  self.HTMLElement.role = 'application';
-  self.HTMLElement.tabIndex = 0;
-  self.HTMLElement.ariaLabel = self.labels.application;
+  self.private.mainElement.className = self.styles.calendar;
+  self.private.mainElement.dataset.vc = 'calendar';
+  self.private.mainElement.dataset.vcType = self.private.currentType;
+  self.private.mainElement.role = 'application';
+  self.private.mainElement.tabIndex = 0;
+  self.private.mainElement.ariaLabel = self.labels.application;
 
   if (self.private.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
-    self.HTMLElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
+    self.private.mainElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
     return;
   }
 
   if (self.type === 'multiple' && target) {
-    const controlsEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc="controls"]');
-    const gridEl = self.HTMLElement.querySelector<HTMLElement>('[data-vc="grid"]');
+    const controlsEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="controls"]');
+    const gridEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
     const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
-    if (controlsEl) self.HTMLElement.removeChild(controlsEl);
+    if (controlsEl) self.private.mainElement.removeChild(controlsEl);
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
     if (columnEl) columnEl.dataset.vcColumn = self.private.currentType;
     if (columnEl) columnEl.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
     return;
   }
 
-  self.HTMLElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
+  self.private.mainElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
 };
 
 export default createLayouts;

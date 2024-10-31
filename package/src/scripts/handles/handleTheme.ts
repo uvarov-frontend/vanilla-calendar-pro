@@ -10,7 +10,7 @@ const haveListener = {
 const setTheme = (htmlEl: HTMLElement, theme: IVisibility['theme']) => (htmlEl.dataset.vcTheme = theme);
 
 const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
-  setTheme(self.HTMLElement, supportDarkTheme.matches ? 'dark' : 'light');
+  setTheme(self.private.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
 
   if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
 
@@ -34,7 +34,7 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
       const record = mutationsList[i];
       if (record.attributeName === attr) {
         const activeTheme = htmlEl.getAttribute(attr);
-        if (activeTheme) setTheme(self.HTMLElement, activeTheme);
+        if (activeTheme) setTheme(self.private.mainElement, activeTheme);
         break;
       }
     }
@@ -55,7 +55,7 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
 
   const activeTheme = detectedThemeEl.getAttribute(attr);
   if (activeTheme) {
-    setTheme(self.HTMLElement, activeTheme);
+    setTheme(self.private.mainElement, activeTheme);
     trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
   } else {
     trackChangesThemeInSystemSettings(self, supportDarkTheme);
@@ -64,14 +64,14 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
 
 const handleTheme = (self: VanillaCalendar) => {
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
-    setTheme(self.HTMLElement, 'light');
+    setTheme(self.private.mainElement, 'light');
     return;
   }
 
   if (self.settings.visibility.theme === 'system') {
     detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)'));
   } else {
-    setTheme(self.HTMLElement, self.settings.visibility.theme);
+    setTheme(self.private.mainElement, self.settings.visibility.theme);
   }
 };
 

@@ -24,7 +24,7 @@ const createWeek = (self: VanillaCalendar) => {
   );
   const weekdays = [...weekdaysData.slice(self.weekStartDay), ...weekdaysData.slice(0, self.weekStartDay)];
 
-  self.HTMLElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
+  self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
     const templateWeekDayEl = document.createElement('button');
     templateWeekDayEl.type = 'button';
     weekdays.forEach((weekday) => {

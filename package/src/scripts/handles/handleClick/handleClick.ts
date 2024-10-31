@@ -13,8 +13,8 @@ const handleClick = (self: VanillaCalendar) => {
     handleClickMonthOrYear(self, e);
   };
 
-  self.HTMLElement.addEventListener('click', clickEventHandler);
-  return () => self.HTMLElement.removeEventListener('click', clickEventHandler);
+  self.private.mainElement.addEventListener('click', clickEventHandler);
+  return () => self.private.mainElement.removeEventListener('click', clickEventHandler);
 };
 
 export default handleClick;

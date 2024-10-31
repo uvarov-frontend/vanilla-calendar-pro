@@ -110,9 +110,6 @@ export default class DefaultOptionsCalendar {
     year: '',
   };
 
-  HTMLElement!: HTMLElement;
-  HTMLOriginalElement!: HTMLElement;
-  HTMLInputElement?: HTMLInputElement;
   rangeMin!: T.FormatDateString;
   rangeMax!: T.FormatDateString;
   rangeDisabled!: T.FormatDateString[];

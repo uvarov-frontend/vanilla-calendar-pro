@@ -5,14 +5,14 @@ const destroy = (self: VanillaCalendar) => {
   if (!self.private.isInit) throw new Error(errorMessages.notInit);
 
   if (self.input) {
-    self.HTMLElement.parentElement?.removeChild(self.HTMLElement);
-    self.HTMLInputElement?.replaceWith?.(self.HTMLOriginalElement);
-    self.HTMLInputElement = undefined;
+    self.private.mainElement.parentElement?.removeChild(self.private.mainElement);
+    self.private.inputElement?.replaceWith?.(self.private.originalElement);
+    self.private.inputElement = undefined;
   } else {
-    self.HTMLElement.replaceWith?.(self.HTMLOriginalElement);
+    self.private.mainElement.replaceWith?.(self.private.originalElement);
   }
 
-  self.HTMLElement = self.HTMLOriginalElement;
+  self.private.mainElement = self.private.originalElement;
   if (self.actions.destroyCalendar) self.actions.destroyCalendar(self);
 };
 
