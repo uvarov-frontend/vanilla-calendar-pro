@@ -1,23 +1,23 @@
-import DOMDefault from '@scripts/templates/DOMDefault';
-import DOMMonth from '@scripts/templates/DOMMonth';
-import DOMMultiple from '@scripts/templates/DOMMultiple';
-import DOMYear from '@scripts/templates/DOMYear';
+import layoutDefault from '@scripts/layouts/layoutDefault';
+import layoutMonths from '@scripts/layouts/layoutMonths';
+import layoutMultiple from '@scripts/layouts/layoutMultiple';
+import layoutYears from '@scripts/layouts/layoutYears';
 import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
-import { parseDOM, parseMultiple } from '@scripts/utils/parseComponent';
+import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
+const createLayouts = (self: VanillaCalendar, target?: HTMLElement) => {
   const templateMap = {
-    default: DOMDefault,
-    month: DOMMonth,
-    year: DOMYear,
-    multiple: DOMMultiple,
+    default: layoutDefault,
+    month: layoutMonths,
+    year: layoutYears,
+    multiple: layoutMultiple,
   };
 
   Object.keys(templateMap).forEach((key) => {
     const typedKey = key as keyof typeof templateMap;
-    if (!self.DOMTemplates[typedKey].length) {
-      self.DOMTemplates[typedKey] = templateMap[typedKey](self);
+    if (!self.layouts[typedKey].length) {
+      self.layouts[typedKey] = templateMap[typedKey](self);
     }
   });
 
@@ -29,7 +29,7 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
   self.HTMLElement.ariaLabel = self.labels.application;
 
   if (self.private.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
-    self.HTMLElement.innerHTML = parseMultiple(self, parseDOM(self, self.DOMTemplates[self.private.currentType]));
+    self.HTMLElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
     return;
   }
 
@@ -41,11 +41,11 @@ const createDOM = (self: VanillaCalendar, target?: HTMLElement) => {
     if (controlsEl) self.HTMLElement.removeChild(controlsEl);
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
     if (columnEl) columnEl.dataset.vcColumn = self.private.currentType;
-    if (columnEl) columnEl.innerHTML = parseDOM(self, self.DOMTemplates[self.private.currentType]);
+    if (columnEl) columnEl.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
     return;
   }
 
-  self.HTMLElement.innerHTML = parseDOM(self, self.DOMTemplates[self.private.currentType]);
+  self.HTMLElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
 };
 
-export default createDOM;
+export default createLayouts;

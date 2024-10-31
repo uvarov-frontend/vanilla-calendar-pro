@@ -1,4 +1,4 @@
-import createDOM from '@scripts/creators/createDOM';
+import createLayouts from '@scripts/creators/createLayouts';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
@@ -38,7 +38,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.selectedMonth;
 
   self.private.currentType = 'month';
-  createDOM(self, target);
+  createLayouts(self, target);
   visibilityTitle(self);
 
   const monthsEl = self.HTMLElement.querySelector('[data-vc="months"]');

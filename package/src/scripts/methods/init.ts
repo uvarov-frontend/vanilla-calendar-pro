@@ -1,4 +1,4 @@
-import create from '@scripts/create';
+import create from '@scripts/creators/create';
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleInput from '@scripts/handles/handleInput';

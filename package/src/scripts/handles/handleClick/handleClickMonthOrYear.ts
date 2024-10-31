@@ -1,4 +1,4 @@
-import create from '@scripts/create';
+import create from '@scripts/creators/create';
 import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import type VanillaCalendar from '@src/vanilla-calendar';

@@ -1,5 +1,5 @@
 import type { IReset } from '@package/types';
-import create from '@scripts/create';
+import create from '@scripts/creators/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange';
 import initAllVariables from '@scripts/utils/initVariables/initSelectedMonthYear';
 import type VanillaCalendar from '@src/vanilla-calendar';

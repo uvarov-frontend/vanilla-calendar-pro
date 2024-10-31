@@ -1,6 +1,6 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const DOMMultiple = (self: VanillaCalendar) => `
+const layoutMultiple = (self: VanillaCalendar) => `
   <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
     <#ArrowPrev [month] />
     <#ArrowNext [month] />
@@ -27,4 +27,4 @@ const DOMMultiple = (self: VanillaCalendar) => `
   <#ControlTime />
 `;
 
-export default DOMMultiple;
+export default layoutMultiple;

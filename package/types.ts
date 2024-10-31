@@ -128,7 +128,7 @@ export type IPopups = {
   [date in FormatDateString]: IPopup;
 };
 
-export interface IDOMTemplates {
+export interface ILayouts {
   default: string;
   multiple: string;
   month: string;
@@ -160,12 +160,12 @@ export interface IOptions {
     visibility: Partial<IVisibility>;
   }>;
   actions?: Partial<IActions>;
-  popups?: IPopups;
-  DOMTemplates?: Partial<IDOMTemplates>;
 
   sanitizerHTML?: (dirtyHtml: string) => unknown;
+  popups?: IPopups;
   locale?: Locale;
   labels?: Partial<Labels>;
+  layouts?: Partial<ILayouts>;
   styles?: Partial<Styles>;
 }
 
@@ -209,15 +209,14 @@ export interface IVanillaCalendar {
     selected: ISelected;
     visibility: IVisibility;
   };
+  actions: IActions;
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
   locale: Locale;
   labels: Labels;
+  layouts: ILayouts;
   styles: Styles;
   popups: IPopups;
-
-  actions: IActions;
-  DOMTemplates: IDOMTemplates;
 
   init: () => () => void;
   update: (reset?: IReset) => void;

@@ -1,8 +1,8 @@
-import { getComponent } from '@scripts/templates/components';
+import { getComponent } from '@scripts/components';
 import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-export const parseDOM = (self: VanillaCalendar, template: string): string => {
+export const parseLayout = (self: VanillaCalendar, template: string): string => {
   return template
     .replace(/[\n\t]/g, '')
     .replace(/<#(?!\/?Multiple)(.*?)>/g, (_, tagContent) => {
@@ -15,7 +15,7 @@ export const parseDOM = (self: VanillaCalendar, template: string): string => {
     .replace(/[\n\t]/g, '');
 };
 
-export const parseMultiple = (self: VanillaCalendar, template: string): string => {
+export const parseMultipleLayout = (self: VanillaCalendar, template: string): string => {
   return template
     .replace(/<#Multiple>(.*?)<#\/Multiple>/gs, (_, content) => {
       const repeatedContent = Array(getCorrectNumberOfMonths(self) as number)

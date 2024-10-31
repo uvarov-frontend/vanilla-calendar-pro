@@ -1,22 +1,16 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const DOMDefault = (self: VanillaCalendar) => `
+const layoutMonths = (self: VanillaCalendar) => `
   <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
-    <#ArrowPrev [month] />
     <div class="${self.styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>
-    <#ArrowNext [month] />
   </div>
   <div class="${self.styles.wrapper}" data-vc="wrapper">
-    <#WeekNumbers />
     <div class="${self.styles.content}" data-vc="content">
-      <#Week />
-      <#Dates />
+      <#Months />
     </div>
   </div>
-  <#ControlTime />
 `;
-
-export default DOMDefault;
+export default layoutMonths;

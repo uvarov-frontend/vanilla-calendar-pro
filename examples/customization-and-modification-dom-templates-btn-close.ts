@@ -20,7 +20,7 @@ const options: IOptions = {
       btnEl.addEventListener('click', self.hide);
     },
   },
-  DOMTemplates: {
+  layouts: {
     default: `
       <div class="vanilla-calendar-header">
         <#ArrowPrev />

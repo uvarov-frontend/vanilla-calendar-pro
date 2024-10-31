@@ -4,7 +4,7 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  DOMTemplates: {
+  layouts: {
     default: `
       <div class="vanilla-calendar-header">
         <div class="vanilla-calendar-header__content">

@@ -103,7 +103,7 @@ export default class DefaultOptionsCalendar {
   };
   popups: T.IPopups = {};
 
-  DOMTemplates: T.IDOMTemplates = {
+  layouts: T.ILayouts = {
     default: '',
     multiple: '',
     month: '',

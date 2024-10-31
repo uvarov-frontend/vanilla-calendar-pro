@@ -1,5 +1,5 @@
 import createDates from '@scripts/creators/createDates/createDates';
-import createDOM from '@scripts/creators/createDOM';
+import createLayouts from '@scripts/creators/createLayouts';
 import createMonths from '@scripts/creators/createMonths';
 import createTime from '@scripts/creators/createTime';
 import createWeek from '@scripts/creators/createWeek';
@@ -11,7 +11,7 @@ import getLocale from '@scripts/utils/getLocale';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const create = (self: VanillaCalendar) => {
-  const createDOMElements = {
+  const createComponents = {
     default: () => {
       createWeek(self);
       createDates(self);
@@ -26,11 +26,11 @@ const create = (self: VanillaCalendar) => {
 
   handleTheme(self);
   getLocale(self);
-  createDOM(self);
+  createLayouts(self);
   visibilityTitle(self);
   visibilityArrows(self);
   createTime(self);
-  createDOMElements[self.private.currentType]();
+  createComponents[self.private.currentType]();
 };
 
 export default create;

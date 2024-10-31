@@ -1,4 +1,4 @@
-import createDOM from '@scripts/creators/createDOM';
+import createLayouts from '@scripts/creators/createLayouts';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type VanillaCalendar from '@src/vanilla-calendar';
@@ -22,7 +22,7 @@ const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.selectedYear;
 
   self.private.currentType = 'year';
-  createDOM(self, target);
+  createLayouts(self, target);
   visibilityTitle(self);
   visibilityArrows(self);
 
