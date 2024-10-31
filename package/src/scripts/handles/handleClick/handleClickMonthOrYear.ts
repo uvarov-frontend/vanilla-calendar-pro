@@ -19,15 +19,23 @@ const getColumnID = (self: VanillaCalendar, type: (typeof typeClick)[number], id
 
 const handleMultipleYearSelection = (self: VanillaCalendar, itemEl: HTMLElement) => {
   const selectedYear = getColumnID(self, 'year', Number(itemEl.dataset.vcYearsYear));
-  const isBeforeMinDate = self.selectedMonth < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear();
-  const isAfterMaxDate = self.selectedMonth > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear();
-  const isBeforeMinYear = selectedYear < self.dateMin.getFullYear();
-  const isAfterMaxYear = selectedYear > self.dateMax.getFullYear();
+  const isBeforeMinDate = self.selectedMonth < self.private.dateMin.getMonth() && selectedYear <= self.private.dateMin.getFullYear();
+  const isAfterMaxDate = self.selectedMonth > self.private.dateMax.getMonth() && selectedYear >= self.private.dateMax.getFullYear();
+  const isBeforeMinYear = selectedYear < self.private.dateMin.getFullYear();
+  const isAfterMaxYear = selectedYear > self.private.dateMax.getFullYear();
 
   self.selectedYear =
-    isBeforeMinDate || isBeforeMinYear ? self.dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? self.dateMax.getFullYear() : selectedYear;
+    isBeforeMinDate || isBeforeMinYear
+      ? self.private.dateMin.getFullYear()
+      : isAfterMaxDate || isAfterMaxYear
+        ? self.private.dateMax.getFullYear()
+        : selectedYear;
   self.selectedMonth =
-    isBeforeMinDate || isBeforeMinYear ? self.dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? self.dateMax.getMonth() : self.selectedMonth;
+    isBeforeMinDate || isBeforeMinYear
+      ? self.private.dateMin.getMonth()
+      : isAfterMaxDate || isAfterMaxYear
+        ? self.private.dateMax.getMonth()
+        : self.selectedMonth;
 };
 
 const handleMultipleMonthSelection = (self: VanillaCalendar, itemEl: HTMLElement) => {
@@ -36,11 +44,11 @@ const handleMultipleMonthSelection = (self: VanillaCalendar, itemEl: HTMLElement
   const selectedMonth = getColumnID(self, 'month', Number(itemEl.dataset.vcMonthsMonth));
   const selectedYear = Number(yearEl.dataset.vcYear);
 
-  const isBeforeMinDate = selectedMonth < self.dateMin.getMonth() && selectedYear <= self.dateMin.getFullYear();
-  const isAfterMaxDate = selectedMonth > self.dateMax.getMonth() && selectedYear >= self.dateMax.getFullYear();
+  const isBeforeMinDate = selectedMonth < self.private.dateMin.getMonth() && selectedYear <= self.private.dateMin.getFullYear();
+  const isAfterMaxDate = selectedMonth > self.private.dateMax.getMonth() && selectedYear >= self.private.dateMax.getFullYear();
 
   self.selectedYear = selectedYear;
-  self.selectedMonth = isBeforeMinDate ? self.dateMin.getMonth() : isAfterMaxDate ? self.dateMax.getMonth() : selectedMonth;
+  self.selectedMonth = isBeforeMinDate ? self.private.dateMin.getMonth() : isAfterMaxDate ? self.private.dateMax.getMonth() : selectedMonth;
 };
 
 const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLElement) => {

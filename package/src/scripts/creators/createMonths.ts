@@ -57,8 +57,8 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
 
   for (let i = 0; i < 12; i++) {
     const monthDisabled =
-      (i < (self.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.dateMin as Date).getFullYear()) ||
-      (i > (self.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.dateMax as Date).getFullYear()) ||
+      (i < (self.private.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.private.dateMin as Date).getFullYear()) ||
+      (i > (self.private.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.private.dateMax as Date).getFullYear()) ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
     const monthEl = createMonthEl(
       self,

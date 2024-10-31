@@ -8,13 +8,17 @@ export interface IPrivateVariables {
   mainElement: HTMLElement;
   originalElement: HTMLElement;
   inputElement?: HTMLInputElement;
+
   dateMin: Date;
   dateMax: Date;
-  displayYear: number;
+
   displayDateMin: FormatDateString;
   displayDateMax: FormatDateString;
+  displayYear: number;
+
   disableDates: FormatDateString[];
   enableDates: FormatDateString[];
+
   selectedDates: FormatDateString[];
   selectedMonth: number;
   selectedYear: number;

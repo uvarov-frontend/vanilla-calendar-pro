@@ -122,8 +122,6 @@ export default class DefaultOptionsCalendar {
   selectedKeeping!: string;
   selectedTime!: string;
   viewYear!: number;
-  dateMin!: Date;
-  dateMax!: Date;
 
   private!: T.IPrivateVariables;
 }

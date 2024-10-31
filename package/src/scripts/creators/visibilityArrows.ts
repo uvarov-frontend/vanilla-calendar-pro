@@ -15,25 +15,25 @@ const handleDefaultType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arro
   jumpDateMax.setMonth(jumpDateMax.getMonth() + self.jumpMonths);
 
   if (!self.settings.selection.year) {
-    self.dateMin.setFullYear(currentSelectedDate.getFullYear());
-    self.dateMax.setFullYear(currentSelectedDate.getFullYear());
+    self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
+    self.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
   }
 
   const isArrowPrevHidden =
     !self.settings.selection.month ||
-    jumpDateMin.getFullYear() < self.dateMin.getFullYear() ||
-    (jumpDateMin.getFullYear() === self.dateMin.getFullYear() && jumpDateMin.getMonth() < self.dateMin.getMonth());
+    jumpDateMin.getFullYear() < self.private.dateMin.getFullYear() ||
+    (jumpDateMin.getFullYear() === self.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self.private.dateMin.getMonth());
   const isArrowNextHidden =
     !self.settings.selection.month ||
-    jumpDateMax.getFullYear() > self.dateMax.getFullYear() ||
-    (jumpDateMax.getFullYear() === self.dateMax.getFullYear() && jumpDateMax.getMonth() > self.dateMax.getMonth());
+    jumpDateMax.getFullYear() > self.private.dateMax.getFullYear() ||
+    (jumpDateMax.getFullYear() === self.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self.private.dateMax.getMonth());
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
 
 const handleYearType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
-  const isArrowPrevHidden = !!(self.dateMin.getFullYear() && self.viewYear - 7 <= self.dateMin.getFullYear());
-  const isArrowNextHidden = !!(self.dateMax.getFullYear() && self.viewYear + 7 >= self.dateMax.getFullYear());
+  const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.viewYear - 7 <= self.private.dateMin.getFullYear());
+  const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.viewYear + 7 >= self.private.dateMax.getFullYear());
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };

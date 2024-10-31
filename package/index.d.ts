@@ -45,8 +45,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
   readonly viewYear: number;
-  readonly dateMin: Date;
-  readonly dateMax: Date;
 
   readonly private: T.IPrivateVariables;
 }

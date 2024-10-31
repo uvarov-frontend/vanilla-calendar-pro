@@ -61,8 +61,6 @@ export interface IVanillaCalendar {
   readonly selectedKeeping?: string;
   readonly selectedTime?: string;
   readonly viewYear: number;
-  readonly dateMin: Date;
-  readonly dateMax: Date;
 
   readonly private: IPrivateVariables;
 }
