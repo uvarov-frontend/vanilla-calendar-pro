@@ -32,23 +32,23 @@ const initRange = (self: VanillaCalendar) => {
       : self.settings.range.min;
   self.private.displayDateMax = self.settings.range.disableAllDays ? getDateString(self.date.today) : self.settings.range.max;
 
-  // set self.rangeDisabled
-  self.rangeDisabled =
+  // set self.private.disableDates
+  self.private.disableDates =
     self.settings.range.disabled && !self.settings.range.disableAllDays
       ? parseDates(self.settings.range.disabled)
       : self.settings.range.disableAllDays
         ? [self.private.displayDateMin]
         : [];
-  if (self.rangeDisabled.length > 1) self.rangeDisabled.sort((a, b) => +new Date(a) - +new Date(b));
+  if (self.private.disableDates.length > 1) self.private.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
-  // set self.rangeEnabled
-  self.rangeEnabled = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
-  if (self.rangeEnabled?.[0] && self.rangeDisabled?.[0]) self.rangeDisabled = self.rangeDisabled.filter((d) => !self.rangeEnabled.includes(d));
-  if (self.rangeEnabled.length > 1) self.rangeEnabled.sort((a, b) => +new Date(a) - +new Date(b));
+  // set self.private.enableDates
+  self.private.enableDates = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
+  if (self.private.enableDates?.[0] && self.private.disableDates?.[0]) self.private.disableDates = self.private.disableDates.filter((d) => !self.private.enableDates.includes(d));
+  if (self.private.enableDates.length > 1) self.private.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
-  if (self.rangeEnabled?.[0] && self.settings.range.disableAllDays) {
-    self.private.displayDateMin = self.rangeEnabled[0];
-    self.private.displayDateMax = self.rangeEnabled[self.rangeEnabled.length - 1];
+  if (self.private.enableDates?.[0] && self.settings.range.disableAllDays) {
+    self.private.displayDateMin = self.private.enableDates[0];
+    self.private.displayDateMax = self.private.enableDates[self.private.enableDates.length - 1];
   }
 };
 

@@ -22,7 +22,7 @@ const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, la
   if (!current.self?.selectedDates) return;
 
   const formattedDate = getDateString(date);
-  if (current.self.rangeDisabled?.includes(formattedDate)) return;
+  if (current.self.private.disableDates?.includes(formattedDate)) return;
 
   const dateEls = current.self.private.mainElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`);
   dateEls?.forEach((d) => (d.dataset.vcDateHover = ''));
@@ -70,10 +70,10 @@ const handleCancelSelectionDates = (e: KeyboardEvent) => {
 };
 
 const updateDisabledDates = () => {
-  if (!current.self?.selectedDates?.[0] || !current.self.rangeDisabled?.[0]) return;
+  if (!current.self?.selectedDates?.[0] || !current.self.private.disableDates?.[0]) return;
   const selectedDate = getDate(current.self.selectedDates[0]);
 
-  const [startDate, endDate] = current.self.rangeDisabled
+  const [startDate, endDate] = current.self.private.disableDates
     .map((dateStr) => getDate(dateStr))
     .reduce<
       [Date | null, Date | null]
@@ -121,7 +121,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
       const [startDate, endDate] = [self.selectedDates[0], self.selectedDates[self.selectedDates.length - 1]];
       const notSameDate = self.selectedDates[0] !== self.selectedDates[self.selectedDates.length - 1];
       const allDates = parseDates([`${startDate as string}:${endDate as string}`]);
-      const actualDates = allDates.filter((d) => !self.rangeDisabled.includes(d));
+      const actualDates = allDates.filter((d) => !self.private.disableDates.includes(d));
 
       self.selectedDates = notSameDate ? (self.settings.range.edgesOnly ? [startDate, endDate] : actualDates) : [self.selectedDates[0], self.selectedDates[0]];
       self.private.mainElement.removeEventListener('mousemove', handleHoverDatesEvent);

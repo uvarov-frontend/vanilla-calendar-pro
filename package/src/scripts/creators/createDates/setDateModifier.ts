@@ -23,7 +23,7 @@ const setDateModifier = (
   const isDisabled =
     getDate(self.private.displayDateMin) > getDate(dateStr) ||
     getDate(self.private.displayDateMax) < getDate(dateStr) ||
-    self.rangeDisabled?.includes(dateStr) ||
+    self.private.disableDates?.includes(dateStr) ||
     (!self.settings.selection.month && monthType !== 'current') ||
     (!self.settings.selection.year && getDate(dateStr).getFullYear() !== currentYear);
 
@@ -59,7 +59,7 @@ const setDateModifier = (
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
   if (
-    !self.rangeDisabled.includes(dateStr) &&
+    !self.private.disableDates.includes(dateStr) &&
     self.settings.range.edgesOnly &&
     self.selectedDates.length > 1 &&
     self.settings.selection.day === 'multiple-ranged'
