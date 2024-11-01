@@ -47,14 +47,15 @@ export default class DefaultOptionsCalendar {
   disableWeekdays: number[] = [];
   disableToday = false;
 
-  enableJumpToSelectedDate = false;
+  enableDates: Array<Date | number | string> = [];
+  enableEdgeDatesOnly = true;
   enableDateToggle: T.ToggleSelected = true;
+  enableWeekNumbers = false;
   enableMonthChangeOnDayClick = true;
+  enableJumpToSelectedDate = false;
 
   settings: T.ISettings = {
     range: {
-      edgesOnly: true,
-      enabled: undefined,
       hourMin: 0,
       hourMax: 23,
       minuteMin: 0,
@@ -79,7 +80,6 @@ export default class DefaultOptionsCalendar {
     },
     visibility: {
       theme: 'system',
-      weekNumbers: false,
     },
   };
 

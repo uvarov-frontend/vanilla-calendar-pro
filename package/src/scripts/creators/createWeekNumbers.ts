@@ -3,7 +3,7 @@ import getWeekNumber from '@scripts/utils/getWeekNumber';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createWeekNumbers = (self: VanillaCalendar, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => {
-  if (!self.settings.visibility.weekNumbers) return;
+  if (!self.enableWeekNumbers) return;
   weekNumbersEl.textContent = '';
 
   const weekNumbersTitleEl = document.createElement('b');

@@ -1,7 +1,7 @@
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
-  if (!self.settings.visibility.weekNumbers || !self.onClickWeekNumber) return;
+  if (!self.enableWeekNumbers || !self.onClickWeekNumber) return;
 
   const weekNumberEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-number]');
   const daysToWeeks = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-number]');

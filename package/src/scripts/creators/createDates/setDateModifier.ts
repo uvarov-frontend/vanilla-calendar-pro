@@ -60,7 +60,7 @@ const setDateModifier = (
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
   if (
     !self.private.disableDates.includes(dateStr) &&
-    self.settings.range.edgesOnly &&
+    self.enableEdgeDatesOnly &&
     self.private.selectedDates.length > 1 &&
     self.settings.selection.day === 'multiple-ranged'
   ) {

@@ -5,10 +5,8 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   disableAllDates: true,
+  enableDates: ['2022-08-10:2022-08-13', '2022-08-22'],
   settings: {
-    range: {
-      enabled: ['2022-08-10:2022-08-13', '2022-08-22'],
-    },
     selected: {
       year: 2022,
       month: 7,

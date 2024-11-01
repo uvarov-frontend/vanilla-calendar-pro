@@ -45,9 +45,12 @@ export interface IOptions extends IActions {
   disableWeekdays?: number[];
   disableToday?: boolean;
 
-  enableJumpToSelectedDate?: boolean;
+  enableDates?: Array<Date | number | string>;
+  enableEdgeDatesOnly?: boolean;
   enableDateToggle?: ToggleSelected;
+  enableWeekNumbers?: boolean;
   enableMonthChangeOnDayClick?: boolean;
+  enableJumpToSelectedDate?: boolean;
 
   settings?: Partial<{
     range: Partial<IRange>;

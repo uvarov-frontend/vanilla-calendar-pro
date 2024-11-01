@@ -46,7 +46,7 @@ const createDate = (
   dateBtnEl.dataset.vcDateBtn = '';
   dateBtnEl.innerText = String(dateID);
 
-  if (self.settings.visibility.weekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
+  if (self.enableWeekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
   if (monthType !== 'current' ? self.displayDatesOutside : true) dateEl.appendChild(dateBtnEl);
 
   setDaysAsDisabled(self, dateStr, dayWeekID);

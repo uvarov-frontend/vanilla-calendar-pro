@@ -124,7 +124,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
       const actualDates = allDates.filter((d) => !self.private.disableDates.includes(d));
 
       self.private.selectedDates = notSameDate
-        ? self.settings.range.edgesOnly
+        ? self.enableEdgeDatesOnly
           ? [startDate, endDate]
           : actualDates
         : [self.private.selectedDates[0], self.private.selectedDates[0]];

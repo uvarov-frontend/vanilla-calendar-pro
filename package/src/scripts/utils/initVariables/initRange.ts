@@ -25,7 +25,7 @@ const initRange = (self: VanillaCalendar) => {
   if (self.private.disableDates.length > 1) self.private.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
   // set self.private.enableDates
-  self.private.enableDates = self.settings.range.enabled ? parseDates(self.settings.range.enabled) : [];
+  self.private.enableDates = self.enableDates ? parseDates(self.enableDates) : [];
   if (self.private.enableDates?.[0] && self.private.disableDates?.[0])
     self.private.disableDates = self.private.disableDates.filter((d) => !self.private.enableDates.includes(d));
   if (self.private.enableDates.length > 1) self.private.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
