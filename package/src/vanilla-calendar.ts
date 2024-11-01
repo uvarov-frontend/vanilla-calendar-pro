@@ -14,13 +14,13 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
     if (options) this.applyOptions(options);
   }
 
-  private queryAndMemoize = (selector: string): HTMLElement => {
+  private queryAndMemoize(selector: string) {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(errorMessages.notFoundSelector(selector));
 
     VanillaCalendar.memoizedElements.set(selector, element);
     return element;
-  };
+  }
 
   private applyOptions(options: Partial<T.IOptions>) {
     const replaceProperties = <T extends object>(original: T, replacement: T) => {
