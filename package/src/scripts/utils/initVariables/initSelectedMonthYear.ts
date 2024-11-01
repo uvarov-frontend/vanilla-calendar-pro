@@ -3,12 +3,7 @@ import parseDates from '@scripts/utils/parseDates';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initSelectedMonthYear = (self: VanillaCalendar) => {
-  if (
-    self.enableJumpToSelectedDate &&
-    self.selectedDates?.length &&
-    self.selectedMonth === undefined &&
-    self.selectedYear === undefined
-  ) {
+  if (self.enableJumpToSelectedDate && self.selectedDates?.length && self.selectedMonth === undefined && self.selectedYear === undefined) {
     const selectedDate = getDate(parseDates(self.selectedDates)[0]);
     self.selectedMonth = selectedDate.getMonth();
     self.selectedYear = selectedDate.getFullYear();

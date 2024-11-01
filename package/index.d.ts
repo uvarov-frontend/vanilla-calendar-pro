@@ -51,16 +51,35 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   selectedTime: string;
   selectedTheme: 'light' | 'dark' | 'system' | string;
 
-  settings: {
-    range: T.IRange;
-    selection: T.ISelection;
-  };
+  timeMinHour: T.Range<24>;
+  timeMaxHour: T.Range<24>;
+  timeMinMinute: T.Range<60>;
+  timeMaxMinute: T.Range<60>;
+  timeControls: 'all' | 'range';
+  timeStepHour: number;
+  timeStepMinute: number;
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
+
+  onClickDate: (e: MouseEvent, self: T.IVanillaCalendar) => void;
+  onClickWeekDay: (e: MouseEvent, day: number, days: HTMLElement[], self: T.IVanillaCalendar) => void;
+  onClickWeekNumber: (e: MouseEvent, number: number, days: HTMLElement[], year: number, self: T.IVanillaCalendar) => void;
+  onClickTitle: (e: MouseEvent, self: T.IVanillaCalendar) => void;
+  onClickMonth: (e: MouseEvent, self: T.IVanillaCalendar) => void;
+  onClickYear: (e: MouseEvent, self: T.IVanillaCalendar) => void;
+  onClickArrow: (e: MouseEvent, self: T.IVanillaCalendar) => void;
+  onChangeTime: (e: Event, self: T.IVanillaCalendar, isError: boolean) => void;
+  onChangeToInput: (e: Event, self: T.IVanillaCalendar) => void;
+  onInit: (self: T.IVanillaCalendar) => void;
+  onUpdate: (self: T.IVanillaCalendar) => void;
+  onDestroy: (self: T.IVanillaCalendar) => void;
+  onShow: (self: T.IVanillaCalendar) => void;
+  onHide: (self: T.IVanillaCalendar) => void;
+
+  popups: T.IPopups;
   labels: T.Labels;
   layouts: T.ILayouts;
   styles: T.Styles;
-  popups: T.IPopups;
 
   init: () => () => void;
   update: (reset?: T.IReset) => void;

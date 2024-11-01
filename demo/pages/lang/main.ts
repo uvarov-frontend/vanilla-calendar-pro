@@ -14,6 +14,11 @@ const config: IOptions = {
   selectionTimeMode: 12,
   selectedMonth: 5,
   selectedYear: 2024,
+  timeMinHour: 2,
+  timeMaxHour: 20,
+  timeMinMinute: 10,
+  timeMaxMinute: 20,
+  locale: 'ru',
   disableDates: [
     '2024-06-01',
     '2024-06-02',
@@ -32,15 +37,6 @@ const config: IOptions = {
     '2024-06-29',
     '2024-06-30',
   ],
-  settings: {
-    range: {
-      hourMin: 2,
-      hourMax: 20,
-      minuteMin: 10,
-      minuteMax: 20,
-    },
-  },
-  locale: 'ru',
   labels: {
     application: 'Календарь',
     navigation: 'Навигация календаря',

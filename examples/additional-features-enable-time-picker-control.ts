@@ -5,13 +5,9 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   selectionTimeMode: 12,
-  settings: {
-    selection: {
-      controlTime: 'range',
-      stepHours: 5,
-      stepMinutes: 5,
-    },
-  },
+  timeControls: 'range',
+  timeStepHour: 5,
+  timeStepMinute: 5,
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

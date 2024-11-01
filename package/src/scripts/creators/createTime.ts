@@ -8,11 +8,11 @@ const createTime = (self: VanillaCalendar) => {
   const timeEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="time"]');
   if (!self.selectionTimeMode || !timeEl) return;
 
-  const [minHour, maxHour] = [self.settings.range.hourMin, self.settings.range.hourMax];
-  const [minMinutes, maxMinutes] = [self.settings.range.minuteMin, self.settings.range.minuteMax];
+  const [minHour, maxHour] = [self.timeMinHour, self.timeMaxHour];
+  const [minMinutes, maxMinutes] = [self.timeMinMinute, self.timeMaxMinute];
 
   const valueHours = self.private.selectedKeeping ? transformTime24(self.private.selectedHours, self.private.selectedKeeping) : self.private.selectedHours;
-  const range = self.settings.selection.controlTime === 'range';
+  const range = self.timeControls === 'range';
 
   timeEl.innerHTML = self.sanitizerHTML(`
     <div class="${self.styles.timeContent}" data-vc-time="content">
@@ -25,8 +25,8 @@ const createTime = (self: VanillaCalendar) => {
       }
     </div>
     <div class="${self.styles.timeRanges}" data-vc-time="ranges">
-      ${TimeRange('hour', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minHour, maxHour, self.settings.selection.stepHours, valueHours)}
-      ${TimeRange('minute', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minMinutes, maxMinutes, self.settings.selection.stepMinutes, self.private.selectedMinutes)}
+      ${TimeRange('hour', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minHour, maxHour, self.timeStepHour, valueHours)}
+      ${TimeRange('minute', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minMinutes, maxMinutes, self.timeStepMinute, self.private.selectedMinutes)}
     </div>
   `);
 

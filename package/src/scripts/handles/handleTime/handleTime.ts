@@ -29,13 +29,13 @@ const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
   timeEl.addEventListener('mouseover', handleMouseOverEvent);
   timeEl.addEventListener('mouseout', handleMouseOutEvent);
 
-  handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', self.settings.range.hourMax, self.settings.range.hourMin);
-  handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', self.settings.range.minuteMax, self.settings.range.minuteMin);
+  handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', self.timeMaxHour, self.timeMinHour);
+  handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', self.timeMaxMinute, self.timeMinMinute);
 
   handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour');
   handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute');
 
-  if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.settings.range.hourMax, self.settings.range.hourMin);
+  if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.timeMaxHour, self.timeMinHour);
 
   return () => {
     timeEl.removeEventListener('mouseover', handleMouseOverEvent);

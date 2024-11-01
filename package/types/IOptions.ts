@@ -1,13 +1,12 @@
 import type {
   FormatDateString,
-  IActions,
   ILayouts,
   IPopups,
-  IRange,
-  ISelection,
+  IVanillaCalendar,
   Labels,
   Locale,
   MonthsCount,
+  Range,
   Styles,
   ToggleSelected,
   TypesCalendar,
@@ -15,7 +14,7 @@ import type {
   WeekDays,
 } from '../types';
 
-export interface IOptions extends IActions {
+export interface IOptions {
   viewType?: TypesCalendar;
 
   isInput?: boolean;
@@ -64,12 +63,31 @@ export interface IOptions extends IActions {
   selectedTime?: string;
   selectedTheme?: 'light' | 'dark' | 'system' | string;
 
-  settings?: Partial<{
-    range: Partial<IRange>;
-    selection: Partial<ISelection>;
-  }>;
+  timeMinHour?: Range<24>;
+  timeMaxHour?: Range<24>;
+  timeMinMinute?: Range<60>;
+  timeMaxMinute?: Range<60>;
+  timeControls?: 'all' | 'range';
+  timeStepHour?: number;
+  timeStepMinute?: number;
 
   sanitizerHTML?: (dirtyHtml: string) => unknown;
+
+  onClickDate?: (e: MouseEvent, self: IVanillaCalendar) => void;
+  onClickWeekDay?: (e: MouseEvent, day: number, days: HTMLElement[], self: IVanillaCalendar) => void;
+  onClickWeekNumber?: (e: MouseEvent, number: number, days: HTMLElement[], year: number, self: IVanillaCalendar) => void;
+  onClickTitle?: (e: MouseEvent, self: IVanillaCalendar) => void;
+  onClickMonth?: (e: MouseEvent, self: IVanillaCalendar) => void;
+  onClickYear?: (e: MouseEvent, self: IVanillaCalendar) => void;
+  onClickArrow?: (e: MouseEvent, self: IVanillaCalendar) => void;
+  onChangeTime?: (e: Event, self: IVanillaCalendar, isError: boolean) => void;
+  onChangeToInput?: (e: Event, self: IVanillaCalendar) => void;
+  onInit?: (self: IVanillaCalendar) => void;
+  onUpdate?: (self: IVanillaCalendar) => void;
+  onDestroy?: (self: IVanillaCalendar) => void;
+  onShow?: (self: IVanillaCalendar) => void;
+  onHide?: (self: IVanillaCalendar) => void;
+
   popups?: IPopups;
   labels?: Partial<Labels>;
   layouts?: Partial<ILayouts>;

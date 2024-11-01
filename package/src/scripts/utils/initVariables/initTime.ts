@@ -13,9 +13,9 @@ const initTime = (self: VanillaCalendar) => {
   let [hours, minutes, keeping] = self.selectedTime?.match(timeRegex)?.slice(1) ?? [];
 
   if (!hours) {
-    hours = isTime12 ? transformTime12(String(self.settings.range.hourMin)) : String(self.settings.range.hourMin);
-    minutes = String(self.settings.range.minuteMin);
-    keeping = isTime12 && Number(transformTime12(String(self.settings.range.hourMin))) >= 12 ? 'PM' : 'AM';
+    hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
+    minutes = String(self.timeMinMinute);
+    keeping = isTime12 && Number(transformTime12(String(self.timeMinHour))) >= 12 ? 'PM' : 'AM';
   } else if (isTime12 && !keeping) {
     keeping = 'AM';
   }

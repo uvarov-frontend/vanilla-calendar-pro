@@ -67,43 +67,35 @@ export default class DefaultOptionsCalendar {
   selectedTime!: string;
   selectedTheme: 'light' | 'dark' | 'system' | string = 'system';
 
-  settings: T.ISettings = {
-    range: {
-      hourMin: 0,
-      hourMax: 23,
-      minuteMin: 0,
-      minuteMax: 59,
-    },
-    selection: {
-      controlTime: 'all',
-      stepHours: 1,
-      stepMinutes: 1,
-    },
-  };
+  timeMinHour: T.Range<24> = 0;
+  timeMaxHour: T.Range<24> = 23;
+  timeMinMinute: T.Range<60> = 0;
+  timeMaxMinute: T.Range<60> = 59;
+  timeControls: 'all' | 'range' = 'all';
+  timeStepHour: number = 1;
+  timeStepMinute: number = 1;
 
   sanitizerHTML = (dirtyHtml: string) => dirtyHtml;
-  onClickDate!: T.IActions['onClickDate'];
-  onClickWeekDay!: T.IActions['onClickWeekDay'];
-  onClickWeekNumber!: T.IActions['onClickWeekNumber'];
-  onClickTitle!: T.IActions['onClickTitle'];
-  onClickMonth!: T.IActions['onClickMonth'];
-  onClickYear!: T.IActions['onClickYear'];
-  onClickArrow!: T.IActions['onClickArrow'];
-  onChangeTime!: T.IActions['onChangeTime'];
-  onChangeToInput!: T.IActions['onChangeToInput'];
-  onInit!: T.IActions['onInit'];
-  onUpdate!: T.IActions['onUpdate'];
-  onDestroy!: T.IActions['onDestroy'];
-  onShow!: T.IActions['onShow'];
-  onHide!: T.IActions['onHide'];
-  labels: T.Labels = { ...labels };
-  styles: T.Styles = { ...styles };
+
+  onClickDate!: T.IVanillaCalendar['onClickDate'];
+  onClickWeekDay!: T.IVanillaCalendar['onClickWeekDay'];
+  onClickWeekNumber!: T.IVanillaCalendar['onClickWeekNumber'];
+  onClickTitle!: T.IVanillaCalendar['onClickTitle'];
+  onClickMonth!: T.IVanillaCalendar['onClickMonth'];
+  onClickYear!: T.IVanillaCalendar['onClickYear'];
+  onClickArrow!: T.IVanillaCalendar['onClickArrow'];
+  onChangeTime!: T.IVanillaCalendar['onChangeTime'];
+  onChangeToInput!: T.IVanillaCalendar['onChangeToInput'];
+  onInit!: T.IVanillaCalendar['onInit'];
+  onUpdate!: T.IVanillaCalendar['onUpdate'];
+  onDestroy!: T.IVanillaCalendar['onDestroy'];
+  onShow!: T.IVanillaCalendar['onShow'];
+  onHide!: T.IVanillaCalendar['onHide'];
+
   popups: T.IPopups = {};
-  layouts: T.ILayouts = {
-    default: '',
-    multiple: '',
-    month: '',
-    year: '',
-  };
+  labels: T.Labels = { ...labels };
+  layouts: T.ILayouts = { default: '', multiple: '', month: '', year: '' };
+  styles: T.Styles = { ...styles };
+
   private!: T.IPrivateVariables;
 }
