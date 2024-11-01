@@ -6,7 +6,7 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createTime = (self: VanillaCalendar) => {
   const timeEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="time"]');
-  if (!self.settings.selection.time || !timeEl) return;
+  if (!self.selectionTimeMode || !timeEl) return;
 
   const [minHour, maxHour] = [self.settings.range.hourMin, self.settings.range.hourMax];
   const [minMinutes, maxMinutes] = [self.settings.range.minuteMin, self.settings.range.minuteMax];
@@ -19,7 +19,7 @@ const createTime = (self: VanillaCalendar) => {
       ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, valueHours, range)}
       ${TimeInput('minute', self.styles.timeMinute, self.labels as unknown as { [key: string]: string }, self.private.selectedMinutes, range)}
       ${
-        self.settings.selection.time === 12
+        self.selectionTimeMode === 12
           ? `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${self.private.selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.private.selectedKeeping}</button>`
           : ''
       }

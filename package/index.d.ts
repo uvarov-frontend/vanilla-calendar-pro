@@ -38,6 +38,11 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   enableMonthChangeOnDayClick: boolean;
   enableJumpToSelectedDate: boolean;
 
+  selectionDatesMode: false | 'single' | 'multiple' | 'multiple-ranged';
+  selectionMonthsMode: boolean | 'only-arrows';
+  selectionYearsMode: boolean | 'only-arrows';
+  selectionTimeMode: false | 12 | 24;
+
   settings: {
     range: T.IRange;
     selection: T.ISelection;

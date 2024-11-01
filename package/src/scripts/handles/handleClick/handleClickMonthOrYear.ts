@@ -100,8 +100,10 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
 };
 
 const handleClickMonthOrYear = (self: VanillaCalendar, event: MouseEvent) => {
+  const typesMap = { month: self.selectionMonthsMode, year: self.selectionYearsMode };
+
   typeClick.forEach((type) => {
-    if (!self.settings.selection[type] || !event.target) return;
+    if (!typesMap[type] || !event.target) return;
     handleClickType(self, event, type);
   });
 };

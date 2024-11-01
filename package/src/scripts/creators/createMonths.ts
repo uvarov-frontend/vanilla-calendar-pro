@@ -42,7 +42,7 @@ const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
   visibilityTitle(self);
 
   const monthsEl = self.private.mainElement.querySelector('[data-vc="months"]');
-  if (!self.settings.selection.month || !monthsEl) return;
+  if (!self.selectionMonthsMode || !monthsEl) return;
 
   const activeMonthsID =
     self.monthsToSwitch > 1

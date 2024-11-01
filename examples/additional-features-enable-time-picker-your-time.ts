@@ -4,10 +4,8 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
+  selectionTimeMode: 12,
   settings: {
-    selection: {
-      time: 12,
-    },
     selected: {
       time: '03:44 AM',
     },

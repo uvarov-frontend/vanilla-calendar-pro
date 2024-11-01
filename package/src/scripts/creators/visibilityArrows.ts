@@ -14,17 +14,17 @@ const handleDefaultType = (self: VanillaCalendar, arrowPrevEl: HTMLElement, arro
   jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
   jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
 
-  if (!self.settings.selection.year) {
+  if (!self.selectionYearsMode) {
     self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
     self.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
   }
 
   const isArrowPrevHidden =
-    !self.settings.selection.month ||
+    !self.selectionMonthsMode ||
     jumpDateMin.getFullYear() < self.private.dateMin.getFullYear() ||
     (jumpDateMin.getFullYear() === self.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self.private.dateMin.getMonth());
   const isArrowNextHidden =
-    !self.settings.selection.month ||
+    !self.selectionMonthsMode ||
     jumpDateMax.getFullYear() > self.private.dateMax.getFullYear() ||
     (jumpDateMax.getFullYear() === self.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self.private.dateMax.getMonth());
 

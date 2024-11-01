@@ -11,7 +11,7 @@ const createDates = (self: VanillaCalendar) => {
   const weekNumbersEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
   datesEls.forEach((dateEl, index: number) => {
-    if (!self.settings.selection.day) dateEl.dataset.vcDatesDisabled = '';
+    if (!self.selectionDatesMode) dateEl.dataset.vcDatesDisabled = '';
     dateEl.textContent = '';
 
     const currentDate = new Date(initDate);

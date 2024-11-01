@@ -5,11 +5,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   enableWeekNumbers: true,
-  settings: {
-    selection: {
-      day: 'multiple-ranged',
-    },
-  },
+  selectionDatesMode: 'multiple-ranged',
   onClickWeekNumber(event, number, days, year, self) {
     self.settings.selected.dates = days.map((day) => day.dataset.calendarDay) as FormatDateString[];
     self.update({ dates: true });

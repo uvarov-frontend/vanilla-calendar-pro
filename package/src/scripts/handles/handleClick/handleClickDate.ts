@@ -20,7 +20,7 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
   const element = event.target as HTMLElement;
   const dateBtnEl = element.closest<HTMLButtonElement>('[data-vc-date-btn]');
 
-  if (!self.settings.selection.day || !['single', 'multiple', 'multiple-ranged'].includes(self.settings.selection.day) || !dateBtnEl) return;
+  if (!self.selectionDatesMode || !['single', 'multiple', 'multiple-ranged'].includes(self.selectionDatesMode) || !dateBtnEl) return;
 
   const dateEl = dateBtnEl.closest('[data-vc-date]') as HTMLElement;
   const daySelectionActions = {
@@ -28,7 +28,7 @@ const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
     multiple: () => handleSelectDate(self, dateEl, true),
     'multiple-ranged': () => handleSelectDateRanged(self, dateEl.dataset.vcDate as FormatDateString),
   };
-  daySelectionActions[self.settings.selection.day]();
+  daySelectionActions[self.selectionDatesMode]();
   self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.onClickDate) self.onClickDate(event, self);

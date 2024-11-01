@@ -7,11 +7,7 @@ const options: IOptions = {
   viewType: 'multiple',
   displayMonthsCount: 2,
   monthsToSwitch: 1,
-  settings: {
-    selection: {
-      day: 'multiple',
-    },
-  },
+  selectionDatesMode: 'multiple',
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

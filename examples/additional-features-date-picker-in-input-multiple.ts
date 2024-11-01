@@ -8,11 +8,7 @@ const options: IOptions = {
   viewType: 'multiple',
   displayDatesOutside: false,
   disableDatesPast: true,
-  settings: {
-    selection: {
-      day: 'multiple-ranged',
-    },
-  },
+  selectionDatesMode: 'multiple-ranged',
   onChangeToInput(e, self) {
     if (!self.private.inputElement) return;
     if (self.private.selectedDates[1]) {

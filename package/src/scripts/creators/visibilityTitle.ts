@@ -17,7 +17,8 @@ const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: 
   el.dataset[`vc${type.charAt(0).toUpperCase() + type.slice(1)}`] = String(value[type].id);
   el.ariaLabel = `${self.labels[type]} ${value[type].label}`;
 
-  const isDisabled = self.settings.selection[type] === false || self.settings.selection[type] === 'only-arrows';
+  const typesMap = { month: self.selectionMonthsMode, year: self.selectionYearsMode };
+  const isDisabled = typesMap[type] === false || typesMap[type] === 'only-arrows';
   if (isDisabled) el.tabIndex = -1;
   el.disabled = isDisabled;
 };

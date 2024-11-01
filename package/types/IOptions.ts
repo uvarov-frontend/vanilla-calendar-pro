@@ -52,6 +52,11 @@ export interface IOptions extends IActions {
   enableMonthChangeOnDayClick?: boolean;
   enableJumpToSelectedDate?: boolean;
 
+  selectionDatesMode?: false | 'single' | 'multiple' | 'multiple-ranged';
+  selectionMonthsMode?: boolean | 'only-arrows';
+  selectionYearsMode?: boolean | 'only-arrows';
+  selectionTimeMode?: false | 12 | 24;
+
   settings?: Partial<{
     range: Partial<IRange>;
     selection: Partial<ISelection>;

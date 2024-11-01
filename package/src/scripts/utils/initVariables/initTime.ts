@@ -3,11 +3,11 @@ import transformTime12 from '@scripts/utils/transformTime12';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const initTime = (self: VanillaCalendar) => {
-  if (!self.settings.selection.time) return;
+  if (!self.selectionTimeMode) return;
 
-  if (![12, 24].includes(self.settings.selection.time)) throw new Error(errorMessages.incorrectTime);
+  if (![12, 24].includes(self.selectionTimeMode)) throw new Error(errorMessages.incorrectTime);
 
-  const isTime12 = self.settings.selection.time === 12;
+  const isTime12 = self.selectionTimeMode === 12;
   const timeRegex = isTime12 ? /^([1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
 
   let [hours, minutes, keeping] = self.settings.selected.time?.match(timeRegex)?.slice(1) ?? [];

@@ -25,7 +25,7 @@ const handleInput = (
 ) => {
   const handlers = {
     hour: (value: number, valueStr: string, event: Event) => {
-      if (!self.settings.selection.time) return;
+      if (!self.selectionTimeMode) return;
 
       const timeMap = {
         12: () => {
@@ -51,7 +51,7 @@ const handleInput = (
           handleActions(self, event, valueStr, type);
         },
       };
-      timeMap[self.settings.selection.time]();
+      timeMap[self.selectionTimeMode]();
     },
     minute: (value: number, valueStr: string, event: Event) => {
       if (!(value <= max && value >= min)) {

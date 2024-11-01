@@ -54,6 +54,11 @@ export interface IVanillaCalendar extends IActions {
   enableMonthChangeOnDayClick: boolean;
   enableJumpToSelectedDate: boolean;
 
+  selectionDatesMode: false | 'single' | 'multiple' | 'multiple-ranged';
+  selectionMonthsMode: boolean | 'only-arrows';
+  selectionYearsMode: boolean | 'only-arrows';
+  selectionTimeMode: false | 12 | 24;
+
   settings: {
     range: IRange;
     selection: ISelection;

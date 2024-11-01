@@ -10,6 +10,8 @@ import '@src/styles/vanilla-calendar.css';
 const config: IOptions = {
   // weekStartDay: 0,
   // type: 'multiple',
+  selectionDatesMode: 'multiple-ranged',
+  selectionTimeMode: 12,
   disableDates: [
     '2024-06-01',
     '2024-06-02',
@@ -29,10 +31,6 @@ const config: IOptions = {
     '2024-06-30',
   ],
   settings: {
-    selection: {
-      day: 'multiple-ranged',
-      time: 12,
-    },
     range: {
       hourMin: 2,
       hourMax: 20,

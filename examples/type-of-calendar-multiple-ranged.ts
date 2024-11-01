@@ -9,11 +9,7 @@ const options: IOptions = {
   monthsToSwitch: 2,
   displayDatesOutside: false,
   disableDatesPast: true,
-  settings: {
-    selection: {
-      day: 'multiple-ranged',
-    },
-  },
+  selectionDatesMode: 'multiple-ranged',
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

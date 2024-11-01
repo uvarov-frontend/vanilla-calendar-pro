@@ -25,7 +25,7 @@ const handleRange = (
     const valueStr = rangeEl.value.padStart(2, '0');
 
     const isHourType = type === 'hour';
-    const isFormat24 = self.settings.selection.time === 24;
+    const isFormat24 = self.selectionTimeMode === 24;
     const isAM = value > 0 && value < 12;
 
     updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);

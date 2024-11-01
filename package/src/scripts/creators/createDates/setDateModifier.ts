@@ -24,8 +24,8 @@ const setDateModifier = (
     getDate(self.private.displayDateMin) > getDate(dateStr) ||
     getDate(self.private.displayDateMax) < getDate(dateStr) ||
     self.private.disableDates?.includes(dateStr) ||
-    (!self.settings.selection.month && monthType !== 'current') ||
-    (!self.settings.selection.year && getDate(dateStr).getFullYear() !== currentYear);
+    (!self.selectionMonthsMode && monthType !== 'current') ||
+    (!self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear);
 
   // Check if the date is disabled
   updateAttribute(dateEl, isDisabled, 'data-vc-date-disabled');
@@ -46,7 +46,7 @@ const setDateModifier = (
   if (self.private.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
     dateBtnEl.setAttribute('aria-selected', 'true');
-    if (self.private.selectedDates.length > 1 && self.settings.selection.day === 'multiple-ranged') {
+    if (self.private.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
       if (self.private.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
       if (self.private.selectedDates[self.private.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
       if (self.private.selectedDates[0] !== dateStr && self.private.selectedDates[self.private.selectedDates.length - 1] !== dateStr)
@@ -62,7 +62,7 @@ const setDateModifier = (
     !self.private.disableDates.includes(dateStr) &&
     self.enableEdgeDatesOnly &&
     self.private.selectedDates.length > 1 &&
-    self.settings.selection.day === 'multiple-ranged'
+    self.selectionDatesMode === 'multiple-ranged'
   ) {
     const firstDate = getDate(self.private.selectedDates[0]);
     const lastDate = getDate(self.private.selectedDates[self.private.selectedDates.length - 1]);

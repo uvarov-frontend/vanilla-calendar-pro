@@ -29,7 +29,7 @@ const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IRes
   create(self);
 
   self.settings.selected = previousSelected;
-  if (self.settings.selection.day === 'multiple-ranged' && dates) handleDayRangedSelection(self);
+  if (self.selectionDatesMode === 'multiple-ranged' && dates) handleDayRangedSelection(self);
 };
 
 export default reset;

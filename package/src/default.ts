@@ -54,6 +54,11 @@ export default class DefaultOptionsCalendar {
   enableMonthChangeOnDayClick = true;
   enableJumpToSelectedDate = false;
 
+  selectionDatesMode: false | 'single' | 'multiple' | 'multiple-ranged' = 'single';
+  selectionMonthsMode: boolean | 'only-arrows' = true;
+  selectionYearsMode: boolean | 'only-arrows' = true;
+  selectionTimeMode: false | 12 | 24 = false;
+
   settings: T.ISettings = {
     range: {
       hourMin: 0,
@@ -62,10 +67,6 @@ export default class DefaultOptionsCalendar {
       minuteMax: 59,
     },
     selection: {
-      day: 'single',
-      month: true,
-      year: true,
-      time: false,
       controlTime: 'all',
       stepHours: 1,
       stepMinutes: 1,
