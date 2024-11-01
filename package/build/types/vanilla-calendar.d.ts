@@ -1,6 +1,6 @@
 import { default as OptionsCalendar } from './options';
 import { Options, PrivateVariables, Reset } from './types';
-export default class VanillaCalendar extends OptionsCalendar {
+export declare class VanillaCalendar extends OptionsCalendar {
     private static memoizedElements;
     constructor(selector: HTMLElement | string, options?: Options);
     private queryAndMemoize;

@@ -1,5 +1,5 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const destroy = (self: VanillaCalendar) => {
   if (!self.private.isInit) throw new Error(errorMessages.notInit);

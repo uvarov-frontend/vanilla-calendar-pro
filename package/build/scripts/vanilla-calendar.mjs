@@ -1770,5 +1770,5 @@ const _VanillaCalendar = class _VanillaCalendar extends OptionsCalendar {
 __publicField(_VanillaCalendar, "memoizedElements", /* @__PURE__ */ new Map());
 let VanillaCalendar = _VanillaCalendar;
 export {
-  VanillaCalendar as default
+  VanillaCalendar
 };

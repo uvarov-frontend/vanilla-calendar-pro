@@ -1,6 +1,6 @@
 import createDate from '@scripts/creators/createDates/createDate';
 import type { FormatDateString } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createDatesFromPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYear: number, currentMonth: number, firstDayWeek: number) => {
   let date = new Date(currentYear, currentMonth, 0).getDate() - (firstDayWeek - 1);

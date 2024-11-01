@@ -3,7 +3,7 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
 import type { Options, PrivateVariables, Reset } from '@src/types';
 
-export default class VanillaCalendar extends OptionsCalendar {
+export class VanillaCalendar extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
   constructor(selector: HTMLElement | string, options?: Options) {

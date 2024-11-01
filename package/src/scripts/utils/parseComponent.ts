@@ -1,6 +1,6 @@
 import { getComponent } from '@scripts/components';
 import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 export const parseLayout = (self: VanillaCalendar, template: string): string => {
   return template

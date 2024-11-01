@@ -1,6 +1,6 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const handleClickKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
   const handleClickKeepingTimeAction = (event: Event) => {

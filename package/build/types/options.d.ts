@@ -1,5 +1,5 @@
 import { FormatDateString, Labels, Layouts, Locale, MonthsCount, Popups, Range, Styles, ToggleSelected, TypesCalendar, WeekDayID, WeekDays } from './types';
-import { default as VanillaCalendar } from './vanilla-calendar';
+import { VanillaCalendar } from './vanilla-calendar';
 export default class OptionsCalendar {
     viewType: TypesCalendar;
     isInput: boolean;

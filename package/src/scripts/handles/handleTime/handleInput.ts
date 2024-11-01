@@ -1,7 +1,7 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElement, valueInput: string, valueRange: string) => {
   inputEl.value = valueInput;

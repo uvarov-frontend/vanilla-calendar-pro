@@ -1,7 +1,7 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;

@@ -3,7 +3,7 @@ import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
 import type { FormatDateString, WeekDayID } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const addWeekNumberForDate = (self: VanillaCalendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
   const weekNumber = getWeekNumber(dateStr, self.firstWeekday);

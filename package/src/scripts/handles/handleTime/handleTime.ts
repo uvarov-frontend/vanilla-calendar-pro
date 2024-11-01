@@ -1,7 +1,7 @@
 import handleClickKeepingTime from '@scripts/handles/handleTime/handleClickKeepingTime';
 import handleInput from '@scripts/handles/handleTime/handleInput';
 import handleRange from '@scripts/handles/handleTime/handleRange';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const handleMouseOver = (inputEl: HTMLInputElement) => inputEl.setAttribute('data-vc-input-focus', '');
 

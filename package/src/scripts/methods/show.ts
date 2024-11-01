@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const show = (self: VanillaCalendar) => {
   if (!self.private.currentType) {

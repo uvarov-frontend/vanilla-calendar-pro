@@ -1,4 +1,4 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
+import { VanillaCalendar } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 

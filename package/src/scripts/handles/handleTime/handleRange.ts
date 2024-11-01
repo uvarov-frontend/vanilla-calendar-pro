@@ -1,6 +1,6 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const updateInputAndTime = (self: VanillaCalendar, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {
   inputEl.value = value;

@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const layoutMultiple = (self: VanillaCalendar) => `
   <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">

@@ -3,7 +3,7 @@ import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDat
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createDates = (self: VanillaCalendar) => {
   const initDate = new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1);

@@ -1,6 +1,6 @@
 import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
 import type { Popup } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const handleDay = (self: VanillaCalendar, date: string, dateInfo: Popup, datesEl: HTMLElement) => {
   const dateEl = datesEl.querySelector<HTMLElement>(`[data-vc-date="${date}"]`);

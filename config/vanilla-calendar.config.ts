@@ -20,6 +20,7 @@ export default defineConfig({
         return `${entryName}${format === 'es' ? '.mjs' : '.js'}`;
       },
       entry: resolve(__dirname, '../package/src/vanilla-calendar.ts'),
+      formats: ['es', 'cjs'],
     },
   },
   resolve: {

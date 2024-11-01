@@ -2,7 +2,7 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import reset from '@scripts/methods/reset';
 import setPosition from '@scripts/utils/positions/setPosition';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createToInput = (self: VanillaCalendar, isVisible = true) => {
   const calendar = document.createElement('div');

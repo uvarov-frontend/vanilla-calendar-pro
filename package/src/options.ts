@@ -14,7 +14,7 @@ import type {
   WeekDayID,
   WeekDays,
 } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 export default class OptionsCalendar {
   viewType: TypesCalendar = 'default';

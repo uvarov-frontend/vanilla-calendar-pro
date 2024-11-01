@@ -1,7 +1,7 @@
 import findBestPickerPosition from '@scripts/utils/positions/findBestPickerPosition';
 import getOffset from '@scripts/utils/positions/getOffset';
 import getViewportDimensions from '@scripts/utils/positions/getViewportDimensions';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 /** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
 

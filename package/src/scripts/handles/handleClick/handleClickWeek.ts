@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
   if (!self.enableWeekNumbers || !self.onClickWeekNumber) return;

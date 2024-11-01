@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const handleActions = (self: VanillaCalendar, event: Event, value: string, type: 'hour' | 'minute') => {
   const typeMap = {

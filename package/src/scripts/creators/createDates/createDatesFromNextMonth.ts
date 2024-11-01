@@ -1,6 +1,6 @@
 import createDate from '@scripts/creators/createDates/createDate';
 import type { FormatDateString } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createDatesFromNextMonth = (
   self: VanillaCalendar,

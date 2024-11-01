@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const layoutDefault = (self: VanillaCalendar) => `
   <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">

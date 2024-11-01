@@ -21,9 +21,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "package:dist": "tsc && vite build --config config/styles.config.ts && vite build --config config/utilities.config.ts && vite build --config config/vanilla-calendar.config.ts",
+    "package:styles": "vite build --config config/styles.config.ts",
+    "package:utilities": "vite build --config config/utilities.config.ts",
+    "package:scripts": "vite build --config config/vanilla-calendar.config.ts",
     "package:minifier": "node minifier.js",
-    "package": "npm-run-all package:dist package:minifier",
+    "package": "tsc && npm-run-all package:styles package:utilities package:scripts package:minifier",
     "dev": "tsc && vite",
     "build": "tsc && vite build",
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",

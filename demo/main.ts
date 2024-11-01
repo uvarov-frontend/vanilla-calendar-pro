@@ -1,4 +1,4 @@
-import VanillaCalendar from '@src/vanilla-calendar';
+import { VanillaCalendar } from '@src/vanilla-calendar';
 
 import '@src/styles/vanilla-calendar.css';
 

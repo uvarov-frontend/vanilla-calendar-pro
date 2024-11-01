@@ -4,7 +4,7 @@ import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString, WeekDayID } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const updateDateModifier = (self: VanillaCalendar) => {
   const dateEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');

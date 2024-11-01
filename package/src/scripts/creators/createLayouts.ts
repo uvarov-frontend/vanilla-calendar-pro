@@ -4,7 +4,7 @@ import layoutMultiple from '@scripts/layouts/layoutMultiple';
 import layoutYears from '@scripts/layouts/layoutYears';
 import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createLayouts = (self: VanillaCalendar, target?: HTMLElement) => {
   const templateMap = {

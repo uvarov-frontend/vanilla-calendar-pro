@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const handleArrowKeys = (self: VanillaCalendar) => {
   const updateButtons = () => Array.from(self.private.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));

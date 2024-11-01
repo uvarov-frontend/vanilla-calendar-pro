@@ -1,4 +1,4 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const visibilityHandler = (self: VanillaCalendar, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
   const yearID = new Date(initDate.setFullYear(self.private.selectedYear as number, (self.private.selectedMonth as number) + index)).getFullYear();

@@ -2,7 +2,7 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import getLocalDate from '@scripts/utils/getLocalDate';
 import parseDates from '@scripts/utils/parseDates';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const initRange = (self: VanillaCalendar) => {
   // set self.private.displayDateMin and self.private.displayDateMax

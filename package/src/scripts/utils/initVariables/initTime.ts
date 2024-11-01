@@ -1,6 +1,6 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
 import transformTime12 from '@scripts/utils/transformTime12';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const initTime = (self: VanillaCalendar) => {
   if (!self.selectionTimeMode) return;

@@ -1,6 +1,6 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const relationshipID = (self: VanillaCalendar) => {
   if (self.viewType !== 'multiple') return 0;

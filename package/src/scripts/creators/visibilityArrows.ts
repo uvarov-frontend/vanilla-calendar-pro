@@ -1,6 +1,6 @@
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement, isArrowPrevHidden: boolean, isArrowNextHidden: boolean) => {
   arrowPrevEl.style.visibility = isArrowPrevHidden ? 'hidden' : '';

@@ -1,5 +1,5 @@
 import type { WeekDayID } from '@src/types';
-import type VanillaCalendar from '@src/vanilla-calendar';
+import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createWeek = (self: VanillaCalendar) => {
   const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
