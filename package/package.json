@@ -38,28 +38,26 @@
     "url": "https://buymeacoffee.com/uvarov"
   },
   "license": "MIT",
-  "main": "./build/vanilla-calendar.min.js",
-  "module": "./build/vanilla-calendar.min.mjs",
-  "style": "./build/vanilla-calendar.min.css",
-  "source": "./src/vanilla-calendar.ts",
-  "types": "./types.ts",
+  "main": "./build/scripts/vanilla-calendar.js",
+  "module": "./build/scripts/vanilla-calendar.mjs",
+  "style": "./build/styles/vanilla-calendar.css",
+  "types": "./build/types/types.d.ts",
   "exports": {
     ".": {
-      "types": "./types.ts",
-      "node": "./build/vanilla-calendar.min.js",
-      "require": "./build/vanilla-calendar.min.js",
-      "import": "./build/vanilla-calendar.min.mjs"
+      "types": "./build/types/vanilla-calendar.d.ts",
+      "node": "./build/scripts/vanilla-calendar.js",
+      "require": "./build/scripts/vanilla-calendar.js",
+      "import": "./build/scripts/vanilla-calendar.mjs"
     },
     "./utilities": {
-      "types": "./utilities/index.d.ts",
-      "node": "./utilities/index.js",
-      "require": "./utilities/index.js",
-      "import": "./utilities/index.mjs"
+      "types": "./build/types/utilities.d.ts",
+      "node": "./build/utilities/index.js",
+      "require": "./build/utilities/index.js",
+      "import": "./build/utilities/index.mjs"
     },
-    "./types": "./types.ts",
+    "./types": "./build/types/types.d.ts",
     "./package.json": "./package.json",
-    "./build/*": "./build/*",
-    "./build/themes/*": "./build/themes/*"
+    "./build/*": "./build/*"
   },
   "devDependencies": {},
   "dependencies": {}

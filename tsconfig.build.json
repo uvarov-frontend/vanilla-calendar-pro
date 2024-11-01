@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "./package/types",
+    "outDir": "./package/build/types",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "paths": {
@@ -11,6 +11,6 @@
       "@package/*": ["./package/*"],
     }
   },
-  "include": ["package/src/vanilla-calendar.ts"],
+  "include": ["package/src/vanilla-calendar.ts", "package/src/utilities.ts"],
   "exclude": ["node_modules"]
 }
