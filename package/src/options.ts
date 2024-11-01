@@ -1,6 +1,6 @@
-import type * as T from '@package/types';
 import labels from '@src/labels';
 import styles from '@src/styles';
+import type * as T from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 export default class OptionsCalendar {

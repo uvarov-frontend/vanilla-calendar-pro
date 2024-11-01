@@ -1,4 +1,4 @@
-import type { FormatDateString } from '@package/types';
+import type { FormatDateString } from '@src/types';
 
 const getLocalDate = (): FormatDateString => {
   const now = new Date();

@@ -1,4 +1,4 @@
-import type { WeekDayID } from '@package/types';
+import type { WeekDayID } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createWeek = (self: VanillaCalendar) => {

@@ -1,7 +1,7 @@
-import type * as T from '@package/types';
 import * as methods from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
+import type * as T from '@src/types';
 
 export default class VanillaCalendar extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();

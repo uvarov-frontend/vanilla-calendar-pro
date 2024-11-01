@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./package/types",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@scripts/*": ["./package/src/scripts/*"],
+      "@src/*": ["./package/src/*"],
+      "@package/*": ["./package/*"],
+    }
+  },
+  "include": ["package/src/vanilla-calendar.ts"],
+  "exclude": ["node_modules"]
+}

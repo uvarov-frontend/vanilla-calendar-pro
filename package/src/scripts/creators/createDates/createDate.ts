@@ -1,8 +1,8 @@
-import type { FormatDateString, WeekDayID } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
+import type { FormatDateString, WeekDayID } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const addWeekNumberForDate = (self: VanillaCalendar, dateEl: HTMLElement, dateStr: FormatDateString) => {

@@ -1,7 +1,7 @@
-import type { Reset } from '@package/types';
 import create from '@scripts/creators/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
+import type { Reset } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: Reset = {}) => {

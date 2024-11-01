@@ -1,5 +1,5 @@
-import type { FormatDateString } from '@package/types';
 import createDate from '@scripts/creators/createDates/createDate';
+import type { FormatDateString } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const createDatesFromPrevMonth = (self: VanillaCalendar, datesEl: HTMLElement, currentYear: number, currentMonth: number, firstDayWeek: number) => {

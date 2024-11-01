@@ -1,9 +1,9 @@
-import type { FormatDateString } from '@package/types';
 import create from '@scripts/creators/create';
 import canToggleSelection from '@scripts/utils/canToggleSelection';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import parseDates from '@scripts/utils/parseDates';
+import type { FormatDateString } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const current: { self: VanillaCalendar | null; rangeMin: FormatDateString | undefined; rangeMax: FormatDateString | undefined } = {

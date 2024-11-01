@@ -1,7 +1,7 @@
-import type { Reset } from '@package/types';
 import createToInput from '@scripts/creators/createToInput';
 import reset from '@scripts/methods/reset';
 import errorMessages from '@scripts/utils/getErrorMessages';
+import type { Reset } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const update = (self: VanillaCalendar, { year, month, dates, time, locale }: Reset = {}) => {

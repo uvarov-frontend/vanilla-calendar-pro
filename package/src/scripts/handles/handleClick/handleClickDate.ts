@@ -1,9 +1,9 @@
-import type { FormatDateString, WeekDayID } from '@package/types';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
+import type { FormatDateString, WeekDayID } from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const updateDateModifier = (self: VanillaCalendar) => {

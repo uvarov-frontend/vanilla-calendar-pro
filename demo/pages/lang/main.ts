@@ -2,7 +2,7 @@
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
 // import '@/package/build/vanilla-calendar.min.css';
 
-import type { Options } from '@package/types';
+import type { Options } from '@src/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 
 import '@src/styles/vanilla-calendar.css';

@@ -1,5 +1,5 @@
+import type { FormatDateString, Options } from '@src/types';
 import VanillaCalendar from 'vanilla-calendar-pro';
-import type { FormatDateString, Options } from '@package/types';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 

@@ -1,8 +1,7 @@
+import type labels from '@src/labels';
+import type options from '@src/options';
+import type styles from '@src/styles';
 import type VanillaCalendar from '@src/vanilla-calendar';
-
-import type labels from './src/labels';
-import type options from './src/options';
-import type styles from './src/styles';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 
