@@ -4,9 +4,9 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
+  disableAllDates: true,
   settings: {
     range: {
-      disableAllDays: true,
       enabled: ['2022-08-10:2022-08-13', '2022-08-22'],
     },
     selected: {

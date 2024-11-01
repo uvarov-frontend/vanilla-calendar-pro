@@ -24,6 +24,13 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   displayDatesOutside: boolean;
   displayDisabledDates: boolean;
 
+  disableDates: Array<Date | number | string>;
+  disableAllDates: boolean;
+  disableDatesPast: boolean;
+  disableDatesGaps: boolean;
+  disableWeekdays: number[];
+  disableToday: boolean;
+
   enableJumpToSelectedDate: boolean;
   enableDateToggle: T.ToggleSelected;
   enableMonthChangeOnDayClick: boolean;

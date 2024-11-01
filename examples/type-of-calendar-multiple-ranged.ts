@@ -8,10 +8,8 @@ const options: IOptions = {
   displayMonthsCount: 2,
   monthsToSwitch: 2,
   displayDatesOutside: false,
+  disableDatesPast: true,
   settings: {
-    range: {
-      disablePast: true,
-    },
     selection: {
       day: 'multiple-ranged',
     },

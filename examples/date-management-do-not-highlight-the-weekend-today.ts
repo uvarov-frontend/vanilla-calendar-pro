@@ -4,12 +4,10 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
+  disableToday: true,
   settings: {
     selected: {
       weekend: [],
-    },
-    visibility: {
-      today: false,
     },
   },
 };

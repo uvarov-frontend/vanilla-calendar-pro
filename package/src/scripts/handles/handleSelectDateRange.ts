@@ -103,7 +103,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
     self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
   }
 
-  if (self.settings.range.disableGaps) {
+  if (self.disableDatesGaps) {
     current.rangeMin = current.rangeMin ? current.rangeMin : self.private.displayDateMin;
     current.rangeMax = current.rangeMax ? current.rangeMax : self.private.displayDateMax;
   }
@@ -115,7 +115,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
     set: () => {
       self.private.mainElement.addEventListener('mousemove', handleHoverDatesEvent);
       self.private.mainElement.addEventListener('keydown', handleCancelSelectionDates);
-      if (self.settings.range.disableGaps) updateDisabledDates();
+      if (self.disableDatesGaps) updateDisabledDates();
     },
     reset: () => {
       const [startDate, endDate] = [self.private.selectedDates[0], self.private.selectedDates[self.private.selectedDates.length - 1]];
@@ -130,7 +130,7 @@ const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDate
         : [self.private.selectedDates[0], self.private.selectedDates[0]];
       self.private.mainElement.removeEventListener('mousemove', handleHoverDatesEvent);
       self.private.mainElement.removeEventListener('keydown', handleCancelSelectionDates);
-      if (self.settings.range.disableGaps) resetDisabledDates();
+      if (self.disableDatesGaps) resetDisabledDates();
     },
   };
   selectionHandlers[self.private.selectedDates.length === 1 ? 'set' : 'reset']();

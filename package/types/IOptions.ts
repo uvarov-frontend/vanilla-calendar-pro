@@ -38,6 +38,13 @@ export interface IOptions extends IActions {
   displayDatesOutside?: boolean;
   displayDisabledDates?: boolean;
 
+  disableDates?: Array<Date | number | string>;
+  disableAllDates?: boolean;
+  disableDatesPast?: boolean;
+  disableDatesGaps?: boolean;
+  disableWeekdays?: number[];
+  disableToday?: boolean;
+
   enableJumpToSelectedDate?: boolean;
   enableDateToggle?: ToggleSelected;
   enableMonthChangeOnDayClick?: boolean;

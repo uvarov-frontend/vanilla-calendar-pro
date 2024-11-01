@@ -7,10 +7,8 @@ const options: IOptions = {
   isInput: true,
   viewType: 'multiple',
   displayDatesOutside: false,
+  disableDatesPast: true,
   settings: {
-    range: {
-      disablePast: true,
-    },
     selection: {
       day: 'multiple-ranged',
     },
