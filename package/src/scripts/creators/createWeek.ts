@@ -1,13 +1,6 @@
 import type { WeekDayID } from '@package/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-type WeekdaysData = Array<{
-  id: WeekDayID;
-  titleShort: string;
-  titleLong: string;
-  isWeekend: boolean;
-}>;
-
 const createWeek = (self: VanillaCalendar) => {
   const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
   const weekdaysData = [...self.private.locale.weekdays.long].reduce(
@@ -20,7 +13,12 @@ const createWeek = (self: VanillaCalendar) => {
         isWeekend: weekend.includes(index as WeekDayID),
       },
     ],
-    [] as WeekdaysData,
+    [] as Array<{
+      id: WeekDayID;
+      titleShort: string;
+      titleLong: string;
+      isWeekend: boolean;
+    }>,
   );
   const weekdays = [...weekdaysData.slice(self.firstWeekday), ...weekdaysData.slice(0, self.firstWeekday)];
 

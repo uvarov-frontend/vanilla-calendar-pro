@@ -24,16 +24,9 @@ const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesE
         const extraTopPadding = 5;
         let top = dateEl.offsetHeight;
         let left = 0;
-        if (!canShow.bottom) {
-          top = -datePopup.offsetHeight - extraTopPadding;
-        }
-        if (canShow.left && !canShow.right) {
-          left = dateEl.offsetWidth - datePopup.offsetWidth / 2;
-        }
-        if (!canShow.left && canShow.right) {
-          left = datePopup.offsetWidth / 2;
-        }
-
+        if (!canShow.bottom) top = -datePopup.offsetHeight - extraTopPadding;
+        if (canShow.left && !canShow.right) left = dateEl.offsetWidth - datePopup.offsetWidth / 2;
+        if (!canShow.left && canShow.right) left = datePopup.offsetWidth / 2;
         Object.assign(datePopup.style, { left: `${left}px`, top: `${top}px` });
       }
     });

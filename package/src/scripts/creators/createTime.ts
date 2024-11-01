@@ -14,15 +14,14 @@ const createTime = (self: VanillaCalendar) => {
   const valueHours = self.private.selectedKeeping ? transformTime24(self.private.selectedHours, self.private.selectedKeeping) : self.private.selectedHours;
   const range = self.timeControls === 'range';
 
+  const btnKeeping = (selectedKeeping: string) =>
+    `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${selectedKeeping}</button>`;
+
   timeEl.innerHTML = self.sanitizerHTML(`
     <div class="${self.styles.timeContent}" data-vc-time="content">
       ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, valueHours, range)}
       ${TimeInput('minute', self.styles.timeMinute, self.labels as unknown as { [key: string]: string }, self.private.selectedMinutes, range)}
-      ${
-        self.selectionTimeMode === 12
-          ? `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${self.private.selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${self.private.selectedKeeping}</button>`
-          : ''
-      }
+      ${self.selectionTimeMode === 12 ? btnKeeping(self.private.selectedKeeping) : ''}
     </div>
     <div class="${self.styles.timeRanges}" data-vc-time="ranges">
       ${TimeRange('hour', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minHour, maxHour, self.timeStepHour, valueHours)}

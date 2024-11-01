@@ -16,9 +16,7 @@ const createLayouts = (self: VanillaCalendar, target?: HTMLElement) => {
 
   Object.keys(templateMap).forEach((key) => {
     const typedKey = key as keyof typeof templateMap;
-    if (!self.layouts[typedKey].length) {
-      self.layouts[typedKey] = templateMap[typedKey](self);
-    }
+    if (!self.layouts[typedKey].length) self.layouts[typedKey] = templateMap[typedKey](self);
   });
 
   self.private.mainElement.className = self.styles.calendar;
