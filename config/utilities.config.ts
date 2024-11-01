@@ -5,7 +5,7 @@ import eslint from 'vite-plugin-eslint';
 
 import { version } from '../package/package.json';
 
-const outDir = './package/utilities';
+const outDir = './package/build/utilities';
 
 export default defineConfig({
   build: {

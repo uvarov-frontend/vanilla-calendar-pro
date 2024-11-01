@@ -13,16 +13,16 @@ export default defineConfig({
     assetsDir: '',
     outDir,
     cssCodeSplit: true,
-    minify: true,
+    minify: false,
     emptyOutDir: false,
     rollupOptions: {
       output: {
         inlineDynamicImports: false,
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name && ['light.css', 'dark.css'].includes(assetInfo.name)) {
-            return 'themes/[name].min.[ext]';
+          if (assetInfo.name && ['light.css', 'dark.css', 'slate-light.css'].includes(assetInfo.name)) {
+            return 'styles/themes/[name].[ext]';
           }
-          return '[name].min.[ext]';
+          return 'styles/[name].[ext]';
         },
       },
       input: {
@@ -30,6 +30,7 @@ export default defineConfig({
         layout: resolve(__dirname, '../package/src/styles/vanilla-calendar.layout.css'),
         light: resolve(__dirname, '../package/src/styles/themes/light.css'),
         dark: resolve(__dirname, '../package/src/styles/themes/dark.css'),
+        'slate-light': resolve(__dirname, '../package/src/styles/themes/slate-light.css'),
       },
     },
   },

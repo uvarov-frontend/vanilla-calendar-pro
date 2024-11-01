@@ -5,7 +5,7 @@ import eslint from 'vite-plugin-eslint';
 
 import { version } from '../package/package.json';
 
-const outDir = './package/build';
+const outDir = './package/build/scripts';
 
 export default defineConfig({
   build: {
@@ -16,7 +16,7 @@ export default defineConfig({
     lib: {
       name: 'VanillaCalendar',
       fileName(format, entryName) {
-        return `${entryName}.min${format === 'es' ? '.mjs' : '.js'}`;
+        return `${entryName}${format === 'es' ? '.mjs' : '.js'}`;
       },
       entry: resolve(__dirname, '../package/src/vanilla-calendar.ts'),
     },
