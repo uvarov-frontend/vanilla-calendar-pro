@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import banner from 'vite-plugin-banner';
+import dts from 'vite-plugin-dts';
 import eslint from 'vite-plugin-eslint';
 
 import { version } from '../package/package.json';
@@ -35,5 +36,6 @@ export default defineConfig({
       content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro`,
     }),
     eslint(),
+    dts({ tsconfigPath: './tsconfig.build.json', outDir: './package/build/types' }),
   ],
 });

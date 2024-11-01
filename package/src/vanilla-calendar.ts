@@ -1,12 +1,12 @@
-import * as methods from '@scripts/methods';
+import { destroy, hide, init, show, update } from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
-import type * as T from '@src/types';
+import type { Options, PrivateVariables, Reset } from '@src/types';
 
 export default class VanillaCalendar extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
-  constructor(selector: HTMLElement | string, options?: T.Options) {
+  constructor(selector: HTMLElement | string, options?: Options) {
     super();
 
     this.private = {
@@ -36,7 +36,7 @@ export default class VanillaCalendar extends OptionsCalendar {
     return element;
   }
 
-  private applyOptions(options: T.Options) {
+  private applyOptions(options: Options) {
     const replaceProperties = <T extends object>(original: T, replacement: T) => {
       (Object.keys(replacement) as Array<keyof T>).forEach((key) => {
         if (
@@ -54,15 +54,15 @@ export default class VanillaCalendar extends OptionsCalendar {
     replaceProperties(this, options);
   }
 
-  init = () => methods.init(this);
+  init = () => init(this);
 
-  update = (reset?: T.Reset) => methods.update(this, reset);
+  update = (reset?: Reset) => update(this, reset);
 
-  destroy = () => methods.destroy(this);
+  destroy = () => destroy(this);
 
-  show = () => methods.show(this);
+  show = () => show(this);
 
-  hide = () => methods.hide(this);
+  hide = () => hide(this);
 
-  private!: T.PrivateVariables;
+  private!: PrivateVariables;
 }

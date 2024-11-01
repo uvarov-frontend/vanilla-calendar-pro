@@ -1,3 +1,3 @@
-import type { FormatDateString } from '@src/types';
+import { FormatDateString } from '../../types';
 declare const parseDates: (dates: Array<number | string | Date>) => FormatDateString[];
 export default parseDates;

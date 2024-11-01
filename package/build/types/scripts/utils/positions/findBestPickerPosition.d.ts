@@ -1,4 +1,4 @@
-import type { Positions } from '@src/types';
+import { Positions } from '../../../types';
 /**
  * Determines the best position for displaying a calendar picker relative to an input element.
  * @param {HTMLInputElement} input - The input element.

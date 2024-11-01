@@ -1,4 +1,4 @@
-import type { Positions } from '@src/types';
+import { Positions } from '../../../types';
 /**
  * Determines available positions for displaying a picker element relative to a parent element,
  * considering available space and margin offset.

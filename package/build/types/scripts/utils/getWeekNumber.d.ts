@@ -1,4 +1,4 @@
-import type { FormatDateString } from '@src/types';
+import { FormatDateString } from '../../types';
 declare const getWeekNumber: (date: FormatDateString, weekStartDay: number) => {
     year: number;
     week: number;

@@ -1,3 +1,3 @@
-import type VanillaCalendar from '@src/vanilla-calendar';
+import { default as VanillaCalendar } from '../../../vanilla-calendar';
 declare const createDatePopup: (self: VanillaCalendar, datesEl: HTMLElement) => void;
 export default createDatePopup;

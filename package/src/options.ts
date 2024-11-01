@@ -1,27 +1,40 @@
 import labels from '@src/labels';
 import styles from '@src/styles';
-import type * as T from '@src/types';
+import type {
+  FormatDateString,
+  Labels,
+  Layouts,
+  Locale,
+  MonthsCount,
+  Popups,
+  Range,
+  Styles,
+  ToggleSelected,
+  TypesCalendar,
+  WeekDayID,
+  WeekDays,
+} from '@src/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 export default class OptionsCalendar {
-  viewType: T.TypesCalendar = 'default';
+  viewType: TypesCalendar = 'default';
 
   isInput: boolean = false;
   positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'] = 'left';
 
-  firstWeekday: T.WeekDayID = 1;
+  firstWeekday: WeekDayID = 1;
   monthsToSwitch: number = 1;
   themeAttrDetect: string | false = 'html[data-theme]';
 
-  locale: T.Locale = 'en';
+  locale: Locale = 'en';
 
   dateToday: Date = new Date();
-  dateMin: T.FormatDateString | 'today' = '1970-01-01';
-  dateMax: T.FormatDateString | 'today' = '2470-12-31';
+  dateMin: FormatDateString | 'today' = '1970-01-01';
+  dateMax: FormatDateString | 'today' = '2470-12-31';
 
-  displayMonthsCount: T.MonthsCount = 2;
-  displayDateMin!: T.FormatDateString | 'today';
-  displayDateMax!: T.FormatDateString | 'today';
+  displayMonthsCount: MonthsCount = 2;
+  displayDateMin!: FormatDateString | 'today';
+  displayDateMax!: FormatDateString | 'today';
   displayDatesOutside: boolean = true;
   displayDisabledDates: boolean = false;
 
@@ -34,7 +47,7 @@ export default class OptionsCalendar {
 
   enableDates: Array<Date | number | string> = [];
   enableEdgeDatesOnly: boolean = true;
-  enableDateToggle: T.ToggleSelected = true;
+  enableDateToggle: ToggleSelected = true;
   enableWeekNumbers: boolean = false;
   enableMonthChangeOnDayClick: boolean = true;
   enableJumpToSelectedDate: boolean = false;
@@ -48,14 +61,14 @@ export default class OptionsCalendar {
   selectedMonth!: number;
   selectedYear!: number;
   selectedHolidays: Array<Date | number | string> = [];
-  selectedWeekends: T.WeekDays<T.WeekDayID> = [0, 6];
+  selectedWeekends: WeekDays<WeekDayID> = [0, 6];
   selectedTime!: string;
   selectedTheme: 'light' | 'dark' | 'system' | string = 'system';
 
-  timeMinHour: T.Range<24> = 0;
-  timeMaxHour: T.Range<24> = 23;
-  timeMinMinute: T.Range<60> = 0;
-  timeMaxMinute: T.Range<60> = 59;
+  timeMinHour: Range<24> = 0;
+  timeMaxHour: Range<24> = 23;
+  timeMinMinute: Range<60> = 0;
+  timeMaxMinute: Range<60> = 59;
   timeControls: 'all' | 'range' = 'all';
   timeStepHour: number = 1;
   timeStepMinute: number = 1;
@@ -77,8 +90,8 @@ export default class OptionsCalendar {
   onShow!: (self: VanillaCalendar) => void;
   onHide!: (self: VanillaCalendar) => void;
 
-  popups: T.Popups = {};
-  labels: T.Labels = { ...labels };
-  layouts: T.Layouts = { default: '', multiple: '', month: '', year: '' };
-  styles: T.Styles = { ...styles };
+  popups: Popups = {};
+  labels: Labels = { ...labels };
+  layouts: Layouts = { default: '', multiple: '', month: '', year: '' };
+  styles: Styles = { ...styles };
 }
