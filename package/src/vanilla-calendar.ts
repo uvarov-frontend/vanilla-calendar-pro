@@ -1,13 +1,27 @@
 import type * as T from '@package/types';
 import * as methods from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
-import DefaultOptionsCalendar from '@src/default';
+import OptionsCalendar from '@src/options';
 
-export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
+export default class VanillaCalendar extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
-  constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
+  constructor(selector: HTMLElement | string, options?: T.Options) {
     super();
+
+    this.private = {
+      ...this.private,
+      locale: {
+        months: {
+          short: [],
+          long: [],
+        },
+        weekdays: {
+          short: [],
+          long: [],
+        },
+      },
+    };
 
     this.private.mainElement = typeof selector === 'string' ? (VanillaCalendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
 
@@ -22,7 +36,7 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
     return element;
   }
 
-  private applyOptions(options: Partial<T.IOptions>) {
+  private applyOptions(options: T.Options) {
     const replaceProperties = <T extends object>(original: T, replacement: T) => {
       (Object.keys(replacement) as Array<keyof T>).forEach((key) => {
         if (
@@ -42,11 +56,13 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 
   init = () => methods.init(this);
 
-  update = (reset?: T.IReset) => methods.update(this, reset);
+  update = (reset?: T.Reset) => methods.update(this, reset);
 
   destroy = () => methods.destroy(this);
 
   show = () => methods.show(this);
 
   hide = () => methods.hide(this);
+
+  private!: T.PrivateVariables;
 }

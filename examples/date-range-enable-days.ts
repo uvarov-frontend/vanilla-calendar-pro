@@ -1,9 +1,9 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import type { IOptions } from 'vanilla-calendar-pro/types';
+import type { Options } from '@package/types';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
-const options: IOptions = {
+const options: Options = {
   disableAllDates: true,
   enableDates: ['2022-08-10:2022-08-13', '2022-08-22'],
   selectedYear: 2022,

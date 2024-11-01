@@ -1,13 +1,13 @@
-// import { IOptions } from '@package/types';
+// import { Options } from '@package/types';
 // import VanillaCalendar from '@/package/build/vanilla-calendar.min';
 // import '@/package/build/vanilla-calendar.min.css';
 
-import type { IOptions } from '@package/types';
+import type { Options } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 
 import '@src/styles/vanilla-calendar.css';
 
-const configInput: IOptions = {
+const configInput: Options = {
   isInput: true,
   positionToInput: 'center',
   onChangeToInput(e, self) {
@@ -21,7 +21,7 @@ const configInput: IOptions = {
   },
 };
 
-const configDiv: IOptions = {
+const configDiv: Options = {
   isInput: true,
   positionToInput: 'auto',
   onChangeToInput(e, self) {

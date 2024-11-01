@@ -1,13 +1,9 @@
-// import { IOptions } from '@package/types';
-// import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-// import '@/package/build/vanilla-calendar.min.css';
-
-import type { IOptions } from '@package/types';
+import type { Options } from '@package/types';
 import VanillaCalendar from '@src/vanilla-calendar';
 
 import '@src/styles/vanilla-calendar.css';
 
-const config: IOptions = {
+const config: Options = {
   viewType: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   selectedMonth: 3,

@@ -1,9 +1,9 @@
 import VanillaCalendar from 'vanilla-calendar-pro';
-import type { FormatDateString, IOptions } from 'vanilla-calendar-pro/types';
+import type { FormatDateString, Options } from '@package/types';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
-const options: IOptions = {
+const options: Options = {
   enableWeekNumbers: true,
   selectionDatesMode: 'multiple-ranged',
   onClickWeekNumber(event, number, days, year, self) {

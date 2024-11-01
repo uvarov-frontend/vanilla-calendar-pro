@@ -42,10 +42,10 @@
   "module": "./build/vanilla-calendar.min.mjs",
   "style": "./build/vanilla-calendar.min.css",
   "source": "./src/vanilla-calendar.ts",
-  "types": "./index.d.ts",
+  "types": "./types.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./types.ts",
       "node": "./build/vanilla-calendar.min.js",
       "require": "./build/vanilla-calendar.min.js",
       "import": "./build/vanilla-calendar.min.mjs"

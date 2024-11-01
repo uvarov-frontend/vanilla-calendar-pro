@@ -1,12 +1,12 @@
-import type { IHtmlElementPosition } from '@package/types/IHtmlElementPosition';
+import type { HtmlElementPosition } from '@package/types';
 
 /**
  * Get the offset position of an HTML element relative to the viewport.
  * @param {HTMLElement | null} element - The HTML element whose position is to be calculated.
- * @returns {IHtmlElementPosition} An object containing the top, bottom, left, and right offset positions of the element.
+ * @returns {HtmlElementPosition} An object containing the top, bottom, left, and right offset positions of the element.
  */
 
-function getOffset(element?: HTMLElement | null): IHtmlElementPosition {
+function getOffset(element?: HTMLElement | null): HtmlElementPosition {
   if (!element || !element.getBoundingClientRect) {
     return {
       top: 0,

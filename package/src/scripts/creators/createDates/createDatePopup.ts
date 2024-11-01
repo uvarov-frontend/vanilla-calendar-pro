@@ -1,8 +1,8 @@
-import type { IPopup } from '@package/types';
+import type { Popup } from '@package/types';
 import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
-const handleDay = (self: VanillaCalendar, date: string, dateInfo: IPopup, datesEl: HTMLElement) => {
+const handleDay = (self: VanillaCalendar, date: string, dateInfo: Popup, datesEl: HTMLElement) => {
   const dateEl = datesEl.querySelector<HTMLElement>(`[data-vc-date="${date}"]`);
   if (!dateEl) return;
 
