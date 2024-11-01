@@ -1,5 +1,4 @@
-import type { FormatDateString, Options } from '@src/types';
-import { VanillaCalendarPro } from 'vanilla-calendar-pro';
+import { type FormatDateString, type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 

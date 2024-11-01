@@ -1,7 +1,28 @@
 import { destroy, hide, init, show, update } from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
-import type { Options, PrivateVariables, Reset } from '@src/types';
+import type {
+  Dates,
+  FormatDateString,
+  HtmlElementPosition,
+  Labels,
+  Layouts,
+  Locale,
+  LocaleStated,
+  MonthsCount,
+  Options,
+  Popup,
+  Popups,
+  Positions,
+  PrivateVariables,
+  Range,
+  Reset,
+  Styles,
+  ToggleSelected,
+  TypesCalendar,
+  WeekDayID,
+  WeekDays,
+} from '@src/types';
 
 export class VanillaCalendarPro extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
@@ -66,3 +87,26 @@ export class VanillaCalendarPro extends OptionsCalendar {
 
   private!: PrivateVariables;
 }
+
+export {
+  Dates,
+  FormatDateString,
+  HtmlElementPosition,
+  Labels,
+  Layouts,
+  Locale,
+  LocaleStated,
+  MonthsCount,
+  Options,
+  Popup,
+  Popups,
+  Positions,
+  PrivateVariables,
+  Range,
+  Reset,
+  Styles,
+  ToggleSelected,
+  TypesCalendar,
+  WeekDayID,
+  WeekDays,
+};

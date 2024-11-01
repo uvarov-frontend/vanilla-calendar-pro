@@ -1,5 +1,5 @@
 import { default as OptionsCalendar } from './options';
-import { Options, PrivateVariables, Reset } from './types';
+import { Dates, FormatDateString, HtmlElementPosition, Labels, Layouts, Locale, LocaleStated, MonthsCount, Options, Popup, Popups, Positions, PrivateVariables, Range, Reset, Styles, ToggleSelected, TypesCalendar, WeekDayID, WeekDays } from './types';
 export declare class VanillaCalendarPro extends OptionsCalendar {
     private static memoizedElements;
     constructor(selector: HTMLElement | string, options?: Options);
@@ -12,3 +12,4 @@ export declare class VanillaCalendarPro extends OptionsCalendar {
     hide: () => void;
     private: PrivateVariables;
 }
+export { Dates, FormatDateString, HtmlElementPosition, Labels, Layouts, Locale, LocaleStated, MonthsCount, Options, Popup, Popups, Positions, PrivateVariables, Range, Reset, Styles, ToggleSelected, TypesCalendar, WeekDayID, WeekDays, };
