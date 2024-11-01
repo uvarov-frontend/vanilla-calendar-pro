@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "homepage": "https://vanilla-calendar.com",
   "directories": {
+    "config": "config/*",
+    "cypress": "cypress/*",
     "demo": "demo/*",
     "docs": "docs/*",
+    "examples": "examples/*",
     "package": "package/*"
   },
   "repository": {
@@ -18,12 +21,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "minifier": "node helpers/minifier.js --files=package/build/vanilla-calendar.min.js,package/build/vanilla-calendar.min.mjs,package/utilities/index.js,package/utilities/index.mjs",
-    "dist": "tsc && vite build --config config/vanilla-calendar.config.ts && vite build --config config/utilities.config.ts && vite build --config config/styles.config.ts",
-    "package": "npm-run-all dist minifier",
-    "build:types": "tsc -p tsconfig.build.json",
-    "build": "tsc && vite build",
+    "package:types": "tsc -p tsconfig.build.json",
+    "package:dist": "tsc && vite build --config config/vanilla-calendar.config.ts && vite build --config config/utilities.config.ts && vite build --config config/styles.config.ts",
+    "package:minifier": "node minifier.js",
+    "package": "npm-run-all package:types package:dist package:minifier",
     "dev": "tsc && vite",
+    "build": "tsc && vite build",
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --fix",
     "prettier": "prettier . --check --ignore-unknown",
@@ -37,7 +40,7 @@
     "@testing-library/cypress": "^10.0.2",
     "@types/node": "~18.18.14",
     "autoprefixer": "^10.4.20",
-    "cypress": "^13.15.0",
+    "cypress": "^13.15.1",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -49,11 +52,11 @@
     "start-server-and-test": "^2.0.8",
     "tailwindcss": "^3.4.14",
     "terser": "^5.36.0",
-    "typescript": "^4.9.3",
-    "typescript-eslint": "^8.10.0",
+    "typescript": "~4.9.3",
+    "typescript-eslint": "^8.12.2",
     "vite": "~4.5.5",
-    "vite-plugin-banner": "^0.7.1",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite-plugin-banner": "~0.7.1",
+    "vite-plugin-eslint": "~1.8.1"
   },
   "dependencies": {}
 }

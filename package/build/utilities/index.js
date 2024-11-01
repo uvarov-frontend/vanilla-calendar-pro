@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.1 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.2 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 (function(global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.VanillaCalendarUtilities = {}));
 })(this, function(exports2) {

@@ -8,7 +8,7 @@
     "paths": {
       "@scripts/*": ["./package/src/scripts/*"],
       "@src/*": ["./package/src/*"],
-      "@package/*": ["./package/*"],
+      "@package/*": ["./package/*"]
     }
   },
   "include": ["package/src/vanilla-calendar.ts", "package/src/utilities.ts"],

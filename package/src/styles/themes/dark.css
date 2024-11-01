@@ -8,7 +8,7 @@
 
 [data-vc-theme='dark'].vc:focus-visible,
 [data-vc-theme='dark'].vc button:focus-visible,
-[data-vc-theme='dark'].vc [tabindex="0"]:focus-visible {
+[data-vc-theme='dark'].vc [tabindex='0']:focus-visible {
   @apply outline-orange-300;
 }
 
@@ -56,18 +56,10 @@
   @apply bg-rose-500 bg-opacity-80 text-white surehover:hover:bg-rose-500 surehover:hover:bg-opacity-80 surehover:hover:text-white;
 }
 
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn {
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn {
   @apply bg-slate-800 text-slate-300 surehover:hover:bg-slate-800 surehover:hover:text-slate-300;
 }
 

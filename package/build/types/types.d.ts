@@ -85,4 +85,4 @@ export type Options = Omit<Partial<options>, 'labels' | 'layouts' | 'styles'> & 
     layouts?: Partial<Layouts>;
     styles?: Partial<Styles>;
 };
-export { VanillaCalendar };
+export {};

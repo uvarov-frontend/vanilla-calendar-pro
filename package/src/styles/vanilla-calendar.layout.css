@@ -4,7 +4,7 @@
 
 [data-vc='calendar']:focus-visible,
 [data-vc='calendar'] button:focus-visible,
-[data-vc='calendar'] [tabindex="0"]:focus-visible {
+[data-vc='calendar'] [tabindex='0']:focus-visible {
   @apply outline outline-1 -outline-offset-1 rounded-lg;
 }
 
@@ -180,8 +180,8 @@
   @apply rounded-none;
 }
 
-[data-vc-date][data-vc-date-selected]:nth-child(7n+1) [data-vc-date-btn],
-[data-vc-date][data-vc-date-hover]:nth-child(7n+1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:nth-child(7n + 1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:nth-child(7n + 1) [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn] {
   @apply rounded-l-lg;
@@ -194,8 +194,8 @@
   @apply rounded-r-lg;
 }
 
-[data-vc-date-btn]:focus-visible+[data-vc-date-popup],
-[data-vc-date-btn]:hover+[data-vc-date-popup],
+[data-vc-date-btn]:focus-visible + [data-vc-date-popup],
+[data-vc-date-btn]:hover + [data-vc-date-popup],
 [data-vc-date-popup]:focus-visible,
 [data-vc-date-popup]:hover {
   @apply opacity-100 pointer-events-auto;
@@ -213,32 +213,32 @@
   @apply absolute z-20 top-full w-32 py-2 px-3 text-xs font-normal opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto rounded-lg;
 }
 
-[data-vc="time"] {
+[data-vc='time'] {
   @apply grid grid-cols-[auto_1fr] gap-3 border-solid border-t border-b-0 border-l-0 border-r-0 pt-3 mt-3;
 }
 
-[data-vc-time="content"] {
+[data-vc-time='content'] {
   @apply grid grid-flow-col items-center;
 }
 
-[data-vc-time-input="hour"] {
+[data-vc-time-input='hour'] {
   @apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[5px] after:top-1/2 after:mt-[calc(-50%_+_1px)];
 }
 
-[data-vc-time-input="minute"] {
+[data-vc-time-input='minute'] {
   @apply w-7;
 }
 
-[data-vc-time-input="hour"] input,
-[data-vc-time-input="minute"] input {
+[data-vc-time-input='hour'] input,
+[data-vc-time-input='minute'] input {
   @apply box-border relative block text-lg leading-[1.125rem] font-semibold text-center w-full p-[0.125rem] m-0 border-0 rounded disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline;
 }
 
-[data-vc-time="keeping"] {
+[data-vc-time='keeping'] {
   @apply ml-[1px] cursor-pointer text-[0.69rem] w-[22px] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0;
 }
 
-[data-vc-time="ranges"] {
+[data-vc-time='ranges'] {
   @apply grid grid-flow-row;
 }
 

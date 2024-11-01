@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.1 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.2 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 [data-vc-theme='dark'].vc {
 
     --tw-bg-opacity: 1;
@@ -19,7 +19,7 @@
 
 [data-vc-theme='dark'].vc:focus-visible,
 [data-vc-theme='dark'].vc button:focus-visible,
-[data-vc-theme='dark'].vc [tabindex="0"]:focus-visible {
+[data-vc-theme='dark'].vc [tabindex='0']:focus-visible {
 
     outline-color: #fdba74
 }
@@ -199,18 +199,10 @@
     }
 }
 
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn {
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn {
 
     --tw-bg-opacity: 1;
 
@@ -221,18 +213,10 @@
 
 @media (hover: hover) and (pointer: fine) {
 
-    [data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn:hover,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected]
-  .vc-date__btn:hover,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn:hover,
-[data-vc-theme='dark']
-  .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected]
-  .vc-date__btn:hover {
+    [data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn:hover,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn:hover,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn:hover,
+[data-vc-theme='dark'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn:hover {
 
         --tw-bg-opacity: 1;
 

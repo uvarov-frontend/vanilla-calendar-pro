@@ -20,7 +20,7 @@ export default [
     files: ['**/*.{js,mjs,cjs,ts}'],
   },
   {
-    ignores: ['node_modules', 'next', 'demo/build', 'package/build', 'package/utilities'],
+    ignores: ['node_modules', 'next', 'demo/build', 'package/build'],
   },
   {
     languageOptions: {

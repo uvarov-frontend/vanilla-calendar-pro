@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.1 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.2 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 [data-vc='calendar'] {
   position: relative;
   box-sizing: border-box;
@@ -15,7 +15,7 @@
 
 [data-vc='calendar']:focus-visible,
 [data-vc='calendar'] button:focus-visible,
-[data-vc='calendar'] [tabindex="0"]:focus-visible {
+[data-vc='calendar'] [tabindex='0']:focus-visible {
   border-radius: 0.5rem;
   outline-style: solid;
   outline-width: 1px;
@@ -364,8 +364,8 @@
   border-radius: 0px;
 }
 
-[data-vc-date][data-vc-date-selected]:nth-child(7n+1) [data-vc-date-btn],
-[data-vc-date][data-vc-date-hover]:nth-child(7n+1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:nth-child(7n + 1) [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:nth-child(7n + 1) [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn] {
   border-top-left-radius: 0.5rem;
@@ -380,8 +380,8 @@
   border-bottom-right-radius: 0.5rem;
 }
 
-[data-vc-date-btn]:focus-visible+[data-vc-date-popup],
-[data-vc-date-btn]:hover+[data-vc-date-popup],
+[data-vc-date-btn]:focus-visible + [data-vc-date-popup],
+[data-vc-date-btn]:hover + [data-vc-date-popup],
 [data-vc-date-popup]:focus-visible,
 [data-vc-date-popup]:hover {
   pointer-events: auto;
@@ -434,7 +434,7 @@
   opacity: 1;
 }
 
-[data-vc="time"] {
+[data-vc='time'] {
   margin-top: 0.75rem;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -447,19 +447,19 @@
   padding-top: 0.75rem;
 }
 
-[data-vc-time="content"] {
+[data-vc-time='content'] {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
 }
 
-[data-vc-time-input="hour"] {
+[data-vc-time-input='hour'] {
   position: relative;
   margin-right: 0.35rem;
   width: 1.75rem;
 }
 
-[data-vc-time-input="hour"]::after {
+[data-vc-time-input='hour']::after {
   position: absolute;
   right: -5px;
   top: 50%;
@@ -469,12 +469,12 @@
   content: var(--tw-content);
 }
 
-[data-vc-time-input="minute"] {
+[data-vc-time-input='minute'] {
   width: 1.75rem;
 }
 
-[data-vc-time-input="hour"] input,
-[data-vc-time-input="minute"] input {
+[data-vc-time-input='hour'] input,
+[data-vc-time-input='minute'] input {
   position: relative;
   margin: 0px;
   box-sizing: border-box;
@@ -489,23 +489,23 @@
   line-height: 1.125rem;
 }
 
-[data-vc-time-input="hour"] input:focus-visible,
-[data-vc-time-input="minute"] input:focus-visible {
+[data-vc-time-input='hour'] input:focus-visible,
+[data-vc-time-input='minute'] input:focus-visible {
   outline-style: solid;
   outline-width: 1px;
 }
 
-[data-vc-time-input="hour"] input:disabled,
-[data-vc-time-input="minute"] input:disabled {
+[data-vc-time-input='hour'] input:disabled,
+[data-vc-time-input='minute'] input:disabled {
   cursor: default;
 }
 
-[data-vc-time-input="hour"] input:hover:disabled,
-[data-vc-time-input="minute"] input:hover:disabled {
+[data-vc-time-input='hour'] input:hover:disabled,
+[data-vc-time-input='minute'] input:hover:disabled {
   background-color: transparent;
 }
 
-[data-vc-time="keeping"] {
+[data-vc-time='keeping'] {
   margin-left: 1px;
   margin-top: 0.25rem;
   width: 22px;
@@ -517,20 +517,20 @@
   font-size: 0.69rem;
 }
 
-[data-vc-time="keeping"]:focus-visible {
+[data-vc-time='keeping']:focus-visible {
   outline-style: solid;
   outline-width: 1px;
 }
 
-[data-vc-time="keeping"]:disabled {
+[data-vc-time='keeping']:disabled {
   cursor: default;
 }
 
-[data-vc-time="keeping"]:hover:disabled {
+[data-vc-time='keeping']:hover:disabled {
   background-color: transparent;
 }
 
-[data-vc-time="ranges"] {
+[data-vc-time='ranges'] {
   display: grid;
   grid-auto-flow: row;
 }
