@@ -14,7 +14,7 @@ export default defineConfig({
     outDir,
     cssCodeSplit: true,
     minify: false,
-    emptyOutDir: false,
+    emptyOutDir: true,
     rollupOptions: {
       output: {
         inlineDynamicImports: false,
