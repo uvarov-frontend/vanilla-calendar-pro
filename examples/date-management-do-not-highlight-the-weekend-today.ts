@@ -5,11 +5,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   disableToday: true,
-  settings: {
-    selected: {
-      weekend: [],
-    },
-  },
+  selectedWeekends: [],
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

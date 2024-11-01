@@ -4,9 +4,7 @@ import type {
   ILayouts,
   IPopups,
   IRange,
-  ISelected,
   ISelection,
-  IVisibility,
   Labels,
   Locale,
   MonthsCount,
@@ -14,6 +12,7 @@ import type {
   ToggleSelected,
   TypesCalendar,
   WeekDayID,
+  WeekDays,
 } from '../types';
 
 export interface IOptions extends IActions {
@@ -57,11 +56,17 @@ export interface IOptions extends IActions {
   selectionYearsMode?: boolean | 'only-arrows';
   selectionTimeMode?: false | 12 | 24;
 
+  selectedDates?: Array<Date | number | string>;
+  selectedMonth?: number;
+  selectedYear?: number;
+  selectedHolidays?: Array<Date | number | string>;
+  selectedWeekends?: WeekDays<WeekDayID>;
+  selectedTime?: string;
+  selectedTheme?: 'light' | 'dark' | 'system' | string;
+
   settings?: Partial<{
     range: Partial<IRange>;
     selection: Partial<ISelection>;
-    selected: Partial<ISelected>;
-    visibility: Partial<IVisibility>;
   }>;
 
   sanitizerHTML?: (dirtyHtml: string) => unknown;

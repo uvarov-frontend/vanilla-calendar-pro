@@ -5,19 +5,19 @@ import type VanillaCalendar from '@src/vanilla-calendar';
 const initSelectedMonthYear = (self: VanillaCalendar) => {
   if (
     self.enableJumpToSelectedDate &&
-    self.settings.selected.dates?.length &&
-    self.settings.selected.month === undefined &&
-    self.settings.selected.year === undefined
+    self.selectedDates?.length &&
+    self.selectedMonth === undefined &&
+    self.selectedYear === undefined
   ) {
-    const selectedDate = getDate(parseDates(self.settings.selected.dates)[0]);
-    self.settings.selected.month = selectedDate.getMonth();
-    self.settings.selected.year = selectedDate.getFullYear();
+    const selectedDate = getDate(parseDates(self.selectedDates)[0]);
+    self.selectedMonth = selectedDate.getMonth();
+    self.selectedYear = selectedDate.getFullYear();
   }
-  const isValidMonth = self.settings.selected.month !== undefined && Number(self.settings.selected.month) >= 0 && Number(self.settings.selected.month) < 12;
-  const isValidYear = self.settings.selected.year !== undefined && Number(self.settings.selected.year) >= 0 && Number(self.settings.selected.year) <= 9999;
+  const isValidMonth = self.selectedMonth !== undefined && Number(self.selectedMonth) >= 0 && Number(self.selectedMonth) < 12;
+  const isValidYear = self.selectedYear !== undefined && Number(self.selectedYear) >= 0 && Number(self.selectedYear) <= 9999;
 
-  self.private.selectedMonth = isValidMonth ? Number(self.settings.selected.month) : self.dateToday.getMonth();
-  self.private.selectedYear = isValidYear ? Number(self.settings.selected.year) : self.dateToday.getFullYear();
+  self.private.selectedMonth = isValidMonth ? Number(self.selectedMonth) : self.dateToday.getMonth();
+  self.private.selectedYear = isValidYear ? Number(self.selectedYear) : self.dateToday.getFullYear();
   self.private.displayYear = self.private.selectedYear;
 };
 

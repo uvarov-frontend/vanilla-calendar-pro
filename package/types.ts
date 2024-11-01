@@ -11,11 +11,9 @@ import { IPopup, IPopups } from './types/IPopup';
 import { IPrivateVariables } from './types/IPrivateVariables';
 import { IRange } from './types/IRange';
 import { IReset } from './types/IReset';
-import { ISelected } from './types/ISelected';
 import { ISelection } from './types/ISelection';
 import { ISettings } from './types/ISettings';
 import { IVanillaCalendar } from './types/IVanillaCalendar';
-import { IVisibility } from './types/IVisibility';
 import { MonthsCount } from './types/MonthsCount';
 import { Positions } from './types/Positions';
 import { Range } from './types/Range';
@@ -43,12 +41,10 @@ export {
   IPrivateVariables,
   IRange,
   IReset,
-  ISelected,
   ISelection,
   Styles,
   ISettings,
   IVanillaCalendar,
-  IVisibility,
   Positions,
   Range,
   ToggleSelected,

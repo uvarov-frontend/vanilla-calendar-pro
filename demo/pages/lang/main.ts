@@ -12,6 +12,8 @@ const config: IOptions = {
   // type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   selectionTimeMode: 12,
+  selectedMonth: 5,
+  selectedYear: 2024,
   disableDates: [
     '2024-06-01',
     '2024-06-02',
@@ -36,10 +38,6 @@ const config: IOptions = {
       hourMax: 20,
       minuteMin: 10,
       minuteMax: 20,
-    },
-    selected: {
-      month: 5,
-      year: 2024,
     },
   },
   locale: 'ru',

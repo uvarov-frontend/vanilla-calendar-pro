@@ -4,12 +4,8 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  settings: {
-    selected: {
-      month: 6,
-      year: 2022,
-    },
-  },
+  selectedMonth: 6,
+  selectedYear: 2022,
   popups: {
     '2022-06-28': {
       modifier: 'bg-red',

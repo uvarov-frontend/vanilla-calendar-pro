@@ -43,11 +43,17 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   selectionYearsMode: boolean | 'only-arrows';
   selectionTimeMode: false | 12 | 24;
 
+  selectedDates: Array<Date | number | string>;
+  selectedMonth: number;
+  selectedYear: number;
+  selectedHolidays: Array<Date | number | string>;
+  selectedWeekends: T.WeekDays<T.WeekDayID>;
+  selectedTime: string;
+  selectedTheme: 'light' | 'dark' | 'system' | string;
+
   settings: {
     range: T.IRange;
     selection: T.ISelection;
-    selected: T.ISelected;
-    visibility: T.IVisibility;
   };
 
   sanitizerHTML: (dirtyHtml: string) => unknown;

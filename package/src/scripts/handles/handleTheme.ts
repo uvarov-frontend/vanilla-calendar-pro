@@ -1,4 +1,3 @@
-import type { IVisibility } from '@package/types';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const haveListener = {
@@ -7,12 +6,12 @@ const haveListener = {
   check: () => haveListener.value,
 };
 
-const setTheme = (htmlEl: HTMLElement, theme: IVisibility['theme']) => (htmlEl.dataset.vcTheme = theme);
+const setTheme = (htmlEl: HTMLElement, theme: VanillaCalendar['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
 
 const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
   setTheme(self.private.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
 
-  if (self.settings.visibility.theme !== 'system' || haveListener.check()) return;
+  if (self.selectedTheme !== 'system' || haveListener.check()) return;
 
   const changeDataAttrTheme = (event: MediaQueryList | MediaQueryListEvent) => {
     const calendarEls = document.querySelectorAll('[data-vc="calendar"]');
@@ -68,10 +67,10 @@ const handleTheme = (self: VanillaCalendar) => {
     return;
   }
 
-  if (self.settings.visibility.theme === 'system') {
+  if (self.selectedTheme === 'system') {
     detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)'));
   } else {
-    setTheme(self.private.mainElement, self.settings.visibility.theme);
+    setTheme(self.private.mainElement, self.selectedTheme);
   }
 };
 

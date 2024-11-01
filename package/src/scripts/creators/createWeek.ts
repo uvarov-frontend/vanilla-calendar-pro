@@ -9,7 +9,7 @@ type WeekdaysData = Array<{
 }>;
 
 const createWeek = (self: VanillaCalendar) => {
-  const weekend = self.settings.selected.weekend ? [...self.settings.selected.weekend] : [];
+  const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
   const weekdaysData = [...self.private.locale.weekdays.long].reduce(
     (acc, day, index) => [
       ...acc,

@@ -37,10 +37,10 @@ const setDateModifier = (
   updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, 'aria-current', 'date');
 
   // Check if the date is a weekend
-  updateAttribute(dateEl, self.settings.selected.weekend?.includes(dayWeekID), 'data-vc-date-weekend');
+  updateAttribute(dateEl, self.selectedWeekends?.includes(dayWeekID), 'data-vc-date-weekend');
 
   // Check if the date is a holiday
-  updateAttribute(dateEl, self.settings.selected.holidays?.includes(dateStr), 'data-vc-date-holiday');
+  updateAttribute(dateEl, self.selectedHolidays?.includes(dateStr), 'data-vc-date-holiday');
 
   // Check if the date is selected
   if (self.private.selectedDates?.includes(dateStr)) {

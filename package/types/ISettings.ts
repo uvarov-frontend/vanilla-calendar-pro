@@ -1,8 +1,6 @@
-import type { IRange, ISelected, ISelection, IVisibility } from '../types';
+import type { IRange, ISelection } from '../types';
 
 export interface ISettings {
   range: IRange;
   selection: ISelection;
-  selected: ISelected;
-  visibility: IVisibility;
 }

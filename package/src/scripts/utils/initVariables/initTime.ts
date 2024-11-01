@@ -10,7 +10,7 @@ const initTime = (self: VanillaCalendar) => {
   const isTime12 = self.selectionTimeMode === 12;
   const timeRegex = isTime12 ? /^([1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
 
-  let [hours, minutes, keeping] = self.settings.selected.time?.match(timeRegex)?.slice(1) ?? [];
+  let [hours, minutes, keeping] = self.selectedTime?.match(timeRegex)?.slice(1) ?? [];
 
   if (!hours) {
     hours = isTime12 ? transformTime12(String(self.settings.range.hourMin)) : String(self.settings.range.hourMin);

@@ -59,6 +59,14 @@ export default class DefaultOptionsCalendar {
   selectionYearsMode: boolean | 'only-arrows' = true;
   selectionTimeMode: false | 12 | 24 = false;
 
+  selectedDates: Array<Date | number | string> = [];
+  selectedMonth!: number;
+  selectedYear!: number;
+  selectedHolidays: Array<Date | number | string> = [];
+  selectedWeekends: T.WeekDays<T.WeekDayID> = [0, 6];
+  selectedTime!: string;
+  selectedTheme: 'light' | 'dark' | 'system' | string = 'system';
+
   settings: T.ISettings = {
     range: {
       hourMin: 0,
@@ -70,17 +78,6 @@ export default class DefaultOptionsCalendar {
       controlTime: 'all',
       stepHours: 1,
       stepMinutes: 1,
-    },
-    selected: {
-      dates: undefined,
-      month: undefined,
-      year: undefined,
-      holidays: undefined,
-      weekend: [0, 6],
-      time: undefined,
-    },
-    visibility: {
-      theme: 'system',
     },
   };
 

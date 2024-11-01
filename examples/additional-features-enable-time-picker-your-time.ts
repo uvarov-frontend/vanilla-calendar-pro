@@ -5,11 +5,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   selectionTimeMode: 12,
-  settings: {
-    selected: {
-      time: '03:44 AM',
-    },
-  },
+  selectedTime: '03:44 AM',
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

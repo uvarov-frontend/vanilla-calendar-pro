@@ -71,11 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
   calendarDiv.init();
 
   document.querySelector('#set-date')?.addEventListener('click', () => {
-    calendarInput.settings.selected = {
-      dates: ['2023-04-07'],
-      month: 3,
-      year: 2023,
-    };
+    calendarInput.selectedDates = ['2023-04-07'];
+    calendarInput.selectedMonth = 3;
+    calendarInput.selectedYear = 2023;
     calendarInput.update({
       dates: true,
       month: true,

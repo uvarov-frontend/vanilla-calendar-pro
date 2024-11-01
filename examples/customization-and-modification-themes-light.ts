@@ -4,11 +4,7 @@ import type { IOptions } from 'vanilla-calendar-pro/types';
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
-  settings: {
-    visibility: {
-      theme: 'light',
-    },
-  },
+  selectedTheme: 'light',
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

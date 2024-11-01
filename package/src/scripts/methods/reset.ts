@@ -5,13 +5,18 @@ import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import type VanillaCalendar from '@src/vanilla-calendar';
 
 const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IReset = {}) => {
-  const previousSelected = { ...self.settings.selected };
+  const previousSelected = {
+    year: self.selectedYear,
+    month: self.selectedMonth,
+    dates: self.selectedDates,
+    time: self.selectedTime,
+  };
 
-  self.settings.selected.year = year ? previousSelected.year : self.private.selectedYear;
-  self.settings.selected.month = month ? previousSelected.month : self.private.selectedMonth;
-  self.settings.selected.time = time ? previousSelected.time : self.private.selectedTime;
+  self.selectedYear = year ? previousSelected.year : self.private.selectedYear;
+  self.selectedMonth = month ? previousSelected.month : self.private.selectedMonth;
+  self.selectedTime = time ? previousSelected.time : self.private.selectedTime;
 
-  self.settings.selected.dates =
+  self.selectedDates =
     dates === 'only-first' && self.private.selectedDates?.[0]
       ? [self.private.selectedDates[0]]
       : dates === true
@@ -28,7 +33,10 @@ const reset = (self: VanillaCalendar, { year, month, dates, time, locale }: IRes
   initAllVariables(self);
   create(self);
 
-  self.settings.selected = previousSelected;
+  self.selectedYear = previousSelected.year;
+  self.selectedMonth = previousSelected.month;
+  self.selectedDates = previousSelected.dates;
+  self.selectedTime = previousSelected.time;
   if (self.selectionDatesMode === 'multiple-ranged' && dates) handleDayRangedSelection(self);
 };
 

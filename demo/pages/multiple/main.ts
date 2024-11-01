@@ -10,12 +10,8 @@ import '@src/styles/vanilla-calendar.css';
 const config: IOptions = {
   viewType: 'multiple',
   selectionDatesMode: 'multiple-ranged',
-  settings: {
-    selected: {
-      month: 3,
-      year: 2023,
-    },
-  },
+  selectedMonth: 3,
+  selectedYear: 2023,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
