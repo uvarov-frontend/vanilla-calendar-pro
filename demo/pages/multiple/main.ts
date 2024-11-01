@@ -1,4 +1,4 @@
-import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
+import { type Options, VanillaCalendarPro } from '@src/index';
 
 import '@src/styles/vanilla-calendar-pro.css';
 
