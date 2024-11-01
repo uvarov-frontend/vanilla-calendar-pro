@@ -1,5 +1,5 @@
 import type { Options } from '@src/types';
-import { VanillaCalendar } from 'vanilla-calendar-pro';
+import { VanillaCalendarPro } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
@@ -18,5 +18,5 @@ const options: Options = {
   },
 };
 
-const calendarInput = new VanillaCalendar('#calendar-input', options);
+const calendarInput = new VanillaCalendarPro('#calendar-input', options);
 calendarInput.init();

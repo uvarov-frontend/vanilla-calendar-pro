@@ -1,4 +1,4 @@
+import { VanillaCalendarPro } from '../../index';
 import { Reset } from '../../types';
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const reset: (self: VanillaCalendar, { year, month, dates, time, locale }?: Reset) => void;
+declare const reset: (self: VanillaCalendarPro, { year, month, dates, time, locale }?: Reset) => void;
 export default reset;

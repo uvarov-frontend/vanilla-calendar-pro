@@ -1,5 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.3 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
-"use strict";
+/*! name: vanilla-calendar-pro v3.0.0-beta.4 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -23,9 +22,8 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
-Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const errorMessages = {
-  notFoundSelector: (selector) => `${selector} is not found, check the first argument passed to new VanillaCalendar.`,
+  notFoundSelector: (selector) => `${selector} is not found, check the first argument passed to new VanillaCalendarPro.`,
   notInit: 'The calendar has not been initialized, please initialize it using the "init()" method first.',
   notLocale: "You specified an incorrect language label or did not specify the required number of values ​​for «locale.weekdays» or «locale.months».",
   incorrectTime: "The value of the time property can be: false, 12 or 24."
@@ -1723,7 +1721,7 @@ class OptionsCalendar {
     __publicField(this, "styles", __spreadValues({}, styles));
   }
 }
-const _VanillaCalendar = class _VanillaCalendar extends OptionsCalendar {
+const _VanillaCalendarPro = class _VanillaCalendarPro extends OptionsCalendar {
   constructor(selector, options) {
     var _a;
     super();
@@ -1745,7 +1743,7 @@ const _VanillaCalendar = class _VanillaCalendar extends OptionsCalendar {
         }
       }
     });
-    this.private.mainElement = typeof selector === "string" ? (_a = _VanillaCalendar.memoizedElements.get(selector)) != null ? _a : this.queryAndMemoize(selector) : selector;
+    this.private.mainElement = typeof selector === "string" ? (_a = _VanillaCalendarPro.memoizedElements.get(selector)) != null ? _a : this.queryAndMemoize(selector) : selector;
     if (options)
       this.applyOptions(options);
   }
@@ -1753,7 +1751,7 @@ const _VanillaCalendar = class _VanillaCalendar extends OptionsCalendar {
     const element = document.querySelector(selector);
     if (!element)
       throw new Error(errorMessages.notFoundSelector(selector));
-    _VanillaCalendar.memoizedElements.set(selector, element);
+    _VanillaCalendarPro.memoizedElements.set(selector, element);
     return element;
   }
   applyOptions(options) {
@@ -1769,6 +1767,8 @@ const _VanillaCalendar = class _VanillaCalendar extends OptionsCalendar {
     replaceProperties(this, options);
   }
 };
-__publicField(_VanillaCalendar, "memoizedElements", /* @__PURE__ */ new Map());
-let VanillaCalendar = _VanillaCalendar;
-exports.VanillaCalendar = VanillaCalendar;
+__publicField(_VanillaCalendarPro, "memoizedElements", /* @__PURE__ */ new Map());
+let VanillaCalendarPro = _VanillaCalendarPro;
+export {
+  VanillaCalendarPro
+};

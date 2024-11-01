@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const createDatesFromNextMonth: (self: VanillaCalendar, daysEl: HTMLElement, days: number, currentYear: number, currentMonth: number, firstDayWeek: number) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const createDatesFromNextMonth: (self: VanillaCalendarPro, daysEl: HTMLElement, days: number, currentYear: number, currentMonth: number, firstDayWeek: number) => void;
 export default createDatesFromNextMonth;

@@ -1,9 +1,9 @@
 import createDate from '@scripts/creators/createDates/createDate';
+import type { VanillaCalendarPro } from '@src/index';
 import type { FormatDateString } from '@src/types';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const createDatesFromNextMonth = (
-  self: VanillaCalendar,
+  self: VanillaCalendarPro,
   daysEl: HTMLElement,
   days: number,
   currentYear: number,

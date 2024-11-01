@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const Years: (self: VanillaCalendar) => string;
+import { VanillaCalendarPro } from '../../index';
+declare const Years: (self: VanillaCalendarPro) => string;
 export default Years;

@@ -1,11 +1,11 @@
 import create from '@scripts/creators/create';
 import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
 
-const getColumnID = (self: VanillaCalendar, type: (typeof typeClick)[number], id: number) => {
+const getColumnID = (self: VanillaCalendarPro, type: (typeof typeClick)[number], id: number) => {
   const columnEls: NodeListOf<HTMLElement> = self.private.mainElement.querySelectorAll('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest(`[data-vc-column="${type}"]`));
   const currentValue = Number((columnEls[indexColumn].querySelector(`[data-vc="${type}"]`) as HTMLElement).getAttribute(`data-vc-${type}`));
@@ -17,7 +17,7 @@ const getColumnID = (self: VanillaCalendar, type: (typeof typeClick)[number], id
       : id;
 };
 
-const handleMultipleYearSelection = (self: VanillaCalendar, itemEl: HTMLElement) => {
+const handleMultipleYearSelection = (self: VanillaCalendarPro, itemEl: HTMLElement) => {
   const selectedYear = getColumnID(self, 'year', Number(itemEl.dataset.vcYearsYear));
   const isBeforeMinDate = self.private.selectedMonth < self.private.dateMin.getMonth() && selectedYear <= self.private.dateMin.getFullYear();
   const isAfterMaxDate = self.private.selectedMonth > self.private.dateMax.getMonth() && selectedYear >= self.private.dateMax.getFullYear();
@@ -38,7 +38,7 @@ const handleMultipleYearSelection = (self: VanillaCalendar, itemEl: HTMLElement)
         : self.private.selectedMonth;
 };
 
-const handleMultipleMonthSelection = (self: VanillaCalendar, itemEl: HTMLElement) => {
+const handleMultipleMonthSelection = (self: VanillaCalendarPro, itemEl: HTMLElement) => {
   const column = itemEl.closest('[data-vc-column="month"]') as HTMLElement;
   const yearEl = column.querySelector('[data-vc="year"]') as HTMLElement;
   const selectedMonth = getColumnID(self, 'month', Number(itemEl.dataset.vcMonthsMonth));
@@ -51,7 +51,7 @@ const handleMultipleMonthSelection = (self: VanillaCalendar, itemEl: HTMLElement
   self.private.selectedMonth = isBeforeMinDate ? self.private.dateMin.getMonth() : isAfterMaxDate ? self.private.dateMax.getMonth() : selectedMonth;
 };
 
-const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLElement) => {
+const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLElement) => {
   const selectByType = {
     year: () => {
       if (self.viewType === 'multiple') return handleMultipleYearSelection(self, itemEl);
@@ -75,7 +75,7 @@ const handleItemClick = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
 
-const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof typeClick)[number]) => {
+const handleClickType = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number]) => {
   const target = event.target as HTMLElement;
 
   const headerEl = target.closest<HTMLElement>(`[data-vc="${type}"]`);
@@ -99,7 +99,7 @@ const handleClickType = (self: VanillaCalendar, event: MouseEvent, type: (typeof
   }
 };
 
-const handleClickMonthOrYear = (self: VanillaCalendar, event: MouseEvent) => {
+const handleClickMonthOrYear = (self: VanillaCalendarPro, event: MouseEvent) => {
   const typesMap = { month: self.selectionMonthsMode, year: self.selectionYearsMode };
 
   typeClick.forEach((type) => {

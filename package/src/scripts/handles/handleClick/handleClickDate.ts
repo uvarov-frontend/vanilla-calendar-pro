@@ -3,10 +3,10 @@ import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
+import type { VanillaCalendarPro } from '@src/index';
 import type { FormatDateString, WeekDayID } from '@src/types';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
-const updateDateModifier = (self: VanillaCalendar) => {
+const updateDateModifier = (self: VanillaCalendarPro) => {
   const dateEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((dateEl) => {
     const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;
@@ -16,7 +16,7 @@ const updateDateModifier = (self: VanillaCalendar) => {
   });
 };
 
-const handleClickDate = (self: VanillaCalendar, event: MouseEvent) => {
+const handleClickDate = (self: VanillaCalendarPro, event: MouseEvent) => {
   const element = event.target as HTMLElement;
   const dateBtnEl = element.closest<HTMLButtonElement>('[data-vc-date-btn]');
 

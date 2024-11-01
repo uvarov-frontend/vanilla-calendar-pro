@@ -1,3 +1,4 @@
+import type { VanillaCalendarPro } from '@src/index';
 import labels from '@src/labels';
 import styles from '@src/styles';
 import type {
@@ -14,7 +15,6 @@ import type {
   WeekDayID,
   WeekDays,
 } from '@src/types';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 export default class OptionsCalendar {
   viewType: TypesCalendar = 'default';
@@ -75,20 +75,20 @@ export default class OptionsCalendar {
 
   sanitizerHTML: (dirtyHtml: string) => string = (dirtyHtml: string) => dirtyHtml;
 
-  onClickDate!: (e: MouseEvent, self: VanillaCalendar) => void;
-  onClickWeekDay!: (e: MouseEvent, day: number, days: HTMLElement[], self: VanillaCalendar) => void;
-  onClickWeekNumber!: (e: MouseEvent, number: number, days: HTMLElement[], year: number, self: VanillaCalendar) => void;
-  onClickTitle!: (e: MouseEvent, self: VanillaCalendar) => void;
-  onClickMonth!: (e: MouseEvent, self: VanillaCalendar) => void;
-  onClickYear!: (e: MouseEvent, self: VanillaCalendar) => void;
-  onClickArrow!: (e: MouseEvent, self: VanillaCalendar) => void;
-  onChangeTime!: (e: Event, self: VanillaCalendar, isError: boolean) => void;
-  onChangeToInput!: (e: Event, self: VanillaCalendar) => void;
-  onInit!: (self: VanillaCalendar) => void;
-  onUpdate!: (self: VanillaCalendar) => void;
-  onDestroy!: (self: VanillaCalendar) => void;
-  onShow!: (self: VanillaCalendar) => void;
-  onHide!: (self: VanillaCalendar) => void;
+  onClickDate!: (e: MouseEvent, self: VanillaCalendarPro) => void;
+  onClickWeekDay!: (e: MouseEvent, day: number, days: HTMLElement[], self: VanillaCalendarPro) => void;
+  onClickWeekNumber!: (e: MouseEvent, number: number, days: HTMLElement[], year: number, self: VanillaCalendarPro) => void;
+  onClickTitle!: (e: MouseEvent, self: VanillaCalendarPro) => void;
+  onClickMonth!: (e: MouseEvent, self: VanillaCalendarPro) => void;
+  onClickYear!: (e: MouseEvent, self: VanillaCalendarPro) => void;
+  onClickArrow!: (e: MouseEvent, self: VanillaCalendarPro) => void;
+  onChangeTime!: (e: Event, self: VanillaCalendarPro, isError: boolean) => void;
+  onChangeToInput!: (e: Event, self: VanillaCalendarPro) => void;
+  onInit!: (self: VanillaCalendarPro) => void;
+  onUpdate!: (self: VanillaCalendarPro) => void;
+  onDestroy!: (self: VanillaCalendarPro) => void;
+  onShow!: (self: VanillaCalendarPro) => void;
+  onHide!: (self: VanillaCalendarPro) => void;
 
   popups: Popups = {};
   labels: Labels = { ...labels };

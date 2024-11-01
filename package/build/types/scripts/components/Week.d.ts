@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const Week: (self: VanillaCalendar) => string;
+import { VanillaCalendarPro } from '../../index';
+declare const Week: (self: VanillaCalendarPro) => string;
 export default Week;

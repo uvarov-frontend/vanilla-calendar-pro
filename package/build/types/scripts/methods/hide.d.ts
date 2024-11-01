@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const hide: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const hide: (self: VanillaCalendarPro) => void;
 export default hide;

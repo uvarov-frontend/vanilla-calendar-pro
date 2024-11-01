@@ -1,6 +1,6 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const canToggleSelection = (self: VanillaCalendar): boolean => {
+const canToggleSelection = (self: VanillaCalendarPro): boolean => {
   if (self.enableDateToggle !== undefined) return typeof self.enableDateToggle === 'function' ? self.enableDateToggle(self) : self.enableDateToggle;
   return true;
 };

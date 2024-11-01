@@ -8,9 +8,9 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import handleTheme from '@scripts/handles/handleTheme';
 import getLocale from '@scripts/utils/getLocale';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const create = (self: VanillaCalendar) => {
+const create = (self: VanillaCalendarPro) => {
   const createComponents = {
     default: () => {
       createWeek(self);

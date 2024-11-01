@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const handleClick: (self: VanillaCalendar) => () => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const handleClick: (self: VanillaCalendarPro) => () => void;
 export default handleClick;

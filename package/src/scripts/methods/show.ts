@@ -1,6 +1,6 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const show = (self: VanillaCalendar) => {
+const show = (self: VanillaCalendarPro) => {
   if (!self.private.currentType) {
     self.private.mainElement.click();
     return;

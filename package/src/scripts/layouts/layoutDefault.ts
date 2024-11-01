@@ -1,6 +1,6 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const layoutDefault = (self: VanillaCalendar) => `
+const layoutDefault = (self: VanillaCalendarPro) => `
   <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
     <#ArrowPrev [month] />
     <div class="${self.styles.headerContent}" data-vc-header="content">

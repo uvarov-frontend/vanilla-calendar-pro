@@ -1,8 +1,8 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
 import transformTime12 from '@scripts/utils/transformTime12';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const initTime = (self: VanillaCalendar) => {
+const initTime = (self: VanillaCalendarPro) => {
   if (!self.selectionTimeMode) return;
 
   if (![12, 24].includes(self.selectionTimeMode)) throw new Error(errorMessages.incorrectTime);

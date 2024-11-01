@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const handleInput: (self: VanillaCalendar) => () => void;
+import { VanillaCalendarPro } from '../../index';
+declare const handleInput: (self: VanillaCalendarPro) => () => void;
 export default handleInput;

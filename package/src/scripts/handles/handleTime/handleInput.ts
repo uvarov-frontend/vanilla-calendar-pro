@@ -1,21 +1,21 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
 const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElement, valueInput: string, valueRange: string) => {
   inputEl.value = valueInput;
   rangeEl.value = valueRange;
 };
 
-const updateKeepingTime = (self: VanillaCalendar, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
+const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
   if (!keepingTimeEl) return;
   self.private.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
 
 const handleInput = (
-  self: VanillaCalendar,
+  self: VanillaCalendarPro,
   rangeEl: HTMLInputElement,
   inputEl: HTMLInputElement,
   keepingTimeEl: HTMLButtonElement | null,

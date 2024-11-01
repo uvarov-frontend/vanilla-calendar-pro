@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const createDatePopup: (self: VanillaCalendar, datesEl: HTMLElement) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const createDatePopup: (self: VanillaCalendarPro, datesEl: HTMLElement) => void;
 export default createDatePopup;

@@ -1,7 +1,7 @@
+import type { VanillaCalendarPro } from '@src/index';
 import type labels from '@src/labels';
 import type options from '@src/options';
 import type styles from '@src/styles';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 type LeadingZero = `${0}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 
@@ -17,7 +17,7 @@ export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
 
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
-export type ToggleSelected = boolean | ((self: VanillaCalendar) => boolean);
+export type ToggleSelected = boolean | ((self: VanillaCalendarPro) => boolean);
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 

@@ -1,6 +1,6 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) => {
+export const handleClickWeekNumber = (self: VanillaCalendarPro, event: MouseEvent) => {
   if (!self.enableWeekNumbers || !self.onClickWeekNumber) return;
 
   const weekNumberEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-number]');
@@ -15,7 +15,7 @@ export const handleClickWeekNumber = (self: VanillaCalendar, event: MouseEvent) 
   self.onClickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
 };
 
-export const handleClickWeekDay = (self: VanillaCalendar, event: MouseEvent) => {
+export const handleClickWeekDay = (self: VanillaCalendarPro, event: MouseEvent) => {
   if (!self.onClickWeekDay) return;
 
   const weekDayEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-day]');

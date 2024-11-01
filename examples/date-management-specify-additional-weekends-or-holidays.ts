@@ -1,5 +1,5 @@
 import type { Options } from '@src/types';
-import { VanillaCalendar } from 'vanilla-calendar-pro';
+import { VanillaCalendarPro } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
@@ -9,5 +9,5 @@ const options: Options = {
   selectedHolidays: ['2022-01-01:2022-01-05', '2022-01-10', '2022-01-13'],
 };
 
-const calendar = new VanillaCalendar('#calendar', options);
+const calendar = new VanillaCalendarPro('#calendar', options);
 calendar.init();

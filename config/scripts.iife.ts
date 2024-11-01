@@ -1,8 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import banner from 'vite-plugin-banner';
-import dts from 'vite-plugin-dts';
-import eslint from 'vite-plugin-eslint';
 
 import { version } from '../package/package.json';
 
@@ -14,13 +12,14 @@ export default defineConfig({
     assetsDir: '',
     outDir,
     minify: false,
+    emptyOutDir: false,
     lib: {
-      name: 'VanillaCalendar',
-      fileName(format, entryName) {
-        return `${entryName}${format === 'es' ? '.mjs' : '.js'}`;
+      name: 'VanillaCalendarPro',
+      fileName() {
+        return `vanilla-calendar-pro.js`;
       },
-      entry: resolve(__dirname, '../package/src/vanilla-calendar.ts'),
-      formats: ['es', 'cjs'],
+      entry: resolve(__dirname, '../package/src/index.cjs.ts'),
+      formats: ['iife'],
     },
   },
   resolve: {
@@ -36,7 +35,5 @@ export default defineConfig({
       outDir,
       content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro`,
     }),
-    eslint(),
-    dts({ tsconfigPath: './tsconfig.build.json', outDir: './package/build/types' }),
   ],
 });

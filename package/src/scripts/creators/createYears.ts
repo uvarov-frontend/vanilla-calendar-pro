@@ -1,9 +1,9 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
+const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
   yearEl.className = self.styles.yearsYear;
   yearEl.innerText = String(i);
@@ -18,7 +18,7 @@ const createYearEl = (self: VanillaCalendar, templateEl: HTMLButtonElement, sele
   return yearEl;
 };
 
-const createYears = (self: VanillaCalendar, target?: HTMLElement) => {
+const createYears = (self: VanillaCalendarPro, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.private.selectedYear;
 
   self.private.currentType = 'year';

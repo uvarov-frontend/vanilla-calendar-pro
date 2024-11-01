@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const visibilityArrows: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const visibilityArrows: (self: VanillaCalendarPro) => void;
 export default visibilityArrows;

@@ -1,4 +1,4 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
 const haveListener = {
   value: false,
@@ -6,9 +6,9 @@ const haveListener = {
   check: () => haveListener.value,
 };
 
-const setTheme = (htmlEl: HTMLElement, theme: VanillaCalendar['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
+const setTheme = (htmlEl: HTMLElement, theme: VanillaCalendarPro['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
 
-const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
+const trackChangesThemeInSystemSettings = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
   setTheme(self.private.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
 
   if (self.selectedTheme !== 'system' || haveListener.check()) return;
@@ -27,7 +27,7 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendar, supportDarkThe
   haveListener.set();
 };
 
-const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLElement, attr: string) => {
+const trackChangesThemeInHTMLElement = (self: VanillaCalendarPro, htmlEl: HTMLElement, attr: string) => {
   const changes = (mutationsList: MutationRecord[]) => {
     for (let i = 0; i < mutationsList.length; i++) {
       const record = mutationsList[i];
@@ -43,7 +43,7 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
   observer.observe(htmlEl, { attributes: true });
 };
 
-const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
+const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
   const detectedThemeEl: HTMLElement | null = self.themeAttrDetect ? document.querySelector(self.themeAttrDetect) : null;
   const attr = (self.themeAttrDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
 
@@ -61,7 +61,7 @@ const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) =>
   }
 };
 
-const handleTheme = (self: VanillaCalendar) => {
+const handleTheme = (self: VanillaCalendarPro) => {
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
     setTheme(self.private.mainElement, 'light');
     return;

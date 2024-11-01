@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const getLocale: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const getLocale: (self: VanillaCalendarPro) => void;
 export default getLocale;

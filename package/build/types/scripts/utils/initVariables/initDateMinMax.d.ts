@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const initDateMinMax: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const initDateMinMax: (self: VanillaCalendarPro) => void;
 export default initDateMinMax;

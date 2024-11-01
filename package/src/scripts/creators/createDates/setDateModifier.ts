@@ -1,7 +1,7 @@
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
+import type { VanillaCalendarPro } from '@src/index';
 import type { FormatDateString, WeekDayID } from '@src/types';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
 const updateAttribute = (dateEl: HTMLElement, condition: boolean | undefined, attr: string, value = '') => {
   if (condition) {
@@ -12,7 +12,7 @@ const updateAttribute = (dateEl: HTMLElement, condition: boolean | undefined, at
 };
 
 const setDateModifier = (
-  self: VanillaCalendar,
+  self: VanillaCalendarPro,
   currentYear: number,
   dateEl: HTMLElement,
   dateBtnEl: HTMLButtonElement,

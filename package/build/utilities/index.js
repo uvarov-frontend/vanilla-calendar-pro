@@ -1,6 +1,6 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.3 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.4 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.VanillaCalendarUtilities = {}));
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.VanillaCalendarProUtilities = {}));
 })(this, function(exports2) {
   "use strict";
   const getDate$1 = (date) => /* @__PURE__ */ new Date(`${date}T00:00:00.000Z`);

@@ -1,4 +1,4 @@
+import { VanillaCalendarPro } from '../../../index';
 import { FormatDateString, WeekDayID } from '../../../types';
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const setDateModifier: (self: VanillaCalendar, currentYear: number, dateEl: HTMLElement, dateBtnEl: HTMLButtonElement, dayWeekID: WeekDayID, dateStr: FormatDateString, monthType: 'current' | 'prev' | 'next') => void;
+declare const setDateModifier: (self: VanillaCalendarPro, currentYear: number, dateEl: HTMLElement, dateBtnEl: HTMLButtonElement, dayWeekID: WeekDayID, dateStr: FormatDateString, monthType: 'current' | 'prev' | 'next') => void;
 export default setDateModifier;

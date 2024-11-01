@@ -3,10 +3,10 @@ import canToggleSelection from '@scripts/utils/canToggleSelection';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import parseDates from '@scripts/utils/parseDates';
+import type { VanillaCalendarPro } from '@src/index';
 import type { FormatDateString } from '@src/types';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
 
-const current: { self: VanillaCalendar | null; rangeMin: FormatDateString | undefined; rangeMax: FormatDateString | undefined } = {
+const current: { self: VanillaCalendarPro | null; rangeMin: FormatDateString | undefined; rangeMax: FormatDateString | undefined } = {
   self: null,
   rangeMin: undefined,
   rangeMax: undefined,
@@ -89,7 +89,7 @@ const resetDisabledDates = () => {
   current.self.private.displayDateMax = current.rangeMax as FormatDateString;
 };
 
-const handleSelectDateRange = (self: VanillaCalendar, formattedDate?: FormatDateString) => {
+const handleSelectDateRange = (self: VanillaCalendarPro, formattedDate?: FormatDateString) => {
   if (formattedDate) {
     const selectedDateExists = self.private.selectedDates.length === 1 && self.private.selectedDates[0].includes(formattedDate);
     self.private.selectedDates =

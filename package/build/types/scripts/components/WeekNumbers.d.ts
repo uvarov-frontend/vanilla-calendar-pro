@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const WeekNumbers: (self: VanillaCalendar) => string;
+import { VanillaCalendarPro } from '../../index';
+declare const WeekNumbers: (self: VanillaCalendarPro) => string;
 export default WeekNumbers;

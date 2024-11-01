@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const destroy: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const destroy: (self: VanillaCalendarPro) => void;
 export default destroy;

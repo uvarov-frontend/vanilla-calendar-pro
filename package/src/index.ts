@@ -3,7 +3,7 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
 import type { Options, PrivateVariables, Reset } from '@src/types';
 
-export class VanillaCalendar extends OptionsCalendar {
+export class VanillaCalendarPro extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
   constructor(selector: HTMLElement | string, options?: Options) {
@@ -23,7 +23,7 @@ export class VanillaCalendar extends OptionsCalendar {
       },
     };
 
-    this.private.mainElement = typeof selector === 'string' ? (VanillaCalendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
+    this.private.mainElement = typeof selector === 'string' ? (VanillaCalendarPro.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
 
     if (options) this.applyOptions(options);
   }
@@ -32,7 +32,7 @@ export class VanillaCalendar extends OptionsCalendar {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(errorMessages.notFoundSelector(selector));
 
-    VanillaCalendar.memoizedElements.set(selector, element);
+    VanillaCalendarPro.memoizedElements.set(selector, element);
     return element;
   }
 

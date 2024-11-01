@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const visibilityTitle: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const visibilityTitle: (self: VanillaCalendarPro) => void;
 export default visibilityTitle;

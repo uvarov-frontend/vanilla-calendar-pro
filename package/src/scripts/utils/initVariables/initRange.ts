@@ -2,9 +2,9 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import getLocalDate from '@scripts/utils/getLocalDate';
 import parseDates from '@scripts/utils/parseDates';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const initRange = (self: VanillaCalendar) => {
+const initRange = (self: VanillaCalendarPro) => {
   // set self.private.displayDateMin and self.private.displayDateMax
   if (self.dateMin === 'today') self.dateMin = getLocalDate();
   if (self.dateMax === 'today') self.dateMax = getLocalDate();

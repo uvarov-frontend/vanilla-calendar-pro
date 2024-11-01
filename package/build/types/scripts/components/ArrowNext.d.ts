@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const ArrowNext: (self: VanillaCalendar, type: 'month' | 'year') => string;
+import { VanillaCalendarPro } from '../../index';
+declare const ArrowNext: (self: VanillaCalendarPro, type: 'month' | 'year') => string;
 export default ArrowNext;

@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const createDates: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const createDates: (self: VanillaCalendarPro) => void;
 export default createDates;

@@ -1,7 +1,7 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const destroy = (self: VanillaCalendar) => {
+const destroy = (self: VanillaCalendarPro) => {
   if (!self.private.isInit) throw new Error(errorMessages.notInit);
 
   if (self.isInput) {

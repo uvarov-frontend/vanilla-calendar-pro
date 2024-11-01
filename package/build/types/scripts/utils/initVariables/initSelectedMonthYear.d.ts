@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const initSelectedMonthYear: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const initSelectedMonthYear: (self: VanillaCalendarPro) => void;
 export default initSelectedMonthYear;

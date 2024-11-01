@@ -3,9 +3,9 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const handleMonth = (self: VanillaCalendar, route: 'prev' | 'next') => {
+const handleMonth = (self: VanillaCalendarPro, route: 'prev' | 'next') => {
   const jumpDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
 
   const routeMap: Record<string, () => void> = {

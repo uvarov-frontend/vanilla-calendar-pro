@@ -1,4 +1,4 @@
+import { VanillaCalendarPro } from '../../index';
 import { FormatDateString } from '../../types';
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const handleSelectDateRange: (self: VanillaCalendar, formattedDate?: FormatDateString) => void;
+declare const handleSelectDateRange: (self: VanillaCalendarPro, formattedDate?: FormatDateString) => void;
 export default handleSelectDateRange;

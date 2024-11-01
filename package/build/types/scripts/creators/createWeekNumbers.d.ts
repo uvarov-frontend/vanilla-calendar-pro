@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const createWeekNumbers: (self: VanillaCalendar, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const createWeekNumbers: (self: VanillaCalendarPro, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => void;
 export default createWeekNumbers;

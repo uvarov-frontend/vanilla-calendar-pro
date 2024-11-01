@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const ControlTime: (self: VanillaCalendar) => string;
+import { VanillaCalendarPro } from '../../index';
+declare const ControlTime: (self: VanillaCalendarPro) => string;
 export default ControlTime;

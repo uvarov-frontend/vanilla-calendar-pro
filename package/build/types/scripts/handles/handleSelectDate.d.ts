@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const handleSelectDate: (self: VanillaCalendar, dateEl: HTMLElement, multiple: boolean) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const handleSelectDate: (self: VanillaCalendarPro, dateEl: HTMLElement, multiple: boolean) => void;
 export default handleSelectDate;

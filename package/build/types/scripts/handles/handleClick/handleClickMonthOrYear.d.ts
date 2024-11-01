@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const handleClickMonthOrYear: (self: VanillaCalendar, event: MouseEvent) => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const handleClickMonthOrYear: (self: VanillaCalendarPro, event: MouseEvent) => void;
 export default handleClickMonthOrYear;

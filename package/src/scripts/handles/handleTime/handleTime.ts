@@ -1,13 +1,13 @@
 import handleClickKeepingTime from '@scripts/handles/handleTime/handleClickKeepingTime';
 import handleInput from '@scripts/handles/handleTime/handleInput';
 import handleRange from '@scripts/handles/handleTime/handleRange';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
 const handleMouseOver = (inputEl: HTMLInputElement) => inputEl.setAttribute('data-vc-input-focus', '');
 
 const handleMouseOut = (inputEl: HTMLInputElement) => inputEl.removeAttribute('data-vc-input-focus');
 
-const handleTime = (self: VanillaCalendar, timeEl: HTMLElement) => {
+const handleTime = (self: VanillaCalendarPro, timeEl: HTMLElement) => {
   const rangeHourEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-range="hour"] input[name="hour"]');
   const rangeMinuteEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-range="minute"] input[name="minute"]');
   const inputHourEl = timeEl.querySelector<HTMLInputElement>('[data-vc-time-input="hour"] input[name="hour"]');

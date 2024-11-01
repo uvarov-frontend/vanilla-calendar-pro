@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const createLayouts: (self: VanillaCalendar, target?: HTMLElement) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const createLayouts: (self: VanillaCalendarPro, target?: HTMLElement) => void;
 export default createLayouts;

@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../../vanilla-calendar';
-declare const handleTime: (self: VanillaCalendar, timeEl: HTMLElement) => () => void;
+import { VanillaCalendarPro } from '../../../index';
+declare const handleTime: (self: VanillaCalendarPro, timeEl: HTMLElement) => () => void;
 export default handleTime;

@@ -1,8 +1,8 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const relationshipID = (self: VanillaCalendar) => {
+const relationshipID = (self: VanillaCalendarPro) => {
   if (self.viewType !== 'multiple') return 0;
   const columnEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
@@ -10,7 +10,7 @@ const relationshipID = (self: VanillaCalendar) => {
 };
 
 const createMonthEl = (
-  self: VanillaCalendar,
+  self: VanillaCalendarPro,
   templateEl: HTMLButtonElement,
   selected: number,
   titleShort: string,
@@ -32,7 +32,7 @@ const createMonthEl = (
   return monthEl;
 };
 
-const createMonths = (self: VanillaCalendar, target?: HTMLElement) => {
+const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
   const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
   const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.private.selectedYear as number);
   const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.private.selectedMonth;

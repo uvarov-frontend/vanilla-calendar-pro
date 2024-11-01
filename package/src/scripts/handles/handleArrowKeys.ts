@@ -1,6 +1,6 @@
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const handleArrowKeys = (self: VanillaCalendar) => {
+const handleArrowKeys = (self: VanillaCalendarPro) => {
   const updateButtons = () => Array.from(self.private.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
 
   let currentFocusedIndex = 0;

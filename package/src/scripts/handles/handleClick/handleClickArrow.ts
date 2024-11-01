@@ -1,8 +1,8 @@
 import createYears from '@scripts/creators/createYears';
 import handleMonth from '@scripts/handles/handleMonth';
-import type { VanillaCalendar } from '@src/vanilla-calendar';
+import type { VanillaCalendarPro } from '@src/index';
 
-const handleClickArrow = (self: VanillaCalendar, event: MouseEvent) => {
+const handleClickArrow = (self: VanillaCalendarPro, event: MouseEvent) => {
   const element = event.target as HTMLElement;
   const arrowEl: HTMLElement | null = element.closest('[data-vc-arrow]');
 

@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const canToggleSelection: (self: VanillaCalendar) => boolean;
+import { VanillaCalendarPro } from '../../index';
+declare const canToggleSelection: (self: VanillaCalendarPro) => boolean;
 export default canToggleSelection;

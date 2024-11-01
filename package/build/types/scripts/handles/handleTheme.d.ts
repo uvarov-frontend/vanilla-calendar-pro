@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const handleTheme: (self: VanillaCalendar) => void;
+import { VanillaCalendarPro } from '../../index';
+declare const handleTheme: (self: VanillaCalendarPro) => void;
 export default handleTheme;

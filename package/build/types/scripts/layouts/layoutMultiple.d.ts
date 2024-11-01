@@ -1,3 +1,3 @@
-import { VanillaCalendar } from '../../vanilla-calendar';
-declare const layoutMultiple: (self: VanillaCalendar) => string;
+import { VanillaCalendarPro } from '../../index';
+declare const layoutMultiple: (self: VanillaCalendarPro) => string;
 export default layoutMultiple;
