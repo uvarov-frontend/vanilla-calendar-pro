@@ -9,6 +9,7 @@ import '@src/styles/vanilla-calendar.css';
 
 const configInput: IOptions = {
   isInput: true,
+  positionToInput: 'center',
   onChangeToInput(e, self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
@@ -18,16 +19,11 @@ const configInput: IOptions = {
     }
     self.hide();
   },
-
-  settings: {
-    visibility: {
-      positionToInput: 'center',
-    },
-  },
 };
 
 const configDiv: IOptions = {
   isInput: true,
+  positionToInput: 'auto',
   onChangeToInput(e, self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
@@ -64,9 +60,6 @@ const configDiv: IOptions = {
         <p style="margin: 5px 0 0;">Lunch with John for initial meeting</p>
       </div>`,
     },
-  },
-  settings: {
-    visibility: { positionToInput: 'auto' },
   },
 };
 

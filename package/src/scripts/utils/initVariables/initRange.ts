@@ -9,28 +9,20 @@ const initRange = (self: VanillaCalendar) => {
   if (self.dateMin === 'today') self.dateMin = getLocalDate();
   if (self.dateMax === 'today') self.dateMax = getLocalDate();
 
-  if (self.settings.range.min === 'today') self.settings.range.min = getLocalDate();
-  if (self.settings.range.max === 'today') self.settings.range.max = getLocalDate();
+  if (self.displayDateMin === 'today') self.displayDateMin = getLocalDate();
+  if (self.displayDateMax === 'today') self.displayDateMax = getLocalDate();
 
-  self.settings.range.min = self.settings.range.min
-    ? getDate(self.dateMin) >= getDate(self.settings.range.min)
-      ? self.dateMin
-      : self.settings.range.min
-    : self.dateMin;
+  self.displayDateMin = self.displayDateMin ? (getDate(self.dateMin) >= getDate(self.displayDateMin) ? self.dateMin : self.displayDateMin) : self.dateMin;
 
-  self.settings.range.max = self.settings.range.max
-    ? getDate(self.dateMax) <= getDate(self.settings.range.max)
-      ? self.dateMax
-      : self.settings.range.max
-    : self.dateMax;
+  self.displayDateMax = self.displayDateMax ? (getDate(self.dateMax) <= getDate(self.displayDateMax) ? self.dateMax : self.displayDateMax) : self.dateMax;
 
-  const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.settings.range.min) < self.dateToday;
+  const isDisablePast = self.settings.range.disablePast && !self.settings.range.disableAllDays && getDate(self.displayDateMin) < self.dateToday;
   self.private.displayDateMin = isDisablePast
     ? getDateString(self.dateToday)
     : self.settings.range.disableAllDays
       ? getDateString(self.dateToday)
-      : self.settings.range.min;
-  self.private.displayDateMax = self.settings.range.disableAllDays ? getDateString(self.dateToday) : self.settings.range.max;
+      : self.displayDateMin;
+  self.private.displayDateMax = self.settings.range.disableAllDays ? getDateString(self.dateToday) : self.displayDateMax;
 
   // set self.private.disableDates
   self.private.disableDates =

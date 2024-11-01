@@ -47,7 +47,7 @@ const createDate = (
   dateBtnEl.innerText = String(dateID);
 
   if (self.settings.visibility.weekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
-  if (monthType !== 'current' ? self.settings.visibility.daysOutside : true) dateEl.appendChild(dateBtnEl);
+  if (monthType !== 'current' ? self.displayDatesOutside : true) dateEl.appendChild(dateBtnEl);
 
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);

@@ -19,7 +19,7 @@ const createToInput = (self: VanillaCalendar, isVisible = true) => {
 
   if (isVisible) {
     queueMicrotask(() => {
-      setPosition(self.private.inputElement, calendar, self.settings.visibility.positionToInput);
+      setPosition(self.private.inputElement, calendar, self.positionToInput);
       self.private.mainElement.style.visibility = 'visible';
       self.show();
     });

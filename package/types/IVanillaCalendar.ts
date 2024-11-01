@@ -20,16 +20,29 @@ import type {
 
 export interface IVanillaCalendar extends IActions {
   viewType: TypesCalendar;
+
   isInput: boolean;
-  displayMonthsCount: MonthsCount;
-  monthsToSwitch: number;
-  enableJumpToSelectedDate: boolean;
-  enableDateToggle: ToggleSelected;
+  positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'];
+
   firstWeekday: WeekDayID;
-  enableMonthChangeOnDayClick: boolean;
+  monthsToSwitch: number;
+  themeAttrDetect: string | false;
+
+  locale: Locale;
+
   dateToday: Date;
   dateMin: FormatDateString | 'today';
   dateMax: FormatDateString | 'today';
+
+  displayMonthsCount: MonthsCount;
+  displayDateMin: FormatDateString | 'today';
+  displayDateMax: FormatDateString | 'today';
+  displayDatesOutside: boolean;
+  displayDisabledDates: boolean;
+
+  enableJumpToSelectedDate: boolean;
+  enableDateToggle: ToggleSelected;
+  enableMonthChangeOnDayClick: boolean;
 
   settings: {
     range: IRange;
@@ -39,7 +52,6 @@ export interface IVanillaCalendar extends IActions {
   };
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
-  locale: Locale;
   labels: Labels;
   layouts: ILayouts;
   styles: Styles;

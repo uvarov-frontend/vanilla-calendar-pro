@@ -20,21 +20,32 @@ export default class DefaultOptionsCalendar {
   }
 
   viewType: T.TypesCalendar = 'default';
+
   isInput = false;
-  displayMonthsCount = 2;
-  monthsToSwitch = 1;
-  enableJumpToSelectedDate = false;
-  enableDateToggle: T.ToggleSelected = true;
+  positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'] = 'left';
+
   firstWeekday: T.WeekDayID = 1;
-  enableMonthChangeOnDayClick = true;
+  monthsToSwitch = 1;
+  themeAttrDetect = 'html[data-theme]';
+
+  locale: T.Locale = 'en';
+
   dateToday = new Date();
   dateMin: T.FormatDateString | 'today' = '1970-01-01';
   dateMax: T.FormatDateString | 'today' = '2470-12-31';
 
+  displayMonthsCount = 2;
+  displayDateMin!: T.FormatDateString | 'today';
+  displayDateMax!: T.FormatDateString | 'today';
+  displayDatesOutside = true;
+  displayDisabledDates = false;
+
+  enableJumpToSelectedDate = false;
+  enableDateToggle: T.ToggleSelected = true;
+  enableMonthChangeOnDayClick = true;
+
   settings: T.ISettings = {
     range: {
-      min: undefined,
-      max: undefined,
       disablePast: false,
       disableGaps: false,
       edgesOnly: true,
@@ -66,16 +77,11 @@ export default class DefaultOptionsCalendar {
     },
     visibility: {
       theme: 'system',
-      themeDetect: 'html[data-theme]',
       weekNumbers: false,
       today: true,
-      disabled: false,
-      daysOutside: true,
-      positionToInput: 'left',
     },
   };
 
-  locale: T.Locale = 'en';
   sanitizerHTML = (dirtyHtml: string) => dirtyHtml;
   onClickDate!: T.IActions['onClickDate'];
   onClickWeekDay!: T.IActions['onClickWeekDay'];

@@ -5,6 +5,7 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 const options: IOptions = {
   isInput: true,
+  positionToInput: 'center',
   onChangeToInput(e, self) {
     if (!self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
@@ -14,11 +15,6 @@ const options: IOptions = {
     } else {
       self.private.inputElement.textContent = '';
     }
-  },
-  settings: {
-    visibility: {
-      positionToInput: 'center',
-    },
   },
 };
 

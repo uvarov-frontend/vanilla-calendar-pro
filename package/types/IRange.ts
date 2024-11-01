@@ -1,8 +1,6 @@
-import type { FormatDateString, Range } from '../types';
+import type { Range } from '../types';
 
 export interface IRange {
-  min?: FormatDateString | 'today';
-  max?: FormatDateString | 'today';
   disablePast: boolean;
   disableGaps: boolean;
   edgesOnly?: boolean;

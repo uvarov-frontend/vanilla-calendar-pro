@@ -6,7 +6,7 @@ const handleInput = (self: VanillaCalendar) => {
   const cleanup: Array<() => void> = [];
   self.private.inputElement = self.private.mainElement as HTMLInputElement;
 
-  const handleResize = () => setPosition(self.private.inputElement, self.private.mainElement, self.settings.visibility.positionToInput);
+  const handleResize = () => setPosition(self.private.inputElement, self.private.mainElement, self.positionToInput);
 
   const handleEscapeKey = (e: KeyboardEvent) => {
     if (e.key !== 'Escape') return;
@@ -25,7 +25,7 @@ const handleInput = (self: VanillaCalendar) => {
     if (!self.private.isInputInit) {
       cleanup.push(createToInput(self));
     } else {
-      setPosition(self.private.inputElement, self.private.mainElement, self.settings.visibility.positionToInput);
+      setPosition(self.private.inputElement, self.private.mainElement, self.positionToInput);
       self.private.mainElement.style.visibility = 'visible';
       self.show();
     }

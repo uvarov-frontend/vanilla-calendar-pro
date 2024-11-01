@@ -6,15 +6,13 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: IOptions = {
   isInput: true,
   viewType: 'multiple',
+  displayDatesOutside: false,
   settings: {
     range: {
       disablePast: true,
     },
     selection: {
       day: 'multiple-ranged',
-    },
-    visibility: {
-      daysOutside: false,
     },
   },
   onChangeToInput(e, self) {

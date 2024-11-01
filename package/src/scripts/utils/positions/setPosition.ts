@@ -1,11 +1,11 @@
-import type { IVisibility } from '@package/types';
 import findBestPickerPosition from '@scripts/utils/positions/findBestPickerPosition';
 import getOffset from '@scripts/utils/positions/getOffset';
 import getViewportDimensions from '@scripts/utils/positions/getViewportDimensions';
+import type VanillaCalendar from '@src/vanilla-calendar';
 
 /** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
 
-const setPosition = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: IVisibility['positionToInput']) => {
+const setPosition = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: VanillaCalendar['positionToInput']) => {
   if (input) {
     const pos = position === 'auto' ? findBestPickerPosition(input, calendar) : position;
 

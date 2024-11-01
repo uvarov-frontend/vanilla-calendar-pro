@@ -7,15 +7,13 @@ const options: IOptions = {
   viewType: 'multiple',
   displayMonthsCount: 2,
   monthsToSwitch: 2,
+  displayDatesOutside: false,
   settings: {
     range: {
       disablePast: true,
     },
     selection: {
       day: 'multiple-ranged',
-    },
-    visibility: {
-      daysOutside: false,
     },
   },
 };

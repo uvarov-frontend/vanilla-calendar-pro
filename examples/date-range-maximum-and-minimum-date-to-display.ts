@@ -6,15 +6,9 @@ import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 const options: IOptions = {
   dateMin: '1920-01-01',
   dateMax: '2038-12-31',
-  settings: {
-    range: {
-      min: '2000-01-01',
-      max: '2024-12-31',
-    },
-    visibility: {
-      disabled: true,
-    },
-  },
+  displayDateMin: '2000-01-01',
+  displayDateMax: '2024-12-31',
+  displayDisabledDates: true,
 };
 
 const calendar = new VanillaCalendar('#calendar', options);

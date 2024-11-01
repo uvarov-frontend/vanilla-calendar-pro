@@ -4,16 +4,29 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>);
 
   viewType: T.TypesCalendar;
+
   isInput: boolean;
-  displayMonthsCount: T.MonthsCount;
-  monthsToSwitch: number;
-  enableJumpToSelectedDate: boolean;
-  enableDateToggle: T.ToggleSelected;
+  positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'];
+
   firstWeekday: T.WeekDayID;
-  enableMonthChangeOnDayClick: boolean;
+  monthsToSwitch: number;
+  themeAttrDetect: string | false;
+
+  locale: T.Locale;
+
   dateToday: Date;
   dateMin: T.FormatDateString | 'today';
   dateMax: T.FormatDateString | 'today';
+
+  displayMonthsCount: T.MonthsCount;
+  displayDateMin: T.FormatDateString | 'today';
+  displayDateMax: T.FormatDateString | 'today';
+  displayDatesOutside: boolean;
+  displayDisabledDates: boolean;
+
+  enableJumpToSelectedDate: boolean;
+  enableDateToggle: T.ToggleSelected;
+  enableMonthChangeOnDayClick: boolean;
 
   settings: {
     range: T.IRange;
@@ -23,7 +36,6 @@ declare class VanillaCalendar implements T.IVanillaCalendar {
   };
 
   sanitizerHTML: (dirtyHtml: string) => unknown;
-  locale: T.Locale;
   labels: T.Labels;
   layouts: T.ILayouts;
   styles: T.Styles;

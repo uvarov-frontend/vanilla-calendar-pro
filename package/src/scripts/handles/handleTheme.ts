@@ -45,8 +45,8 @@ const trackChangesThemeInHTMLElement = (self: VanillaCalendar, htmlEl: HTMLEleme
 };
 
 const detectTheme = (self: VanillaCalendar, supportDarkTheme: MediaQueryList) => {
-  const detectedThemeEl: HTMLElement | null = self.settings.visibility.themeDetect ? document.querySelector(self.settings.visibility.themeDetect) : null;
-  const attr = (self.settings.visibility.themeDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
+  const detectedThemeEl: HTMLElement | null = self.themeAttrDetect ? document.querySelector(self.themeAttrDetect) : null;
+  const attr = (self.themeAttrDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
 
   if (!detectedThemeEl || detectedThemeEl.getAttribute(attr) === 'system') {
     trackChangesThemeInSystemSettings(self, supportDarkTheme);
