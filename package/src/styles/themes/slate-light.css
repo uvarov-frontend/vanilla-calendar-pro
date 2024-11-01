@@ -44,11 +44,11 @@
 }
 
 [data-vc-theme='slate-light'] .vc-week__day {
-  @apply text-gray-600;
+  @apply text-gray-600 surehover:hover:text-gray-800;
 }
 
 [data-vc-theme='slate-light'] .vc-week__day[data-vc-week-day-off] {
-  @apply text-red-500;
+  @apply text-red-500 surehover:hover:text-red-600;
 }
 
 [data-vc-theme='slate-light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-selected] .vc-date__btn,

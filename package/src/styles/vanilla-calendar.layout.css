@@ -117,7 +117,7 @@
 }
 
 [data-vc-week-day] {
-  @apply text-xs font-bold w-full min-w-[1.875rem] flex items-center justify-center;
+  @apply text-xs font-bold w-full min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
 }
 
 [data-vc='dates'] {
