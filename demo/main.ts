@@ -1,6 +1,6 @@
 import { VanillaCalendarPro } from 'vanilla-calendar-pro';
 
-import '@src/styles/vanilla-calendar.css';
+import '@src/styles/vanilla-calendar-pro.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const calendar = new VanillaCalendarPro('#calendar', {
