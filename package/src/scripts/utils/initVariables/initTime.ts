@@ -10,19 +10,19 @@ const initTime = (self: VanillaCalendarPro) => {
   const isTime12 = self.selectionTimeMode === 12;
   const timeRegex = isTime12 ? /^([1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
 
-  let [hours, minutes, keeping] = self.selectedTime?.match(timeRegex)?.slice(1) ?? [];
+  let [hours, minutes, keeping]: string[] | null[] = self.selectedTime?.match(timeRegex)?.slice(1) ?? [];
 
   if (!hours) {
     hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
     minutes = String(self.timeMinMinute);
-    keeping = isTime12 && Number(transformTime12(String(self.timeMinHour))) >= 12 ? 'PM' : 'AM';
+    keeping = isTime12 ? (Number(transformTime12(String(self.timeMinHour))) >= 12 ? 'PM' : 'AM') : null;
   } else if (isTime12 && !keeping) {
     keeping = 'AM';
   }
 
   self.private.selectedHours = hours.padStart(2, '0');
   self.private.selectedMinutes = minutes.padStart(2, '0');
-  self.private.selectedKeeping = keeping;
+  self.private.selectedKeeping = keeping as 'AM' | 'PM' | null;
   self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
 };
 
