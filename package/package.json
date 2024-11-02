@@ -1,7 +1,7 @@
 {
   "name": "vanilla-calendar-pro",
   "description": "The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.",
-  "version": "3.0.0-beta.10",
+  "version": "3.0.0-beta.11",
   "homepage": "https://vanilla-calendar.pro",
   "keywords": [
     "calendar",
@@ -38,22 +38,22 @@
     "url": "https://ko-fi.com/uvarov_frontend"
   },
   "license": "MIT",
-  "main": "./build/scripts/vanilla-calendar-pro.js",
-  "module": "./build/scripts/vanilla-calendar-pro.mjs",
-  "style": "./build/styles/vanilla-calendar-pro.css",
+  "main": "./build/scripts/vanilla-calendar-pro.min.js",
+  "module": "./build/scripts/vanilla-calendar-pro.min.mjs",
+  "style": "./build/styles/vanilla-calendar-pro.min.css",
   "types": "./build/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./build/types/index.d.ts",
-      "require": "./build/scripts/vanilla-calendar-pro.js",
-      "node": "./build/scripts/vanilla-calendar-pro.mjs",
-      "import": "./build/scripts/vanilla-calendar-pro.mjs"
+      "require": "./build/scripts/vanilla-calendar-pro.min.js",
+      "node": "./build/scripts/vanilla-calendar-pro.min.mjs",
+      "import": "./build/scripts/vanilla-calendar-pro.min.mjs"
     },
     "./utilities": {
       "types": "./build/types/utilities.d.ts",
-      "require": "./build/utilities/index.js",
-      "node": "./build/utilities/index.mjs",
-      "import": "./build/utilities/index.mjs"
+      "require": "./build/utilities/index.min.js",
+      "node": "./build/utilities/index.min.mjs",
+      "import": "./build/utilities/index.min.mjs"
     },
     "./package.json": "./package.json",
     "./build/*": "./build/*"

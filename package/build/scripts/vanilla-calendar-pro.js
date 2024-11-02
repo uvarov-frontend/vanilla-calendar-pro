@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.10 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.11 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var VanillaCalendarPro = function() {
   "use strict";var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
