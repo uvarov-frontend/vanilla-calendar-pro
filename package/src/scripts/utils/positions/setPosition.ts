@@ -6,8 +6,7 @@ import type { VanillaCalendarPro } from '@src/index';
 /** Set the calendar picker position according to the user's choice coming from `positionToInput` option. */
 
 const setPosition = (input: HTMLInputElement | undefined, calendar: HTMLElement, position: VanillaCalendarPro['positionToInput']) => {
-  if (typeof window === 'undefined' || !input) return;
-
+  if (!input) return;
   const pos = position === 'auto' ? findBestPickerPosition(input, calendar) : position;
 
   const getPosition = {

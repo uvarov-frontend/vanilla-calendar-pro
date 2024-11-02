@@ -4,12 +4,9 @@
  */
 
 function getWindowScrollPosition(): { left: number; top: number } {
-  const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-  const scrollX = typeof window !== 'undefined' ? window.scrollX : 0;
-
   return {
-    left: scrollX || document.documentElement.scrollLeft || 0,
-    top: scrollY || document.documentElement.scrollTop || 0,
+    left: window.scrollX || document.documentElement.scrollLeft || 0,
+    top: window.scrollY || document.documentElement.scrollTop || 0,
   };
 }
 

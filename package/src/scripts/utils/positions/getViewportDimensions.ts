@@ -4,12 +4,9 @@
  */
 
 function getViewportDimensions() {
-  const innerWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
-  const innerHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
-
   return {
-    vw: Math.max(document.documentElement.clientWidth || 0, innerWidth),
-    vh: Math.max(document.documentElement.clientHeight || 0, innerHeight),
+    vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+    vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
   };
 }
 

@@ -17,7 +17,7 @@ const handleInput = (self: VanillaCalendarPro) => {
   const documentClickEvent = (e: MouseEvent) => {
     if (!self || e.target === self.private.inputElement || self.private.mainElement.contains(e.target as HTMLElement)) return;
     if (self.private.inputElement && self.private.mainElement) self.hide();
-    if (typeof window !== 'undefined') window.removeEventListener('resize', handleResize);
+    window.removeEventListener('resize', handleResize);
     document.removeEventListener('click', documentClickEvent, { capture: true });
   };
 
@@ -29,7 +29,7 @@ const handleInput = (self: VanillaCalendarPro) => {
       self.private.mainElement.style.visibility = 'visible';
       self.show();
     }
-    if (typeof window !== 'undefined') window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
     document.addEventListener('click', documentClickEvent, { capture: true });
     document.addEventListener('keydown', handleEscapeKey);
   };
