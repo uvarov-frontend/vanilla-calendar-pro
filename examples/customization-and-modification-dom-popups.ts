@@ -1,6 +1,6 @@
 import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
 
 const options: Options = {
   selectedMonth: 6,

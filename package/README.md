@@ -68,7 +68,7 @@ To add the necessary styles and scripts, you can use the following code:
 
 ```js
 import VanillaCalendar from 'vanilla-calendar-pro';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
 
 // Initialize the calendar
 const calendar = new VanillaCalendar('#calendar');
