@@ -747,7 +747,7 @@ var __publicField = (obj, key, value) => {
             updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.private.selectedKeeping));
             if (value > 12)
               updateKeepingTime$1(self, keepingTimeEl, "PM");
-            handleActions(self, event, valueStr, type);
+            handleActions(self, event, transformTime12(valueStr), type);
           },
           24: () => {
             if (!(value <= max && value >= min)) {
@@ -802,9 +802,9 @@ var __publicField = (obj, key, value) => {
       const isHourType = type === "hour";
       const isFormat24 = self.selectionTimeMode === 24;
       const isAM = value > 0 && value < 12;
-      updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
       if (isHourType && !isFormat24)
         updateKeepingTime(self, keepingTimeEl, value === 0 || isAM ? "AM" : "PM");
+      updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
     };
     rangeEl.addEventListener("input", handleRangeAction);
     return () => {

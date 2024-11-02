@@ -28,8 +28,8 @@ const handleRange = (
     const isFormat24 = self.selectionTimeMode === 24;
     const isAM = value > 0 && value < 12;
 
-    updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
     if (isHourType && !isFormat24) updateKeepingTime(self, keepingTimeEl, value === 0 || isAM ? 'AM' : 'PM');
+    updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
   };
 
   rangeEl.addEventListener('input', handleRangeAction);

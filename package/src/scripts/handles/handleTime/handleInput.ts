@@ -39,7 +39,7 @@ const handleInput = (
 
           updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.private.selectedKeeping));
           if (value > 12) updateKeepingTime(self, keepingTimeEl, 'PM');
-          handleActions(self, event, valueStr, type);
+          handleActions(self, event, transformTime12(valueStr), type);
         },
         24: () => {
           if (!(value <= max && value >= min)) {
