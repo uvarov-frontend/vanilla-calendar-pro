@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.7 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.8 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -61,23 +61,29 @@ function getOffset(element) {
   }
   const box = element.getBoundingClientRect();
   const docElem = document.documentElement;
+  const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
+  const scrollX = typeof window !== "undefined" ? window.scrollX : 0;
   return {
     bottom: box.bottom,
     right: box.right,
-    top: box.top + window.scrollY - docElem.clientTop,
-    left: box.left + window.scrollX - docElem.clientLeft
+    top: box.top + scrollY - docElem.clientTop,
+    left: box.left + scrollX - docElem.clientLeft
   };
 }
 function getViewportDimensions() {
+  const innerWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+  const innerHeight = typeof window !== "undefined" ? window.innerHeight : 0;
   return {
-    vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
-    vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    vw: Math.max(document.documentElement.clientWidth || 0, innerWidth),
+    vh: Math.max(document.documentElement.clientHeight || 0, innerHeight)
   };
 }
 function getWindowScrollPosition() {
+  const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
+  const scrollX = typeof window !== "undefined" ? window.scrollX : 0;
   return {
-    left: window.scrollX || document.documentElement.scrollLeft || 0,
-    top: window.scrollY || document.documentElement.scrollTop || 0
+    left: scrollX || document.documentElement.scrollLeft || 0,
+    top: scrollY || document.documentElement.scrollTop || 0
   };
 }
 function calculateAvailableSpace(element) {
@@ -943,7 +949,7 @@ const detectTheme = (self, supportDarkTheme) => {
   }
 };
 const handleTheme = (self) => {
-  if (!(window.matchMedia("(prefers-color-scheme)").media !== "not all")) {
+  if (typeof window === "undefined" || !(window.matchMedia("(prefers-color-scheme)").media !== "not all")) {
     setTheme(self.private.mainElement, "light");
     return;
   }
@@ -1471,30 +1477,30 @@ function findBestPickerPosition(input, calendar) {
   return bestPosition || position;
 }
 const setPosition = (input, calendar, position) => {
-  if (input) {
-    const pos = position === "auto" ? findBestPickerPosition(input, calendar) : position;
-    const getPosition = {
-      top: -calendar.offsetHeight,
-      bottom: input.offsetHeight,
-      left: 0,
-      center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
-      right: input.offsetWidth - calendar.offsetWidth
-    };
-    const YPosition = !Array.isArray(pos) ? "bottom" : pos[0];
-    const XPosition = !Array.isArray(pos) ? pos : pos[1];
-    calendar.dataset.vcPosition = YPosition;
-    const { top: offsetTop, left: offsetLeft } = getOffset(input);
-    const top = offsetTop + getPosition[YPosition];
-    let left = offsetLeft + getPosition[XPosition];
-    const { vw } = getViewportDimensions();
-    if (left + calendar.clientWidth > vw) {
-      const scrollbarWidth = window.innerWidth - document.body.clientWidth;
-      left = vw - calendar.clientWidth - scrollbarWidth;
-    } else if (left < 0) {
-      left = 0;
-    }
-    Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
+  if (typeof window === "undefined" || !input)
+    return;
+  const pos = position === "auto" ? findBestPickerPosition(input, calendar) : position;
+  const getPosition = {
+    top: -calendar.offsetHeight,
+    bottom: input.offsetHeight,
+    left: 0,
+    center: input.offsetWidth / 2 - calendar.offsetWidth / 2,
+    right: input.offsetWidth - calendar.offsetWidth
+  };
+  const YPosition = !Array.isArray(pos) ? "bottom" : pos[0];
+  const XPosition = !Array.isArray(pos) ? pos : pos[1];
+  calendar.dataset.vcPosition = YPosition;
+  const { top: offsetTop, left: offsetLeft } = getOffset(input);
+  const top = offsetTop + getPosition[YPosition];
+  let left = offsetLeft + getPosition[XPosition];
+  const { vw } = getViewportDimensions();
+  if (left + calendar.clientWidth > vw) {
+    const scrollbarWidth = window.innerWidth - document.body.clientWidth;
+    left = vw - calendar.clientWidth - scrollbarWidth;
+  } else if (left < 0) {
+    left = 0;
   }
+  Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
 };
 const createToInput = (self, isVisible = true) => {
   const calendar = document.createElement("div");
@@ -1542,7 +1548,8 @@ const handleInput = (self) => {
       return;
     if (self.private.inputElement && self.private.mainElement)
       self.hide();
-    window.removeEventListener("resize", handleResize);
+    if (typeof window !== "undefined")
+      window.removeEventListener("resize", handleResize);
     document.removeEventListener("click", documentClickEvent, { capture: true });
   };
   const handleOpenCalendar = () => {
@@ -1553,7 +1560,8 @@ const handleInput = (self) => {
       self.private.mainElement.style.visibility = "visible";
       self.show();
     }
-    window.addEventListener("resize", handleResize);
+    if (typeof window !== "undefined")
+      window.addEventListener("resize", handleResize);
     document.addEventListener("click", documentClickEvent, { capture: true });
     document.addEventListener("keydown", handleEscapeKey);
   };

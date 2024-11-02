@@ -18,12 +18,14 @@ function getOffset(element?: HTMLElement | null): HtmlElementPosition {
 
   const box = element.getBoundingClientRect();
   const docElem = document.documentElement;
+  const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+  const scrollX = typeof window !== 'undefined' ? window.scrollX : 0;
 
   return {
     bottom: box.bottom,
     right: box.right,
-    top: box.top + window.scrollY - docElem.clientTop,
-    left: box.left + window.scrollX - docElem.clientLeft,
+    top: box.top + scrollY - docElem.clientTop,
+    left: box.left + scrollX - docElem.clientLeft,
   };
 }
 

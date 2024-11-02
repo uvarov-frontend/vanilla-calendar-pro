@@ -62,7 +62,7 @@ const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList)
 };
 
 const handleTheme = (self: VanillaCalendarPro) => {
-  if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
+  if (typeof window === 'undefined' || !(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
     setTheme(self.private.mainElement, 'light');
     return;
   }
