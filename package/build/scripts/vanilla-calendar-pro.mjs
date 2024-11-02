@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.13 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.14 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -172,26 +172,29 @@ const getDateString = (date) => {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
-const updateAttribute = (dateEl, condition, attr, value = "") => {
+const updateAttribute = (el, condition, attr, value = "") => {
   if (condition) {
-    dateEl.setAttribute(attr, value);
-  } else if (dateEl.getAttribute(attr) === value) {
-    dateEl.removeAttribute(attr);
+    el.setAttribute(attr, value);
+  } else if (el.getAttribute(attr) === value) {
+    el.removeAttribute(attr);
   }
 };
 const setDateModifier = (self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType) => {
   var _a, _b, _c, _d;
   const isDisabled = getDate(self.private.displayDateMin) > getDate(dateStr) || getDate(self.private.displayDateMax) < getDate(dateStr) || ((_a = self.private.disableDates) == null ? void 0 : _a.includes(dateStr)) || !self.selectionMonthsMode && monthType !== "current" || !self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear;
   updateAttribute(dateEl, isDisabled, "data-vc-date-disabled");
-  updateAttribute(dateBtnEl, isDisabled, "aria-disabled", "true");
-  updateAttribute(dateBtnEl, isDisabled, "tabindex", "-1");
+  if (dateBtnEl)
+    updateAttribute(dateBtnEl, isDisabled, "aria-disabled", "true");
+  if (dateBtnEl)
+    updateAttribute(dateBtnEl, isDisabled, "tabindex", "-1");
   updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, "data-vc-date-today");
   updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, "aria-current", "date");
   updateAttribute(dateEl, (_b = self.selectedWeekends) == null ? void 0 : _b.includes(dayWeekID), "data-vc-date-weekend");
   updateAttribute(dateEl, (_c = self.selectedHolidays) == null ? void 0 : _c.includes(dateStr), "data-vc-date-holiday");
   if ((_d = self.private.selectedDates) == null ? void 0 : _d.includes(dateStr)) {
     dateEl.setAttribute("data-vc-date-selected", "");
-    dateBtnEl.setAttribute("aria-selected", "true");
+    if (dateBtnEl)
+      dateBtnEl.setAttribute("aria-selected", "true");
     if (self.private.selectedDates.length > 1 && self.selectionDatesMode === "multiple-ranged") {
       if (self.private.selectedDates[0] === dateStr)
         dateEl.setAttribute("data-vc-date-selected", "first");
@@ -202,7 +205,8 @@ const setDateModifier = (self, currentYear, dateEl, dateBtnEl, dayWeekID, dateSt
     }
   } else if (dateEl.hasAttribute("data-vc-date-selected")) {
     dateEl.removeAttribute("data-vc-date-selected");
-    dateBtnEl.removeAttribute("aria-selected");
+    if (dateBtnEl)
+      dateBtnEl.removeAttribute("aria-selected");
   }
   if (!self.private.disableDates.includes(dateStr) && self.enableEdgeDatesOnly && self.private.selectedDates.length > 1 && self.selectionDatesMode === "multiple-ranged") {
     const firstDate = getDate(self.private.selectedDates[0]);
@@ -246,17 +250,19 @@ const createDate = (self, currentYear, datesEl, dateID, dateStr, monthType) => {
   dateEl.dataset.vcDate = dateStr;
   dateEl.dataset.vcDateMonth = monthType;
   dateEl.dataset.vcDateWeekDay = String(dayWeekID);
-  const dateBtnEl = document.createElement("button");
-  dateBtnEl.className = self.styles.dateBtn;
-  dateBtnEl.type = "button";
-  dateBtnEl.role = "gridcell";
-  dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: "long", timeZone: "UTC" });
-  dateBtnEl.dataset.vcDateBtn = "";
-  dateBtnEl.innerText = String(dateID);
+  let dateBtnEl = void 0;
+  if (monthType !== "current" ? self.displayDatesOutside : true) {
+    dateBtnEl = document.createElement("button");
+    dateBtnEl.className = self.styles.dateBtn;
+    dateBtnEl.type = "button";
+    dateBtnEl.role = "gridcell";
+    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: "long", timeZone: "UTC" });
+    dateBtnEl.dataset.vcDateBtn = "";
+    dateBtnEl.innerText = String(dateID);
+    dateEl.appendChild(dateBtnEl);
+  }
   if (self.enableWeekNumbers)
     addWeekNumberForDate(self, dateEl, dateStr);
-  if (monthType !== "current" ? self.displayDatesOutside : true)
-    dateEl.appendChild(dateBtnEl);
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
   datesEl.appendChild(dateEl);

@@ -37,16 +37,19 @@ const createDate = (
   dateEl.dataset.vcDateMonth = monthType;
   dateEl.dataset.vcDateWeekDay = String(dayWeekID);
 
-  const dateBtnEl = document.createElement('button');
-  dateBtnEl.className = self.styles.dateBtn;
-  dateBtnEl.type = 'button';
-  dateBtnEl.role = 'gridcell';
-  dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
-  dateBtnEl.dataset.vcDateBtn = '';
-  dateBtnEl.innerText = String(dateID);
+  let dateBtnEl: HTMLButtonElement | undefined = undefined;
+  if (monthType !== 'current' ? self.displayDatesOutside : true) {
+    dateBtnEl = document.createElement('button');
+    dateBtnEl.className = self.styles.dateBtn;
+    dateBtnEl.type = 'button';
+    dateBtnEl.role = 'gridcell';
+    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
+    dateBtnEl.dataset.vcDateBtn = '';
+    dateBtnEl.innerText = String(dateID);
+    dateEl.appendChild(dateBtnEl);
+  }
 
   if (self.enableWeekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
-  if (monthType !== 'current' ? self.displayDatesOutside : true) dateEl.appendChild(dateBtnEl);
 
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);

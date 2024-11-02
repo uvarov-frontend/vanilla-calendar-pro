@@ -2,11 +2,11 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
-const updateAttribute = (dateEl: HTMLElement, condition: boolean | undefined, attr: string, value = '') => {
+const updateAttribute = (el: HTMLElement | HTMLButtonElement, condition: boolean | undefined, attr: string, value = '') => {
   if (condition) {
-    dateEl.setAttribute(attr, value);
-  } else if (dateEl.getAttribute(attr) === value) {
-    dateEl.removeAttribute(attr);
+    el.setAttribute(attr, value);
+  } else if (el.getAttribute(attr) === value) {
+    el.removeAttribute(attr);
   }
 };
 
@@ -14,7 +14,7 @@ const setDateModifier = (
   self: VanillaCalendarPro,
   currentYear: number,
   dateEl: HTMLElement,
-  dateBtnEl: HTMLButtonElement,
+  dateBtnEl: HTMLButtonElement | undefined,
   dayWeekID: WeekDayID,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
@@ -28,8 +28,8 @@ const setDateModifier = (
 
   // Check if the date is disabled
   updateAttribute(dateEl, isDisabled, 'data-vc-date-disabled');
-  updateAttribute(dateBtnEl, isDisabled, 'aria-disabled', 'true');
-  updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
+  if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'aria-disabled', 'true');
+  if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
 
   // Check if the date is today
   updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, 'data-vc-date-today');
@@ -44,7 +44,7 @@ const setDateModifier = (
   // Check if the date is selected
   if (self.private.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
-    dateBtnEl.setAttribute('aria-selected', 'true');
+    if (dateBtnEl) dateBtnEl.setAttribute('aria-selected', 'true');
     if (self.private.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
       if (self.private.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
       if (self.private.selectedDates[self.private.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
@@ -53,7 +53,7 @@ const setDateModifier = (
     }
   } else if (dateEl.hasAttribute('data-vc-date-selected')) {
     dateEl.removeAttribute('data-vc-date-selected');
-    dateBtnEl.removeAttribute('aria-selected');
+    if (dateBtnEl) dateBtnEl.removeAttribute('aria-selected');
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
