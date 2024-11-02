@@ -55,8 +55,7 @@
       "node": "./build/utilities/index.min.mjs",
       "import": "./build/utilities/index.min.mjs"
     },
-    "./package.json": "./package.json",
-    "./build/*": "./build/*"
+    "./package.json": "./package.json"
   },
   "devDependencies": {},
   "dependencies": {}

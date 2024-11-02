@@ -20,6 +20,7 @@ export default defineConfig({
         return `index${format === 'es' ? '.mjs' : '.js'}`;
       },
       entry: resolve(__dirname, '../package/src/utilities.ts'),
+      formats: ['iife', 'es'],
     },
   },
   resolve: {

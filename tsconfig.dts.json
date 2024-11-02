@@ -14,13 +14,6 @@
       "@/*": ["./*"],
     }
   },
-  "include": [
-    "package/src/index.ts",
-    "package/src/options.ts",
-    "package/src/types.ts",
-    "package/src/labels.ts",
-    "package/src/styles.ts",
-    "package/src/utilities.ts",
-  ],
+  "include": ["package/src/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -2,7 +2,7 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import type { FormatDateString } from '@src/index';
 
-const parseDates = (dates: Array<number | string | Date>): FormatDateString[] =>
+const parseDates: (dates: Array<number | string | Date>) => FormatDateString[] = (dates: Array<number | string | Date>) =>
   dates.reduce((accumulator: FormatDateString[], date) => {
     if (date instanceof Date || typeof date === 'number') {
       const d = date instanceof Date ? date : new Date(date);
