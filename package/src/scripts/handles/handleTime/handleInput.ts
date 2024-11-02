@@ -1,15 +1,15 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type { VanillaCalendarPro } from '@src/index';
+import type { PrivateVariables, VanillaCalendarPro } from '@src/index';
 
 const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElement, valueInput: string, valueRange: string) => {
   inputEl.value = valueInput;
   rangeEl.value = valueRange;
 };
 
-const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: string) => {
-  if (!keepingTimeEl) return;
+const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: PrivateVariables['selectedKeeping']) => {
+  if (!keepingTimeEl || !keeping) return;
   self.private.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
@@ -29,6 +29,7 @@ const handleInput = (
 
       const timeMap = {
         12: () => {
+          if (!self.private.selectedKeeping) return;
           const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
           if (!(correctValue <= max && correctValue >= min)) {
             updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);

@@ -1,4 +1,4 @@
-const transformTime24 = (hour: string, keeping: string) => {
+const transformTime24 = (hour: string, keeping: 'AM' | 'PM') => {
   const hourMap: { [key: number]: { [key: string]: string } } = {
     0: { AM: '00', PM: '12' },
     1: { AM: '01', PM: '13' },

@@ -721,7 +721,7 @@ const updateInputAndRange = (inputEl, rangeEl, valueInput, valueRange) => {
   rangeEl.value = valueRange;
 };
 const updateKeepingTime$1 = (self, keepingTimeEl, keeping) => {
-  if (!keepingTimeEl)
+  if (!keepingTimeEl || !keeping)
     return;
   self.private.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
@@ -733,6 +733,8 @@ const handleInput$1 = (self, rangeEl, inputEl, keepingTimeEl, type, max, min) =>
         return;
       const timeMap = {
         12: () => {
+          if (!self.private.selectedKeeping)
+            return;
           const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
           if (!(correctValue <= max && correctValue >= min)) {
             updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
@@ -1463,7 +1465,7 @@ const initTime = (self) => {
   if (!hours) {
     hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
     minutes = String(self.timeMinMinute);
-    keeping = isTime12 && Number(transformTime12(String(self.timeMinHour))) >= 12 ? "PM" : "AM";
+    keeping = isTime12 ? Number(transformTime12(String(self.timeMinHour))) >= 12 ? "PM" : "AM" : null;
   } else if (isTime12 && !keeping) {
     keeping = "AM";
   }

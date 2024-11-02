@@ -69,7 +69,7 @@ export type PrivateVariables = {
     selectedYear: number;
     selectedHours: string;
     selectedMinutes: string;
-    selectedKeeping: string;
+    selectedKeeping: 'AM' | 'PM' | null;
     selectedTime: string;
 };
 export type Styles = typeof styles;

@@ -41,9 +41,7 @@ import '@src/styles/vanilla-calendar-pro.css';
 // };
 const options: Options = {
   locale: 'ru',
-  onCreateDateEls(dateEl) {
-    console.log(dateEl);
-  },
+  selectionTimeMode: 24,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnSetEl = document.querySelector('#set-options');
   btnSetEl?.addEventListener('click', () => {
-    console.log(calendar);
     calendar.set(options, { dates: false });
+    console.log(calendar);
   });
 });
