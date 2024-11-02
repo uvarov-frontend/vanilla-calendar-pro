@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.14 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.15 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var VanillaCalendarProUtilities = function(exports) {
   "use strict";
   const getDate$1 = (date) => /* @__PURE__ */ new Date(`${date}T00:00:00.000Z`);
