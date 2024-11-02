@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.16 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.17 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 const getDate$1 = (date) => /* @__PURE__ */ new Date(`${date}T00:00:00.000Z`);
 const getDateString$1 = (date) => {
   const year = date.getFullYear();
