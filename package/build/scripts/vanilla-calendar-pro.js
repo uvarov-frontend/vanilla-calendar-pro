@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.8 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.10 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var VanillaCalendarPro = function() {
   "use strict";var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -63,29 +63,23 @@ var __publicField = (obj, key, value) => {
     }
     const box = element.getBoundingClientRect();
     const docElem = document.documentElement;
-    const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
-    const scrollX = typeof window !== "undefined" ? window.scrollX : 0;
     return {
       bottom: box.bottom,
       right: box.right,
-      top: box.top + scrollY - docElem.clientTop,
-      left: box.left + scrollX - docElem.clientLeft
+      top: box.top + window.scrollY - docElem.clientTop,
+      left: box.left + window.scrollX - docElem.clientLeft
     };
   }
   function getViewportDimensions() {
-    const innerWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-    const innerHeight = typeof window !== "undefined" ? window.innerHeight : 0;
     return {
-      vw: Math.max(document.documentElement.clientWidth || 0, innerWidth),
-      vh: Math.max(document.documentElement.clientHeight || 0, innerHeight)
+      vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+      vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
     };
   }
   function getWindowScrollPosition() {
-    const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
-    const scrollX = typeof window !== "undefined" ? window.scrollX : 0;
     return {
-      left: scrollX || document.documentElement.scrollLeft || 0,
-      top: scrollY || document.documentElement.scrollTop || 0
+      left: window.scrollX || document.documentElement.scrollLeft || 0,
+      top: window.scrollY || document.documentElement.scrollTop || 0
     };
   }
   function calculateAvailableSpace(element) {
@@ -951,7 +945,7 @@ var __publicField = (obj, key, value) => {
     }
   };
   const handleTheme = (self) => {
-    if (typeof window === "undefined" || !(window.matchMedia("(prefers-color-scheme)").media !== "not all")) {
+    if (!(window.matchMedia("(prefers-color-scheme)").media !== "not all")) {
       setTheme(self.private.mainElement, "light");
       return;
     }
@@ -1479,7 +1473,7 @@ var __publicField = (obj, key, value) => {
     return bestPosition || position;
   }
   const setPosition = (input, calendar, position) => {
-    if (typeof window === "undefined" || !input)
+    if (!input)
       return;
     const pos = position === "auto" ? findBestPickerPosition(input, calendar) : position;
     const getPosition = {
@@ -1550,8 +1544,7 @@ var __publicField = (obj, key, value) => {
         return;
       if (self.private.inputElement && self.private.mainElement)
         self.hide();
-      if (typeof window !== "undefined")
-        window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
       document.removeEventListener("click", documentClickEvent, { capture: true });
     };
     const handleOpenCalendar = () => {
@@ -1562,8 +1555,7 @@ var __publicField = (obj, key, value) => {
         self.private.mainElement.style.visibility = "visible";
         self.show();
       }
-      if (typeof window !== "undefined")
-        window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize);
       document.addEventListener("click", documentClickEvent, { capture: true });
       document.addEventListener("keydown", handleEscapeKey);
     };
@@ -1584,6 +1576,9 @@ var __publicField = (obj, key, value) => {
       self.onInit(self);
     handleArrowKeys(self);
     return handleClick(self);
+  };
+  const set = (self, options) => {
+    console.log(self, options);
   };
   const show = (self) => {
     if (!self.private.currentType) {
@@ -1740,6 +1735,7 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "destroy", () => destroy(this));
       __publicField(this, "show", () => show(this));
       __publicField(this, "hide", () => hide(this));
+      __publicField(this, "set", (options) => set(this, options));
       __publicField(this, "private");
       this.private = __spreadProps(__spreadValues({}, this.private), {
         locale: {

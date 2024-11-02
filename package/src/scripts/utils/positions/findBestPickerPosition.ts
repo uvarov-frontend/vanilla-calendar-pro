@@ -1,5 +1,5 @@
 import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
-import type { Positions } from '@src/types';
+import type { Positions } from '@src/index';
 
 /**
  * Determines the best position for displaying a calendar picker relative to an input element.

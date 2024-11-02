@@ -3,8 +3,7 @@ import canToggleSelection from '@scripts/utils/canToggleSelection';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import parseDates from '@scripts/utils/parseDates';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 
 const current: { self: VanillaCalendarPro | null; rangeMin: FormatDateString | undefined; rangeMax: FormatDateString | undefined } = {
   self: null,

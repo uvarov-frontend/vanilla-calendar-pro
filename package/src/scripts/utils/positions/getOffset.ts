@@ -1,4 +1,4 @@
-import type { HtmlElementPosition } from '@src/types';
+import type { HtmlElementPosition } from '@src/index';
 
 /**
  * Get the offset position of an HTML element relative to the viewport.

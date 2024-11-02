@@ -1,8 +1,7 @@
 import create from '@scripts/creators/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
-import type { VanillaCalendarPro } from '@src/index';
-import type { Reset } from '@src/types';
+import type { Reset, VanillaCalendarPro } from '@src/index';
 
 const reset = (self: VanillaCalendarPro, { year, month, dates, time, locale }: Reset = {}) => {
   const previousSelected = {

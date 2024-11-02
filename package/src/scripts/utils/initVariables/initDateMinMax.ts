@@ -1,6 +1,5 @@
 import getDate from '@scripts/utils/getDate';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 
 const initDateMinMax = (self: VanillaCalendarPro) => {
   self.private.dateMin = self.displayDisabledDates ? getDate(self.dateMin as FormatDateString) : getDate(self.private.displayDateMin);

@@ -1,4 +1,4 @@
-import { destroy, hide, init, show, update } from '@scripts/methods';
+import { destroy, hide, init, set, show, update } from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import OptionsCalendar from '@src/options';
 import type {
@@ -84,6 +84,8 @@ export class VanillaCalendarPro extends OptionsCalendar {
   show = () => show(this);
 
   hide = () => hide(this);
+
+  set = (options: Options) => set(this, options);
 
   private!: PrivateVariables;
 }

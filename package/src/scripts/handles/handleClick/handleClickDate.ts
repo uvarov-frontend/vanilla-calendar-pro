@@ -3,8 +3,7 @@ import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString, WeekDayID } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const updateDateModifier = (self: VanillaCalendarPro) => {
   const dateEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');

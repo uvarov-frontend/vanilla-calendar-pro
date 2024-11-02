@@ -1,6 +1,5 @@
 import canToggleSelection from '@scripts/utils/canToggleSelection';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 
 const handleSelectDate = (self: VanillaCalendarPro, dateEl: HTMLElement, multiple: boolean) => {
   const selectedDate = dateEl.dataset.vcDate as FormatDateString;

@@ -1,7 +1,6 @@
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString, WeekDayID } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const updateAttribute = (dateEl: HTMLElement, condition: boolean | undefined, attr: string, value = '') => {
   if (condition) {

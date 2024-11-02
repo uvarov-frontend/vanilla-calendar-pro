@@ -1,6 +1,6 @@
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type { FormatDateString } from '@src/types';
+import type { FormatDateString } from '@src/index';
 
 const parseDates = (dates: Array<number | string | Date>): FormatDateString[] =>
   dates.reduce((accumulator: FormatDateString[], date) => {

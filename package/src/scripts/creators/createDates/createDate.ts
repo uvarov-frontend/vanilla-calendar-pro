@@ -2,8 +2,7 @@ import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
-import type { VanillaCalendarPro } from '@src/index';
-import type { FormatDateString, WeekDayID } from '@src/types';
+import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const addWeekNumberForDate = (self: VanillaCalendarPro, dateEl: HTMLElement, dateStr: FormatDateString) => {
   const weekNumber = getWeekNumber(dateStr, self.firstWeekday);

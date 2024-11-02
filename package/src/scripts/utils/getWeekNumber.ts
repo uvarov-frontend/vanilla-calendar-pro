@@ -1,5 +1,5 @@
 import getDate from '@scripts/utils/getDate';
-import type { FormatDateString } from '@src/types';
+import type { FormatDateString } from '@src/index';
 
 const getWeekNumber = (date: FormatDateString, weekStartDay: number) => {
   const currentDate = getDate(date);
