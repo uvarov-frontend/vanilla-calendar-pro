@@ -19,7 +19,7 @@ const createTime = (self: VanillaCalendarPro) => {
 
   timeEl.innerHTML = self.sanitizerHTML(`
     <div class="${self.styles.timeContent}" data-vc-time="content">
-      ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, valueHours, range)}
+      ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, self.private.selectedHours, range)}
       ${TimeInput('minute', self.styles.timeMinute, self.labels as unknown as { [key: string]: string }, self.private.selectedMinutes, range)}
       ${self.selectionTimeMode === 12 ? btnKeeping(self.private.selectedKeeping) : ''}
     </div>

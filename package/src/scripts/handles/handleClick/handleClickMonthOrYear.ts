@@ -76,7 +76,6 @@ const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typ
     create(self);
     self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   } else {
-    console.log(self, itemEl);
     setMonthOrYearModifier(self, itemEl, type, true, true);
   }
 };

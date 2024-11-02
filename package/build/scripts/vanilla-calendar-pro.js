@@ -857,7 +857,7 @@ var __publicField = (obj, key, value) => {
     const btnKeeping = (selectedKeeping) => `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${selectedKeeping}" data-vc-time="keeping" ${range ? "disabled" : ""}>${selectedKeeping}</button>`;
     timeEl.innerHTML = self.sanitizerHTML(`
     <div class="${self.styles.timeContent}" data-vc-time="content">
-      ${TimeInput("hour", self.styles.timeHour, self.labels, valueHours, range)}
+      ${TimeInput("hour", self.styles.timeHour, self.labels, self.private.selectedHours, range)}
       ${TimeInput("minute", self.styles.timeMinute, self.labels, self.private.selectedMinutes, range)}
       ${self.selectionTimeMode === 12 ? btnKeeping(self.private.selectedKeeping) : ""}
     </div>
@@ -1332,7 +1332,6 @@ var __publicField = (obj, key, value) => {
       create(self);
       (_a = self.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
     } else {
-      console.log(self, itemEl);
       setYearModifier(self, itemEl, type, true, true);
     }
   };
@@ -1462,7 +1461,7 @@ var __publicField = (obj, key, value) => {
     if (![12, 24].includes(self.selectionTimeMode))
       throw new Error(errorMessages.incorrectTime);
     const isTime12 = self.selectionTimeMode === 12;
-    const timeRegex = isTime12 ? /^([1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
+    const timeRegex = isTime12 ? /^(0[1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
     let [hours, minutes, keeping] = (_c = (_b = (_a = self.selectedTime) == null ? void 0 : _a.match(timeRegex)) == null ? void 0 : _b.slice(1)) != null ? _c : [];
     if (!hours) {
       hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
