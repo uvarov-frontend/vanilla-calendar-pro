@@ -43,11 +43,11 @@ export type HtmlElementPosition = {
     right: number;
 };
 export type Reset = {
-    year?: boolean;
-    month?: boolean;
-    dates?: boolean | 'only-first';
-    time?: boolean;
-    locale?: boolean;
+    year: boolean;
+    month: boolean;
+    dates: boolean | 'only-first';
+    time: boolean;
+    locale: boolean;
 };
 export type PrivateVariables = {
     isInit: boolean;

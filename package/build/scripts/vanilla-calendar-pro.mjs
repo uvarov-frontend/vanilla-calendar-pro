@@ -1434,7 +1434,7 @@ const initAllVariables = (self) => {
   initDateMinMax(self);
   initTime(self);
 };
-const reset = (self, { year, month, dates, time, locale } = {}) => {
+const reset = (self, { year, month, dates, time, locale }) => {
   var _a;
   const previousSelected = {
     year: self.selectedYear,
@@ -1575,8 +1575,21 @@ const init = (self) => {
   handleArrowKeys(self);
   return handleClick(self);
 };
-const set = (self, options) => {
-  console.log(self, options);
+const replaceProperties = (original, replacement) => {
+  const keys = Object.keys(replacement);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (typeof original[key] === "object" && typeof replacement[key] === "object" && !(replacement[key] instanceof Date) && !Array.isArray(replacement[key])) {
+      replaceProperties(original[key], replacement[key]);
+    } else if (replacement[key] !== void 0) {
+      original[key] = replacement[key];
+    }
+  }
+};
+const set = (self, options, resetOptions) => {
+  const defaultReset = { year: true, month: true, dates: true, time: true, locale: true };
+  replaceProperties(self, options);
+  reset(self, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
 };
 const show = (self) => {
   if (!self.private.currentType) {
@@ -1587,12 +1600,13 @@ const show = (self) => {
   if (self.onShow)
     self.onShow(self);
 };
-const update = (self, { year, month, dates, time, locale } = {}) => {
+const update = (self, resetOptions) => {
   if (!self.private.isInit)
     throw new Error(errorMessages.notInit);
   if (self.isInput && !self.private.isInputInit)
     createToInput(self, false);
-  reset(self, { year, month, dates, time, locale });
+  const defaultReset = { year: false, month: false, dates: false, time: false, locale: false };
+  reset(self, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
   if (self.onUpdate)
     self.onUpdate(self);
 };
@@ -1729,11 +1743,11 @@ const _VanillaCalendarPro = class _VanillaCalendarPro extends OptionsCalendar {
     var _a;
     super();
     __publicField(this, "init", () => init(this));
-    __publicField(this, "update", (reset2) => update(this, reset2));
+    __publicField(this, "update", (resetOptions) => update(this, resetOptions));
     __publicField(this, "destroy", () => destroy(this));
     __publicField(this, "show", () => show(this));
     __publicField(this, "hide", () => hide(this));
-    __publicField(this, "set", (options) => set(this, options));
+    __publicField(this, "set", (options, resetOptions) => set(this, options, resetOptions));
     __publicField(this, "private");
     this.private = __spreadProps(__spreadValues({}, this.private), {
       locale: {
@@ -1749,7 +1763,7 @@ const _VanillaCalendarPro = class _VanillaCalendarPro extends OptionsCalendar {
     });
     this.private.mainElement = typeof selector === "string" ? (_a = _VanillaCalendarPro.memoizedElements.get(selector)) != null ? _a : this.queryAndMemoize(selector) : selector;
     if (options)
-      this.applyOptions(options);
+      replaceProperties(this, options);
   }
   queryAndMemoize(selector) {
     const element = document.querySelector(selector);
@@ -1757,18 +1771,6 @@ const _VanillaCalendarPro = class _VanillaCalendarPro extends OptionsCalendar {
       throw new Error(errorMessages.notFoundSelector(selector));
     _VanillaCalendarPro.memoizedElements.set(selector, element);
     return element;
-  }
-  applyOptions(options) {
-    const replaceProperties = (original, replacement) => {
-      Object.keys(replacement).forEach((key) => {
-        if (typeof original[key] === "object" && typeof replacement[key] === "object" && !(replacement[key] instanceof Date) && !Array.isArray(replacement[key])) {
-          replaceProperties(original[key], replacement[key]);
-        } else if (replacement[key] !== void 0) {
-          original[key] = replacement[key];
-        }
-      });
-    };
-    replaceProperties(this, options);
   }
 };
 __publicField(_VanillaCalendarPro, "memoizedElements", /* @__PURE__ */ new Map());
