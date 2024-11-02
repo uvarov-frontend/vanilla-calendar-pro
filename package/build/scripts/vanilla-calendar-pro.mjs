@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.12 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.13 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -260,6 +260,8 @@ const createDate = (self, currentYear, datesEl, dateID, dateStr, monthType) => {
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
   datesEl.appendChild(dateEl);
+  if (self.onCreateDateEls)
+    self.onCreateDateEls(dateEl, self);
 };
 const createDatesFromCurrentMonth = (self, datesEl, days, currentYear, currentMonth) => {
   for (let dateID = 1; dateID <= days; dateID++) {
@@ -480,6 +482,42 @@ const createLayouts = (self, target) => {
   }
   self.private.mainElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
 };
+const setVisibilityArrows = (arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden) => {
+  arrowPrevEl.style.visibility = isArrowPrevHidden ? "hidden" : "";
+  arrowNextEl.style.visibility = isArrowNextHidden ? "hidden" : "";
+};
+const handleDefaultType = (self, arrowPrevEl, arrowNextEl) => {
+  const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
+  const jumpDateMin = new Date(currentSelectedDate.getTime());
+  const jumpDateMax = new Date(currentSelectedDate.getTime());
+  jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
+  jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
+  if (!self.selectionYearsMode) {
+    self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
+    self.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
+  }
+  const isArrowPrevHidden = !self.selectionMonthsMode || jumpDateMin.getFullYear() < self.private.dateMin.getFullYear() || jumpDateMin.getFullYear() === self.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self.private.dateMin.getMonth();
+  const isArrowNextHidden = !self.selectionMonthsMode || jumpDateMax.getFullYear() > self.private.dateMax.getFullYear() || jumpDateMax.getFullYear() === self.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self.private.dateMax.getMonth();
+  setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
+};
+const handleYearType = (self, arrowPrevEl, arrowNextEl) => {
+  const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.private.displayYear - 7 <= self.private.dateMin.getFullYear());
+  const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.private.displayYear + 7 >= self.private.dateMax.getFullYear());
+  setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
+};
+const visibilityArrows = (self) => {
+  if (self.private.currentType === "month")
+    return;
+  const arrowPrevEl = self.private.mainElement.querySelector('[data-vc-arrow="prev"]');
+  const arrowNextEl = self.private.mainElement.querySelector('[data-vc-arrow="next"]');
+  if (!arrowPrevEl || !arrowNextEl)
+    return;
+  const updateType = {
+    default: () => handleDefaultType(self, arrowPrevEl, arrowNextEl),
+    year: () => handleYearType(self, arrowPrevEl, arrowNextEl)
+  };
+  updateType[self.private.currentType === "multiple" ? "default" : self.private.currentType]();
+};
 const visibilityHandler = (self, el, index, initDate, type) => {
   const yearID = new Date(initDate.setFullYear(self.private.selectedYear, self.private.selectedMonth + index)).getFullYear();
   const monthID = new Date(initDate.setMonth(self.private.selectedMonth + index)).getMonth();
@@ -506,6 +544,41 @@ const visibilityTitle = (self) => {
   const initDate = new Date(self.private.selectedYear, self.private.selectedMonth, 1);
   [monthEls, yearEls].forEach((els) => els == null ? void 0 : els.forEach((el, index) => visibilityHandler(self, el, index, initDate, el.dataset.vc)));
 };
+const setYearModifier = (self, el, type, selected, reset2) => {
+  var _a;
+  const selectors = {
+    month: "[data-vc-months-month]",
+    year: "[data-vc-years-year]"
+  };
+  const attributes = {
+    month: {
+      selected: "data-vc-months-month-selected",
+      aria: "aria-selected",
+      value: "vcMonthsMonth",
+      selectedProperty: "selectedMonth"
+    },
+    year: {
+      selected: "data-vc-years-year-selected",
+      aria: "aria-selected",
+      value: "vcYearsYear",
+      selectedProperty: "selectedYear"
+    }
+  };
+  if (reset2) {
+    (_a = self.private.mainElement.querySelectorAll(selectors[type])) == null ? void 0 : _a.forEach((el2) => {
+      el2.removeAttribute(attributes[type].selected);
+      el2.removeAttribute(attributes[type].aria);
+    });
+    self.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]);
+    visibilityTitle(self);
+    if (type === "year")
+      visibilityArrows(self);
+  }
+  if (selected) {
+    el.setAttribute(attributes[type].selected, "");
+    el.setAttribute(attributes[type].aria, "true");
+  }
+};
 const relationshipID = (self) => {
   if (self.viewType !== "multiple")
     return 0;
@@ -513,22 +586,19 @@ const relationshipID = (self) => {
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
 };
-const createMonthEl = (self, templateEl, selected, titleShort, titleLong, disabled, i) => {
+const createMonthEl = (self, templateEl, selected, titleShort, titleLong, disabled, id) => {
   const monthEl = templateEl.cloneNode(false);
   monthEl.className = self.styles.monthsMonth;
   monthEl.innerText = titleShort;
   monthEl.ariaLabel = titleLong;
   monthEl.role = "gridcell";
-  monthEl.dataset.vcMonthsMonth = `${i}`;
-  if (selected === i)
-    monthEl.dataset.vcMonthsMonthSelected = "";
-  if (selected === i)
-    monthEl.ariaSelected = "true";
+  monthEl.dataset.vcMonthsMonth = `${id}`;
   if (disabled)
     monthEl.ariaDisabled = "true";
   if (disabled)
     monthEl.tabIndex = -1;
   monthEl.disabled = disabled;
+  setYearModifier(self, monthEl, "month", selected === id, false);
   return monthEl;
 };
 const createMonths = (self, target) => {
@@ -557,6 +627,8 @@ const createMonths = (self, target) => {
       i
     );
     monthsEl.appendChild(monthEl);
+    if (self.onCreateMonthEls)
+      self.onCreateMonthEls(monthEl, self);
   }
   (_b = self.private.mainElement.querySelector(`[data-vc-months-month]`)) == null ? void 0 : _b.focus();
 };
@@ -817,58 +889,19 @@ const createWeek = (self) => {
     });
   });
 };
-const setVisibilityArrows = (arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden) => {
-  arrowPrevEl.style.visibility = isArrowPrevHidden ? "hidden" : "";
-  arrowNextEl.style.visibility = isArrowNextHidden ? "hidden" : "";
-};
-const handleDefaultType = (self, arrowPrevEl, arrowNextEl) => {
-  const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
-  const jumpDateMin = new Date(currentSelectedDate.getTime());
-  const jumpDateMax = new Date(currentSelectedDate.getTime());
-  jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
-  jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
-  if (!self.selectionYearsMode) {
-    self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
-    self.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
-  }
-  const isArrowPrevHidden = !self.selectionMonthsMode || jumpDateMin.getFullYear() < self.private.dateMin.getFullYear() || jumpDateMin.getFullYear() === self.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self.private.dateMin.getMonth();
-  const isArrowNextHidden = !self.selectionMonthsMode || jumpDateMax.getFullYear() > self.private.dateMax.getFullYear() || jumpDateMax.getFullYear() === self.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self.private.dateMax.getMonth();
-  setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
-};
-const handleYearType = (self, arrowPrevEl, arrowNextEl) => {
-  const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.private.displayYear - 7 <= self.private.dateMin.getFullYear());
-  const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.private.displayYear + 7 >= self.private.dateMax.getFullYear());
-  setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
-};
-const visibilityArrows = (self) => {
-  if (self.private.currentType === "month")
-    return;
-  const arrowPrevEl = self.private.mainElement.querySelector('[data-vc-arrow="prev"]');
-  const arrowNextEl = self.private.mainElement.querySelector('[data-vc-arrow="next"]');
-  if (!arrowPrevEl || !arrowNextEl)
-    return;
-  const updateType = {
-    default: () => handleDefaultType(self, arrowPrevEl, arrowNextEl),
-    year: () => handleYearType(self, arrowPrevEl, arrowNextEl)
-  };
-  updateType[self.private.currentType === "multiple" ? "default" : self.private.currentType]();
-};
-const createYearEl = (self, templateEl, selected, disabled, i) => {
+const createYearEl = (self, templateEl, selected, disabled, id) => {
   const yearEl = templateEl.cloneNode(false);
   yearEl.className = self.styles.yearsYear;
-  yearEl.innerText = String(i);
-  yearEl.ariaLabel = String(i);
+  yearEl.innerText = String(id);
+  yearEl.ariaLabel = String(id);
   yearEl.role = "gridcell";
-  yearEl.dataset.vcYearsYear = `${i}`;
-  if (selected === i)
-    yearEl.dataset.vcYearsYearSelected = "";
-  if (selected === i)
-    yearEl.ariaSelected = "true";
+  yearEl.dataset.vcYearsYear = `${id}`;
   if (disabled)
     yearEl.ariaDisabled = "true";
   if (disabled)
     yearEl.tabIndex = -1;
   yearEl.disabled = disabled;
+  setYearModifier(self, yearEl, "year", selected === id, false);
   return yearEl;
 };
 const createYears = (self, target) => {
@@ -888,6 +921,8 @@ const createYears = (self, target) => {
     const yearDisabled = i < self.private.dateMin.getFullYear() + relationshipID2 || i > self.private.dateMax.getFullYear();
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
     yearsEl.appendChild(yearEl);
+    if (self.onCreateYearEls)
+      self.onCreateYearEls(yearEl, self);
   }
   (_a = self.private.mainElement.querySelector(`[data-vc-years-year]`)) == null ? void 0 : _a.focus();
 };
@@ -1282,9 +1317,14 @@ const handleItemClick = (self, event, type, itemEl) => {
     }
   };
   actionByType[type]();
-  self.private.currentType = self.viewType;
-  create(self);
-  (_a = self.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
+  if (self.private.currentType !== self.viewType) {
+    self.private.currentType = self.viewType;
+    create(self);
+    (_a = self.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
+  } else {
+    console.log(self, itemEl);
+    setYearModifier(self, itemEl, type, true, true);
+  }
 };
 const handleClickType = (self, event, type) => {
   var _a;
@@ -1727,6 +1767,9 @@ class OptionsCalendar {
     __publicField(this, "onClickArrow");
     __publicField(this, "onChangeTime");
     __publicField(this, "onChangeToInput");
+    __publicField(this, "onCreateDateEls");
+    __publicField(this, "onCreateMonthEls");
+    __publicField(this, "onCreateYearEls");
     __publicField(this, "onInit");
     __publicField(this, "onUpdate");
     __publicField(this, "onDestroy");

@@ -41,17 +41,9 @@ import '@src/styles/vanilla-calendar-pro.css';
 // };
 const options: Options = {
   locale: 'ru',
-  // onGetDays(day, date, HTMLElement, HTMLButtonElement, self) {
-  //   const randomBoolean = Math.random() < 0.5;
-  //   if (!randomBoolean) return;
-  //   const randomPrice = Math.floor(Math.random() * (999 - 100 + 1) + 100);
-
-  //   HTMLButtonElement.style.flexDirection = 'column';
-  //   HTMLButtonElement.innerHTML = `
-  //     <span>${day}</span>
-  //     <span style="font-size: 8px;color: #8BC34A;">$${randomPrice}</span>
-  //   `;
-  // },
+  onCreateDateEls(dateEl) {
+    console.log(dateEl);
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -60,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnSetEl = document.querySelector('#set-options');
   btnSetEl?.addEventListener('click', () => {
+    console.log(calendar);
     calendar.set(options, { dates: false });
   });
 });

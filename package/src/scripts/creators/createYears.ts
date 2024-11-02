@@ -1,20 +1,20 @@
 import createLayouts from '@scripts/creators/createLayouts';
+import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type { VanillaCalendarPro } from '@src/index';
 
-const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, selected: number, disabled: boolean, i: number) => {
+const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
   yearEl.className = self.styles.yearsYear;
-  yearEl.innerText = String(i);
-  yearEl.ariaLabel = String(i);
+  yearEl.innerText = String(id);
+  yearEl.ariaLabel = String(id);
   yearEl.role = 'gridcell';
-  yearEl.dataset.vcYearsYear = `${i}`;
-  if (selected === i) yearEl.dataset.vcYearsYearSelected = '';
-  if (selected === i) yearEl.ariaSelected = 'true';
+  yearEl.dataset.vcYearsYear = `${id}`;
   if (disabled) yearEl.ariaDisabled = 'true';
   if (disabled) yearEl.tabIndex = -1;
   yearEl.disabled = disabled;
+  setMonthOrYearModifier(self, yearEl, 'year', selected === id, false);
   return yearEl;
 };
 

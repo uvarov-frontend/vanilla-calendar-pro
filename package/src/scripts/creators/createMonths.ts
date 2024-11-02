@@ -1,4 +1,5 @@
 import createLayouts from '@scripts/creators/createLayouts';
+import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import type { VanillaCalendarPro } from '@src/index';
 
@@ -16,19 +17,18 @@ const createMonthEl = (
   titleShort: string,
   titleLong: string,
   disabled: boolean,
-  i: number,
+  id: number,
 ) => {
   const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
   monthEl.className = self.styles.monthsMonth;
   monthEl.innerText = titleShort;
   monthEl.ariaLabel = titleLong;
   monthEl.role = 'gridcell';
-  monthEl.dataset.vcMonthsMonth = `${i}`;
-  if (selected === i) monthEl.dataset.vcMonthsMonthSelected = '';
-  if (selected === i) monthEl.ariaSelected = 'true';
+  monthEl.dataset.vcMonthsMonth = `${id}`;
   if (disabled) monthEl.ariaDisabled = 'true';
   if (disabled) monthEl.tabIndex = -1;
   monthEl.disabled = disabled;
+  setMonthOrYearModifier(self, monthEl, 'month', selected === id, false);
   return monthEl;
 };
 

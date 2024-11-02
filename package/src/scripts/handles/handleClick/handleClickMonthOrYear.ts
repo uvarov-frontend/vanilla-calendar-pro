@@ -1,6 +1,7 @@
 import create from '@scripts/creators/create';
 import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
+import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import type { VanillaCalendarPro } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
@@ -51,7 +52,7 @@ const handleMultipleMonthSelection = (self: VanillaCalendarPro, itemEl: HTMLElem
   self.private.selectedMonth = isBeforeMinDate ? self.private.dateMin.getMonth() : isAfterMaxDate ? self.private.dateMax.getMonth() : selectedMonth;
 };
 
-const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLElement) => {
+const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLButtonElement) => {
   const selectByType = {
     year: () => {
       if (self.viewType === 'multiple') return handleMultipleYearSelection(self, itemEl);
@@ -70,9 +71,14 @@ const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typ
   };
   actionByType[type]();
 
-  self.private.currentType = self.viewType;
-  create(self);
-  self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+  if (self.private.currentType !== self.viewType) {
+    self.private.currentType = self.viewType;
+    create(self);
+    self.private.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+  } else {
+    console.log(self, itemEl);
+    setMonthOrYearModifier(self, itemEl, type, true, true);
+  }
 };
 
 const handleClickType = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number]) => {
@@ -86,7 +92,7 @@ const handleClickType = (self: VanillaCalendarPro, event: MouseEvent, type: (typ
   if (headerEl && self.onClickTitle) self.onClickTitle(event, self);
   if (headerEl && self.private.currentType !== type) return createByType[type]();
 
-  const itemEl = target.closest<HTMLElement>(`[data-vc-${type}s-${type}]`);
+  const itemEl = target.closest<HTMLButtonElement>(`[data-vc-${type}s-${type}]`);
   if (itemEl) return handleItemClick(self, event, type, itemEl);
 
   const gridEl = target.closest<HTMLElement>('[data-vc="grid"]');
