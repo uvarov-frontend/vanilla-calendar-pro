@@ -152,16 +152,14 @@
   @apply rounded-lg;
 }
 
-[data-vc-date][data-vc-date-hover-first][data-vc-date-selected] [data-vc-date-btn] {
-  @apply rounded-r-none rounded-l-lg;
+[data-vc-date][data-vc-date-hover-first][data-vc-date-selected] [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:not(:has([data-vc-date-btn])) + [data-vc-date-hover] [data-vc-date-btn] {
+  @apply rounded-l-lg;
 }
 
-[data-vc-date][data-vc-date-hover-last][data-vc-date-selected] [data-vc-date-btn] {
-  @apply rounded-l-none rounded-r-lg;
-}
-
-[data-vc-date][data-vc-date-hover-first][data-vc-date-hover-last][data-vc-date-selected] [data-vc-date-btn] {
-  @apply rounded-l-lg rounded-r-lg;
+[data-vc-date][data-vc-date-hover-last][data-vc-date-selected] [data-vc-date-btn],
+[data-vc-date][data-vc-date-hover]:not(:has(+ [data-vc-date-hover] > [data-vc-date-btn])) [data-vc-date-btn] {
+  @apply rounded-r-lg;
 }
 
 [data-vc-date][data-vc-date-selected='first'] [data-vc-date-btn] {
@@ -183,15 +181,21 @@
 [data-vc-date][data-vc-date-selected]:nth-child(7n + 1) [data-vc-date-btn],
 [data-vc-date][data-vc-date-hover]:nth-child(7n + 1) [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
-[data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn] {
+[data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:not(:has([data-vc-date-btn])) + [data-vc-date-selected] [data-vc-date-btn] {
   @apply rounded-l-lg;
 }
 
 [data-vc-date][data-vc-date-hover]:nth-child(7n) [data-vc-date-btn],
 [data-vc-date][data-vc-date-selected]:nth-child(7n) [data-vc-date-btn],
 [data-vc-date][data-vc-date-hover]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
-[data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-disabled]) [data-vc-date-btn] {
+[data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:not(:has(+ [data-vc-date-selected] > [data-vc-date-btn])) [data-vc-date-btn] {
   @apply rounded-r-lg;
+}
+
+[data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-hover] > [data-vc-date-btn]) [data-vc-date-btn] {
+  @apply rounded-r-none;
 }
 
 [data-vc-date-btn]:focus-visible + [data-vc-date-popup],

@@ -11,7 +11,7 @@
       "@scripts/*": ["./package/src/scripts/*"],
       "@src/*": ["./package/src/*"],
       "@package/*": ["./package/*"],
-      "@/*": ["./*"],
+      "@/*": ["./*"]
     }
   },
   "include": ["package/src/*.ts"],
