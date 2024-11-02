@@ -84,6 +84,9 @@ export default class OptionsCalendar {
   onClickArrow!: (e: MouseEvent, self: VanillaCalendarPro) => void;
   onChangeTime!: (e: Event, self: VanillaCalendarPro, isError: boolean) => void;
   onChangeToInput!: (e: Event, self: VanillaCalendarPro) => void;
+  onCreateDateEls!: (dateEl: HTMLElement, self: VanillaCalendarPro) => void;
+  onCreateMonthEls!: (monthEl: HTMLElement, self: VanillaCalendarPro) => void;
+  onCreateYearEls!: (yearEl: HTMLElement, self: VanillaCalendarPro) => void;
   onInit!: (self: VanillaCalendarPro) => void;
   onUpdate!: (self: VanillaCalendarPro) => void;
   onDestroy!: (self: VanillaCalendarPro) => void;
