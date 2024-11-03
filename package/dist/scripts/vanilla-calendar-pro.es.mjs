@@ -1,4 +1,4 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.23 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+/*! name: vanilla-calendar-pro v3.0.0-beta.25 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;

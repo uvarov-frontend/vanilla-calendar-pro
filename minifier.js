@@ -7,7 +7,7 @@ const cssnano = require('cssnano');
 const zlib = require('zlib');
 require('colors');
 
-const inputDir = path.resolve(__dirname, 'package/build');
+const inputDir = path.resolve(__dirname, 'package/dest');
 
 const logMessage = (type, file, originalSize, minifiedSize, gzipSize) => {
   const sizeToKb = (size) => Math.round((size / 1024) * 100) / 100;
