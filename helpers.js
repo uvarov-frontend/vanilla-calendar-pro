@@ -5,6 +5,7 @@ const { minify: minifyJs } = require('terser');
 const postcss = require('postcss');
 const cssnano = require('cssnano');
 const zlib = require('zlib');
+const archiver = require('archiver');
 require('colors');
 
 const inputDir = path.resolve(__dirname, 'package/dist');
@@ -52,6 +53,53 @@ const processDirectory = async (directory) => {
   );
 };
 
-processDirectory(inputDir)
-  .then(() => console.log('Minification complete.'.green))
-  .catch((err) => console.error('Error during minification:'.red, err));
+const zipDirectory = async (sourceDir) => {
+  const outputZipPath = path.join(sourceDir, 'package.zip');
+
+  if (fs.existsSync(outputZipPath)) fs.unlinkSync(outputZipPath);
+
+  const output = fs.createWriteStream(outputZipPath);
+  const archive = archiver('zip', { zlib: { level: 9 } });
+
+  return new Promise((resolve, reject) => {
+    output.on('close', () => {
+      console.log(`Archive created: ${outputZipPath.green}`.blue + ` (${(archive.pointer() / 1024).toFixed(2)} kB)`.green);
+      resolve();
+    });
+
+    archive.on('error', (err) => {
+      reject(err);
+    });
+
+    archive.pipe(output);
+
+    function addFilesToArchive(dir) {
+      fs.readdirSync(dir).forEach((file) => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+          addFilesToArchive(filePath);
+        } else if (stat.isFile() && path.extname(file) !== '.zip') {
+          archive.file(filePath, { name: path.relative(sourceDir, filePath) });
+        }
+      });
+    }
+
+    addFilesToArchive(sourceDir);
+    archive.finalize();
+  });
+};
+
+const main = async () => {
+  try {
+    await processDirectory(inputDir);
+    console.log('Minification complete.'.green);
+    await zipDirectory(inputDir);
+    console.log('Archiving complete.'.green);
+  } catch (err) {
+    console.error('Error during processing:'.red, err);
+  }
+};
+
+main();
