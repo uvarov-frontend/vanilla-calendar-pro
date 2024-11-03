@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "target": "ESNext",
+    "allowJs": true,
+    "esModuleInterop": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "./package/build/types",
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
     "moduleResolution": "node",
-    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
     "paths": {
       "@scripts/*": ["./package/src/scripts/*"],
       "@src/*": ["./package/src/*"],

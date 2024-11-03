@@ -17,9 +17,7 @@ export default defineConfig({
     emptyOutDir: true,
     lib: {
       name: 'VanillaCalendarPro',
-      fileName() {
-        return `vanilla-calendar-pro.mjs`;
-      },
+      fileName: () => `vanilla-calendar-pro.mjs`,
       entry: resolve(__dirname, '../package/src/index.ts'),
       formats: ['es'],
     },
