@@ -26,8 +26,7 @@ const minifyFile = async (filePath, minifier) => {
 
   try {
     const result = await minifier(fileContent);
-    const minifiedFilePath = path.join(path.dirname(filePath), `${path.basename(filePath, path.extname(filePath))}.min${path.extname(filePath)}`);
-    fs.writeFileSync(minifiedFilePath, result.code || result.css);
+    fs.writeFileSync(filePath, result.code || result.css);
 
     const minifiedSize = Buffer.byteLength(result.code || result.css);
     const gzipSize = getGzipSize(result.code || result.css);
@@ -44,9 +43,9 @@ const processDirectory = async (directory) => {
       const filePath = path.join(directory, file);
       if (fs.statSync(filePath).isDirectory()) {
         await processDirectory(filePath);
-      } else if ((file.endsWith('.js') || file.endsWith('.mjs')) && !file.includes('.min')) {
+      } else if (file.endsWith('.js') || file.endsWith('.mjs')) {
         await minifyFile(filePath, minifyJs);
-      } else if (file.endsWith('.css') && !file.includes('.min')) {
+      } else if (file.endsWith('.css')) {
         await minifyFile(filePath, (content) => postcss([cssnano]).process(content, { from: filePath }));
       }
     }),
