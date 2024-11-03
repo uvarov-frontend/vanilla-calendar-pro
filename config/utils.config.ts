@@ -13,14 +13,14 @@ export default defineConfig({
     assetsDir: '',
     outDir,
     minify: false,
-    emptyOutDir: true,
+    emptyOutDir: false,
     lib: {
       name: 'VanillaCalendarProUtils',
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
-      entry: resolve(__dirname, '../package/src/utils.ts'),
+      entry: resolve(__dirname, '../package/src/utils/index.ts'),
     },
   },
   resolve: { alias },
-  plugins: [bannerPlugin(outDir), eslint(), dts({ tsconfigPath: './tsconfig.dts.json', outDir: './package/dist/types' })],
+  plugins: [bannerPlugin(outDir), eslint(), dts({ tsconfigPath: './tsconfig.utils.json', outDir: './package/dist' })],
 });

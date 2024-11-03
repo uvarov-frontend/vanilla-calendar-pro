@@ -1,10 +1,11 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import eslint from 'vite-plugin-eslint';
 
 import { alias, bannerPlugin } from './helpers';
 
-const outDir = './package/dist/main';
+const outDir = './package/dist';
 
 export default defineConfig({
   build: {
@@ -21,5 +22,5 @@ export default defineConfig({
     },
   },
   resolve: { alias },
-  plugins: [bannerPlugin(outDir), eslint()],
+  plugins: [bannerPlugin(outDir), eslint(), dts({ tsconfigPath: './tsconfig.main.json', outDir })],
 });

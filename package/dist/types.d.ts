@@ -1,4 +1,4 @@
-import { VanillaCalendarPro } from '../main/index';
+import { VanillaCalendarPro } from './index';
 import { default as labels } from './labels';
 import { default as options } from './options';
 import { default as styles } from './styles';

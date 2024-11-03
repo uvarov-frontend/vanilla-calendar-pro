@@ -26,7 +26,6 @@
     "package:utils": "vite build --config config/utils.config.ts",
     "package:minifier": "node minifier.js",
     "package:build": "tsc && npm-run-all package:assets package:main package:utils",
-    "package:publish": "cd package/dist && npm publish --tag beta",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",

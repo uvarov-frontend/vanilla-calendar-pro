@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ESNext",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "paths": {
+      "@scripts/*": ["./package/src/scripts/*"],
+      "@src/*": ["./package/src/*"],
+      "@package/*": ["./package/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["package/src/utils/index.ts"],
+  "exclude": ["node_modules"]
+}
