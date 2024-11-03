@@ -1,10 +1,9 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import banner from 'vite-plugin-banner';
 
-import { version } from '../package/package.json';
+import { bannerPlugin } from './helpers';
 
-const outDir = './package/build';
+const outDir = './package/dist';
 
 export default defineConfig({
   publicDir: './package/public',
@@ -34,10 +33,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [
-    banner({
-      outDir,
-      content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro`,
-    }),
-  ],
+  plugins: [bannerPlugin(outDir)],
 });

@@ -22,10 +22,10 @@
   "license": "MIT",
   "scripts": {
     "package:styles": "vite build --config config/styles.config.ts",
-    "package:utilities": "vite build --config config/utilities.config.ts",
-    "package:scripts": "vite build --config config/scripts.es.ts && vite build --config config/scripts.iife.ts",
+    "package:utils": "vite build --config config/utils.config.ts",
+    "package:scripts": "vite build --config config/scripts.config.ts",
     "package:minifier": "node minifier.js",
-    "package": "tsc && npm-run-all package:styles package:utilities package:scripts package:minifier",
+    "package": "tsc && npm-run-all package:styles package:utils package:scripts",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",

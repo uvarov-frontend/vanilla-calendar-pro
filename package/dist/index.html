@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla Calendar Pro</title>
+    <link href="./styles/vanilla-calendar-pro.css" rel="stylesheet" />
+    <script src="./scripts/vanilla-calendar-pro.utils.umd.js" defer></script>
+    <script src="./scripts/vanilla-calendar-pro.umd.js" defer></script>
+  </head>
+  <body style="display: flex; justify-items: flex-start">
+    <div id="calendar"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Destructuring the VanillaCalendarPro constructor and its utilities.
+        const { VanillaCalendarPro } = window.VanillaCalendarPro;
+        const { getDateString } = window.VanillaCalendarProUtils;
+
+        // Instantiate the calendar and initialize it.
+        const calendar = new VanillaCalendarPro('#calendar');
+        calendar.init();
+
+        // Create logs for demonstration.
+        console.log('A copy of the calendar:', calendar);
+        console.log('Date string conversion utility:', getDateString(new Date()));
+      });
+    </script>
+  </body>
+</html>

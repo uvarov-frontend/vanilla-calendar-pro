@@ -1,5 +1,7 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.17 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
-var VanillaCalendarPro = function() {
+/*! name: vanilla-calendar-pro v3.0.0-beta.23 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+(function(global, factory) {
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.VanillaCalendarPro = {}));
+})(this, function(exports2) {
   "use strict";var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -30,27 +32,27 @@ var __publicField = (obj, key, value) => {
     notLocale: "You specified an incorrect language label or did not specify the required number of values ​​for «locale.weekdays» or «locale.months».",
     incorrectTime: "The value of the time property can be: false, 12 or 24."
   };
-  const destroy = (self) => {
+  const destroy = (self2) => {
     var _a, _b, _c, _d, _e;
-    if (!self.private.isInit)
+    if (!self2.private.isInit)
       throw new Error(errorMessages.notInit);
-    if (self.isInput) {
-      (_a = self.private.mainElement.parentElement) == null ? void 0 : _a.removeChild(self.private.mainElement);
-      (_c = (_b = self.private.inputElement) == null ? void 0 : _b.replaceWith) == null ? void 0 : _c.call(_b, self.private.originalElement);
-      self.private.inputElement = void 0;
+    if (self2.isInput) {
+      (_a = self2.private.mainElement.parentElement) == null ? void 0 : _a.removeChild(self2.private.mainElement);
+      (_c = (_b = self2.private.inputElement) == null ? void 0 : _b.replaceWith) == null ? void 0 : _c.call(_b, self2.private.originalElement);
+      self2.private.inputElement = void 0;
     } else {
-      (_e = (_d = self.private.mainElement).replaceWith) == null ? void 0 : _e.call(_d, self.private.originalElement);
+      (_e = (_d = self2.private.mainElement).replaceWith) == null ? void 0 : _e.call(_d, self2.private.originalElement);
     }
-    self.private.mainElement = self.private.originalElement;
-    if (self.onDestroy)
-      self.onDestroy(self);
+    self2.private.mainElement = self2.private.originalElement;
+    if (self2.onDestroy)
+      self2.onDestroy(self2);
   };
-  const hide = (self) => {
-    if (!self.private.currentType)
+  const hide = (self2) => {
+    if (!self2.private.currentType)
       return;
-    self.private.mainElement.dataset.vcCalendarHidden = "";
-    if (self.onHide)
-      self.onHide(self);
+    self2.private.mainElement.dataset.vcCalendarHidden = "";
+    if (self2.onHide)
+      self2.onHide(self2);
   };
   function getOffset(element) {
     if (!element || !element.getBoundingClientRect) {
@@ -128,7 +130,7 @@ var __publicField = (obj, key, value) => {
     });
     return { canShow, parentPositions };
   }
-  const handleDay = (self, date, dateInfo, datesEl) => {
+  const handleDay = (self2, date, dateInfo, datesEl) => {
     var _a;
     const dateEl = datesEl.querySelector(`[data-vc-date="${date}"]`);
     if (!dateEl)
@@ -138,9 +140,9 @@ var __publicField = (obj, key, value) => {
       dateBtnEl.classList.add(...dateInfo.modifier.trim().split(" "));
     if (dateInfo == null ? void 0 : dateInfo.html) {
       const datePopup = document.createElement("div");
-      datePopup.className = self.styles.datePopup;
+      datePopup.className = self2.styles.datePopup;
       datePopup.dataset.vcDatePopup = "";
-      datePopup.innerHTML = self.sanitizerHTML(dateInfo.html);
+      datePopup.innerHTML = self2.sanitizerHTML(dateInfo.html);
       dateBtnEl.ariaExpanded = "true";
       dateBtnEl.ariaLabel = `${dateBtnEl.ariaLabel}, ${(_a = datePopup == null ? void 0 : datePopup.textContent) == null ? void 0 : _a.replace(/^\s+|\s+(?=\s)|\s+$/g, "").replace(/&nbsp;/g, " ")}`;
       dateEl.appendChild(datePopup);
@@ -161,11 +163,11 @@ var __publicField = (obj, key, value) => {
       });
     }
   };
-  const createDatePopup = (self, datesEl) => {
+  const createDatePopup = (self2, datesEl) => {
     var _a;
-    if (!self.popups)
+    if (!self2.popups)
       return;
-    (_a = Object.entries(self.popups)) == null ? void 0 : _a.forEach(([date, dateInfo]) => handleDay(self, date, dateInfo, datesEl));
+    (_a = Object.entries(self2.popups)) == null ? void 0 : _a.forEach(([date, dateInfo]) => handleDay(self2, date, dateInfo, datesEl));
   };
   const getDate = (date) => /* @__PURE__ */ new Date(`${date}T00:00:00.000Z`);
   const getDateString = (date) => {
@@ -181,28 +183,28 @@ var __publicField = (obj, key, value) => {
       el.removeAttribute(attr);
     }
   };
-  const setDateModifier = (self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType) => {
+  const setDateModifier = (self2, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType) => {
     var _a, _b, _c, _d;
-    const isDisabled = getDate(self.private.displayDateMin) > getDate(dateStr) || getDate(self.private.displayDateMax) < getDate(dateStr) || ((_a = self.private.disableDates) == null ? void 0 : _a.includes(dateStr)) || !self.selectionMonthsMode && monthType !== "current" || !self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear;
+    const isDisabled = getDate(self2.private.displayDateMin) > getDate(dateStr) || getDate(self2.private.displayDateMax) < getDate(dateStr) || ((_a = self2.private.disableDates) == null ? void 0 : _a.includes(dateStr)) || !self2.selectionMonthsMode && monthType !== "current" || !self2.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear;
     updateAttribute(dateEl, isDisabled, "data-vc-date-disabled");
     if (dateBtnEl)
       updateAttribute(dateBtnEl, isDisabled, "aria-disabled", "true");
     if (dateBtnEl)
       updateAttribute(dateBtnEl, isDisabled, "tabindex", "-1");
-    updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, "data-vc-date-today");
-    updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, "aria-current", "date");
-    updateAttribute(dateEl, (_b = self.selectedWeekends) == null ? void 0 : _b.includes(dayWeekID), "data-vc-date-weekend");
-    updateAttribute(dateEl, (_c = self.selectedHolidays) == null ? void 0 : _c.includes(dateStr), "data-vc-date-holiday");
-    if ((_d = self.private.selectedDates) == null ? void 0 : _d.includes(dateStr)) {
+    updateAttribute(dateEl, !self2.disableToday && getDateString(self2.dateToday) === dateStr, "data-vc-date-today");
+    updateAttribute(dateEl, !self2.disableToday && getDateString(self2.dateToday) === dateStr, "aria-current", "date");
+    updateAttribute(dateEl, (_b = self2.selectedWeekends) == null ? void 0 : _b.includes(dayWeekID), "data-vc-date-weekend");
+    updateAttribute(dateEl, (_c = self2.selectedHolidays) == null ? void 0 : _c.includes(dateStr), "data-vc-date-holiday");
+    if ((_d = self2.private.selectedDates) == null ? void 0 : _d.includes(dateStr)) {
       dateEl.setAttribute("data-vc-date-selected", "");
       if (dateBtnEl)
         dateBtnEl.setAttribute("aria-selected", "true");
-      if (self.private.selectedDates.length > 1 && self.selectionDatesMode === "multiple-ranged") {
-        if (self.private.selectedDates[0] === dateStr)
+      if (self2.private.selectedDates.length > 1 && self2.selectionDatesMode === "multiple-ranged") {
+        if (self2.private.selectedDates[0] === dateStr)
           dateEl.setAttribute("data-vc-date-selected", "first");
-        if (self.private.selectedDates[self.private.selectedDates.length - 1] === dateStr)
+        if (self2.private.selectedDates[self2.private.selectedDates.length - 1] === dateStr)
           dateEl.setAttribute("data-vc-date-selected", "last");
-        if (self.private.selectedDates[0] !== dateStr && self.private.selectedDates[self.private.selectedDates.length - 1] !== dateStr)
+        if (self2.private.selectedDates[0] !== dateStr && self2.private.selectedDates[self2.private.selectedDates.length - 1] !== dateStr)
           dateEl.setAttribute("data-vc-date-selected", "middle");
       }
     } else if (dateEl.hasAttribute("data-vc-date-selected")) {
@@ -210,9 +212,9 @@ var __publicField = (obj, key, value) => {
       if (dateBtnEl)
         dateBtnEl.removeAttribute("aria-selected");
     }
-    if (!self.private.disableDates.includes(dateStr) && self.enableEdgeDatesOnly && self.private.selectedDates.length > 1 && self.selectionDatesMode === "multiple-ranged") {
-      const firstDate = getDate(self.private.selectedDates[0]);
-      const lastDate = getDate(self.private.selectedDates[self.private.selectedDates.length - 1]);
+    if (!self2.private.disableDates.includes(dateStr) && self2.enableEdgeDatesOnly && self2.private.selectedDates.length > 1 && self2.selectionDatesMode === "multiple-ranged") {
+      const firstDate = getDate(self2.private.selectedDates[0]);
+      const lastDate = getDate(self2.private.selectedDates[self2.private.selectedDates.length - 1]);
       const currentDate = getDate(dateStr);
       updateAttribute(dateEl, currentDate > firstDate && currentDate < lastDate, "data-vc-date-selected", "middle");
     }
@@ -229,33 +231,33 @@ var __publicField = (obj, key, value) => {
       week: weekNumber
     };
   };
-  const addWeekNumberForDate = (self, dateEl, dateStr) => {
-    const weekNumber = getWeekNumber(dateStr, self.firstWeekday);
+  const addWeekNumberForDate = (self2, dateEl, dateStr) => {
+    const weekNumber = getWeekNumber(dateStr, self2.firstWeekday);
     if (!weekNumber)
       return;
     dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
   };
-  const setDaysAsDisabled = (self, date, dayWeekID) => {
+  const setDaysAsDisabled = (self2, date, dayWeekID) => {
     var _a, _b, _c, _d, _e;
-    const isDisableWeekday = (_a = self.disableWeekdays) == null ? void 0 : _a.includes(dayWeekID);
-    const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!((_b = self.private.enableDates) == null ? void 0 : _b[0]);
-    if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !((_c = self.private.enableDates) == null ? void 0 : _c.includes(date)) && !((_d = self.private.disableDates) == null ? void 0 : _d.includes(date))) {
-      self.private.disableDates.push(date);
-      (_e = self.private.disableDates) == null ? void 0 : _e.sort((a, b) => +new Date(a) - +new Date(b));
+    const isDisableWeekday = (_a = self2.disableWeekdays) == null ? void 0 : _a.includes(dayWeekID);
+    const isDisableAllDaysAndIsRangeEnabled = self2.disableAllDates && !!((_b = self2.private.enableDates) == null ? void 0 : _b[0]);
+    if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !((_c = self2.private.enableDates) == null ? void 0 : _c.includes(date)) && !((_d = self2.private.disableDates) == null ? void 0 : _d.includes(date))) {
+      self2.private.disableDates.push(date);
+      (_e = self2.private.disableDates) == null ? void 0 : _e.sort((a, b) => +new Date(a) - +new Date(b));
     }
   };
-  const createDate = (self, currentYear, datesEl, dateID, dateStr, monthType) => {
+  const createDate = (self2, currentYear, datesEl, dateID, dateStr, monthType) => {
     const dayWeekID = getDate(dateStr).getDay();
-    const localeDate = typeof self.locale === "string" && self.locale.length ? self.locale : "en";
+    const localeDate = typeof self2.locale === "string" && self2.locale.length ? self2.locale : "en";
     const dateEl = document.createElement("div");
-    dateEl.className = self.styles.date;
+    dateEl.className = self2.styles.date;
     dateEl.dataset.vcDate = dateStr;
     dateEl.dataset.vcDateMonth = monthType;
     dateEl.dataset.vcDateWeekDay = String(dayWeekID);
     let dateBtnEl = void 0;
-    if (monthType !== "current" ? self.displayDatesOutside : true) {
+    if (monthType !== "current" ? self2.displayDatesOutside : true) {
       dateBtnEl = document.createElement("button");
-      dateBtnEl.className = self.styles.dateBtn;
+      dateBtnEl.className = self2.styles.dateBtn;
       dateBtnEl.type = "button";
       dateBtnEl.role = "gridcell";
       dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: "long", timeZone: "UTC" });
@@ -263,21 +265,21 @@ var __publicField = (obj, key, value) => {
       dateBtnEl.innerText = String(dateID);
       dateEl.appendChild(dateBtnEl);
     }
-    if (self.enableWeekNumbers)
-      addWeekNumberForDate(self, dateEl, dateStr);
-    setDaysAsDisabled(self, dateStr, dayWeekID);
-    setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
+    if (self2.enableWeekNumbers)
+      addWeekNumberForDate(self2, dateEl, dateStr);
+    setDaysAsDisabled(self2, dateStr, dayWeekID);
+    setDateModifier(self2, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
     datesEl.appendChild(dateEl);
-    if (self.onCreateDateEls)
-      self.onCreateDateEls(dateEl, self);
+    if (self2.onCreateDateEls)
+      self2.onCreateDateEls(dateEl, self2);
   };
-  const createDatesFromCurrentMonth = (self, datesEl, days, currentYear, currentMonth) => {
+  const createDatesFromCurrentMonth = (self2, datesEl, days, currentYear, currentMonth) => {
     for (let dateID = 1; dateID <= days; dateID++) {
       const date = new Date(currentYear, currentMonth, dateID);
-      createDate(self, currentYear, datesEl, dateID, getDateString(date), "current");
+      createDate(self2, currentYear, datesEl, dateID, getDateString(date), "current");
     }
   };
-  const createDatesFromNextMonth = (self, daysEl, days, currentYear, currentMonth, firstDayWeek) => {
+  const createDatesFromNextMonth = (self2, daysEl, days, currentYear, currentMonth, firstDayWeek) => {
     const currentTotalDays = firstDayWeek + days;
     const rowsDays = Math.ceil(currentTotalDays / 7);
     const daysNextMonth = 7 * rowsDays - currentTotalDays;
@@ -286,40 +288,40 @@ var __publicField = (obj, key, value) => {
     for (let i = 1; i <= daysNextMonth; i++) {
       const day = i < 10 ? `0${i}` : String(i);
       const dateStr = `${year}-${month}-${day}`;
-      createDate(self, currentYear, daysEl, i, dateStr, "next");
+      createDate(self2, currentYear, daysEl, i, dateStr, "next");
     }
   };
-  const createDatesFromPrevMonth = (self, datesEl, currentYear, currentMonth, firstDayWeek) => {
+  const createDatesFromPrevMonth = (self2, datesEl, currentYear, currentMonth, firstDayWeek) => {
     let date = new Date(currentYear, currentMonth, 0).getDate() - (firstDayWeek - 1);
     const year = currentMonth === 0 ? currentYear - 1 : currentYear;
     const month = currentMonth === 0 ? 12 : currentMonth < 10 ? `0${currentMonth}` : currentMonth;
     for (let i = firstDayWeek; i > 0; i--, date++) {
       const dateStr = `${year}-${month}-${date}`;
-      createDate(self, currentYear, datesEl, date, dateStr, "prev");
+      createDate(self2, currentYear, datesEl, date, dateStr, "prev");
     }
   };
-  const createWeekNumbers = (self, firstDayWeek, days, weekNumbersEl, datesEl) => {
-    if (!self.enableWeekNumbers)
+  const createWeekNumbers = (self2, firstDayWeek, days, weekNumbersEl, datesEl) => {
+    if (!self2.enableWeekNumbers)
       return;
     weekNumbersEl.textContent = "";
     const weekNumbersTitleEl = document.createElement("b");
-    weekNumbersTitleEl.className = self.styles.weekNumbersTitle;
+    weekNumbersTitleEl.className = self2.styles.weekNumbersTitle;
     weekNumbersTitleEl.innerText = "#";
     weekNumbersTitleEl.dataset.vcWeekNumbers = "title";
     weekNumbersEl.appendChild(weekNumbersTitleEl);
     const weekNumbersContentEl = document.createElement("div");
-    weekNumbersContentEl.className = self.styles.weekNumbersContent;
+    weekNumbersContentEl.className = self2.styles.weekNumbersContent;
     weekNumbersContentEl.dataset.vcWeekNumbers = "content";
     weekNumbersEl.appendChild(weekNumbersContentEl);
     const templateWeekNumberEl = document.createElement("button");
     templateWeekNumberEl.type = "button";
-    templateWeekNumberEl.className = self.styles.weekNumber;
+    templateWeekNumberEl.className = self2.styles.weekNumber;
     const dateBtnEl = datesEl.querySelectorAll("[data-vc-date]");
     const weeksCount = Math.ceil((firstDayWeek + days) / 7);
     for (let i = 0; i < weeksCount; i++) {
       const index = i === 0 ? 6 : i * 7;
       const date = dateBtnEl[index].dataset.vcDate;
-      const weekNumber = getWeekNumber(date, self.firstWeekday);
+      const weekNumber = getWeekNumber(date, self2.firstWeekday);
       if (!weekNumber)
         return;
       const weekNumberEl = templateWeekNumberEl.cloneNode(true);
@@ -331,75 +333,75 @@ var __publicField = (obj, key, value) => {
       weekNumbersContentEl.appendChild(weekNumberEl);
     }
   };
-  const createDates = (self) => {
-    const initDate = new Date(self.private.selectedYear, self.private.selectedMonth, 1);
-    const datesEls = self.private.mainElement.querySelectorAll('[data-vc="dates"]');
-    const weekNumbersEls = self.private.mainElement.querySelectorAll('[data-vc-week="numbers"]');
+  const createDates = (self2) => {
+    const initDate = new Date(self2.private.selectedYear, self2.private.selectedMonth, 1);
+    const datesEls = self2.private.mainElement.querySelectorAll('[data-vc="dates"]');
+    const weekNumbersEls = self2.private.mainElement.querySelectorAll('[data-vc-week="numbers"]');
     datesEls.forEach((dateEl, index) => {
-      if (!self.selectionDatesMode)
+      if (!self2.selectionDatesMode)
         dateEl.dataset.vcDatesDisabled = "";
       dateEl.textContent = "";
       const currentDate = new Date(initDate);
       currentDate.setMonth(currentDate.getMonth() + index);
       const currentMonth = currentDate.getMonth();
       const currentYear = currentDate.getFullYear();
-      const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.firstWeekday + 7) % 7;
+      const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self2.firstWeekday + 7) % 7;
       const days = new Date(currentYear, currentMonth + 1, 0).getDate();
-      createDatesFromPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);
-      createDatesFromCurrentMonth(self, dateEl, days, currentYear, currentMonth);
-      createDatesFromNextMonth(self, dateEl, days, currentYear, currentMonth, firstDayWeek);
-      createDatePopup(self, dateEl);
-      createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], dateEl);
+      createDatesFromPrevMonth(self2, dateEl, currentYear, currentMonth, firstDayWeek);
+      createDatesFromCurrentMonth(self2, dateEl, days, currentYear, currentMonth);
+      createDatesFromNextMonth(self2, dateEl, days, currentYear, currentMonth, firstDayWeek);
+      createDatePopup(self2, dateEl);
+      createWeekNumbers(self2, firstDayWeek, days, weekNumbersEls[index], dateEl);
     });
   };
-  const layoutDefault = (self) => `
-  <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+  const layoutDefault = (self2) => `
+  <div class="${self2.styles.header}" data-vc="header" role="toolbar" aria-label="${self2.labels.navigation}">
     <#ArrowPrev [month] />
-    <div class="${self.styles.headerContent}" data-vc-header="content">
+    <div class="${self2.styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>
     <#ArrowNext [month] />
   </div>
-  <div class="${self.styles.wrapper}" data-vc="wrapper">
+  <div class="${self2.styles.wrapper}" data-vc="wrapper">
     <#WeekNumbers />
-    <div class="${self.styles.content}" data-vc="content">
+    <div class="${self2.styles.content}" data-vc="content">
       <#Week />
       <#Dates />
     </div>
   </div>
   <#ControlTime />
 `;
-  const layoutMonths = (self) => `
-  <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
-    <div class="${self.styles.headerContent}" data-vc-header="content">
+  const layoutMonths = (self2) => `
+  <div class="${self2.styles.header}" data-vc="header" role="toolbar" aria-label="${self2.labels.navigation}">
+    <div class="${self2.styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>
   </div>
-  <div class="${self.styles.wrapper}" data-vc="wrapper">
-    <div class="${self.styles.content}" data-vc="content">
+  <div class="${self2.styles.wrapper}" data-vc="wrapper">
+    <div class="${self2.styles.content}" data-vc="content">
       <#Months />
     </div>
   </div>
 `;
-  const layoutMultiple = (self) => `
-  <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
+  const layoutMultiple = (self2) => `
+  <div class="${self2.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self2.labels.navigation}">
     <#ArrowPrev [month] />
     <#ArrowNext [month] />
   </div>
-  <div class="${self.styles.grid}" data-vc="grid">
+  <div class="${self2.styles.grid}" data-vc="grid">
     <#Multiple>
-      <div class="${self.styles.column}" data-vc="column" role="region">
-        <div class="${self.styles.header}" data-vc="header">
-          <div class="${self.styles.headerContent}" data-vc-header="content">
+      <div class="${self2.styles.column}" data-vc="column" role="region">
+        <div class="${self2.styles.header}" data-vc="header">
+          <div class="${self2.styles.headerContent}" data-vc-header="content">
             <#Month />
             <#Year />
           </div>
         </div>
-        <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <div class="${self2.styles.wrapper}" data-vc="wrapper">
           <#WeekNumbers />
-          <div class="${self.styles.content}" data-vc="content">
+          <div class="${self2.styles.content}" data-vc="content">
             <#Week />
             <#Dates />
           </div>
@@ -409,50 +411,50 @@ var __publicField = (obj, key, value) => {
   </div>
   <#ControlTime />
 `;
-  const layoutYears = (self) => `
-  <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+  const layoutYears = (self2) => `
+  <div class="${self2.styles.header}" data-vc="header" role="toolbar" aria-label="${self2.labels.navigation}">
     <#ArrowPrev [year] />
-    <div class="${self.styles.headerContent}" data-vc-header="content">
+    <div class="${self2.styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>
     <#ArrowNext [year] />
   </div>
-  <div class="${self.styles.wrapper}" data-vc="wrapper">
-    <div class="${self.styles.content}" data-vc="content">
+  <div class="${self2.styles.wrapper}" data-vc="wrapper">
+    <div class="${self2.styles.content}" data-vc="content">
       <#Years />
     </div>
   </div>
 `;
-  const getCorrectNumberOfMonths = (self) => self.viewType === "multiple" ? self.displayMonthsCount === 1 ? 2 : self.displayMonthsCount > 12 ? 12 : self.displayMonthsCount : 1;
-  const ArrowNext = (self, type) => `<button type="button" class="${self.styles.arrowNext}" data-vc-arrow="next" aria-label="${self.labels.arrowNext[type]}"></button>`;
-  const ArrowPrev = (self, type) => `<button type="button" class="${self.styles.arrowPrev}" data-vc-arrow="prev" aria-label="${self.labels.arrowPrev[type]}"></button>`;
-  const ControlTime = (self) => self.selectionTimeMode ? `<div class="${self.styles.time}" data-vc="time" role="group" aria-label="${self.labels.selectingTime}"></div>` : "";
-  const Dates = (self) => `<div class="${self.styles.dates}" data-vc="dates" role="grid" aria-live="assertive" aria-label="${self.labels.dates}" ${self.viewType === "multiple" ? "aria-multiselectable" : ""}></div>`;
-  const Month = (self) => `<button type="button" class="${self.styles.month}" data-vc="month"></button>`;
-  const Months = (self) => `<div class="${self.styles.months}" data-vc="months" role="grid" aria-live="assertive" aria-label="${self.labels.months}"></div>`;
-  const Week = (self) => `<div class="${self.styles.week}" data-vc="week" role="row" aria-label="${self.labels.week}"></div>`;
-  const WeekNumbers = (self) => self.enableWeekNumbers ? `<div class="${self.styles.weekNumbers}" data-vc-week="numbers" role="row" aria-label="${self.labels.weekNumber}"></div>` : "";
-  const Year = (self) => `<button type="button" class="${self.styles.year}" data-vc="year"></button>`;
-  const Years = (self) => `<div class="${self.styles.years}" data-vc="years" role="grid" aria-live="assertive" aria-label="${self.labels.years}"></div>`;
+  const getCorrectNumberOfMonths = (self2) => self2.viewType === "multiple" ? self2.displayMonthsCount === 1 ? 2 : self2.displayMonthsCount > 12 ? 12 : self2.displayMonthsCount : 1;
+  const ArrowNext = (self2, type) => `<button type="button" class="${self2.styles.arrowNext}" data-vc-arrow="next" aria-label="${self2.labels.arrowNext[type]}"></button>`;
+  const ArrowPrev = (self2, type) => `<button type="button" class="${self2.styles.arrowPrev}" data-vc-arrow="prev" aria-label="${self2.labels.arrowPrev[type]}"></button>`;
+  const ControlTime = (self2) => self2.selectionTimeMode ? `<div class="${self2.styles.time}" data-vc="time" role="group" aria-label="${self2.labels.selectingTime}"></div>` : "";
+  const Dates = (self2) => `<div class="${self2.styles.dates}" data-vc="dates" role="grid" aria-live="assertive" aria-label="${self2.labels.dates}" ${self2.viewType === "multiple" ? "aria-multiselectable" : ""}></div>`;
+  const Month = (self2) => `<button type="button" class="${self2.styles.month}" data-vc="month"></button>`;
+  const Months = (self2) => `<div class="${self2.styles.months}" data-vc="months" role="grid" aria-live="assertive" aria-label="${self2.labels.months}"></div>`;
+  const Week = (self2) => `<div class="${self2.styles.week}" data-vc="week" role="row" aria-label="${self2.labels.week}"></div>`;
+  const WeekNumbers = (self2) => self2.enableWeekNumbers ? `<div class="${self2.styles.weekNumbers}" data-vc-week="numbers" role="row" aria-label="${self2.labels.weekNumber}"></div>` : "";
+  const Year = (self2) => `<button type="button" class="${self2.styles.year}" data-vc="year"></button>`;
+  const Years = (self2) => `<div class="${self2.styles.years}" data-vc="years" role="grid" aria-live="assertive" aria-label="${self2.labels.years}"></div>`;
   const components = { ArrowNext, ArrowPrev, ControlTime, Dates, Month, Months, Week, WeekNumbers, Year, Years };
   const getComponent = (pattern) => components[pattern];
-  const parseLayout = (self, template) => {
+  const parseLayout = (self2, template) => {
     return template.replace(/[\n\t]/g, "").replace(/<#(?!\/?Multiple)(.*?)>/g, (_, tagContent) => {
       const type = (tagContent.match(/\[(.*?)\]/) || [])[1];
       const componentName = tagContent.replace(/[/\s\n\t]|\[(.*?)\]/g, "");
       const component = getComponent(componentName);
-      const htmlContent = component ? component(self, type != null ? type : null) : "";
-      return self.sanitizerHTML(htmlContent);
+      const htmlContent = component ? component(self2, type != null ? type : null) : "";
+      return self2.sanitizerHTML(htmlContent);
     }).replace(/[\n\t]/g, "");
   };
-  const parseMultipleLayout = (self, template) => {
+  const parseMultipleLayout = (self2, template) => {
     return template.replace(new RegExp("<#Multiple>(.*?)<#\\/Multiple>", "gs"), (_, content) => {
-      const repeatedContent = Array(getCorrectNumberOfMonths(self)).fill(content).join("");
-      return self.sanitizerHTML(repeatedContent);
+      const repeatedContent = Array(getCorrectNumberOfMonths(self2)).fill(content).join("");
+      return self2.sanitizerHTML(repeatedContent);
     }).replace(/[\n\t]/g, "");
   };
-  const createLayouts = (self, target) => {
+  const createLayouts = (self2, target) => {
     const templateMap = {
       default: layoutDefault,
       month: layoutMonths,
@@ -461,75 +463,75 @@ var __publicField = (obj, key, value) => {
     };
     Object.keys(templateMap).forEach((key) => {
       const typedKey = key;
-      if (!self.layouts[typedKey].length)
-        self.layouts[typedKey] = templateMap[typedKey](self);
+      if (!self2.layouts[typedKey].length)
+        self2.layouts[typedKey] = templateMap[typedKey](self2);
     });
-    self.private.mainElement.className = self.styles.calendar;
-    self.private.mainElement.dataset.vc = "calendar";
-    self.private.mainElement.dataset.vcType = self.private.currentType;
-    self.private.mainElement.role = "application";
-    self.private.mainElement.tabIndex = 0;
-    self.private.mainElement.ariaLabel = self.labels.application;
-    if (self.private.currentType === "multiple" && getCorrectNumberOfMonths(self)) {
-      self.private.mainElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
+    self2.private.mainElement.className = self2.styles.calendar;
+    self2.private.mainElement.dataset.vc = "calendar";
+    self2.private.mainElement.dataset.vcType = self2.private.currentType;
+    self2.private.mainElement.role = "application";
+    self2.private.mainElement.tabIndex = 0;
+    self2.private.mainElement.ariaLabel = self2.labels.application;
+    if (self2.private.currentType === "multiple" && getCorrectNumberOfMonths(self2)) {
+      self2.private.mainElement.innerHTML = parseMultipleLayout(self2, parseLayout(self2, self2.layouts[self2.private.currentType]));
       return;
     }
-    if (self.viewType === "multiple" && target) {
-      const controlsEl = self.private.mainElement.querySelector('[data-vc="controls"]');
-      const gridEl = self.private.mainElement.querySelector('[data-vc="grid"]');
+    if (self2.viewType === "multiple" && target) {
+      const controlsEl = self2.private.mainElement.querySelector('[data-vc="controls"]');
+      const gridEl = self2.private.mainElement.querySelector('[data-vc="grid"]');
       const columnEl = target.closest('[data-vc="column"]');
       if (controlsEl)
-        self.private.mainElement.removeChild(controlsEl);
+        self2.private.mainElement.removeChild(controlsEl);
       if (gridEl)
         gridEl.dataset.vcGrid = "hidden";
       if (columnEl)
-        columnEl.dataset.vcColumn = self.private.currentType;
+        columnEl.dataset.vcColumn = self2.private.currentType;
       if (columnEl)
-        columnEl.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
+        columnEl.innerHTML = parseLayout(self2, self2.layouts[self2.private.currentType]);
       return;
     }
-    self.private.mainElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
+    self2.private.mainElement.innerHTML = parseLayout(self2, self2.layouts[self2.private.currentType]);
   };
   const setVisibilityArrows = (arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden) => {
     arrowPrevEl.style.visibility = isArrowPrevHidden ? "hidden" : "";
     arrowNextEl.style.visibility = isArrowNextHidden ? "hidden" : "";
   };
-  const handleDefaultType = (self, arrowPrevEl, arrowNextEl) => {
-    const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
+  const handleDefaultType = (self2, arrowPrevEl, arrowNextEl) => {
+    const currentSelectedDate = getDate(getDateString(new Date(self2.private.selectedYear, self2.private.selectedMonth, 1)));
     const jumpDateMin = new Date(currentSelectedDate.getTime());
     const jumpDateMax = new Date(currentSelectedDate.getTime());
-    jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
-    jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
-    if (!self.selectionYearsMode) {
-      self.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
-      self.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
+    jumpDateMin.setMonth(jumpDateMin.getMonth() - self2.monthsToSwitch);
+    jumpDateMax.setMonth(jumpDateMax.getMonth() + self2.monthsToSwitch);
+    if (!self2.selectionYearsMode) {
+      self2.private.dateMin.setFullYear(currentSelectedDate.getFullYear());
+      self2.private.dateMax.setFullYear(currentSelectedDate.getFullYear());
     }
-    const isArrowPrevHidden = !self.selectionMonthsMode || jumpDateMin.getFullYear() < self.private.dateMin.getFullYear() || jumpDateMin.getFullYear() === self.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self.private.dateMin.getMonth();
-    const isArrowNextHidden = !self.selectionMonthsMode || jumpDateMax.getFullYear() > self.private.dateMax.getFullYear() || jumpDateMax.getFullYear() === self.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self.private.dateMax.getMonth();
+    const isArrowPrevHidden = !self2.selectionMonthsMode || jumpDateMin.getFullYear() < self2.private.dateMin.getFullYear() || jumpDateMin.getFullYear() === self2.private.dateMin.getFullYear() && jumpDateMin.getMonth() < self2.private.dateMin.getMonth();
+    const isArrowNextHidden = !self2.selectionMonthsMode || jumpDateMax.getFullYear() > self2.private.dateMax.getFullYear() || jumpDateMax.getFullYear() === self2.private.dateMax.getFullYear() && jumpDateMax.getMonth() > self2.private.dateMax.getMonth();
     setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
   };
-  const handleYearType = (self, arrowPrevEl, arrowNextEl) => {
-    const isArrowPrevHidden = !!(self.private.dateMin.getFullYear() && self.private.displayYear - 7 <= self.private.dateMin.getFullYear());
-    const isArrowNextHidden = !!(self.private.dateMax.getFullYear() && self.private.displayYear + 7 >= self.private.dateMax.getFullYear());
+  const handleYearType = (self2, arrowPrevEl, arrowNextEl) => {
+    const isArrowPrevHidden = !!(self2.private.dateMin.getFullYear() && self2.private.displayYear - 7 <= self2.private.dateMin.getFullYear());
+    const isArrowNextHidden = !!(self2.private.dateMax.getFullYear() && self2.private.displayYear + 7 >= self2.private.dateMax.getFullYear());
     setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
   };
-  const visibilityArrows = (self) => {
-    if (self.private.currentType === "month")
+  const visibilityArrows = (self2) => {
+    if (self2.private.currentType === "month")
       return;
-    const arrowPrevEl = self.private.mainElement.querySelector('[data-vc-arrow="prev"]');
-    const arrowNextEl = self.private.mainElement.querySelector('[data-vc-arrow="next"]');
+    const arrowPrevEl = self2.private.mainElement.querySelector('[data-vc-arrow="prev"]');
+    const arrowNextEl = self2.private.mainElement.querySelector('[data-vc-arrow="next"]');
     if (!arrowPrevEl || !arrowNextEl)
       return;
     const updateType = {
-      default: () => handleDefaultType(self, arrowPrevEl, arrowNextEl),
-      year: () => handleYearType(self, arrowPrevEl, arrowNextEl)
+      default: () => handleDefaultType(self2, arrowPrevEl, arrowNextEl),
+      year: () => handleYearType(self2, arrowPrevEl, arrowNextEl)
     };
-    updateType[self.private.currentType === "multiple" ? "default" : self.private.currentType]();
+    updateType[self2.private.currentType === "multiple" ? "default" : self2.private.currentType]();
   };
-  const visibilityHandler = (self, el, index, initDate, type) => {
-    const yearID = new Date(initDate.setFullYear(self.private.selectedYear, self.private.selectedMonth + index)).getFullYear();
-    const monthID = new Date(initDate.setMonth(self.private.selectedMonth + index)).getMonth();
-    const monthLabel = self.private.locale.months.long[monthID];
+  const visibilityHandler = (self2, el, index, initDate, type) => {
+    const yearID = new Date(initDate.setFullYear(self2.private.selectedYear, self2.private.selectedMonth + index)).getFullYear();
+    const monthID = new Date(initDate.setMonth(self2.private.selectedMonth + index)).getMonth();
+    const monthLabel = self2.private.locale.months.long[monthID];
     const columnEl = el.closest('[data-vc="column"]');
     if (columnEl)
       columnEl.ariaLabel = `${monthLabel} ${yearID}`;
@@ -539,20 +541,20 @@ var __publicField = (obj, key, value) => {
     };
     el.innerText = String(value[type].label);
     el.dataset[`vc${type.charAt(0).toUpperCase() + type.slice(1)}`] = String(value[type].id);
-    el.ariaLabel = `${self.labels[type]} ${value[type].label}`;
-    const typesMap = { month: self.selectionMonthsMode, year: self.selectionYearsMode };
+    el.ariaLabel = `${self2.labels[type]} ${value[type].label}`;
+    const typesMap = { month: self2.selectionMonthsMode, year: self2.selectionYearsMode };
     const isDisabled = typesMap[type] === false || typesMap[type] === "only-arrows";
     if (isDisabled)
       el.tabIndex = -1;
     el.disabled = isDisabled;
   };
-  const visibilityTitle = (self) => {
-    const monthEls = self.private.mainElement.querySelectorAll('[data-vc="month"]');
-    const yearEls = self.private.mainElement.querySelectorAll('[data-vc="year"]');
-    const initDate = new Date(self.private.selectedYear, self.private.selectedMonth, 1);
-    [monthEls, yearEls].forEach((els) => els == null ? void 0 : els.forEach((el, index) => visibilityHandler(self, el, index, initDate, el.dataset.vc)));
+  const visibilityTitle = (self2) => {
+    const monthEls = self2.private.mainElement.querySelectorAll('[data-vc="month"]');
+    const yearEls = self2.private.mainElement.querySelectorAll('[data-vc="year"]');
+    const initDate = new Date(self2.private.selectedYear, self2.private.selectedMonth, 1);
+    [monthEls, yearEls].forEach((els) => els == null ? void 0 : els.forEach((el, index) => visibilityHandler(self2, el, index, initDate, el.dataset.vc)));
   };
-  const setYearModifier = (self, el, type, selected, reset2) => {
+  const setYearModifier = (self2, el, type, selected, reset2) => {
     var _a;
     const selectors = {
       month: "[data-vc-months-month]",
@@ -573,30 +575,30 @@ var __publicField = (obj, key, value) => {
       }
     };
     if (reset2) {
-      (_a = self.private.mainElement.querySelectorAll(selectors[type])) == null ? void 0 : _a.forEach((el2) => {
+      (_a = self2.private.mainElement.querySelectorAll(selectors[type])) == null ? void 0 : _a.forEach((el2) => {
         el2.removeAttribute(attributes[type].selected);
         el2.removeAttribute(attributes[type].aria);
       });
-      self.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]);
-      visibilityTitle(self);
+      self2.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]);
+      visibilityTitle(self2);
       if (type === "year")
-        visibilityArrows(self);
+        visibilityArrows(self2);
     }
     if (selected) {
       el.setAttribute(attributes[type].selected, "");
       el.setAttribute(attributes[type].aria, "true");
     }
   };
-  const relationshipID = (self) => {
-    if (self.viewType !== "multiple")
+  const relationshipID = (self2) => {
+    if (self2.viewType !== "multiple")
       return 0;
-    const columnEls = self.private.mainElement.querySelectorAll('[data-vc="column"]');
+    const columnEls = self2.private.mainElement.querySelectorAll('[data-vc="column"]');
     const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
     return indexColumn > 0 ? indexColumn : 0;
   };
-  const createMonthEl = (self, templateEl, selected, titleShort, titleLong, disabled, id) => {
+  const createMonthEl = (self2, templateEl, selected, titleShort, titleLong, disabled, id) => {
     const monthEl = templateEl.cloneNode(false);
-    monthEl.className = self.styles.monthsMonth;
+    monthEl.className = self2.styles.monthsMonth;
     monthEl.innerText = titleShort;
     monthEl.ariaLabel = titleLong;
     monthEl.role = "gridcell";
@@ -606,39 +608,39 @@ var __publicField = (obj, key, value) => {
     if (disabled)
       monthEl.tabIndex = -1;
     monthEl.disabled = disabled;
-    setYearModifier(self, monthEl, "month", selected === id, false);
+    setYearModifier(self2, monthEl, "month", selected === id, false);
     return monthEl;
   };
-  const createMonths = (self, target) => {
+  const createMonths = (self2, target) => {
     var _a, _b;
     const yearEl = (_a = target == null ? void 0 : target.closest('[data-vc="header"]')) == null ? void 0 : _a.querySelector('[data-vc="year"]');
-    const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : self.private.selectedYear;
-    const selectedMonth = (target == null ? void 0 : target.dataset.vcMonth) ? Number(target.dataset.vcMonth) : self.private.selectedMonth;
-    self.private.currentType = "month";
-    createLayouts(self, target);
-    visibilityTitle(self);
-    const monthsEl = self.private.mainElement.querySelector('[data-vc="months"]');
-    if (!self.selectionMonthsMode || !monthsEl)
+    const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : self2.private.selectedYear;
+    const selectedMonth = (target == null ? void 0 : target.dataset.vcMonth) ? Number(target.dataset.vcMonth) : self2.private.selectedMonth;
+    self2.private.currentType = "month";
+    createLayouts(self2, target);
+    visibilityTitle(self2);
+    const monthsEl = self2.private.mainElement.querySelector('[data-vc="months"]');
+    if (!self2.selectionMonthsMode || !monthsEl)
       return;
-    const activeMonthsID = self.monthsToSwitch > 1 ? self.private.locale.months.long.map((_, i) => selectedMonth - self.monthsToSwitch * i).concat(self.private.locale.months.long.map((_, i) => selectedMonth + self.monthsToSwitch * i)).filter((monthID) => monthID >= 0 && monthID <= 12) : Array.from(Array(12).keys());
+    const activeMonthsID = self2.monthsToSwitch > 1 ? self2.private.locale.months.long.map((_, i) => selectedMonth - self2.monthsToSwitch * i).concat(self2.private.locale.months.long.map((_, i) => selectedMonth + self2.monthsToSwitch * i)).filter((monthID) => monthID >= 0 && monthID <= 12) : Array.from(Array(12).keys());
     const templateMonthEl = document.createElement("button");
     templateMonthEl.type = "button";
     for (let i = 0; i < 12; i++) {
-      const monthDisabled = i < self.private.dateMin.getMonth() + relationshipID(self) && selectedYear <= self.private.dateMin.getFullYear() || i > self.private.dateMax.getMonth() + relationshipID(self) && selectedYear >= self.private.dateMax.getFullYear() || i !== selectedMonth && !activeMonthsID.includes(i);
+      const monthDisabled = i < self2.private.dateMin.getMonth() + relationshipID(self2) && selectedYear <= self2.private.dateMin.getFullYear() || i > self2.private.dateMax.getMonth() + relationshipID(self2) && selectedYear >= self2.private.dateMax.getFullYear() || i !== selectedMonth && !activeMonthsID.includes(i);
       const monthEl = createMonthEl(
-        self,
+        self2,
         templateMonthEl,
         selectedMonth,
-        self.private.locale.months.short[i],
-        self.private.locale.months.long[i],
+        self2.private.locale.months.short[i],
+        self2.private.locale.months.long[i],
         monthDisabled,
         i
       );
       monthsEl.appendChild(monthEl);
-      if (self.onCreateMonthEls)
-        self.onCreateMonthEls(monthEl, self);
+      if (self2.onCreateMonthEls)
+        self2.onCreateMonthEls(monthEl, self2);
     }
-    (_b = self.private.mainElement.querySelector(`[data-vc-months-month]`)) == null ? void 0 : _b.focus();
+    (_b = self2.private.mainElement.querySelector(`[data-vc-months-month]`)) == null ? void 0 : _b.focus();
   };
   const TimeInput = (name, CSSClass, labels2, value, range) => `
   <label class="${CSSClass}" data-vc-time-input="${name}">
@@ -650,17 +652,17 @@ var __publicField = (obj, key, value) => {
     <input type="range" name="${name}" min="${min}" max="${max}" step="${step}" aria-label="${labels2[`range${name.charAt(0).toUpperCase() + name.slice(1)}`]}" value="${value}">
   </label>
 `;
-  const handleActions = (self, event, value, type) => {
+  const handleActions = (self2, event, value, type) => {
     const typeMap = {
-      hour: () => self.private.selectedHours = value,
-      minute: () => self.private.selectedMinutes = value
+      hour: () => self2.private.selectedHours = value,
+      minute: () => self2.private.selectedMinutes = value
     };
     typeMap[type]();
-    self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${self.private.selectedKeeping ? ` ${self.private.selectedKeeping}` : ""}`;
-    if (self.onChangeTime)
-      self.onChangeTime(event, self, false);
-    if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput)
-      self.onChangeToInput(event, self);
+    self2.private.selectedTime = `${self2.private.selectedHours}:${self2.private.selectedMinutes}${self2.private.selectedKeeping ? ` ${self2.private.selectedKeeping}` : ""}`;
+    if (self2.onChangeTime)
+      self2.onChangeTime(event, self2, false);
+    if (self2.isInput && self2.private.inputElement && self2.private.mainElement && self2.onChangeToInput)
+      self2.onChangeToInput(event, self2);
   };
   const transformTime24 = (hour, keeping) => {
     var _a;
@@ -681,20 +683,20 @@ var __publicField = (obj, key, value) => {
     };
     return ((_a = hourMap[Number(hour)]) == null ? void 0 : _a[keeping]) || String(hour);
   };
-  const handleClickKeepingTime = (self, keepingTimeEl, rangeHourEl, max, min) => {
+  const handleClickKeepingTime = (self2, keepingTimeEl, rangeHourEl, max, min) => {
     const handleClickKeepingTimeAction = (event) => {
-      const newSelectedKeeping = self.private.selectedKeeping === "AM" ? "PM" : "AM";
-      const hour = transformTime24(self.private.selectedHours, newSelectedKeeping);
+      const newSelectedKeeping = self2.private.selectedKeeping === "AM" ? "PM" : "AM";
+      const hour = transformTime24(self2.private.selectedHours, newSelectedKeeping);
       if (!(Number(hour) <= max && Number(hour) >= min)) {
-        if (self.onChangeTime)
-          self.onChangeTime(event, self, true);
+        if (self2.onChangeTime)
+          self2.onChangeTime(event, self2, true);
         return;
       }
-      self.private.selectedKeeping = newSelectedKeeping;
+      self2.private.selectedKeeping = newSelectedKeeping;
       rangeHourEl.value = hour;
-      handleActions(self, event, self.private.selectedHours, "hour");
-      keepingTimeEl.ariaLabel = `${self.labels.btnKeeping} ${self.private.selectedKeeping}`;
-      keepingTimeEl.innerText = self.private.selectedKeeping;
+      handleActions(self2, event, self2.private.selectedHours, "hour");
+      keepingTimeEl.ariaLabel = `${self2.labels.btnKeeping} ${self2.private.selectedKeeping}`;
+      keepingTimeEl.innerText = self2.private.selectedKeeping;
     };
     keepingTimeEl.addEventListener("click", handleClickKeepingTimeAction);
     return () => {
@@ -722,56 +724,56 @@ var __publicField = (obj, key, value) => {
     inputEl.value = valueInput;
     rangeEl.value = valueRange;
   };
-  const updateKeepingTime$1 = (self, keepingTimeEl, keeping) => {
+  const updateKeepingTime$1 = (self2, keepingTimeEl, keeping) => {
     if (!keepingTimeEl || !keeping)
       return;
-    self.private.selectedKeeping = keeping;
+    self2.private.selectedKeeping = keeping;
     keepingTimeEl.innerText = keeping;
   };
-  const handleInput$1 = (self, rangeEl, inputEl, keepingTimeEl, type, max, min) => {
+  const handleInput$1 = (self2, rangeEl, inputEl, keepingTimeEl, type, max, min) => {
     const handlers = {
       hour: (value, valueStr, event) => {
-        if (!self.selectionTimeMode)
+        if (!self2.selectionTimeMode)
           return;
         const timeMap = {
           12: () => {
-            if (!self.private.selectedKeeping)
+            if (!self2.private.selectedKeeping)
               return;
-            const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
+            const correctValue = Number(transformTime24(valueStr, self2.private.selectedKeeping));
             if (!(correctValue <= max && correctValue >= min)) {
-              updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
-              if (self.onChangeTime)
-                self.onChangeTime(event, self, true);
+              updateInputAndRange(inputEl, rangeEl, self2.private.selectedHours, self2.private.selectedHours);
+              if (self2.onChangeTime)
+                self2.onChangeTime(event, self2, true);
               return;
             }
-            updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.private.selectedKeeping));
+            updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self2.private.selectedKeeping));
             if (value > 12)
-              updateKeepingTime$1(self, keepingTimeEl, "PM");
-            handleActions(self, event, transformTime12(valueStr), type);
+              updateKeepingTime$1(self2, keepingTimeEl, "PM");
+            handleActions(self2, event, transformTime12(valueStr), type);
           },
           24: () => {
             if (!(value <= max && value >= min)) {
-              updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
-              if (self.onChangeTime)
-                self.onChangeTime(event, self, true);
+              updateInputAndRange(inputEl, rangeEl, self2.private.selectedHours, self2.private.selectedHours);
+              if (self2.onChangeTime)
+                self2.onChangeTime(event, self2, true);
               return;
             }
             updateInputAndRange(inputEl, rangeEl, valueStr, valueStr);
-            handleActions(self, event, valueStr, type);
+            handleActions(self2, event, valueStr, type);
           }
         };
-        timeMap[self.selectionTimeMode]();
+        timeMap[self2.selectionTimeMode]();
       },
       minute: (value, valueStr, event) => {
         if (!(value <= max && value >= min)) {
-          inputEl.value = self.private.selectedMinutes;
-          if (self.onChangeTime)
-            self.onChangeTime(event, self, true);
+          inputEl.value = self2.private.selectedMinutes;
+          if (self2.onChangeTime)
+            self2.onChangeTime(event, self2, true);
           return;
         }
         inputEl.value = valueStr;
         rangeEl.value = valueStr;
-        handleActions(self, event, valueStr, type);
+        handleActions(self2, event, valueStr, type);
       }
     };
     const handleInputAction = (event) => {
@@ -785,26 +787,26 @@ var __publicField = (obj, key, value) => {
       inputEl.removeEventListener("change", handleInputAction);
     };
   };
-  const updateInputAndTime = (self, inputEl, event, type, value) => {
+  const updateInputAndTime = (self2, inputEl, event, type, value) => {
     inputEl.value = value;
-    handleActions(self, event, value, type);
+    handleActions(self2, event, value, type);
   };
-  const updateKeepingTime = (self, keepingTimeEl, keeping) => {
+  const updateKeepingTime = (self2, keepingTimeEl, keeping) => {
     if (!keepingTimeEl)
       return;
-    self.private.selectedKeeping = keeping;
+    self2.private.selectedKeeping = keeping;
     keepingTimeEl.innerText = keeping;
   };
-  const handleRange = (self, rangeEl, inputEl, keepingTimeEl, type) => {
+  const handleRange = (self2, rangeEl, inputEl, keepingTimeEl, type) => {
     const handleRangeAction = (event) => {
       const value = Number(rangeEl.value);
       const valueStr = rangeEl.value.padStart(2, "0");
       const isHourType = type === "hour";
-      const isFormat24 = self.selectionTimeMode === 24;
+      const isFormat24 = self2.selectionTimeMode === 24;
       const isAM = value > 0 && value < 12;
       if (isHourType && !isFormat24)
-        updateKeepingTime(self, keepingTimeEl, value === 0 || isAM ? "AM" : "PM");
-      updateInputAndTime(self, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
+        updateKeepingTime(self2, keepingTimeEl, value === 0 || isAM ? "AM" : "PM");
+      updateInputAndTime(self2, inputEl, event, type, isHourType && !isFormat24 && !isAM ? transformTime12(rangeEl.value) : valueStr);
     };
     rangeEl.addEventListener("input", handleRangeAction);
     return () => {
@@ -813,7 +815,7 @@ var __publicField = (obj, key, value) => {
   };
   const handleMouseOver = (inputEl) => inputEl.setAttribute("data-vc-input-focus", "");
   const handleMouseOut = (inputEl) => inputEl.removeAttribute("data-vc-input-focus");
-  const handleTime = (self, timeEl) => {
+  const handleTime = (self2, timeEl) => {
     const rangeHourEl = timeEl.querySelector('[data-vc-time-range="hour"] input[name="hour"]');
     const rangeMinuteEl = timeEl.querySelector('[data-vc-time-range="minute"] input[name="minute"]');
     const inputHourEl = timeEl.querySelector('[data-vc-time-input="hour"] input[name="hour"]');
@@ -835,61 +837,61 @@ var __publicField = (obj, key, value) => {
     };
     timeEl.addEventListener("mouseover", handleMouseOverEvent);
     timeEl.addEventListener("mouseout", handleMouseOutEvent);
-    handleInput$1(self, rangeHourEl, inputHourEl, keepingTimeEl, "hour", self.timeMaxHour, self.timeMinHour);
-    handleInput$1(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, "minute", self.timeMaxMinute, self.timeMinMinute);
-    handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, "hour");
-    handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, "minute");
+    handleInput$1(self2, rangeHourEl, inputHourEl, keepingTimeEl, "hour", self2.timeMaxHour, self2.timeMinHour);
+    handleInput$1(self2, rangeMinuteEl, inputMinuteEl, keepingTimeEl, "minute", self2.timeMaxMinute, self2.timeMinMinute);
+    handleRange(self2, rangeHourEl, inputHourEl, keepingTimeEl, "hour");
+    handleRange(self2, rangeMinuteEl, inputMinuteEl, keepingTimeEl, "minute");
     if (keepingTimeEl)
-      handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.timeMaxHour, self.timeMinHour);
+      handleClickKeepingTime(self2, keepingTimeEl, rangeHourEl, self2.timeMaxHour, self2.timeMinHour);
     return () => {
       timeEl.removeEventListener("mouseover", handleMouseOverEvent);
       timeEl.removeEventListener("mouseout", handleMouseOutEvent);
     };
   };
-  const createTime = (self) => {
-    const timeEl = self.private.mainElement.querySelector('[data-vc="time"]');
-    if (!self.selectionTimeMode || !timeEl)
+  const createTime = (self2) => {
+    const timeEl = self2.private.mainElement.querySelector('[data-vc="time"]');
+    if (!self2.selectionTimeMode || !timeEl)
       return;
-    const [minHour, maxHour] = [self.timeMinHour, self.timeMaxHour];
-    const [minMinutes, maxMinutes] = [self.timeMinMinute, self.timeMaxMinute];
-    const valueHours = self.private.selectedKeeping ? transformTime24(self.private.selectedHours, self.private.selectedKeeping) : self.private.selectedHours;
-    const range = self.timeControls === "range";
-    const btnKeeping = (selectedKeeping) => `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${selectedKeeping}" data-vc-time="keeping" ${range ? "disabled" : ""}>${selectedKeeping}</button>`;
-    timeEl.innerHTML = self.sanitizerHTML(`
-    <div class="${self.styles.timeContent}" data-vc-time="content">
-      ${TimeInput("hour", self.styles.timeHour, self.labels, self.private.selectedHours, range)}
-      ${TimeInput("minute", self.styles.timeMinute, self.labels, self.private.selectedMinutes, range)}
-      ${self.selectionTimeMode === 12 ? btnKeeping(self.private.selectedKeeping) : ""}
+    const [minHour, maxHour] = [self2.timeMinHour, self2.timeMaxHour];
+    const [minMinutes, maxMinutes] = [self2.timeMinMinute, self2.timeMaxMinute];
+    const valueHours = self2.private.selectedKeeping ? transformTime24(self2.private.selectedHours, self2.private.selectedKeeping) : self2.private.selectedHours;
+    const range = self2.timeControls === "range";
+    const btnKeeping = (selectedKeeping) => `<button type="button" class="${self2.styles.timeKeeping}" aria-label="${self2.labels.btnKeeping} ${selectedKeeping}" data-vc-time="keeping" ${range ? "disabled" : ""}>${selectedKeeping}</button>`;
+    timeEl.innerHTML = self2.sanitizerHTML(`
+    <div class="${self2.styles.timeContent}" data-vc-time="content">
+      ${TimeInput("hour", self2.styles.timeHour, self2.labels, self2.private.selectedHours, range)}
+      ${TimeInput("minute", self2.styles.timeMinute, self2.labels, self2.private.selectedMinutes, range)}
+      ${self2.selectionTimeMode === 12 ? btnKeeping(self2.private.selectedKeeping) : ""}
     </div>
-    <div class="${self.styles.timeRanges}" data-vc-time="ranges">
-      ${TimeRange("hour", self.styles.timeRange, self.labels, minHour, maxHour, self.timeStepHour, valueHours)}
-      ${TimeRange("minute", self.styles.timeRange, self.labels, minMinutes, maxMinutes, self.timeStepMinute, self.private.selectedMinutes)}
+    <div class="${self2.styles.timeRanges}" data-vc-time="ranges">
+      ${TimeRange("hour", self2.styles.timeRange, self2.labels, minHour, maxHour, self2.timeStepHour, valueHours)}
+      ${TimeRange("minute", self2.styles.timeRange, self2.labels, minMinutes, maxMinutes, self2.timeStepMinute, self2.private.selectedMinutes)}
     </div>
   `);
-    handleTime(self, timeEl);
+    handleTime(self2, timeEl);
   };
-  const createWeek = (self) => {
-    const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
-    const weekdaysData = [...self.private.locale.weekdays.long].reduce(
+  const createWeek = (self2) => {
+    const weekend = self2.selectedWeekends ? [...self2.selectedWeekends] : [];
+    const weekdaysData = [...self2.private.locale.weekdays.long].reduce(
       (acc, day, index) => [
         ...acc,
         {
           id: index,
-          titleShort: self.private.locale.weekdays.short[index],
+          titleShort: self2.private.locale.weekdays.short[index],
           titleLong: day,
           isWeekend: weekend.includes(index)
         }
       ],
       []
     );
-    const weekdays = [...weekdaysData.slice(self.firstWeekday), ...weekdaysData.slice(0, self.firstWeekday)];
-    self.private.mainElement.querySelectorAll('[data-vc="week"]').forEach((weekEl) => {
+    const weekdays = [...weekdaysData.slice(self2.firstWeekday), ...weekdaysData.slice(0, self2.firstWeekday)];
+    self2.private.mainElement.querySelectorAll('[data-vc="week"]').forEach((weekEl) => {
       const templateWeekDayEl = document.createElement("button");
       templateWeekDayEl.type = "button";
       weekdays.forEach((weekday) => {
         const weekDayEl = templateWeekDayEl.cloneNode(true);
         weekDayEl.innerText = weekday.titleShort;
-        weekDayEl.className = self.styles.weekDay;
+        weekDayEl.className = self2.styles.weekDay;
         weekDayEl.role = "columnheader";
         weekDayEl.ariaLabel = weekday.titleLong;
         weekDayEl.dataset.vcWeekDay = String(weekday.id);
@@ -899,9 +901,9 @@ var __publicField = (obj, key, value) => {
       });
     });
   };
-  const createYearEl = (self, templateEl, selected, disabled, id) => {
+  const createYearEl = (self2, templateEl, selected, disabled, id) => {
     const yearEl = templateEl.cloneNode(false);
-    yearEl.className = self.styles.yearsYear;
+    yearEl.className = self2.styles.yearsYear;
     yearEl.innerText = String(id);
     yearEl.ariaLabel = String(id);
     yearEl.role = "gridcell";
@@ -911,30 +913,30 @@ var __publicField = (obj, key, value) => {
     if (disabled)
       yearEl.tabIndex = -1;
     yearEl.disabled = disabled;
-    setYearModifier(self, yearEl, "year", selected === id, false);
+    setYearModifier(self2, yearEl, "year", selected === id, false);
     return yearEl;
   };
-  const createYears = (self, target) => {
+  const createYears = (self2, target) => {
     var _a;
-    const selectedYear = (target == null ? void 0 : target.dataset.vcYear) ? Number(target.dataset.vcYear) : self.private.selectedYear;
-    self.private.currentType = "year";
-    createLayouts(self, target);
-    visibilityTitle(self);
-    visibilityArrows(self);
-    const yearsEl = self.private.mainElement.querySelector('[data-vc="years"]');
-    if (!self.selectionYearsMode || !yearsEl)
+    const selectedYear = (target == null ? void 0 : target.dataset.vcYear) ? Number(target.dataset.vcYear) : self2.private.selectedYear;
+    self2.private.currentType = "year";
+    createLayouts(self2, target);
+    visibilityTitle(self2);
+    visibilityArrows(self2);
+    const yearsEl = self2.private.mainElement.querySelector('[data-vc="years"]');
+    if (!self2.selectionYearsMode || !yearsEl)
       return;
-    const relationshipID2 = self.viewType !== "multiple" ? 0 : self.private.selectedYear === selectedYear ? 0 : 1;
+    const relationshipID2 = self2.viewType !== "multiple" ? 0 : self2.private.selectedYear === selectedYear ? 0 : 1;
     const templateYearEl = document.createElement("button");
     templateYearEl.type = "button";
-    for (let i = self.private.displayYear - 7; i < self.private.displayYear + 8; i++) {
-      const yearDisabled = i < self.private.dateMin.getFullYear() + relationshipID2 || i > self.private.dateMax.getFullYear();
-      const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
+    for (let i = self2.private.displayYear - 7; i < self2.private.displayYear + 8; i++) {
+      const yearDisabled = i < self2.private.dateMin.getFullYear() + relationshipID2 || i > self2.private.dateMax.getFullYear();
+      const yearEl = createYearEl(self2, templateYearEl, selectedYear, yearDisabled, i);
       yearsEl.appendChild(yearEl);
-      if (self.onCreateYearEls)
-        self.onCreateYearEls(yearEl, self);
+      if (self2.onCreateYearEls)
+        self2.onCreateYearEls(yearEl, self2);
     }
-    (_a = self.private.mainElement.querySelector(`[data-vc-years-year]`)) == null ? void 0 : _a.focus();
+    (_a = self2.private.mainElement.querySelector(`[data-vc-years-year]`)) == null ? void 0 : _a.focus();
   };
   const haveListener = {
     value: false,
@@ -942,9 +944,9 @@ var __publicField = (obj, key, value) => {
     check: () => haveListener.value
   };
   const setTheme = (htmlEl, theme) => htmlEl.dataset.vcTheme = theme;
-  const trackChangesThemeInSystemSettings = (self, supportDarkTheme) => {
-    setTheme(self.private.mainElement, supportDarkTheme.matches ? "dark" : "light");
-    if (self.selectedTheme !== "system" || haveListener.check())
+  const trackChangesThemeInSystemSettings = (self2, supportDarkTheme) => {
+    setTheme(self2.private.mainElement, supportDarkTheme.matches ? "dark" : "light");
+    if (self2.selectedTheme !== "system" || haveListener.check())
       return;
     const changeDataAttrTheme = (event) => {
       const calendarEls = document.querySelectorAll('[data-vc="calendar"]');
@@ -957,14 +959,14 @@ var __publicField = (obj, key, value) => {
     }
     haveListener.set();
   };
-  const trackChangesThemeInHTMLElement = (self, htmlEl, attr) => {
+  const trackChangesThemeInHTMLElement = (self2, htmlEl, attr) => {
     const changes = (mutationsList) => {
       for (let i = 0; i < mutationsList.length; i++) {
         const record = mutationsList[i];
         if (record.attributeName === attr) {
           const activeTheme = htmlEl.getAttribute(attr);
           if (activeTheme)
-            setTheme(self.private.mainElement, activeTheme);
+            setTheme(self2.private.mainElement, activeTheme);
           break;
         }
       }
@@ -972,87 +974,87 @@ var __publicField = (obj, key, value) => {
     const observer = new MutationObserver(changes);
     observer.observe(htmlEl, { attributes: true });
   };
-  const detectTheme = (self, supportDarkTheme) => {
-    const detectedThemeEl = self.themeAttrDetect ? document.querySelector(self.themeAttrDetect) : null;
-    const attr = self.themeAttrDetect.replace(/^.*\[(.+)\]/g, (_, p1) => p1);
+  const detectTheme = (self2, supportDarkTheme) => {
+    const detectedThemeEl = self2.themeAttrDetect ? document.querySelector(self2.themeAttrDetect) : null;
+    const attr = self2.themeAttrDetect.replace(/^.*\[(.+)\]/g, (_, p1) => p1);
     if (!detectedThemeEl || detectedThemeEl.getAttribute(attr) === "system") {
-      trackChangesThemeInSystemSettings(self, supportDarkTheme);
+      trackChangesThemeInSystemSettings(self2, supportDarkTheme);
       return;
     }
     const activeTheme = detectedThemeEl.getAttribute(attr);
     if (activeTheme) {
-      setTheme(self.private.mainElement, activeTheme);
-      trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
+      setTheme(self2.private.mainElement, activeTheme);
+      trackChangesThemeInHTMLElement(self2, detectedThemeEl, attr);
     } else {
-      trackChangesThemeInSystemSettings(self, supportDarkTheme);
+      trackChangesThemeInSystemSettings(self2, supportDarkTheme);
     }
   };
-  const handleTheme = (self) => {
+  const handleTheme = (self2) => {
     if (!(window.matchMedia("(prefers-color-scheme)").media !== "not all")) {
-      setTheme(self.private.mainElement, "light");
+      setTheme(self2.private.mainElement, "light");
       return;
     }
-    if (self.selectedTheme === "system") {
-      detectTheme(self, window.matchMedia("(prefers-color-scheme: dark)"));
+    if (self2.selectedTheme === "system") {
+      detectTheme(self2, window.matchMedia("(prefers-color-scheme: dark)"));
     } else {
-      setTheme(self.private.mainElement, self.selectedTheme);
+      setTheme(self2.private.mainElement, self2.selectedTheme);
     }
   };
   const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, "");
-  const getLocaleWeekday = (self, dayIndex, locale) => {
+  const getLocaleWeekday = (self2, dayIndex, locale) => {
     const date = /* @__PURE__ */ new Date(`1978-01-0${dayIndex + 1}T00:00:00.000Z`);
     const weekdayShort = date.toLocaleString(locale, { weekday: "short", timeZone: "UTC" });
     const weekdayLong = date.toLocaleString(locale, { weekday: "long", timeZone: "UTC" });
-    self.private.locale.weekdays.short.push(capitalizeFirstLetter(weekdayShort));
-    self.private.locale.weekdays.long.push(capitalizeFirstLetter(weekdayLong));
+    self2.private.locale.weekdays.short.push(capitalizeFirstLetter(weekdayShort));
+    self2.private.locale.weekdays.long.push(capitalizeFirstLetter(weekdayLong));
   };
-  const getLocaleMonth = (self, monthIndex, locale) => {
+  const getLocaleMonth = (self2, monthIndex, locale) => {
     const date = /* @__PURE__ */ new Date(`1978-${String(monthIndex + 1).padStart(2, "0")}-01T00:00:00.000Z`);
     const monthShort = date.toLocaleString(locale, { month: "short", timeZone: "UTC" });
     const monthLong = date.toLocaleString(locale, { month: "long", timeZone: "UTC" });
-    self.private.locale.months.short.push(capitalizeFirstLetter(monthShort));
-    self.private.locale.months.long.push(capitalizeFirstLetter(monthLong));
+    self2.private.locale.months.short.push(capitalizeFirstLetter(monthShort));
+    self2.private.locale.months.long.push(capitalizeFirstLetter(monthLong));
   };
-  const getLocale = (self) => {
+  const getLocale = (self2) => {
     var _a, _b, _c, _d, _e, _f, _g, _h;
-    const isHasPrivateLocale = self.private.locale.weekdays.short[6] && self.private.locale.weekdays.long[6] && self.private.locale.months.short[11] && self.private.locale.months.long[11];
+    const isHasPrivateLocale = self2.private.locale.weekdays.short[6] && self2.private.locale.weekdays.long[6] && self2.private.locale.months.short[11] && self2.private.locale.months.long[11];
     if (isHasPrivateLocale)
       return;
-    if (typeof self.locale !== "string") {
-      const isManually = ((_b = (_a = self.locale) == null ? void 0 : _a.weekdays) == null ? void 0 : _b.short[6]) && ((_d = (_c = self.locale) == null ? void 0 : _c.weekdays) == null ? void 0 : _d.long[6]) && ((_f = (_e = self.locale) == null ? void 0 : _e.months) == null ? void 0 : _f.short[11]) && ((_h = (_g = self.locale) == null ? void 0 : _g.months) == null ? void 0 : _h.long[11]);
+    if (typeof self2.locale !== "string") {
+      const isManually = ((_b = (_a = self2.locale) == null ? void 0 : _a.weekdays) == null ? void 0 : _b.short[6]) && ((_d = (_c = self2.locale) == null ? void 0 : _c.weekdays) == null ? void 0 : _d.long[6]) && ((_f = (_e = self2.locale) == null ? void 0 : _e.months) == null ? void 0 : _f.short[11]) && ((_h = (_g = self2.locale) == null ? void 0 : _g.months) == null ? void 0 : _h.long[11]);
       if (!isManually)
         throw new Error(errorMessages.notLocale);
-      self.private.locale = __spreadValues({}, self.locale);
+      self2.private.locale = __spreadValues({}, self2.locale);
       return;
     }
-    if (typeof self.locale === "string" && !self.locale.length)
+    if (typeof self2.locale === "string" && !self2.locale.length)
       throw new Error(errorMessages.notLocale);
-    Array.from({ length: 7 }, (_, i) => getLocaleWeekday(self, i, self.locale));
-    Array.from({ length: 12 }, (_, i) => getLocaleMonth(self, i, self.locale));
+    Array.from({ length: 7 }, (_, i) => getLocaleWeekday(self2, i, self2.locale));
+    Array.from({ length: 12 }, (_, i) => getLocaleMonth(self2, i, self2.locale));
   };
-  const create = (self) => {
+  const create = (self2) => {
     const createComponents = {
       default: () => {
-        createWeek(self);
-        createDates(self);
+        createWeek(self2);
+        createDates(self2);
       },
       multiple: () => {
-        createWeek(self);
-        createDates(self);
+        createWeek(self2);
+        createDates(self2);
       },
-      month: () => createMonths(self),
-      year: () => createYears(self)
+      month: () => createMonths(self2),
+      year: () => createYears(self2)
     };
-    handleTheme(self);
-    getLocale(self);
-    createLayouts(self);
-    visibilityTitle(self);
-    visibilityArrows(self);
-    createTime(self);
-    createComponents[self.private.currentType]();
+    handleTheme(self2);
+    getLocale(self2);
+    createLayouts(self2);
+    visibilityTitle(self2);
+    visibilityArrows(self2);
+    createTime(self2);
+    createComponents[self2.private.currentType]();
   };
-  const handleArrowKeys = (self) => {
-    const updateButtons = () => Array.from(self.private.mainElement.querySelectorAll('[data-vc="calendar"] button'));
+  const handleArrowKeys = (self2) => {
+    const updateButtons = () => Array.from(self2.private.mainElement.querySelectorAll('[data-vc="calendar"] button'));
     let currentFocusedIndex = 0;
     const directionMapping = {
       ArrowUp: (index, offset) => Math.max(0, index - offset),
@@ -1069,49 +1071,49 @@ var __publicField = (obj, key, value) => {
       currentFocusedIndex = directionMapping[event.key](currentFocusedIndex, offset);
       (_b = buttons[currentFocusedIndex]) == null ? void 0 : _b.focus();
     };
-    self.private.mainElement.addEventListener("keydown", onKeyDown);
+    self2.private.mainElement.addEventListener("keydown", onKeyDown);
     return () => {
-      self.private.mainElement.removeEventListener("keydown", onKeyDown);
+      self2.private.mainElement.removeEventListener("keydown", onKeyDown);
     };
   };
-  const handleMonth = (self, route) => {
-    const jumpDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
+  const handleMonth = (self2, route) => {
+    const jumpDate = getDate(getDateString(new Date(self2.private.selectedYear, self2.private.selectedMonth, 1)));
     const routeMap = {
-      prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.monthsToSwitch),
-      next: () => jumpDate.setMonth(jumpDate.getMonth() + self.monthsToSwitch)
+      prev: () => jumpDate.setMonth(jumpDate.getMonth() - self2.monthsToSwitch),
+      next: () => jumpDate.setMonth(jumpDate.getMonth() + self2.monthsToSwitch)
     };
     routeMap[route]();
-    [self.private.selectedMonth, self.private.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
-    visibilityTitle(self);
-    visibilityArrows(self);
-    createDates(self);
+    [self2.private.selectedMonth, self2.private.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
+    visibilityTitle(self2);
+    visibilityArrows(self2);
+    createDates(self2);
   };
-  const handleClickArrow = (self, event) => {
+  const handleClickArrow = (self2, event) => {
     const element = event.target;
     const arrowEl = element.closest("[data-vc-arrow]");
     if (!arrowEl)
       return;
-    if (["default", "multiple"].includes(self.private.currentType)) {
-      handleMonth(self, arrowEl.dataset.vcArrow);
-    } else if (self.private.currentType === "year" && self.private.displayYear !== void 0) {
-      self.private.displayYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow];
-      createYears(self, event.target);
+    if (["default", "multiple"].includes(self2.private.currentType)) {
+      handleMonth(self2, arrowEl.dataset.vcArrow);
+    } else if (self2.private.currentType === "year" && self2.private.displayYear !== void 0) {
+      self2.private.displayYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow];
+      createYears(self2, event.target);
     }
-    if (self.onClickArrow)
-      self.onClickArrow(event, self);
+    if (self2.onClickArrow)
+      self2.onClickArrow(event, self2);
   };
-  const canToggleSelection = (self) => {
-    if (self.enableDateToggle !== void 0)
-      return typeof self.enableDateToggle === "function" ? self.enableDateToggle(self) : self.enableDateToggle;
+  const canToggleSelection = (self2) => {
+    if (self2.enableDateToggle !== void 0)
+      return typeof self2.enableDateToggle === "function" ? self2.enableDateToggle(self2) : self2.enableDateToggle;
     return true;
   };
-  const handleSelectDate = (self, dateEl, multiple) => {
+  const handleSelectDate = (self2, dateEl, multiple) => {
     const selectedDate = dateEl.dataset.vcDate;
     const isSelected = dateEl.closest("[data-vc-date][data-vc-date-selected]");
-    const isToggleAllowed = canToggleSelection(self);
+    const isToggleAllowed = canToggleSelection(self2);
     if (isSelected && !isToggleAllowed)
       return;
-    self.private.selectedDates = isSelected ? self.private.selectedDates.filter((date) => date !== selectedDate) : multiple ? [...self.private.selectedDates, selectedDate] : [selectedDate];
+    self2.private.selectedDates = isSelected ? self2.private.selectedDates.filter((date) => date !== selectedDate) : multiple ? [...self2.private.selectedDates, selectedDate] : [selectedDate];
   };
   const parseDates = (dates) => dates.reduce((accumulator, date) => {
     if (date instanceof Date || typeof date === "number") {
@@ -1205,310 +1207,310 @@ var __publicField = (obj, key, value) => {
     current.self.private.displayDateMin = current.rangeMin;
     current.self.private.displayDateMax = current.rangeMax;
   };
-  const handleSelectDateRange = (self, formattedDate) => {
+  const handleSelectDateRange = (self2, formattedDate) => {
     var _a;
     if (formattedDate) {
-      const selectedDateExists = self.private.selectedDates.length === 1 && self.private.selectedDates[0].includes(formattedDate);
-      self.private.selectedDates = selectedDateExists && !canToggleSelection(self) ? [formattedDate, formattedDate] : selectedDateExists && canToggleSelection(self) ? [] : self.private.selectedDates.length > 1 ? [formattedDate] : [...self.private.selectedDates, formattedDate];
-      (_a = self.private.selectedDates) == null ? void 0 : _a.sort((a, b) => +new Date(a) - +new Date(b));
+      const selectedDateExists = self2.private.selectedDates.length === 1 && self2.private.selectedDates[0].includes(formattedDate);
+      self2.private.selectedDates = selectedDateExists && !canToggleSelection(self2) ? [formattedDate, formattedDate] : selectedDateExists && canToggleSelection(self2) ? [] : self2.private.selectedDates.length > 1 ? [formattedDate] : [...self2.private.selectedDates, formattedDate];
+      (_a = self2.private.selectedDates) == null ? void 0 : _a.sort((a, b) => +new Date(a) - +new Date(b));
     }
-    if (self.disableDatesGaps) {
-      current.rangeMin = current.rangeMin ? current.rangeMin : self.private.displayDateMin;
-      current.rangeMax = current.rangeMax ? current.rangeMax : self.private.displayDateMax;
+    if (self2.disableDatesGaps) {
+      current.rangeMin = current.rangeMin ? current.rangeMin : self2.private.displayDateMin;
+      current.rangeMax = current.rangeMax ? current.rangeMax : self2.private.displayDateMax;
     }
-    current.self = self;
+    current.self = self2;
     removeHoverEffect();
     const selectionHandlers = {
       set: () => {
-        self.private.mainElement.addEventListener("mousemove", handleHoverDatesEvent);
-        self.private.mainElement.addEventListener("keydown", handleCancelSelectionDates);
-        if (self.disableDatesGaps)
+        self2.private.mainElement.addEventListener("mousemove", handleHoverDatesEvent);
+        self2.private.mainElement.addEventListener("keydown", handleCancelSelectionDates);
+        if (self2.disableDatesGaps)
           updateDisabledDates();
       },
       reset: () => {
-        const [startDate, endDate] = [self.private.selectedDates[0], self.private.selectedDates[self.private.selectedDates.length - 1]];
-        const notSameDate = self.private.selectedDates[0] !== self.private.selectedDates[self.private.selectedDates.length - 1];
+        const [startDate, endDate] = [self2.private.selectedDates[0], self2.private.selectedDates[self2.private.selectedDates.length - 1]];
+        const notSameDate = self2.private.selectedDates[0] !== self2.private.selectedDates[self2.private.selectedDates.length - 1];
         const allDates = parseDates([`${startDate}:${endDate}`]);
-        const actualDates = allDates.filter((d) => !self.private.disableDates.includes(d));
-        self.private.selectedDates = notSameDate ? self.enableEdgeDatesOnly ? [startDate, endDate] : actualDates : [self.private.selectedDates[0], self.private.selectedDates[0]];
-        self.private.mainElement.removeEventListener("mousemove", handleHoverDatesEvent);
-        self.private.mainElement.removeEventListener("keydown", handleCancelSelectionDates);
-        if (self.disableDatesGaps)
+        const actualDates = allDates.filter((d) => !self2.private.disableDates.includes(d));
+        self2.private.selectedDates = notSameDate ? self2.enableEdgeDatesOnly ? [startDate, endDate] : actualDates : [self2.private.selectedDates[0], self2.private.selectedDates[0]];
+        self2.private.mainElement.removeEventListener("mousemove", handleHoverDatesEvent);
+        self2.private.mainElement.removeEventListener("keydown", handleCancelSelectionDates);
+        if (self2.disableDatesGaps)
           resetDisabledDates();
       }
     };
-    selectionHandlers[self.private.selectedDates.length === 1 ? "set" : "reset"]();
+    selectionHandlers[self2.private.selectedDates.length === 1 ? "set" : "reset"]();
   };
-  const updateDateModifier = (self) => {
-    const dateEls = self.private.mainElement.querySelectorAll("[data-vc-date]");
+  const updateDateModifier = (self2) => {
+    const dateEls = self2.private.mainElement.querySelectorAll("[data-vc-date]");
     dateEls.forEach((dateEl) => {
       const dateBtnEl = dateEl.querySelector("[data-vc-date-btn]");
       const dateStr = dateEl.dataset.vcDate;
       const dayWeekID = getDate(dateStr).getDay();
-      setDateModifier(self, self.private.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, "current");
+      setDateModifier(self2, self2.private.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, "current");
     });
   };
-  const handleClickDate = (self, event) => {
+  const handleClickDate = (self2, event) => {
     var _a;
     const element = event.target;
     const dateBtnEl = element.closest("[data-vc-date-btn]");
-    if (!self.selectionDatesMode || !["single", "multiple", "multiple-ranged"].includes(self.selectionDatesMode) || !dateBtnEl)
+    if (!self2.selectionDatesMode || !["single", "multiple", "multiple-ranged"].includes(self2.selectionDatesMode) || !dateBtnEl)
       return;
     const dateEl = dateBtnEl.closest("[data-vc-date]");
     const daySelectionActions = {
-      single: () => handleSelectDate(self, dateEl, false),
-      multiple: () => handleSelectDate(self, dateEl, true),
-      "multiple-ranged": () => handleSelectDateRange(self, dateEl.dataset.vcDate)
+      single: () => handleSelectDate(self2, dateEl, false),
+      multiple: () => handleSelectDate(self2, dateEl, true),
+      "multiple-ranged": () => handleSelectDateRange(self2, dateEl.dataset.vcDate)
     };
-    daySelectionActions[self.selectionDatesMode]();
-    (_a = self.private.selectedDates) == null ? void 0 : _a.sort((a, b) => +new Date(a) - +new Date(b));
-    if (self.onClickDate)
-      self.onClickDate(event, self);
-    if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput)
-      self.onChangeToInput(event, self);
+    daySelectionActions[self2.selectionDatesMode]();
+    (_a = self2.private.selectedDates) == null ? void 0 : _a.sort((a, b) => +new Date(a) - +new Date(b));
+    if (self2.onClickDate)
+      self2.onClickDate(event, self2);
+    if (self2.isInput && self2.private.inputElement && self2.private.mainElement && self2.onChangeToInput)
+      self2.onChangeToInput(event, self2);
     const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
     const dayNextEl = element.closest('[data-vc-date-month="next"]');
     const actionMapping = {
-      prev: () => self.enableMonthChangeOnDayClick ? handleMonth(self, "prev") : updateDateModifier(self),
-      next: () => self.enableMonthChangeOnDayClick ? handleMonth(self, "next") : updateDateModifier(self),
-      current: () => updateDateModifier(self)
+      prev: () => self2.enableMonthChangeOnDayClick ? handleMonth(self2, "prev") : updateDateModifier(self2),
+      next: () => self2.enableMonthChangeOnDayClick ? handleMonth(self2, "next") : updateDateModifier(self2),
+      current: () => updateDateModifier(self2)
     };
     actionMapping[dayPrevEl ? "prev" : dayNextEl ? "next" : "current"]();
   };
   const typeClick = ["month", "year"];
-  const getColumnID = (self, type, id) => {
-    const columnEls = self.private.mainElement.querySelectorAll('[data-vc="column"]');
+  const getColumnID = (self2, type, id) => {
+    const columnEls = self2.private.mainElement.querySelectorAll('[data-vc="column"]');
     const indexColumn = Array.from(columnEls).findIndex((column) => column.closest(`[data-vc-column="${type}"]`));
     const currentValue = Number(columnEls[indexColumn].querySelector(`[data-vc="${type}"]`).getAttribute(`data-vc-${type}`));
-    return self.private.currentType === "month" && indexColumn >= 0 ? id - indexColumn : self.private.currentType === "year" && self.private.selectedYear !== currentValue ? id - 1 : id;
+    return self2.private.currentType === "month" && indexColumn >= 0 ? id - indexColumn : self2.private.currentType === "year" && self2.private.selectedYear !== currentValue ? id - 1 : id;
   };
-  const handleMultipleYearSelection = (self, itemEl) => {
-    const selectedYear = getColumnID(self, "year", Number(itemEl.dataset.vcYearsYear));
-    const isBeforeMinDate = self.private.selectedMonth < self.private.dateMin.getMonth() && selectedYear <= self.private.dateMin.getFullYear();
-    const isAfterMaxDate = self.private.selectedMonth > self.private.dateMax.getMonth() && selectedYear >= self.private.dateMax.getFullYear();
-    const isBeforeMinYear = selectedYear < self.private.dateMin.getFullYear();
-    const isAfterMaxYear = selectedYear > self.private.dateMax.getFullYear();
-    self.private.selectedYear = isBeforeMinDate || isBeforeMinYear ? self.private.dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? self.private.dateMax.getFullYear() : selectedYear;
-    self.private.selectedMonth = isBeforeMinDate || isBeforeMinYear ? self.private.dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? self.private.dateMax.getMonth() : self.private.selectedMonth;
+  const handleMultipleYearSelection = (self2, itemEl) => {
+    const selectedYear = getColumnID(self2, "year", Number(itemEl.dataset.vcYearsYear));
+    const isBeforeMinDate = self2.private.selectedMonth < self2.private.dateMin.getMonth() && selectedYear <= self2.private.dateMin.getFullYear();
+    const isAfterMaxDate = self2.private.selectedMonth > self2.private.dateMax.getMonth() && selectedYear >= self2.private.dateMax.getFullYear();
+    const isBeforeMinYear = selectedYear < self2.private.dateMin.getFullYear();
+    const isAfterMaxYear = selectedYear > self2.private.dateMax.getFullYear();
+    self2.private.selectedYear = isBeforeMinDate || isBeforeMinYear ? self2.private.dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? self2.private.dateMax.getFullYear() : selectedYear;
+    self2.private.selectedMonth = isBeforeMinDate || isBeforeMinYear ? self2.private.dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? self2.private.dateMax.getMonth() : self2.private.selectedMonth;
   };
-  const handleMultipleMonthSelection = (self, itemEl) => {
+  const handleMultipleMonthSelection = (self2, itemEl) => {
     const column = itemEl.closest('[data-vc-column="month"]');
     const yearEl = column.querySelector('[data-vc="year"]');
-    const selectedMonth = getColumnID(self, "month", Number(itemEl.dataset.vcMonthsMonth));
+    const selectedMonth = getColumnID(self2, "month", Number(itemEl.dataset.vcMonthsMonth));
     const selectedYear = Number(yearEl.dataset.vcYear);
-    const isBeforeMinDate = selectedMonth < self.private.dateMin.getMonth() && selectedYear <= self.private.dateMin.getFullYear();
-    const isAfterMaxDate = selectedMonth > self.private.dateMax.getMonth() && selectedYear >= self.private.dateMax.getFullYear();
-    self.private.selectedYear = selectedYear;
-    self.private.selectedMonth = isBeforeMinDate ? self.private.dateMin.getMonth() : isAfterMaxDate ? self.private.dateMax.getMonth() : selectedMonth;
+    const isBeforeMinDate = selectedMonth < self2.private.dateMin.getMonth() && selectedYear <= self2.private.dateMin.getFullYear();
+    const isAfterMaxDate = selectedMonth > self2.private.dateMax.getMonth() && selectedYear >= self2.private.dateMax.getFullYear();
+    self2.private.selectedYear = selectedYear;
+    self2.private.selectedMonth = isBeforeMinDate ? self2.private.dateMin.getMonth() : isAfterMaxDate ? self2.private.dateMax.getMonth() : selectedMonth;
   };
-  const handleItemClick = (self, event, type, itemEl) => {
+  const handleItemClick = (self2, event, type, itemEl) => {
     var _a;
     const selectByType = {
       year: () => {
-        if (self.viewType === "multiple")
-          return handleMultipleYearSelection(self, itemEl);
-        self.private.selectedYear = Number(itemEl.dataset.vcYearsYear);
+        if (self2.viewType === "multiple")
+          return handleMultipleYearSelection(self2, itemEl);
+        self2.private.selectedYear = Number(itemEl.dataset.vcYearsYear);
       },
       month: () => {
-        if (self.viewType === "multiple")
-          return handleMultipleMonthSelection(self, itemEl);
-        self.private.selectedMonth = Number(itemEl.dataset.vcMonthsMonth);
+        if (self2.viewType === "multiple")
+          return handleMultipleMonthSelection(self2, itemEl);
+        self2.private.selectedMonth = Number(itemEl.dataset.vcMonthsMonth);
       }
     };
     selectByType[type]();
     const actionByType = {
       year: () => {
         var _a2;
-        return (_a2 = self.onClickYear) == null ? void 0 : _a2.call(self, event, self);
+        return (_a2 = self2.onClickYear) == null ? void 0 : _a2.call(self2, event, self2);
       },
       month: () => {
         var _a2;
-        return (_a2 = self.onClickMonth) == null ? void 0 : _a2.call(self, event, self);
+        return (_a2 = self2.onClickMonth) == null ? void 0 : _a2.call(self2, event, self2);
       }
     };
     actionByType[type]();
-    if (self.private.currentType !== self.viewType) {
-      self.private.currentType = self.viewType;
-      create(self);
-      (_a = self.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
+    if (self2.private.currentType !== self2.viewType) {
+      self2.private.currentType = self2.viewType;
+      create(self2);
+      (_a = self2.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
     } else {
-      setYearModifier(self, itemEl, type, true, true);
+      setYearModifier(self2, itemEl, type, true, true);
     }
   };
-  const handleClickType = (self, event, type) => {
+  const handleClickType = (self2, event, type) => {
     var _a;
     const target = event.target;
     const headerEl = target.closest(`[data-vc="${type}"]`);
     const createByType = {
-      year: () => createYears(self, target),
-      month: () => createMonths(self, target)
+      year: () => createYears(self2, target),
+      month: () => createMonths(self2, target)
     };
-    if (headerEl && self.onClickTitle)
-      self.onClickTitle(event, self);
-    if (headerEl && self.private.currentType !== type)
+    if (headerEl && self2.onClickTitle)
+      self2.onClickTitle(event, self2);
+    if (headerEl && self2.private.currentType !== type)
       return createByType[type]();
     const itemEl = target.closest(`[data-vc-${type}s-${type}]`);
     if (itemEl)
-      return handleItemClick(self, event, type, itemEl);
+      return handleItemClick(self2, event, type, itemEl);
     const gridEl = target.closest('[data-vc="grid"]');
     const columnEl = target.closest('[data-vc="column"]');
-    if (self.private.currentType === type && headerEl || self.viewType === "multiple" && self.private.currentType === type && gridEl && !columnEl) {
-      self.private.currentType = self.viewType;
-      create(self);
-      (_a = self.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
+    if (self2.private.currentType === type && headerEl || self2.viewType === "multiple" && self2.private.currentType === type && gridEl && !columnEl) {
+      self2.private.currentType = self2.viewType;
+      create(self2);
+      (_a = self2.private.mainElement.querySelector(`[data-vc="${type}"]`)) == null ? void 0 : _a.focus();
     }
   };
-  const handleClickMonthOrYear = (self, event) => {
-    const typesMap = { month: self.selectionMonthsMode, year: self.selectionYearsMode };
+  const handleClickMonthOrYear = (self2, event) => {
+    const typesMap = { month: self2.selectionMonthsMode, year: self2.selectionYearsMode };
     typeClick.forEach((type) => {
       if (!typesMap[type] || !event.target)
         return;
-      handleClickType(self, event, type);
+      handleClickType(self2, event, type);
     });
   };
-  const handleClickWeekNumber = (self, event) => {
-    if (!self.enableWeekNumbers || !self.onClickWeekNumber)
+  const handleClickWeekNumber = (self2, event) => {
+    if (!self2.enableWeekNumbers || !self2.onClickWeekNumber)
       return;
     const weekNumberEl = event.target.closest("[data-vc-week-number]");
-    const daysToWeeks = self.private.mainElement.querySelectorAll("[data-vc-date-week-number]");
+    const daysToWeeks = self2.private.mainElement.querySelectorAll("[data-vc-date-week-number]");
     if (!weekNumberEl || !daysToWeeks[0])
       return;
     const weekNumberValue = Number(weekNumberEl.innerText);
     const yearWeek = Number(weekNumberEl.dataset.vcWeekYear);
     const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number(day.dataset.vcDateWeekNumber) === weekNumberValue);
-    self.onClickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
+    self2.onClickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self2);
   };
-  const handleClickWeekDay = (self, event) => {
-    if (!self.onClickWeekDay)
+  const handleClickWeekDay = (self2, event) => {
+    if (!self2.onClickWeekDay)
       return;
     const weekDayEl = event.target.closest("[data-vc-week-day]");
     const columnEl = event.target.closest('[data-vc="column"]');
-    const daysToWeeks = columnEl ? columnEl.querySelectorAll("[data-vc-date-week-day]") : self.private.mainElement.querySelectorAll("[data-vc-date-week-day]");
+    const daysToWeeks = columnEl ? columnEl.querySelectorAll("[data-vc-date-week-day]") : self2.private.mainElement.querySelectorAll("[data-vc-date-week-day]");
     if (!weekDayEl || !daysToWeeks[0])
       return;
     const weekDayValue = Number(weekDayEl.dataset.vcWeekDay);
     const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number(day.dataset.vcDateWeekDay) === weekDayValue);
-    self.onClickWeekDay(event, weekDayValue, daysOfThisWeek, self);
+    self2.onClickWeekDay(event, weekDayValue, daysOfThisWeek, self2);
   };
-  const handleClick = (self) => {
+  const handleClick = (self2) => {
     const clickEventHandler = (e) => {
-      handleClickArrow(self, e);
-      handleClickWeekDay(self, e);
-      handleClickWeekNumber(self, e);
-      handleClickDate(self, e);
-      handleClickMonthOrYear(self, e);
+      handleClickArrow(self2, e);
+      handleClickWeekDay(self2, e);
+      handleClickWeekNumber(self2, e);
+      handleClickDate(self2, e);
+      handleClickMonthOrYear(self2, e);
     };
-    self.private.mainElement.addEventListener("click", clickEventHandler);
-    return () => self.private.mainElement.removeEventListener("click", clickEventHandler);
+    self2.private.mainElement.addEventListener("click", clickEventHandler);
+    return () => self2.private.mainElement.removeEventListener("click", clickEventHandler);
   };
-  const initDateMinMax = (self) => {
-    self.private.dateMin = self.displayDisabledDates ? getDate(self.dateMin) : getDate(self.private.displayDateMin);
-    self.private.dateMax = self.displayDisabledDates ? getDate(self.dateMax) : getDate(self.private.displayDateMax);
+  const initDateMinMax = (self2) => {
+    self2.private.dateMin = self2.displayDisabledDates ? getDate(self2.dateMin) : getDate(self2.private.displayDateMin);
+    self2.private.dateMax = self2.displayDisabledDates ? getDate(self2.dateMax) : getDate(self2.private.displayDateMax);
   };
   const getLocalDate = () => {
     const now = /* @__PURE__ */ new Date();
     return new Date(now.getTime() - now.getTimezoneOffset() * 6e4).toISOString().substring(0, 10);
   };
-  const initRange = (self) => {
+  const initRange = (self2) => {
     var _a, _b, _c;
-    if (self.dateMin === "today")
-      self.dateMin = getLocalDate();
-    if (self.dateMax === "today")
-      self.dateMax = getLocalDate();
-    if (self.displayDateMin === "today")
-      self.displayDateMin = getLocalDate();
-    if (self.displayDateMax === "today")
-      self.displayDateMax = getLocalDate();
-    self.displayDateMin = self.displayDateMin ? getDate(self.dateMin) >= getDate(self.displayDateMin) ? self.dateMin : self.displayDateMin : self.dateMin;
-    self.displayDateMax = self.displayDateMax ? getDate(self.dateMax) <= getDate(self.displayDateMax) ? self.dateMax : self.displayDateMax : self.dateMax;
-    const isDisablePast = self.disableDatesPast && !self.disableAllDates && getDate(self.displayDateMin) < self.dateToday;
-    self.private.displayDateMin = isDisablePast ? getDateString(self.dateToday) : self.disableAllDates ? getDateString(self.dateToday) : self.displayDateMin;
-    self.private.displayDateMax = self.disableAllDates ? getDateString(self.dateToday) : self.displayDateMax;
-    self.private.disableDates = self.disableDates && !self.disableAllDates ? parseDates(self.disableDates) : self.disableAllDates ? [self.private.displayDateMin] : [];
-    if (self.private.disableDates.length > 1)
-      self.private.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
-    self.private.enableDates = self.enableDates ? parseDates(self.enableDates) : [];
-    if (((_a = self.private.enableDates) == null ? void 0 : _a[0]) && ((_b = self.private.disableDates) == null ? void 0 : _b[0]))
-      self.private.disableDates = self.private.disableDates.filter((d) => !self.private.enableDates.includes(d));
-    if (self.private.enableDates.length > 1)
-      self.private.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
-    if (((_c = self.private.enableDates) == null ? void 0 : _c[0]) && self.disableAllDates) {
-      self.private.displayDateMin = self.private.enableDates[0];
-      self.private.displayDateMax = self.private.enableDates[self.private.enableDates.length - 1];
+    if (self2.dateMin === "today")
+      self2.dateMin = getLocalDate();
+    if (self2.dateMax === "today")
+      self2.dateMax = getLocalDate();
+    if (self2.displayDateMin === "today")
+      self2.displayDateMin = getLocalDate();
+    if (self2.displayDateMax === "today")
+      self2.displayDateMax = getLocalDate();
+    self2.displayDateMin = self2.displayDateMin ? getDate(self2.dateMin) >= getDate(self2.displayDateMin) ? self2.dateMin : self2.displayDateMin : self2.dateMin;
+    self2.displayDateMax = self2.displayDateMax ? getDate(self2.dateMax) <= getDate(self2.displayDateMax) ? self2.dateMax : self2.displayDateMax : self2.dateMax;
+    const isDisablePast = self2.disableDatesPast && !self2.disableAllDates && getDate(self2.displayDateMin) < self2.dateToday;
+    self2.private.displayDateMin = isDisablePast ? getDateString(self2.dateToday) : self2.disableAllDates ? getDateString(self2.dateToday) : self2.displayDateMin;
+    self2.private.displayDateMax = self2.disableAllDates ? getDateString(self2.dateToday) : self2.displayDateMax;
+    self2.private.disableDates = self2.disableDates && !self2.disableAllDates ? parseDates(self2.disableDates) : self2.disableAllDates ? [self2.private.displayDateMin] : [];
+    if (self2.private.disableDates.length > 1)
+      self2.private.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
+    self2.private.enableDates = self2.enableDates ? parseDates(self2.enableDates) : [];
+    if (((_a = self2.private.enableDates) == null ? void 0 : _a[0]) && ((_b = self2.private.disableDates) == null ? void 0 : _b[0]))
+      self2.private.disableDates = self2.private.disableDates.filter((d) => !self2.private.enableDates.includes(d));
+    if (self2.private.enableDates.length > 1)
+      self2.private.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
+    if (((_c = self2.private.enableDates) == null ? void 0 : _c[0]) && self2.disableAllDates) {
+      self2.private.displayDateMin = self2.private.enableDates[0];
+      self2.private.displayDateMax = self2.private.enableDates[self2.private.enableDates.length - 1];
     }
   };
-  const initSelectedDates = (self) => {
+  const initSelectedDates = (self2) => {
     var _a;
-    self.private.selectedDates = ((_a = self.selectedDates) == null ? void 0 : _a[0]) ? parseDates(self.selectedDates) : [];
+    self2.private.selectedDates = ((_a = self2.selectedDates) == null ? void 0 : _a[0]) ? parseDates(self2.selectedDates) : [];
   };
-  const initSelectedMonthYear = (self) => {
+  const initSelectedMonthYear = (self2) => {
     var _a;
-    if (self.enableJumpToSelectedDate && ((_a = self.selectedDates) == null ? void 0 : _a.length) && self.selectedMonth === void 0 && self.selectedYear === void 0) {
-      const selectedDate = getDate(parseDates(self.selectedDates)[0]);
-      self.selectedMonth = selectedDate.getMonth();
-      self.selectedYear = selectedDate.getFullYear();
+    if (self2.enableJumpToSelectedDate && ((_a = self2.selectedDates) == null ? void 0 : _a.length) && self2.selectedMonth === void 0 && self2.selectedYear === void 0) {
+      const selectedDate = getDate(parseDates(self2.selectedDates)[0]);
+      self2.selectedMonth = selectedDate.getMonth();
+      self2.selectedYear = selectedDate.getFullYear();
     }
-    const isValidMonth = self.selectedMonth !== void 0 && Number(self.selectedMonth) >= 0 && Number(self.selectedMonth) < 12;
-    const isValidYear = self.selectedYear !== void 0 && Number(self.selectedYear) >= 0 && Number(self.selectedYear) <= 9999;
-    self.private.selectedMonth = isValidMonth ? Number(self.selectedMonth) : self.dateToday.getMonth();
-    self.private.selectedYear = isValidYear ? Number(self.selectedYear) : self.dateToday.getFullYear();
-    self.private.displayYear = self.private.selectedYear;
+    const isValidMonth = self2.selectedMonth !== void 0 && Number(self2.selectedMonth) >= 0 && Number(self2.selectedMonth) < 12;
+    const isValidYear = self2.selectedYear !== void 0 && Number(self2.selectedYear) >= 0 && Number(self2.selectedYear) <= 9999;
+    self2.private.selectedMonth = isValidMonth ? Number(self2.selectedMonth) : self2.dateToday.getMonth();
+    self2.private.selectedYear = isValidYear ? Number(self2.selectedYear) : self2.dateToday.getFullYear();
+    self2.private.displayYear = self2.private.selectedYear;
   };
-  const initTime = (self) => {
+  const initTime = (self2) => {
     var _a, _b, _c;
-    if (!self.selectionTimeMode)
+    if (!self2.selectionTimeMode)
       return;
-    if (![12, 24].includes(self.selectionTimeMode))
+    if (![12, 24].includes(self2.selectionTimeMode))
       throw new Error(errorMessages.incorrectTime);
-    const isTime12 = self.selectionTimeMode === 12;
+    const isTime12 = self2.selectionTimeMode === 12;
     const timeRegex = isTime12 ? /^(0[1-9]|1[0-2]):([0-5][0-9]) ?(AM|PM)?$/i : /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/;
-    let [hours, minutes, keeping] = (_c = (_b = (_a = self.selectedTime) == null ? void 0 : _a.match(timeRegex)) == null ? void 0 : _b.slice(1)) != null ? _c : [];
+    let [hours, minutes, keeping] = (_c = (_b = (_a = self2.selectedTime) == null ? void 0 : _a.match(timeRegex)) == null ? void 0 : _b.slice(1)) != null ? _c : [];
     if (!hours) {
-      hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
-      minutes = String(self.timeMinMinute);
-      keeping = isTime12 ? Number(transformTime12(String(self.timeMinHour))) >= 12 ? "PM" : "AM" : null;
+      hours = isTime12 ? transformTime12(String(self2.timeMinHour)) : String(self2.timeMinHour);
+      minutes = String(self2.timeMinMinute);
+      keeping = isTime12 ? Number(transformTime12(String(self2.timeMinHour))) >= 12 ? "PM" : "AM" : null;
     } else if (isTime12 && !keeping) {
       keeping = "AM";
     }
-    self.private.selectedHours = hours.padStart(2, "0");
-    self.private.selectedMinutes = minutes.padStart(2, "0");
-    self.private.selectedKeeping = keeping;
-    self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${keeping ? ` ${keeping}` : ""}`;
+    self2.private.selectedHours = hours.padStart(2, "0");
+    self2.private.selectedMinutes = minutes.padStart(2, "0");
+    self2.private.selectedKeeping = keeping;
+    self2.private.selectedTime = `${self2.private.selectedHours}:${self2.private.selectedMinutes}${keeping ? ` ${keeping}` : ""}`;
   };
-  const initAllVariables = (self) => {
-    self.private.currentType = self.viewType;
-    initSelectedMonthYear(self);
-    initRange(self);
-    initSelectedDates(self);
-    initDateMinMax(self);
-    initTime(self);
+  const initAllVariables = (self2) => {
+    self2.private.currentType = self2.viewType;
+    initSelectedMonthYear(self2);
+    initRange(self2);
+    initSelectedDates(self2);
+    initDateMinMax(self2);
+    initTime(self2);
   };
-  const reset = (self, { year, month, dates, time, locale }) => {
+  const reset = (self2, { year, month, dates, time, locale }) => {
     var _a;
     const previousSelected = {
-      year: self.selectedYear,
-      month: self.selectedMonth,
-      dates: self.selectedDates,
-      time: self.selectedTime
+      year: self2.selectedYear,
+      month: self2.selectedMonth,
+      dates: self2.selectedDates,
+      time: self2.selectedTime
     };
-    self.selectedYear = year ? previousSelected.year : self.private.selectedYear;
-    self.selectedMonth = month ? previousSelected.month : self.private.selectedMonth;
-    self.selectedTime = time ? previousSelected.time : self.private.selectedTime;
-    self.selectedDates = dates === "only-first" && ((_a = self.private.selectedDates) == null ? void 0 : _a[0]) ? [self.private.selectedDates[0]] : dates === true ? previousSelected.dates : self.private.selectedDates;
+    self2.selectedYear = year ? previousSelected.year : self2.private.selectedYear;
+    self2.selectedMonth = month ? previousSelected.month : self2.private.selectedMonth;
+    self2.selectedTime = time ? previousSelected.time : self2.private.selectedTime;
+    self2.selectedDates = dates === "only-first" && ((_a = self2.private.selectedDates) == null ? void 0 : _a[0]) ? [self2.private.selectedDates[0]] : dates === true ? previousSelected.dates : self2.private.selectedDates;
     if (locale) {
-      self.private.locale = {
+      self2.private.locale = {
         months: { short: [], long: [] },
         weekdays: { short: [], long: [] }
       };
     }
-    initAllVariables(self);
-    create(self);
-    self.selectedYear = previousSelected.year;
-    self.selectedMonth = previousSelected.month;
-    self.selectedDates = previousSelected.dates;
-    self.selectedTime = previousSelected.time;
-    if (self.selectionDatesMode === "multiple-ranged" && dates)
-      handleSelectDateRange(self);
+    initAllVariables(self2);
+    create(self2);
+    self2.selectedYear = previousSelected.year;
+    self2.selectedMonth = previousSelected.month;
+    self2.selectedDates = previousSelected.dates;
+    self2.selectedTime = previousSelected.time;
+    if (self2.selectionDatesMode === "multiple-ranged" && dates)
+      handleSelectDateRange(self2);
   };
   function findBestPickerPosition(input, calendar) {
     const position = "left";
@@ -1545,84 +1547,84 @@ var __publicField = (obj, key, value) => {
     }
     Object.assign(calendar.style, { left: `${left}px`, top: `${top}px` });
   };
-  const createToInput = (self, isVisible = true) => {
+  const createToInput = (self2, isVisible = true) => {
     const calendar = document.createElement("div");
-    calendar.className = self.styles.calendar;
+    calendar.className = self2.styles.calendar;
     calendar.dataset.vc = "calendar";
     calendar.dataset.vcInput = "";
     calendar.dataset.vcCalendarHidden = "";
     calendar.style.visibility = "hidden";
-    self.private.isInputInit = true;
-    self.private.mainElement = calendar;
-    document.body.appendChild(self.private.mainElement);
+    self2.private.isInputInit = true;
+    self2.private.mainElement = calendar;
+    document.body.appendChild(self2.private.mainElement);
     if (isVisible) {
       queueMicrotask(() => {
-        setPosition(self.private.inputElement, calendar, self.positionToInput);
-        self.private.mainElement.style.visibility = "visible";
-        self.show();
+        setPosition(self2.private.inputElement, calendar, self2.positionToInput);
+        self2.private.mainElement.style.visibility = "visible";
+        self2.show();
       });
     }
-    reset(self, {
+    reset(self2, {
       year: true,
       month: true,
       dates: true,
       time: true,
       locale: true
     });
-    if (self.onInit)
-      self.onInit(self);
-    handleArrowKeys(self);
-    return handleClick(self);
+    if (self2.onInit)
+      self2.onInit(self2);
+    handleArrowKeys(self2);
+    return handleClick(self2);
   };
-  const handleInput = (self) => {
+  const handleInput = (self2) => {
     const cleanup = [];
-    self.private.inputElement = self.private.mainElement;
-    const handleResize = () => setPosition(self.private.inputElement, self.private.mainElement, self.positionToInput);
+    self2.private.inputElement = self2.private.mainElement;
+    const handleResize = () => setPosition(self2.private.inputElement, self2.private.mainElement, self2.positionToInput);
     const handleEscapeKey = (e) => {
       var _a, _b;
       if (e.key !== "Escape")
         return;
-      if (((_a = self == null ? void 0 : self.private) == null ? void 0 : _a.inputElement) && ((_b = self == null ? void 0 : self.private) == null ? void 0 : _b.mainElement))
-        self.hide();
+      if (((_a = self2 == null ? void 0 : self2.private) == null ? void 0 : _a.inputElement) && ((_b = self2 == null ? void 0 : self2.private) == null ? void 0 : _b.mainElement))
+        self2.hide();
       document.removeEventListener("keydown", handleEscapeKey);
     };
     const documentClickEvent = (e) => {
-      if (!self || e.target === self.private.inputElement || self.private.mainElement.contains(e.target))
+      if (!self2 || e.target === self2.private.inputElement || self2.private.mainElement.contains(e.target))
         return;
-      if (self.private.inputElement && self.private.mainElement)
-        self.hide();
+      if (self2.private.inputElement && self2.private.mainElement)
+        self2.hide();
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("click", documentClickEvent, { capture: true });
     };
     const handleOpenCalendar = () => {
-      if (!self.private.isInputInit) {
-        cleanup.push(createToInput(self));
+      if (!self2.private.isInputInit) {
+        cleanup.push(createToInput(self2));
       } else {
-        setPosition(self.private.inputElement, self.private.mainElement, self.positionToInput);
-        self.private.mainElement.style.visibility = "visible";
-        self.show();
+        setPosition(self2.private.inputElement, self2.private.mainElement, self2.positionToInput);
+        self2.private.mainElement.style.visibility = "visible";
+        self2.show();
       }
       window.addEventListener("resize", handleResize);
       document.addEventListener("click", documentClickEvent, { capture: true });
       document.addEventListener("keydown", handleEscapeKey);
     };
-    self.private.inputElement.addEventListener("click", handleOpenCalendar);
-    self.private.inputElement.addEventListener("focus", handleOpenCalendar);
+    self2.private.inputElement.addEventListener("click", handleOpenCalendar);
+    self2.private.inputElement.addEventListener("focus", handleOpenCalendar);
     return () => {
       cleanup.forEach((clean) => clean());
     };
   };
-  const init = (self) => {
-    self.private.originalElement = self.private.mainElement.cloneNode(true);
-    self.private.isInit = true;
-    if (self.isInput)
-      return handleInput(self);
-    initAllVariables(self);
-    create(self);
-    if (self.onInit)
-      self.onInit(self);
-    handleArrowKeys(self);
-    return handleClick(self);
+  const init = (self2) => {
+    self2.private.originalElement = self2.private.mainElement.cloneNode(true);
+    self2.private.isInit = true;
+    if (self2.isInput)
+      return handleInput(self2);
+    initAllVariables(self2);
+    create(self2);
+    if (self2.onInit)
+      self2.onInit(self2);
+    handleArrowKeys(self2);
+    return handleClick(self2);
   };
   const replaceProperties = (original, replacement) => {
     const keys = Object.keys(replacement);
@@ -1635,29 +1637,29 @@ var __publicField = (obj, key, value) => {
       }
     }
   };
-  const set = (self, options, resetOptions) => {
+  const set = (self2, options, resetOptions) => {
     const defaultReset = { year: true, month: true, dates: true, time: true, locale: true };
-    replaceProperties(self, options);
-    reset(self, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
+    replaceProperties(self2, options);
+    reset(self2, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
   };
-  const show = (self) => {
-    if (!self.private.currentType) {
-      self.private.mainElement.click();
+  const show = (self2) => {
+    if (!self2.private.currentType) {
+      self2.private.mainElement.click();
       return;
     }
-    self.private.mainElement.removeAttribute("data-vc-calendar-hidden");
-    if (self.onShow)
-      self.onShow(self);
+    self2.private.mainElement.removeAttribute("data-vc-calendar-hidden");
+    if (self2.onShow)
+      self2.onShow(self2);
   };
-  const update = (self, resetOptions) => {
-    if (!self.private.isInit)
+  const update = (self2, resetOptions) => {
+    if (!self2.private.isInit)
       throw new Error(errorMessages.notInit);
-    if (self.isInput && !self.private.isInputInit)
-      createToInput(self, false);
+    if (self2.isInput && !self2.private.isInputInit)
+      createToInput(self2, false);
     const defaultReset = { year: false, month: false, dates: false, time: false, locale: false };
-    reset(self, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
-    if (self.onUpdate)
-      self.onUpdate(self);
+    reset(self2, __spreadValues(__spreadValues({}, defaultReset), resetOptions));
+    if (self2.onUpdate)
+      self2.onUpdate(self2);
   };
   const labels = {
     application: "Calendar",
@@ -1826,6 +1828,7 @@ var __publicField = (obj, key, value) => {
     }
   };
   __publicField(_VanillaCalendarPro, "memoizedElements", /* @__PURE__ */ new Map());
-  let VanillaCalendarPro2 = _VanillaCalendarPro;
-  return VanillaCalendarPro2;
-}();
+  let VanillaCalendarPro = _VanillaCalendarPro;
+  exports2.VanillaCalendarPro = VanillaCalendarPro;
+  Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" });
+});

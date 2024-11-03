@@ -1,5 +1,7 @@
-/*! name: vanilla-calendar-pro v3.0.0-beta.17 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
-var VanillaCalendarProUtilities = function(exports) {
+/*! name: vanilla-calendar-pro v3.0.0-beta.23 | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */
+(function(global, factory) {
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.VanillaCalendarProUtils = {}));
+})(this, function(exports2) {
   "use strict";
   const getDate$1 = (date) => /* @__PURE__ */ new Date(`${date}T00:00:00.000Z`);
   const getDateString$1 = (date) => {
@@ -30,9 +32,8 @@ var VanillaCalendarProUtilities = function(exports) {
   const parseDates = (dates) => parseDates$1(dates);
   const getDateString = (date) => getDateString$1(date);
   const getDate = (date) => getDate$1(date);
-  exports.getDate = getDate;
-  exports.getDateString = getDateString;
-  exports.parseDates = parseDates;
-  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-  return exports;
-}({});
+  exports2.getDate = getDate;
+  exports2.getDateString = getDateString;
+  exports2.parseDates = parseDates;
+  Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" });
+});
