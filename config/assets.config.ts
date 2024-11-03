@@ -18,15 +18,15 @@ export default defineConfig({
       output: {
         inlineDynamicImports: false,
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name && ['light.css', 'dark.css', 'slate-light.css'].includes(assetInfo.name)) {
-            return 'styles/themes/[name].[ext]';
+          if (assetInfo.name && ['index.css', 'layout.css'].includes(assetInfo.name)) {
+            return 'styles/[name].[ext]';
           }
-          return 'styles/[name].[ext]';
+          return 'styles/themes/[name].[ext]';
         },
       },
       input: {
-        main: resolve(__dirname, '../package/src/styles/vanilla-calendar-pro.css'),
-        layout: resolve(__dirname, '../package/src/styles/vanilla-calendar-pro.layout.css'),
+        main: resolve(__dirname, '../package/src/styles/index.css'),
+        layout: resolve(__dirname, '../package/src/styles/layout.css'),
         light: resolve(__dirname, '../package/src/styles/themes/light.css'),
         dark: resolve(__dirname, '../package/src/styles/themes/dark.css'),
         'slate-light': resolve(__dirname, '../package/src/styles/themes/slate-light.css'),

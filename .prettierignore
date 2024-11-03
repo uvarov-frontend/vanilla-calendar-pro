@@ -2,7 +2,7 @@
 **/node_modules
 **/next/**
 **/demo/build/**
-**/package/dest/**
+**/package/dist/**
 **/package/utilities/**
 **/package.json
 **/package-lock.json

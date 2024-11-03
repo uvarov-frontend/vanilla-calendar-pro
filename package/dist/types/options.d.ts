@@ -1,4 +1,4 @@
-import { VanillaCalendarPro } from './index';
+import { VanillaCalendarPro } from '../main/index';
 import { FormatDateString, Labels, Layouts, Locale, MonthsCount, Popups, Range, Styles, ToggleSelected, TypesCalendar, WeekDayID, WeekDays } from './types';
 export default class OptionsCalendar {
     viewType: TypesCalendar;

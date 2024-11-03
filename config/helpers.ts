@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import banner from 'vite-plugin-banner';
 
-import { version } from '../package/package.json';
+import { version } from '../package/public/package.json';
 
 export const bannerPlugin = (outDir: string) =>
   banner({ outDir, content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro` });

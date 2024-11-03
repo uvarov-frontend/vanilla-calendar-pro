@@ -4,7 +4,7 @@ import eslint from 'vite-plugin-eslint';
 
 import { alias, bannerPlugin } from './helpers';
 
-const outDir = './package/dist/scripts';
+const outDir = './package/dist/main';
 
 export default defineConfig({
   build: {
@@ -16,7 +16,7 @@ export default defineConfig({
     lib: {
       name: 'VanillaCalendarPro',
       formats: ['es', 'umd'],
-      fileName: (format) => `vanilla-calendar-pro.${format === 'es' ? 'es.mjs' : 'umd.js'}`,
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
       entry: [resolve(__dirname, '../package/src/index.ts')],
     },
   },
