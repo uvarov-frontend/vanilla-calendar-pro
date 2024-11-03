@@ -355,8 +355,6 @@
   border-radius: 0px;
 }
 
-[data-vc-date][data-vc-date-selected]:nth-child(7n + 1) [data-vc-date-btn],
-[data-vc-date][data-vc-date-hover]:nth-child(7n + 1) [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
 [data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn],
 [data-vc-date][data-vc-date-selected]:not(:has([data-vc-date-btn])) + [data-vc-date-selected] [data-vc-date-btn] {
@@ -364,8 +362,6 @@
   border-bottom-left-radius: 0.5rem;
 }
 
-[data-vc-date][data-vc-date-hover]:nth-child(7n) [data-vc-date-btn],
-[data-vc-date][data-vc-date-selected]:nth-child(7n) [data-vc-date-btn],
 [data-vc-date][data-vc-date-hover]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
 [data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
 [data-vc-date][data-vc-date-selected]:not(:has(+ [data-vc-date-selected] > [data-vc-date-btn])) [data-vc-date-btn] {
