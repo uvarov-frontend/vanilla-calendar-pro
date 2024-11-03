@@ -1,9 +1,10 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
-import { bannerPlugin } from './helpers';
+import { bannerPlugin, getInputFiles } from './helpers';
 
 const outDir = './package/dist';
+const input = getInputFiles(resolve(__dirname, '../package/src/styles'));
 
 export default defineConfig({
   publicDir: './package/public',
@@ -17,20 +18,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         inlineDynamicImports: false,
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name && ['index.css', 'layout.css'].includes(assetInfo.name)) {
-            return 'styles/[name].[ext]';
-          }
-          return 'styles/themes/[name].[ext]';
-        },
+        assetFileNames: (assetInfo) =>
+          assetInfo.name && ['index.css', 'layout.css'].includes(assetInfo.name) ? 'styles/[name].[ext]' : 'styles/themes/[name].[ext]',
       },
-      input: {
-        main: resolve(__dirname, '../package/src/styles/index.css'),
-        layout: resolve(__dirname, '../package/src/styles/layout.css'),
-        light: resolve(__dirname, '../package/src/styles/themes/light.css'),
-        dark: resolve(__dirname, '../package/src/styles/themes/dark.css'),
-        'slate-light': resolve(__dirname, '../package/src/styles/themes/slate-light.css'),
-      },
+      input,
     },
   },
   plugins: [bannerPlugin(outDir)],

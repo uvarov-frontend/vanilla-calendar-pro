@@ -18,7 +18,7 @@ export default defineConfig({
       name: 'VanillaCalendarPro',
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
-      entry: [resolve(__dirname, '../package/src/index.ts')],
+      entry: resolve(__dirname, '../package/src/index.ts'),
     },
   },
   resolve: { alias },

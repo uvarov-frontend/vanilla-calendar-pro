@@ -1,3 +1,4 @@
+import { readdirSync } from 'fs';
 import { resolve } from 'path';
 import banner from 'vite-plugin-banner';
 
@@ -13,4 +14,23 @@ export const alias = {
   '@scripts': resolve(__dirname, '../package/src/scripts'),
 };
 
-export default alias;
+export const getInputFiles = (dir: string): string[] => {
+  const files: string[] = [];
+
+  const readDir = (directory: string): void => {
+    const items = readdirSync(directory, { withFileTypes: true });
+
+    for (const item of items) {
+      const itemPath = resolve(directory, item.name);
+
+      if (item.isDirectory()) {
+        readDir(itemPath);
+      } else {
+        files.push(itemPath);
+      }
+    }
+  };
+
+  readDir(dir);
+  return files;
+};
