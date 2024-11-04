@@ -1,6 +1,6 @@
 import { type Options, VanillaCalendarPro } from '@src/index';
 
-import '@src/styles/vanilla-calendar-pro.css';
+import '@src/styles/index.css';
 
 const configInput: Options = {
   isInput: true,

@@ -1,6 +1,6 @@
 import { VanillaCalendarPro } from '@src/index';
 
-import '@src/styles/vanilla-calendar-pro.css';
+import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const today = new Date();
