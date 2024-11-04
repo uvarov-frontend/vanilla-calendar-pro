@@ -81,8 +81,9 @@ const updateDisabledDates = () => {
   if (startDate) current.self.private.displayDateMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
   if (endDate) current.self.private.displayDateMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
 
-  const isDisablePast = current.self.disableDatesPast && !current.self.disableAllDates && getDate(current.self.private.displayDateMin) < current.self.dateToday;
-  if (isDisablePast) current.self.private.displayDateMin = getDateString(current.self.dateToday);
+  const isDisablePast =
+    current.self.disableDatesPast && !current.self.disableAllDates && getDate(current.self.private.displayDateMin) < getDate(current.self.private.dateToday);
+  if (isDisablePast) current.self.private.displayDateMin = current.self.private.dateToday;
 };
 
 const resetDisabledDates = () => {

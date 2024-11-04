@@ -2,6 +2,7 @@ import createLayouts from '@scripts/creators/createLayouts';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
+import getDate from '@scripts/utils/getDate';
 import type { VanillaCalendarPro } from '@src/index';
 
 const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
@@ -35,7 +36,7 @@ const createYears = (self: VanillaCalendarPro, target?: HTMLElement) => {
   templateYearEl.type = 'button';
 
   for (let i = (self.private.displayYear as number) - 7; i < (self.private.displayYear as number) + 8; i++) {
-    const yearDisabled = i < (self.private.dateMin as Date).getFullYear() + relationshipID || i > (self.private.dateMax as Date).getFullYear();
+    const yearDisabled = i < getDate(self.private.dateMin).getFullYear() + relationshipID || i > getDate(self.private.dateMax).getFullYear();
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
     yearsEl.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(yearEl, self);

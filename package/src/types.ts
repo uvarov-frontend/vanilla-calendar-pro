@@ -76,8 +76,9 @@ export type PrivateVariables = {
   mainElement: HTMLElement;
   originalElement: HTMLElement;
   inputElement?: HTMLInputElement;
-  dateMin: Date;
-  dateMax: Date;
+  dateToday: FormatDateString;
+  dateMin: FormatDateString;
+  dateMax: FormatDateString;
   displayDateMin: FormatDateString;
   displayDateMax: FormatDateString;
   displayYear: number;

@@ -1,6 +1,7 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
+import getDate from '@scripts/utils/getDate';
 import type { VanillaCalendarPro } from '@src/index';
 
 const relationshipID = (self: VanillaCalendarPro) => {
@@ -56,9 +57,12 @@ const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
   templateMonthEl.type = 'button';
 
   for (let i = 0; i < 12; i++) {
+    const dateMin = getDate(self.private.dateMin);
+    const dateMax = getDate(self.private.dateMax);
+
     const monthDisabled =
-      (i < (self.private.dateMin as Date).getMonth() + relationshipID(self) && selectedYear <= (self.private.dateMin as Date).getFullYear()) ||
-      (i > (self.private.dateMax as Date).getMonth() + relationshipID(self) && selectedYear >= (self.private.dateMax as Date).getFullYear()) ||
+      (i < dateMin.getMonth() + relationshipID(self) && selectedYear <= dateMin.getFullYear()) ||
+      (i > dateMax.getMonth() + relationshipID(self) && selectedYear >= dateMax.getFullYear()) ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
     const monthEl = createMonthEl(
       self,

@@ -1,5 +1,4 @@
 import getDate from '@scripts/utils/getDate';
-import getDateString from '@scripts/utils/getDateString';
 import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const updateAttribute = (el: HTMLElement | HTMLButtonElement, condition: boolean | undefined, attr: string, value = '') => {
@@ -32,8 +31,8 @@ const setDateModifier = (
   if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
 
   // Check if the date is today
-  updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, 'data-vc-date-today');
-  updateAttribute(dateEl, !self.disableToday && getDateString(self.dateToday) === dateStr, 'aria-current', 'date');
+  updateAttribute(dateEl, !self.disableToday && self.private.dateToday === dateStr, 'data-vc-date-today');
+  updateAttribute(dateEl, !self.disableToday && self.private.dateToday === dateStr, 'aria-current', 'date');
 
   // Check if the date is a weekend
   updateAttribute(dateEl, self.selectedWeekends?.includes(dayWeekID), 'data-vc-date-weekend');

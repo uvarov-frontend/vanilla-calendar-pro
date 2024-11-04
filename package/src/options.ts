@@ -28,13 +28,13 @@ export default class OptionsCalendar {
 
   locale: Locale = 'en';
 
-  dateToday: Date = new Date();
-  dateMin: FormatDateString | 'today' = '1970-01-01';
-  dateMax: FormatDateString | 'today' = '2470-12-31';
+  dateToday: Date | number | FormatDateString | 'today' = 'today';
+  dateMin: Date | number | FormatDateString | 'today' = '1970-01-01';
+  dateMax: Date | number | FormatDateString | 'today' = '2470-12-31';
 
   displayMonthsCount: MonthsCount = 2;
-  displayDateMin!: FormatDateString | 'today';
-  displayDateMax!: FormatDateString | 'today';
+  displayDateMin!: Date | number | FormatDateString | 'today';
+  displayDateMax!: Date | number | FormatDateString | 'today';
   displayDatesOutside: boolean = true;
   displayDisabledDates: boolean = false;
 
