@@ -55,7 +55,7 @@ const createDate = (
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
   datesEl.appendChild(dateEl);
-  if (self.onCreateDateEls) self.onCreateDateEls(dateEl, self);
+  if (self.onCreateDateEls) self.onCreateDateEls(self, dateEl);
 };
 
 export default createDate;

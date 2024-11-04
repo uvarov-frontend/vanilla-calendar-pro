@@ -11,7 +11,7 @@ type DD = LeadingZero | `${1 | 2}${number}` | 30 | 31;
 
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
-export type MonthsCount = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type MonthsCount = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
 
@@ -90,6 +90,7 @@ export type PrivateVariables = {
   displayDateMin: FormatDateString;
   displayDateMax: FormatDateString;
   displayYear: number;
+  displayMonthsCount: MonthsCount;
   disableDates: FormatDateString[];
   enableDates: FormatDateString[];
   selectedDates: FormatDateString[];

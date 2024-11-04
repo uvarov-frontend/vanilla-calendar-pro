@@ -12,7 +12,7 @@ export const handleClickWeekNumber = (self: VanillaCalendarPro, event: MouseEven
   const yearWeek = Number(weekNumberEl.dataset.vcWeekYear);
   const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.vcDateWeekNumber) === weekNumberValue);
 
-  self.onClickWeekNumber(event, weekNumberValue, daysOfThisWeek, yearWeek, self);
+  self.onClickWeekNumber(self, weekNumberValue, yearWeek, daysOfThisWeek, event);
 };
 
 export const handleClickWeekDay = (self: VanillaCalendarPro, event: MouseEvent) => {
@@ -29,5 +29,5 @@ export const handleClickWeekDay = (self: VanillaCalendarPro, event: MouseEvent) 
   const weekDayValue = Number(weekDayEl.dataset.vcWeekDay);
   const daysOfThisWeek = Array.from(daysToWeeks).filter((day) => Number((day as HTMLElement).dataset.vcDateWeekDay) === weekDayValue);
 
-  self.onClickWeekDay(event, weekDayValue, daysOfThisWeek, self);
+  self.onClickWeekDay(self, weekDayValue, daysOfThisWeek, event);
 };

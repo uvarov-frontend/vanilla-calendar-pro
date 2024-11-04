@@ -74,7 +74,7 @@ const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
       i,
     );
     monthsEl.appendChild(monthEl);
-    if (self.onCreateMonthEls) self.onCreateMonthEls(monthEl, self);
+    if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);
   }
 
   self.private.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();

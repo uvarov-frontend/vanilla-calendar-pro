@@ -33,7 +33,7 @@ const handleInput = (
           const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
           if (!(correctValue <= max && correctValue >= min)) {
             updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
-            if (self.onChangeTime) self.onChangeTime(event, self, true);
+            if (self.onChangeTime) self.onChangeTime(self, event, true);
             return;
           }
 
@@ -44,7 +44,7 @@ const handleInput = (
         24: () => {
           if (!(value <= max && value >= min)) {
             updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
-            if (self.onChangeTime) self.onChangeTime(event, self, true);
+            if (self.onChangeTime) self.onChangeTime(self, event, true);
             return;
           }
 
@@ -57,7 +57,7 @@ const handleInput = (
     minute: (value: number, valueStr: string, event: Event) => {
       if (!(value <= max && value >= min)) {
         inputEl.value = self.private.selectedMinutes;
-        if (self.onChangeTime) self.onChangeTime(event, self, true);
+        if (self.onChangeTime) self.onChangeTime(self, event, true);
         return;
       }
 

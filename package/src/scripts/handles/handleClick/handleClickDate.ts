@@ -30,8 +30,8 @@ const handleClickDate = (self: VanillaCalendarPro, event: MouseEvent) => {
   daySelectionActions[self.selectionDatesMode]();
   self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
-  if (self.onClickDate) self.onClickDate(event, self);
-  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(event, self);
+  if (self.onClickDate) self.onClickDate(self, event);
+  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
 
   const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
   const dayNextEl = element.closest('[data-vc-date-month="next"]');

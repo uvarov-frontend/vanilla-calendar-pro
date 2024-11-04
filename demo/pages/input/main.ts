@@ -5,7 +5,7 @@ import '@src/styles/index.css';
 const configInput: Options = {
   isInput: true,
   positionToInput: 'center',
-  onChangeToInput(e, self) {
+  onChangeToInput(self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
       self.private.inputElement.value = self.private.selectedDates[0];
@@ -19,7 +19,7 @@ const configInput: Options = {
 const configDiv: Options = {
   isInput: true,
   positionToInput: 'auto',
-  onChangeToInput(e, self) {
+  onChangeToInput(self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
       self.private.inputElement.innerHTML = self.private.selectedDates[0];

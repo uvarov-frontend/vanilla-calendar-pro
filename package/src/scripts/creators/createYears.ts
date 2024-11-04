@@ -39,7 +39,7 @@ const createYears = (self: VanillaCalendarPro, target?: HTMLElement) => {
     const yearDisabled = i < getDate(self.private.dateMin).getFullYear() + relationshipID || i > getDate(self.private.dateMax).getFullYear();
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
     yearsEl.appendChild(yearEl);
-    if (self.onCreateYearEls) self.onCreateYearEls(yearEl, self);
+    if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }
 
   self.private.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();

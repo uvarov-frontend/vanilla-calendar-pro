@@ -1,5 +1,4 @@
 import { getComponent } from '@scripts/components';
-import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
 import type { VanillaCalendarPro } from '@src/index';
 
 export const parseLayout = (self: VanillaCalendarPro, template: string): string => {
@@ -18,9 +17,7 @@ export const parseLayout = (self: VanillaCalendarPro, template: string): string 
 export const parseMultipleLayout = (self: VanillaCalendarPro, template: string): string => {
   return template
     .replace(/<#Multiple>(.*?)<#\/Multiple>/gs, (_, content) => {
-      const repeatedContent = Array(getCorrectNumberOfMonths(self) as number)
-        .fill(content)
-        .join('');
+      const repeatedContent = Array(self.private.displayMonthsCount).fill(content).join('');
       return self.sanitizerHTML(repeatedContent);
     })
     .replace(/[\n\t]/g, '');

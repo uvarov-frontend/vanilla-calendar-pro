@@ -1,6 +1,6 @@
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Range, VanillaCalendarPro } from '@src/index';
 
 const setYearModifier = (self: VanillaCalendarPro, el: HTMLButtonElement, type: 'month' | 'year', selected: boolean, reset: boolean) => {
   const selectors = {
@@ -29,7 +29,7 @@ const setYearModifier = (self: VanillaCalendarPro, el: HTMLButtonElement, type: 
       el.removeAttribute(attributes[type].aria);
     });
 
-    self.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]);
+    self.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]) as Range<12>;
     visibilityTitle(self);
     if (type === 'year') visibilityArrows(self);
   }

@@ -2,7 +2,6 @@ import layoutDefault from '@scripts/layouts/layoutDefault';
 import layoutMonths from '@scripts/layouts/layoutMonths';
 import layoutMultiple from '@scripts/layouts/layoutMultiple';
 import layoutYears from '@scripts/layouts/layoutYears';
-import getCorrectNumberOfMonths from '@scripts/utils/getCorrectNumberOfMonths';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
 import type { VanillaCalendarPro } from '@src/index';
 
@@ -26,7 +25,7 @@ const createLayouts = (self: VanillaCalendarPro, target?: HTMLElement) => {
   self.private.mainElement.tabIndex = 0;
   self.private.mainElement.ariaLabel = self.labels.application;
 
-  if (self.private.currentType === 'multiple' && getCorrectNumberOfMonths(self)) {
+  if (self.private.currentType === 'multiple') {
     self.private.mainElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
     return;
   }

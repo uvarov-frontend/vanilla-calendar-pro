@@ -3,7 +3,7 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Range, VanillaCalendarPro } from '@src/index';
 
 const handleMonth = (self: VanillaCalendarPro, route: 'prev' | 'next') => {
   const jumpDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
@@ -14,7 +14,7 @@ const handleMonth = (self: VanillaCalendarPro, route: 'prev' | 'next') => {
   };
 
   routeMap[route]();
-  [self.private.selectedMonth, self.private.selectedYear] = [jumpDate.getMonth(), jumpDate.getFullYear()];
+  [self.private.selectedMonth, self.private.selectedYear] = [jumpDate.getMonth() as Range<12>, jumpDate.getFullYear()];
 
   visibilityTitle(self);
   visibilityArrows(self);

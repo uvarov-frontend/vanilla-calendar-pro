@@ -3,7 +3,7 @@ import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import getDate from '@scripts/utils/getDate';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Range, VanillaCalendarPro } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
 
@@ -31,8 +31,9 @@ const handleMultipleYearSelection = (self: VanillaCalendarPro, itemEl: HTMLEleme
 
   self.private.selectedYear =
     isBeforeMinDate || isBeforeMinYear ? dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? dateMax.getFullYear() : selectedYear;
-  self.private.selectedMonth =
-    isBeforeMinDate || isBeforeMinYear ? dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? dateMax.getMonth() : self.private.selectedMonth;
+  self.private.selectedMonth = (
+    isBeforeMinDate || isBeforeMinYear ? dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? dateMax.getMonth() : self.private.selectedMonth
+  ) as Range<12>;
 };
 
 const handleMultipleMonthSelection = (self: VanillaCalendarPro, itemEl: HTMLElement) => {
@@ -47,7 +48,7 @@ const handleMultipleMonthSelection = (self: VanillaCalendarPro, itemEl: HTMLElem
   const isAfterMaxDate = selectedMonth > dateMax.getMonth() && selectedYear >= dateMax.getFullYear();
 
   self.private.selectedYear = selectedYear;
-  self.private.selectedMonth = isBeforeMinDate ? dateMin.getMonth() : isAfterMaxDate ? dateMax.getMonth() : selectedMonth;
+  self.private.selectedMonth = (isBeforeMinDate ? dateMin.getMonth() : isAfterMaxDate ? dateMax.getMonth() : selectedMonth) as Range<12>;
 };
 
 const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLButtonElement) => {
@@ -58,14 +59,14 @@ const handleItemClick = (self: VanillaCalendarPro, event: MouseEvent, type: (typ
     },
     month: () => {
       if (self.viewType === 'multiple') return handleMultipleMonthSelection(self, itemEl);
-      self.private.selectedMonth = Number(itemEl.dataset.vcMonthsMonth);
+      self.private.selectedMonth = Number(itemEl.dataset.vcMonthsMonth) as Range<12>;
     },
   };
   selectByType[type]();
 
   const actionByType = {
-    year: () => self.onClickYear?.(event, self),
-    month: () => self.onClickMonth?.(event, self),
+    year: () => self.onClickYear?.(self, event),
+    month: () => self.onClickMonth?.(self, event),
   };
   actionByType[type]();
 
@@ -86,7 +87,7 @@ const handleClickType = (self: VanillaCalendarPro, event: MouseEvent, type: (typ
     year: () => createYears(self, target),
     month: () => createMonths(self, target),
   };
-  if (headerEl && self.onClickTitle) self.onClickTitle(event, self);
+  if (headerEl && self.onClickTitle) self.onClickTitle(self, event);
   if (headerEl && self.private.currentType !== type) return createByType[type]();
 
   const itemEl = target.closest<HTMLButtonElement>(`[data-vc-${type}s-${type}]`);

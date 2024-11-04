@@ -41,7 +41,7 @@ export default class OptionsCalendar {
   displayDateMax!: DateAny;
   displayDatesOutside: boolean = true;
   displayDisabledDates: boolean = false;
-  displayMonthsCount: MonthsCount = 2;
+  displayMonthsCount!: MonthsCount;
 
   disableDates: DatesArr = [];
   disableAllDates: boolean = false;
@@ -80,18 +80,18 @@ export default class OptionsCalendar {
 
   sanitizerHTML: (dirtyHtml: string) => string = (dirtyHtml: string) => dirtyHtml;
 
-  onClickDate!: (e: MouseEvent, self: VanillaCalendarPro) => void;
-  onClickWeekDay!: (e: MouseEvent, day: number, days: HTMLElement[], self: VanillaCalendarPro) => void;
-  onClickWeekNumber!: (e: MouseEvent, number: number, days: HTMLElement[], year: number, self: VanillaCalendarPro) => void;
-  onClickTitle!: (e: MouseEvent, self: VanillaCalendarPro) => void;
-  onClickMonth!: (e: MouseEvent, self: VanillaCalendarPro) => void;
-  onClickYear!: (e: MouseEvent, self: VanillaCalendarPro) => void;
-  onClickArrow!: (e: MouseEvent, self: VanillaCalendarPro) => void;
-  onChangeTime!: (e: Event, self: VanillaCalendarPro, isError: boolean) => void;
-  onChangeToInput!: (e: Event, self: VanillaCalendarPro) => void;
-  onCreateDateEls!: (dateEl: HTMLElement, self: VanillaCalendarPro) => void;
-  onCreateMonthEls!: (monthEl: HTMLElement, self: VanillaCalendarPro) => void;
-  onCreateYearEls!: (yearEl: HTMLElement, self: VanillaCalendarPro) => void;
+  onClickDate!: (self: VanillaCalendarPro, event: MouseEvent) => void;
+  onClickWeekDay!: (self: VanillaCalendarPro, day: number, dateEls: HTMLElement[], event: MouseEvent) => void;
+  onClickWeekNumber!: (self: VanillaCalendarPro, number: number, year: number, dateEls: HTMLElement[], event: MouseEvent) => void;
+  onClickTitle!: (self: VanillaCalendarPro, event: MouseEvent) => void;
+  onClickMonth!: (self: VanillaCalendarPro, event: MouseEvent) => void;
+  onClickYear!: (self: VanillaCalendarPro, event: MouseEvent) => void;
+  onClickArrow!: (self: VanillaCalendarPro, event: MouseEvent) => void;
+  onChangeTime!: (self: VanillaCalendarPro, event: Event, isError: boolean) => void;
+  onChangeToInput!: (self: VanillaCalendarPro, event: Event) => void;
+  onCreateDateEls!: (self: VanillaCalendarPro, dateEl: HTMLElement) => void;
+  onCreateMonthEls!: (self: VanillaCalendarPro, monthEl: HTMLElement) => void;
+  onCreateYearEls!: (self: VanillaCalendarPro, yearEl: HTMLElement) => void;
   onInit!: (self: VanillaCalendarPro) => void;
   onUpdate!: (self: VanillaCalendarPro) => void;
   onDestroy!: (self: VanillaCalendarPro) => void;

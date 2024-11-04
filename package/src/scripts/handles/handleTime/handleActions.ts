@@ -9,8 +9,8 @@ const handleActions = (self: VanillaCalendarPro, event: Event, value: string, ty
 
   self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${self.private.selectedKeeping ? ` ${self.private.selectedKeeping}` : ''}`;
 
-  if (self.onChangeTime) self.onChangeTime(event, self, false);
-  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(event, self);
+  if (self.onChangeTime) self.onChangeTime(self, event, false);
+  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
 };
 
 export default handleActions;
