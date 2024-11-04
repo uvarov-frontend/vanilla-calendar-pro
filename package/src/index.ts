@@ -3,7 +3,9 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import replaceProperties from '@scripts/utils/replaceProperties';
 import OptionsCalendar from '@src/options';
 import type {
-  Dates,
+  DateAny,
+  DateMode,
+  DatesArr,
   FormatDateString,
   HtmlElementPosition,
   Labels,
@@ -15,10 +17,13 @@ import type {
   Popup,
   Popups,
   Positions,
+  PositionToInput,
   PrivateVariables,
   Range,
   Reset,
   Styles,
+  ThemesDefault,
+  TimePicker,
   ToggleSelected,
   TypesCalendar,
   WeekDayID,
@@ -74,7 +79,9 @@ export class VanillaCalendarPro extends OptionsCalendar {
 }
 
 export {
-  Dates,
+  DateAny,
+  DateMode,
+  DatesArr,
   FormatDateString,
   HtmlElementPosition,
   Labels,
@@ -86,10 +93,13 @@ export {
   Popup,
   Popups,
   Positions,
+  PositionToInput,
   PrivateVariables,
   Range,
   Reset,
   Styles,
+  ThemesDefault,
+  TimePicker,
   ToggleSelected,
   TypesCalendar,
   WeekDayID,

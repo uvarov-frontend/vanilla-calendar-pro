@@ -16,6 +16,7 @@ const options: Options = {
   timeMinMinute: 10,
   timeMaxMinute: 20,
   locale: 'ru',
+  disableWeekdays: [],
   disableDates: [
     '2024-06-01',
     '2024-06-02',

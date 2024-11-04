@@ -11,15 +11,29 @@ type DD = LeadingZero | `${1 | 2}${number}` | 30 | 31;
 
 export type FormatDateString = `${number}-${MM}-${DD}`;
 
-export type MonthsCount = number;
+export type MonthsCount = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
+
+export type PositionToInput = 'auto' | 'center' | 'left' | 'right' | [Positions];
 
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
 export type ToggleSelected = boolean | ((self: VanillaCalendarPro) => boolean);
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
+
+export type DateMode = 'single' | 'multiple' | 'multiple-ranged';
+
+export type DateAny = Date | number | FormatDateString | 'today';
+
+export type DatesArr = Array<Date | number | string>;
+
+export type TimeControl = 'all' | 'range';
+
+export type TimePicker = 'AM' | 'PM';
+
+export type ThemesDefault = 'light' | 'dark' | 'system';
 
 export type WeekDayID = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -45,12 +59,6 @@ export type Popup = {
 
 export type Popups = {
   [date in FormatDateString]: Popup;
-};
-
-export type Dates = {
-  min: FormatDateString | 'today';
-  max: FormatDateString | 'today';
-  today: Date;
 };
 
 export type HtmlElementPosition = {
@@ -85,11 +93,11 @@ export type PrivateVariables = {
   disableDates: FormatDateString[];
   enableDates: FormatDateString[];
   selectedDates: FormatDateString[];
-  selectedMonth: number;
+  selectedMonth: Range<12>;
   selectedYear: number;
   selectedHours: string;
   selectedMinutes: string;
-  selectedKeeping: 'AM' | 'PM' | null;
+  selectedKeeping: TimePicker | null;
   selectedTime: string;
 };
 

@@ -2,14 +2,19 @@ import type { VanillaCalendarPro } from '@src/index';
 import labels from '@src/labels';
 import styles from '@src/styles';
 import type {
-  FormatDateString,
+  DateAny,
+  DateMode,
+  DatesArr,
   Labels,
   Layouts,
   Locale,
   MonthsCount,
   Popups,
+  PositionToInput,
   Range,
   Styles,
+  ThemesDefault,
+  TimeControl,
   ToggleSelected,
   TypesCalendar,
   WeekDayID,
@@ -20,56 +25,56 @@ export default class OptionsCalendar {
   viewType: TypesCalendar = 'default';
 
   isInput: boolean = false;
-  positionToInput: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right'] = 'left';
+  positionToInput: PositionToInput = 'left';
 
   firstWeekday: WeekDayID = 1;
-  monthsToSwitch: number = 1;
+  monthsToSwitch: 1 | MonthsCount = 1;
   themeAttrDetect: string | false = 'html[data-theme]';
 
   locale: Locale = 'en';
 
-  dateToday: Date | number | FormatDateString | 'today' = 'today';
-  dateMin: Date | number | FormatDateString | 'today' = '1970-01-01';
-  dateMax: Date | number | FormatDateString | 'today' = '2470-12-31';
+  dateToday: DateAny = 'today';
+  dateMin: DateAny = '1970-01-01';
+  dateMax: DateAny = '2470-12-31';
 
-  displayMonthsCount: MonthsCount = 2;
-  displayDateMin!: Date | number | FormatDateString | 'today';
-  displayDateMax!: Date | number | FormatDateString | 'today';
+  displayDateMin!: DateAny;
+  displayDateMax!: DateAny;
   displayDatesOutside: boolean = true;
   displayDisabledDates: boolean = false;
+  displayMonthsCount: MonthsCount = 2;
 
-  disableDates: Array<Date | number | string> = [];
+  disableDates: DatesArr = [];
   disableAllDates: boolean = false;
   disableDatesPast: boolean = false;
   disableDatesGaps: boolean = false;
-  disableWeekdays: number[] = [];
+  disableWeekdays: Range<7>[] = [];
   disableToday: boolean = false;
 
-  enableDates: Array<Date | number | string> = [];
+  enableDates: DatesArr = [];
   enableEdgeDatesOnly: boolean = true;
   enableDateToggle: ToggleSelected = true;
   enableWeekNumbers: boolean = false;
   enableMonthChangeOnDayClick: boolean = true;
   enableJumpToSelectedDate: boolean = false;
 
-  selectionDatesMode: false | 'single' | 'multiple' | 'multiple-ranged' = 'single';
+  selectionDatesMode: false | DateMode = 'single';
   selectionMonthsMode: boolean | 'only-arrows' = true;
   selectionYearsMode: boolean | 'only-arrows' = true;
   selectionTimeMode: false | 12 | 24 = false;
 
-  selectedDates: Array<Date | number | string> = [];
-  selectedMonth!: number;
+  selectedDates: DatesArr = [];
+  selectedMonth!: Range<12>;
   selectedYear!: number;
-  selectedHolidays: Array<Date | number | string> = [];
+  selectedHolidays: DatesArr = [];
   selectedWeekends: WeekDays<WeekDayID> = [0, 6];
   selectedTime!: string;
-  selectedTheme: 'light' | 'dark' | 'system' | string = 'system';
+  selectedTheme: ThemesDefault | string = 'system';
 
   timeMinHour: Range<24> = 0;
   timeMaxHour: Range<24> = 23;
   timeMinMinute: Range<60> = 0;
   timeMaxMinute: Range<60> = 59;
-  timeControls: 'all' | 'range' = 'all';
+  timeControls: TimeControl = 'all';
   timeStepHour: number = 1;
   timeStepMinute: number = 1;
 
