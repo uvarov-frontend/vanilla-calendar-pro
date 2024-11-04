@@ -1,6 +1,6 @@
 import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   isInput: true,
@@ -8,7 +8,7 @@ const options: Options = {
   displayDatesOutside: false,
   disableDatesPast: true,
   selectionDatesMode: 'multiple-ranged',
-  onChangeToInput(e, self) {
+  onChangeToInput(self) {
     if (!self.private.inputElement) return;
     if (self.private.selectedDates[1]) {
       self.private.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));

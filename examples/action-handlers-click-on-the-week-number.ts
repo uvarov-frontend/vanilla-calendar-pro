@@ -1,10 +1,10 @@
 import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   enableWeekNumbers: true,
-  onClickWeekNumber(event, number, days, year, _self) {
+  onClickWeekNumber(self, number, year, days) {
     console.log(`Week number: ${number}`);
     console.log(`Year of the week: ${year}`);
     console.log('Days of this week:', days);

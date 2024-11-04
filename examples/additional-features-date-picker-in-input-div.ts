@@ -1,11 +1,11 @@
 import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   isInput: true,
   positionToInput: 'center',
-  onChangeToInput(e, self) {
+  onChangeToInput(self) {
     if (!self.private.inputElement) return;
     if (self.private.selectedDates[0]) {
       self.private.inputElement.innerHTML = self.private.selectedDates[0];
