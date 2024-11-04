@@ -1,4 +1,5 @@
 import createDatePopup from '@scripts/creators/createDates/createDatePopup';
+import createDateRangeTooltip from '@scripts/creators/createDates/createDateRangeTooltip';
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
@@ -10,9 +11,9 @@ const createDates = (self: VanillaCalendarPro) => {
   const datesEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
-  datesEls.forEach((dateEl, index: number) => {
-    if (!self.selectionDatesMode) dateEl.dataset.vcDatesDisabled = '';
-    dateEl.textContent = '';
+  datesEls.forEach((datesEl, index: number) => {
+    if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
+    datesEl.textContent = '';
 
     const currentDate = new Date(initDate);
     currentDate.setMonth(currentDate.getMonth() + index);
@@ -21,12 +22,15 @@ const createDates = (self: VanillaCalendarPro) => {
     const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.firstWeekday + 7) % 7;
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    createDatesFromPrevMonth(self, dateEl, currentYear, currentMonth, firstDayWeek);
-    createDatesFromCurrentMonth(self, dateEl, days, currentYear, currentMonth);
-    createDatesFromNextMonth(self, dateEl, days, currentYear, currentMonth, firstDayWeek);
-    createDatePopup(self, dateEl);
-    createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], dateEl);
+    createDatesFromPrevMonth(self, datesEl, currentYear, currentMonth, firstDayWeek);
+    createDatesFromCurrentMonth(self, datesEl, days, currentYear, currentMonth);
+    createDatesFromNextMonth(self, datesEl, days, currentYear, currentMonth, firstDayWeek);
+    createDatePopup(self, datesEl);
+    createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
+
+  // temp
+  createDateRangeTooltip(self, datesEls[0].querySelectorAll<HTMLElement>('[data-vc-date]')[8]);
 };
 
 export default createDates;

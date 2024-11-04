@@ -8,6 +8,9 @@ const config: Options = {
   selectedMonth: 3,
   selectedYear: 2023,
   displayDatesOutside: false,
+  onCreateDateRangeTooltip(self, event) {
+    console.log(self, event);
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

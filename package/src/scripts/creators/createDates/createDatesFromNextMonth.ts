@@ -3,7 +3,7 @@ import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 
 const createDatesFromNextMonth = (
   self: VanillaCalendarPro,
-  daysEl: HTMLElement,
+  datesEl: HTMLElement,
   days: number,
   currentYear: number,
   currentMonth: number,
@@ -18,7 +18,7 @@ const createDatesFromNextMonth = (
   for (let i = 1; i <= daysNextMonth; i++) {
     const day = i < 10 ? `0${i}` : String(i);
     const dateStr = `${year}-${month}-${day}` as FormatDateString;
-    createDate(self, currentYear, daysEl, i, dateStr, 'next');
+    createDate(self, currentYear, datesEl, i, dateStr, 'next');
   }
 };
 

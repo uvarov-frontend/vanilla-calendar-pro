@@ -25,6 +25,7 @@ const styles = {
   date: 'vc-date',
   dateBtn: 'vc-date__btn',
   datePopup: 'vc-date__popup',
+  dateRangeTooltip: 'vc-date-range-tooltip',
   time: 'vc-time',
   timeContent: 'vc-time__content',
   timeHour: 'vc-time__hour',
