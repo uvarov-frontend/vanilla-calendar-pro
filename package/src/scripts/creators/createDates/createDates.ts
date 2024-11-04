@@ -30,7 +30,7 @@ const createDates = (self: VanillaCalendarPro) => {
   });
 
   // temp
-  createDateRangeTooltip(self, datesEls[0].querySelectorAll<HTMLElement>('[data-vc-date]')[8]);
+  createDateRangeTooltip(self, datesEls[0].querySelectorAll<HTMLElement>('[data-vc-date]')[15]);
 };
 
 export default createDates;

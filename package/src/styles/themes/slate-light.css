@@ -176,6 +176,10 @@
   @apply text-gray-800 bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.1)];
 }
 
+[data-vc-theme='slate-light'] .vc-date-range-tooltip {
+  @apply text-slate-500 bg-slate-50 shadow-[0px_1px_4px_rgba(85,85,85,0.2)]
+}
+
 [data-vc-theme='slate-light'] .vc-time {
   @apply border-gray-300;
 }

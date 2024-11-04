@@ -173,7 +173,11 @@
 }
 
 [data-vc-theme='dark'] .vc-date__popup {
-  @apply text-white bg-slate-900 shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)];
+  @apply text-white bg-slate-800 shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.05)];
+}
+
+[data-vc-theme='dark'] .vc-date-range-tooltip {
+  @apply text-slate-400 bg-slate-800 shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.05)];
 }
 
 [data-vc-theme='dark'] .vc-time {
