@@ -1,7 +1,7 @@
 import getDate from '@scripts/utils/getDate';
-import type { FormatDateString } from '@src/index';
+import type { FormatDateString, WeekDayID } from '@src/types';
 
-const getWeekNumber = (date: FormatDateString, weekStartDay: number) => {
+const getWeekNumber = (date: FormatDateString, weekStartDay: WeekDayID) => {
   const currentDate = getDate(date);
   const currentDay = (currentDate.getDay() - weekStartDay + 7) % 7;
   currentDate.setDate(currentDate.getDate() + 4 - currentDay);
