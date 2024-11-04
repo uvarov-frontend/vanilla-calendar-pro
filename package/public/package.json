@@ -1,24 +1,25 @@
 {
   "name": "vanilla-calendar-pro",
   "description": "The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.",
-  "version": "3.0.0-beta.17",
+  "version": "3.0.0-beta.31",
+  "private": false,
   "homepage": "https://vanilla-calendar.pro",
   "keywords": [
     "calendar",
-    "js",
-    "ts",
+    "datepicker",
+    "timepicker",
+    "date-picker",
+    "vanilla-js",
     "javascript",
     "typescript",
-    "native",
     "react",
+    "native",
     "pure",
-    "default",
-    "vanilla",
-    "vanilla-js",
     "picker",
-    "date-picker",
-    "datepicker",
-    "timepicker"
+    "vanilla",
+    "default",
+    "js",
+    "ts"
   ],
   "repository": {
     "type": "git",
@@ -38,25 +39,24 @@
     "url": "https://ko-fi.com/uvarov_frontend"
   },
   "license": "MIT",
-  "main": "./build/scripts/vanilla-calendar-pro.min.js",
-  "module": "./build/scripts/vanilla-calendar-pro.min.mjs",
-  "style": "./build/styles/vanilla-calendar-pro.min.css",
-  "types": "./build/types/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "style": "./styles/index.css",
   "exports": {
     ".": {
-      "types": "./build/types/index.d.ts",
-      "require": "./build/scripts/vanilla-calendar-pro.min.js",
-      "node": "./build/scripts/vanilla-calendar-pro.min.mjs",
-      "import": "./build/scripts/vanilla-calendar-pro.min.mjs"
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "import": "./index.mjs",
+      "default": "./index.mjs"
     },
-    "./utilities": {
-      "types": "./build/types/utilities.d.ts",
-      "require": "./build/utilities/index.min.js",
-      "node": "./build/utilities/index.min.mjs",
-      "import": "./build/utilities/index.min.mjs"
+    "./utils": {
+      "types": "./utils/index.d.ts",
+      "require": "./utils/index.js",
+      "import": "./utils/index.mjs",
+      "default": "./utils/index.mjs"
     },
-    "./build/*": "./build/*",
-    "./styles/*": "./build/styles/*",
+    "./styles/*": "./styles/*",
     "./package.json": "./package.json"
   },
   "devDependencies": {},
