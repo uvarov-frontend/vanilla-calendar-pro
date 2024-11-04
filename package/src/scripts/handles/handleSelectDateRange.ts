@@ -80,6 +80,9 @@ const updateDisabledDates = () => {
 
   if (startDate) current.self.private.displayDateMin = getDateString(new Date(startDate.setDate(startDate.getDate() + 1)));
   if (endDate) current.self.private.displayDateMax = getDateString(new Date(endDate.setDate(endDate.getDate() - 1)));
+
+  const isDisablePast = current.self.disableDatesPast && !current.self.disableAllDates && getDate(current.self.private.displayDateMin) < current.self.dateToday;
+  if (isDisablePast) current.self.private.displayDateMin = getDateString(current.self.dateToday);
 };
 
 const resetDisabledDates = () => {
@@ -99,7 +102,7 @@ const handleSelectDateRange = (self: VanillaCalendarPro, formattedDate?: FormatD
           : self.private.selectedDates.length > 1
             ? [formattedDate]
             : [...self.private.selectedDates, formattedDate];
-    self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+    if (self.private.selectedDates.length > 1) self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
   }
 
   if (self.disableDatesGaps) {
