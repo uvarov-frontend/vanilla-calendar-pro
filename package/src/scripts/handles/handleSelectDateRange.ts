@@ -8,6 +8,7 @@ import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 const current: {
   self: VanillaCalendarPro | null;
   lastDateEl: HTMLElement | null;
+  isHovering: boolean;
   rangeMin: FormatDateString | undefined;
   rangeMax: FormatDateString | undefined;
   tooltipEl: HTMLElement | null;
@@ -16,6 +17,7 @@ const current: {
 } = {
   self: null,
   lastDateEl: null,
+  isHovering: false,
   rangeMin: undefined,
   rangeMax: undefined,
   tooltipEl: null,
@@ -76,11 +78,21 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   }
 };
 
+const optimizedHandleHoverDatesEvent = (e: MouseEvent) => {
+  if (!current.isHovering) {
+    current.isHovering = true;
+    requestAnimationFrame(() => {
+      handleHoverDatesEvent(e);
+      current.isHovering = false;
+    });
+  }
+};
+
 const handleCancelSelectionDates = (e: KeyboardEvent) => {
   if (!current.self || e.key !== 'Escape') return;
   current.lastDateEl = null;
   current.self.private.selectedDates = [];
-  current.self.private.mainElement!.removeEventListener('mousemove', handleHoverDatesEvent);
+  current.self.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
   current.self.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
   createDateRangeTooltip(current.self, current.tooltipEl, null, null, null);
   removeHoverEffect();
@@ -106,6 +118,9 @@ const updateDisabledDates = () => {
 
 const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | null) => {
   current.self = self;
+  current.lastDateEl = dateEl;
+
+  removeHoverEffect();
 
   if (self.disableDatesGaps) {
     current.rangeMin = current.rangeMin ? current.rangeMin : self.private.displayDateMin;
@@ -136,13 +151,12 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
     set: () => {
       if (self.disableDatesGaps) updateDisabledDates();
       createDateRangeTooltip(current.self!, current.tooltipEl, dateEl, current.elementElBCR, current.tooltipElBCR);
-      removeHoverEffect();
 
-      current.self!.private.mainElement!.addEventListener('mousemove', handleHoverDatesEvent);
+      current.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverDatesEvent);
       current.self!.private.mainElement!.addEventListener('keydown', handleCancelSelectionDates);
 
       return () => {
-        current.self!.private.mainElement!.removeEventListener('mousemove', handleHoverDatesEvent);
+        current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
         current.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
       };
     },
@@ -164,7 +178,7 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
         self.private.displayDateMax = current.rangeMax as FormatDateString;
       }
 
-      current.self!.private.mainElement!.removeEventListener('mousemove', handleHoverDatesEvent);
+      current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
       current.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
     },
   };
