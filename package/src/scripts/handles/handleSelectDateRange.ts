@@ -12,7 +12,6 @@ const current: {
   rangeMin: FormatDateString | undefined;
   rangeMax: FormatDateString | undefined;
   tooltipEl: HTMLElement | null;
-  tooltipElBCR: DOMRect | null;
   elementElBCR: DOMRect | null;
 } = {
   self: null,
@@ -21,7 +20,6 @@ const current: {
   rangeMin: undefined,
   rangeMax: undefined,
   tooltipEl: null,
-  tooltipElBCR: null,
   elementElBCR: null,
 };
 
@@ -51,7 +49,7 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
 
   if (!(e.target as HTMLElement).closest('[data-vc="dates"]')) {
     current.lastDateEl = null;
-    createDateRangeTooltip(current.self, current.tooltipEl, null, null, null);
+    createDateRangeTooltip(current.self, current.tooltipEl, null, null);
     removeHoverEffect();
     return;
   }
@@ -60,7 +58,7 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   if (!dateEl || current.lastDateEl === dateEl) return;
 
   current.lastDateEl = dateEl;
-  createDateRangeTooltip(current.self, current.tooltipEl, dateEl, current.elementElBCR, current.tooltipElBCR);
+  createDateRangeTooltip(current.self, current.tooltipEl, dateEl, current.elementElBCR);
   removeHoverEffect();
 
   const lastDateString = dateEl.dataset.vcDate as FormatDateString;
@@ -88,13 +86,37 @@ const optimizedHandleHoverDatesEvent = (e: MouseEvent) => {
   }
 };
 
+const handleHoverSelectedDatesRangeEvent = (e: MouseEvent) => {
+  const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date-selected]');
+
+  if (!dateEl && current.lastDateEl) {
+    current.lastDateEl = null;
+    createDateRangeTooltip(current.self!, current.tooltipEl, null, null);
+    return;
+  }
+
+  if (!dateEl || current.lastDateEl === dateEl) return;
+  current.lastDateEl = dateEl;
+  createDateRangeTooltip(current.self!, current.tooltipEl, dateEl, current.elementElBCR);
+};
+
+const optimizedHandleHoverSelectedDatesRangeEvent = (e: MouseEvent) => {
+  if (!current.isHovering) {
+    current.isHovering = true;
+    requestAnimationFrame(() => {
+      handleHoverSelectedDatesRangeEvent(e);
+      current.isHovering = false;
+    });
+  }
+};
+
 const handleCancelSelectionDates = (e: KeyboardEvent) => {
   if (!current.self || e.key !== 'Escape') return;
   current.lastDateEl = null;
   current.self.private.selectedDates = [];
   current.self.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
   current.self.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
-  createDateRangeTooltip(current.self, current.tooltipEl, null, null, null);
+  createDateRangeTooltip(current.self, current.tooltipEl, null, null);
   removeHoverEffect();
 };
 
@@ -130,7 +152,6 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
   if (!!self.onCreateDateRangeTooltip) {
     current.tooltipEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc-date-range-tooltip]') as HTMLElement;
     current.elementElBCR = self.private.mainElement.getBoundingClientRect();
-    current.tooltipElBCR = current.tooltipEl.getBoundingClientRect();
   }
 
   const formattedDate = dateEl?.dataset.vcDate as FormatDateString | undefined;
@@ -150,8 +171,9 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
   const selectionHandlers = {
     set: () => {
       if (self.disableDatesGaps) updateDisabledDates();
-      createDateRangeTooltip(current.self!, current.tooltipEl, dateEl, current.elementElBCR, current.tooltipElBCR);
+      createDateRangeTooltip(current.self!, current.tooltipEl, dateEl, current.elementElBCR);
 
+      current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
       current.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverDatesEvent);
       current.self!.private.mainElement!.addEventListener('keydown', handleCancelSelectionDates);
 
@@ -165,7 +187,6 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
       const notSameDate = self.private.selectedDates[0] !== self.private.selectedDates[self.private.selectedDates.length - 1];
       const allDates = parseDates([`${startDate as string}:${endDate as string}`]);
       const actualDates = allDates.filter((d) => !self.private.disableDates.includes(d));
-      createDateRangeTooltip(current.self!, current.tooltipEl, null, null, null);
 
       self.private.selectedDates = notSameDate
         ? self.enableEdgeDatesOnly
@@ -180,6 +201,20 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
 
       current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
       current.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
+
+      if (!self.onCreateDateRangeTooltip) return;
+      if (!self.private.selectedDates[0]) {
+        current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+        createDateRangeTooltip(current.self!, current.tooltipEl, null, null);
+      }
+      if (self.private.selectedDates[0]) {
+        current.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+        createDateRangeTooltip(current.self!, current.tooltipEl, dateEl, current.elementElBCR);
+      }
+
+      return () => {
+        current.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+      };
     },
   };
   selectionHandlers[self.private.selectedDates.length === 1 ? 'set' : 'reset']();
