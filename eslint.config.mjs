@@ -40,6 +40,7 @@ export default [
       ...eslintConfigPrettier.rules,
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-extra-boolean-cast': 'off',
       'arrow-parens': ['error', 'always'],
       'simple-import-sort/imports': [
         'error',

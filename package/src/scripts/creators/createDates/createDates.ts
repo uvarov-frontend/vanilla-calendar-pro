@@ -1,5 +1,4 @@
 import createDatePopup from '@scripts/creators/createDates/createDatePopup';
-import createDateRangeTooltip from '@scripts/creators/createDates/createDateRangeTooltip';
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
@@ -28,9 +27,6 @@ const createDates = (self: VanillaCalendarPro) => {
     createDatePopup(self, datesEl);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
-
-  // temp
-  createDateRangeTooltip(self, datesEls[0].querySelectorAll<HTMLElement>('[data-vc-date]')[15]);
 };
 
 export default createDates;

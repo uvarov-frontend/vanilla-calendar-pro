@@ -1,19 +1,11 @@
 import type { VanillaCalendarPro } from '@src/index';
 
-const createDateRangeTooltip = (self: VanillaCalendarPro, dateEl: HTMLElement | null) => {
-  const tooltipEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="date-range-tooltip"]');
-  if (!tooltipEl) return;
+const hideDateRangeTooltip = (tooltipEl: HTMLElement) => {
+  tooltipEl.innerHTML = '';
+  tooltipEl.style.opacity = '0';
+};
 
-  if (!dateEl) {
-    tooltipEl.innerHTML = '';
-    tooltipEl.style.opacity = '0';
-    return;
-  }
-
-  // tooltipEl.innerHTML = `<div style="display: flex;flex-direction: column;align-items: flex-start;"><div>Start: <b>${dateEl.dataset.vcDate}</b>,</div><div>End: <b>${dateEl.dataset.vcDate}</b></div></div>`;
-  tooltipEl.style.opacity = '100%';
-  tooltipEl.innerHTML = `<div>9 days</div>`;
-
+const showDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement, dateEl: HTMLElement) => {
   const elementBCR = self.private.mainElement.getBoundingClientRect();
   const tooltipBCR = tooltipEl.getBoundingClientRect();
   const dateBCR = dateEl.getBoundingClientRect();
@@ -31,6 +23,16 @@ const createDateRangeTooltip = (self: VanillaCalendarPro, dateEl: HTMLElement | 
 
   tooltipEl.style.top = `${top}px`;
   tooltipEl.style.left = `${left}px`;
+
+  // tooltipEl.innerHTML = `<div style="display: flex;flex-direction: column;align-items: flex-start;"><div>Start: <b>${dateEl.dataset.vcDate}</b>,</div><div>End: <b>${dateEl.dataset.vcDate}</b></div></div>`;
+  tooltipEl.style.opacity = '100%';
+  tooltipEl.innerHTML = `<div>9 days</div>`;
+};
+
+const createDateRangeTooltip = (tooltipEl: HTMLElement | null, dateEl?: HTMLElement, self?: VanillaCalendarPro) => {
+  if (!tooltipEl) return;
+  if (!dateEl || !self) return hideDateRangeTooltip(tooltipEl);
+  showDateRangeTooltip(self, tooltipEl, dateEl);
 };
 
 export default createDateRangeTooltip;
