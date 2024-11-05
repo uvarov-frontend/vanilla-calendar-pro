@@ -5,7 +5,11 @@ import getDateString from '@scripts/utils/getDateString';
 import parseDates from '@scripts/utils/parseDates';
 import type { FormatDateString, VanillaCalendarPro } from '@src/index';
 
-const current: { self: VanillaCalendarPro | null; rangeMin: FormatDateString | undefined; rangeMax: FormatDateString | undefined } = {
+const current: {
+  self: VanillaCalendarPro | null;
+  rangeMin: FormatDateString | undefined;
+  rangeMax: FormatDateString | undefined;
+} = {
   self: null,
   rangeMin: undefined,
   rangeMax: undefined,
@@ -18,7 +22,7 @@ const removeHoverEffect = () => {
 };
 
 const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, lastDateEls: NodeListOf<HTMLDivElement>) => {
-  if (!current.self?.private?.selectedDates) return;
+  if (!current.self?.private?.selectedDates[0]) return;
 
   const formattedDate = getDateString(date);
   if (current.self.private.disableDates?.includes(formattedDate)) return;
@@ -31,10 +35,13 @@ const addHoverEffect = (date: Date, firstDateEls: NodeListOf<HTMLDivElement>, la
 };
 
 const handleHoverDatesEvent = (e: MouseEvent) => {
-  if (!e.target || !current.self?.private?.selectedDates) return;
+  if (!e.target || !current.self?.private?.selectedDates[0]) return;
 
   const datesEl: HTMLDivElement | null = (e.target as HTMLElement).closest('[data-vc="dates"]');
-  if (!datesEl) removeHoverEffect();
+  if (!datesEl) {
+    removeHoverEffect();
+    return;
+  }
 
   const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date]');
   if (!dateEl) return;
