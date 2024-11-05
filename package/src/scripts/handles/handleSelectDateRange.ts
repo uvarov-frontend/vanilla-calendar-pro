@@ -34,14 +34,12 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   if (!e.target || !current.self?.private?.selectedDates) return;
 
   const datesEl: HTMLDivElement | null = (e.target as HTMLElement).closest('[data-vc="dates"]');
-
-  if (!datesEl) {
-    removeHoverEffect();
-    return;
-  }
+  if (!datesEl) removeHoverEffect();
 
   const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date]');
   if (!dateEl) return;
+
+  removeHoverEffect();
 
   const lastDateString = dateEl.dataset.vcDate as FormatDateString;
   const startDate = getDate(current.self.private.selectedDates[0]);
@@ -52,8 +50,6 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
 
   const [firstDateElsCorrect, lastDateElsCorrect] = startDate < endDate ? [firstDateEls, lastDateEls] : [lastDateEls, firstDateEls];
   const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];
-
-  removeHoverEffect();
 
   for (let i = new Date(start); i <= end; i.setDate(i.getDate() + 1)) {
     addHoverEffect(i, firstDateElsCorrect, lastDateElsCorrect);
