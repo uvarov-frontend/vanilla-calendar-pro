@@ -19,11 +19,11 @@ const layoutMultiple = (self: VanillaCalendarPro) => `
           <div class="${self.styles.content}" data-vc="content">
             <#Week />
             <#Dates />
-            <#DateRangeTooltip />
           </div>
         </div>
       </div>
     <#/Multiple>
+    <#DateRangeTooltip />
   </div>
   <#ControlTime />
 `;

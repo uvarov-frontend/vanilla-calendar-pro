@@ -203,11 +203,11 @@
 }
 
 [data-vc-date-popup] {
-  @apply absolute z-20 top-full w-36 py-2 px-3 text-xs font-normal rounded-lg opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
+  @apply absolute z-20 top-full w-36 py-2 px-3 text-xs font-normal rounded-lg transition-opacity duration-75 opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
 }
 
 [data-vc='date-range-tooltip'] {
-  @apply absolute z-30 max-w-36 py-1 px-2 -mt-1 text-xs font-normal rounded-md;
+  @apply absolute z-30 max-w-36 py-1 px-2 -mt-1 text-xs font-normal rounded-md transition-opacity duration-75 opacity-0 pointer-events-none;
 }
 
 [data-vc='time'] {
