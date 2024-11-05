@@ -26,7 +26,7 @@ const createLayouts = (self: VanillaCalendarPro, target?: HTMLElement) => {
   self.private.mainElement.ariaLabel = self.labels.application;
 
   if (self.private.currentType === 'multiple') {
-    self.private.mainElement.innerHTML = parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType]));
+    self.private.mainElement.innerHTML = self.sanitizerHTML(parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType])));
     return;
   }
 
@@ -38,11 +38,11 @@ const createLayouts = (self: VanillaCalendarPro, target?: HTMLElement) => {
     if (controlsEl) self.private.mainElement.removeChild(controlsEl);
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
     if (columnEl) columnEl.dataset.vcColumn = self.private.currentType;
-    if (columnEl) columnEl.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
+    if (columnEl) columnEl.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.private.currentType]));
     return;
   }
 
-  self.private.mainElement.innerHTML = parseLayout(self, self.layouts[self.private.currentType]);
+  self.private.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.private.currentType]));
 };
 
 export default createLayouts;

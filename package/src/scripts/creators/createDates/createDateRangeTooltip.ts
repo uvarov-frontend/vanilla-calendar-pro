@@ -1,7 +1,7 @@
 import type { VanillaCalendarPro } from '@src/index';
 
 const hideDateRangeTooltip = (tooltipEl: HTMLElement) => {
-  tooltipEl.innerHTML = '';
+  tooltipEl.textContent = null;
   tooltipEl.dataset.vcDateRangeTooltip = 'hidden';
 };
 
@@ -13,7 +13,7 @@ const showDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement, 
   tooltipEl.style.left = `${tooltipElLeft}px`;
   tooltipEl.style.top = `${tooltipElTop}px`;
 
-  tooltipEl.innerHTML = self.onCreateDateRangeTooltip(self, dateEl, dateElBCR, elementElBCR, tooltipElBCR);
+  tooltipEl.innerHTML = self.sanitizerHTML(self.onCreateDateRangeTooltip(self, dateEl, dateElBCR, elementElBCR, tooltipElBCR));
   tooltipEl.dataset.vcDateRangeTooltip = 'visible';
 };
 
