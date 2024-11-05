@@ -8,9 +8,9 @@ const config: Options = {
   selectedMonth: 3,
   selectedYear: 2023,
   displayDatesOutside: false,
-  themeAttrDetect: 'html[data-theme]',
-  onCreateDateRangeTooltip(self, event) {
-    console.log(self, event);
+  onCreateDateRangeTooltip(_self, dateEl, dateElBCR, mainElBCR, tooltipElBCR) {
+    console.log(dateEl, dateElBCR, mainElBCR, tooltipElBCR);
+    return `<b>${dateEl.dataset.vcDate}</b>`;
   },
 };
 

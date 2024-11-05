@@ -36,7 +36,7 @@ const reset = (self: VanillaCalendarPro, { year, month, dates, time, locale }: R
   self.selectedMonth = previousSelected.month;
   self.selectedDates = previousSelected.dates;
   self.selectedTime = previousSelected.time;
-  if (self.selectionDatesMode === 'multiple-ranged' && dates) handleDayRangedSelection(self);
+  if (self.selectionDatesMode === 'multiple-ranged' && dates) handleDayRangedSelection(self, null);
 };
 
 export default reset;

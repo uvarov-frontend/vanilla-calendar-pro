@@ -206,8 +206,16 @@
   @apply absolute z-20 top-full w-36 py-2 px-3 text-xs font-normal rounded-lg transition-opacity duration-75 opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
 }
 
-[data-vc='date-range-tooltip'] {
-  @apply absolute z-30 max-w-36 py-1 px-2 -mt-1 text-xs font-normal rounded-md transition-opacity duration-75 opacity-0 pointer-events-none;
+[data-vc-date-range-tooltip] {
+  @apply absolute z-30 max-w-36 py-1 px-2 -mt-1 text-xs font-normal rounded-md transition-opacity duration-75 pointer-events-none;
+}
+
+[data-vc-date-range-tooltip='hidden'] {
+  @apply opacity-0;
+}
+
+[data-vc-date-range-tooltip='visible'] {
+  @apply opacity-100;
 }
 
 [data-vc='time'] {

@@ -1,6 +1,6 @@
 import type { VanillaCalendarPro } from '@src/index';
 
 const DateRangeTooltip = (self: VanillaCalendarPro) =>
-  !!self.onCreateDateRangeTooltip ? `<div class="${self.styles.dateRangeTooltip}" data-vc="date-range-tooltip"></div>` : '';
+  !!self.onCreateDateRangeTooltip ? `<div class="${self.styles.dateRangeTooltip}" data-vc-date-range-tooltip="hidden"></div>` : '';
 
 export default DateRangeTooltip;

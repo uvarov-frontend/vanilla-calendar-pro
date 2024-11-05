@@ -25,7 +25,7 @@ const handleClickDate = (self: VanillaCalendarPro, event: MouseEvent) => {
   const daySelectionActions = {
     single: () => handleSelectDate(self, dateEl, false),
     multiple: () => handleSelectDate(self, dateEl, true),
-    'multiple-ranged': () => handleSelectDateRanged(self, dateEl.dataset.vcDate as FormatDateString),
+    'multiple-ranged': () => handleSelectDateRanged(self, dateEl),
   };
   daySelectionActions[self.selectionDatesMode]();
   self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
