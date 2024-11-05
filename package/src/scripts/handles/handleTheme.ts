@@ -1,3 +1,4 @@
+import observeHtmlElement from '@scripts/utils/observeHtmlElement';
 import type { VanillaCalendarPro } from '@src/index';
 
 const haveListener = {
@@ -27,24 +28,8 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendarPro, supportDark
   haveListener.set();
 };
 
-const trackChangesThemeInHTMLElement = (self: VanillaCalendarPro, htmlEl: HTMLElement, attr: string) => {
-  const changes = (mutationsList: MutationRecord[]) => {
-    for (let i = 0; i < mutationsList.length; i++) {
-      const record = mutationsList[i];
-      if (record.attributeName === attr) {
-        const activeTheme = htmlEl.getAttribute(attr);
-        if (activeTheme) setTheme(self.private.mainElement, activeTheme);
-        break;
-      }
-    }
-  };
-
-  const observer = new MutationObserver(changes);
-  observer.observe(htmlEl, { attributes: true });
-};
-
 const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
-  const detectedThemeEl: HTMLElement | null = self.themeAttrDetect ? document.querySelector(self.themeAttrDetect) : null;
+  const detectedThemeEl: HTMLElement | null = self.themeAttrDetect.length ? document.querySelector(self.themeAttrDetect) : null;
   const attr = (self.themeAttrDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
 
   if (!detectedThemeEl || detectedThemeEl.getAttribute(attr) === 'system') {
@@ -55,7 +40,10 @@ const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList)
   const activeTheme = detectedThemeEl.getAttribute(attr);
   if (activeTheme) {
     setTheme(self.private.mainElement, activeTheme);
-    trackChangesThemeInHTMLElement(self, detectedThemeEl, attr);
+    observeHtmlElement(detectedThemeEl, attr, () => {
+      const activeTheme = detectedThemeEl.getAttribute(attr);
+      if (activeTheme) setTheme(self.private.mainElement, activeTheme);
+    });
   } else {
     trackChangesThemeInSystemSettings(self, supportDarkTheme);
   }

@@ -8,6 +8,7 @@ const config: Options = {
   selectedMonth: 3,
   selectedYear: 2023,
   displayDatesOutside: false,
+  themeAttrDetect: 'html[data-theme]',
   onCreateDateRangeTooltip(self, event) {
     console.log(self, event);
   },

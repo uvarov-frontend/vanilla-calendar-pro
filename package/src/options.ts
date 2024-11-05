@@ -29,7 +29,7 @@ export default class OptionsCalendar {
 
   firstWeekday: WeekDayID = 1;
   monthsToSwitch: 1 | MonthsCount = 1;
-  themeAttrDetect: string | false = 'html[data-theme]';
+  themeAttrDetect: string = 'html[data-theme]';
 
   locale: Locale = 'en';
 
