@@ -121,7 +121,7 @@
 }
 
 [data-vc='dates'] {
-  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center grow;
+  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center grow pointer-events-none;
 }
 
 [data-vc='dates'][data-vc-dates-disabled] [data-vc-date-btn] {
@@ -129,11 +129,12 @@
 }
 
 [data-vc-date] {
-  @apply relative w-full flex items-center justify-center py-0.5;
+  @apply relative w-full flex items-center justify-center py-0.5 pointer-events-auto;
 }
 
 [data-vc-date][data-vc-date-disabled],
-[data-vc-date][data-vc-date-disabled] [data-vc-date-btn] {
+[data-vc-date][data-vc-date-disabled] [data-vc-date-btn],
+[data-vc-date]:not(:has( [data-vc-date-btn])) {
   @apply pointer-events-none;
 }
 
