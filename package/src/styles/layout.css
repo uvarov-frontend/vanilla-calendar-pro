@@ -121,7 +121,7 @@
 }
 
 [data-vc='dates'] {
-  @apply grid grid-cols-[repeat(7,_1fr)] gap-y-1 justify-items-center items-center grow;
+  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center grow;
 }
 
 [data-vc='dates'][data-vc-dates-disabled] [data-vc-date-btn] {
@@ -129,7 +129,7 @@
 }
 
 [data-vc-date] {
-  @apply relative w-full flex items-center justify-center;
+  @apply relative w-full flex items-center justify-center py-0.5;
 }
 
 [data-vc-date][data-vc-date-disabled],
@@ -207,7 +207,7 @@
 }
 
 [data-vc-date-range-tooltip] {
-  @apply absolute z-30 max-w-36 py-1 px-2 -mt-1 text-xs font-normal rounded-md transition-opacity duration-75 pointer-events-none;
+  @apply absolute z-30 max-w-36 py-1 px-2 text-xs font-normal rounded-md transition-opacity duration-75 pointer-events-none;
 }
 
 [data-vc-date-range-tooltip='hidden'] {
