@@ -8,9 +8,17 @@ const config: Options = {
   selectedMonth: 3,
   selectedYear: 2023,
   displayDatesOutside: false,
-  onCreateDateRangeTooltip(_self, dateEl, _tooltipEl, _dateElBCR, _mainElBCR) {
-    // console.log(dateEl, _tooltipEl, _dateElBCR, _mainElBCR);
-    return `<b>${dateEl.dataset.vcDate}</b>`;
+  onCreateDateRangeTooltip(self) {
+    const createRow = (title: string, value: string) =>
+      `<div style="text-align: left; white-space: nowrap">
+        <span>${title}</span>
+        <b>${value}</b>
+      </div>`;
+
+    return `
+      ${createRow('Start:', self.private.selectedDates[0])}
+      ${self.private.selectedDates[1] ? createRow('End:', self.private.selectedDates[1]) : ''}
+    `;
   },
 };
 
