@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedYear: 2023,
     selectionTimeMode: 12,
     selectedTime,
+    // displayDateMin: '2022-11-23',
+    // displayDateMax: '2025-11-23',
+    // displayDisabledDates: true,
   });
   calendar.init();
 });

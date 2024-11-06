@@ -1,33 +1,22 @@
 import getDate from '@scripts/utils/getDate';
 import getLocalDate from '@scripts/utils/getLocalDate';
 import parseDates from '@scripts/utils/parseDates';
-import type { Calendar } from '@src/index';
+import type { Calendar, DateAny, FormatDateString } from '@src/index';
+
+const resolveDate = (date: 'today' | Date | number | string | undefined, defaultDate: DateAny): FormatDateString => {
+  if (date === 'today') return getLocalDate();
+  if (date instanceof Date || typeof date === 'number' || typeof date === 'string') return parseDates([date])[0];
+  return defaultDate as FormatDateString;
+};
 
 const initRange = (self: Calendar) => {
   // set self.context.displayDateMin, self.context.displayDateMax
-  const dateMin =
-    self.dateMin === 'today' ? getLocalDate() : self.dateMin instanceof Date || typeof self.dateMin === 'number' ? parseDates([self.dateMin])[0] : self.dateMin;
-  const dateMax =
-    self.dateMax === 'today' ? getLocalDate() : self.dateMax instanceof Date || typeof self.dateMax === 'number' ? parseDates([self.dateMax])[0] : self.dateMax;
-  const displayDateMin =
-    self.displayDateMin === 'today'
-      ? getLocalDate()
-      : self.displayDateMin instanceof Date || typeof self.displayDateMin === 'number'
-        ? parseDates([self.displayDateMin])[0]
-        : dateMin;
-  const displayDateMax =
-    self.displayDateMax === 'today'
-      ? getLocalDate()
-      : self.displayDateMax instanceof Date || typeof self.displayDateMax === 'number'
-        ? parseDates([self.displayDateMax])[0]
-        : dateMax;
+  const dateMin = resolveDate(self.dateMin, self.dateMin);
+  const dateMax = resolveDate(self.dateMax, self.dateMax);
+  const displayDateMin = resolveDate(self.displayDateMin, dateMin);
+  const displayDateMax = resolveDate(self.displayDateMax, dateMax);
 
-  self.context.dateToday =
-    self.dateToday === 'today'
-      ? getLocalDate()
-      : self.dateToday instanceof Date || typeof self.dateToday === 'number'
-        ? parseDates([self.dateToday])[0]
-        : self.dateToday;
+  self.context.dateToday = resolveDate(self.dateToday, self.dateToday);
 
   self.context.displayDateMin = displayDateMin ? (getDate(dateMin) >= getDate(displayDateMin) ? dateMin : displayDateMin) : dateMin;
   self.context.displayDateMax = displayDateMax ? (getDate(dateMax) <= getDate(displayDateMax) ? dateMax : displayDateMax) : dateMax;
