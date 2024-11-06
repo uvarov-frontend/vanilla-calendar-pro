@@ -13,7 +13,7 @@ jobs:
       - name: Setup npm package
         run: npm install
       - name: Testing
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           start: npm run dev
   deploy:
