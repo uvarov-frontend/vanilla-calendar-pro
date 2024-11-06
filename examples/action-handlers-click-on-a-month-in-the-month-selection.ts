@@ -5,7 +5,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   type: 'month',
   onClickMonth(self) {
-    console.log(self.private.selectedMonth);
+    console.log(self.context.selectedMonth);
   },
 };
 

@@ -10,7 +10,7 @@ const haveListener = {
 const setTheme = (htmlEl: HTMLElement, theme: VanillaCalendarPro['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
 
 const trackChangesThemeInSystemSettings = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
-  setTheme(self.private.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
+  setTheme(self.context.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
 
   if (self.selectedTheme !== 'system' || haveListener.check()) return;
 
@@ -39,10 +39,10 @@ const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList)
 
   const activeTheme = detectedThemeEl.getAttribute(attr);
   if (activeTheme) {
-    setTheme(self.private.mainElement, activeTheme);
+    setTheme(self.context.mainElement, activeTheme);
     observeHtmlElement(detectedThemeEl, attr, () => {
       const activeTheme = detectedThemeEl.getAttribute(attr);
-      if (activeTheme) setTheme(self.private.mainElement, activeTheme);
+      if (activeTheme) setTheme(self.context.mainElement, activeTheme);
     });
   } else {
     trackChangesThemeInSystemSettings(self, supportDarkTheme);
@@ -51,14 +51,14 @@ const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList)
 
 const handleTheme = (self: VanillaCalendarPro) => {
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
-    setTheme(self.private.mainElement, 'light');
+    setTheme(self.context.mainElement, 'light');
     return;
   }
 
   if (self.selectedTheme === 'system') {
     detectTheme(self, window.matchMedia('(prefers-color-scheme: dark)'));
   } else {
-    setTheme(self.private.mainElement, self.selectedTheme);
+    setTheme(self.context.mainElement, self.selectedTheme);
   }
 };
 

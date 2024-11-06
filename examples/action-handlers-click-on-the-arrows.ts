@@ -4,7 +4,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   onClickArrow(self) {
-    console.log(self.private.selectedYear, self.private.selectedMonth);
+    console.log(self.context.selectedYear, self.context.selectedMonth);
   },
 };
 

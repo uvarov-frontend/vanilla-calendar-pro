@@ -5,15 +5,15 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   inputMode: true,
   onChangeToInput(self) {
-    if (!self.private.inputElement) return;
-    if (self.private.selectedDates[0]) {
-      self.private.inputElement.value = self.private.selectedDates[0];
+    if (!self.context.inputElement) return;
+    if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
     } else {
-      self.private.inputElement.value = '';
+      self.context.inputElement.value = '';
     }
   },
   onInit(self) {
-    const btnEl = self.private.mainElement.querySelector('#btn-close');
+    const btnEl = self.context.mainElement.querySelector('#btn-close');
     if (!btnEl) return;
     btnEl.addEventListener('click', self.hide);
   },

@@ -12,14 +12,14 @@ const createToInput = (self: VanillaCalendarPro, isVisible = true) => {
   calendar.dataset.vcCalendarHidden = '';
   calendar.style.visibility = 'hidden';
 
-  self.private.inputModeInit = true;
-  self.private.mainElement = calendar;
-  document.body.appendChild(self.private.mainElement);
+  self.context.inputModeInit = true;
+  self.context.mainElement = calendar;
+  document.body.appendChild(self.context.mainElement);
 
   if (isVisible) {
     queueMicrotask(() => {
-      setPosition(self.private.inputElement, calendar, self.positionToInput);
-      self.private.mainElement.style.visibility = 'visible';
+      setPosition(self.context.inputElement, calendar, self.positionToInput);
+      self.context.mainElement.style.visibility = 'visible';
       self.show();
     });
   }

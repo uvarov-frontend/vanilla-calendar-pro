@@ -6,9 +6,9 @@ import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import type { VanillaCalendarPro } from '@src/index';
 
 const createDates = (self: VanillaCalendarPro) => {
-  const initDate = new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1);
-  const datesEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
-  const weekNumbersEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
+  const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
+  const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
+  const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
   datesEls.forEach((datesEl, index: number) => {
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';

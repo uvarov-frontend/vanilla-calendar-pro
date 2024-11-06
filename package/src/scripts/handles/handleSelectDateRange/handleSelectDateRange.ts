@@ -16,26 +16,26 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
   removeHoverEffect();
 
   if (self.disableDatesGaps) {
-    state.rangeMin = state.rangeMin ? state.rangeMin : self.private.displayDateMin;
-    state.rangeMax = state.rangeMax ? state.rangeMax : self.private.displayDateMax;
+    state.rangeMin = state.rangeMin ? state.rangeMin : self.context.displayDateMin;
+    state.rangeMax = state.rangeMax ? state.rangeMax : self.context.displayDateMax;
   }
 
   if (!!self.onCreateDateRangeTooltip) {
-    state.tooltipEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc-date-range-tooltip]') as HTMLElement;
+    state.tooltipEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc-date-range-tooltip]') as HTMLElement;
   }
 
   const formattedDate = dateEl?.dataset.vcDate as FormatDateString | undefined;
   if (formattedDate) {
-    const selectedDateExists = self.private.selectedDates.length === 1 && self.private.selectedDates[0].includes(formattedDate);
-    self.private.selectedDates =
+    const selectedDateExists = self.context.selectedDates.length === 1 && self.context.selectedDates[0].includes(formattedDate);
+    self.context.selectedDates =
       selectedDateExists && !canToggleSelection(self)
         ? [formattedDate, formattedDate]
         : selectedDateExists && canToggleSelection(self)
           ? []
-          : self.private.selectedDates.length > 1
+          : self.context.selectedDates.length > 1
             ? [formattedDate]
-            : [...self.private.selectedDates, formattedDate];
-    if (self.private.selectedDates.length > 1) self.private.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
+            : [...self.context.selectedDates, formattedDate];
+    if (self.context.selectedDates.length > 1) self.context.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
   }
 
   const selectionHandlers = {
@@ -43,60 +43,60 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
       if (self.disableDatesGaps) updateDisabledDates();
       createDateRangeTooltip(state.self!, state.tooltipEl, dateEl);
 
-      state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
-      state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
-      state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
+      state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+      state.self!.context.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+      state.self!.context.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
 
-      state.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverDatesEvent);
-      state.self!.private.mainElement!.addEventListener('mouseleave', handleMouseLeave);
-      state.self!.private.mainElement!.addEventListener('keydown', handleCancelSelectionDates);
+      state.self!.context.mainElement!.addEventListener('mousemove', optimizedHandleHoverDatesEvent);
+      state.self!.context.mainElement!.addEventListener('mouseleave', handleMouseLeave);
+      state.self!.context.mainElement!.addEventListener('keydown', handleCancelSelectionDates);
 
       return () => {
-        state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
-        state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
-        state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
+        state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
+        state.self!.context.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+        state.self!.context.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
       };
     },
     reset: () => {
-      const [startDate, endDate] = [self.private.selectedDates[0], self.private.selectedDates[self.private.selectedDates.length - 1]];
-      const notSameDate = self.private.selectedDates[0] !== self.private.selectedDates[self.private.selectedDates.length - 1];
+      const [startDate, endDate] = [self.context.selectedDates[0], self.context.selectedDates[self.context.selectedDates.length - 1]];
+      const notSameDate = self.context.selectedDates[0] !== self.context.selectedDates[self.context.selectedDates.length - 1];
       const allDates = parseDates([`${startDate as string}:${endDate as string}`]);
-      const actualDates = allDates.filter((d) => !self.private.disableDates.includes(d));
+      const actualDates = allDates.filter((d) => !self.context.disableDates.includes(d));
 
-      self.private.selectedDates = notSameDate
+      self.context.selectedDates = notSameDate
         ? self.enableEdgeDatesOnly
           ? [startDate, endDate]
           : actualDates
-        : [self.private.selectedDates[0], self.private.selectedDates[0]];
+        : [self.context.selectedDates[0], self.context.selectedDates[0]];
 
       if (self.disableDatesGaps) {
-        self.private.displayDateMin = state.rangeMin as FormatDateString;
-        self.private.displayDateMax = state.rangeMax as FormatDateString;
+        self.context.displayDateMin = state.rangeMin as FormatDateString;
+        self.context.displayDateMax = state.rangeMax as FormatDateString;
       }
 
-      state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
-      state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
-      state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
+      state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
+      state.self!.context.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+      state.self!.context.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
 
       if (!self.onCreateDateRangeTooltip) return;
-      if (!self.private.selectedDates[0]) {
-        state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
-        state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+      if (!self.context.selectedDates[0]) {
+        state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+        state.self!.context.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
         createDateRangeTooltip(state.self!, state.tooltipEl, null);
       }
-      if (self.private.selectedDates[0]) {
-        state.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
-        state.self!.private.mainElement!.addEventListener('mouseleave', handleMouseLeave);
+      if (self.context.selectedDates[0]) {
+        state.self!.context.mainElement!.addEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+        state.self!.context.mainElement!.addEventListener('mouseleave', handleMouseLeave);
         createDateRangeTooltip(state.self!, state.tooltipEl, dateEl);
       }
 
       return () => {
-        state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
-        state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+        state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
+        state.self!.context.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
       };
     },
   };
-  selectionHandlers[self.private.selectedDates.length === 1 ? 'set' : 'reset']();
+  selectionHandlers[self.context.selectedDates.length === 1 ? 'set' : 'reset']();
 };
 
 export default handleSelectDateRange;

@@ -19,9 +19,9 @@ const setDateModifier = (
   monthType: 'current' | 'prev' | 'next',
 ) => {
   const isDisabled =
-    getDate(self.private.displayDateMin) > getDate(dateStr) ||
-    getDate(self.private.displayDateMax) < getDate(dateStr) ||
-    self.private.disableDates?.includes(dateStr) ||
+    getDate(self.context.displayDateMin) > getDate(dateStr) ||
+    getDate(self.context.displayDateMax) < getDate(dateStr) ||
+    self.context.disableDates?.includes(dateStr) ||
     (!self.selectionMonthsMode && monthType !== 'current') ||
     (!self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear);
 
@@ -31,8 +31,8 @@ const setDateModifier = (
   if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
 
   // Check if the date is today
-  updateAttribute(dateEl, !self.disableToday && self.private.dateToday === dateStr, 'data-vc-date-today');
-  updateAttribute(dateEl, !self.disableToday && self.private.dateToday === dateStr, 'aria-current', 'date');
+  updateAttribute(dateEl, !self.disableToday && self.context.dateToday === dateStr, 'data-vc-date-today');
+  updateAttribute(dateEl, !self.disableToday && self.context.dateToday === dateStr, 'aria-current', 'date');
 
   // Check if the date is a weekend
   updateAttribute(dateEl, self.selectedWeekends?.includes(dayWeekID), 'data-vc-date-weekend');
@@ -41,13 +41,13 @@ const setDateModifier = (
   updateAttribute(dateEl, self.selectedHolidays?.includes(dateStr), 'data-vc-date-holiday');
 
   // Check if the date is selected
-  if (self.private.selectedDates?.includes(dateStr)) {
+  if (self.context.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
     if (dateBtnEl) dateBtnEl.setAttribute('aria-selected', 'true');
-    if (self.private.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
-      if (self.private.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
-      if (self.private.selectedDates[self.private.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
-      if (self.private.selectedDates[0] !== dateStr && self.private.selectedDates[self.private.selectedDates.length - 1] !== dateStr)
+    if (self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
+      if (self.context.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
+      if (self.context.selectedDates[self.context.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
+      if (self.context.selectedDates[0] !== dateStr && self.context.selectedDates[self.context.selectedDates.length - 1] !== dateStr)
         dateEl.setAttribute('data-vc-date-selected', 'middle');
     }
   } else if (dateEl.hasAttribute('data-vc-date-selected')) {
@@ -57,13 +57,13 @@ const setDateModifier = (
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
   if (
-    !self.private.disableDates.includes(dateStr) &&
+    !self.context.disableDates.includes(dateStr) &&
     self.enableEdgeDatesOnly &&
-    self.private.selectedDates.length > 1 &&
+    self.context.selectedDates.length > 1 &&
     self.selectionDatesMode === 'multiple-ranged'
   ) {
-    const firstDate = getDate(self.private.selectedDates[0]);
-    const lastDate = getDate(self.private.selectedDates[self.private.selectedDates.length - 1]);
+    const firstDate = getDate(self.context.selectedDates[0]);
+    const lastDate = getDate(self.context.selectedDates[self.context.selectedDates.length - 1]);
     const currentDate = getDate(dateStr);
     updateAttribute(dateEl, currentDate > firstDate && currentDate < lastDate, 'data-vc-date-selected', 'middle');
   }

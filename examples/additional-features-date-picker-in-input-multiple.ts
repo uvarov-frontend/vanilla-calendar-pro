@@ -9,14 +9,14 @@ const options: Options = {
   disableDatesPast: true,
   selectionDatesMode: 'multiple-ranged',
   onChangeToInput(self) {
-    if (!self.private.inputElement) return;
-    if (self.private.selectedDates[1]) {
-      self.private.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
-      self.private.inputElement.value = `${self.private.selectedDates[0]} — ${self.private.selectedDates[self.private.selectedDates.length - 1]}`;
-    } else if (self.private.selectedDates[0]) {
-      self.private.inputElement.value = self.private.selectedDates[0];
+    if (!self.context.inputElement) return;
+    if (self.context.selectedDates[1]) {
+      self.context.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
+      self.context.inputElement.value = `${self.context.selectedDates[0]} — ${self.context.selectedDates[self.context.selectedDates.length - 1]}`;
+    } else if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
     } else {
-      self.private.inputElement.value = '';
+      self.context.inputElement.value = '';
     }
   },
 };

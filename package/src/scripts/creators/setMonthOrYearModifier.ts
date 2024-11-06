@@ -24,12 +24,12 @@ const setYearModifier = (self: VanillaCalendarPro, el: HTMLButtonElement, type: 
   } as const;
 
   if (reset) {
-    self.private.mainElement.querySelectorAll<HTMLElement>(selectors[type])?.forEach((el) => {
+    self.context.mainElement.querySelectorAll<HTMLElement>(selectors[type])?.forEach((el) => {
       el.removeAttribute(attributes[type].selected);
       el.removeAttribute(attributes[type].aria);
     });
 
-    self.private[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]) as Range<12>;
+    self.context[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]) as Range<12>;
     visibilityTitle(self);
     if (type === 'year') visibilityArrows(self);
   }

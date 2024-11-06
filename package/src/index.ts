@@ -3,6 +3,7 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import replaceProperties from '@scripts/utils/replaceProperties';
 import OptionsCalendar from '@src/options';
 import type {
+  ContextVariables,
   DateAny,
   DateMode,
   DatesArr,
@@ -18,7 +19,6 @@ import type {
   Popups,
   Positions,
   PositionToInput,
-  PrivateVariables,
   Range,
   Reset,
   Styles,
@@ -36,8 +36,8 @@ export class VanillaCalendarPro extends OptionsCalendar {
   constructor(selector: HTMLElement | string, options?: Options) {
     super();
 
-    this.private = {
-      ...this.private,
+    this.context = {
+      ...this.context,
       locale: {
         months: {
           short: [],
@@ -50,7 +50,7 @@ export class VanillaCalendarPro extends OptionsCalendar {
       },
     };
 
-    this.private.mainElement = typeof selector === 'string' ? (VanillaCalendarPro.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
+    this.context.mainElement = typeof selector === 'string' ? (VanillaCalendarPro.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
 
     if (options) replaceProperties(this, options);
   }
@@ -75,7 +75,7 @@ export class VanillaCalendarPro extends OptionsCalendar {
 
   set = (options: Options, resetOptions?: Partial<Reset>) => set(this, options, resetOptions);
 
-  private!: PrivateVariables;
+  context!: ContextVariables;
 }
 
 export {
@@ -94,7 +94,7 @@ export {
   Popups,
   Positions,
   PositionToInput,
-  PrivateVariables,
+  ContextVariables,
   Range,
   Reset,
   Styles,

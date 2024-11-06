@@ -5,7 +5,7 @@ import getDate from '@scripts/utils/getDate';
 import type { FormatDateString } from '@src/index';
 
 const handleHoverDatesEvent = (e: MouseEvent) => {
-  if (!e.target || !state.self?.private?.selectedDates[0]) return;
+  if (!e.target || !state.self?.context?.selectedDates[0]) return;
 
   if (!(e.target as HTMLElement).closest('[data-vc="dates"]')) {
     state.lastDateEl = null;
@@ -22,11 +22,11 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   removeHoverEffect();
 
   const lastDateString = dateEl.dataset.vcDate as FormatDateString;
-  const startDate = getDate(state.self.private.selectedDates[0]);
+  const startDate = getDate(state.self.context.selectedDates[0]);
   const endDate = getDate(lastDateString);
 
-  const firstDateEl = state.self.private.mainElement.querySelector<HTMLElement>(`[data-vc-date="${state.self.private.selectedDates[0]}"]`);
-  const lastDateEl = state.self.private.mainElement.querySelector<HTMLElement>(`[data-vc-date="${lastDateString}"]`);
+  const firstDateEl = state.self.context.mainElement.querySelector<HTMLElement>(`[data-vc-date="${state.self.context.selectedDates[0]}"]`);
+  const lastDateEl = state.self.context.mainElement.querySelector<HTMLElement>(`[data-vc-date="${lastDateString}"]`);
 
   const [firstDateElCorrect, lastDateElCorrect] = startDate < endDate ? [firstDateEl, lastDateEl] : [lastDateEl, firstDateEl];
   const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];

@@ -4,7 +4,7 @@ import parseDates from '@scripts/utils/parseDates';
 import type { VanillaCalendarPro } from '@src/index';
 
 const initRange = (self: VanillaCalendarPro) => {
-  // set self.private.displayDateMin, self.private.displayDateMax
+  // set self.context.displayDateMin, self.context.displayDateMax
   const dateMin =
     self.dateMin === 'today' ? getLocalDate() : self.dateMin instanceof Date || typeof self.dateMin === 'number' ? parseDates([self.dateMin])[0] : self.dateMin;
   const dateMax =
@@ -22,39 +22,39 @@ const initRange = (self: VanillaCalendarPro) => {
         ? parseDates([self.displayDateMax])[0]
         : dateMax;
 
-  self.private.dateToday =
+  self.context.dateToday =
     self.dateToday === 'today'
       ? getLocalDate()
       : self.dateToday instanceof Date || typeof self.dateToday === 'number'
         ? parseDates([self.dateToday])[0]
         : self.dateToday;
 
-  self.private.displayDateMin = displayDateMin ? (getDate(dateMin) >= getDate(displayDateMin) ? dateMin : displayDateMin) : dateMin;
-  self.private.displayDateMax = displayDateMax ? (getDate(dateMax) <= getDate(displayDateMax) ? dateMax : displayDateMax) : dateMax;
+  self.context.displayDateMin = displayDateMin ? (getDate(dateMin) >= getDate(displayDateMin) ? dateMin : displayDateMin) : dateMin;
+  self.context.displayDateMax = displayDateMax ? (getDate(dateMax) <= getDate(displayDateMax) ? dateMax : displayDateMax) : dateMax;
 
-  const isDisablePast = self.disableDatesPast && !self.disableAllDates && getDate(displayDateMin) < getDate(self.private.dateToday);
-  self.private.displayDateMin = isDisablePast ? self.private.dateToday : self.disableAllDates ? self.private.dateToday : displayDateMin;
-  self.private.displayDateMax = self.disableAllDates ? self.private.dateToday : displayDateMax;
+  const isDisablePast = self.disableDatesPast && !self.disableAllDates && getDate(displayDateMin) < getDate(self.context.dateToday);
+  self.context.displayDateMin = isDisablePast ? self.context.dateToday : self.disableAllDates ? self.context.dateToday : displayDateMin;
+  self.context.displayDateMax = self.disableAllDates ? self.context.dateToday : displayDateMax;
 
-  // set self.private.disableDates
-  self.private.disableDates =
-    self.disableDates[0] && !self.disableAllDates ? parseDates(self.disableDates) : self.disableAllDates ? [self.private.displayDateMin] : [];
-  if (self.private.disableDates.length > 1) self.private.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
+  // set self.context.disableDates
+  self.context.disableDates =
+    self.disableDates[0] && !self.disableAllDates ? parseDates(self.disableDates) : self.disableAllDates ? [self.context.displayDateMin] : [];
+  if (self.context.disableDates.length > 1) self.context.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
-  // set self.private.enableDates
-  self.private.enableDates = self.enableDates[0] ? parseDates(self.enableDates) : [];
-  if (self.private.enableDates?.[0] && self.private.disableDates?.[0])
-    self.private.disableDates = self.private.disableDates.filter((d) => !self.private.enableDates.includes(d));
-  if (self.private.enableDates.length > 1) self.private.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
+  // set self.context.enableDates
+  self.context.enableDates = self.enableDates[0] ? parseDates(self.enableDates) : [];
+  if (self.context.enableDates?.[0] && self.context.disableDates?.[0])
+    self.context.disableDates = self.context.disableDates.filter((d) => !self.context.enableDates.includes(d));
+  if (self.context.enableDates.length > 1) self.context.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
-  if (self.private.enableDates?.[0] && self.disableAllDates) {
-    self.private.displayDateMin = self.private.enableDates[0];
-    self.private.displayDateMax = self.private.enableDates[self.private.enableDates.length - 1];
+  if (self.context.enableDates?.[0] && self.disableAllDates) {
+    self.context.displayDateMin = self.context.enableDates[0];
+    self.context.displayDateMax = self.context.enableDates[self.context.enableDates.length - 1];
   }
 
-  // set self.private.dateMin and self.private.dateMax
-  self.private.dateMin = self.displayDisabledDates ? dateMin : self.private.displayDateMin;
-  self.private.dateMax = self.displayDisabledDates ? dateMax : self.private.displayDateMax;
+  // set self.context.dateMin and self.context.dateMax
+  self.context.dateMin = self.displayDisabledDates ? dateMin : self.context.displayDateMin;
+  self.context.dateMax = self.displayDisabledDates ? dateMax : self.context.displayDateMax;
 };
 
 export default initRange;

@@ -7,17 +7,17 @@ const initSelectedMonthYear = (self: VanillaCalendarPro) => {
 
   if (isJumpToSelectedDate) {
     const selectedDate = getDate(parseDates(self.selectedDates)[0]);
-    self.private.selectedMonth = selectedDate.getMonth() as Range<12>;
-    self.private.selectedYear = selectedDate.getFullYear();
+    self.context.selectedMonth = selectedDate.getMonth() as Range<12>;
+    self.context.selectedYear = selectedDate.getFullYear();
     return;
   }
 
   const isValidMonth = self.selectedMonth !== undefined && Number(self.selectedMonth) >= 0 && Number(self.selectedMonth) < 12;
   const isValidYear = self.selectedYear !== undefined && Number(self.selectedYear) >= 0 && Number(self.selectedYear) <= 9999;
 
-  self.private.selectedMonth = (isValidMonth ? Number(self.selectedMonth) : getDate(self.private.dateToday).getMonth()) as Range<12>;
-  self.private.selectedYear = isValidYear ? Number(self.selectedYear) : getDate(self.private.dateToday).getFullYear();
-  self.private.displayYear = self.private.selectedYear;
+  self.context.selectedMonth = (isValidMonth ? Number(self.selectedMonth) : getDate(self.context.dateToday).getMonth()) as Range<12>;
+  self.context.selectedYear = isValidYear ? Number(self.selectedYear) : getDate(self.context.dateToday).getFullYear();
+  self.context.displayYear = self.context.selectedYear;
 };
 
 export default initSelectedMonthYear;

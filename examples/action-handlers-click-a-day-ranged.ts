@@ -5,7 +5,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   selectionDatesMode: 'multiple-ranged',
   onClickDate(self) {
-    console.log(self.private.selectedDates);
+    console.log(self.context.selectedDates);
   },
 };
 

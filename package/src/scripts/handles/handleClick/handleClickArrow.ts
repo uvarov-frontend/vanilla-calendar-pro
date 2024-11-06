@@ -8,10 +8,10 @@ const handleClickArrow = (self: VanillaCalendarPro, event: MouseEvent) => {
 
   if (!arrowEl) return;
 
-  if (['default', 'multiple'].includes(self.private.currentType)) {
+  if (['default', 'multiple'].includes(self.context.currentType)) {
     handleMonth(self, arrowEl.dataset.vcArrow as 'prev' | 'next');
-  } else if (self.private.currentType === 'year' && self.private.displayYear !== undefined) {
-    self.private.displayYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
+  } else if (self.context.currentType === 'year' && self.context.displayYear !== undefined) {
+    self.context.displayYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
     createYears(self, event.target as HTMLElement);
   }
 

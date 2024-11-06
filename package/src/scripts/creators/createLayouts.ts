@@ -18,31 +18,31 @@ const createLayouts = (self: VanillaCalendarPro, target?: HTMLElement) => {
     if (!self.layouts[typedKey].length) self.layouts[typedKey] = templateMap[typedKey](self);
   });
 
-  self.private.mainElement.className = self.styles.calendar;
-  self.private.mainElement.dataset.vc = 'calendar';
-  self.private.mainElement.dataset.vcType = self.private.currentType;
-  self.private.mainElement.role = 'application';
-  self.private.mainElement.tabIndex = 0;
-  self.private.mainElement.ariaLabel = self.labels.application;
+  self.context.mainElement.className = self.styles.calendar;
+  self.context.mainElement.dataset.vc = 'calendar';
+  self.context.mainElement.dataset.vcType = self.context.currentType;
+  self.context.mainElement.role = 'application';
+  self.context.mainElement.tabIndex = 0;
+  self.context.mainElement.ariaLabel = self.labels.application;
 
-  if (self.private.currentType === 'multiple') {
-    self.private.mainElement.innerHTML = self.sanitizerHTML(parseMultipleLayout(self, parseLayout(self, self.layouts[self.private.currentType])));
+  if (self.context.currentType === 'multiple') {
+    self.context.mainElement.innerHTML = self.sanitizerHTML(parseMultipleLayout(self, parseLayout(self, self.layouts[self.context.currentType])));
     return;
   }
 
   if (self.type === 'multiple' && target) {
-    const controlsEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="controls"]');
-    const gridEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
+    const controlsEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="controls"]');
+    const gridEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
     const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
-    if (controlsEl) self.private.mainElement.removeChild(controlsEl);
+    if (controlsEl) self.context.mainElement.removeChild(controlsEl);
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
-    if (columnEl) columnEl.dataset.vcColumn = self.private.currentType;
-    if (columnEl) columnEl.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.private.currentType]));
+    if (columnEl) columnEl.dataset.vcColumn = self.context.currentType;
+    if (columnEl) columnEl.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
     return;
   }
 
-  self.private.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.private.currentType]));
+  self.context.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
 };
 
 export default createLayouts;

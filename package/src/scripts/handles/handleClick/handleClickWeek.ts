@@ -4,7 +4,7 @@ export const handleClickWeekNumber = (self: VanillaCalendarPro, event: MouseEven
   if (!self.enableWeekNumbers || !self.onClickWeekNumber) return;
 
   const weekNumberEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc-week-number]');
-  const daysToWeeks = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-number]');
+  const daysToWeeks = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-number]');
 
   if (!weekNumberEl || !daysToWeeks[0]) return;
 
@@ -22,7 +22,7 @@ export const handleClickWeekDay = (self: VanillaCalendarPro, event: MouseEvent) 
   const columnEl = (event.target as HTMLElement).closest<HTMLElement>('[data-vc="column"]');
   const daysToWeeks = columnEl
     ? columnEl.querySelectorAll<HTMLElement>('[data-vc-date-week-day]')
-    : self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-day]');
+    : self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-date-week-day]');
 
   if (!weekDayEl || !daysToWeeks[0]) return;
 

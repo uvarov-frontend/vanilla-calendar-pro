@@ -5,7 +5,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   type: 'year',
   onClickYear(self) {
-    console.log(self.private.selectedYear);
+    console.log(self.context.selectedYear);
   },
 };
 

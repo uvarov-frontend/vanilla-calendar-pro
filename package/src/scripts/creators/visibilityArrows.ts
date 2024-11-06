@@ -8,14 +8,14 @@ const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement,
 };
 
 const handleDefaultType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
-  const currentSelectedDate = getDate(getDateString(new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1)));
+  const currentSelectedDate = getDate(getDateString(new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1)));
   const jumpDateMin = new Date(currentSelectedDate.getTime());
   const jumpDateMax = new Date(currentSelectedDate.getTime());
   jumpDateMin.setMonth(jumpDateMin.getMonth() - self.monthsToSwitch);
   jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitch);
 
-  const dateMin = getDate(self.private.dateMin);
-  const dateMax = getDate(self.private.dateMax);
+  const dateMin = getDate(self.context.dateMin);
+  const dateMax = getDate(self.context.dateMax);
 
   if (!self.selectionYearsMode) {
     dateMin.setFullYear(currentSelectedDate.getFullYear());
@@ -35,19 +35,19 @@ const handleDefaultType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, a
 };
 
 const handleYearType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
-  const dateMin = getDate(self.private.dateMin);
-  const dateMax = getDate(self.private.dateMax);
-  const isArrowPrevHidden = !!(dateMin.getFullYear() && self.private.displayYear - 7 <= dateMin.getFullYear());
-  const isArrowNextHidden = !!(dateMax.getFullYear() && self.private.displayYear + 7 >= dateMax.getFullYear());
+  const dateMin = getDate(self.context.dateMin);
+  const dateMax = getDate(self.context.dateMax);
+  const isArrowPrevHidden = !!(dateMin.getFullYear() && self.context.displayYear - 7 <= dateMin.getFullYear());
+  const isArrowNextHidden = !!(dateMax.getFullYear() && self.context.displayYear + 7 >= dateMax.getFullYear());
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
 
 const visibilityArrows = (self: VanillaCalendarPro) => {
-  if (self.private.currentType === 'month') return;
+  if (self.context.currentType === 'month') return;
 
-  const arrowPrevEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc-arrow="prev"]');
-  const arrowNextEl = self.private.mainElement.querySelector<HTMLElement>('[data-vc-arrow="next"]');
+  const arrowPrevEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc-arrow="prev"]');
+  const arrowNextEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc-arrow="next"]');
   if (!arrowPrevEl || !arrowNextEl) return;
 
   const updateType = {
@@ -55,7 +55,7 @@ const visibilityArrows = (self: VanillaCalendarPro) => {
     year: () => handleYearType(self, arrowPrevEl, arrowNextEl),
   };
 
-  updateType[self.private.currentType === 'multiple' ? 'default' : self.private.currentType]();
+  updateType[self.context.currentType === 'multiple' ? 'default' : self.context.currentType]();
 };
 
 export default visibilityArrows;

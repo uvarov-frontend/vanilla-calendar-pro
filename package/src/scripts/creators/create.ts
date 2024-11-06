@@ -30,7 +30,7 @@ const create = (self: VanillaCalendarPro) => {
   visibilityTitle(self);
   visibilityArrows(self);
   createTime(self);
-  createComponents[self.private.currentType]();
+  createComponents[self.context.currentType]();
 };
 
 export default create;

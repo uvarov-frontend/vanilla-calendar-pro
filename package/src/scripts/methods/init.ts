@@ -6,8 +6,8 @@ import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import type { VanillaCalendarPro } from '@src/index';
 
 const init = (self: VanillaCalendarPro) => {
-  self.private.originalElement = self.private.mainElement.cloneNode(true) as HTMLElement;
-  self.private.isInit = true;
+  self.context.originalElement = self.context.mainElement.cloneNode(true) as HTMLElement;
+  self.context.isInit = true;
 
   if (self.inputMode) return handleInput(self);
 

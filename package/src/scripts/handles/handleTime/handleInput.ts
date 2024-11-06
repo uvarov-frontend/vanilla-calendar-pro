@@ -1,16 +1,16 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type { PrivateVariables, VanillaCalendarPro } from '@src/index';
+import type { ContextVariables, VanillaCalendarPro } from '@src/index';
 
 const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElement, valueInput: string, valueRange: string) => {
   inputEl.value = valueInput;
   rangeEl.value = valueRange;
 };
 
-const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: PrivateVariables['selectedKeeping']) => {
+const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: ContextVariables['selectedKeeping']) => {
   if (!keepingTimeEl || !keeping) return;
-  self.private.selectedKeeping = keeping;
+  self.context.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
 
@@ -29,21 +29,21 @@ const handleInput = (
 
       const timeMap = {
         12: () => {
-          if (!self.private.selectedKeeping) return;
-          const correctValue = Number(transformTime24(valueStr, self.private.selectedKeeping));
+          if (!self.context.selectedKeeping) return;
+          const correctValue = Number(transformTime24(valueStr, self.context.selectedKeeping));
           if (!(correctValue <= max && correctValue >= min)) {
-            updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
+            updateInputAndRange(inputEl, rangeEl, self.context.selectedHours, self.context.selectedHours);
             if (self.onChangeTime) self.onChangeTime(self, event, true);
             return;
           }
 
-          updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.private.selectedKeeping));
+          updateInputAndRange(inputEl, rangeEl, transformTime12(valueStr), transformTime24(valueStr, self.context.selectedKeeping));
           if (value > 12) updateKeepingTime(self, keepingTimeEl, 'PM');
           handleActions(self, event, transformTime12(valueStr), type);
         },
         24: () => {
           if (!(value <= max && value >= min)) {
-            updateInputAndRange(inputEl, rangeEl, self.private.selectedHours, self.private.selectedHours);
+            updateInputAndRange(inputEl, rangeEl, self.context.selectedHours, self.context.selectedHours);
             if (self.onChangeTime) self.onChangeTime(self, event, true);
             return;
           }
@@ -56,7 +56,7 @@ const handleInput = (
     },
     minute: (value: number, valueStr: string, event: Event) => {
       if (!(value <= max && value >= min)) {
-        inputEl.value = self.private.selectedMinutes;
+        inputEl.value = self.context.selectedMinutes;
         if (self.onChangeTime) self.onChangeTime(self, event, true);
         return;
       }

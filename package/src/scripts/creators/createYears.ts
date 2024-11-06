@@ -20,29 +20,29 @@ const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, s
 };
 
 const createYears = (self: VanillaCalendarPro, target?: HTMLElement) => {
-  const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.private.selectedYear;
+  const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.context.selectedYear;
 
-  self.private.currentType = 'year';
+  self.context.currentType = 'year';
   createLayouts(self, target);
   visibilityTitle(self);
   visibilityArrows(self);
 
-  const yearsEl = self.private.mainElement.querySelector('[data-vc="years"]');
+  const yearsEl = self.context.mainElement.querySelector('[data-vc="years"]');
   if (!self.selectionYearsMode || !yearsEl) return;
 
-  const relationshipID = self.type !== 'multiple' ? 0 : self.private.selectedYear === selectedYear ? 0 : 1;
+  const relationshipID = self.type !== 'multiple' ? 0 : self.context.selectedYear === selectedYear ? 0 : 1;
 
   const templateYearEl = document.createElement('button');
   templateYearEl.type = 'button';
 
-  for (let i = (self.private.displayYear as number) - 7; i < (self.private.displayYear as number) + 8; i++) {
-    const yearDisabled = i < getDate(self.private.dateMin).getFullYear() + relationshipID || i > getDate(self.private.dateMax).getFullYear();
+  for (let i = (self.context.displayYear as number) - 7; i < (self.context.displayYear as number) + 8; i++) {
+    const yearDisabled = i < getDate(self.context.dateMin).getFullYear() + relationshipID || i > getDate(self.context.dateMax).getFullYear();
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
     yearsEl.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }
 
-  self.private.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
+  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
 };
 
 export default createYears;

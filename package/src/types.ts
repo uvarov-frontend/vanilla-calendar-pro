@@ -76,7 +76,7 @@ export type Reset = {
   locale: boolean;
 };
 
-export type PrivateVariables = {
+export type ContextVariables = {
   isInit: boolean;
   inputModeInit: boolean;
   currentType: TypesCalendar;

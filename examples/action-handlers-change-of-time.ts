@@ -5,7 +5,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   selectionTimeMode: 12,
   onChangeTime(self) {
-    console.log(self.private.selectedTime);
+    console.log(self.context.selectedTime);
   },
 };
 

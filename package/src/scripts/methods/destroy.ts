@@ -2,17 +2,17 @@ import errorMessages from '@scripts/utils/getErrorMessages';
 import type { VanillaCalendarPro } from '@src/index';
 
 const destroy = (self: VanillaCalendarPro) => {
-  if (!self.private.isInit) throw new Error(errorMessages.notInit);
+  if (!self.context.isInit) throw new Error(errorMessages.notInit);
 
   if (self.inputMode) {
-    self.private.mainElement.parentElement?.removeChild(self.private.mainElement);
-    self.private.inputElement?.replaceWith?.(self.private.originalElement);
-    self.private.inputElement = undefined;
+    self.context.mainElement.parentElement?.removeChild(self.context.mainElement);
+    self.context.inputElement?.replaceWith?.(self.context.originalElement);
+    self.context.inputElement = undefined;
   } else {
-    self.private.mainElement.replaceWith?.(self.private.originalElement);
+    self.context.mainElement.replaceWith?.(self.context.originalElement);
   }
 
-  self.private.mainElement = self.private.originalElement;
+  self.context.mainElement = self.context.originalElement;
   if (self.onDestroy) self.onDestroy(self);
 };
 

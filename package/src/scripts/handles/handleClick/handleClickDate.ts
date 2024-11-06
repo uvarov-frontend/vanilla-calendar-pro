@@ -6,12 +6,12 @@ import getDate from '@scripts/utils/getDate';
 import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const updateDateModifier = (self: VanillaCalendarPro) => {
-  const dateEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
+  const dateEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((dateEl) => {
     const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;
     const dateStr = dateEl.dataset.vcDate as FormatDateString;
     const dayWeekID = getDate(dateStr).getDay() as WeekDayID;
-    setDateModifier(self, self.private.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, 'current');
+    setDateModifier(self, self.context.selectedYear, dateEl, dateBtnEl, dayWeekID, dateStr, 'current');
   });
 };
 
@@ -28,10 +28,10 @@ const handleClickDate = (self: VanillaCalendarPro, event: MouseEvent) => {
     'multiple-ranged': () => handleSelectDateRanged(self, dateEl),
   };
   daySelectionActions[self.selectionDatesMode]();
-  self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  self.context.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.onClickDate) self.onClickDate(self, event);
-  if (self.inputMode && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
+  if (self.inputMode && self.context.inputElement && self.context.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
 
   const dayPrevEl = element.closest('[data-vc-date-month="prev"]');
   const dayNextEl = element.closest('[data-vc-date-month="next"]');

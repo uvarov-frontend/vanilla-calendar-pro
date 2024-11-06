@@ -6,11 +6,11 @@ const configInput: Options = {
   inputMode: true,
   positionToInput: 'center',
   onChangeToInput(self) {
-    if (!self.private.selectedDates || !self.private.inputElement) return;
-    if (self.private.selectedDates[0]) {
-      self.private.inputElement.value = self.private.selectedDates[0];
+    if (!self.context.selectedDates || !self.context.inputElement) return;
+    if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
     } else {
-      self.private.inputElement.value = '';
+      self.context.inputElement.value = '';
     }
     self.hide();
   },
@@ -20,11 +20,11 @@ const configDiv: Options = {
   inputMode: true,
   positionToInput: 'auto',
   onChangeToInput(self) {
-    if (!self.private.selectedDates || !self.private.inputElement) return;
-    if (self.private.selectedDates[0]) {
-      self.private.inputElement.innerHTML = self.private.selectedDates[0];
+    if (!self.context.selectedDates || !self.context.inputElement) return;
+    if (self.context.selectedDates[0]) {
+      self.context.inputElement.innerHTML = self.context.selectedDates[0];
     } else {
-      self.private.inputElement.textContent = '';
+      self.context.inputElement.textContent = '';
     }
     self.hide();
   },
@@ -75,6 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
       year: true,
     });
 
-    calendarInput.private.inputElement!.value = '2023-04-07';
+    calendarInput.context.inputElement!.value = '2023-04-07';
   });
 });

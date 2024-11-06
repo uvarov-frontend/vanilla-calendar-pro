@@ -11,19 +11,19 @@ const reset = (self: VanillaCalendarPro, { year, month, dates, time, locale }: R
     time: self.selectedTime,
   };
 
-  self.selectedYear = year ? previousSelected.year : self.private.selectedYear;
-  self.selectedMonth = month ? previousSelected.month : self.private.selectedMonth;
-  self.selectedTime = time ? previousSelected.time : self.private.selectedTime;
+  self.selectedYear = year ? previousSelected.year : self.context.selectedYear;
+  self.selectedMonth = month ? previousSelected.month : self.context.selectedMonth;
+  self.selectedTime = time ? previousSelected.time : self.context.selectedTime;
 
   self.selectedDates =
-    dates === 'only-first' && self.private.selectedDates?.[0]
-      ? [self.private.selectedDates[0]]
+    dates === 'only-first' && self.context.selectedDates?.[0]
+      ? [self.context.selectedDates[0]]
       : dates === true
         ? previousSelected.dates
-        : self.private.selectedDates;
+        : self.context.selectedDates;
 
   if (locale) {
-    self.private.locale = {
+    self.context.locale = {
       months: { short: [], long: [] },
       weekdays: { short: [], long: [] },
     };

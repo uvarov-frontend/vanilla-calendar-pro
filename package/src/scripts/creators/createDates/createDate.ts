@@ -12,11 +12,11 @@ const addWeekNumberForDate = (self: VanillaCalendarPro, dateEl: HTMLElement, dat
 
 const setDaysAsDisabled = (self: VanillaCalendarPro, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
-  const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.private.enableDates?.[0];
+  const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.context.enableDates?.[0];
 
-  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !self.private.enableDates?.includes(date) && !self.private.disableDates?.includes(date)) {
-    self.private.disableDates.push(date);
-    self.private.disableDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !self.context.enableDates?.includes(date) && !self.context.disableDates?.includes(date)) {
+    self.context.disableDates.push(date);
+    self.context.disableDates?.sort((a, b) => +new Date(a) - +new Date(b));
   }
 };
 

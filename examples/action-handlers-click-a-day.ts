@@ -4,7 +4,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   onClickDate(self) {
-    console.log(self.private.selectedDates);
+    console.log(self.context.selectedDates);
   },
 };
 

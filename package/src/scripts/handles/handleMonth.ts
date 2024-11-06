@@ -6,7 +6,7 @@ import getDateString from '@scripts/utils/getDateString';
 import type { Range, VanillaCalendarPro } from '@src/index';
 
 const handleMonth = (self: VanillaCalendarPro, route: 'prev' | 'next') => {
-  const jumpDate = getDate(getDateString(new Date(self.private.selectedYear, self.private.selectedMonth, 1)));
+  const jumpDate = getDate(getDateString(new Date(self.context.selectedYear, self.context.selectedMonth, 1)));
 
   const routeMap: Record<string, () => void> = {
     prev: () => jumpDate.setMonth(jumpDate.getMonth() - self.monthsToSwitch),
@@ -14,7 +14,7 @@ const handleMonth = (self: VanillaCalendarPro, route: 'prev' | 'next') => {
   };
 
   routeMap[route]();
-  [self.private.selectedMonth, self.private.selectedYear] = [jumpDate.getMonth() as Range<12>, jumpDate.getFullYear()];
+  [self.context.selectedMonth, self.context.selectedYear] = [jumpDate.getMonth() as Range<12>, jumpDate.getFullYear()];
 
   visibilityTitle(self);
   visibilityArrows(self);

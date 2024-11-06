@@ -1,9 +1,9 @@
 import type { VanillaCalendarPro } from '@src/index';
 
 const visibilityHandler = (self: VanillaCalendarPro, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
-  const yearID = new Date(initDate.setFullYear(self.private.selectedYear as number, (self.private.selectedMonth as number) + index)).getFullYear();
-  const monthID = new Date(initDate.setMonth((self.private.selectedMonth as number) + index)).getMonth();
-  const monthLabel = self.private.locale.months.long[monthID];
+  const yearID = new Date(initDate.setFullYear(self.context.selectedYear as number, (self.context.selectedMonth as number) + index)).getFullYear();
+  const monthID = new Date(initDate.setMonth((self.context.selectedMonth as number) + index)).getMonth();
+  const monthLabel = self.context.locale.months.long[monthID];
 
   const columnEl = el.closest('[data-vc="column"]');
   if (columnEl) columnEl.ariaLabel = `${monthLabel} ${yearID}`;
@@ -24,9 +24,9 @@ const visibilityHandler = (self: VanillaCalendarPro, el: HTMLButtonElement, inde
 };
 
 const visibilityTitle = (self: VanillaCalendarPro) => {
-  const monthEls = self.private.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
-  const yearEls = self.private.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
-  const initDate = new Date(self.private.selectedYear as number, self.private.selectedMonth as number, 1);
+  const monthEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
+  const yearEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
+  const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
 
   [monthEls, yearEls].forEach((els) => els?.forEach((el, index) => visibilityHandler(self, el, index, initDate, el.dataset.vc as 'month' | 'year')));
 };

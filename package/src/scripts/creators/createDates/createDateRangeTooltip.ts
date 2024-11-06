@@ -9,7 +9,7 @@ const createDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement
     return;
   }
 
-  const mainBCR = self.private.mainElement.getBoundingClientRect();
+  const mainBCR = self.context.mainElement.getBoundingClientRect();
   const dateElBCR = dateEl.getBoundingClientRect();
 
   tooltipEl.style.left = `${dateElBCR.left - mainBCR.left + dateElBCR.width / 2}px`;

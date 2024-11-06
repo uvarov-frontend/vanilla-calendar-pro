@@ -6,7 +6,7 @@ import type { VanillaCalendarPro } from '@src/index';
 
 const relationshipID = (self: VanillaCalendarPro) => {
   if (self.type !== 'multiple') return 0;
-  const columnEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
+  const columnEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;
 };
@@ -35,21 +35,21 @@ const createMonthEl = (
 
 const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
   const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
-  const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.private.selectedYear as number);
-  const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.private.selectedMonth;
+  const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.context.selectedYear as number);
+  const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.context.selectedMonth;
 
-  self.private.currentType = 'month';
+  self.context.currentType = 'month';
   createLayouts(self, target);
   visibilityTitle(self);
 
-  const monthsEl = self.private.mainElement.querySelector('[data-vc="months"]');
+  const monthsEl = self.context.mainElement.querySelector('[data-vc="months"]');
   if (!self.selectionMonthsMode || !monthsEl) return;
 
   const activeMonthsID =
     self.monthsToSwitch > 1
-      ? self.private.locale.months.long
+      ? self.context.locale.months.long
           .map((_, i) => selectedMonth - self.monthsToSwitch * i)
-          .concat(self.private.locale.months.long.map((_, i) => selectedMonth + self.monthsToSwitch * i))
+          .concat(self.context.locale.months.long.map((_, i) => selectedMonth + self.monthsToSwitch * i))
           .filter((monthID) => monthID >= 0 && monthID <= 12)
       : Array.from(Array(12).keys());
 
@@ -57,8 +57,8 @@ const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
   templateMonthEl.type = 'button';
 
   for (let i = 0; i < 12; i++) {
-    const dateMin = getDate(self.private.dateMin);
-    const dateMax = getDate(self.private.dateMax);
+    const dateMin = getDate(self.context.dateMin);
+    const dateMax = getDate(self.context.dateMax);
 
     const monthDisabled =
       (i < dateMin.getMonth() + relationshipID(self) && selectedYear <= dateMin.getFullYear()) ||
@@ -68,8 +68,8 @@ const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
       self,
       templateMonthEl,
       selectedMonth,
-      self.private.locale.months.short[i],
-      self.private.locale.months.long[i],
+      self.context.locale.months.short[i],
+      self.context.locale.months.long[i],
       monthDisabled,
       i,
     );
@@ -77,7 +77,7 @@ const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
     if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);
   }
 
-  self.private.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
+  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
 };
 
 export default createMonths;

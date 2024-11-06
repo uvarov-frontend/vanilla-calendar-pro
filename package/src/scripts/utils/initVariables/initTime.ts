@@ -20,10 +20,10 @@ const initTime = (self: VanillaCalendarPro) => {
     keeping = 'AM';
   }
 
-  self.private.selectedHours = hours.padStart(2, '0');
-  self.private.selectedMinutes = minutes.padStart(2, '0');
-  self.private.selectedKeeping = keeping as 'AM' | 'PM' | null;
-  self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
+  self.context.selectedHours = hours.padStart(2, '0');
+  self.context.selectedMinutes = minutes.padStart(2, '0');
+  self.context.selectedKeeping = keeping as 'AM' | 'PM' | null;
+  self.context.selectedTime = `${self.context.selectedHours}:${self.context.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
 };
 
 export default initTime;

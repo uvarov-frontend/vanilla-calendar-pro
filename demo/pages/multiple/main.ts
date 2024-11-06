@@ -16,8 +16,8 @@ const config: Options = {
       </div>`;
 
     return `
-      ${createRow('Start:', self.private.selectedDates[0])}
-      ${self.private.selectedDates[1] ? createRow('End:', self.private.selectedDates[1]) : ''}
+      ${createRow('Start:', self.context.selectedDates[0])}
+      ${self.context.selectedDates[1] ? createRow('End:', self.context.selectedDates[1]) : ''}
     `;
   },
 };

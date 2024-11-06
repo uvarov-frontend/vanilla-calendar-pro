@@ -2,12 +2,12 @@ import type { VanillaCalendarPro, WeekDayID } from '@src/index';
 
 const createWeek = (self: VanillaCalendarPro) => {
   const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
-  const weekdaysData = [...self.private.locale.weekdays.long].reduce(
+  const weekdaysData = [...self.context.locale.weekdays.long].reduce(
     (acc, day, index) => [
       ...acc,
       {
         id: index as WeekDayID,
-        titleShort: self.private.locale.weekdays.short[index],
+        titleShort: self.context.locale.weekdays.short[index],
         titleLong: day,
         isWeekend: weekend.includes(index as WeekDayID),
       },
@@ -21,7 +21,7 @@ const createWeek = (self: VanillaCalendarPro) => {
   );
   const weekdays = [...weekdaysData.slice(self.firstWeekday), ...weekdaysData.slice(0, self.firstWeekday)];
 
-  self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
+  self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
     const templateWeekDayEl = document.createElement('button');
     templateWeekDayEl.type = 'button';
     weekdays.forEach((weekday) => {
