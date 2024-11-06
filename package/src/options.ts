@@ -1,4 +1,4 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 import labels from '@src/labels';
 import styles from '@src/styles';
 import type {
@@ -80,24 +80,24 @@ export default class OptionsCalendar {
 
   sanitizerHTML: (dirtyHtml: string) => string = (dirtyHtml: string) => dirtyHtml;
 
-  onClickDate!: (self: VanillaCalendarPro, event: MouseEvent) => void;
-  onClickWeekDay!: (self: VanillaCalendarPro, day: number, dateEls: HTMLElement[], event: MouseEvent) => void;
-  onClickWeekNumber!: (self: VanillaCalendarPro, number: number, year: number, dateEls: HTMLElement[], event: MouseEvent) => void;
-  onClickTitle!: (self: VanillaCalendarPro, event: MouseEvent) => void;
-  onClickMonth!: (self: VanillaCalendarPro, event: MouseEvent) => void;
-  onClickYear!: (self: VanillaCalendarPro, event: MouseEvent) => void;
-  onClickArrow!: (self: VanillaCalendarPro, event: MouseEvent) => void;
-  onChangeTime!: (self: VanillaCalendarPro, event: Event, isError: boolean) => void;
-  onChangeToInput!: (self: VanillaCalendarPro, event: Event) => void;
-  onCreateDateRangeTooltip!: (self: VanillaCalendarPro, dateEl: HTMLElement, tooltipEl: HTMLElement, dateElBCR: DOMRect, mainElBCR: DOMRect) => string;
-  onCreateDateEls!: (self: VanillaCalendarPro, dateEl: HTMLElement) => void;
-  onCreateMonthEls!: (self: VanillaCalendarPro, monthEl: HTMLElement) => void;
-  onCreateYearEls!: (self: VanillaCalendarPro, yearEl: HTMLElement) => void;
-  onInit!: (self: VanillaCalendarPro) => void;
-  onUpdate!: (self: VanillaCalendarPro) => void;
-  onDestroy!: (self: VanillaCalendarPro) => void;
-  onShow!: (self: VanillaCalendarPro) => void;
-  onHide!: (self: VanillaCalendarPro) => void;
+  onClickDate!: (self: Calendar, event: MouseEvent) => void;
+  onClickWeekDay!: (self: Calendar, day: number, dateEls: HTMLElement[], event: MouseEvent) => void;
+  onClickWeekNumber!: (self: Calendar, number: number, year: number, dateEls: HTMLElement[], event: MouseEvent) => void;
+  onClickTitle!: (self: Calendar, event: MouseEvent) => void;
+  onClickMonth!: (self: Calendar, event: MouseEvent) => void;
+  onClickYear!: (self: Calendar, event: MouseEvent) => void;
+  onClickArrow!: (self: Calendar, event: MouseEvent) => void;
+  onChangeTime!: (self: Calendar, event: Event, isError: boolean) => void;
+  onChangeToInput!: (self: Calendar, event: Event) => void;
+  onCreateDateRangeTooltip!: (self: Calendar, dateEl: HTMLElement, tooltipEl: HTMLElement, dateElBCR: DOMRect, mainElBCR: DOMRect) => string;
+  onCreateDateEls!: (self: Calendar, dateEl: HTMLElement) => void;
+  onCreateMonthEls!: (self: Calendar, monthEl: HTMLElement) => void;
+  onCreateYearEls!: (self: Calendar, yearEl: HTMLElement) => void;
+  onInit!: (self: Calendar) => void;
+  onUpdate!: (self: Calendar) => void;
+  onDestroy!: (self: Calendar) => void;
+  onShow!: (self: Calendar) => void;
+  onHide!: (self: Calendar) => void;
 
   popups: Popups = {};
   labels: Labels = { ...labels };

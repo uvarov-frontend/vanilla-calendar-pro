@@ -1,4 +1,4 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 import type labels from '@src/labels';
 import type options from '@src/options';
 import type styles from '@src/styles';
@@ -19,7 +19,7 @@ export type PositionToInput = 'auto' | 'center' | 'left' | 'right' | [Positions]
 
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
-export type ToggleSelected = boolean | ((self: VanillaCalendarPro) => boolean);
+export type ToggleSelected = boolean | ((self: Calendar) => boolean);
 
 export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
 

@@ -1,4 +1,4 @@
-import { type FormatDateString, type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
+import { Calendar, type FormatDateString, type Options } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
@@ -11,5 +11,5 @@ const options: Options = {
   },
 };
 
-const calendar = new VanillaCalendarPro('#calendar', options);
+const calendar = new Calendar('#calendar', options);
 calendar.init();

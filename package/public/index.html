@@ -12,12 +12,12 @@
     <div id="calendar"></div>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Destructuring the VanillaCalendarPro constructor and its utilities.
-        const { VanillaCalendarPro } = window.VanillaCalendarPro;
+        // Destructuring the Calendar constructor and its utilities.
+        const { Calendar } = window.VanillaCalendarPro;
         const { getDateString } = window.VanillaCalendarProUtils;
 
         // Instantiate the calendar and initialize it.
-        const calendar = new VanillaCalendarPro('#calendar');
+        const calendar = new Calendar('#calendar');
         calendar.init();
 
         // Create logs for demonstration.

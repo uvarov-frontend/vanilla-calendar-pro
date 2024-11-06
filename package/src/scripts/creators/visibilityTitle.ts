@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const visibilityHandler = (self: VanillaCalendarPro, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
+const visibilityHandler = (self: Calendar, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
   const yearID = new Date(initDate.setFullYear(self.context.selectedYear as number, (self.context.selectedMonth as number) + index)).getFullYear();
   const monthID = new Date(initDate.setMonth((self.context.selectedMonth as number) + index)).getMonth();
   const monthLabel = self.context.locale.months.long[monthID];
@@ -23,7 +23,7 @@ const visibilityHandler = (self: VanillaCalendarPro, el: HTMLButtonElement, inde
   el.disabled = isDisabled;
 };
 
-const visibilityTitle = (self: VanillaCalendarPro) => {
+const visibilityTitle = (self: Calendar) => {
   const monthEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
   const yearEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);

@@ -1,7 +1,7 @@
-import type { FormatDateString, VanillaCalendarPro } from '@src/index';
+import type { Calendar, FormatDateString } from '@src/index';
 
 const state: {
-  self: VanillaCalendarPro | null;
+  self: Calendar | null;
   lastDateEl: HTMLElement | null;
   isHovering: boolean;
   rangeMin: FormatDateString | undefined;

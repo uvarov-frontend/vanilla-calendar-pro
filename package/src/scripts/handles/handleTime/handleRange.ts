@@ -1,20 +1,20 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime12 from '@scripts/utils/transformTime12';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const updateInputAndTime = (self: VanillaCalendarPro, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {
+const updateInputAndTime = (self: Calendar, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {
   inputEl.value = value;
   handleActions(self, event, value, type);
 };
 
-const updateKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement | null, keeping: 'AM' | 'PM') => {
+const updateKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement | null, keeping: 'AM' | 'PM') => {
   if (!keepingTimeEl) return;
   self.context.selectedKeeping = keeping;
   keepingTimeEl.innerText = keeping;
 };
 
 const handleRange = (
-  self: VanillaCalendarPro,
+  self: Calendar,
   rangeEl: HTMLInputElement,
   inputEl: HTMLInputElement,
   keepingTimeEl: HTMLButtonElement | null,

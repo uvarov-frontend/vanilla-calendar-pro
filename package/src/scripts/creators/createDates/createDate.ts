@@ -2,15 +2,15 @@ import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
-import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
+import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
-const addWeekNumberForDate = (self: VanillaCalendarPro, dateEl: HTMLElement, dateStr: FormatDateString) => {
+const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
   const weekNumber = getWeekNumber(dateStr, self.firstWeekday);
   if (!weekNumber) return;
   dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
 };
 
-const setDaysAsDisabled = (self: VanillaCalendarPro, date: FormatDateString, dayWeekID: WeekDayID) => {
+const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
   const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.context.enableDates?.[0];
 
@@ -21,7 +21,7 @@ const setDaysAsDisabled = (self: VanillaCalendarPro, date: FormatDateString, day
 };
 
 const createDate = (
-  self: VanillaCalendarPro,
+  self: Calendar,
   currentYear: number,
   datesEl: HTMLElement,
   dateID: number,

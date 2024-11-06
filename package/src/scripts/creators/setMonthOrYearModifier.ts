@@ -1,8 +1,8 @@
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import type { Range, VanillaCalendarPro } from '@src/index';
+import type { Calendar, Range } from '@src/index';
 
-const setYearModifier = (self: VanillaCalendarPro, el: HTMLButtonElement, type: 'month' | 'year', selected: boolean, reset: boolean) => {
+const setYearModifier = (self: Calendar, el: HTMLButtonElement, type: 'month' | 'year', selected: boolean, reset: boolean) => {
   const selectors = {
     month: '[data-vc-months-month]',
     year: '[data-vc-years-year]',

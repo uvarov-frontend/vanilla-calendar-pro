@@ -30,7 +30,7 @@ import type {
   WeekDays,
 } from '@src/types';
 
-export class VanillaCalendarPro extends OptionsCalendar {
+export class Calendar extends OptionsCalendar {
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
   constructor(selector: HTMLElement | string, options?: Options) {
@@ -50,7 +50,7 @@ export class VanillaCalendarPro extends OptionsCalendar {
       },
     };
 
-    this.context.mainElement = typeof selector === 'string' ? (VanillaCalendarPro.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
+    this.context.mainElement = typeof selector === 'string' ? (Calendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
 
     if (options) replaceProperties(this, options);
   }
@@ -59,7 +59,7 @@ export class VanillaCalendarPro extends OptionsCalendar {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(errorMessages.notFoundSelector(selector));
 
-    VanillaCalendarPro.memoizedElements.set(selector, element);
+    Calendar.memoizedElements.set(selector, element);
     return element;
   }
 

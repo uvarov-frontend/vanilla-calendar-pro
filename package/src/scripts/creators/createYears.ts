@@ -3,9 +3,9 @@ import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
+const createYearEl = (self: Calendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
   yearEl.className = self.styles.yearsYear;
   yearEl.innerText = String(id);
@@ -19,7 +19,7 @@ const createYearEl = (self: VanillaCalendarPro, templateEl: HTMLButtonElement, s
   return yearEl;
 };
 
-const createYears = (self: VanillaCalendarPro, target?: HTMLElement) => {
+const createYears = (self: Calendar, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.context.selectedYear;
 
   self.context.currentType = 'year';

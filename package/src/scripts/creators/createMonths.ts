@@ -2,9 +2,9 @@ import createLayouts from '@scripts/creators/createLayouts';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const relationshipID = (self: VanillaCalendarPro) => {
+const relationshipID = (self: Calendar) => {
   if (self.type !== 'multiple') return 0;
   const columnEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
@@ -12,7 +12,7 @@ const relationshipID = (self: VanillaCalendarPro) => {
 };
 
 const createMonthEl = (
-  self: VanillaCalendarPro,
+  self: Calendar,
   templateEl: HTMLButtonElement,
   selected: number,
   titleShort: string,
@@ -33,7 +33,7 @@ const createMonthEl = (
   return monthEl;
 };
 
-const createMonths = (self: VanillaCalendarPro, target?: HTMLElement) => {
+const createMonths = (self: Calendar, target?: HTMLElement) => {
   const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
   const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.context.selectedYear as number);
   const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.context.selectedMonth;

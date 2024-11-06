@@ -1,7 +1,7 @@
 import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
-import type { Popup, VanillaCalendarPro } from '@src/index';
+import type { Calendar, Popup } from '@src/index';
 
-const handleDay = (self: VanillaCalendarPro, date: string, dateInfo: Popup, datesEl: HTMLElement) => {
+const handleDay = (self: Calendar, date: string, dateInfo: Popup, datesEl: HTMLElement) => {
   const dateEl = datesEl.querySelector<HTMLElement>(`[data-vc-date="${date}"]`);
   if (!dateEl) return;
 
@@ -32,7 +32,7 @@ const handleDay = (self: VanillaCalendarPro, date: string, dateInfo: Popup, date
   }
 };
 
-const createDatePopup = (self: VanillaCalendarPro, datesEl: HTMLElement) => {
+const createDatePopup = (self: Calendar, datesEl: HTMLElement) => {
   if (!self.popups) return;
   Object.entries(self.popups)?.forEach(([date, dateInfo]) => handleDay(self, date, dateInfo, datesEl));
 };

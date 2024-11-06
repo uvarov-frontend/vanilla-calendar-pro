@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const layoutMultiple = (self: VanillaCalendarPro) => `
+const layoutMultiple = (self: Calendar) => `
   <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
     <#ArrowPrev [month] />
     <#ArrowNext [month] />

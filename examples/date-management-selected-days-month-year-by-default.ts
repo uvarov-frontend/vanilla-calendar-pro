@@ -1,4 +1,4 @@
-import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
 
@@ -9,5 +9,5 @@ const options: Options = {
   selectedYear: 2022,
 };
 
-const calendar = new VanillaCalendarPro('#calendar', options);
+const calendar = new Calendar('#calendar', options);
 calendar.init();

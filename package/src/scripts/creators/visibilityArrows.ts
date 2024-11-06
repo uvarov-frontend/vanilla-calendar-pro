@@ -1,13 +1,13 @@
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
 const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement, isArrowPrevHidden: boolean, isArrowNextHidden: boolean) => {
   arrowPrevEl.style.visibility = isArrowPrevHidden ? 'hidden' : '';
   arrowNextEl.style.visibility = isArrowNextHidden ? 'hidden' : '';
 };
 
-const handleDefaultType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
+const handleDefaultType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
   const currentSelectedDate = getDate(getDateString(new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1)));
   const jumpDateMin = new Date(currentSelectedDate.getTime());
   const jumpDateMax = new Date(currentSelectedDate.getTime());
@@ -34,7 +34,7 @@ const handleDefaultType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, a
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
 
-const handleYearType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
+const handleYearType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
   const dateMin = getDate(self.context.dateMin);
   const dateMax = getDate(self.context.dateMax);
   const isArrowPrevHidden = !!(dateMin.getFullYear() && self.context.displayYear - 7 <= dateMin.getFullYear());
@@ -43,7 +43,7 @@ const handleYearType = (self: VanillaCalendarPro, arrowPrevEl: HTMLElement, arro
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
 
-const visibilityArrows = (self: VanillaCalendarPro) => {
+const visibilityArrows = (self: Calendar) => {
   if (self.context.currentType === 'month') return;
 
   const arrowPrevEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc-arrow="prev"]');

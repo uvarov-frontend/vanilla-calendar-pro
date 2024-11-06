@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const hide = (self: VanillaCalendarPro) => {
+const hide = (self: Calendar) => {
   if (!self.context.currentType) return;
   self.context.mainElement.dataset.vcCalendarHidden = '';
   if (self.onHide) self.onHide(self);

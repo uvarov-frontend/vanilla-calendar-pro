@@ -1,7 +1,7 @@
 import { getComponent } from '@scripts/components';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-export const parseLayout = (self: VanillaCalendarPro, template: string): string => {
+export const parseLayout = (self: Calendar, template: string): string => {
   return template
     .replace(/[\n\t]/g, '')
     .replace(/<#(?!\/?Multiple)(.*?)>/g, (_, tagContent) => {
@@ -14,7 +14,7 @@ export const parseLayout = (self: VanillaCalendarPro, template: string): string 
     .replace(/[\n\t]/g, '');
 };
 
-export const parseMultipleLayout = (self: VanillaCalendarPro, template: string): string => {
+export const parseMultipleLayout = (self: Calendar, template: string): string => {
   return template
     .replace(/<#Multiple>(.*?)<#\/Multiple>/gs, (_, content) => {
       const repeatedContent = Array(self.context.displayMonthsCount).fill(content).join('');

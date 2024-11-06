@@ -1,7 +1,7 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const destroy = (self: VanillaCalendarPro) => {
+const destroy = (self: Calendar) => {
   if (!self.context.isInit) throw new Error(errorMessages.notInit);
 
   if (self.inputMode) {

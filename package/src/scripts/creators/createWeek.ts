@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro, WeekDayID } from '@src/index';
+import type { Calendar, WeekDayID } from '@src/index';
 
-const createWeek = (self: VanillaCalendarPro) => {
+const createWeek = (self: Calendar) => {
   const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
   const weekdaysData = [...self.context.locale.weekdays.long].reduce(
     (acc, day, index) => [

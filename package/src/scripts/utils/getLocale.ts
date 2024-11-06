@@ -1,9 +1,9 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, '');
 
-const getLocaleWeekday = (self: VanillaCalendarPro, dayIndex: number, locale: string): void => {
+const getLocaleWeekday = (self: Calendar, dayIndex: number, locale: string): void => {
   const date = new Date(`1978-01-0${dayIndex + 1}T00:00:00.000Z`);
   const weekdayShort = date.toLocaleString(locale, { weekday: 'short', timeZone: 'UTC' });
   const weekdayLong = date.toLocaleString(locale, { weekday: 'long', timeZone: 'UTC' });
@@ -11,7 +11,7 @@ const getLocaleWeekday = (self: VanillaCalendarPro, dayIndex: number, locale: st
   self.context.locale.weekdays.long.push(capitalizeFirstLetter(weekdayLong));
 };
 
-const getLocaleMonth = (self: VanillaCalendarPro, monthIndex: number, locale: string): void => {
+const getLocaleMonth = (self: Calendar, monthIndex: number, locale: string): void => {
   const date = new Date(`1978-${String(monthIndex + 1).padStart(2, '0')}-01T00:00:00.000Z`);
   const monthShort = date.toLocaleString(locale, { month: 'short', timeZone: 'UTC' });
   const monthLong = date.toLocaleString(locale, { month: 'long', timeZone: 'UTC' });
@@ -19,7 +19,7 @@ const getLocaleMonth = (self: VanillaCalendarPro, monthIndex: number, locale: st
   self.context.locale.months.long.push(capitalizeFirstLetter(monthLong));
 };
 
-const getLocale = (self: VanillaCalendarPro): void => {
+const getLocale = (self: Calendar): void => {
   const isHasContextLocale =
     self.context.locale.weekdays.short[6] &&
     self.context.locale.weekdays.long[6] &&

@@ -2,9 +2,9 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import reset from '@scripts/methods/reset';
 import setPosition from '@scripts/utils/positions/setPosition';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const createToInput = (self: VanillaCalendarPro, isVisible = true) => {
+const createToInput = (self: Calendar, isVisible = true) => {
   const calendar = document.createElement('div');
   calendar.className = self.styles.calendar;
   calendar.dataset.vc = 'calendar';

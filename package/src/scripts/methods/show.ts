@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const show = (self: VanillaCalendarPro) => {
+const show = (self: Calendar) => {
   if (!self.context.currentType) {
     self.context.mainElement.click();
     return;

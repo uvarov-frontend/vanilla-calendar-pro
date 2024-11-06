@@ -2,9 +2,9 @@ import TimeInput from '@scripts/components/TimeInput';
 import TimeRange from '@scripts/components/TimeRange';
 import handleTime from '@scripts/handles/handleTime/handleTime';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type { ContextVariables, VanillaCalendarPro } from '@src/index';
+import type { Calendar, ContextVariables } from '@src/index';
 
-const createTime = (self: VanillaCalendarPro) => {
+const createTime = (self: Calendar) => {
   const timeEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="time"]');
   if (!self.selectionTimeMode || !timeEl) return;
 

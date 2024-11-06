@@ -1,7 +1,7 @@
 import getWeekNumber from '@scripts/utils/getWeekNumber';
-import type { FormatDateString, VanillaCalendarPro } from '@src/index';
+import type { Calendar, FormatDateString } from '@src/index';
 
-const createWeekNumbers = (self: VanillaCalendarPro, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => {
+const createWeekNumbers = (self: Calendar, firstDayWeek: number, days: number, weekNumbersEl: HTMLElement, datesEl: HTMLElement) => {
   if (!self.enableWeekNumbers) return;
   weekNumbersEl.textContent = '';
 

@@ -3,9 +3,9 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleInput from '@scripts/handles/handleInput';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const init = (self: VanillaCalendarPro) => {
+const init = (self: Calendar) => {
   self.context.originalElement = self.context.mainElement.cloneNode(true) as HTMLElement;
   self.context.isInit = true;
 

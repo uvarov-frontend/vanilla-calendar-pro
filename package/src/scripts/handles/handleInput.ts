@@ -1,8 +1,8 @@
 import createToInput from '@scripts/creators/createToInput';
 import setPosition from '@scripts/utils/positions/setPosition';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const handleInput = (self: VanillaCalendarPro) => {
+const handleInput = (self: Calendar) => {
   const cleanup: Array<() => void> = [];
   self.context.inputElement = self.context.mainElement as HTMLInputElement;
 

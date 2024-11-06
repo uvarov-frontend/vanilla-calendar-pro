@@ -1,4 +1,4 @@
-import { type Options, VanillaCalendarPro } from '@src/index';
+import { Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -23,6 +23,6 @@ const config: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const calendar = new VanillaCalendarPro('#calendar', config);
+  const calendar = new Calendar('#calendar', config);
   calendar.init();
 });

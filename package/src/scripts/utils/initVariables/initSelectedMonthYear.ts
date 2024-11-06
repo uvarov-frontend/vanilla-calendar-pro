@@ -1,8 +1,8 @@
 import getDate from '@scripts/utils/getDate';
 import parseDates from '@scripts/utils/parseDates';
-import type { Range, VanillaCalendarPro } from '@src/index';
+import type { Calendar, Range } from '@src/index';
 
-const initSelectedMonthYear = (self: VanillaCalendarPro) => {
+const initSelectedMonthYear = (self: Calendar) => {
   const isJumpToSelectedDate = self.enableJumpToSelectedDate && self.selectedDates?.[0] && self.selectedMonth === undefined && self.selectedYear === undefined;
 
   if (isJumpToSelectedDate) {

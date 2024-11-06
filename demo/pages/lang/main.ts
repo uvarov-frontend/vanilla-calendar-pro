@@ -1,4 +1,4 @@
-import { type Options, VanillaCalendarPro } from '@src/index';
+import { Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -63,7 +63,7 @@ const options: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const calendar = new VanillaCalendarPro('#calendar');
+  const calendar = new Calendar('#calendar');
   calendar.init();
 
   const btnSetEl = document.querySelector('#set-options');

@@ -1,9 +1,9 @@
 import getDate from '@scripts/utils/getDate';
 import getLocalDate from '@scripts/utils/getLocalDate';
 import parseDates from '@scripts/utils/parseDates';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const initRange = (self: VanillaCalendarPro) => {
+const initRange = (self: Calendar) => {
   // set self.context.displayDateMin, self.context.displayDateMax
   const dateMin =
     self.dateMin === 'today' ? getLocalDate() : self.dateMin instanceof Date || typeof self.dateMin === 'number' ? parseDates([self.dateMin])[0] : self.dateMin;

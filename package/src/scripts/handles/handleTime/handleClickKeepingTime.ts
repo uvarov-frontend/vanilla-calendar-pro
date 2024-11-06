@@ -1,8 +1,8 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
 import transformTime24 from '@scripts/utils/transformTime24';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const handleClickKeepingTime = (self: VanillaCalendarPro, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
+const handleClickKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
   const handleClickKeepingTimeAction = (event: Event) => {
     const newSelectedKeeping = self.context.selectedKeeping === 'AM' ? 'PM' : 'AM';
     const hour = transformTime24(self.context.selectedHours, newSelectedKeeping);

@@ -1,6 +1,6 @@
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const createDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement | null, dateEl: HTMLElement | null) => {
+const createDateRangeTooltip = (self: Calendar, tooltipEl: HTMLElement | null, dateEl: HTMLElement | null) => {
   if (!tooltipEl) return;
 
   if (!dateEl) {

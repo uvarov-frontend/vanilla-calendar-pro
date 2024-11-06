@@ -1,9 +1,9 @@
 import createToInput from '@scripts/creators/createToInput';
 import reset from '@scripts/methods/reset';
 import errorMessages from '@scripts/utils/getErrorMessages';
-import type { Reset, VanillaCalendarPro } from '@src/index';
+import type { Calendar, Reset } from '@src/index';
 
-const update = (self: VanillaCalendarPro, resetOptions?: Partial<Reset>) => {
+const update = (self: Calendar, resetOptions?: Partial<Reset>) => {
   if (!self.context.isInit) throw new Error(errorMessages.notInit);
   if (self.inputMode && !self.context.inputModeInit) createToInput(self, false);
   const defaultReset = { year: true, month: true, dates: true, time: true, locale: true };

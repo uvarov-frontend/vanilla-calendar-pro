@@ -3,9 +3,9 @@ import layoutMonths from '@scripts/layouts/layoutMonths';
 import layoutMultiple from '@scripts/layouts/layoutMultiple';
 import layoutYears from '@scripts/layouts/layoutYears';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const createLayouts = (self: VanillaCalendarPro, target?: HTMLElement) => {
+const createLayouts = (self: Calendar, target?: HTMLElement) => {
   const templateMap = {
     default: layoutDefault,
     month: layoutMonths,

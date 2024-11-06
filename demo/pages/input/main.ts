@@ -1,4 +1,4 @@
-import { type Options, VanillaCalendarPro } from '@src/index';
+import { Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -59,10 +59,10 @@ const configDiv: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const calendarInput = new VanillaCalendarPro('#calendar-input', configInput);
+  const calendarInput = new Calendar('#calendar-input', configInput);
   calendarInput.init();
 
-  const calendarDiv = new VanillaCalendarPro('#calendar-div', configDiv);
+  const calendarDiv = new Calendar('#calendar-div', configDiv);
   calendarDiv.init();
 
   document.querySelector('#set-date')?.addEventListener('click', () => {

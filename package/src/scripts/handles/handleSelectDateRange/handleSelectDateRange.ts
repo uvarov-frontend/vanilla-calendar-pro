@@ -7,9 +7,9 @@ import { removeHoverEffect } from '@scripts/handles/handleSelectDateRange/toggle
 import updateDisabledDates from '@scripts/handles/handleSelectDateRange/updateDisabledDates';
 import canToggleSelection from '@scripts/utils/canToggleSelection';
 import parseDates from '@scripts/utils/parseDates';
-import type { FormatDateString, VanillaCalendarPro } from '@src/index';
+import type { Calendar, FormatDateString } from '@src/index';
 
-const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | null) => {
+const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null) => {
   state.self = self;
   state.lastDateEl = dateEl;
 

@@ -1,5 +1,5 @@
 import observeHtmlElement from '@scripts/utils/observeHtmlElement';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
 const haveListener = {
   value: false,
@@ -7,9 +7,9 @@ const haveListener = {
   check: () => haveListener.value,
 };
 
-const setTheme = (htmlEl: HTMLElement, theme: VanillaCalendarPro['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
+const setTheme = (htmlEl: HTMLElement, theme: Calendar['selectedTheme']) => (htmlEl.dataset.vcTheme = theme);
 
-const trackChangesThemeInSystemSettings = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
+const trackChangesThemeInSystemSettings = (self: Calendar, supportDarkTheme: MediaQueryList) => {
   setTheme(self.context.mainElement, supportDarkTheme.matches ? 'dark' : 'light');
 
   if (self.selectedTheme !== 'system' || haveListener.check()) return;
@@ -28,7 +28,7 @@ const trackChangesThemeInSystemSettings = (self: VanillaCalendarPro, supportDark
   haveListener.set();
 };
 
-const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList) => {
+const detectTheme = (self: Calendar, supportDarkTheme: MediaQueryList) => {
   const detectedThemeEl: HTMLElement | null = self.themeAttrDetect.length ? document.querySelector(self.themeAttrDetect) : null;
   const attr = (self.themeAttrDetect as string).replace(/^.*\[(.+)\]/g, (_, p1) => p1);
 
@@ -49,7 +49,7 @@ const detectTheme = (self: VanillaCalendarPro, supportDarkTheme: MediaQueryList)
   }
 };
 
-const handleTheme = (self: VanillaCalendarPro) => {
+const handleTheme = (self: Calendar) => {
   if (!(window.matchMedia('(prefers-color-scheme)').media !== 'not all')) {
     setTheme(self.context.mainElement, 'light');
     return;

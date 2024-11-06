@@ -3,9 +3,9 @@ import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDat
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
-import type { VanillaCalendarPro } from '@src/index';
+import type { Calendar } from '@src/index';
 
-const createDates = (self: VanillaCalendarPro) => {
+const createDates = (self: Calendar) => {
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
   const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');

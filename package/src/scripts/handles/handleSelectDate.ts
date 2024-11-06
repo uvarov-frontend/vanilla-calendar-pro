@@ -1,7 +1,7 @@
 import canToggleSelection from '@scripts/utils/canToggleSelection';
-import type { FormatDateString, VanillaCalendarPro } from '@src/index';
+import type { Calendar, FormatDateString } from '@src/index';
 
-const handleSelectDate = (self: VanillaCalendarPro, dateEl: HTMLElement, multiple: boolean) => {
+const handleSelectDate = (self: Calendar, dateEl: HTMLElement, multiple: boolean) => {
   const selectedDate = dateEl.dataset.vcDate as FormatDateString;
   const isSelected = dateEl.closest('[data-vc-date][data-vc-date-selected]');
 
