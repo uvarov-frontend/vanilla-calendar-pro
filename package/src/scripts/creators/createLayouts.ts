@@ -1,7 +1,7 @@
-import layoutDefault from '@scripts/layouts/layoutDefault';
-import layoutMonths from '@scripts/layouts/layoutMonths';
-import layoutMultiple from '@scripts/layouts/layoutMultiple';
-import layoutYears from '@scripts/layouts/layoutYears';
+import layoutDefault from '@scripts/layouts/default';
+import layoutMonths from '@scripts/layouts/month';
+import layoutMultiple from '@scripts/layouts/multiple';
+import layoutYears from '@scripts/layouts/year';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
 import type { Calendar } from '@src/index';
 
