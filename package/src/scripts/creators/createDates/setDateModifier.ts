@@ -1,4 +1,5 @@
 import getDate from '@scripts/utils/getDate';
+import parseDates from '@scripts/utils/parseDates';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
 const updateAttribute = (el: HTMLElement | HTMLButtonElement, condition: boolean | undefined, attr: string, value = '') => {
@@ -38,7 +39,8 @@ const setDateModifier = (
   updateAttribute(dateEl, self.selectedWeekends?.includes(dayWeekID), 'data-vc-date-weekend');
 
   // Check if the date is a holiday
-  updateAttribute(dateEl, self.selectedHolidays?.includes(dateStr), 'data-vc-date-holiday');
+  const selectedHolidays = self.selectedHolidays?.[0] ? parseDates(self.selectedHolidays) : [];
+  updateAttribute(dateEl, selectedHolidays.includes(dateStr), 'data-vc-date-holiday');
 
   // Check if the date is selected
   if (self.context.selectedDates?.includes(dateStr)) {
