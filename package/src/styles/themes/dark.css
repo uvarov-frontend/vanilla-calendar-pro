@@ -2,7 +2,7 @@
   @apply bg-slate-900 text-white;
 }
 
-[data-vc-theme='dark'].vc_to-input {
+[data-vc-theme='dark'].vc[data-vc-input] {
   @apply shadow-[0_9px_20px_rgba(0,0,0,.1)];
 }
 
