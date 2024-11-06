@@ -4,7 +4,7 @@ const path = require('path');
 const { minify: minifyJs } = require('terser');
 const postcss = require('postcss');
 const cssnano = require('cssnano');
-const zlib = require('zlib');
+const pako = require('pako');
 const archiver = require('archiver');
 require('colors');
 
@@ -19,7 +19,7 @@ const logMessage = (type, file, originalSize, minifiedSize, gzipSize) => {
   console.log(`Minified ${type}: `.gray + `${file}`.blue + ' | ' + `${originalSizeKb} kB → ${minifiedSizeKb} kB `.green + `(gzip: ${gzipSizeKb} kB)`.magenta);
 };
 
-const getGzipSize = (content) => Buffer.byteLength(zlib.gzipSync(content));
+const getGzipSize = (content) => Buffer.byteLength(pako.gzip(content));
 
 const minifyFile = async (filePath, minifier) => {
   const fileContent = fs.readFileSync(filePath, 'utf8');

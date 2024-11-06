@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup npm package
-        run: npm ci
+        run: npm install
       - name: Testing
         uses: cypress-io/github-action@v6
         with:
