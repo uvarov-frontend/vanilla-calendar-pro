@@ -10,7 +10,7 @@ const handleActions = (self: VanillaCalendarPro, event: Event, value: string, ty
   self.private.selectedTime = `${self.private.selectedHours}:${self.private.selectedMinutes}${self.private.selectedKeeping ? ` ${self.private.selectedKeeping}` : ''}`;
 
   if (self.onChangeTime) self.onChangeTime(self, event, false);
-  if (self.isInput && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
+  if (self.inputMode && self.private.inputElement && self.private.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);
 };
 
 export default handleActions;

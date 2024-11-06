@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  isInput: true,
+  inputMode: true,
   onChangeToInput(self) {
     if (!self.private.inputElement) return;
     if (self.private.selectedDates[0]) {

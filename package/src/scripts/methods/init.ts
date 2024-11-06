@@ -9,7 +9,7 @@ const init = (self: VanillaCalendarPro) => {
   self.private.originalElement = self.private.mainElement.cloneNode(true) as HTMLElement;
   self.private.isInit = true;
 
-  if (self.isInput) return handleInput(self);
+  if (self.inputMode) return handleInput(self);
 
   initAllVariables(self);
   create(self);

@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  isInput: true,
+  inputMode: true,
   positionToInput: 'center',
   onChangeToInput(self) {
     if (!self.private.inputElement) return;

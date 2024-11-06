@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from '@src/index';
 import '@src/styles/index.css';
 
 const configInput: Options = {
-  isInput: true,
+  inputMode: true,
   positionToInput: 'center',
   onChangeToInput(self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;
@@ -17,7 +17,7 @@ const configInput: Options = {
 };
 
 const configDiv: Options = {
-  isInput: true,
+  inputMode: true,
   positionToInput: 'auto',
   onChangeToInput(self) {
     if (!self.private.selectedDates || !self.private.inputElement) return;

@@ -78,7 +78,7 @@ export type Reset = {
 
 export type PrivateVariables = {
   isInit: boolean;
-  isInputInit: boolean;
+  inputModeInit: boolean;
   currentType: TypesCalendar;
   locale: LocaleStated;
   mainElement: HTMLElement;
