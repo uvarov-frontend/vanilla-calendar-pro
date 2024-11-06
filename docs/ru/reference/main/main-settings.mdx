@@ -18,7 +18,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `input` указывает, что `HTMLElement`, переданный как первый параметр, представляет собой поле ввода, а не обертку для календаря.
 
-- - -
+---
 
 ## type
 
@@ -36,7 +36,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `type` определяет тип отображаемого календаря.
 
-- - -
+---
 
 ## months
 
@@ -54,7 +54,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `months` определяет количество отображаемых месяцев, если тип календаря установлен как `'multiple'`.
 
-- - -
+---
 
 ## jumpMonths
 
@@ -72,7 +72,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `jumpMonths` управляет количеством переключаемых месяцев.
 
-- - -
+---
 
 ## jumpToSelectedDate
 
@@ -88,18 +88,16 @@ new VanillaCalendar('#calendar', {
   settings: {
     selected: {
       dates: ['2018-05-02'],
-    }
+    },
   },
 });
 ```
 
 Если эта опция включена и указаны одна или несколько выбранных дат, но без указания `selected.month` и `selected.year`, календарь перейдет к первой выбранной дате. Если установлено значение `false`, календарь всегда будет открываться для текущего месяца и года.
 
-<Info>
-  Эта опция не имеет эффекта, если указаны `selected.month` и `selected.year`.
-</Info>
+<Info>Эта опция не имеет эффекта, если указаны `selected.month` и `selected.year`.</Info>
 
-- - -
+---
 
 ## sanitizer
 
@@ -118,10 +116,14 @@ new VanillaCalendar('#calendar', {
 `sanitizer` будет очищать HTML-шаблоны, чтобы они были безопасными для CSP.
 
 <Info>
-  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. Поскольку `sanitizer` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
+  Обратите внимание, что в качестве примера используется сторонняя библиотека{' '}
+  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
+    `dompurify`
+  </a>
+  . Поскольку `sanitizer` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
 </Info>
 
-- - -
+---
 
 ## toggleSelected
 
@@ -135,13 +137,13 @@ new VanillaCalendar('#calendar', {
 new VanillaCalendar('#calendar', {
   toggleSelected: false,
   // or with a callback
-  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  toggleSelected: (self) => new Date(self.selectedDates[0]) < new Date(),
 });
 ```
 
 Если параметр `toggleSelected` имеет значение `true` или обратный вызов возвращает `true`, то повторный клик на выбранную дату отменяет выбор.
 
-- - -
+---
 
 ## date.min
 
@@ -163,7 +165,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `date.min` устанавливает минимально допустимую дату, которую календарь будет учитывать, и которая не может быть меньше этой даты.
 
-- - -
+---
 
 ## date.max
 
@@ -185,7 +187,7 @@ new VanillaCalendar('#calendar', {
 
 Параметр `date.max` устанавливает максимально допустимую дату, которую календарь будет учитывать, и которая не может быть больше этой даты.
 
-- - -
+---
 
 ## date.today
 

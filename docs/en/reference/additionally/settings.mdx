@@ -58,7 +58,7 @@ new VanillaCalendar('#calendar', {
       min: '2022-07-01',
       // or
       min: 'today',
-    }
+    },
   },
 });
 ```
@@ -66,12 +66,11 @@ new VanillaCalendar('#calendar', {
 This parameter sets the minimum date that the user can choose. Dates earlier than the specified date will be disabled and not available for selection.
 
 <Info>
-  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create
+  them.
 </Info>
 
-<Info>
-  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
-</Info>
+<Info>You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.</Info>
 
 ---
 
@@ -90,7 +89,7 @@ new VanillaCalendar('#calendar', {
       max: '2024-07-01',
       // or
       max: 'today',
-    }
+    },
   },
 });
 ```
@@ -98,12 +97,11 @@ new VanillaCalendar('#calendar', {
 This parameter sets the maximum date that the user can choose. Dates later than the specified date will be disabled and not available for selection.
 
 <Info>
-  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create
+  them.
 </Info>
 
-<Info>
-  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
-</Info>
+<Info>You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.</Info>
 
 ---
 
@@ -120,7 +118,7 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       edgesOnly: true,
-    }
+    },
   },
 });
 ```
@@ -128,7 +126,8 @@ new VanillaCalendar('#calendar', {
 This parameter will keep references of the date range edges only, which are the Start and End dates in `settings.selected.dates` but nothing in between the range. It only works when <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
 
 <Info>
-  It's important to note that with this setting, disabling dates within the date range will have no effect. So make sure to use this parameter when you are interested with only the start and end date but nothing in-between.
+  It's important to note that with this setting, disabling dates within the date range will have no effect. So make sure to use this parameter when you are
+  interested with only the start and end date but nothing in-between.
 </Info>
 
 ---
@@ -146,7 +145,7 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       disablePast: true,
-    }
+    },
   },
 });
 ```
@@ -168,7 +167,7 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       disableGaps: true,
-    }
+    },
   },
 });
 ```
@@ -190,7 +189,7 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       disableAllDays: true,
-    }
+    },
   },
 });
 ```
@@ -212,7 +211,7 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       disableWeekday: [0, 6],
-    }
+    },
   },
 });
 ```
@@ -234,16 +233,14 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       disabled: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    }
+    },
   },
 });
 ```
 
 This parameter allows you to disable specific dates regardless of the specified range.
 
-<Info>
-  To specify a range dates, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a range dates, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -260,16 +257,14 @@ new VanillaCalendar('#calendar', {
   settings: {
     range: {
       enabled: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
-    }
+    },
   },
 });
 ```
 
 This parameter allows you to enable specific dates regardless of the range and disabled dates.
 
-<Info>
-  To specify a range dates, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a range dates, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -469,9 +464,7 @@ new VanillaCalendar('#calendar', {
 
 This parameter allows you to specify a list of dates that will be selected when the calendar is initialized.
 
-<Info>
-  To specify a range dates, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a range dates, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -539,9 +532,7 @@ new VanillaCalendar('#calendar', {
 
 This parameter allows you to specify dates that will be considered holidays and will receive additional CSS modifiers.
 
-<Info>
-  To specify a range dates, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a range dates, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -606,6 +597,7 @@ new VanillaCalendar('#calendar', {
   },
 });
 ```
+
 To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector.
 Square brackets indicate an attribute containing the theme name.
 By default, it tracks the `html` tag with the `data-theme` attribute, but you can customize any other attribute and tag, such as `class`, if the class name is used to set the theme: `'html[class]'`.
