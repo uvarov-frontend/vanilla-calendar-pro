@@ -3,7 +3,6 @@
 **/next/**
 **/demo/build/**
 **/package/dist/**
-**/package/utilities/**
 **/package.json
 **/package-lock.json
 **/yarn.lock
