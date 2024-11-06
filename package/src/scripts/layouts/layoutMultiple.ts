@@ -23,6 +23,7 @@ const layoutMultiple = (self: VanillaCalendarPro) => `
         </div>
       </div>
     <#/Multiple>
+    <#DateRangeTooltip />
   </div>
   <#ControlTime />
 `;

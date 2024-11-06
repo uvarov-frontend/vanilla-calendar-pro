@@ -29,7 +29,7 @@ export default class OptionsCalendar {
 
   firstWeekday: WeekDayID = 1;
   monthsToSwitch: 1 | MonthsCount = 1;
-  themeAttrDetect: string | false = 'html[data-theme]';
+  themeAttrDetect: string = 'html[data-theme]';
 
   locale: Locale = 'en';
 
@@ -89,6 +89,7 @@ export default class OptionsCalendar {
   onClickArrow!: (self: VanillaCalendarPro, event: MouseEvent) => void;
   onChangeTime!: (self: VanillaCalendarPro, event: Event, isError: boolean) => void;
   onChangeToInput!: (self: VanillaCalendarPro, event: Event) => void;
+  onCreateDateRangeTooltip!: (self: VanillaCalendarPro, dateEl: HTMLElement, tooltipEl: HTMLElement, dateElBCR: DOMRect, mainElBCR: DOMRect) => string;
   onCreateDateEls!: (self: VanillaCalendarPro, dateEl: HTMLElement) => void;
   onCreateMonthEls!: (self: VanillaCalendarPro, monthEl: HTMLElement) => void;
   onCreateYearEls!: (self: VanillaCalendarPro, yearEl: HTMLElement) => void;

@@ -1,7 +1,7 @@
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
-import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
+import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 
@@ -25,7 +25,7 @@ const handleClickDate = (self: VanillaCalendarPro, event: MouseEvent) => {
   const daySelectionActions = {
     single: () => handleSelectDate(self, dateEl, false),
     multiple: () => handleSelectDate(self, dateEl, true),
-    'multiple-ranged': () => handleSelectDateRanged(self, dateEl.dataset.vcDate as FormatDateString),
+    'multiple-ranged': () => handleSelectDateRanged(self, dateEl),
   };
   daySelectionActions[self.selectionDatesMode]();
   self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
