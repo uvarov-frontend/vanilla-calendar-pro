@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from '@src/index';
 import '@src/styles/index.css';
 
 const options: Options = {
-  viewType: 'multiple',
+  type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   disableDatesGaps: true,
   // disableDatesPast: true,

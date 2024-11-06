@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from '@src/index';
 import '@src/styles/index.css';
 
 const config: Options = {
-  viewType: 'multiple',
+  type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   selectedMonth: 3,
   selectedYear: 2023,

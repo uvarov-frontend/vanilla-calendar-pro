@@ -5,7 +5,7 @@ import getDate from '@scripts/utils/getDate';
 import type { VanillaCalendarPro } from '@src/index';
 
 const relationshipID = (self: VanillaCalendarPro) => {
-  if (self.viewType !== 'multiple') return 0;
+  if (self.type !== 'multiple') return 0;
   const columnEls = self.private.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
   const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
   return indexColumn > 0 ? indexColumn : 0;

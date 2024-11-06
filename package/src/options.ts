@@ -22,7 +22,7 @@ import type {
 } from '@src/types';
 
 export default class OptionsCalendar {
-  viewType: TypesCalendar = 'default';
+  type: TypesCalendar = 'default';
 
   isInput: boolean = false;
   positionToInput: PositionToInput = 'left';

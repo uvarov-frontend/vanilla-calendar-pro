@@ -4,7 +4,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   isInput: true,
-  viewType: 'multiple',
+  type: 'multiple',
   displayDatesOutside: false,
   disableDatesPast: true,
   selectionDatesMode: 'multiple-ranged',

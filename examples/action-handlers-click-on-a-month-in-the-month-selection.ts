@@ -3,7 +3,7 @@ import { type Options, VanillaCalendarPro } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  viewType: 'month',
+  type: 'month',
   onClickMonth(self) {
     console.log(self.private.selectedMonth);
   },

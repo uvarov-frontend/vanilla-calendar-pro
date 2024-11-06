@@ -6,7 +6,7 @@ import initTime from '@scripts/utils/initVariables/initTime';
 import type { VanillaCalendarPro } from '@src/index';
 
 const initAllVariables = (self: VanillaCalendarPro) => {
-  self.private.currentType = self.viewType;
+  self.private.currentType = self.type;
   initMonthsCount(self);
   initRange(self);
   initSelectedMonthYear(self);
