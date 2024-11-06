@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup npm package
-        run: npm install
+        run: npm ci
       - name: Testing
         uses: cypress-io/github-action@v6
         with:
