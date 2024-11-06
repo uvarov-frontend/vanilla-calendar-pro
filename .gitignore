@@ -8,6 +8,7 @@ node_modules
 # Dist & test
 demo/build
 demo/dist
+package/dist
 
 # Tests
 cypress/videos

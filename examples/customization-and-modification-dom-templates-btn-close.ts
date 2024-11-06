@@ -1,25 +1,23 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
-  input: true,
-  actions: {
-    changeToInput(e, self) {
-      if (!self.HTMLInputElement) return;
-      if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
-      } else {
-        self.HTMLInputElement.value = '';
-      }
-    },
-    initCalendar(self) {
-      const btnEl = self.HTMLElement.querySelector("#btn-close");
-      if (!btnEl) return;
-      btnEl.addEventListener("click", self.hide);
-    },
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
+  inputMode: true,
+  onChangeToInput(self) {
+    if (!self.context.inputElement) return;
+    if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
+    } else {
+      self.context.inputElement.value = '';
+    }
   },
-  DOMTemplates: {
+  onInit(self) {
+    const btnEl = self.context.mainElement.querySelector('#btn-close');
+    if (!btnEl) return;
+    btnEl.addEventListener('click', self.hide);
+  },
+  layouts: {
     default: `
       <div class="vanilla-calendar-header">
         <#ArrowPrev />
@@ -42,5 +40,5 @@ const options: IOptions = {
   },
 };
 
-const calendar = new VanillaCalendar('#calendar-input', options);
+const calendar = new Calendar('#calendar-input', options);
 calendar.init();

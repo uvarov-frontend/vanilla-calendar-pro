@@ -1,0 +1,280 @@
+[data-vc='calendar'] {
+  @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity;
+}
+
+[data-vc='calendar']:focus-visible,
+[data-vc='calendar'] button:focus-visible,
+[data-vc='calendar'] [tabindex='0']:focus-visible {
+  @apply outline outline-1 -outline-offset-1 rounded-lg;
+}
+
+[data-vc='calendar'][data-vc-type='multiple'] [data-vc='dates'] {
+  @apply grow-0;
+}
+
+[data-vc='calendar'][data-vc-calendar-hidden] {
+  @apply opacity-0 pointer-events-none [&_*]:!pointer-events-none;
+}
+
+[data-vc='calendar'][data-vc-input] {
+  @apply absolute;
+}
+
+[data-vc='calendar'][data-vc-input][data-vc-position='bottom'] {
+  @apply mt-1;
+}
+
+[data-vc='calendar'][data-vc-input][data-vc-position='top'] {
+  @apply -mt-1;
+}
+
+[data-vc='controls'] {
+  @apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content;
+}
+
+[data-vc-arrow] {
+  @apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent
+	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-no-repeat before:bg-center;
+}
+
+[data-vc-arrow='prev']::before {
+  transform: rotateZ(90deg);
+}
+
+[data-vc-arrow='next']::before {
+  transform: rotateZ(-90deg);
+}
+
+[data-vc='grid'] {
+  @apply flex flex-wrap gap-7 grow;
+}
+
+[data-vc='grid'][data-vc-grid='hidden'] [data-vc='column'] {
+  @apply opacity-30 pointer-events-none;
+}
+
+[data-vc='grid'][data-vc-grid='hidden'] [data-vc='column'][data-vc-column='month'],
+[data-vc='grid'][data-vc-grid='hidden'] [data-vc='column'][data-vc-column='year'] {
+  @apply opacity-100 pointer-events-auto;
+}
+
+[data-vc='column'] {
+  @apply min-w-[240px] flex flex-col grow;
+}
+
+[data-vc='header'] {
+  @apply relative flex items-center mb-3;
+}
+
+[data-vc-header='content'] {
+  @apply grid grid-flow-col auto-cols-max items-center justify-center px-4 whitespace-pre-wrap grow;
+}
+
+[data-vc='month'],
+[data-vc='year'] {
+  @apply text-base font-bold cursor-pointer rounded p-1 border-0 bg-transparent disabled:pointer-events-none;
+}
+
+[data-vc='wrapper'] {
+  @apply flex grow;
+}
+
+[data-vc='content'] {
+  @apply flex flex-col grow;
+}
+
+[data-vc='months'] {
+  @apply grid gap-y-4 gap-x-1 grid-cols-4 items-center grow;
+}
+
+[data-vc='years'] {
+  @apply grid gap-y-4 gap-x-1 grid-cols-5 items-center grow;
+}
+
+[data-vc-months-month],
+[data-vc-years-year] {
+  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer disabled:pointer-events-none;
+}
+
+[data-vc-week='numbers'] {
+  @apply flex flex-col;
+}
+
+[data-vc-week-numbers='title'] {
+  @apply text-xs font-bold flex items-center justify-center mb-2;
+}
+
+[data-vc-week-numbers='content'] {
+  @apply grid grid-flow-row items-center justify-items-center gap-y-1;
+}
+
+[data-vc-week-number] {
+  @apply text-xs font-semibold w-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
+}
+
+[data-vc='week'] {
+  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center mb-2;
+}
+
+[data-vc-week-day] {
+  @apply text-xs font-bold w-full min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
+}
+
+[data-vc='dates'] {
+  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center grow pointer-events-none;
+}
+
+[data-vc='dates'][data-vc-dates-disabled] [data-vc-date-btn] {
+  @apply cursor-default;
+}
+
+[data-vc-date] {
+  @apply relative w-full flex items-center justify-center py-0.5 pointer-events-auto;
+}
+
+[data-vc-date][data-vc-date-disabled],
+[data-vc-date][data-vc-date-disabled] [data-vc-date-btn],
+[data-vc-date]:not(:has([data-vc-date-btn])) {
+  @apply pointer-events-none;
+}
+
+[data-vc-date][data-vc-date-hover] [data-vc-date-btn] {
+  @apply rounded-none;
+}
+
+[data-vc-date][data-vc-date-hover-first] [data-vc-date-btn] {
+  @apply rounded-r-none rounded-l-lg;
+}
+
+[data-vc-date][data-vc-date-hover-last] [data-vc-date-btn] {
+  @apply rounded-l-none rounded-r-lg;
+}
+
+[data-vc-date][data-vc-date-hover-first][data-vc-date-hover-last] [data-vc-date-btn] {
+  @apply rounded-lg;
+}
+
+[data-vc-date][data-vc-date-hover-first][data-vc-date-selected] [data-vc-date-btn] {
+  @apply rounded-l-lg;
+}
+
+[data-vc-date][data-vc-date-hover-last][data-vc-date-selected] [data-vc-date-btn] {
+  @apply rounded-r-lg;
+}
+
+[data-vc-date][data-vc-date-selected='first'] [data-vc-date-btn] {
+  @apply rounded-r-none rounded-l-lg;
+}
+
+[data-vc-date][data-vc-date-selected='last'] [data-vc-date-btn] {
+  @apply rounded-l-none rounded-r-lg;
+}
+
+[data-vc-date][data-vc-date-selected='first'][data-vc-date-selected='last'] [data-vc-date-btn] {
+  @apply rounded-l-lg rounded-r-lg;
+}
+
+[data-vc-date][data-vc-date-selected='middle'] [data-vc-date-btn] {
+  @apply rounded-none;
+}
+
+[data-vc-date][data-vc-date-disabled] + [data-vc-date-selected] [data-vc-date-btn],
+[data-vc-date][data-vc-date-disabled] + [data-vc-date-hover] [data-vc-date-btn] {
+  @apply rounded-l-lg;
+}
+
+[data-vc-date][data-vc-date-hover]:has(+ [data-vc-date-disabled]) [data-vc-date-btn],
+[data-vc-date][data-vc-date-selected]:has(+ [data-vc-date-disabled]) [data-vc-date-btn] {
+  @apply rounded-r-lg;
+}
+
+[data-vc-date-btn]:focus-visible + [data-vc-date-popup],
+[data-vc-date-btn]:hover + [data-vc-date-popup],
+[data-vc-date-popup]:focus-visible,
+[data-vc-date-popup]:hover {
+  @apply opacity-100 pointer-events-auto;
+}
+
+[data-vc-date-btn] {
+  @apply text-xs font-normal w-full h-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center rounded-lg border-0 p-0 cursor-pointer transition-all duration-75;
+}
+
+[data-vc-date][data-vc-date-today] [data-vc-date-btn] {
+  @apply font-bold;
+}
+
+[data-vc-date-popup] {
+  @apply absolute z-20 top-full w-36 py-2 px-3 text-xs font-normal rounded-lg transition-opacity duration-75 opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
+}
+
+[data-vc-date-range-tooltip] {
+  @apply absolute z-30 max-w-36 py-1 px-2 text-xs font-normal rounded-md pointer-events-none -translate-x-1/2 -translate-y-full;
+}
+
+[data-vc-date-range-tooltip='hidden'] {
+  @apply opacity-0;
+}
+
+[data-vc-date-range-tooltip='visible'] {
+  @apply opacity-100;
+}
+
+[data-vc='time'] {
+  @apply grid grid-cols-[auto_1fr] gap-3 border-solid border-t border-b-0 border-l-0 border-r-0 pt-3 mt-3;
+}
+
+[data-vc-time='content'] {
+  @apply grid grid-flow-col items-center;
+}
+
+[data-vc-time-input='hour'] {
+  @apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[5px] after:top-1/2 after:mt-[calc(-50%_+_1px)];
+}
+
+[data-vc-time-input='minute'] {
+  @apply w-7;
+}
+
+[data-vc-time-input='hour'] input,
+[data-vc-time-input='minute'] input {
+  @apply box-border relative block text-lg leading-[1.125rem] font-semibold text-center w-full p-[0.125rem] m-0 border-0 rounded disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline;
+}
+
+[data-vc-time='keeping'] {
+  @apply ml-[1px] cursor-pointer text-[0.69rem] w-[22px] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0;
+}
+
+[data-vc-time='ranges'] {
+  @apply grid grid-flow-row;
+}
+
+[data-vc-time-range] {
+  @apply text-[0] relative z-10 before:left-0 after:right-0;
+}
+
+[data-vc-time-range]::before,
+[data-vc-time-range]::after {
+  content: '';
+  transform: translateY(-50%);
+  @apply w-[1px] h-2 absolute z-10 pointer-events-none top-1/2;
+}
+
+[data-vc-time-range] input {
+  @apply w-full relative appearance-none h-5 cursor-pointer m-0 outline-0;
+}
+
+[data-vc-time-range] input::-webkit-slider-thumb {
+  @apply appearance-none -mt-2 relative z-20 box-border border border-solid h-4 w-3 shadow-none rounded cursor-pointer;
+}
+
+[data-vc-time-range] input::-moz-range-thumb {
+  @apply relative z-20 box-border border border-solid h-4 w-3 shadow-none rounded cursor-pointer;
+}
+
+[data-vc-time-range] input::-webkit-slider-runnable-track {
+  @apply box-border w-full h-[1px] mt-[1px] cursor-pointer shadow-none;
+}
+
+[data-vc-time-range] input::-moz-range-track {
+  @apply box-border w-full h-[1px] mt-[1px] cursor-pointer shadow-none;
+}

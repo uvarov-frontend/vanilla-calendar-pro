@@ -1,14 +1,12 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
-  actions: {
-    clickArrow(event, self) {
-      console.log(self.selectedYear, self.selectedMonth);
-    },
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
+  onClickArrow(self) {
+    console.log(self.context.selectedYear, self.context.selectedMonth);
   },
 };
 
-const calendar = new VanillaCalendar('#calendar', options);
+const calendar = new Calendar('#calendar', options);
 calendar.init();

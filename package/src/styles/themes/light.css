@@ -1,274 +1,245 @@
-[data-calendar-theme="light"].vanilla-calendar {
-	@apply bg-white text-slate-900
+[data-vc-theme='light'].vc {
+  @apply bg-white text-slate-900;
 }
 
-[data-calendar-theme="light"].vanilla-calendar_to-input {
-	@apply shadow-[0_9px_20px_rgba(0,0,0,.1)]
+[data-vc-theme='light'].vc[data-vc-input] {
+  @apply shadow-[0_9px_20px_rgba(0,0,0,.1)];
 }
 
-[data-calendar-theme="light"].vanilla-calendar button:focus-visible {
-	@apply outline-orange-300
+[data-vc-theme='light'].vc:focus-visible,
+[data-vc-theme='light'].vc button:focus-visible,
+[data-vc-theme='light'].vc [tabindex='0']:focus-visible {
+  @apply outline-orange-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-arrow {
-	@apply bg-transparent
+[data-vc-theme='light'] .vc-arrow {
+  @apply bg-transparent before:bg-light-arrow surehover:hover:before:opacity-60;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-arrow::before {
-	@apply bg-light-arrow;
+[data-vc-theme='light'] .vc-header__content {
+  @apply text-slate-900;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-arrow:hover::before {
-	@apply opacity-60
+[data-vc-theme='light'] .vc-month,
+[data-vc-theme='light'] .vc-year {
+  @apply text-slate-900 surehover:hover:text-slate-500 disabled:text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-header__content {
-	@apply text-slate-900
+[data-vc-theme='light'] .vc-months__month,
+[data-vc-theme='light'] .vc-years__year {
+  @apply bg-white text-slate-500 surehover:hover:bg-slate-100 disabled:text-slate-300 disabled:surehover:hover:text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-month,
-[data-calendar-theme="light"] .vanilla-calendar-year {
-	@apply text-slate-900 hover:text-slate-500
+[data-vc-theme='light'] .vc-months__month[data-vc-months-month-selected],
+[data-vc-theme='light'] .vc-years__year[data-vc-years-year-selected] {
+  @apply bg-cyan-500 text-white surehover:hover:bg-cyan-500 surehover:hover:text-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-month.vanilla-calendar-month_not-active,
-[data-calendar-theme="light"] .vanilla-calendar-year.vanilla-calendar-year_not-active {
-	@apply text-slate-400
+[data-vc-theme='light'] .vc-week-numbers__title {
+  @apply text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-month.vanilla-calendar-month_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-year.vanilla-calendar-year_disabled {
-	@apply text-slate-300
+[data-vc-theme='light'] .vc-week-number {
+  @apply text-slate-500 surehover:hover:text-slate-600;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-months__month {
-	@apply bg-white text-slate-500 hover:bg-slate-100
+[data-vc-theme='light'] .vc-week__day {
+  @apply text-slate-500 surehover:hover:text-slate-600;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-months__month.vanilla-calendar-months__month_selected {
-	@apply bg-cyan-500 text-white hover:bg-cyan-500 hover:text-white
+[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off] {
+  @apply text-rose-500 surehover:hover:text-rose-600;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-months__month.vanilla-calendar-months__month_disabled {
-	@apply text-slate-300 hover:text-slate-300
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-selected] .vc-date__btn {
+  @apply bg-rose-500 bg-opacity-70 text-white surehover:hover:bg-rose-500 surehover:hover:bg-opacity-70 surehover:hover:text-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-years__year {
-	@apply bg-white text-slate-500 hover:bg-slate-100
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-weekend][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-holiday][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn {
+  @apply bg-slate-200 text-slate-500 surehover:hover:bg-slate-200 surehover:hover:text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-years__year.vanilla-calendar-years__year_selected {
-	@apply bg-cyan-500 text-white hover:bg-cyan-500 hover:text-white
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-selected] .vc-date__btn {
+  @apply bg-cyan-500 bg-opacity-70 text-white surehover:hover:bg-cyan-500 surehover:hover:bg-opacity-70 surehover:hover:text-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-years__year.vanilla-calendar-years__year_disabled {
-	@apply text-slate-300 hover:text-slate-300
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-month='prev'][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected='middle'][data-vc-date-month='next'][data-vc-date-selected] .vc-date__btn {
+  @apply bg-slate-200 text-slate-500 surehover:hover:bg-slate-200 surehover:hover:text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-week-numbers__title {
-	@apply text-slate-500
+[data-vc-theme='light'] .vc-date__btn {
+  @apply text-slate-900 bg-white surehover:hover:bg-slate-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-week-number {
-	@apply text-slate-500 hover:text-slate-600
+[data-vc-theme='light'] .vc-date[data-vc-date-today] .vc-date__btn {
+  @apply text-cyan-500 surehover:hover:text-cyan-500 bg-slate-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-week__day {
-	@apply text-slate-500
+[data-vc-theme='light'] .vc-date[data-vc-date-today][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-today][data-vc-date-month='next'] .vc-date__btn {
+  @apply text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-week__day_weekend {
-	@apply text-rose-500
+[data-vc-theme='light'] .vc-date[data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-month='next'] .vc-date__btn {
+  @apply text-slate-400;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_selected {
-	@apply bg-rose-500 bg-opacity-70 text-white hover:bg-rose-500 hover:bg-opacity-70 hover:text-white
+[data-vc-theme='light'] .vc-date[data-vc-date-disabled] .vc-date__btn {
+  @apply text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_selected {
-	@apply bg-slate-200 text-slate-500 hover:bg-slate-200 hover:text-slate-500
+[data-vc-theme='light'] .vc-date[data-vc-date-hover] .vc-date__btn {
+  @apply bg-slate-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected {
-	@apply bg-cyan-500 bg-opacity-70 text-white hover:bg-cyan-500 hover:bg-opacity-70 hover:text-white
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday] .vc-date__btn {
+  @apply text-rose-500 surehover:hover:bg-rose-50;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected.vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day_selected-intermediate .vanilla-calendar-day__btn_selected.vanilla-calendar-day__btn_next {
-	@apply bg-slate-200 text-slate-500 hover:bg-slate-200 hover:text-slate-500
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover] .vc-date__btn {
+  @apply bg-rose-50;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn {
-	@apply text-slate-900 bg-white hover:bg-slate-100
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-disabled] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-disabled] .vc-date__btn {
+  @apply text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_today {
-	@apply text-cyan-500 hover:text-cyan-500 bg-slate-100
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-today] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-today] .vc-date__btn {
+  @apply text-rose-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_next {
-	@apply text-slate-500
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-disabled] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-disabled] .vc-date__btn {
+  @apply text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_next {
-	@apply text-slate-400
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-month='next'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-month='next'] .vc-date__btn {
+  @apply bg-white text-slate-400 surehover:hover:bg-slate-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_disabled {
-	@apply text-slate-300
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month='next'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month='next'] .vc-date__btn {
+  @apply bg-slate-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_hover {
-	@apply bg-slate-100
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-month='next'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-month='next'] .vc-date__btn {
+  @apply text-slate-400;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday {
-	@apply text-rose-500 hover:bg-rose-50
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-disabled][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-disabled][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-disabled][data-vc-date-month='next'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-disabled][data-vc-date-month='next'] .vc-date__btn {
+  @apply text-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_hover {
-	@apply bg-rose-50
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-selected] .vc-date__btn {
+  @apply bg-rose-500 text-white surehover:hover:bg-rose-500 surehover:hover:text-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_disabled {
-	@apply text-slate-300
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-selected][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-selected][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-selected][data-vc-date-month='next'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-selected][data-vc-date-month='next'] .vc-date__btn {
+  @apply bg-slate-300 text-slate-500 surehover:hover:bg-slate-300 surehover:hover:text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_today,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_today {
-	@apply text-rose-500
+[data-vc-theme='light'] .vc-date[data-vc-date-selected] .vc-date__btn {
+  @apply bg-cyan-500 text-white surehover:hover:bg-cyan-500 surehover:hover:text-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_today.vanilla-calendar-day__btn_disabled {
-	@apply text-slate-300
+[data-vc-theme='light'] .vc-date[data-vc-date-selected][data-vc-date-month='prev'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-selected][data-vc-date-month='next'] .vc-date__btn {
+  @apply bg-slate-300 text-slate-500 surehover:hover:bg-slate-300 surehover:hover:text-slate-500;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next {
-	@apply bg-white text-slate-400 hover:bg-slate-100
+[data-vc-theme='light'] .vc-date__popup {
+  @apply text-slate-900 bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.2)];
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_hover,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_hover {
-	@apply bg-slate-100
+[data-vc-theme='light'] .vc-date-range-tooltip {
+  @apply text-slate-500 bg-slate-50 shadow-[0px_1px_4px_rgba(85,85,85,0.2)];
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_today,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_today,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_today {
-	@apply text-slate-400
+[data-vc-theme='light'] .vc-time {
+  @apply border-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_disabled,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_disabled {
-	@apply text-slate-300
+[data-vc-theme='light'] .vc-time__hour,
+[data-vc-theme='light'] .vc-time__minute {
+  @apply after:text-slate-900;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_selected {
-	@apply bg-rose-500 text-white hover:bg-rose-500 hover:text-white
+[data-vc-theme='light'] .vc-time__hour input,
+[data-vc-theme='light'] .vc-time__minute input {
+  @apply text-slate-900 bg-white surehover:hover:bg-orange-100 focus-visible:outline-orange-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_prev.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_weekend.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_selected,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_holiday.vanilla-calendar-day__btn_next.vanilla-calendar-day__btn_selected {
-	@apply bg-slate-300 text-slate-500 hover:bg-slate-300 hover:text-slate-500
+[data-vc-theme='light'] .vc-time__hour input[data-vc-input-focus],
+[data-vc-theme='light'] .vc-time__minute input[data-vc-input-focus] {
+  @apply bg-orange-100;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_selected {
-	@apply bg-cyan-500 text-white hover:bg-cyan-500 hover:text-white
+[data-vc-theme='light'] .vc-time__keeping {
+  @apply text-slate-500 surehover:hover:bg-orange-100 focus-visible:outline-orange-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_selected.vanilla-calendar-day__btn_prev,
-[data-calendar-theme="light"] .vanilla-calendar-day__btn_selected.vanilla-calendar-day__btn_next {
-	@apply bg-slate-300 text-slate-500 hover:bg-slate-300 hover:text-slate-500
+[data-vc-theme='light'] .vc-time__range input {
+  @apply bg-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__popup {
-	@apply text-slate-900
+[data-vc-theme='light'] .vc-time__range::before,
+[data-vc-theme='light'] .vc-time__range::after {
+  @apply bg-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-day__popup::before {
-	@apply bg-white shadow-[0_3px_15px_rgba(85,_85,_85,_0.2)]
+[data-vc-theme='light'] .vc-time__range:hover input::-webkit-slider-thumb {
+  @apply border-slate-400;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time {
-	@apply border-slate-300
+[data-vc-theme='light'] .vc-time__range:hover input::-moz-range-thumb {
+  @apply border-slate-400;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__hours {
-	@apply after:text-slate-900
+[data-vc-theme='light'] .vc-time__range input:focus-visible::-webkit-slider-thumb {
+  @apply border-orange-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__hours input,
-[data-calendar-theme="light"] .vanilla-calendar-time__minutes input {
-	@apply text-slate-900 bg-white hover:bg-orange-100 focus-visible:outline-orange-300
+[data-vc-theme='light'] .vc-time__range input:focus-visible::-moz-range-thumb {
+  @apply border-orange-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__hours input.vanilla-calendar-is-focus,
-[data-calendar-theme="light"] .vanilla-calendar-time__minutes input.vanilla-calendar-is-focus {
-	@apply bg-orange-100
+[data-vc-theme='light'] .vc-time__range input::-webkit-slider-thumb {
+  @apply border-slate-300 bg-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__keeping {
-	@apply text-slate-500 hover:bg-orange-100 focus-visible:outline-orange-300
+[data-vc-theme='light'] .vc-time__range input::-moz-range-thumb {
+  @apply border-slate-300 bg-white;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__range input {
-	@apply bg-white
+[data-vc-theme='light'] .vc-time__range input::-webkit-slider-runnable-track {
+  @apply bg-slate-300;
 }
 
-[data-calendar-theme="light"] .vanilla-calendar-time__range::before,
-[data-calendar-theme="light"] .vanilla-calendar-time__range::after {
-	@apply bg-slate-300
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range:hover input::-webkit-slider-thumb {
-	@apply border-slate-400
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range:hover input::-moz-range-thumb {
-	@apply border-slate-400
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input:focus-visible::-webkit-slider-thumb {
-	@apply border-orange-300
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input:focus-visible::-moz-range-thumb {
-	@apply border-orange-300
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input::-webkit-slider-thumb {
-	@apply border-slate-300 bg-white
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input::-moz-range-thumb {
-	@apply border-slate-300 bg-white
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input::-webkit-slider-runnable-track {
-	@apply bg-slate-300
-}
-
-[data-calendar-theme="light"] .vanilla-calendar-time__range input::-moz-range-track {
-	@apply bg-slate-300
+[data-vc-theme='light'] .vc-time__range input::-moz-range-track {
+  @apply bg-slate-300;
 }

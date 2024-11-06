@@ -1,5 +1,6 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar } from 'vanilla-calendar-pro';
 
-const calendar = new VanillaCalendar('#calendar');
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar');
 calendar.init();

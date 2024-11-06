@@ -1,17 +1,13 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
   type: 'multiple',
-  months: 2,
-  jumpMonths: 1,
-  settings: {
-    selection: {
-      day: 'multiple',
-    },
-  },
+  displayMonthsCount: 2,
+  monthsToSwitch: 1,
+  selectionDatesMode: 'multiple',
 };
 
-const calendar = new VanillaCalendar('#calendar', options);
+const calendar = new Calendar('#calendar', options);
 calendar.init();

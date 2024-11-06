@@ -1,14 +1,10 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
-  settings: {
-    selection: {
-      time: true, // or 12
-    },
-  },
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
+  selectionTimeMode: 12,
 };
 
-const calendar = new VanillaCalendar('#calendar', options);
+const calendar = new Calendar('#calendar', options);
 calendar.init();

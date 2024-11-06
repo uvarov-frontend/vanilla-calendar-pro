@@ -1,0 +1,9 @@
+**/.git
+**/node_modules
+**/next/**
+**/demo/build/**
+**/package/dist/**
+**/package.json
+**/package-lock.json
+**/yarn.lock
+**/README.md

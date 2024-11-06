@@ -1,35 +1,25 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
-  input: true,
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
+  inputMode: true,
   type: 'multiple',
-  settings: {
-    range: {
-      disablePast: true,
-    },
-    selection: {
-      day: 'multiple-ranged',
-    },
-    visibility: {
-      daysOutside: false,
-    },
-  },
-  actions: {
-    changeToInput(e, self) {
-      if (!self.HTMLInputElement) return;
-      if (self.selectedDates[1]) {
-        self.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
-        self.HTMLInputElement.value = `${self.selectedDates[0]} — ${self.selectedDates[self.selectedDates.length - 1]}`;
-      } else if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
-      } else {
-        self.HTMLInputElement.value = '';
-      }
-    },
+  displayDatesOutside: false,
+  disableDatesPast: true,
+  selectionDatesMode: 'multiple-ranged',
+  onChangeToInput(self) {
+    if (!self.context.inputElement) return;
+    if (self.context.selectedDates[1]) {
+      self.context.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
+      self.context.inputElement.value = `${self.context.selectedDates[0]} — ${self.context.selectedDates[self.context.selectedDates.length - 1]}`;
+    } else if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
+    } else {
+      self.context.inputElement.value = '';
+    }
   },
 };
 
-const calendarInput = new VanillaCalendar('#calendar-input', options);
+const calendarInput = new Calendar('#calendar-input', options);
 calendarInput.init();

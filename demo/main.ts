@@ -1,21 +1,16 @@
-// import { IOptions } from '@package/types';
-// import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-// import '@/package/build/vanilla-calendar.min.css';
+import { Calendar } from '@src/index';
 
-import { IOptions } from '@package/types';
-import VanillaCalendar from '@src/vanilla-calendar';
-import '@src/styles/vanilla-calendar.css';
-
-const config: IOptions = {
-	settings: {
-		selected: {
-			month: 3,
-			year: 2023,
-		},
-	},
-};
+import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const calendar = new VanillaCalendar('#calendar', config);
-	calendar.init();
+  const today = new Date();
+  const selectedTime = today.toLocaleString('en-US', { hour12: true, minute: '2-digit', hour: '2-digit' });
+
+  const calendar = new Calendar('#calendar', {
+    selectedMonth: 3,
+    selectedYear: 2023,
+    selectionTimeMode: 12,
+    selectedTime,
+  });
+  calendar.init();
 });

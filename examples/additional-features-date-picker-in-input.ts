@@ -1,27 +1,21 @@
-import VanillaCalendar from 'vanilla-calendar-pro';
-import { IOptions } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-const options: IOptions = {
-  input: true,
-  actions: {
-    changeToInput(e, self) {
-      if (!self.HTMLInputElement) return;
-      if (self.selectedDates[0]) {
-        self.HTMLInputElement.value = self.selectedDates[0];
-        // if you want to hide the calendar after picking a date
-        self.hide();
-      } else {
-        self.HTMLInputElement.value = '';
-      }
-    },
-  },
-  settings: {
-    visibility: {
-      positionToInput: 'center',
-    },
+import 'vanilla-calendar-pro/styles/index.css';
+
+const options: Options = {
+  inputMode: true,
+  positionToInput: 'center',
+  onChangeToInput(self) {
+    if (!self.context.inputElement) return;
+    if (self.context.selectedDates[0]) {
+      self.context.inputElement.value = self.context.selectedDates[0];
+      // if you want to hide the calendar after picking a date
+      self.hide();
+    } else {
+      self.context.inputElement.value = '';
+    }
   },
 };
 
-const calendarInput = new VanillaCalendar('#calendar-input', options);
+const calendarInput = new Calendar('#calendar-input', options);
 calendarInput.init();

@@ -1,1 +1,1 @@
-package/README.md
+package/public/README.md

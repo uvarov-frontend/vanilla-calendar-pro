@@ -1,25 +1,28 @@
-// import { IOptions } from '@package/types';
-// import VanillaCalendar from '@/package/build/vanilla-calendar.min';
-// import '@/package/build/vanilla-calendar.min.css';
+import { Calendar, type Options } from '@src/index';
 
-import { IOptions } from '@package/types';
-import VanillaCalendar from '@src/vanilla-calendar';
-import '@src/styles/vanilla-calendar.css';
+import '@src/styles/index.css';
 
-const config: IOptions = {
-	type: 'multiple',
-	settings: {
-		selection: {
-			day: 'multiple-ranged',
-		},
-		selected: {
-			month: 3,
-			year: 2023,
-		},
-	},
+const config: Options = {
+  type: 'multiple',
+  selectionDatesMode: 'multiple-ranged',
+  selectedMonth: 3,
+  selectedYear: 2023,
+  displayDatesOutside: false,
+  onCreateDateRangeTooltip(self) {
+    const createRow = (title: string, value: string) =>
+      `<div style="text-align: left; white-space: nowrap">
+        <span>${title}</span>
+        <b>${value}</b>
+      </div>`;
+
+    return `
+      ${createRow('Start:', self.context.selectedDates[0])}
+      ${self.context.selectedDates[1] ? createRow('End:', self.context.selectedDates[1]) : ''}
+    `;
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	const calendar = new VanillaCalendar('#calendar', config);
-	calendar.init();
+  const calendar = new Calendar('#calendar', config);
+  calendar.init();
 });

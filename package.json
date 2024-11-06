@@ -1,68 +1,68 @@
 {
-	"name": "vanilla-calendar-project",
-	"version": "0.0.0",
-	"homepage": "https://vanilla-calendar.com",
-	"directories": {
-		"demo": "demo/*",
-		"docs": "docs/*",
-		"package": "package/*"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/uvarov-frontend/vanilla-calendar.git"
-	},
-	"author": {
-		"name": "Yury Uvarov",
-		"email": "uvarov.frontend@gmail.com",
-		"url": "https://frontend.uvarov.tech"
-	},
-	"license": "MIT",
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"scripts": {
-		"minify": "node minify.config.js --files=package/build/vanilla-calendar.min.js,package/build/vanilla-calendar.min.mjs,package/utilities/index.js,package/utilities/index.mjs",
-		"dist": "tsc && vite build --config config/vanilla-calendar.config.ts && vite build --config config/utilities.config.ts && vite build --config config/styles.config.ts",
-		"package": "npm-run-all dist minify",
-		"build": "tsc && vite build",
-		"dev": "tsc && vite",
-		"lint": "eslint --ext .js,.ts ./package/src ./cypress",
-		"fix": "eslint --fix --ext .js,.ts ./package/src ./cypress",
-		"cypress:open": "cypress open",
-		"cypress:run": "cypress run",
-		"test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"
-	},
-	"devDependencies": {
-		"@testing-library/cypress": "^9.0.0",
-		"@types/cypress": "^1.1.3",
-		"@types/node": "^18.14.4",
-		"@typescript-eslint/eslint-plugin": "^5.54.0",
-		"@typescript-eslint/parser": "^5.54.0",
-		"autoprefixer": "^10.4.16",
-		"cypress": "^12.11.0",
-		"eslint": "^8.35.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-config-airbnb-typescript": "^17.0.0",
-		"eslint-plugin-cypress": "^2.13.2",
-		"eslint-plugin-import": "^2.27.5",
-		"npm-run-all": "^4.1.5",
-		"postcss": "^8.4.31",
-		"start-server-and-test": "^2.0.0",
-		"tailwindcss": "^3.2.7",
-		"terser": "^5.16.5",
-		"typescript": "^4.9.3",
-		"vite": "^4.5.0",
-		"vite-plugin-banner": "^0.7.0",
-		"vite-plugin-eslint": "^1.8.1"
-	},
-	"dependencies": {}
+  "name": "vanilla-calendar-pro-project",
+  "version": "0.0.0",
+  "homepage": "https://vanilla-calendar.pro",
+  "directories": {
+    "config": "config/*",
+    "cypress": "cypress/*",
+    "demo": "demo/*",
+    "docs": "docs/*",
+    "examples": "examples/*",
+    "package": "package/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uvarov-frontend/vanilla-calendar-pro.git"
+  },
+  "author": {
+    "name": "Yury Uvarov",
+    "email": "uvarov.frontend@gmail.com",
+    "url": "https://frontend.uvarov.tech"
+  },
+  "license": "MIT",
+  "scripts": {
+    "package:assets": "vite build --config config/assets.config.ts",
+    "package:main": "vite build --config config/main.config.ts",
+    "package:utils": "vite build --config config/utils.config.ts",
+    "package:helpers": "node helpers.js",
+    "package:build": "tsc && npm-run-all package:assets package:main package:utils package:helpers",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --fix",
+    "prettier": "prettier . --check --ignore-unknown",
+    "prettier:fix": "prettier . -w",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@testing-library/cypress": "^10.0.2",
+    "@types/node": "~18.18.14",
+    "archiver": "^7.0.1",
+    "autoprefixer": "^10.4.20",
+    "colors": "^1.4.0",
+    "cssnano": "^7.0.6",
+    "cypress": "^13.15.1",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.11.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
+    "start-server-and-test": "^2.0.8",
+    "tailwindcss": "^3.4.14",
+    "terser": "^5.36.0",
+    "typescript": "~4.9.3",
+    "typescript-eslint": "^8.12.2",
+    "vite": "~4.5.5",
+    "vite-plugin-banner": "~0.7.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-eslint": "~1.8.1",
+    "zlib": "^1.0.5"
+  },
+  "dependencies": {}
 }
