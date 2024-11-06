@@ -1,24 +1,28 @@
-# VanillaCalendar - A Lightweight, Feature-Rich JavaScript Date and Time Picker
+# Vanilla Calendar Pro - Lightweight and Functional JavaScript Plugin for Date and Time Selection
 
-[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview.png)](https://vanilla-calendar.pro/)
+[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview-v3.png)](https://vanilla-calendar.pro)
 
 [![version](https://img.shields.io/npm/v/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 [![tests](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml/badge.svg)](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml)
 [![downloads](https://img.shields.io/npm/dm/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 
-VanillaCalendar is a versatile JavaScript date and time picker with TypeScript support, making it compatible with any JavaScript framework or library. It is designed to be lightweight, simple to use, and feature-rich without relying on external dependencies.
+This is a versatile JavaScript date and time picker component with TypeScript support, compatible with any JavaScript frameworks and libraries. It is designed to be lightweight, easy to use, and feature-rich, without relying on external dependencies.
 
 ## Key Features
 
-- **Lightweight**: The final minified .js file is only approximately **37.3 KB**, and with gzip compression, it's just around **9.9 KB**.
-- **No Dependencies**: VanillaCalendar is entirely self-contained, ensuring you don't need to include additional libraries.
+- **Lightweight**: The final JavaScript file is minified and optimized for fast loading.
+-  **No Dependencies**: Completely self-contained, ensuring you don't need to include additional libraries.
 - **Simple Localization**: Supports simple localization for any language.
 - **Customizable**: Can be easily configured using CSS and HTML markup.
 - **Multiple Instances**: Allows for an unlimited number of calendar instances on a single page.
-- **Theme Support**: Includes two themes - the light theme and the dark theme.
-- **Week Start Customization**: Supports both Sunday and Monday as the beginning of the week.
+- **Theme Support**: Supports automatic theme switching between light and dark modes, as well as custom user-defined themes.
+- **Week Start Customization**: Supports any day of the week as the starting day.
+- **Custom Weekends**: Define custom weekend days for each week as needed.
 - **Week Number Display**: Can display week numbers throughout the year.
 - **Not Tied to Input Tags**: Unlike many date pickers, it's not limited to the `<input>` tag.
+- **Accessible**: Includes ARIA labels, `tabindex`, and full keyboard navigation, enhancing accessibility.
+- **Date and Time Range Selection**: Supports selecting ranges for both dates and times, with maximum and minimum limits.
+- **Popups and Tooltips**: Allows setting custom popups with user-defined information, and in date range selection mode, provides tooltips on hover.
 
 ## Browser Support
 
@@ -30,15 +34,19 @@ VanillaCalendar is compatible with a wide range of browsers:
 
 ## Support and Feedback
 
-This plugin is completely free, and your support is important. Please feel free to report any issues or share your new ideas; it's really important!
+Vanilla Calendar Pro is free to use for everyone, but maintaining it comes with costs. I personally cover expenses like hosting, domain, and development resources to keep the project running smoothly. Your donations help me continue improving the tool while keeping it accessible for the community. Any contribution, big or small, makes a difference!
 
-If you like VanillaCalendar, please consider giving it a 🌟 star on GitHub.
+If you’d like to support the project, please consider making a donation or giving it a 🌟 star on [GitHub](https://github.com/uvarov-frontend/vanilla-calendar-pro).
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/uvarov_frontend)
+
+Feel free to report any issues or share your ideas—your feedback is invaluable!
 
 ## Getting Started
 
 ### Installation
 
-You can install VanillaCalendar using npm or yarn:
+You can install it using `npm` or `yarn`:
 
 ```sh
 npm install vanilla-calendar-pro
@@ -46,11 +54,9 @@ npm install vanilla-calendar-pro
 yarn add vanilla-calendar-pro
 ```
 
-If you prefer not to use a package manager, you can also include it via [CDN](https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/) or [download](https://vanilla-calendar.pro/vanilla-calendar.zip) it from the website.
-
 ### Usage
 
-Here's a simple example of how to use VanillaCalendar in your HTML:
+Here's a simple example of using it in your HTML:
 
 ```html
 <html>
@@ -67,82 +73,67 @@ Here's a simple example of how to use VanillaCalendar in your HTML:
 To add the necessary styles and scripts, you can use the following code:
 
 ```js
-import VanillaCalendar from 'vanilla-calendar-pro';
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import { Calendar } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
 
 // Initialize the calendar
-const calendar = new VanillaCalendar('#calendar');
+const calendar = new Calendar('#calendar');
 calendar.init();
 // or
-// const calendarWithInput = new VanillaCalendar('#calendar-input', { input: true });
+// const calendarWithInput = new Calendar('#calendar-input', { inputMode: true });
 // calendarWithInput.init();
 ```
 
-If you're not using a package manager and prefer manual installation or CDN usage, you can include the necessary files in your HTML document's `<head>`:
-
-```html
-<html>
-  <head>
-    <link href="./vanilla-calendar.min.css" rel="stylesheet">
-    <script src="./vanilla-calendar.min.js" defer></script>
-  </head>
-  <body>
-    <div id="calendar"></div>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const calendar = new VanillaCalendar('#calendar');
-        calendar.init();
-      });
-    </script>
-  </body>
-</html>
-```
-
-## CSS Themes
+## CSS Styles
 
 ```js
 // Only layout calendar
-import 'vanilla-calendar-pro/build/vanilla-calendar.layout.min.css';
+import 'vanilla-calendar-pro/styles/layout.css';
 
 // Themes
-import 'vanilla-calendar-pro/build/themes/light.min.css';
-import 'vanilla-calendar-pro/build/themes/dark.min.css';
+import 'vanilla-calendar-pro/styles/themes/light.css';
+import 'vanilla-calendar-pro/styles/themes/dark.css';
+// ...and others
 ```
 
-VanillaCalendar includes two CSS themes: the **light theme** and the **dark theme**.
+The calendar can automatically switch between a light or dark theme depending on the user's system settings, or track a custom HTML attribute that specifies the desired theme.
 
-- The **vanilla-calendar.min.css** file contains all styles with all themes.
-- The **vanilla-calendar.layout.min.css** file contains the essential structural styles for the calendar.
-- The **themes/light.min.css** theme provides a light color scheme.
-- The **themes/dark.min.css** theme offers a dark color scheme.
+- The `index.css` file contains all the styles from the `layout.css` file, as well as the light and dark theme styles.
+- The `layout.css` file contains the essential structural styles for the calendar.
+- The `themes/light.min.css` theme provides a light color scheme.
+- The `themes/dark.min.css` theme offers a dark color scheme.
+- ...and others
 
+If you want to apply a specific theme, it is recommended to import `layout.css` along with your preferred theme instead of `index.css`.
 
-The calendar will automatically display the theme according to the user's system preferences. If you want to apply a specific theme, it is recommended to import **«vanilla-calendar.layout.min.css»** along with the theme you prefer: **«light.min.css»** or **«dark.min.css»**, instead of **«vanilla-calendar.min.css»**.
-
-## DOM Templates
+## Layouts
 
 VanillaCalendar features customizable DOM templates that allow you to modify the structure of the calendar to fit your needs. The templates are identified by tags containing the **#** character, and they should include a trailing slash at the end.
 
-Here's an example of the default template:
+The calendar contains custom `layouts` for each calendar type, which allow you to change the calendar structure to suit your needs.
+Each layout contains its own set of components that can be moved or removed from it if necessary. By default, a layout contains all the components available to it.
+Components are identified by tags containing the `#` character, and they must contain a slash at the end of the tag.
+
+Here is an example of the default layout:
 
 ```js
-new VanillaCalendar('#calendar', {
-  DOMTemplates: {
+new Calendar('#calendar', {
+  layouts: {
     default: `
-      <div class="vanilla-calendar-header">
-        <#ArrowPrev />
-        <div class="vanilla-calendar-header__content">
+      <div class="vc-header" data-vc="header" role="toolbar" aria-label="Calendar Navigation">
+        <#ArrowPrev [month] />
+        <div class="vc-header__content" data-vc-header="content">
           <#Month />
           <#Year />
         </div>
-        <#ArrowNext />
+        <#ArrowNext [month] />
       </div>
-      <div class="vanilla-calendar-wrapper">
+      <div class="vc-wrapper" data-vc="wrapper">
         <#WeekNumbers />
-        <div class "vanilla-calendar-content">
+        <div class="vc-content" data-vc="content">
           <#Week />
-          <#Days />
+          <#Dates />
+          <#DateRangeTooltip />
         </div>
       </div>
       <#ControlTime />
@@ -151,13 +142,13 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-## React Component
+## Library components
 
-For detailed instructions on using VanillaCalendar in a React component with TypeScript, please visit the [website](https://vanilla-calendar.pro/docs/learn/additional-features/react-component) for comprehensive documentation and examples.
+For detailed instructions on how to use the calendar as a component for various libraries, please visit the [website](https://vanilla-calendar.pro/docs/learn) with detailed documentation and examples.
 
 ## API Reference
 
-For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference/main/create-an-instance).
+For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference).
 
 ## Sponsor
 
