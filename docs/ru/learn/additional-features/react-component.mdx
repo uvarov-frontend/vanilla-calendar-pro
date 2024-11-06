@@ -1,6 +1,8 @@
 # React компонент
 
-<Info>Если вы не используете TypeScript, используйте расширение .jsx вместо .tsx и избавьтесь от типизации компонента.</Info>
+<Info>
+  Если вы не используете TypeScript, используйте расширение .jsx вместо .tsx и избавьтесь от типизации компонента.
+</Info>
 
 Для создания React компонента с именем `VanillaCalendar.tsx`, вам необходимо скопировать приведенный ниже код в этот файл:
 
@@ -39,7 +41,7 @@ export default VanillaCalendar
 Затем импортируйте созданный компонент `VanillaCalendar` в ваш компонент React, где вы планируете отображать календарь.
 
 ```js
-import VanillaCalendar from './VanillaCalendar';
+import VanillaCalendar from "./VanillaCalendar";
 ```
 
 Используйте созданный компонент.
@@ -54,11 +56,8 @@ import VanillaCalendar from './VanillaCalendar';
 
 ```js
 // ...
-<VanillaCalendar
-  config={{
+<VanillaCalendar config={{
     type: 'multiple',
-  }}
-  className="thisIsMyClass"
-/>
+  }} className="thisIsMyClass" />
 // ...
 ```

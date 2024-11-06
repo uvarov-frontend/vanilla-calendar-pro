@@ -13,7 +13,8 @@
 
 ```html
 <html>
-  <head> </head>
+  <head>
+  </head>
   <body>
     <div id="calendar"></div>
   </body>
@@ -21,17 +22,15 @@
 ```
 
 ## JavaScript
-
 Если вы установили VanillaCalendar с помощью NPM или Yarn, вам нужно импортировать JavaScript и необходимые стили. Если вы подключили VanillaCalendar локально или использовали CDN, вы можете пропустить этот шаг.
 
 ```js
 import VanillaCalendar from 'vanilla-calendar-pro';
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 ```
 
 <Info>
-  Помимо файла **«vanilla-calendar.min.css»**, содержащего все возможные стили календаря, в каталоге **«build»** существуют отдельные файлы стилей. Пожалуйста,
-  включите их вместо **«vanilla-calendar.min.css»**, если считаете это необходимым.
+  Помимо файла **«vanilla-calendar.min.css»**, содержащего все возможные стили календаря, в каталоге **«build»** существуют отдельные файлы стилей. Пожалуйста, включите их вместо **«vanilla-calendar.min.css»**, если считаете это необходимым.
 </Info>
 
 ```js
@@ -44,8 +43,8 @@ import 'vanilla-calendar-pro/build/themes/dark.min.css';
 ```
 
 <Info>
-  Календарь автоматически отображает тему, используемую в системе пользователя. Вы можете отключить это поведение по умолчанию и принудительно установить любую
-  из тем. В этом случае вам не нужно импортировать все темы.
+  Календарь автоматически отображает тему, используемую в системе пользователя.
+  Вы можете отключить это поведение по умолчанию и принудительно установить любую из тем. В этом случае вам не нужно импортировать все темы.
 </Info>
 
 Теперь создайте экземпляр VanillaCalendar с параметрами по умолчанию и инициализируйте его.
@@ -60,13 +59,12 @@ calendar.init();
 <Sandbox example="try-vanilla-calendar" />
 
 ## TypeScript
-
 Если вы установили VanillaCalendar с помощью NPM или Yarn и используете TypeScript, его использование аналогично JavaScript, за исключением того, что типы используют разные импорты, как показано ниже.
 
 ```ts
 import VanillaCalendar from 'vanilla-calendar-pro';
 import type { IOptions, ISettings } from 'vanilla-calendar-pro/types';
-import 'vanilla-calendar-pro/styles/vanilla-calendar-pro.min.css';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
 
 // use the types in your code
 import class Example {
@@ -105,7 +103,7 @@ import class Example {
 ```html
 <html>
   <head>
-    <link href="./vanilla-calendar.min.css" rel="stylesheet" />
+    <link href="./vanilla-calendar.min.css" rel="stylesheet">
     <script src="./vanilla-calendar.min.js" defer></script>
   </head>
   <body>

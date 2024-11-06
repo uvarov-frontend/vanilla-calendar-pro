@@ -18,7 +18,7 @@ new VanillaCalendar('#calendar', {
 
 The `input` parameter specifies that the `HTMLElement` passed as the first parameter represents an input field rather than a wrapper for the calendar.
 
----
+- - -
 
 ## type
 
@@ -36,7 +36,7 @@ new VanillaCalendar('#calendar', {
 
 The `type` parameter determines the type of calendar displayed.
 
----
+- - -
 
 ## months
 
@@ -54,7 +54,7 @@ new VanillaCalendar('#calendar', {
 
 The `months` parameter specifies the number of displayed months when the calendar type is set to `'multiple'`.
 
----
+- - -
 
 ## jumpMonths
 
@@ -72,7 +72,7 @@ new VanillaCalendar('#calendar', {
 
 The `jumpMonths` parameter controls the number of months to jump.
 
----
+- - -
 
 ## jumpToSelectedDate
 
@@ -88,16 +88,18 @@ new VanillaCalendar('#calendar', {
   settings: {
     selected: {
       dates: ['2018-05-02'],
-    },
+    }
   },
 });
 ```
 
 When the option is enabled and 1 or more selected date(s) are provided but without providing `selected.month` and `selected.year`, it will make the calendar jump to the first selected date. If set to `false`, the calendar will always open to the current month and year.
 
-<Info>This option has no effect when `selected.month` and `selected.year` are provided.</Info>
+<Info>
+  This option has no effect when `selected.month` and `selected.year` are provided.
+</Info>
 
----
+- - -
 
 ## sanitizer
 
@@ -116,15 +118,10 @@ new VanillaCalendar('#calendar', {
 The `sanitizer` will sanitize HTML templates to be CSP safe.
 
 <Info>
-  Please note that the external library{' '}
-  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
-    `dompurify`
-  </a>{' '}
-  is used as an example. Since `sanitizer` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code
-  size.
+  Please note that the external library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a> is used as an example. Since `sanitizer` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code size.
 </Info>
 
----
+- - -
 
 ## toggleSelected
 
@@ -138,13 +135,13 @@ The `sanitizer` will sanitize HTML templates to be CSP safe.
 new VanillaCalendar('#calendar', {
   toggleSelected: false,
   // or with a callback
-  toggleSelected: (self) => new Date(self.selectedDates[0]) < new Date(),
+  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
 });
 ```
 
 If `toggleSelected` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
 
----
+- - -
 
 ## date.min
 
@@ -166,7 +163,7 @@ new VanillaCalendar('#calendar', {
 
 The `date.min` parameter sets the minimum allowable date that the calendar will consider, which cannot be earlier than this date.
 
----
+- - -
 
 ## date.max
 
@@ -188,7 +185,7 @@ new VanillaCalendar('#calendar', {
 
 The `date.max` parameter sets the maximum allowable date that the calendar will consider, which cannot be later than this date.
 
----
+- - -
 
 ## date.today
 
