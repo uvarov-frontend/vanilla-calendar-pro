@@ -1,6 +1,6 @@
 # Vanilla Calendar Pro - Lightweight and Functional JavaScript Plugin for Date and Time Selection
 
-[![vanilla-calendar preview](https://vanilla-calendar.pro/vanilla-calendar-preview-v3.png)](https://vanilla-calendar.pro)
+[![vanilla-calendar preview](https://vanilla-calendar.pro/vc-pro.png)](https://vanilla-calendar.pro)
 
 [![version](https://img.shields.io/npm/v/vanilla-calendar-pro.svg)](https://npmjs.com/package/vanilla-calendar-pro)
 [![tests](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml/badge.svg)](https://github.com/uvarov-frontend/vanilla-calendar/actions/workflows/pull_request.yml)
