@@ -134,7 +134,7 @@
 
 [data-vc-date][data-vc-date-disabled],
 [data-vc-date][data-vc-date-disabled] [data-vc-date-btn],
-[data-vc-date]:not(:has( [data-vc-date-btn])) {
+[data-vc-date]:not(:has([data-vc-date-btn])) {
   @apply pointer-events-none;
 }
 

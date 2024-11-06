@@ -177,7 +177,7 @@
 }
 
 [data-vc-theme='light'] .vc-date-range-tooltip {
-  @apply text-slate-500 bg-slate-50 shadow-[0px_1px_4px_rgba(85,85,85,0.2)]
+  @apply text-slate-500 bg-slate-50 shadow-[0px_1px_4px_rgba(85,85,85,0.2)];
 }
 
 [data-vc-theme='light'] .vc-time {
