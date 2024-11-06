@@ -35,7 +35,7 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
           : self.private.selectedDates.length > 1
             ? [formattedDate]
             : [...self.private.selectedDates, formattedDate];
-    if (self.private.selectedDates.length > 1) self.private.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+    if (self.private.selectedDates.length > 1) self.private.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
   }
 
   const selectionHandlers = {
@@ -46,6 +46,7 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
       state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverSelectedDatesRangeEvent);
       state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
       state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
+
       state.self!.private.mainElement!.addEventListener('mousemove', optimizedHandleHoverDatesEvent);
       state.self!.private.mainElement!.addEventListener('mouseleave', handleMouseLeave);
       state.self!.private.mainElement!.addEventListener('keydown', handleCancelSelectionDates);
@@ -74,8 +75,8 @@ const handleSelectDateRange = (self: VanillaCalendarPro, dateEl: HTMLElement | n
       }
 
       state.self!.private.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
-      state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
       state.self!.private.mainElement!.removeEventListener('mouseleave', handleMouseLeave);
+      state.self!.private.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
 
       if (!self.onCreateDateRangeTooltip) return;
       if (!self.private.selectedDates[0]) {
