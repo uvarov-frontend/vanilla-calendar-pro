@@ -1,7 +1,7 @@
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import handleMonth from '@scripts/handles/handleMonth';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
-import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange';
+import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString, VanillaCalendarPro, WeekDayID } from '@src/index';
 

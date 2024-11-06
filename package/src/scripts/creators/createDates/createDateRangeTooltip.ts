@@ -1,26 +1,21 @@
 import type { VanillaCalendarPro } from '@src/index';
 
-const hideDateRangeTooltip = (tooltipEl: HTMLElement) => {
-  tooltipEl.dataset.vcDateRangeTooltip = 'hidden';
-  tooltipEl.textContent = null;
-};
-
-const showDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement, dateEl: HTMLElement, elementElBCR: DOMRect) => {
-  const dateElBCR = dateEl.getBoundingClientRect();
-  const tooltipElTop = dateElBCR.bottom - elementElBCR.top - dateElBCR.height;
-  const tooltipElLeft = dateElBCR.left - elementElBCR.left + dateElBCR.width / 2;
-
-  tooltipEl.style.left = `${tooltipElLeft}px`;
-  tooltipEl.style.top = `${tooltipElTop}px`;
-
-  tooltipEl.innerHTML = self.sanitizerHTML(self.onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, elementElBCR));
-  tooltipEl.dataset.vcDateRangeTooltip = 'visible';
-};
-
-const createDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement | null, dateEl: HTMLElement | null, elementElBCR: DOMRect | null) => {
+const createDateRangeTooltip = (self: VanillaCalendarPro, tooltipEl: HTMLElement | null, dateEl: HTMLElement | null) => {
   if (!tooltipEl) return;
-  if (!dateEl || !elementElBCR) return hideDateRangeTooltip(tooltipEl);
-  showDateRangeTooltip(self, tooltipEl, dateEl, elementElBCR);
+
+  if (!dateEl) {
+    tooltipEl.dataset.vcDateRangeTooltip = 'hidden';
+    tooltipEl.textContent = '';
+    return;
+  }
+
+  const mainBCR = self.private.mainElement.getBoundingClientRect();
+  const dateElBCR = dateEl.getBoundingClientRect();
+
+  tooltipEl.style.left = `${dateElBCR.left - mainBCR.left + dateElBCR.width / 2}px`;
+  tooltipEl.style.top = `${dateElBCR.bottom - mainBCR.top - dateElBCR.height}px`;
+  tooltipEl.dataset.vcDateRangeTooltip = 'visible';
+  tooltipEl.innerHTML = self.sanitizerHTML(self.onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainBCR));
 };
 
 export default createDateRangeTooltip;

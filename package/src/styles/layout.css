@@ -208,7 +208,7 @@
 }
 
 [data-vc-date-range-tooltip] {
-  @apply absolute z-30 max-w-36 py-1 px-2 text-xs font-normal rounded-md transition-all duration-75 pointer-events-none -translate-x-1/2 -translate-y-full;
+  @apply absolute z-30 max-w-36 py-1 px-2 text-xs font-normal rounded-md pointer-events-none -translate-x-1/2 -translate-y-full;
 }
 
 [data-vc-date-range-tooltip='hidden'] {
