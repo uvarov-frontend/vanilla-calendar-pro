@@ -7,7 +7,6 @@ const config: Options = {
   selectionDatesMode: 'multiple-ranged',
   selectedMonth: 3,
   selectedYear: 2023,
-  displayDatesOutside: false,
   onCreateDateRangeTooltip(self) {
     const createRow = (title: string, value: string) =>
       `<div style="text-align: left; white-space: nowrap">
