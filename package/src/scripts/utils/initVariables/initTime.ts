@@ -1,4 +1,5 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
+import setContext from '@scripts/utils/setContext';
 import transformTime12 from '@scripts/utils/transformTime12';
 import type { Calendar } from '@src/index';
 
@@ -20,10 +21,10 @@ const initTime = (self: Calendar) => {
     keeping = 'AM';
   }
 
-  self.context.selectedHours = hours.padStart(2, '0');
-  self.context.selectedMinutes = minutes.padStart(2, '0');
-  self.context.selectedKeeping = keeping as 'AM' | 'PM' | null;
-  self.context.selectedTime = `${self.context.selectedHours}:${self.context.selectedMinutes}${keeping ? ` ${keeping}` : ''}`;
+  setContext(self, 'selectedHours', hours.padStart(2, '0'));
+  setContext(self, 'selectedMinutes', minutes.padStart(2, '0'));
+  setContext(self, 'selectedKeeping', keeping as 'AM' | 'PM' | null);
+  setContext(self, 'selectedTime', `${self.context.selectedHours}:${self.context.selectedMinutes}${keeping ? ` ${keeping}` : ''}`);
 };
 
 export default initTime;

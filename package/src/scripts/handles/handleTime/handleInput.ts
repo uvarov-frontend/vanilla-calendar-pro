@@ -1,4 +1,5 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
+import setContext from '@scripts/utils/setContext';
 import transformTime12 from '@scripts/utils/transformTime12';
 import transformTime24 from '@scripts/utils/transformTime24';
 import type { Calendar, ContextVariables } from '@src/index';
@@ -10,7 +11,7 @@ const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElemen
 
 const updateKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement | null, keeping: ContextVariables['selectedKeeping']) => {
   if (!keepingTimeEl || !keeping) return;
-  self.context.selectedKeeping = keeping;
+  setContext(self, 'selectedKeeping', keeping);
   keepingTimeEl.innerText = keeping;
 };
 

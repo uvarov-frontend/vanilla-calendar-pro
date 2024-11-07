@@ -1,8 +1,9 @@
 import parseDates from '@scripts/utils/parseDates';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const initSelectedDates = (self: Calendar) => {
-  self.context.selectedDates = self.selectedDates?.[0] ? parseDates(self.selectedDates) : [];
+  setContext(self, 'selectedDates', self.selectedDates?.[0] ? parseDates(self.selectedDates) : []);
 };
 
 export default initSelectedDates;

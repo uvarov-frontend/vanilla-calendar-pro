@@ -1,4 +1,5 @@
 import handleActions from '@scripts/handles/handleTime/handleActions';
+import setContext from '@scripts/utils/setContext';
 import transformTime24 from '@scripts/utils/transformTime24';
 import type { Calendar } from '@src/index';
 
@@ -12,13 +13,13 @@ const handleClickKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement
       return;
     }
 
-    self.context.selectedKeeping = newSelectedKeeping;
+    setContext(self, 'selectedKeeping', newSelectedKeeping);
     rangeHourEl.value = hour;
 
     handleActions(self, event, self.context.selectedHours, 'hour');
 
     keepingTimeEl.ariaLabel = `${self.labels.btnKeeping} ${self.context.selectedKeeping}`;
-    keepingTimeEl.innerText = self.context.selectedKeeping;
+    keepingTimeEl.innerText = self.context.selectedKeeping as string;
   };
 
   keepingTimeEl.addEventListener('click', handleClickKeepingTimeAction);

@@ -3,11 +3,12 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleInput from '@scripts/handles/handleInput';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const init = (self: Calendar) => {
-  self.context.originalElement = self.context.mainElement.cloneNode(true) as HTMLElement;
-  self.context.isInit = true;
+  setContext(self, 'originalElement', self.context.mainElement.cloneNode(true) as HTMLElement);
+  setContext(self, 'isInit', true);
 
   if (self.inputMode) return handleInput(self);
 

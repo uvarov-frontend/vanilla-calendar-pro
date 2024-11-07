@@ -1,6 +1,7 @@
 import { destroy, hide, init, set, show, update } from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import replaceProperties from '@scripts/utils/replaceProperties';
+import setContext from '@scripts/utils/setContext';
 import OptionsCalendar from '@src/options';
 import type {
   ContextVariables,
@@ -50,7 +51,7 @@ export class Calendar extends OptionsCalendar {
       },
     };
 
-    this.context.mainElement = typeof selector === 'string' ? (Calendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector;
+    setContext(this, 'mainElement', typeof selector === 'string' ? (Calendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector);
 
     if (options) replaceProperties(this, options);
   }
@@ -75,7 +76,7 @@ export class Calendar extends OptionsCalendar {
 
   set = (options: Options, resetOptions?: Partial<Reset>) => set(this, options, resetOptions);
 
-  context!: ContextVariables;
+  readonly context!: Readonly<ContextVariables>;
 }
 
 export {

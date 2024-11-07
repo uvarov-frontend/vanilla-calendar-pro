@@ -3,6 +3,7 @@ import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const createYearEl = (self: Calendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
@@ -22,7 +23,7 @@ const createYearEl = (self: Calendar, templateEl: HTMLButtonElement, selected: n
 const createYears = (self: Calendar, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.context.selectedYear;
 
-  self.context.currentType = 'year';
+  setContext(self, 'currentType', 'year');
   createLayouts(self, target);
   visibilityTitle(self);
   visibilityArrows(self);

@@ -1,5 +1,6 @@
 import createYears from '@scripts/creators/createYears';
 import handleMonth from '@scripts/handles/handleMonth';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const handleClickArrow = (self: Calendar, event: MouseEvent) => {
@@ -11,7 +12,8 @@ const handleClickArrow = (self: Calendar, event: MouseEvent) => {
   if (['default', 'multiple'].includes(self.context.currentType)) {
     handleMonth(self, arrowEl.dataset.vcArrow as 'prev' | 'next');
   } else if (self.context.currentType === 'year' && self.context.displayYear !== undefined) {
-    self.context.displayYear += { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
+    const offset = { prev: -15, next: 15 }[arrowEl.dataset.vcArrow as 'prev' | 'next'];
+    setContext(self, 'displayYear', self.context.displayYear + offset);
     createYears(self, event.target as HTMLElement);
   }
 

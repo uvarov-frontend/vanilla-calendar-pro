@@ -1,6 +1,7 @@
 import create from '@scripts/creators/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 
 const reset = (self: Calendar, { year, month, dates, time, locale }: Reset) => {
@@ -23,10 +24,11 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset) => {
         : self.context.selectedDates;
 
   if (locale) {
-    self.context.locale = {
+    const locale = {
       months: { short: [], long: [] },
       weekdays: { short: [], long: [] },
     };
+    setContext(self, 'locale', locale);
   }
 
   initAllVariables(self);

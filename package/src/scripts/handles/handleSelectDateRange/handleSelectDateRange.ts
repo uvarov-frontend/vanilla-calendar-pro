@@ -7,6 +7,7 @@ import { removeHoverEffect } from '@scripts/handles/handleSelectDateRange/toggle
 import updateDisabledDates from '@scripts/handles/handleSelectDateRange/updateDisabledDates';
 import canToggleSelection from '@scripts/utils/canToggleSelection';
 import parseDates from '@scripts/utils/parseDates';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar, FormatDateString } from '@src/index';
 
 const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null) => {
@@ -27,7 +28,7 @@ const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null) => {
   const formattedDate = dateEl?.dataset.vcDate as FormatDateString | undefined;
   if (formattedDate) {
     const selectedDateExists = self.context.selectedDates.length === 1 && self.context.selectedDates[0].includes(formattedDate);
-    self.context.selectedDates =
+    const selectedDates =
       selectedDateExists && !canToggleSelection(self)
         ? [formattedDate, formattedDate]
         : selectedDateExists && canToggleSelection(self)
@@ -35,6 +36,7 @@ const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null) => {
           : self.context.selectedDates.length > 1
             ? [formattedDate]
             : [...self.context.selectedDates, formattedDate];
+    setContext(self, 'selectedDates', selectedDates);
     if (self.context.selectedDates.length > 1) self.context.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
   }
 
@@ -63,15 +65,16 @@ const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null) => {
       const allDates = parseDates([`${startDate as string}:${endDate as string}`]);
       const actualDates = allDates.filter((d) => !self.context.disableDates.includes(d));
 
-      self.context.selectedDates = notSameDate
+      const selectedDates = notSameDate
         ? self.enableEdgeDatesOnly
           ? [startDate, endDate]
           : actualDates
         : [self.context.selectedDates[0], self.context.selectedDates[0]];
+      setContext(self, 'selectedDates', selectedDates);
 
       if (self.disableDatesGaps) {
-        self.context.displayDateMin = state.rangeMin as FormatDateString;
-        self.context.displayDateMax = state.rangeMax as FormatDateString;
+        setContext(self, 'displayDateMin', state.rangeMin as FormatDateString);
+        setContext(self, 'displayDateMax', state.rangeMax as FormatDateString);
       }
 
       state.self!.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);

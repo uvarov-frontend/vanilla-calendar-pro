@@ -1,10 +1,11 @@
 import createToInput from '@scripts/creators/createToInput';
 import setPosition from '@scripts/utils/positions/setPosition';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const handleInput = (self: Calendar) => {
   const cleanup: Array<() => void> = [];
-  self.context.inputElement = self.context.mainElement as HTMLInputElement;
+  setContext(self, 'inputElement', self.context.mainElement as HTMLInputElement);
 
   const handleResize = () => setPosition(self.context.inputElement, self.context.mainElement, self.positionToInput);
 
@@ -34,8 +35,8 @@ const handleInput = (self: Calendar) => {
     document.addEventListener('keydown', handleEscapeKey);
   };
 
-  self.context.inputElement.addEventListener('click', handleOpenCalendar);
-  self.context.inputElement.addEventListener('focus', handleOpenCalendar);
+  (self.context.inputElement as HTMLInputElement).addEventListener('click', handleOpenCalendar);
+  (self.context.inputElement as HTMLInputElement).addEventListener('focus', handleOpenCalendar);
 
   return () => {
     cleanup.forEach((clean) => clean());

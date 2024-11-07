@@ -1,4 +1,5 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const destroy = (self: Calendar) => {
@@ -7,12 +8,12 @@ const destroy = (self: Calendar) => {
   if (self.inputMode) {
     self.context.mainElement.parentElement?.removeChild(self.context.mainElement);
     self.context.inputElement?.replaceWith?.(self.context.originalElement);
-    self.context.inputElement = undefined;
+    setContext(self, 'inputElement', undefined);
   } else {
     self.context.mainElement.replaceWith?.(self.context.originalElement);
   }
 
-  self.context.mainElement = self.context.originalElement;
+  setContext(self, 'mainElement', self.context.originalElement);
   if (self.onDestroy) self.onDestroy(self);
 };
 

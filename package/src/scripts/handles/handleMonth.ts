@@ -3,6 +3,7 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const handleMonth = (self: Calendar, route: 'prev' | 'next') => {
@@ -14,7 +15,9 @@ const handleMonth = (self: Calendar, route: 'prev' | 'next') => {
   };
 
   routeMap[route]();
-  [self.context.selectedMonth, self.context.selectedYear] = [jumpDate.getMonth() as Range<12>, jumpDate.getFullYear()];
+
+  setContext(self, 'selectedMonth', jumpDate.getMonth() as Range<12>);
+  setContext(self, 'selectedYear', jumpDate.getFullYear());
 
   visibilityTitle(self);
   visibilityArrows(self);

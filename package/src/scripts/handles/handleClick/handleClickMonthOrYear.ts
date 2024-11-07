@@ -3,6 +3,7 @@ import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import getDate from '@scripts/utils/getDate';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
@@ -29,11 +30,16 @@ const handleMultipleYearSelection = (self: Calendar, itemEl: HTMLElement) => {
   const isBeforeMinYear = selectedYear < dateMin.getFullYear();
   const isAfterMaxYear = selectedYear > dateMax.getFullYear();
 
-  self.context.selectedYear =
-    isBeforeMinDate || isBeforeMinYear ? dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? dateMax.getFullYear() : selectedYear;
-  self.context.selectedMonth = (
-    isBeforeMinDate || isBeforeMinYear ? dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? dateMax.getMonth() : self.context.selectedMonth
-  ) as Range<12>;
+  setContext(
+    self,
+    'selectedYear',
+    isBeforeMinDate || isBeforeMinYear ? dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? dateMax.getFullYear() : selectedYear,
+  );
+  setContext(
+    self,
+    'selectedMonth',
+    (isBeforeMinDate || isBeforeMinYear ? dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? dateMax.getMonth() : self.context.selectedMonth) as Range<12>,
+  );
 };
 
 const handleMultipleMonthSelection = (self: Calendar, itemEl: HTMLElement) => {
@@ -47,19 +53,19 @@ const handleMultipleMonthSelection = (self: Calendar, itemEl: HTMLElement) => {
   const isBeforeMinDate = selectedMonth < dateMin.getMonth() && selectedYear <= dateMin.getFullYear();
   const isAfterMaxDate = selectedMonth > dateMax.getMonth() && selectedYear >= dateMax.getFullYear();
 
-  self.context.selectedYear = selectedYear;
-  self.context.selectedMonth = (isBeforeMinDate ? dateMin.getMonth() : isAfterMaxDate ? dateMax.getMonth() : selectedMonth) as Range<12>;
+  setContext(self, 'selectedYear', selectedYear);
+  setContext(self, 'selectedMonth', (isBeforeMinDate ? dateMin.getMonth() : isAfterMaxDate ? dateMax.getMonth() : selectedMonth) as Range<12>);
 };
 
 const handleItemClick = (self: Calendar, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLButtonElement) => {
   const selectByType = {
     year: () => {
       if (self.type === 'multiple') return handleMultipleYearSelection(self, itemEl);
-      self.context.selectedYear = Number(itemEl.dataset.vcYearsYear);
+      setContext(self, 'selectedYear', Number(itemEl.dataset.vcYearsYear));
     },
     month: () => {
       if (self.type === 'multiple') return handleMultipleMonthSelection(self, itemEl);
-      self.context.selectedMonth = Number(itemEl.dataset.vcMonthsMonth) as Range<12>;
+      setContext(self, 'selectedMonth', Number(itemEl.dataset.vcMonthsMonth) as Range<12>);
     },
   };
   selectByType[type]();
@@ -71,7 +77,7 @@ const handleItemClick = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   actionByType[type]();
 
   if (self.context.currentType !== self.type) {
-    self.context.currentType = self.type;
+    setContext(self, 'currentType', self.type);
     create(self);
     self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   } else {
@@ -97,7 +103,7 @@ const handleClickType = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
   if ((self.context.currentType === type && headerEl) || (self.type === 'multiple' && self.context.currentType === type && gridEl && !columnEl)) {
-    self.context.currentType = self.type;
+    setContext(self, 'currentType', self.type);
     create(self);
     self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
   }

@@ -2,6 +2,7 @@ import createLayouts from '@scripts/creators/createLayouts';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const relationshipID = (self: Calendar) => {
@@ -38,7 +39,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
   const selectedYear = yearEl ? Number(yearEl.dataset.vcYear) : (self.context.selectedYear as number);
   const selectedMonth = target?.dataset.vcMonth ? Number(target.dataset.vcMonth) : self.context.selectedMonth;
 
-  self.context.currentType = 'month';
+  setContext(self, 'currentType', 'month');
   createLayouts(self, target);
   visibilityTitle(self);
 

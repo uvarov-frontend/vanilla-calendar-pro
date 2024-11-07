@@ -2,6 +2,7 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import reset from '@scripts/methods/reset';
 import setPosition from '@scripts/utils/positions/setPosition';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const createToInput = (self: Calendar, isVisible = true) => {
@@ -12,8 +13,8 @@ const createToInput = (self: Calendar, isVisible = true) => {
   calendar.dataset.vcCalendarHidden = '';
   calendar.style.visibility = 'hidden';
 
-  self.context.inputModeInit = true;
-  self.context.mainElement = calendar;
+  setContext(self, 'inputModeInit', true);
+  setContext(self, 'mainElement', calendar);
   document.body.appendChild(self.context.mainElement);
 
   if (isVisible) {

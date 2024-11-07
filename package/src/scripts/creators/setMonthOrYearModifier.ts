@@ -1,5 +1,6 @@
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const setYearModifier = (self: Calendar, el: HTMLButtonElement, type: 'month' | 'year', selected: boolean, reset: boolean) => {
@@ -29,7 +30,7 @@ const setYearModifier = (self: Calendar, el: HTMLButtonElement, type: 'month' | 
       el.removeAttribute(attributes[type].aria);
     });
 
-    self.context[attributes[type].selectedProperty] = Number(el.dataset[attributes[type].value]) as Range<12>;
+    setContext(self, attributes[type].selectedProperty, Number(el.dataset[attributes[type].value]) as Range<12>);
     visibilityTitle(self);
     if (type === 'year') visibilityArrows(self);
   }

@@ -1,4 +1,5 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
+import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, '');
@@ -31,7 +32,7 @@ const getLocale = (self: Calendar): void => {
   if (typeof self.locale !== 'string') {
     const isManually = self.locale?.weekdays?.short[6] && self.locale?.weekdays?.long[6] && self.locale?.months?.short[11] && self.locale?.months?.long[11];
     if (!isManually) throw new Error(errorMessages.notLocale);
-    self.context.locale = { ...self.locale };
+    setContext(self, 'locale', { ...self.locale });
     return;
   }
 
