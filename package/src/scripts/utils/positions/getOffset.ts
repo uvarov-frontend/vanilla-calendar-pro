@@ -7,14 +7,7 @@ import type { HtmlElementPosition } from '@src/index';
  */
 
 function getOffset(element?: HTMLElement | null): HtmlElementPosition {
-  if (!element || !element.getBoundingClientRect) {
-    return {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-    };
-  }
+  if (!element || !element.getBoundingClientRect) return { top: 0, bottom: 0, left: 0, right: 0 };
 
   const box = element.getBoundingClientRect();
   const docElem = document.documentElement;

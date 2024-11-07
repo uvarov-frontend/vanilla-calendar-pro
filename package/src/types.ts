@@ -53,8 +53,8 @@ export type LocaleStated = {
 export type Locale = string | LocaleStated;
 
 export type Popup = {
-  modifier: string;
-  html: string;
+  modifier?: string;
+  html?: string;
 };
 
 export type Popups = {
@@ -113,7 +113,8 @@ export type Layouts = {
   year: string;
 };
 
-export type Options = Omit<Partial<options>, 'labels' | 'layouts' | 'styles'> & {
+export type Options = Omit<Partial<options>, 'popups' | 'labels' | 'layouts' | 'styles'> & {
+  popups?: Partial<Popups>;
   labels?: Partial<Labels>;
   layouts?: Partial<Layouts>;
   styles?: Partial<Styles>;
