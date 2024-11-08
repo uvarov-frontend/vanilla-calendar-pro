@@ -2,7 +2,7 @@
 
 В ключе верхнего уровня `settings` содержится набор параметров, которые определяют конфигурацию календаря.
 
-## settings.lang
+## locale
 
 `Type: String`
 
@@ -12,9 +12,7 @@
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    lang: 'en',
-  },
+  locale: 'en',
 });
 ```
 
@@ -23,19 +21,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.iso8601
+## firstWeekday
 
-`Type: Boolean`
+`Type: Number`
 
-`Default: true`
+`Default: 1`
 
-`Options: true | false`
+`Options: number`
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    iso8601: true,
-  },
+  firstWeekday: 1,
 });
 ```
 
@@ -43,7 +39,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.range.min
+## displayDateMin
 
 `Type: String`
 
@@ -53,29 +49,25 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      min: '2022-07-01',
-      // or
-      min: 'today',
-    }
-  },
+  displayDateMin: '2022-07-01',
+  // or
+  displayDateMin: 'today',
 });
 ```
 
 Этот параметр устанавливает минимальную дату, которую пользователь может выбрать. Даты, меньшие указанной, будут отключены и недоступны для выбора.
 
 <Info>
-  Важно отметить, что `settings.range.min` и `settings.range.max` отключают даты, выходящие за пределы диапазона, в то время как `date.min` и `date.max` вообще их не создают.
+  Важно отметить, что `displayDateMin` и `displayDateMax` отключают даты, выходящие за пределы диапазона, в то время как `dateMin` и `dateMax` вообще их не создают.
 </Info>
 
 <Info>
-  Вы можете указать `'today'` как ярлык для `settings.range.min` и/или `settings.range.max`.
+  Вы можете указать `'today'` как ярлык для `displayDateMin` и/или `displayDateMax`.
 </Info>
 
 ---
 
-## settings.range.max
+## displayDateMax
 
 `Type: String`
 
@@ -85,29 +77,25 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      max: '2024-07-01',
-      // or
-      max: 'today',
-    }
-  },
+  displayDateMax: '2024-07-01',
+  // or
+  displayDateMax: 'today',
 });
 ```
 
 Этот параметр устанавливает максимальную дату, которую пользователь может выбрать. Даты, большие указанной, будут отключены и недоступны для выбора.
 
 <Info>
-  Важно отметить, что `settings.range.min` и `settings.range.max` отключают даты, выходящие за пределы диапазона, в то время как `date.min` и `date.max` вообще их не создают.
+  Важно отметить, что `displayDateMin` и `displayDateMax` отключают даты, выходящие за пределы диапазона, в то время как `dateMin` и `dateMax` вообще их не создают.
 </Info>
 
 <Info>
-  Вы можете указать `'today'` как ярлык для `settings.range.min` и/или `settings.range.max`.
+  Вы можете указать `'today'` как ярлык для `displayDateMin` и/или `displayDateMax`.
 </Info>
 
 ---
 
-## settings.range.edgesOnly
+## enableEdgeDatesOnly
 
 `Type: Boolean`
 
@@ -117,15 +105,11 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      edgesOnly: true,
-    }
-  },
+  enableEdgeDatesOnly: true,
 });
 ```
 
-Этот параметр позволяет получить только начальную и конечную выбранную пользователем дату, игнорируя промежуточные даты. Этот параметр работает только в том случае, если для <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> установлено значение `'multiple-ranged'`.
+Этот параметр позволяет получить только начальную и конечную выбранную пользователем дату, игнорируя промежуточные даты. Этот параметр работает только в том случае, если для <a href="/docs/reference/additionally/settings#selection-day">`selectionDatesMode`</a> установлено значение `'multiple-ranged'`.
 
 <Info>
   Важно отметить, что при использовании этой настройки отключение дат в пределах диапазона дат не будет иметь никакого эффекта. Поэтому обязательно используйте этот параметр, если вас интересуют только начальная и конечная выбранная пользователем дата.
@@ -133,7 +117,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.range.disablePast
+## disableDatesPast
 
 `Type: Boolean`
 
@@ -143,11 +127,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disablePast: true,
-    }
-  },
+  disableDatesPast: true,
 });
 ```
 
@@ -155,7 +135,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.range.disableGaps
+## disableDatesGaps
 
 `Type: Boolean`
 
@@ -165,19 +145,15 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disableGaps: true,
-    }
-  },
+  disableDatesGaps: true,
 });
 ```
 
-Этот параметр отключает выбор дней в диапазоне с отключенными датами. Работает только если для параметра <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> установлено значение `'multiple-ranged'`.
+Этот параметр отключает выбор дней в диапазоне с отключенными датами. Работает только если для параметра <a href="/docs/reference/additionally/settings#selection-day">`selectionDatesMode`</a> установлено значение `'multiple-ranged'`.
 
 ---
 
-## settings.range.disableAllDays
+## disableAllDates
 
 `Type: Boolean`
 
@@ -187,15 +163,11 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disableAllDays: true,
-    }
-  },
+  disableAllDates: true,
 });
 ```
 
-Этот параметр отключает все дни и может быть полезен при использовании <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+Этот параметр отключает все дни и может быть полезен при использовании <a href="/docs/reference/additionally/settings#range-enabled">`enableDates`</a>.
 
 ---
 
@@ -221,7 +193,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.range.disabled
+## disableDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -231,11 +203,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disabled: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    }
-  },
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -247,7 +215,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.range.enabled
+## enableDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -257,11 +225,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      enabled: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
-    }
-  },
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -273,7 +237,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.day
+## selectionDatesMode
 
 `Type: String | false`
 
@@ -283,11 +247,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      day: 'single',
-    },
-  },
+  selectionDatesMode: 'single',
 });
 ```
 
@@ -295,7 +255,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.month
+## selectionMonthsMode
 
 `Type: Boolean`
 
@@ -305,11 +265,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      month: false,
-    },
-  },
+  selectionMonthsMode: false,
 });
 ```
 
@@ -317,7 +273,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.year
+## selectionYearsMode
 
 `Type: Boolean`
 
@@ -327,11 +283,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      year: false,
-    },
-  },
+  selectionYearsMode: false,
 });
 ```
 
@@ -339,7 +291,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.time
+## selectionTimeMode
 
 `Type: Boolean | Number`
 
@@ -349,11 +301,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      time: true,
-    },
-  },
+  selectionTimeMode: true,
 });
 ```
 
@@ -361,7 +309,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.controlTime
+## timeControls
 
 `Type: String`
 
@@ -371,11 +319,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      controlTime: 'all',
-    },
-  },
+  timeControls: 'all',
 });
 ```
 
@@ -383,7 +327,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.stepHours
+## timeStepHour
 
 `Type: Number`
 
@@ -393,11 +337,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      stepHours: 1,
-    },
-  },
+  timeStepHour: 1,
 });
 ```
 
@@ -405,7 +345,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selection.stepMinutes
+## timeStepMinute
 
 `Type: Number`
 
@@ -415,11 +355,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      stepMinutes: 1,
-    },
-  },
+  timeStepMinute: 1,
 });
 ```
 
@@ -449,7 +385,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selected.dates
+## selectedDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -459,11 +395,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      dates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    },
-  },
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -475,7 +407,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selected.month
+## selectedMonth
 
 `Type: Number`
 
@@ -485,11 +417,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      month: 0,
-    },
-  },
+  selectedMonth: 0,
 });
 ```
 
@@ -497,7 +425,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selected.year
+## selectedYear
 
 `Type: Number`
 
@@ -507,11 +435,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      year: 2022,
-    },
-  },
+  selectedYear: 2022,
 });
 ```
 
@@ -519,7 +443,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selected.holidays
+## selectedHolidays
 
 `Type: String[] | Number[] | Date[]`
 
@@ -529,11 +453,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      holidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    },
-  },
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -545,7 +465,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.selected.time
+## selectedTime
 
 `Type: String`
 
@@ -555,11 +475,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      time: '03:44 AM',
-    },
-  },
+  selectedTime: '03:44 AM',
 });
 ```
 
@@ -567,7 +483,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.theme
+## selectedTheme
 
 `Type: String`
 
@@ -577,11 +493,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      theme: 'system',
-    },
-  },
+  selectedTheme: 'system',
 });
 ```
 
@@ -589,7 +501,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.themeDetect
+## themeAttrDetect
 
 `Type: String | False`
 
@@ -599,18 +511,14 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      themeDetect: 'html[data-theme]',
-    },
-  },
+  themeAttrDetect: 'html[data-theme]',
 });
 ```
 
 Для того чтобы календарь автоматически отслеживал и применял тему сайта, вы можете передать строковое значение в виде CSS-селектора.
 Квадратные скобки указывают на атрибут, содержащий название темы.
 По умолчанию отслеживается тег `html` с атрибутом `data-theme`, но вы можете настроить любой другой атрибут и тег, например, `class`, если имя класса используется для задания темы: `'html[class]'`.
-Если установить значение `false`, тема будет определяться системой пользователя или параметром `settings.visibility.theme`.
+Если установить значение `false`, тема будет определяться системой пользователя или параметром `selectedTheme`.
 
 ---
 
@@ -636,7 +544,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.weekNumbers
+## enableWeekNumbers
 
 `Type: Boolean`
 
@@ -646,11 +554,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      weekNumbers: false,
-    },
-  },
+  enableWeekNumbers: false,
 });
 ```
 
@@ -658,29 +562,26 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.weekend
+## disableWeekdays
 
-`Type: Boolean`
+`Type: Number`
 
-`Default: false`
+`Default: []`
 
-`Options: true | false`
+`Options: number[]`
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      weekend: true,
-    },
-  },
+  disableWeekdays: [0, 6],
 });
 ```
 
+// TODO: disable English
 Этот параметр позволяет выделить выходные дни в календаре.
 
 ---
 
-## settings.visibility.today
+## disableToday
 
 `Type: Boolean`
 
@@ -690,11 +591,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      today: true,
-    },
-  },
+  disableToday: true,
 });
 ```
 
@@ -702,7 +599,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.disabled
+## displayDisabledDates
 
 `Type: Boolean`
 
@@ -712,11 +609,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      disabled: false,
-    },
-  },
+  displayDisabledDates: false,
 });
 ```
 
@@ -724,7 +617,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.daysOutside
+## displayDatesOutside
 
 `Type: Boolean`
 
@@ -734,11 +627,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      daysOutside: false,
-    },
-  },
+  displayDatesOutside: false,
 });
 ```
 
@@ -746,7 +635,7 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## settings.visibility.positionToInput
+## positionToInput
 
 `Type: String`
 
@@ -756,16 +645,12 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      positionToInput: 'auto',
-      // positionToInput: ['bottom', 'center'],
-    },
-  },
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
 });
 ```
 
-Этот параметр определяет положение календаря относительно input, если каклендарь инициализирован с параметром `input`.
+Этот параметр определяет положение календаря относительно input, если каклендарь инициализирован с параметром `inputMode`.
 
 `positionToInput` принимает строку со значением `'left'`, `'center'` или `'right'`, либо массив значений `[ось Y, ось X]`, где ось Y может быть `'bottom'` или `'top'`, а ось X может быть `'left'`, `'center'` или `'right'`.
 Если ось Y не указана, то используется значение по умолчанию - `'bottom'`.

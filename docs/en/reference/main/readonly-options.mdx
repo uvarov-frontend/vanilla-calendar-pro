@@ -7,260 +7,260 @@ These parameters contain information about the current state of the calendar, wh
   The calendar's state changes with every interaction, which leads to the update of these parameter values. This is why they are available for reading only.
 </Info>
 
-## HTMLElement
+## context.mainElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLElement);
+console.log(calendar.context.mainElement);
 ```
 
-The `HTMLElement` property contains the root HTML element in which the calendar was initialized.
+The `mainElement` property contains the root HTML element in which the calendar was initialized.
 
 - - -
 
-## HTMLOriginalElement
+## context.originalElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLOriginalElement);
+console.log(calendar.context.originalElement);
 ```
 
-The `HTMLOriginalElement` property contains the original root HTML element without any modifications, in which the calendar was initialized.
+The `originalElement` property contains the original root HTML element without any modifications, in which the calendar was initialized.
 
 - - -
 
-## HTMLInputElement
+## context.inputElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLInputElement);
+console.log(calendar.context.inputElement);
 ```
 
-The `HTMLInputElement` property represents the root HTML element that is an input field.
+The `inputElement` property represents the root HTML element that is an input field.
 
 - - -
 
-## currentType
+## context.currentType
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.currentType);
+console.log(calendar.context.currentType);
 ```
 
 The `currentType` property contains the current type of the calendar.
 
 - - -
 
-## dateMin
+## context.dateMin
 
 `Type: Date`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.dateMin);
+console.log(calendar.context.dateMin);
 ```
 
 The `dateMin` property represents the minimum date in the `Date` object format.
 
 - - -
 
-## dateMax
+## context.dateMax
 
 `Type: Date`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.dateMax);
+console.log(calendar.context.dateMax);
 ```
 
 The `dateMax` property represents the maximum date in the `Date` object format.
 
 - - -
 
-## rangeMin
+## context.rangeMin
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeMin);
+console.log(calendar.context.rangeMin);
 ```
 
 The `rangeMin` property contains the current minimum date.
 
 - - -
 
-## rangeMax
+## context.rangeMax
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeMax);
+console.log(calendar.context.rangeMax);
 ```
 
 The `rangeMax` property contains the current maximum date.
 
 - - -
 
-## rangeDisabled
+## context.rangeDisabled
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeDisabled);
+console.log(calendar.context.rangeDisabled);
 ```
 
 The `rangeDisabled` property represents an array of disabled dates.
 
 - - -
 
-## rangeEnabled
+## context.rangeEnabled
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeEnabled);
+console.log(calendar.context.rangeEnabled);
 ```
 
 The `rangeEnabled` property contains an array of enabled dates.
 
 - - -
 
-## selectedDates
+## context.selectedDates
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedDates);
+console.log(calendar.context.selectedDates);
 ```
 
 The `selectedDates` property contains an array of currently selected dates.
 
 - - -
 
-## selectedHolidays
+## context.selectedHolidays
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedHolidays);
+console.log(calendar.context.selectedHolidays);
 ```
 
 The `selectedHolidays` property represents an array of selected holiday dates.
 
 - - -
 
-## selectedMonth
+## context.selectedMonth
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedMonth);
+console.log(calendar.context.selectedMonth);
 ```
 
 The `selectedMonth` property contains the number of the currently selected month.
 
 - - -
 
-## selectedYear
+## context.selectedYear
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedYear);
+console.log(calendar.context.selectedYear);
 ```
 
 The `selectedYear` property represents the number of the currently selected year.
 
 - - -
 
-## selectedHours
+## context.selectedHours
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedHours);
+console.log(calendar.context.selectedHours);
 ```
 
 The `selectedHours` property contains the currently selected hour.
 
 - - -
 
-## selectedMinutes
+## context.selectedMinutes
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedMinutes);
+console.log(calendar.context.selectedMinutes);
 ```
 
 The `selectedMinutes` property represents the currently selected minutes.
 
 - - -
 
-## selectedKeeping
+## context.selectedKeeping
 
 `Type: string | null`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedKeeping);
+console.log(calendar.context.selectedKeeping);
 ```
 
 The `selectedKeeping` property contains the AM/PM marker for the 12-hour time format.
 
 - - -
 
-## selectedTime
+## context.selectedTime
 
 `Type: string | null`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedTime);
+console.log(calendar.context.selectedTime);
 ```
 
 The `selectedTime` property contains the full current time.
 
 - - -
 
-## correctMonths
+## context.correctMonths
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.correctMonths);
+console.log(calendar.context.correctMonths);
 ```
 
 The `correctMonths` property contains the current number of months to display if the calendar type is set to `'multiple'`.
 
 - - -
 
-## viewYear
+## context.displayYear
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.viewYear);
+console.log(calendar.context.displayYear);
 ```
 
-The `viewYear` property represents the current displayed year.
+The `displayYear` property represents the current displayed year.

@@ -10,19 +10,17 @@ Actions in VanillaCalendar are event handlers that allow you to receive and proc
   Note that month numbering starts from `0`, so December is the 11th month. This is related to the behavior of the standard JavaScript method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth" target="_blank" rel="nofollow noreferrer">`.getMonth()`</a>.
 </Info>
 
-## actions.clickDay()
+## onClickDate()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickDay(e, self) => void | null`
+`Options: onClickDate(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickDay(e, self) {},
-  },
+  onClickDate(e, self) {},
 });
 ```
 
@@ -36,23 +34,21 @@ This method triggers after clicking on a day in the calendar. You can get the fo
 
 ---
 
-## actions.clickWeekNumber()
+## onClickWeekNumber()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickWeekNumber(e, number, days, year, self) => void | null`
+`Options: onClickWeekNumber(e, number, days, year, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickWeekNumber(e, number, days, year, self) {},
-  },
+  onClickWeekNumber(e, number, days, year, self) {},
 });
 ```
 
-This method triggers after clicking on the week number in the calendar, but it requires the <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`settings.visibility.weekNumbers`</a> parameter to be set to true. You can get the following parameters:
+This method triggers after clicking on the week number in the calendar, but it requires the <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`enableWeekNumbers`</a> parameter to be set to true. You can get the following parameters:
 - `e` - the mouse event;
 - `number` - the week number;
 - `days` - an array of days (HTML elements);
@@ -61,19 +57,17 @@ This method triggers after clicking on the week number in the calendar, but it r
 
 ---
 
-## actions.clickMonth()
+## onClickMonth()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickMonth(e, self) => void | null`
+`Options: onClickMonth(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickMonth(e, self) {},
-  },
+  onClickMonth(e, self) {},
 });
 ```
 
@@ -83,19 +77,17 @@ This method triggers after selecting a month in the calendar. You can get the fo
 
 ---
 
-## actions.clickYear()
+## onClickYear()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickYear(e, self) => void | null`
+`Options: onClickYear(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickYear(e, self) {},
-  },
+  onClickYear(e, self) {},
 });
 ```
 
@@ -105,19 +97,17 @@ This method triggers after selecting a year in the calendar. You can get the fol
 
 ---
 
-## actions.clickArrow()
+## onClickArrow()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickArrow(e, self) => void | null`
+`Options: onClickArrow(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickArrow(e, self) {},
-  },
+  onClickArrow(e, self) {},
 });
 ```
 
@@ -127,19 +117,17 @@ This method triggers after clicking the arrow in the calendar. You can get the f
 
 ---
 
-## actions.changeTime()
+## onChangeTime()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: changeTime(e, self) => void | null`
+`Options: onChangeTime(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    changeTime(e, self) {},
-  },
+  onChangeTime(e, self) {},
 });
 ```
 
@@ -149,19 +137,17 @@ This method triggers after changing the time in the calendar. You can get the fo
 
 ---
 
-## actions.changeToInput()
+## onChangeToInput()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: changeToInput(e, self) => void | null`
+`Options: onChangeToInput(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    changeToInput(e, self) {},
-  },
+  onChangeToInput(e, self) {},
 });
 ```
 
@@ -173,90 +159,82 @@ You can get the following parameters:
 
 ---
 
-## actions.getDays()
+## onCreateDateEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getDays(day, date, HTMLElement, HTMLButtonElement, self) => void | null`
+`Options: onCreateDateEls(day, date, mainElement, HTMLButtonElement, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getDays(day, date, HTMLElement, HTMLButtonElement, self) {},
-  },
+  onCreateDateEls(day, date, mainElement, HTMLButtonElement, self) {},
 });
 ```
 
 This method triggers during the calendar initialization and any changes. It provides access to information about each day and its HTML element. You can get the following parameters:
 - `day` - the day number;
 - `date` - the full date in the `YYYY-MM-DD` format;
-- `HTMLElement` - the parent (wrapper) HTML element of the day;
+- `mainElement` - the parent (wrapper) HTML element of the day;
 - `HTMLButtonElement` - the child (button) HTML element of the day.
 - `self` - reference to the initialized calendar.
 
 ---
 
-## actions.getMonths()
+## onCreateMonthEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getMonths(month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+`Options: onCreateMonthEls(month: number, mainElement: HTMLElement, self: IVanillaCalendar) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getMonths(month, HTMLElement, self) {},
-  },
+  onCreateMonthEls(month, mainElement, self) {},
 });
 ```
 
 This method is triggered when the calendar type is set to `'month'`. The calendar type also becomes `'month'` when the user clicks on the month header or during initialization with the `type = 'month'` parameter. It provides access to information about each month and its HTML element. You can retrieve the following parameters:
 - `month` - month number (starts at 0);
-- `HTMLElement` - HTML element of the month;
+- `mainElement` - HTML element of the month;
 - `self` - reference to the initialized calendar.
 
 ---
 
-## actions.getYears()
+## onCreateYearEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getYears(year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+`Options: onCreateYearEls(year: number, mainElement: HTMLElement, self: IVanillaCalendar) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getYears(year, HTMLElement, self) {},
-  },
+  onCreateYearEls(year, mainElement, self) {},
 });
 ```
 
 This method is triggered when the calendar type is set to `'year'`. The calendar type becomes `'year'` when the user clicks on the year header or during initialization with the `type = 'year'` parameter. It provides access to information about each year and its HTML element. You can retrieve the following parameters:
 - `year` - year number;
-- `HTMLElement` - HTML element of the year;
+- `mainElement` - HTML element of the year;
 - `self` - reference to the initialized calendar.
 
 ---
 
-## actions.hideCalendar()
+## onHide()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: hideCalendar(self) => void | null`
+`Options: onHide(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    hideCalendar(self) {},
-  },
+  onHide(self) {},
 });
 ```
 
@@ -265,19 +243,17 @@ This method triggers when the calendar is hiding, but only if the <a href="/docs
 
 ---
 
-## actions.showCalendar()
+## onShow()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: showCalendar(self) => void | null`
+`Options: onShow(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    showCalendar(self) {},
-  },
+  onShow(self) {},
 });
 ```
 
@@ -286,19 +262,17 @@ This method triggers when displaying the calendar to the user, but only if the <
 
 ---
 
-## actions.initCalendar()
+## onInit()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: initCalendar(self) => void | null`
+`Options: onInit(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    initCalendar(self) {},
-  },
+  onInit(self) {},
 });
 ```
 
@@ -307,19 +281,17 @@ This method is triggered during the initialization of the calendar. If the value
 
 ---
 
-## actions.updateCalendar()
+## onUpdate()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: updateCalendar(self) => void | null`
+`Options: onUpdate(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    updateCalendar(self) {},
-  },
+  onUpdate(self) {},
 });
 ```
 
@@ -328,19 +300,17 @@ This method is triggered when the calendar is updated/reset.
 
 ---
 
-## actions.destroyCalendar()
+## onDestroy()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: destroyCalendar(self) => void | null`
+`Options: onDestroy(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    destroyCalendar(self) {},
-  },
+  onDestroy(self) {},
 });
 ```
 

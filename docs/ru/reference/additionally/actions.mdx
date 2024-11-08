@@ -10,19 +10,17 @@
   Обратите внимание, что нумерация месяцев начинаются с `0`, поэтому декабрь — это 11-й месяц. Это связано с работой стандартного метода <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth" target="_blank" rel="nofollow noreferrer">`.getMonth()`</a>.
 </Info>
 
-## actions.clickDay()
+## onClickDate()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickDay(e, self) => void | null`
+`Options: onClickDate(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickDay(e, self) {},
-  },
+  onClickDate(e, self) {},
 });
 ```
 
@@ -38,23 +36,21 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.clickWeekNumber()
+## onClickWeekNumber()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickWeekNumber(e, number, days, year, self) => void | null`
+`Options: onClickWeekNumber(e, number, days, year, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickWeekNumber(e, number, days, year, self) {},
-  },
+  onClickWeekNumber(e, number, days, year, self) {},
 });
 ```
 
-Этот метод срабатывает после нажатия на номер недели в календаре, но для его работы необходим параметр <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`settings.visibility.weekNumbers`</a> со значением `true`. Вы можете получить следующие параметры:
+Этот метод срабатывает после нажатия на номер недели в календаре, но для его работы необходим параметр <a href="/docs/reference/additionally/settings#visibility-weeknumbers">`enableWeekNumbers`</a> со значением `true`. Вы можете получить следующие параметры:
 - `e` - событие мыши;
 - `number` - номер недели;
 - `days` - массив дней (html-элементов);
@@ -63,19 +59,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.clickMonth()
+## onClickMonth()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickMonth(e, self) => void | null`
+`Options: onClickMonth(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickMonth(e, self) {},
-  },
+  onClickMonth(e, self) {},
 });
 ```
 
@@ -85,19 +79,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.clickYear()
+## onClickYear()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickYear(e, self) => void | null`
+`Options: onClickYear(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickYear(e, self) {},
-  },
+  onClickYear(e, self) {},
 });
 ```
 
@@ -107,19 +99,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.clickArrow()
+## onClickArrow()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: clickArrow(e, self) => void | null`
+`Options: onClickArrow(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    clickArrow(e, self) {},
-  },
+  onClickArrow(e, self) {},
 });
 ```
 
@@ -129,19 +119,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.changeTime()
+## onChangeTime()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: changeTime(e, self) => void | null`
+`Options: onChangeTime(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    changeTime(e, self) {},
-  },
+  onChangeTime(e, self) {},
 });
 ```
 
@@ -151,19 +139,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.changeToInput()
+## onChangeToInput()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: changeToInput(e, self) => void | null`
+`Options: onChangeToInput(e, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    changeToInput(e, self) {},
-  },
+  onChangeToInput(e, self) {},
 });
 ```
 
@@ -175,90 +161,82 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.getDays()
+## onCreateDateEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getDays(day, date, HTMLElement, HTMLButtonElement, self) => void | null`
+`Options: onCreateDateEls(day, date, mainElement, HTMLButtonElement, self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getDays(day, date, HTMLElement, HTMLButtonElement, self) {},
-  },
+  onCreateDateEls(day, date, mainElement, HTMLButtonElement, self) {},
 });
 ```
 
 Этот метод срабатывает при инициализации календаря и при любых изменениях. Он предоставляет доступ к информации о каждом дне и его HTML-элементе. Вы можете получить следующие параметры:
 - `day` - номер дня;
 - `date` - полная дата в формате `YYYY-MM-DD`;
-- `HTMLElement` - родительский (обертка) HTML-элемент дня;
+- `mainElement` - родительский (обертка) HTML-элемент дня;
 - `HTMLButtonElement` - дочерний (кнопка) HTML-элемент дня.
 - `self` - ссылка на инициализированный календарь.
 
 ---
 
-## actions.getMonths()
+## onCreateMonthEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getMonths(month: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+`Options: onCreateMonthEls(month: number, mainElement: HTMLElement, self: IVanillaCalendar) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getMonths(month, HTMLElement, self) {},
-  },
+  onCreateMonthEls(month, mainElement, self) {},
 });
 ```
 
 Этот метод срабатывает, когда тип календаря установлен на `'month'`. Тип календаря также становится `'month'`, когда пользователь кликает на заголовок месяца или при инициализации с параметром `type = 'month'`. Он предоставляет доступ к информации о каждом месяце и его HTML-элементе. Вы можете получить следующие параметры:
 - `month` - номер месяца (начинается с 0);
-- `HTMLElement` - HTML-элемент месяца;
+- `mainElement` - HTML-элемент месяца;
 - `self` - ссылка на инициализированный календарь.
 
 ---
 
-## actions.getYears()
+## onCreateYearEls()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: getYears(year: number, HTMLElement: HTMLElement, self: IVanillaCalendar) => void | null`
+`Options: onCreateYearEls(year: number, mainElement: HTMLElement, self: IVanillaCalendar) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    getYears(year, HTMLElement, self) {},
-  },
+  onCreateYearEls(year, mainElement, self) {},
 });
 ```
 
 Этот метод срабатывает, когда тип календаря установлен на `'year'`. Тип календаря становится `'year'`, когда пользователь кликает на заголовок года или при инициализации с параметром `type = 'year'`. Он предоставляет доступ к информации о каждом годе и его HTML-элементе. Вы можете получить следующие параметры:
 - `year` - номер года;
-- `HTMLElement` - HTML-элемент года;
+- `mainElement` - HTML-элемент года;
 - `self` - ссылка на инициализированный календарь.
 
 ---
 
-## actions.hideCalendar()
+## onHide()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: hideCalendar(self) => void | null`
+`Options: onHide(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    hideCalendar(self) {},
-  },
+  onHide(self) {},
 });
 ```
 
@@ -267,19 +245,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.showCalendar()
+## onShow()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: showCalendar(self) => void | null`
+`Options: onShow(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    showCalendar(self) {},
-  },
+  onShow(self) {},
 });
 ```
 
@@ -288,19 +264,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.initCalendar()
+## onInit()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: initCalendar(self) => void | null`
+`Options: onInit(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    initCalendar(self) {},
-  },
+  onInit(self) {},
 });
 ```
 
@@ -309,19 +283,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.updateCalendar()
+## onUpdate()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: updateCalendar(self) => void | null`
+`Options: onUpdate(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    updateCalendar(self) {},
-  },
+  onUpdate(self) {},
 });
 ```
 
@@ -330,19 +302,17 @@ new VanillaCalendar('#calendar', {
 
 ---
 
-## actions.destroyCalendar()
+## onDestroy()
 
 `Type: Function`
 
 `Default: null`
 
-`Options: destroyCalendar(self) => void | null`
+`Options: onDestroy(self) => void | null`
 
 ```js
 new VanillaCalendar('#calendar', {
-  actions: {
-    destroyCalendar(self) {},
-  },
+  onDestroy(self) {},
 });
 ```
 

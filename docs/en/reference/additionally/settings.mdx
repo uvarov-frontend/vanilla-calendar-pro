@@ -2,7 +2,7 @@
 
 The top-level `settings` key contains a set of parameters that define the calendar's configuration.
 
-## settings.lang
+## locale
 
 `Type: String`
 
@@ -12,9 +12,7 @@ The top-level `settings` key contains a set of parameters that define the calend
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    lang: 'en',
-  },
+  locale: 'en',
 });
 ```
 
@@ -23,19 +21,17 @@ You can specify a language label according to <a href="https://www.iana.org/assi
 
 ---
 
-## settings.iso8601
+## firstWeekday
 
-`Type: Boolean`
+`Type: Number`
 
-`Default: true`
+`Default: 1`
 
-`Options: true | false`
+`Options: number`
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    iso8601: true,
-  },
+  firstWeekday: 1,
 });
 ```
 
@@ -43,7 +39,7 @@ This parameter sets the start of the week in accordance with the international s
 
 ---
 
-## settings.range.min
+## displayDateMin
 
 `Type: String`
 
@@ -53,29 +49,25 @@ This parameter sets the start of the week in accordance with the international s
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      min: '2022-07-01',
-      // or
-      min: 'today',
-    }
-  },
+  displayDateMin: '2022-07-01',
+  // or
+  displayDateMin: 'today',
 });
 ```
 
 This parameter sets the minimum date that the user can choose. Dates earlier than the specified date will be disabled and not available for selection.
 
 <Info>
-  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+  It's important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not even create them.
 </Info>
 
 <Info>
-  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
+  You can provide `'today'` as a shortcut to `displayDateMin` and/or `displayDateMax`.
 </Info>
 
 ---
 
-## settings.range.max
+## displayDateMax
 
 `Type: String`
 
@@ -85,29 +77,25 @@ This parameter sets the minimum date that the user can choose. Dates earlier tha
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      max: '2024-07-01',
-      // or
-      max: 'today',
-    }
-  },
+  displayDateMax: '2024-07-01',
+  // or
+  displayDateMax: 'today',
 });
 ```
 
 This parameter sets the maximum date that the user can choose. Dates later than the specified date will be disabled and not available for selection.
 
 <Info>
-  It's important to note that `settings.range.min` and `settings.range.max` disable dates outside the range, while `date.min` and `date.max` do not even create them.
+  It's important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not even create them.
 </Info>
 
 <Info>
-  You can provide `'today'` as a shortcut to `settings.range.min` and/or `settings.range.max`.
+  You can provide `'today'` as a shortcut to `displayDateMin` and/or `displayDateMax`.
 </Info>
 
 ---
 
-## settings.range.edgesOnly
+## enableEdgeDatesOnly
 
 `Type: Boolean`
 
@@ -117,15 +105,11 @@ This parameter sets the maximum date that the user can choose. Dates later than 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      edgesOnly: true,
-    }
-  },
+  enableEdgeDatesOnly: true,
 });
 ```
 
-This parameter will keep references of the date range edges only, which are the Start and End dates in `settings.selected.dates` but nothing in between the range. It only works when <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
+This parameter will keep references of the date range edges only, which are the Start and End dates in `selectedDates` but nothing in between the range. It only works when <a href="/docs/reference/additionally/settings#selection-day">`selectionDatesMode`</a> is set to `'multiple-ranged'`.
 
 <Info>
   It's important to note that with this setting, disabling dates within the date range will have no effect. So make sure to use this parameter when you are interested with only the start and end date but nothing in-between.
@@ -133,7 +117,7 @@ This parameter will keep references of the date range edges only, which are the 
 
 ---
 
-## settings.range.disablePast
+## disableDatesPast
 
 `Type: Boolean`
 
@@ -143,11 +127,7 @@ This parameter will keep references of the date range edges only, which are the 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disablePast: true,
-    }
-  },
+  disableDatesPast: true,
 });
 ```
 
@@ -155,7 +135,7 @@ This parameter disables all past days.
 
 ---
 
-## settings.range.disableGaps
+## disableDatesGaps
 
 `Type: Boolean`
 
@@ -165,19 +145,15 @@ This parameter disables all past days.
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disableGaps: true,
-    }
-  },
+  disableDatesGaps: true,
 });
 ```
 
-This parameter disables the selection of days within a range with disabled dates. It only works when <a href="/docs/reference/additionally/settings#selection-day">`settings.selection.day`</a> is set to `'multiple-ranged'`.
+This parameter disables the selection of days within a range with disabled dates. It only works when <a href="/docs/reference/additionally/settings#selection-day">`selectionDatesMode`</a> is set to `'multiple-ranged'`.
 
 ---
 
-## settings.range.disableAllDays
+## disableAllDates
 
 `Type: Boolean`
 
@@ -187,15 +163,11 @@ This parameter disables the selection of days within a range with disabled dates
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disableAllDays: true,
-    }
-  },
+  disableAllDates: true,
 });
 ```
 
-This parameter disables all days and can be useful when using <a href="/docs/reference/additionally/settings#range-enabled">`settings.range.enabled`</a>.
+This parameter disables all days and can be useful when using <a href="/docs/reference/additionally/settings#range-enabled">`enableDates`</a>.
 
 ---
 
@@ -221,7 +193,7 @@ This parameter allows you to disable specified weekdays. Specify an array with n
 
 ---
 
-## settings.range.disabled
+## disableDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -231,11 +203,7 @@ This parameter allows you to disable specified weekdays. Specify an array with n
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      disabled: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    }
-  },
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -247,7 +215,7 @@ This parameter allows you to disable specific dates regardless of the specified 
 
 ---
 
-## settings.range.enabled
+## enableDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -257,11 +225,7 @@ This parameter allows you to disable specific dates regardless of the specified 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    range: {
-      enabled: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
-    }
-  },
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -273,7 +237,7 @@ This parameter allows you to enable specific dates regardless of the range and d
 
 ---
 
-## settings.selection.day
+## selectionDatesMode
 
 `Type: String | false`
 
@@ -283,11 +247,7 @@ This parameter allows you to enable specific dates regardless of the range and d
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      day: 'single',
-    },
-  },
+  selectionDatesMode: 'single',
 });
 ```
 
@@ -295,7 +255,7 @@ This parameter determines whether it's allowed to select one or multiple days, o
 
 ---
 
-## settings.selection.month
+## selectionMonthsMode
 
 `Type: Boolean`
 
@@ -305,11 +265,7 @@ This parameter determines whether it's allowed to select one or multiple days, o
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      month: false,
-    },
-  },
+  selectionMonthsMode: false,
 });
 ```
 
@@ -317,7 +273,7 @@ This parameter allows you to disable the selection of months, allow switching be
 
 ---
 
-## settings.selection.year
+## selectionYearsMode
 
 `Type: Boolean`
 
@@ -327,11 +283,7 @@ This parameter allows you to disable the selection of months, allow switching be
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      year: false,
-    },
-  },
+  selectionYearsMode: false,
 });
 ```
 
@@ -339,7 +291,7 @@ This parameter allows you to disable the selection of years, allow switching bet
 
 ---
 
-## settings.selection.time
+## selectionTimeMode
 
 `Type: Boolean | Number`
 
@@ -349,11 +301,7 @@ This parameter allows you to disable the selection of years, allow switching bet
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      time: true,
-    },
-  },
+  selectionTimeMode: true,
 });
 ```
 
@@ -361,7 +309,7 @@ This parameter enables time selection. You can also specify the time format usin
 
 ---
 
-## settings.selection.controlTime
+## timeControls
 
 `Type: String`
 
@@ -371,11 +319,7 @@ This parameter enables time selection. You can also specify the time format usin
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      controlTime: 'all',
-    },
-  },
+  timeControls: 'all',
 });
 ```
 
@@ -383,7 +327,7 @@ This parameter determines how time selection is allowed: `'all'` (any method) or
 
 ---
 
-## settings.selection.stepHours
+## timeStepHour
 
 `Type: Number`
 
@@ -393,11 +337,7 @@ This parameter determines how time selection is allowed: `'all'` (any method) or
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      stepHours: 1,
-    },
-  },
+  timeStepHour: 1,
 });
 ```
 
@@ -405,7 +345,7 @@ This parameter sets the step for the hour controller. You can choose any number 
 
 ---
 
-## settings.selection.stepMinutes
+## timeStepMinute
 
 `Type: Number`
 
@@ -415,11 +355,7 @@ This parameter sets the step for the hour controller. You can choose any number 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selection: {
-      stepMinutes: 1,
-    },
-  },
+  timeStepMinute: 1,
 });
 ```
 
@@ -449,7 +385,7 @@ This option allows you to enable/disable cancellation of the selected date by pr
 
 ---
 
-## settings.selected.dates
+## selectedDates
 
 `Type: String[] | Number[] | Date[]`
 
@@ -459,11 +395,7 @@ This option allows you to enable/disable cancellation of the selected date by pr
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      dates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    },
-  },
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -475,7 +407,7 @@ This parameter allows you to specify a list of dates that will be selected when 
 
 ---
 
-## settings.selected.month
+## selectedMonth
 
 `Type: Number`
 
@@ -485,11 +417,7 @@ This parameter allows you to specify a list of dates that will be selected when 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      month: 0,
-    },
-  },
+  selectedMonth: 0,
 });
 ```
 
@@ -497,7 +425,7 @@ This parameter determines the month that will be displayed when the calendar is 
 
 ---
 
-## settings.selected.year
+## selectedYear
 
 `Type: Number`
 
@@ -507,11 +435,7 @@ This parameter determines the month that will be displayed when the calendar is 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      year: 2022,
-    },
-  },
+  selectedYear: 2022,
 });
 ```
 
@@ -519,7 +443,7 @@ This parameter determines the year that will be displayed when the calendar is i
 
 ---
 
-## settings.selected.holidays
+## selectedHolidays
 
 `Type: String[] | Number[] | Date[]`
 
@@ -529,11 +453,7 @@ This parameter determines the year that will be displayed when the calendar is i
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      holidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
-    },
-  },
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
 });
 ```
 
@@ -545,7 +465,7 @@ This parameter allows you to specify dates that will be considered holidays and 
 
 ---
 
-## settings.selected.time
+## selectedTime
 
 `Type: String`
 
@@ -555,11 +475,7 @@ This parameter allows you to specify dates that will be considered holidays and 
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    selected: {
-      time: '03:44 AM',
-    },
-  },
+  selectedTime: '03:44 AM',
 });
 ```
 
@@ -567,7 +483,7 @@ This parameter allows you to set the time that will be displayed when the calend
 
 ---
 
-## settings.visibility.theme
+## selectedTheme
 
 `Type: String`
 
@@ -577,11 +493,7 @@ This parameter allows you to set the time that will be displayed when the calend
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      theme: 'system',
-    },
-  },
+  selectedTheme: 'system',
 });
 ```
 
@@ -589,7 +501,7 @@ This parameter determines the theme of the calendar. By default, the theme is de
 
 ---
 
-## settings.visibility.themeDetect
+## themeAttrDetect
 
 `Type: String | False`
 
@@ -599,17 +511,13 @@ This parameter determines the theme of the calendar. By default, the theme is de
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      themeDetect: 'html[data-theme]',
-    },
-  },
+  themeAttrDetect: 'html[data-theme]',
 });
 ```
 To automatically detect and apply the website's theme to the calendar, you can pass a string value as a CSS selector.
 Square brackets indicate an attribute containing the theme name.
 By default, it tracks the `html` tag with the `data-theme` attribute, but you can customize any other attribute and tag, such as `class`, if the class name is used to set the theme: `'html[class]'`.
-If set to `false`, the theme will be determined by the user's system or the `settings.visibility.theme` parameter.
+If set to `false`, the theme will be determined by the user's system or the `selectedTheme` parameter.
 
 ---
 
@@ -635,7 +543,7 @@ This parameter allows you to use abbreviated month names when selecting a month.
 
 ---
 
-## settings.visibility.weekNumbers
+## enableWeekNumbers
 
 `Type: Boolean`
 
@@ -645,11 +553,7 @@ This parameter allows you to use abbreviated month names when selecting a month.
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      weekNumbers: false,
-    },
-  },
+  enableWeekNumbers: false,
 });
 ```
 
@@ -657,29 +561,25 @@ With this parameter, you can decide whether to display week numbers in the calen
 
 ---
 
-## settings.visibility.weekend
+## disableWeekdays
 
-`Type: Boolean`
+`Type: Number[]`
 
-`Default: false`
+`Default: []`
 
-`Options: true | false`
+`Options: number[]`
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      weekend: true,
-    },
-  },
+  disableWeekdays: [0, 6],
 });
 ```
 
-This parameter allows you to highlight weekends in the calendar.
+This parameter allows you to disable weekends in the calendar.
 
 ---
 
-## settings.visibility.today
+## disableToday
 
 `Type: Boolean`
 
@@ -689,11 +589,7 @@ This parameter allows you to highlight weekends in the calendar.
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      today: true,
-    },
-  },
+  disableToday: true,
 });
 ```
 
@@ -701,7 +597,7 @@ With this parameter, you can highlight the current day in the calendar.
 
 ---
 
-## settings.visibility.disabled
+## displayDisabledDates
 
 `Type: Boolean`
 
@@ -711,11 +607,7 @@ With this parameter, you can highlight the current day in the calendar.
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      disabled: false,
-    },
-  },
+  displayDisabledDates: false,
 });
 ```
 
@@ -723,7 +615,7 @@ This parameter determines whether all days, including disabled days, will be dis
 
 ---
 
-## settings.visibility.daysOutside
+## displayDatesOutside
 
 `Type: Boolean`
 
@@ -733,11 +625,7 @@ This parameter determines whether all days, including disabled days, will be dis
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      daysOutside: false,
-    },
-  },
+  displayDatesOutside: false,
 });
 ```
 
@@ -745,7 +633,7 @@ With this parameter, you can decide whether to display days from the previous an
 
 ---
 
-## settings.visibility.positionToInput
+## positionToInput
 
 `Type: String`
 
@@ -755,16 +643,12 @@ With this parameter, you can decide whether to display days from the previous an
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    visibility: {
-      positionToInput: 'auto',
-      // positionToInput: ['bottom', 'center'],
-    },
-  },
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
 });
 ```
 
-This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `input` parameter.
+This parameter specifies the position of the calendar relative to input, if the calendar is initialized with the `inputMode` parameter.
 
 `positionToInput` takes a string with a value of `'left'`, `'center'`, or `'right'`, or an array of values `[Y-axis, X-axis]`, where the Y-axis can take the values `'bottom'` or `'top'`, and the X-axis can take the values `'left'`, `'center'`, or `'right'`.
 If the Y-axis is not specified, the default is `'bottom'`.

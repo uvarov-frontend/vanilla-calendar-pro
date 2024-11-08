@@ -1,14 +1,14 @@
 # Локализация
 
-Ключ верхнего уровня `locale` используется для ручной локализации календаря. Этот ключ работает только в случае, если для параметра `settings.lang` задано значение `'define'`. `locale` позволяет вам устанавливать собственные имена для месяцев и дней недели.
+Ключ верхнего уровня `locale` используется для ручной локализации календаря. Этот ключ работает только в случае, если для параметра `locale` задано значение `'define'`. `locale` позволяет вам устанавливать собственные имена для месяцев и дней недели.
 
 <Info>
-  Если ваша языковая метка поддерживаеться методом <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank" rel="nofollow noreferrer">`.toLocaleString()`</a>, вы можете передать эту языковую метку в параметр <a href="/docs/reference/additionally/settings#lang">`settings.lang`</a>, без необходимости ручной локализации.
+  Если ваша языковая метка поддерживаеться методом <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank" rel="nofollow noreferrer">`.toLocaleString()`</a>, вы можете передать эту языковую метку в параметр <a href="/docs/reference/additionally/settings#lang">`locale`</a>, без необходимости ручной локализации.
   Вы можете найти информацию о поддержке вашей языковой метки <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">здесь</a> (BCP 47).
 </Info>
 
 Ключ `locale` содержит два подключа: `months` и `weekday`. Оба эти ключа принимают массив строк.
-**Оба ключа обязательны**, если параметру `settings.lang` установлено значение `'define'`.
+**Оба ключа обязательны**, если параметру `locale` установлено значение `'define'`.
 
 ## locale.months
 
@@ -20,9 +20,7 @@
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    lang: 'define',
-  },
+  locale: 'define',
   locale: {
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   },
@@ -39,9 +37,7 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  settings: {
-    lang: 'define',
-  },
+  locale: 'define',
   locale: {
     weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   },

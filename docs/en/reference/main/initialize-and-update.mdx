@@ -26,15 +26,15 @@ All arguments, default `false`:
 }
 ```
 
-- `true` - will be reset to the parameters specified in `settings`;
+- `true` - will be reset to the parameters specified;
 - `false` - will not perform a reset, will leave the parameters selected by the user;
 - `'only-first'` - resets all selected dates, leaving the earliest one. If the date picker type is specified as `'multiple-ranged'`, a `'mousemove'` and `'keydown'` handler is added for the hover.
 
 Example of usage:
 
 ```js
-calendar.settings.lang = 'de-AT';
-calendar.settings.iso8601 = false;
+calendar.locale = 'de-AT';
+calendar.firstWeekday = 0;
 
 calendar.update({
 	dates: true,

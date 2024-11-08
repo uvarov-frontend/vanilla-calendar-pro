@@ -26,15 +26,15 @@ calendar.init();
 }
 ```
 
-- `true` - сбросится до параметров, указанных в `settings`;
+- `true` - сбросится до параметров, указанных;
 - `false` - не выполнит сброс, оставит параметры выбранные пользователем;
 - `'only-first'` - сбрасывает все выбранные даты, оставляя самую раннюю. Если тип выбора даты указан как `'multiple-ranged'`, добавляется обработчик `'mousemove'` и `'keydown'` для наведения.
 
 Пример использования:
 
 ```js
-calendar.settings.lang = 'de-AT';
-calendar.settings.iso8601 = false;
+calendar.locale = 'de-AT';
+calendar.firstWeekday = 0;
 
 calendar.update({
   dates: true,

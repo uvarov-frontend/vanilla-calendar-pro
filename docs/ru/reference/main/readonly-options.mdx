@@ -7,260 +7,260 @@
   Состояние календаря меняется при каждом взаимодействии с ним, что приводит к обновлению значений этих параметров. Именно поэтому они доступны только для чтения.
 </Info>
 
-## HTMLElement
+## context.mainElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLElement);
+console.log(calendar.context.mainElement);
 ```
 
-Свойство `HTMLElement` содержит корневой HTML-элемент, в котором был инициализирован календарь.
+Свойство `mainElement` содержит корневой HTML-элемент, в котором был инициализирован календарь.
 
 - - -
 
-## HTMLOriginalElement
+## context.originalElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLOriginalElement);
+console.log(calendar.context.originalElement);
 ```
 
-Свойство `HTMLOriginalElement` содержит исходный корневой HTML-элемент без модификаций, в котором был инициализирован календарь.
+Свойство `originalElement` содержит исходный корневой HTML-элемент без модификаций, в котором был инициализирован календарь.
 
 - - -
 
-## HTMLInputElement
+## context.inputElement
 
 `Type: HTMLElement`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.HTMLInputElement);
+console.log(calendar.context.inputElement);
 ```
 
-Свойство `HTMLInputElement` представляет корневой HTML-элемент, который является полем ввода.
+Свойство `inputElement` представляет корневой HTML-элемент, который является полем ввода.
 
 - - -
 
-## currentType
+## context.currentType
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.currentType);
+console.log(calendar.context.currentType);
 ```
 
 Свойство `currentType` содержит текущий тип календаря.
 
 - - -
 
-## dateMin
+## context.dateMin
 
 `Type: Date`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.dateMin);
+console.log(calendar.context.dateMin);
 ```
 
 Свойство `dateMin` представляет минимальную дату в формате объекта `Date`.
 
 - - -
 
-## dateMax
+## context.dateMax
 
 `Type: Date`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.dateMax);
+console.log(calendar.context.dateMax);
 ```
 
 Свойство `dateMax` представляет максимальную дату в формате объекта `Date`.
 
 - - -
 
-## rangeMin
+## context.rangeMin
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeMin);
+console.log(calendar.context.rangeMin);
 ```
 
 Свойство `rangeMin` содержит текущую минимальную дату.
 
 - - -
 
-## rangeMax
+## context.rangeMax
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeMax);
+console.log(calendar.context.rangeMax);
 ```
 
 Свойство `rangeMax` содержит текущую максимальную дату.
 
 - - -
 
-## rangeDisabled
+## context.rangeDisabled
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeDisabled);
+console.log(calendar.context.rangeDisabled);
 ```
 
 Свойство `rangeDisabled` представляет собой массив отключенных дат.
 
 - - -
 
-## rangeEnabled
+## context.rangeEnabled
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.rangeEnabled);
+console.log(calendar.context.rangeEnabled);
 ```
 
 Свойство `rangeEnabled` содержит массив включенных дат.
 
 - - -
 
-## selectedDates
+## context.selectedDates
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedDates);
+console.log(calendar.context.selectedDates);
 ```
 
 Свойство `selectedDates` содержит массив в настоящее время выбранных дат.
 
 - - -
 
-## selectedHolidays
+## context.selectedHolidays
 
 `Type: string[]`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedHolidays);
+console.log(calendar.context.selectedHolidays);
 ```
 
 Свойство `selectedHolidays` представляет собой массив выбранных праздничных дней.
 
 - - -
 
-## selectedMonth
+## context.selectedMonth
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedMonth);
+console.log(calendar.context.selectedMonth);
 ```
 
 Свойство `selectedMonth` содержит номер текущего выбранного месяца.
 
 - - -
 
-## selectedYear
+## context.selectedYear
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedYear);
+console.log(calendar.context.selectedYear);
 ```
 
 Свойство `selectedYear` представляет собой номер текущего выбранного года.
 
 - - -
 
-## selectedHours
+## context.selectedHours
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedHours);
+console.log(calendar.context.selectedHours);
 ```
 
 Свойство `selectedHours` содержит текущий выбранный час.
 
 - - -
 
-## selectedMinutes
+## context.selectedMinutes
 
 `Type: string`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedMinutes);
+console.log(calendar.context.selectedMinutes);
 ```
 
 Свойство `selectedMinutes` представляет собой текущие выбранные минуты.
 
 - - -
 
-## selectedKeeping
+## context.selectedKeeping
 
 `Type: string | null`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedKeeping);
+console.log(calendar.context.selectedKeeping);
 ```
 
 Свойство `selectedKeeping` содержит маркер AM/PM для 12-часового формата времени.
 
 - - -
 
-## selectedTime
+## context.selectedTime
 
 `Type: string | null`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.selectedTime);
+console.log(calendar.context.selectedTime);
 ```
 
 Свойство `selectedTime` содержит полное текущее время.
 
 - - -
 
-## correctMonths
+## context.correctMonths
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.correctMonths);
+console.log(calendar.context.correctMonths);
 ```
 
 Свойство `correctMonths` содержит текущее количество месяцев для отображения, если тип календаря установлен как `'multiple'`.
 
 - - -
 
-## viewYear
+## context.displayYear
 
 `Type: number`
 
 ```js
 const calendar = new VanillaCalendar('#calendar');
-console.log(calendar.viewYear);
+console.log(calendar.context.displayYear);
 ```
 
-Свойство `viewYear` представляет собой текущий отображаемый год.
+Свойство `displayYear` представляет собой текущий отображаемый год.

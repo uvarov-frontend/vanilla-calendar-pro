@@ -16,7 +16,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-The `input` parameter specifies that the `HTMLElement` passed as the first parameter represents an input field rather than a wrapper for the calendar.
+The `input` parameter specifies that the `mainElement` passed as the first parameter represents an input field rather than a wrapper for the calendar.
 
 - - -
 
@@ -38,7 +38,7 @@ The `type` parameter determines the type of calendar displayed.
 
 - - -
 
-## months
+## displayMonthsCount
 
 `Type: Number`
 
@@ -48,15 +48,15 @@ The `type` parameter determines the type of calendar displayed.
 
 ```js
 new VanillaCalendar('#calendar', {
-  months: 2,
+  displayMonthsCount: 2,
 });
 ```
 
-The `months` parameter specifies the number of displayed months when the calendar type is set to `'multiple'`.
+The `displayMonthsCount` parameter specifies the number of displayed months when the calendar type is set to `'multiple'`.
 
 - - -
 
-## jumpMonths
+## monthsToSwitch
 
 `Type: Number`
 
@@ -66,15 +66,15 @@ The `months` parameter specifies the number of displayed months when the calenda
 
 ```js
 new VanillaCalendar('#calendar', {
-  jumpMonths: 1,
+  monthsToSwitch: 1,
 });
 ```
 
-The `jumpMonths` parameter controls the number of months to jump.
+The `monthsToSwitch` parameter controls the number of months to jump.
 
 - - -
 
-## jumpToSelectedDate
+## enableJumpToSelectedDate
 
 `Type: Boolean`
 
@@ -84,7 +84,7 @@ The `jumpMonths` parameter controls the number of months to jump.
 
 ```js
 new VanillaCalendar('#calendar', {
-  jumpToSelectedDate: true,
+  enableJumpToSelectedDate: true,
   settings: {
     selected: {
       dates: ['2018-05-02'],
@@ -101,7 +101,7 @@ When the option is enabled and 1 or more selected date(s) are provided but witho
 
 - - -
 
-## sanitizer
+## sanitizerHTML
 
 `Type: Function`
 
@@ -111,19 +111,19 @@ When the option is enabled and 1 or more selected date(s) are provided but witho
 import DOMPurify from 'dompurify';
 
 new VanillaCalendar('#calendar', {
-  sanitizer: (html) => DOMPurify.sanitize(html),
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
 });
 ```
 
-The `sanitizer` will sanitize HTML templates to be CSP safe.
+The `sanitizerHTML` will sanitize HTML templates to be CSP safe.
 
 <Info>
-  Please note that the external library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a> is used as an example. Since `sanitizer` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code size.
+  Please note that the external library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a> is used as an example. Since `sanitizerHTML` is not required for the calendar to function, using an external library helps avoid increasing the calendar's code size.
 </Info>
 
 - - -
 
-## toggleSelected
+## enableDateToggle
 
 `Type: Boolean | Function`
 
@@ -133,17 +133,17 @@ The `sanitizer` will sanitize HTML templates to be CSP safe.
 
 ```js
 new VanillaCalendar('#calendar', {
-  toggleSelected: false,
+  enableDateToggle: false,
   // or with a callback
-  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
 });
 ```
 
-If `toggleSelected` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
+If `enableDateToggle` parameter is `true`, or the callback returns `true`, then clicking on the active cell will remove the selection from it.
 
 - - -
 
-## date.min
+## dateMin
 
 `Type: String`
 
@@ -153,19 +153,17 @@ If `toggleSelected` parameter is `true`, or the callback returns `true`, then cl
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    min: '1970-01-01',
-    // or
-    min: 'today',
-  },
+  dateMin: '1970-01-01',
+  // or
+  dateMin: 'today',
 });
 ```
 
-The `date.min` parameter sets the minimum allowable date that the calendar will consider, which cannot be earlier than this date.
+The `dateMin` parameter sets the minimum allowable date that the calendar will consider, which cannot be earlier than this date.
 
 - - -
 
-## date.max
+## dateMax
 
 `Type: String`
 
@@ -175,19 +173,17 @@ The `date.min` parameter sets the minimum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    max: '2470-12-31',
-    // or
-    max: 'today',
-  },
+  dateMax: '2470-12-31',
+  // or
+  dateMax: 'today',
 });
 ```
 
-The `date.max` parameter sets the maximum allowable date that the calendar will consider, which cannot be later than this date.
+The `dateMax` parameter sets the maximum allowable date that the calendar will consider, which cannot be later than this date.
 
 - - -
 
-## date.today
+## dateToday
 
 `Type: Date object`
 
@@ -197,11 +193,9 @@ The `date.max` parameter sets the maximum allowable date that the calendar will 
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    today: new Date('2022-01-07T00:00:00.000Z'),
-  },
+  dateToday: new Date('2022-01-07T00:00:00.000Z'),
 });
 ```
 
-The `date.today` parameter determines which day is considered today for the calendar.
+The `dateToday` parameter determines which day is considered today for the calendar.
 `T00:00:00.000Z` - It is necessary that the date does not have problems with the client’s time zone.

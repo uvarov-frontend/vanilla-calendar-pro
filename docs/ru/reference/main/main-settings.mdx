@@ -16,7 +16,7 @@ new VanillaCalendar('#calendar', {
 });
 ```
 
-Параметр `input` указывает, что `HTMLElement`, переданный как первый параметр, представляет собой поле ввода, а не обертку для календаря.
+Параметр `input` указывает, что `mainElement`, переданный как первый параметр, представляет собой поле ввода, а не обертку для календаря.
 
 - - -
 
@@ -38,7 +38,7 @@ new VanillaCalendar('#calendar', {
 
 - - -
 
-## months
+## displayMonthsCount
 
 `Type: Number`
 
@@ -48,15 +48,15 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  months: 2,
+  displayMonthsCount: 2,
 });
 ```
 
-Параметр `months` определяет количество отображаемых месяцев, если тип календаря установлен как `'multiple'`.
+Параметр `displayMonthsCount` определяет количество отображаемых месяцев, если тип календаря установлен как `'multiple'`.
 
 - - -
 
-## jumpMonths
+## monthsToSwitch
 
 `Type: Number`
 
@@ -66,15 +66,15 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  jumpMonths: 1,
+  monthsToSwitch: 1,
 });
 ```
 
-Параметр `jumpMonths` управляет количеством переключаемых месяцев.
+Параметр `monthsToSwitch` управляет количеством переключаемых месяцев.
 
 - - -
 
-## jumpToSelectedDate
+## enableJumpToSelectedDate
 
 `Type: Boolean`
 
@@ -84,12 +84,8 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  jumpToSelectedDate: true,
-  settings: {
-    selected: {
-      dates: ['2018-05-02'],
-    }
-  },
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
 });
 ```
 
@@ -101,7 +97,7 @@ new VanillaCalendar('#calendar', {
 
 - - -
 
-## sanitizer
+## sanitizerHTML
 
 `Type: Function`
 
@@ -111,19 +107,19 @@ new VanillaCalendar('#calendar', {
 import DOMPurify from 'dompurify';
 
 new VanillaCalendar('#calendar', {
-  sanitizer: (html) => DOMPurify.sanitize(html),
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
 });
 ```
 
-`sanitizer` будет очищать HTML-шаблоны, чтобы они были безопасными для CSP.
+`sanitizerHTML` будет очищать HTML-шаблоны, чтобы они были безопасными для CSP.
 
 <Info>
-  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. Поскольку `sanitizer` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
+  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. Поскольку `sanitizerHTML` не является обязательным для работы календаря, подключение сторонней библиотеки помогает избежать увеличения кода календаря.
 </Info>
 
 - - -
 
-## toggleSelected
+## enableDateToggle
 
 `Type: Boolean | Function`
 
@@ -133,17 +129,17 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  toggleSelected: false,
+  enableDateToggle: false,
   // or with a callback
-  toggleSelected: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
 });
 ```
 
-Если параметр `toggleSelected` имеет значение `true` или обратный вызов возвращает `true`, то повторный клик на выбранную дату отменяет выбор.
+Если параметр `enableDateToggle` имеет значение `true` или обратный вызов возвращает `true`, то повторный клик на выбранную дату отменяет выбор.
 
 - - -
 
-## date.min
+## dateMin
 
 `Type: String`
 
@@ -153,19 +149,17 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    min: '1970-01-01',
-    // or
-    min: 'today',
-  },
+  dateMin: '1970-01-01',
+  // or
+  dateMin: 'today',
 });
 ```
 
-Параметр `date.min` устанавливает минимально допустимую дату, которую календарь будет учитывать, и которая не может быть меньше этой даты.
+Параметр `dateMin` устанавливает минимально допустимую дату, которую календарь будет учитывать, и которая не может быть меньше этой даты.
 
 - - -
 
-## date.max
+## dateMax
 
 `Type: String`
 
@@ -175,19 +169,17 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    max: '2470-12-31',
-    // or
-    max: 'today',
-  },
+  dateMax: '2470-12-31',
+  // or
+  dateMax: 'today',
 });
 ```
 
-Параметр `date.max` устанавливает максимально допустимую дату, которую календарь будет учитывать, и которая не может быть больше этой даты.
+Параметр `dateMax` устанавливает максимально допустимую дату, которую календарь будет учитывать, и которая не может быть больше этой даты.
 
 - - -
 
-## date.today
+## dateToday
 
 `Type: Date object`
 
@@ -197,11 +189,9 @@ new VanillaCalendar('#calendar', {
 
 ```js
 new VanillaCalendar('#calendar', {
-  date: {
-    today: new Date('2022-01-07T00:00:00.000Z'),
-  },
+  dateToday: new Date('2022-01-07T00:00:00.000Z'),
 });
 ```
 
-Параметр `date.today` определяет, какой день будет считаться сегодняшним для календаря.
+Параметр `dateToday` определяет, какой день будет считаться сегодняшним для календаря.
 `T00:00:00.000Z` - Необходимо, чтобы дата не имела проблем с часовым поясом клиента.
