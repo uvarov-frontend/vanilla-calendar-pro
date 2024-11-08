@@ -5,7 +5,7 @@ export const addHoverEffect = (date: Date, firstDateEl: HTMLElement | null, last
   if (!state.self?.context?.selectedDates[0]) return;
 
   const formattedDate = getDateString(date);
-  if (state.self.context.disableDates?.includes(formattedDate)) return;
+  if (state.self.context.disableDates?.includes(formattedDate) && state.self.enableEdgeDatesOnly === false) return;
 
   state.self.context.mainElement.querySelectorAll<HTMLElement>(`[data-vc-date="${formattedDate}"]`).forEach((d) => (d.dataset.vcDateHover = ''));
   if (firstDateEl) firstDateEl.dataset.vcDateHoverFirst = '';

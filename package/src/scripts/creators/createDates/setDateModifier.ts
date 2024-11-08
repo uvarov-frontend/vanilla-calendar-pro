@@ -58,12 +58,7 @@ const setDateModifier = (
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
-  if (
-    !self.context.disableDates.includes(dateStr) &&
-    self.enableEdgeDatesOnly &&
-    self.context.selectedDates.length > 1 &&
-    self.selectionDatesMode === 'multiple-ranged'
-  ) {
+  if (self.enableEdgeDatesOnly && self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
     const firstDate = getDate(self.context.selectedDates[0]);
     const lastDate = getDate(self.context.selectedDates[self.context.selectedDates.length - 1]);
     const currentDate = getDate(dateStr);
