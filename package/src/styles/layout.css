@@ -175,8 +175,7 @@
 }
 
 [data-vc-date][data-vc-date-selected='middle'] [data-vc-date-btn],
-[data-vc-date][data-vc-date-hover]:not([data-vc-date-selected]):not([data-vc-date-hover-first]):not([data-vc-date-hover-last]) [data-vc-date-btn]
-{
+[data-vc-date][data-vc-date-hover]:not([data-vc-date-selected]):not([data-vc-date-hover-first]):not([data-vc-date-hover-last]) [data-vc-date-btn] {
   @apply !rounded-none;
 }
 
@@ -184,8 +183,7 @@
   @apply rounded-r-none rounded-l-lg;
 }
 
-[data-vc-date][data-vc-date-selected='middle'][data-vc-date-hover] + [data-vc-date][data-vc-date-selected='last'] [data-vc-date-btn],
-{
+[data-vc-date][data-vc-date-selected='middle'][data-vc-date-hover] + [data-vc-date][data-vc-date-selected='last'] [data-vc-date-btn] {
   @apply rounded-l-none rounded-r-lg;
 }
 
