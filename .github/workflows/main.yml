@@ -31,3 +31,15 @@ jobs:
           key: ${{ secrets.KEY }}
           source: '.'
           target: ${{ secrets.TARGET }}
+
+      - name: Build app
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd ${{ secrets.TARGET }}
+            yarn install
+            yarn package:build
