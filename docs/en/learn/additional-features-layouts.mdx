@@ -1,0 +1,19 @@
+---
+title: Layouts
+description: Layouts allow you to customize the HTML markup of the calendar, adding your own elements such as buttons. Learn how to customize the calendar header and add elements for different types of calendars.
+section: 6. Additional Features
+---
+
+# Layouts
+
+The calendar provides a convenient way to customize the HTML markup using the `layouts` parameter. This allows you to add your own elements, such as buttons or any other HTML element, to the calendar.
+
+`layouts` takes the `type` of the calendar as the key and a string as the value.
+
+In the following example, the calendar header is customized for `type: 'default'`, and a regular button is added inside the calendar.
+
+<Sandbox example="additional-features-layouts" />
+
+Now, let's use the `inputMode: true` parameter. We will add a button that will hide the calendar when clicked.
+
+<Sandbox example="additional-features-layouts-btn-close" input={true} />

@@ -1,0 +1,27 @@
+---
+title: Themes
+description: The calendar supports custom themes and by default has light and dark themes. Learn how to configure themes and use system settings or your own themes.
+section: 6. Additional Features
+---
+
+# Themes
+
+The calendar supports custom themes and by default has light and dark themes.
+
+If the `themeAttrDetect` parameter is set to `false`, the theme will be determined by the user's system settings or the `selectedTheme` parameter.
+
+The calendar can automatically detect and track the site's theme based on the set tag and attribute. Additional information about this parameter can be found in the reference guide.
+
+If your site supports only one theme or you want to customize the appearance of the calendar to your liking, you can explicitly select one of the available themes.
+
+The example below demonstrates the forced use of the dark theme:
+
+<Sandbox example="additional-features-themes-dark" themeDetection={false} />
+
+And here is the same example, but using the light theme:
+
+<Sandbox example="additional-features-themes-light" themeDetection={false} />
+
+As described above, you can use your own themes, create them yourself, or import them from the calendar if they exist.
+
+<Sandbox example="additional-features-themes-slate-light" themeDetection={false} />

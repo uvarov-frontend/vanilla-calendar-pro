@@ -1,0 +1,19 @@
+---
+title: Multiple
+description: Learn how to use the 'multiple' calendar type to display multiple months and select dates. Configure the selection of date ranges with the selectionDatesMode parameter.
+section: 2. Calendar Types
+---
+
+# Multiple
+
+The `'multiple'` calendar type displays multiple months, allowing you to select days in each of them. This type of calendar is useful when the user needs to select multiple dates across different months. To do this, you need to use the `selectionDatesMode` parameter and set its value to `'multiple'`.
+
+Example code for creating a calendar with the `'multiple'` type:
+
+<Sandbox example="type-multiple" vertically={false} height={680} />
+
+If you need to select date ranges, you can use the `selectionDatesMode` parameter and set its value to `'multiple-ranged'`. This allows you to select date ranges instead of individual days.
+
+<Info>When the `selectionDatesMode` parameter is set to `'multiple-ranged'`, for performance optimization, the array of selected dates contains only the start and end dates. You can disable this and get the full list of selected dates using `enableEdgeDatesOnly`.</Info>
+
+<Sandbox example="type-multiple-ranged" vertically={false} height={680} />

@@ -5,12 +5,25 @@ import 'vanilla-calendar-pro/styles/index.css';
 const options: Options = {
   locale: {
     months: {
-      short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      short: ['Vör', 'Thors', 'Skadi', 'Freya', 'Baldur', 'Njord', 'Tyr', 'Frigg', 'Odin', 'Loki', 'Hel', 'Idunn'],
+      long: [
+        'Vörmánuðr',
+        'Thorsmánuðr',
+        'Skadimánuðr',
+        'Freymánuðr',
+        'Baldurmánuðr',
+        'Njordmánuðr',
+        'Tyrmánuðr',
+        'Friggmánuðr',
+        'Odinmánuðr',
+        'Lokimánuðr',
+        'Helmánuðr',
+        'Idunnmánuðr',
+      ],
     },
     weekdays: {
-      short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      long: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      short: ['Sunna', 'Mani', 'Tiw', 'Woden', 'Thor', 'Frigg', 'Saturn'],
+      long: ['Sunnandæg', 'Manadæg', 'Tiwesdæg', 'Wodensdæg', 'Thorsdæg', 'Friggsdæg', 'Saturnsdag'],
     },
   },
 };

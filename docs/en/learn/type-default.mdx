@@ -1,0 +1,25 @@
+---
+title: Default (Single)
+description: Learn how to use the 'default' calendar type to display one month and select days. Configure the calendar to display when clicking on an element with the inputMode parameter.
+section: 2. Calendar Types
+---
+
+# Default (Single)
+
+## Static
+
+The `'default'` calendar type displays one month, allows you to select days, navigate between months using arrows, and select the month and year from the respective headers. This is the standard display mode for the calendar.
+
+<Sandbox example="type-default" />
+
+## With Input
+
+If you need to display the calendar when clicking on an **«Input»**, you can easily configure it by initializing it with the `inputMode: true` parameter.
+
+<Info>
+  It is important to note that **«Input»** in the context of this calendar does not necessarily have to be an `<input>` tag. It can be any HTML element, such as a `<div>`. In **«Input»**, you can initialize any type of calendar.
+</Info>
+
+By default, the calendar does not write any values to the **«Input»** field, giving you unique control over what you want to see in the `value`.
+
+<Sandbox example="type-default-in-input" height={470} input={true} />

@@ -1,0 +1,15 @@
+---
+title: Локализация
+description: Узнайте, как локализовать календарь с помощью параметра locale или установить локаль вручную, предоставив массивы названий месяцев и недель.
+section: 3. Интернационализация
+---
+
+# Локализация
+
+Если ваша локаль поддерживается методом <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" rel="noopener noreferrer" target="_blank">`.toLocaleString()`</a>, вы можете просто передать её в параметр `locale` для локализации календаря.
+
+<Sandbox example="internationalization-locale" />
+
+Если локаль не поддерживается или переведена неправильно, вы всегда можете установить локаль вручную. Для этого вам необходимо предоставить массивы названий месяцев и недель вместо языковой метки.
+
+<Sandbox example="internationalization-assign-manually" />

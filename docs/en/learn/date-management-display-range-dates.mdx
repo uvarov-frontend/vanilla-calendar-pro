@@ -1,0 +1,15 @@
+---
+title: Display Date Range
+description: Learn how to set the range of displayed dates in the calendar using the displayDateMin and displayDateMax parameters. Configure the display and selection of dates within a specified range.
+section: 4. Managing Dates and Time
+---
+
+# Display Date Range
+
+The `displayDateMin` and `displayDateMax` parameters define the range of dates that can be displayed in the calendar but do not affect the calendar's lifecycle. They only indicate which dates are allowed to be displayed and selected.
+
+For example, if the `displayDisabledDates` parameter is set to `true`, then the minimum and maximum years available for viewing by the user will be determined by the values of the `dateMin` and `dateMax` parameters.
+
+<Sandbox example="date-management-display-range-dates" />
+
+Changing the `displayDisabledDates` parameter allows you to control the dates available for viewing and selection in the calendar.

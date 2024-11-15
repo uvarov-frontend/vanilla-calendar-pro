@@ -1,0 +1,379 @@
+---
+title: Actions
+description: Learn about the various actions that can be configured for the calendar, including event handlers for clicks on dates, weeks, months, years, and arrows, as well as time changes and tooltip displays.
+section: 4
+---
+
+# Actions
+
+## onClickDate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickDate(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickDate(self, event) {},
+});
+```
+
+This method is triggered after clicking on a day in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - mouse event.
+
+<Info>
+  It is important to know that each HTML day element contains a data attribute with the full date in the format `YYYY-MM-DD`.
+  If you need to get the day, month, and year separately, you can use standard JS methods.
+  For example: `new Date('2022-11-07').getDate()` will return `7`.
+</Info>
+
+---
+
+## onClickWeekDay()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekDay(self, day, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekDay(self, day, dateEls, event) {},
+});
+```
+
+This method is triggered after clicking on a weekday in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `number` - week number;
+- `days` - array of days (html elements);
+- `year` - year of the week;
+- `event` - mouse event.
+
+---
+
+## onClickWeekNumber()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekNumber(self, number, year, dateEls, event) {},
+});
+```
+
+This method is triggered after clicking on a week number in the calendar, but for it to work, the `enableWeekNumbers` parameter must be set to `true`. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `number` - week number;
+- `days` - array of days (html elements);
+- `year` - year of the week;
+- `event` - mouse event.
+
+---
+
+## onClickTitle()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickTitle(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickTitle(self, event) {},
+});
+```
+
+This method is triggered after clicking on the month or year title in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - mouse event.
+
+---
+
+## onClickMonth()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickMonth(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickMonth(self, event) {},
+});
+```
+
+This method is triggered after selecting a month in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - mouse event.
+
+---
+
+## onClickYear()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickYear(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickYear(self, event) {},
+});
+```
+
+This method is triggered after selecting a year in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - mouse event.
+
+---
+
+## onClickArrow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickArrow(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickArrow(self, event) {},
+});
+```
+
+This method is triggered after clicking on an arrow in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - mouse event.
+
+---
+
+## onChangeTime()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeTime(self, event, isError) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeTime(self, event) {},
+});
+```
+
+This method is triggered after changing the time in the calendar. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - change event;
+- `isError` - returns true if the user entered an incorrect time.
+
+---
+
+## onChangeToInput()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeToInput(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeToInput(self, event) {},
+});
+```
+
+For this method to work, the `inputMode` parameter must be set to `true`.
+This method is triggered after clicking on a day in the calendar or changing the time in any way.
+You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `event` - event.
+
+---
+
+## onCreateDateRangeTooltip()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
+});
+```
+
+Allows creating a tooltip for a date range. Triggers on clicking and hovering over a day if the `selectionDatesMode` parameter is set to `'multiple-ranged'`.
+You can get the following parameters:
+- `self` - reference to the initialized calendar.
+- `dateEl` - HTML date element;
+- `tooltipEl` - HTML tooltip element;
+- `dateElBCR` - object with information about the position and size of the HTML date element;
+- `mainElBCR` - object with information about the position and size of the main HTML calendar element.
+
+---
+
+## onCreateDateEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateEls(self, dateEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateEls(self, dateEl) {},
+});
+```
+
+This method is triggered during calendar initialization and any changes. It provides access to information about each day. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `dateEl` - HTML date element.
+
+---
+
+## onCreateMonthEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateMonthEls(self, monthEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateMonthEls(self, monthEl) {},
+});
+```
+
+This method is triggered when the calendar type is set to `'month'`. The calendar type also becomes `'month'` when the user clicks on the month title or during initialization with the parameter `type = 'month'`. It provides access to information about each month. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `monthEl` - HTML month element.
+
+---
+
+## onCreateYearEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateYearEls(self, yearEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateYearEls(self, yearEl) {},
+});
+```
+
+This method is triggered when the calendar type is set to `'year'`. The calendar type becomes `'year'` when the user clicks on the year title or during initialization with the parameter `type = 'year'`. It provides access to information about each year. You can get the following parameters:
+- `self` - reference to the initialized calendar;
+- `yearEl` - HTML year element.
+
+---
+
+## onInit()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onInit(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onInit(self) {},
+});
+```
+
+This method is triggered during calendar initialization. If the `inputMode` parameter is set to `true`, the method will execute on the first display of the calendar, as this is when the calendar is initialized.
+- `self` - reference to the initialized calendar.
+
+---
+
+## onUpdate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onUpdate(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onUpdate(self) {},
+});
+```
+
+This method is triggered when the calendar is updated/reset using the `.update()` method.
+- `self` - reference to the initialized calendar.
+
+---
+
+## onDestroy()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onDestroy(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onDestroy(self) {},
+});
+```
+
+This method is triggered when the calendar is destroyed.
+- `self` - reference to the initialized calendar.
+
+---
+
+## onShow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onShow(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onShow(self) {},
+});
+```
+
+This method is triggered when the calendar is displayed to the user, but only if the `inputMode` parameter is set to `true`.
+- `self` - reference to the initialized calendar.
+
+---
+
+## onHide()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onHide(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onHide(self) {},
+});
+```
+
+This method is triggered when the calendar is hidden, but only if the `inputMode` parameter is set to `true`.
+- `self` - reference to the initialized calendar.

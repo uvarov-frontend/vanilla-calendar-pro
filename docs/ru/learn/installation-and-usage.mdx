@@ -1,0 +1,94 @@
+---
+title: Установка и использование
+description: Узнайте, как установить и использовать Vanilla Calendar Pro. Интегрируйте календарь через пакетный менеджер или CDN, и настройте его в соответствии с вашими потребностями.
+section: 1. Начало работы
+---
+
+# Установка и использование
+
+Vanilla Calendar Pro легко интегрируется в любые проекты. Существует несколько способов установки, в зависимости от того, как вы предпочитаете управлять зависимостями и сборкой вашего проекта.
+
+## Установка через пакетный менеджер
+
+Самый распространенный способ установки Vanilla Calendar Pro — это использование пакетного менеджера. Этот метод идеально подходит для проектов с использованием Node.js и современных сборщиков.
+
+1. Установите пакет:
+
+```bash
+npm install vanilla-calendar-pro
+# or
+yarn add vanilla-calendar-pro
+# or
+pnpm add vanilla-calendar-pro
+```
+
+
+2. Создайте HTML-элемент в теле вашего документа с произвольным CSS селектором:
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
+</html>
+```
+
+<Info>В качестве демонстрации в этом разделе мы будем использовать `#calendar` в качестве селектора CSS, но вы можете создать и использовать любой другой селектор.</Info>
+
+3. Импортируйте скрипт, создайте экземпляр календаря и инициализируйте его в вашем JavaScript или TypeScript файле.
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+
+const calendar = new Calendar('#calendar', {
+  // Ваши настройки
+});
+calendar.init();
+```
+
+4. Импортируйте стили в этом же файле. Файл `index.css` содержит в себе сетку для макета календаря, светлую и темную тему.
+
+```ts
+import 'vanilla-calendar-pro/styles/index.css';
+```
+
+Вы так же имеете возможность подключить стили для макета календаря и темы отдельно, вот так:
+
+```ts
+import 'vanilla-calendar-pro/styles/layout.css'; // Только скелет
+import 'vanilla-calendar-pro/styles/themes/light.css'; // Светлая тема
+import 'vanilla-calendar-pro/styles/themes/dark.css'; // Темная тема
+// или любая другая пользовательская тема...
+```
+
+5. Полный пример простой инициализации без каких-либо пользовательских настроек:
+
+<Sandbox example="installation-and-usage" />
+
+## Локально или CDN
+
+Если вам нужно быстро интегрировать Vanilla Calendar Pro без использования сборщиков или пакетных менеджеров, вы можете подключить его через CDN или <a href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro@latest/package.zip" rel="noopener noreferrer" target="_blank">скачать архив</a> с актуальной версий и подключить локально.
+
+```html
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+  </head>
+  <body>
+    <div id="calendar"></div>
+    <script>
+      // Деструктуризация конструктора Calendar
+      const { Calendar } = window.VanillaCalendarPro;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Создайте экземпляр календаря и инициализируйте его.
+        const calendar = new Calendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```

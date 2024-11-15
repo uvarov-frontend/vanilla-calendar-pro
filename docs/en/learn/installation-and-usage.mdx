@@ -1,0 +1,93 @@
+---
+title: Installation and Usage
+description: Learn how to install and use Vanilla Calendar Pro. Integrate the calendar through a package manager or CDN, and configure it according to your needs.
+section: 1. Getting Started
+---
+
+# Installation and Usage
+
+Vanilla Calendar Pro is easily integrated into any project. There are several installation methods, depending on how you prefer to manage dependencies and build your project.
+
+## Installation via Package Manager
+
+The most common way to install Vanilla Calendar Pro is by using a package manager. This method is ideal for projects using Node.js and modern build tools.
+
+1. Install the package:
+
+```bash
+npm install vanilla-calendar-pro
+# or
+yarn add vanilla-calendar-pro
+# or
+pnpm add vanilla-calendar-pro
+```
+
+2. Create an HTML element in the body of your document with an arbitrary CSS selector:
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
+</html>
+```
+
+<Info>For demonstration purposes in this section, we will use `#calendar` as the CSS selector, but you can create and use any other selector.</Info>
+
+3. Import the script, create a calendar instance, and initialize it in your JavaScript or TypeScript file.
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+
+const calendar = new Calendar('#calendar', {
+  // Your settings
+});
+calendar.init();
+```
+
+4. Import the styles in the same file. The `index.css` file contains the layout grid for the calendar, as well as light and dark themes.
+
+```ts
+import 'vanilla-calendar-pro/styles/index.css';
+```
+
+You also have the option to include the layout and theme styles separately, like this:
+
+```ts
+import 'vanilla-calendar-pro/styles/layout.css'; // Only the skeleton
+import 'vanilla-calendar-pro/styles/themes/light.css'; // Light theme
+import 'vanilla-calendar-pro/styles/themes/dark.css'; // Dark theme
+// or any other custom theme...
+```
+
+5. Full example of simple initialization without any custom settings:
+
+<Sandbox example="installation-and-usage" />
+
+## Local or CDN
+
+If you need to quickly integrate Vanilla Calendar Pro without using build tools or package managers, you can include it via CDN or <a href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro@latest/package.zip" rel="noopener noreferrer" target="_blank">download the archive</a> with the latest version and include it locally.
+
+```html
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+  </head>
+  <body>
+    <div id="calendar"></div>
+    <script>
+      // Destructure the Calendar constructor
+      const { Calendar } = window.VanillaCalendarPro;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Create a calendar instance and initialize it.
+        const calendar = new Calendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```

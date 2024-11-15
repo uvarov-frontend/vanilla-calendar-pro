@@ -1,0 +1,15 @@
+---
+title: Localization
+description: Learn how to localize the calendar using the locale parameter or set the locale manually by providing arrays of month and weekday names.
+section: 3. Internationalization
+---
+
+# Localization
+
+If your locale is supported by the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" rel="noopener noreferrer" target="_blank">`.toLocaleString()`</a> method, you can simply pass it to the `locale` parameter to localize the calendar.
+
+<Sandbox example="internationalization-locale" />
+
+If the locale is not supported or translated incorrectly, you can always set the locale manually. To do this, you need to provide arrays of month and weekday names instead of the language tag.
+
+<Sandbox example="internationalization-assign-manually" />

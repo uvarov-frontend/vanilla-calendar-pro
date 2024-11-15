@@ -1,0 +1,162 @@
+---
+title: Layouts
+description: Layouts allow you to change the DOM structure of the calendar and add your own HTML elements.
+section: 6
+---
+
+# Layouts
+
+Layouts allow you to almost completely change the DOM structure of the calendar and add your own HTML elements, such as buttons. Each type of calendar has its own default template, and you can customize each of them.
+
+<Info>
+  Tags containing the symbol **«#»** are registered components of the calendar and should contain a closing slash at the end of the tag, except for the tag **\<#Multiple>\<#/Multiple>**, which wraps one month.
+  All default templates list all possible components for that template.
+</Info>
+
+## layouts.default
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    default: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [month] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [month] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <#WeekNumbers />
+        <div class="${self.styles.content}" data-vc="content">
+          <#Week />
+          <#Dates />
+          <#DateRangeTooltip />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+This is the default template for displaying one month and its dates.
+
+---
+
+## layouts.multiple
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    multiple: `
+      <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [month] />
+        <#ArrowNext [month] />
+      </div>
+      <div class="${self.styles.grid}" data-vc="grid">
+        <#Multiple>
+          <div class="${self.styles.column}" data-vc="column" role="region">
+            <div class="${self.styles.header}" data-vc="header">
+              <div class="${self.styles.headerContent}" data-vc-header="content">
+                <#Month />
+                <#Year />
+              </div>
+            </div>
+            <div class="${self.styles.wrapper}" data-vc="wrapper">
+              <#WeekNumbers />
+              <div class="${self.styles.content}" data-vc="content">
+                <#Week />
+                <#Dates />
+              </div>
+            </div>
+          </div>
+        <#/Multiple>
+        <#DateRangeTooltip />
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+This is the default template for displaying multiple months and their dates.
+
+---
+
+## layouts.month
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    month: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <div class="${self.styles.content}" data-vc="content">
+          <#Months />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+This is the default template for selecting a month.
+
+---
+
+## layouts.year
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    year: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [year] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [year] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <div class="${self.styles.content}" data-vc="content">
+          <#Years />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+This is the default template for selecting a year.
