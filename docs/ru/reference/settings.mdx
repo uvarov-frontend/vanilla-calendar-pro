@@ -1,0 +1,889 @@
+---
+title: Настройки
+description: Настройки календаря, включая тип отображения, режим ввода, позиционирование, локализацию, даты и временные параметры.
+section: 3
+---
+
+# Настройки
+
+## type
+
+`Type: String`
+
+`Default: 'default'`
+
+`Options: 'default' | 'multiple' | 'month' | 'year'`
+
+```ts
+new Calendar('#calendar', {
+  type: 'default',
+});
+```
+
+Параметр `type` определяет тип отображаемого календаря.
+
+---
+
+## inputMode
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  inputMode: true,
+});
+```
+
+Параметр `inputMode` указывает, что `mainElement`, переданный как первый параметр, представляет собой поле ввода, а не обертку для календаря.
+
+---
+
+## positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
+
+```ts
+new Calendar('#calendar', {
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
+});
+```
+
+Этот параметр определяет положение календаря относительно input, если календарь инициализирован с параметром `inputMode`.
+
+`positionToInput` принимает строку со значением `'left'`, `'center'` или `'right'`, либо массив значений `[ось Y, ось X]`, где ось Y может быть `'bottom'` или `'top'`, а ось X может быть `'left'`, `'center'` или `'right'`.
+Если ось Y не указана, то используется значение по умолчанию - `'bottom'`.
+
+Вы можете использовать значение `positionToInput: 'auto'` для автоматического определения наилучшей позиции в зависимости от доступного места в области просмотра.
+Опция позволяет рассчитать доступное пространство со всех 4 сторон и сначала попытается отобразить календарь внизу относительно input, это позиция по умолчанию.
+Если внизу недостаточно места, он оценит другую лучшую доступную позицию.
+
+---
+
+## firstWeekday
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: от 0 до 6`
+
+```ts
+new Calendar('#calendar', {
+  firstWeekday: 1,
+});
+```
+
+Этот параметр устанавливает первый день недели. Укажите число от 0 до 6, число представляет собой идентификатор дня недели. По стандартам JS дни недели начинаются с 0 и 0 это воскресенье.
+
+---
+
+## monthsToSwitch
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: от 1 до 12`
+
+```ts
+new Calendar('#calendar', {
+  monthsToSwitch: 1,
+});
+```
+
+Параметр `monthsToSwitch` управляет количеством переключаемых месяцев.
+
+---
+
+## themeAttrDetect
+
+`Type: String | False`
+
+`Default: 'html[data-theme]'`
+
+`Options: 'string | false`
+
+```ts
+new Calendar('#calendar', {
+  themeAttrDetect: 'html[data-theme]',
+});
+```
+
+Для того чтобы календарь автоматически отслеживал и применял тему сайта, вы можете передать строковое значение в виде CSS-селектора.
+Квадратные скобки указывают на атрибут, содержащий название темы.
+По умолчанию отслеживается тег `html` с атрибутом `data-theme`, но вы можете настроить любой другой атрибут и тег, например, `class`, если имя класса используется для задания темы: `'html[class]'`.
+Если установить значение `false`, тема будет определяться системой пользователя или параметром `selectedTheme`.
+
+---
+
+## locale
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | Array<locale>`
+
+```ts
+new Calendar('#calendar', {
+  locale: 'en',
+  // Or specify an object for your labels
+  // locale: {
+  //   months: {
+  //     long: [],
+  //     short: [],
+  //   },
+  //   weekday: {
+  //     long: [],
+  //     short: [],
+  //   }
+  // },
+});
+```
+
+Этот параметр задает языковую локализацию календаря.
+Вы можете указать метку языка согласно <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> или предоставить массивы названий месяцев и недель, подробнее см. [тут](/docs/learn/internationalization-locale).
+
+---
+
+## dateToday
+
+`Type: Date object`
+
+`Default: 'today'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateToday: 'today',
+});
+```
+
+Параметр `dateToday` определяет, какой день будет считаться сегодняшним для календаря.
+
+---
+
+## dateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMin: '1970-01-01',
+});
+```
+
+Параметр `dateMin` устанавливает минимально допустимую дату, которую календарь будет учитывать, и которая не может быть меньше этой даты.
+
+---
+
+## dateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMax: '2470-12-31',
+});
+```
+
+Параметр `dateMax` устанавливает максимально допустимую дату, которую календарь будет учитывать, и которая не может быть больше этой даты.
+
+---
+
+## displayDateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMin: '2022-07-01',
+});
+```
+
+Этот параметр устанавливает минимальную дату, которую пользователь может выбрать. Даты, меньшие указанной, будут отключены и недоступны для выбора.
+
+<Info>Важно отметить, что `displayDateMin` и `displayDateMax` отключают даты, выходящие за пределы диапазона, в то время как `dateMin` и `dateMax` вообще их не создают.</Info>
+
+---
+
+## displayDateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMax: '2024-07-01',
+});
+```
+
+Этот параметр устанавливает максимальную дату, которую пользователь может выбрать. Даты, большие указанной, будут отключены и недоступны для выбора.
+
+<Info>Важно отметить, что `displayDateMin` и `displayDateMax` отключают даты, выходящие за пределы диапазона, в то время как `dateMin` и `dateMax` вообще их не создают.</Info>
+
+---
+
+## displayDatesOutside
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDatesOutside: false,
+});
+```
+
+С помощью этого параметра вы можете решить, будут ли отображаться дни из прошлого и следующего месяца.
+
+---
+
+## displayDisabledDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDisabledDates: false,
+});
+```
+
+Этот параметр определяет, будут ли отображаться все дни, включая отключенные дни.
+
+---
+
+## displayMonthsCount
+
+`Type: Number`
+
+`Default: 2`
+
+`Options: от 2 до 12`
+
+```ts
+new Calendar('#calendar', {
+  displayMonthsCount: 2,
+});
+```
+
+Параметр `displayMonthsCount` определяет количество отображаемых месяцев, если тип календаря установлен как `'multiple'`.
+
+---
+
+## disableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+Этот параметр позволяет отключить указанные даты, независимо от указанного диапазона.
+
+<Info>Чтобы указать диапазон дат, используйте любой разделитель между датами в пределах одной строки.</Info>
+
+---
+
+## disableAllDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableAllDates: true,
+});
+```
+
+Этот параметр отключает все дни и может быть полезен при использовании `enableDates`.
+
+---
+
+## disableDatesPast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesPast: true,
+});
+```
+
+Этот параметр отключает все прошедшие дни.
+
+---
+
+## disableDatesGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesGaps: true,
+});
+```
+
+Этот параметр отключает выбор дней в диапазоне с отключенными датами. Работает только если для параметра `selectionDatesMode` установлено значение `'multiple-ranged'`.
+
+---
+
+## disableWeekdays
+
+`Type: Number`
+
+`Default: []`
+
+`Options: от 0 до 6`
+
+```ts
+new Calendar('#calendar', {
+  disableWeekdays: [0, 6],
+});
+```
+
+Этот параметр позволяет отключить указанные дни недели. Укажите массив с числами от 0 до 6, где каждое число представляет собой идентификатор дня недели. По стандартам JS дни недели начинаются с 0 и 0 это воскресенье.
+
+---
+
+## disableToday
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableToday: true,
+});
+```
+
+С помощью этого параметра вы можете отключить выделение сегодняшнего дня в календаре.
+
+---
+
+## enableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+Этот параметр позволяет включить указанные даты, независимо от диапазона и отключенных дат.
+
+<Info>
+  Чтобы указать диапазон дат, используйте любой разделитель между датами в пределах одной строки.
+</Info>
+
+---
+
+## enableEdgeDatesOnly
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableEdgeDatesOnly: true,
+});
+```
+
+Этот параметр позволяет получить только начальную и конечную выбранную пользователем дату, игнорируя промежуточные даты. Этот параметр работает только в том случае, если для `selectionDatesMode` установлено значение `'multiple-ranged'`.
+
+<Info>
+  Важно отметить, что при использовании этого параметра отключенные даты в диапазоне дат не будут иметь никакого эффекта. Поэтому используйте эту опцию только в том случае, если вас интересуют только выбранные пользователем даты начала и окончания.
+</Info>
+
+---
+
+## enableDateToggle
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  enableDateToggle: false,
+  // or with a callback
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+Если параметр `enableDateToggle` имеет значение `true` или обратный вызов возвращает `true`, то повторный клик на выбранную дату отменяет выбор.
+
+---
+
+## enableWeekNumbers
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableWeekNumbers: true,
+});
+```
+
+С помощью этого параметра вы можете решить, будут ли отображаться номера недель в году.
+
+---
+
+## enableMonthChangeOnDayClick
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableMonthChangeOnDayClick: false,
+});
+```
+
+С помощью этой параметра вы можете решить, будет ли месяц переключаться по клику на день из предыдущего или следующего месяца.
+
+---
+
+## enableJumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
+});
+```
+
+Если эта опция включена и указаны одна или несколько выбранных дат, но без указания `selectedMonth` и `selectedYear`, календарь перейдет к первой выбранной дате. Если установлено значение `false`, календарь всегда будет открываться для текущего месяца и года.
+
+<Info>
+  Эта опция не имеет эффекта, если указаны `selectedMonth` и `selectedYear`.
+</Info>
+
+---
+
+## selectionDatesMode
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```ts
+new Calendar('#calendar', {
+  selectionDatesMode: 'single',
+});
+```
+
+Этот параметр определяет, разрешено ли выбирать один или несколько дней, либо выбор дней полностью отключен.
+
+---
+
+## selectionMonthsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionMonthsMode: false,
+});
+```
+
+Этот параметр позволяет отключить выбор месяца, разрешить переключение месяцев только с помощью стрелок или разрешить переключение месяцев любым способом.
+
+---
+
+## selectionYearsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionYearsMode: false,
+});
+```
+
+Этот параметр позволяет отключить выбор года, разрешить переключение года только с помощью стрелок или разрешить переключение года любым способом.
+
+---
+
+## selectionTimeMode
+
+`Type: False | Number`
+
+`Default: false`
+
+`Options: false | 24 | 12`
+
+```ts
+new Calendar('#calendar', {
+  selectionTimeMode: true,
+});
+```
+
+Этот параметр включает выбор времени. Вы также можете указать формат времени, используя число: 24-часовой или 12-часовой формат.
+
+---
+
+## selectedDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+Этот параметр позволяет указать список дат, которые будут выбраны при инициализации календаря.
+
+<Info>
+  Чтобы указать диапазон дат, используйте любой разделитель между датами в пределах одной строки.
+</Info>
+
+---
+
+## selectedMonth
+
+`Type: Number`
+
+`Default: null`
+
+`Options: от 0 до 11 | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedMonth: 0,
+});
+```
+
+Этот параметр определяет месяц, который будет отображаться при инициализации календаря. По стандартам JS месяцы нумеруются с 0 до 11.
+
+---
+
+## selectedYear
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedYear: 2022,
+});
+```
+
+Этот параметр определяет год, который будет отображаться при инициализации календаря.
+
+---
+
+## selectedHolidays
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+Этот параметр позволяет указать даты, которые будут считаться праздничными и получат дополнительный атрибут данных для стилизации.
+
+<Info>
+  Чтобы указать диапазон дат, используйте любой разделитель между датами в пределах одной строки.
+</Info>
+
+---
+
+## selectedWeekends
+
+`Type: Number`
+
+`Default: [0, 6]`
+
+`Options: number[0-6]`
+
+```ts
+new Calendar('#calendar', {
+  selectedWeekends: [0, 6],
+});
+```
+
+Этот параметр позволяет указать выходные дни недели. Укажите массив с числами от 0 до 6, где каждое число представляет собой идентификатор дня недели. По стандартам JS дни недели начинаются с 0 и 0 это воскресенье.
+
+---
+
+## selectedTime
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedTime: '03:44 AM',
+});
+```
+
+Этот параметр позволяет задать время, которое будет отображаться при инициализации календаря. Время задается в формате `'hh:mm aa'`, где `'aa'` - это маркер AM/PM. Если используется 24-часовой формат, маркер `'aa'` указывать не требуется.
+
+---
+
+## selectedTheme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: string (custom theme) | 'light' | 'dark' | 'system'`
+
+```ts
+new Calendar('#calendar', {
+  selectedTheme: 'system',
+});
+```
+
+Этот параметр определяет тему календаря. По умолчанию тема определяется системой пользователя или настройками сайта.
+
+---
+
+## timeMinHour
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: от 0 до 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMinHour: 0,
+});
+```
+
+Этот параметр указывает, какой час будет минимальным для выбора.
+
+---
+
+## timeMaxHour
+
+`Type: Number`
+
+`Default: 23`
+
+`Options: от 0 до 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxHour: 23,
+});
+```
+
+Этот параметр указывает, какой час будет максимальным для выбора.
+
+---
+
+## timeMinMinute
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: от 0 до 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMinMinute: 0,
+});
+```
+
+Этот параметр указывает, какая минута будет минимальной для выбора.
+
+---
+
+## timeMaxMinute
+
+`Type: Number`
+
+`Default: 59`
+
+`Options: от 0 до 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxMinute: 59,
+});
+```
+
+Этот параметр указывает, какая минута будет максимальной для выбора.
+
+---
+
+## timeControls
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```ts
+new Calendar('#calendar', {
+  timeControls: 'all',
+});
+```
+
+Этот параметр определяет способ выбора времени: `'all'` (любым способом) или `'range'` (только с помощью контроллера).
+
+---
+
+## timeStepHour
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: от 1 до 23`
+
+```ts
+new Calendar('#calendar', {
+  timeStepHour: 1,
+});
+```
+
+Этот параметр устанавливает шаг для контроллера часов.
+
+---
+
+## timeStepMinute
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: от 1 до 59`
+
+```ts
+new Calendar('#calendar', {
+  timeStepMinute: 1,
+});
+```
+
+Этот параметр устанавливает шаг для контроллера минут.
+
+---
+
+## sanitizerHTML
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```ts
+import DOMPurify from 'dompurify';
+
+new Calendar('#calendar', {
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizerHTML` может очищать HTML-шаблоны, чтобы они были безопасными для CSP.
+
+<Info>
+  Обратите внимание, что в качестве примера используется сторонняя библиотека <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. `sanitizerHTML` не является обязательным для работы календаря.
+</Info>

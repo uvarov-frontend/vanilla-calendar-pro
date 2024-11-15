@@ -1,0 +1,69 @@
+---
+title: React компонент
+description: Узнайте, как создать и использовать React компонент для Vanilla Calendar Pro. Подробное руководство по созданию компонента и его интеграции в приложение React.
+section: 7. Компоненты для библиотек
+---
+
+# React компонент
+
+<Info>
+  Если вы не используете TypeScript, используйте расширение `.jsx` вместо `.tsx` и удалите интерфейс `CalendarProps` из компонента.
+</Info>
+
+Для демонстрации давайте рассмотрим простейший компонент React для Vanilla Calendar Pro. Создайте файл с именем `VanillaCalendar.tsx` и скопируйте в него следующий код:
+
+```tsx
+import { useEffect, useRef, useState } from 'react';
+import { Options, Calendar } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+interface CalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  config?: Options,
+}
+
+function VanillaCalendar({ config, ...attributes }: CalendarProps) {
+  const ref = useRef(null);
+  const [calendar, setCalendar] = useState<Calendar | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    setCalendar(new Calendar(ref.current, config));
+  }, [ref, config])
+
+  useEffect(() => {
+    if (!calendar) return;
+    calendar.init()
+  }, [calendar])
+
+  return (
+    <div {...attributes} ref={ref}></div>
+  )
+}
+
+export default VanillaCalendar;
+```
+
+Затем импортируйте созданный компонент `VanillaCalendar` в ваше приложение React, где вы планируете отображать календарь.
+
+```tsx
+import VanillaCalendar from "./VanillaCalendar";
+```
+
+Используйте созданный компонент.
+
+```tsx
+// ...
+<VanillaCalendar />
+// ...
+```
+
+Компоненту `VanillaCalendar` можно передать любые атрибуты HTML, поддерживаемые тегом `<div>`, а также параметр `config` для настройки календаря.
+
+```tsx
+// ...
+<VanillaCalendar config={{
+    type: 'multiple',
+  }} className="thisIsMyClass" />
+// ...
+```

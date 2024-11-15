@@ -1,0 +1,106 @@
+---
+title: Methods
+description: Methods for managing the calendar, including initialization, updating, setting parameters, deleting, showing, and hiding the calendar.
+section: 2
+---
+
+# Methods
+
+## init()
+
+The `init()` method is the main instance method that starts the calendar initialization process.
+
+```ts
+const calendar = new Calendar(element, params);
+calendar.init();
+```
+
+---
+
+## update()
+
+The `update()` method allows you to apply new settings to the calendar and perform a reset.
+This method accepts an object with optional arguments to control the reset, by default resetting the user-selected date, month, and year after the update.
+
+All arguments default to `true`:
+
+```ts
+{
+  year: boolean;
+  month: boolean;
+  dates: boolean | 'only-first';
+  holidays: boolean;
+  time: boolean;
+}
+```
+
+- `true` - will reset to the parameters specified in the settings;
+- `false` - will not perform a reset, leaving the parameters selected by the user;
+- `'only-first'` - resets all selected dates, leaving only the earliest one. If the date selection type is specified as `'multiple-ranged'`, a `'mousemove'` and `'keydown'` handler is added for hovering.
+
+Example usage:
+
+```ts
+calendar.locale = 'de-AT';
+calendar.firstWeekday = 0;
+
+calendar.update({
+  dates: true,
+});
+```
+
+---
+
+## set()
+
+If you need to specify new parameters or handlers for a calendar that is not yet initialized or already initialized, you can use the `.set()` method.
+This method accepts an object with new parameters and an object with optional arguments to control the reset, by default resetting the user-selected date, month, and year after the update.
+
+Example usage:
+
+```ts
+calendar.set({
+  locale: 'de-AT',
+  firstWeekday: 0,
+}, {
+  dates: true,
+});
+```
+
+This method can be an alternative to specifying parameters when creating a calendar instance. If you call this method before initialization, do not specify the object for controlling the reset.
+
+```ts
+const calendar = new Calendar(element);
+calendar.set({ locale: 'de-AT', firstWeekday: 0 });
+calendar.init();
+```
+
+---
+
+## destroy()
+
+If you need to completely delete the calendar instance, you can use the `destroy()` method.
+
+```ts
+calendar.destroy();
+```
+
+---
+
+## show()
+
+The `show()` method allows you to display the calendar if it was hidden.
+
+```ts
+calendar.show();
+```
+
+---
+
+## hide()
+
+The `hide()` method allows you to hide the calendar if it was shown.
+
+```ts
+calendar.hide();
+```

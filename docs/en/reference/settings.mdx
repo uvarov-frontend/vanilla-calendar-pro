@@ -1,0 +1,889 @@
+---
+title: Settings
+description: Calendar settings, including display type, input mode, positioning, localization, dates and times.
+section: 3
+---
+
+# Settings
+
+## type
+
+`Type: String`
+
+`Default: 'default'`
+
+`Options: 'default' | 'multiple' | 'month' | 'year'`
+
+```ts
+new Calendar('#calendar', {
+  type: 'default',
+});
+```
+
+The `type` parameter defines the type of calendar displayed.
+
+---
+
+## inputMode
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  inputMode: true,
+});
+```
+
+The `inputMode` parameter indicates that the `mainElement`, passed as the first parameter, represents an input field rather than a wrapper for the calendar.
+
+---
+
+## positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
+
+```ts
+new Calendar('#calendar', {
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
+});
+```
+
+This parameter defines the position of the calendar relative to the input if the calendar is initialized with the `inputMode` parameter.
+
+`positionToInput` accepts a string with the value `'left'`, `'center'`, or `'right'`, or an array of values `[Y-axis, X-axis]`, where the Y-axis can be `'bottom'` or `'top'`, and the X-axis can be `'left'`, `'center'`, or `'right'`.
+If the Y-axis is not specified, the default value `'bottom'` is used.
+
+You can use the value `positionToInput: 'auto'` to automatically determine the best position based on the available space in the viewport.
+The option allows calculating the available space on all 4 sides and will first try to display the calendar below the input, which is the default position.
+If there is not enough space below, it will evaluate another best available position.
+
+---
+
+## firstWeekday
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  firstWeekday: 1,
+});
+```
+
+This parameter sets the first day of the week. Specify a number from 0 to 6, where the number represents the day of the week identifier. According to JS standards, the days of the week start with 0, and 0 is Sunday.
+
+---
+
+## monthsToSwitch
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 12`
+
+```ts
+new Calendar('#calendar', {
+  monthsToSwitch: 1,
+});
+```
+
+The `monthsToSwitch` parameter controls the number of switchable months.
+
+---
+
+## themeAttrDetect
+
+`Type: String | False`
+
+`Default: 'html[data-theme]'`
+
+`Options: 'string | false`
+
+```ts
+new Calendar('#calendar', {
+  themeAttrDetect: 'html[data-theme]',
+});
+```
+
+To have the calendar automatically track and apply the site's theme, you can pass a string value in the form of a CSS selector.
+Square brackets indicate an attribute containing the theme name.
+By default, the `html` tag with the `data-theme` attribute is tracked, but you can configure any other attribute and tag, for example, `class`, if the class name is used to set the theme: `'html[class]'`.
+If set to `false`, the theme will be determined by the user's system or the `selectedTheme` parameter.
+
+---
+
+## locale
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | Array<locale>`
+
+```ts
+new Calendar('#calendar', {
+  locale: 'en',
+  // Or specify an object for your labels
+  // locale: {
+  //   months: {
+  //     long: [],
+  //     short: [],
+  //   },
+  //   weekday: {
+  //     long: [],
+  //     short: [],
+  //   }
+  // },
+});
+```
+
+This parameter sets the language localization of the calendar.
+You can specify a language label according to <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or provide arrays of month and weekday names, see more details [here](/docs/learn/internationalization-locale).
+
+---
+
+## dateToday
+
+`Type: Date object`
+
+`Default: 'today'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateToday: 'today',
+});
+```
+
+The `dateToday` parameter defines which day will be considered today for the calendar.
+
+---
+
+## dateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMin: '1970-01-01',
+});
+```
+
+The `dateMin` parameter sets the minimum allowable date that the calendar will consider and which cannot be less than this date.
+
+---
+
+## dateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMax: '2470-12-31',
+});
+```
+
+The `dateMax` parameter sets the maximum allowable date that the calendar will consider and which cannot be greater than this date.
+
+---
+
+## displayDateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMin: '2022-07-01',
+});
+```
+
+This parameter sets the minimum date that the user can select. Dates earlier than the specified date will be disabled and unavailable for selection.
+
+<Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
+
+---
+
+## displayDateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMax: '2024-07-01',
+});
+```
+
+This parameter sets the maximum date that the user can select. Dates later than the specified date will be disabled and unavailable for selection.
+
+<Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
+
+---
+
+## displayDatesOutside
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDatesOutside: false,
+});
+```
+
+With this parameter, you can decide whether to display days from the previous and next month.
+
+---
+
+## displayDisabledDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDisabledDates: false,
+});
+```
+
+This parameter determines whether all days, including disabled days, will be displayed.
+
+---
+
+## displayMonthsCount
+
+`Type: Number`
+
+`Default: 2`
+
+`Options: from 2 to 12`
+
+```ts
+new Calendar('#calendar', {
+  displayMonthsCount: 2,
+});
+```
+
+The `displayMonthsCount` parameter defines the number of months displayed if the calendar type is set to `'multiple'`.
+
+---
+
+## disableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+This parameter allows you to disable specified dates, regardless of the specified range.
+
+<Info>To specify a date range, use any delimiter between dates within a single string.</Info>
+
+---
+
+## disableAllDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableAllDates: true,
+});
+```
+
+This parameter disables all days and can be useful when using `enableDates`.
+
+---
+
+## disableDatesPast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesPast: true,
+});
+```
+
+This parameter disables all past days.
+
+---
+
+## disableDatesGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesGaps: true,
+});
+```
+
+This parameter disables the selection of days within a range with disabled dates. It only works if the `selectionDatesMode` parameter is set to `'multiple-ranged'`.
+
+---
+
+## disableWeekdays
+
+`Type: Number`
+
+`Default: []`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  disableWeekdays: [0, 6],
+});
+```
+
+This parameter allows you to disable specified weekdays. Specify an array with numbers from 0 to 6, where each number represents a day of the week identifier. According to JS standards, the days of the week start with 0, and 0 is Sunday.
+
+---
+
+## disableToday
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableToday: true,
+});
+```
+
+With this parameter, you can disable the selection of today's date in the calendar.
+
+---
+
+## enableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+This parameter allows you to enable specified dates, regardless of the range and disabled dates.
+
+<Info>
+  To specify a date range, use any delimiter between dates within a single string.
+</Info>
+
+---
+
+## enableEdgeDatesOnly
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableEdgeDatesOnly: true,
+});
+```
+
+This parameter allows you to get only the start and end dates selected by the user, ignoring intermediate dates. This parameter only works if `selectionDatesMode` is set to `'multiple-ranged'`.
+
+<Info>
+  It is important to note that when using this parameter, disabled dates within the date range will have no effect. Therefore, use this option only if you are interested in the start and end dates selected by the user.
+</Info>
+
+---
+
+## enableDateToggle
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  enableDateToggle: false,
+  // or with a callback
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+If the `enableDateToggle` parameter is `true` or the callback returns `true`, then clicking on a selected date again will deselect it.
+
+---
+
+## enableWeekNumbers
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableWeekNumbers: true,
+});
+```
+
+With this parameter, you can decide whether to display week numbers in the year.
+
+---
+
+## enableMonthChangeOnDayClick
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableMonthChangeOnDayClick: false,
+});
+```
+
+With this parameter, you can decide whether the month will switch when clicking on a day from the previous or next month.
+
+---
+
+## enableJumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
+});
+```
+
+If this option is enabled and one or more selected dates are specified, but without specifying `selectedMonth` and `selectedYear`, the calendar will jump to the first selected date. If set to `false`, the calendar will always open for the current month and year.
+
+<Info>
+  This option has no effect if `selectedMonth` and `selectedYear` are specified.
+</Info>
+
+---
+
+## selectionDatesMode
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```ts
+new Calendar('#calendar', {
+  selectionDatesMode: 'single',
+});
+```
+
+This parameter determines whether selecting one or multiple days is allowed, or if date selection is completely disabled.
+
+---
+
+## selectionMonthsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionMonthsMode: false,
+});
+```
+
+This parameter allows you to disable month selection, allow month switching only with arrows, or allow month switching in any way.
+
+---
+
+## selectionYearsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionYearsMode: false,
+});
+```
+
+This parameter allows you to disable year selection, allow year switching only with arrows, or allow year switching in any way.
+
+---
+
+## selectionTimeMode
+
+`Type: False | Number`
+
+`Default: false`
+
+`Options: false | 24 | 12`
+
+```ts
+new Calendar('#calendar', {
+  selectionTimeMode: true,
+});
+```
+
+This parameter enables time selection. You can also specify the time format using a number: 24-hour or 12-hour format.
+
+---
+
+## selectedDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+This parameter allows you to specify a list of dates that will be selected when the calendar is initialized.
+
+<Info>
+  To specify a date range, use any delimiter between dates within a single string.
+</Info>
+
+---
+
+## selectedMonth
+
+`Type: Number`
+
+`Default: null`
+
+`Options: from 0 to 11 | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedMonth: 0,
+});
+```
+
+This parameter defines the month that will be displayed when the calendar is initialized. According to JS standards, months are numbered from 0 to 11.
+
+---
+
+## selectedYear
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedYear: 2022,
+});
+```
+
+This parameter defines the year that will be displayed when the calendar is initialized.
+
+---
+
+## selectedHolidays
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+This parameter allows you to specify dates that will be considered holidays and will receive an additional data attribute for styling.
+
+<Info>
+  To specify a date range, use any delimiter between dates within a single string.
+</Info>
+
+---
+
+## selectedWeekends
+
+`Type: Number`
+
+`Default: [0, 6]`
+
+`Options: number[0-6]`
+
+```ts
+new Calendar('#calendar', {
+  selectedWeekends: [0, 6],
+});
+```
+
+This parameter allows you to specify the weekend days of the week. Specify an array with numbers from 0 to 6, where each number represents a day of the week identifier. According to JS standards, the days of the week start with 0, and 0 is Sunday.
+
+---
+
+## selectedTime
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedTime: '03:44 AM',
+});
+```
+
+This parameter allows you to set the time that will be displayed when the calendar is initialized. The time is set in the format `'hh:mm aa'`, where `'aa'` is the AM/PM marker. If using the 24-hour format, the `'aa'` marker is not required.
+
+---
+
+## selectedTheme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: string (custom theme) | 'light' | 'dark' | 'system'`
+
+```ts
+new Calendar('#calendar', {
+  selectedTheme: 'system',
+});
+```
+
+This parameter defines the theme of the calendar. By default, the theme is determined by the user's system or the site settings.
+
+---
+
+## timeMinHour
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMinHour: 0,
+});
+```
+
+This parameter specifies which hour will be the minimum for selection.
+
+---
+
+## timeMaxHour
+
+`Type: Number`
+
+`Default: 23`
+
+`Options: from 0 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxHour: 23,
+});
+```
+
+This parameter specifies which hour will be the maximum for selection.
+
+---
+
+## timeMinMinute
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMinMinute: 0,
+});
+```
+
+This parameter specifies which minute will be the minimum for selection.
+
+---
+
+## timeMaxMinute
+
+`Type: Number`
+
+`Default: 59`
+
+`Options: from 0 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxMinute: 59,
+});
+```
+
+This parameter specifies which minute will be the maximum for selection.
+
+---
+
+## timeControls
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```ts
+new Calendar('#calendar', {
+  timeControls: 'all',
+});
+```
+
+This parameter defines the method of time selection: `'all'` (any method) or `'range'` (only with the controller).
+
+---
+
+## timeStepHour
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeStepHour: 1,
+});
+```
+
+This parameter sets the step for the hour controller.
+
+---
+
+## timeStepMinute
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeStepMinute: 1,
+});
+```
+
+This parameter sets the step for the minute controller.
+
+---
+
+## sanitizerHTML
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```ts
+import DOMPurify from 'dompurify';
+
+new Calendar('#calendar', {
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizerHTML` can sanitize HTML templates to make them safe for CSP.
+
+<Info>
+  Note that the example uses the third-party library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. `sanitizerHTML` is not required for the calendar to function.
+</Info>

@@ -1,0 +1,59 @@
+---
+title: Creating an Instance
+description: Learn how to create an instance of Vanilla Calendar Pro using a CSS selector or HTML element. Configure the calendar to initialize in a wrapper or popup when clicking on an element.
+section: 1
+---
+
+# Creating an Instance
+
+`new Calendar()` - creates an instance of **Vanilla Calendar Pro**, which is an encapsulation of the calendar, its settings, and methods.
+
+<Info>If you included **Vanilla Calendar Pro** using the `<script>` tag, the object is available as a global variable **window.VanillaCalendarPro**.</Info>
+
+The `Calendar` instance takes two parameters. The first **required** parameter can be a **CSS selector** or **HTML element**.
+
+The **CSS selector** or **HTML element** can represent a wrapper for the calendar, in which the calendar will be initialized, or an **«Input»**.
+
+A calendar wrapper is a `<div>` tag inside which the calendar itself will be initialized.
+
+Initialization in a calendar wrapper:
+
+```html
+<div id="calendar"></div>
+```
+
+```ts
+new Calendar('#calendar');
+// or
+const calendarEl = document.querySelector('#calendar');
+new Calendar(calendarEl);
+```
+
+**«Input»** in the context of this calendar does not necessarily mean an `<input>` tag; it can be any HTML element, such as a `<div>`.
+
+When clicking on the **«Input»**, a popup with the calendar will appear.
+
+Initialization in an **«Input»**:
+
+```html
+<input type="text" id="input">
+<!-- or -->
+<div id="input"></div>
+```
+
+```ts
+new Calendar('#input', { input: true });
+// or
+const calendarInput = document.querySelector('#input');
+new Calendar(calendarInput, {
+  inputMode: true,
+});
+```
+
+The second **optional** parameter is an object defining the settings and actions of the calendar.
+
+```ts
+new Calendar('#calendar', {
+  // Settings
+});
+```

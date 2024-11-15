@@ -1,0 +1,379 @@
+---
+title: Действия
+description: Узнайте о различных действиях, которые можно настроить для календаря, включая обработчики событий для кликов на даты, недели, месяцы, годы и стрелки, а также для изменения времени и отображения подсказок.
+section: 4
+---
+
+# Действия
+
+## onClickDate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickDate(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickDate(self, event) {},
+});
+```
+
+Этот метод срабатывает после нажатия на день в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие мыши.
+
+<Info>
+  Важно знать, что каждый HTML-элемент дня, содержит data-атрибут, внутри которого находится полная дата в формате `YYYY-MM-DD`.
+  Если вам нужно получить день, месяц, год отдельно, то вы можете использовать стандартные методы JS.
+  В качестве примера: `new Date('2022-11-07').getDate()` вернет `7`.
+</Info>
+
+---
+
+## onClickWeekDay()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekDay(self, day, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekDay(self, day, dateEls, event) {},
+});
+```
+
+Этот метод срабатывает после нажатия на день недели в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `number` - номер недели;
+- `days` - массив дней (html-элементов);
+- `year` - год недели;
+- `event` - событие мыши.
+
+---
+
+## onClickWeekNumber()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekNumber(self, number, year, dateEls, event) {},
+});
+```
+
+Этот метод срабатывает после нажатия на номер недели в календаре, но для его работы необходим параметр `enableWeekNumbers` со значением `true`. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `number` - номер недели;
+- `days` - массив дней (html-элементов);
+- `year` - год недели;
+- `event` - событие мыши.
+
+---
+
+## onClickTitle()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickTitle(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickTitle(self, event) {},
+});
+```
+
+Этот метод срабатывает после нажатия на заголовок месяца или года в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие мыши.
+
+---
+
+## onClickMonth()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickMonth(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickMonth(self, event) {},
+});
+```
+
+Этот метод срабатывает после выбора месяца в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие мыши.
+
+---
+
+## onClickYear()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickYear(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickYear(self, event) {},
+});
+```
+
+Этот метод срабатывает после выбора года в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие мыши.
+
+---
+
+## onClickArrow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickArrow(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickArrow(self, event) {},
+});
+```
+
+Этот метод срабатывает после клика на стрелочку в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие мыши.
+
+---
+
+## onChangeTime()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeTime(self, event, isError) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeTime(self, event) {},
+});
+```
+
+Этот метод срабатывает после изменения времени в календаре. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие change;
+- `isError` - возвращает true, если пользователь ввел неверное время.
+
+---
+
+## onChangeToInput()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeToInput(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeToInput(self, event) {},
+});
+```
+
+Для работы этого метода необходим параметр `inputMode` с значением `true`.
+Этот метод срабатывает после нажатия на день в календаре или изменения времени любым способом.
+Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `event` - событие.
+
+---
+
+## onCreateDateRangeTooltip()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
+});
+```
+
+Позволяет создать подсказку для диапазона дат. Срабатывает при нажатии и наведении курсора мыши на день, если для параметра `selectionDatesMode` установлено значание `'multiple-ranged'`.
+Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь.
+- `dateEl` - HTML элемент даты;
+- `tooltipEl` - HTML элемент подсказки;
+- `dateElBCR` - объект с информацией о положении и размере HTML элемента даты;
+- `mainElBCR` - объект с информацией о положении и размере основного HTML элемента календаря.
+
+---
+
+## onCreateDateEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateEls(self, dateEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateEls(self, dateEl) {},
+});
+```
+
+Этот метод срабатывает при инициализации календаря и при любых изменениях. Он предоставляет доступ к информации о каждом дне. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `dateEl` - HTML элемент даты.
+
+---
+
+## onCreateMonthEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateMonthEls(self, monthEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateMonthEls(self, monthEl) {},
+});
+```
+
+Этот метод срабатывает, когда тип календаря установлен на `'month'`. Тип календаря также становится `'month'`, когда пользователь кликает на заголовок месяца или при инициализации с параметром `type = 'month'`. Он предоставляет доступ к информации о каждом месяце. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `monthEl` - HTML элемент месяца.
+
+---
+
+## onCreateYearEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateYearEls(self, yearEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateYearEls(self, yearEl) {},
+});
+```
+
+Этот метод срабатывает, когда тип календаря установлен на `'year'`. Тип календаря становится `'year'`, когда пользователь кликает на заголовок года или при инициализации с параметром `type = 'year'`. Он предоставляет доступ к информации о каждом годе. Вы можете получить следующие параметры:
+- `self` - ссылка на инициализированный календарь;
+- `yearEl` - HTML элемент года.
+
+---
+
+## onInit()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onInit(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onInit(self) {},
+});
+```
+
+Этот метод срабатывает при инициализации календаря. Если для параметра `inputMode` установлено значение `true`, то метод отработает при первом отображении календаря, поскольку в этот момент инициализируется календарь.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## onUpdate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onUpdate(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onUpdate(self) {},
+});
+```
+
+Этот метод срабатывает при обновлении/сбросе календаря с помощью метода `.update()`.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## onDestroy()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onDestroy(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onDestroy(self) {},
+});
+```
+
+Этот метод срабатывает при уничтожении календаря.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## onShow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onShow(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onShow(self) {},
+});
+```
+
+Этот метод срабатывает при отображении календаря пользователю, но только если для параметра `inputMode` установлено значение `true`.
+- `self` - ссылка на инициализированный календарь.
+
+---
+
+## onHide()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onHide(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onHide(self) {},
+});
+```
+
+Этот метод срабатывает при скрытии календаря, но только если для параметра `inputMode` установлено значение `true`.
+- `self` - ссылка на инициализированный календарь.

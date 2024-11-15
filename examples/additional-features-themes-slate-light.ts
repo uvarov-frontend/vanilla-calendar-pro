@@ -1,9 +1,10 @@
 import { Calendar, type Options } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/index.css';
+import 'vanilla-calendar-pro/styles/layout.css';
+import 'vanilla-calendar-pro/styles/themes/slate-light.css';
 
 const options: Options = {
-  dateToday: new Date('2022-01-07'),
+  selectedTheme: 'slate-light',
 };
 
 const calendar = new Calendar('#calendar', options);
