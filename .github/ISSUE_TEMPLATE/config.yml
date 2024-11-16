@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Feedback"
+    url: "https://t.me/uvarov_frontend"
+    about: "Use this form to contact me if the problem is not described in the templates."
