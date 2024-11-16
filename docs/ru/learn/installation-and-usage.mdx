@@ -80,10 +80,9 @@ import 'vanilla-calendar-pro/styles/themes/dark.css'; // Темная тема
   <body>
     <div id="calendar"></div>
     <script>
-      // Деструктуризация конструктора Calendar
-      const { Calendar } = window.VanillaCalendarPro;
-
       document.addEventListener('DOMContentLoaded', () => {
+        // Деструктуризация конструктора Calendar
+        const { Calendar } = window.VanillaCalendarPro;
         // Создайте экземпляр календаря и инициализируйте его.
         const calendar = new Calendar('#calendar');
         calendar.init();

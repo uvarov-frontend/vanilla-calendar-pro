@@ -79,10 +79,9 @@ If you need to quickly integrate Vanilla Calendar Pro without using build tools 
   <body>
     <div id="calendar"></div>
     <script>
-      // Destructure the Calendar constructor
-      const { Calendar } = window.VanillaCalendarPro;
-
       document.addEventListener('DOMContentLoaded', () => {
+        // Destructure the Calendar constructor
+        const { Calendar } = window.VanillaCalendarPro;
         // Create a calendar instance and initialize it.
         const calendar = new Calendar('#calendar');
         calendar.init();
