@@ -1,0 +1,61 @@
+---
+title: Vue Component
+description: Learn how to create and use a Vue component for Vanilla Calendar Pro. A detailed guide on creating the component and integrating it into a Vue application.
+section: 7. Components for Libraries
+---
+
+# Vue Component
+
+To demonstrate, let's create a simple Vue component for Vanilla Calendar Pro. Create a file named `VanillaCalendar.vue` and copy the following code into it:
+
+```vue
+<script setup lang="ts">
+import { onMounted, ref, useAttrs } from 'vue';
+import { Calendar, Options } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css'
+
+const calendarRef = ref(null);
+const attributes = useAttrs();
+const { config } = defineProps<{ config?: Options }>();
+
+onMounted(() => {
+  if (!calendarRef.value) return;
+  const calendar = new Calendar(calendarRef.value, config);
+  calendar.init();
+});
+</script>
+
+<template>
+  <div v-bind="attributes" ref="calendarRef"></div>
+</template>
+```
+
+Then import the created `VanillaCalendar` component into your Vue application where you want to display the calendar.
+
+```vue
+<script setup lang="ts">
+// ...
+import VanillaCalendar from "./VanillaCalendar.vue";
+// ...
+</script>
+```
+
+Use the created component.
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar />
+  <!-- -->
+</template>
+```
+
+The `VanillaCalendar` component can accept any HTML attributes supported by the `<div>` tag, as well as the `config` parameter for calendar configuration.
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar :config="{ type: 'multiple' }" />
+  <!-- -->
+</template>
+```
