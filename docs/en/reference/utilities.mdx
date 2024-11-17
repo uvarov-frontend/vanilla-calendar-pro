@@ -1,0 +1,35 @@
+---
+title: Utilities
+description: Discover 4 convenient date utilities provided with Vanilla Calendar Pro. These features allow you to format dates, convert them to desired formats, and determine week numbers.
+section: 2
+---
+
+# Utilities
+
+The calendar comes with its utilities, making it easy to work with date formatting.
+
+There are 4 utilities in total, and they are functions that can be used anywhere in your code, even without the calendar.
+
+1. **`parseDates(dates: string[])`** - Takes an array of date ranges using a delimiter between dates in the string format `FormatDateString ('YYYY-MM-DD')`. Returns an array of dates in the string format `FormatDateString ('YYYY-MM-DD')`.
+```ts
+import { parseDates } from 'vanilla-calendar-pro/utils';
+parseDates(['2024-12-12:2024-12-15']) // return: ['2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15']
+```
+
+2. **`getDateString(date: Date)`** — Takes a date of type `Date`. Returns the date in the string format `FormatDateString ('YYYY-MM-DD')`.
+```ts
+import { getDateString } from 'vanilla-calendar-pro/utils';
+getDateString(new Date('24.12.2024')) // return: 2024-12-24
+```
+
+3. **`getDate(date: FormatDateString)`** — Takes a date in string format, e.g., `FormatDateString ('YYYY-MM-DD')`. Returns a date of type `Date`.
+```ts
+import { getDate } from 'vanilla-calendar-pro/utils';
+getDate(new Date('2024-12-12')) // return: Tue Dec 24 2024 00:00:00 GMT
+```
+
+4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** - Takes a date in string format `FormatDateString ('YYYY-MM-DD')` and the week start day, specifically its `id` of type `number` from 0 to 6. Returns an object `{ year: yearNumber, week: weekNumber }` for the date specified in the arguments.
+```ts
+import { getWeekNumber } from 'vanilla-calendar-pro/utils';
+getWeekNumber('2024-12-12', 1) // return: {year: 2024, week: 50}
+```
