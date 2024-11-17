@@ -4,7 +4,7 @@ import getWeekNumberOriginal from '@scripts/utils/getWeekNumber';
 import parseDatesOriginal from '@scripts/utils/parseDates';
 import type { FormatDateString, WeekDayID } from '@src/types';
 
-export const parseDates = (dates: Array<number | string | Date>) => parseDatesOriginal(dates);
+export const parseDates = (dates: string[]) => parseDatesOriginal(dates);
 
 export const getDateString = (date: Date) => getDateStringOriginal(date);
 
