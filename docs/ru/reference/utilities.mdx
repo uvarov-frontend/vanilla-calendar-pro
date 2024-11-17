@@ -10,7 +10,7 @@ section: 2
 
 Всего есть 4 утилиты, они являются функциями и вы можете использовать их в любом месте вашего кода, даже без календаря.
 
-1. **`parseDates(dates: string[])`** - принимает на вход массив диапазонов дат с использованием разделителя между датами в строковом формате типа `FormatDateString ('YYYY-MM-DD')`. Возвращает массив дат в строковом формате типа `FormatDateString ('YYYY-MM-DD')`.
+1. **`parseDates(dates: string[])`** — принимает на вход массив диапазонов дат с использованием разделителя между датами в строковом формате типа `FormatDateString ('YYYY-MM-DD')`. Возвращает массив дат в строковом формате типа `FormatDateString ('YYYY-MM-DD')`.
 ```ts
 import { parseDates } from 'vanilla-calendar-pro/utils';
 parseDates(['2024-12-12:2024-12-15']) // возвращает: ['2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15']
@@ -28,7 +28,7 @@ import { getDate } from 'vanilla-calendar-pro/utils';
 getDate(new Date('2024-12-12')) // возвращает: Tue Dec 24 2024 00:00:00 GMT
 ```
 
-4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** - принимает на вход дату в строковом формате типа `FormatDateString ('YYYY-MM-DD')` и день начала недели, а точнее его `id` с типом `number` от 0 до 6. Возвращает объект `{ year: yearNumber, week: weekNumber }` для даты, указанной в аргументах.
+4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** — принимает на вход дату в строковом формате типа `FormatDateString ('YYYY-MM-DD')` и день начала недели, а точнее его `id` с типом `number` от 0 до 6. Возвращает объект `{ year: yearNumber, week: weekNumber }` для даты, указанной в аргументах.
 ```ts
 import { getWeekNumber } from 'vanilla-calendar-pro/utils';
 getWeekNumber('2024-12-12', 1) // возвращает: {year: 2024, week: 50}
