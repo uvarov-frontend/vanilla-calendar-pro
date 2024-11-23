@@ -3,11 +3,10 @@ import type { Calendar, Popup } from '@src/index';
 
 const handleDay = (self: Calendar, date: string, dateInfo: Popup, datesEl: HTMLElement) => {
   const dateEl = datesEl.querySelector<HTMLElement>(`[data-vc-date="${date}"]`);
-  if (!dateEl) return;
+  const dateBtnEl = dateEl?.querySelector<HTMLButtonElement>(`[data-vc-date-btn]`);
+  if (!dateEl || !dateBtnEl) return;
 
-  const dateBtnEl = dateEl.querySelector<HTMLButtonElement>(`[data-vc-date-btn]`) as HTMLButtonElement;
   if (dateInfo?.modifier) dateBtnEl.classList.add(...dateInfo.modifier.trim().split(' '));
-
   if (!dateInfo?.html) return;
 
   const datePopup = document.createElement('div');
