@@ -11,7 +11,7 @@ const options: Options = {
 const calendar = new Calendar('#calendar', options);
 calendar.init();
 
-// Somewhere in the scientific world styles were created for the .arrow-smile class
+// Add to your css and uncomment:
 // button.arrow-smile::before {
 //   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewport='0 0 24 24' style='fill:black;font-size:24px;'><text y='90%' x='0'>😊</text></svg>");
 //   transform: rotate(0);
