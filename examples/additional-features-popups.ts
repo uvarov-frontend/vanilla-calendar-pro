@@ -10,7 +10,7 @@ const options: Options = {
       modifier: 'bg-sponsor',
       html: `
         <div>
-          💖 Поддержать проект: <a href="https://buymeacoffee.com/uvarov" rel="noopener noreferrer" target="_blank">Vanilla Calendar Pro</a>
+          💖 Support the project: <a href="https://buymeacoffee.com/uvarov" rel="noopener noreferrer" target="_blank">Vanilla Calendar Pro</a>
         </div>
       `,
     },
