@@ -16,6 +16,10 @@
   @apply bg-transparent before:bg-dark-arrow surehover:hover:before:opacity-60;
 }
 
+[data-vc-theme='dark'] .vc-arrow-fast {
+  @apply bg-transparent before:bg-dark-arrow-fast surehover:hover:before:opacity-60;
+}
+
 [data-vc-theme='dark'] .vc-header__content {
   @apply text-white;
 }

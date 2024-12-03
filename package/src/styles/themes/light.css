@@ -16,6 +16,11 @@
   @apply bg-transparent before:bg-light-arrow surehover:hover:before:opacity-60;
 }
 
+[data-vc-theme='light'] .vc-arrow-fast {
+  @apply bg-transparent before:bg-light-arrow-fast surehover:hover:before:opacity-60;
+}
+
+
 [data-vc-theme='light'] .vc-header__content {
   @apply text-slate-900;
 }

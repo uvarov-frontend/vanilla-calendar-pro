@@ -9,6 +9,12 @@ const labels = {
     month: 'Previous month',
     year: 'Previous list of years',
   },
+  arrowPrevFast: {
+    month: 'Previous months',
+  },
+  arrowNextFast: {
+    month: 'Next months',
+  },
   month: 'Select month, current selected month:',
   months: 'List of months',
   year: 'Select year, current selected year:',
