@@ -7,6 +7,7 @@ const config: Options = {
   selectionDatesMode: 'multiple-ranged',
   selectedMonth: 3,
   selectedYear: 2023,
+  displayMonthsCount: 12,
   monthsToSwitchFast: 12,
 
   onCreateDateRangeTooltip(self) {

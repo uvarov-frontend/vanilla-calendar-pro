@@ -2,8 +2,14 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import type { Calendar } from '@src/index';
 
-const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement, isArrowPrevHidden: boolean,
-              isArrowNextHidden: boolean, isArrowPrevDisplayed: boolean, isArrowNextDisplayed: boolean) => {
+const setVisibilityArrows = (
+  arrowPrevEl: HTMLElement,
+  arrowNextEl: HTMLElement,
+  isArrowPrevHidden: boolean,
+  isArrowNextHidden: boolean,
+  isArrowPrevDisplayed: boolean,
+  isArrowNextDisplayed: boolean,
+) => {
   arrowPrevEl.style.display = isArrowPrevDisplayed ? 'none' : 'block';
   arrowNextEl.style.display = isArrowNextDisplayed ? 'none' : 'block';
   arrowPrevEl.style.visibility = isArrowPrevHidden ? 'hidden' : '';
@@ -15,7 +21,6 @@ const setVisibilityArrows = (arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement,
 const handleDefaultType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNextEl: HTMLElement) => {
   const currentSelectedDate = getDate(getDateString(new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1)));
 
-
   const dateMin = getDate(self.context.dateMin);
   const dateMax = getDate(self.context.dateMax);
 
@@ -25,15 +30,13 @@ const handleDefaultType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNextEl
   }
 
   const isArrowPrevHidden =
-    !self.selectionMonthsMode ||
-    (currentSelectedDate.getFullYear() === dateMin.getFullYear() && currentSelectedDate.getMonth() === dateMin.getMonth());
+    !self.selectionMonthsMode || (currentSelectedDate.getFullYear() === dateMin.getFullYear() && currentSelectedDate.getMonth() === dateMin.getMonth());
 
   const isArrowNextHidden =
-    !self.selectionMonthsMode ||
-    (currentSelectedDate.getFullYear() === dateMax.getFullYear() && currentSelectedDate.getMonth() === dateMax.getMonth());
+    !self.selectionMonthsMode || (currentSelectedDate.getFullYear() === dateMax.getFullYear() && currentSelectedDate.getMonth() === dateMax.getMonth());
 
-  const isArrowPrevDisplayed = !self.monthsToSwitchFast
-  const isArrowNextDisplayed = !self.monthsToSwitchFast
+  const isArrowPrevDisplayed = !self.monthsToSwitchFast;
+  const isArrowNextDisplayed = !self.monthsToSwitchFast;
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden, isArrowPrevDisplayed, isArrowNextDisplayed);
 };

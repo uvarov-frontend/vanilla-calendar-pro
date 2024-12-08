@@ -7,7 +7,6 @@ import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const handleMonth = (self: Calendar, route: 'prev' | 'next') => {
-  console.log(route)
   const jumpDate = getDate(getDateString(new Date(self.context.selectedYear, self.context.selectedMonth, 1)));
 
   const routeMap: Record<string, () => void> = {

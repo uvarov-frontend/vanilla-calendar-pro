@@ -7,7 +7,6 @@ import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const handleMonthFast = (self: Calendar, route: 'prev' | 'next') => {
-
   const jumpDate = getDate(getDateString(new Date(self.context.selectedYear, self.context.selectedMonth, 1)));
 
   const dateMin = getDate(self.context.dateMin);
@@ -20,16 +19,16 @@ const handleMonthFast = (self: Calendar, route: 'prev' | 'next') => {
   jumpDateMax.setMonth(jumpDateMax.getMonth() + self.monthsToSwitchFast);
 
   const isUnderLimitPrev =
-    jumpDateMin.getFullYear() < dateMin.getFullYear() ||
-    (jumpDateMin.getFullYear() === dateMin.getFullYear() && jumpDateMin.getMonth() < dateMin.getMonth());
+    jumpDateMin.getFullYear() < dateMin.getFullYear() || (jumpDateMin.getFullYear() === dateMin.getFullYear() && jumpDateMin.getMonth() < dateMin.getMonth());
 
   const isUnderLimitNext =
-    jumpDateMax.getFullYear() > dateMax.getFullYear() ||
-    (jumpDateMax.getFullYear() === dateMax.getFullYear() && jumpDateMax.getMonth() > dateMax.getMonth());
+    jumpDateMax.getFullYear() > dateMax.getFullYear() || (jumpDateMax.getFullYear() === dateMax.getFullYear() && jumpDateMax.getMonth() > dateMax.getMonth());
 
   const routeMap: Record<string, () => void> = {
-    prev: () => isUnderLimitPrev ? jumpDate.setFullYear(dateMin.getFullYear(), dateMin.getMonth()) : jumpDate.setMonth(jumpDate.getMonth() - self.monthsToSwitchFast),
-    next: () => isUnderLimitNext? jumpDate.setFullYear(dateMax.getFullYear(), dateMax.getMonth()) : jumpDate.setMonth(jumpDate.getMonth() + self.monthsToSwitchFast),
+    prev: () =>
+      isUnderLimitPrev ? jumpDate.setFullYear(dateMin.getFullYear(), dateMin.getMonth()) : jumpDate.setMonth(jumpDate.getMonth() - self.monthsToSwitchFast),
+    next: () =>
+      isUnderLimitNext ? jumpDate.setFullYear(dateMax.getFullYear(), dateMax.getMonth()) : jumpDate.setMonth(jumpDate.getMonth() + self.monthsToSwitchFast),
   };
 
   routeMap[route]();
