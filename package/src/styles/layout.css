@@ -32,6 +32,10 @@
   @apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content;
 }
 
+[data-vc='controlsgroup'] {
+  @apply flex box-content self-baseline;
+}
+
 [data-vc-arrow] {
   @apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent
 	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-no-repeat before:bg-center;
@@ -42,6 +46,19 @@
 }
 
 [data-vc-arrow='next']::before {
+  transform: rotateZ(-90deg);
+}
+
+[data-vc-arrow-fast] {
+  @apply relative pointer-events-auto block w-6 h-6 cursor-pointer border-0 bg-transparent
+	before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-no-repeat before:bg-center;
+}
+
+[data-vc-arrow-fast='prev']::before {
+  transform: rotateZ(90deg);
+}
+
+[data-vc-arrow-fast='next']::before {
   transform: rotateZ(-90deg);
 }
 

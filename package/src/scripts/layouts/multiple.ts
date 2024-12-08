@@ -2,8 +2,14 @@ import type { Calendar } from '@src/index';
 
 const layoutMultiple = (self: Calendar) => `
   <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
-    <#ArrowPrev [month] />
-    <#ArrowNext [month] />
+    <div class="${self.styles.controlsGroup}" data-vc="controlsgroup">
+      <#ArrowPrevFast [month] />
+      <#ArrowPrev [month] />
+    </div>
+    <div class="${self.styles.controlsGroup}" data-vc="controlsgroup">
+      <#ArrowNext [month] />
+      <#ArrowNextFast [month] />
+    </div>
   </div>
   <div class="${self.styles.grid}" data-vc="grid">
     <#Multiple>

@@ -1,6 +1,7 @@
 const styles = {
   calendar: 'vc',
   controls: 'vc-controls',
+  controlsGroup: 'vc-controlsgroup',
   grid: 'vc-grid',
   column: 'vc-column',
   header: 'vc-header',
@@ -9,6 +10,8 @@ const styles = {
   year: 'vc-year',
   arrowPrev: 'vc-arrow vc-arrow_prev',
   arrowNext: 'vc-arrow vc-arrow_next',
+  arrowPrevFast: 'vc-arrow-fast vc-arrow_prev',
+  arrowNextFast: 'vc-arrow-fast vc-arrow_next',
   wrapper: 'vc-wrapper',
   content: 'vc-content',
   months: 'vc-months',

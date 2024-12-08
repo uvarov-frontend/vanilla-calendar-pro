@@ -5,6 +5,7 @@ import createTime from '@scripts/creators/createTime';
 import createWeek from '@scripts/creators/createWeek';
 import createYears from '@scripts/creators/createYears';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
+import visibilityArrowsFast from '@scripts/creators/visibilityArrowsFast';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import handleTheme from '@scripts/handles/handleTheme';
 import getLocale from '@scripts/utils/getLocale';
@@ -29,6 +30,7 @@ const create = (self: Calendar) => {
   createLayouts(self);
   visibilityTitle(self);
   visibilityArrows(self);
+  visibilityArrowsFast(self);
   createTime(self);
   createComponents[self.context.currentType]();
 };
