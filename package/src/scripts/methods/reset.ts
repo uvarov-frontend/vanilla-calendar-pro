@@ -4,7 +4,7 @@ import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 
-const reset = (self: Calendar, { year, month, dates, time, locale }: Reset) => {
+const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true) => {
   const previousSelected = {
     year: self.selectedYear,
     month: self.selectedMonth,
@@ -32,7 +32,7 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset) => {
   }
 
   initAllVariables(self);
-  create(self);
+  if (recreate) create(self);
 
   self.selectedYear = previousSelected.year;
   self.selectedMonth = previousSelected.month;
