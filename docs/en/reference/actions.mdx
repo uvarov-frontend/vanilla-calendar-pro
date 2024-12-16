@@ -48,9 +48,8 @@ new Calendar('#calendar', {
 
 This method is triggered after clicking on a weekday in the calendar. You can get the following parameters:
 - `self` - reference to the initialized calendar;
-- `number` - week number;
-- `days` - array of days (html elements);
-- `year` - year of the week;
+- `day` - week day;
+- `dateEls` - array of days (html elements);
 - `event` - mouse event.
 
 ---
@@ -72,8 +71,8 @@ new Calendar('#calendar', {
 This method is triggered after clicking on a week number in the calendar, but for it to work, the `enableWeekNumbers` parameter must be set to `true`. You can get the following parameters:
 - `self` - reference to the initialized calendar;
 - `number` - week number;
-- `days` - array of days (html elements);
 - `year` - year of the week;
+- `dateEls` - array of days (html elements);
 - `event` - mouse event.
 
 ---
