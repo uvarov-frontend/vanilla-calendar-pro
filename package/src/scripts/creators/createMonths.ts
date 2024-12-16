@@ -1,16 +1,10 @@
 import createLayouts from '@scripts/creators/createLayouts';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
+import getColumnID from '@scripts/utils/getColumnID';
 import getDate from '@scripts/utils/getDate';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
-
-const relationshipID = (self: Calendar) => {
-  if (self.type !== 'multiple') return 0;
-  const columnEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]');
-  const indexColumn = Array.from(columnEls).findIndex((column) => column.closest('[data-vc-column="month"]'));
-  return indexColumn > 0 ? indexColumn : 0;
-};
 
 const createMonthEl = (
   self: Calendar,
@@ -62,8 +56,9 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
     const dateMax = getDate(self.context.dateMax);
 
     const monthDisabled =
-      (i < dateMin.getMonth() + relationshipID(self) && selectedYear <= dateMin.getFullYear()) ||
-      (i > dateMax.getMonth() + relationshipID(self) && selectedYear >= dateMax.getFullYear()) ||
+      (selectedYear <= dateMin.getFullYear() && i < dateMin.getMonth() + getColumnID(self)) ||
+      (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth()) ||
+      selectedYear > dateMax.getFullYear() ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
     const monthEl = createMonthEl(
       self,
@@ -78,7 +73,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
     if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);
   }
 
-  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]`)?.focus();
+  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]:not([disabled])`)?.focus();
 };
 
 export default createMonths;
