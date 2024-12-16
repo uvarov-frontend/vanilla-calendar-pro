@@ -57,7 +57,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
 
     const monthDisabled =
       (selectedYear <= dateMin.getFullYear() && i < dateMin.getMonth() + getColumnID(self)) ||
-      (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth()) ||
+      (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth() - (self.context.displayMonthsCount - 1) + getColumnID(self)) ||
       selectedYear > dateMax.getFullYear() ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
     const monthEl = createMonthEl(
