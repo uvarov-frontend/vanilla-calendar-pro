@@ -1,11 +1,10 @@
-import reset from '@scripts/methods/reset';
+import update from '@scripts/methods/update';
 import replaceProperties from '@scripts/utils/replaceProperties';
 import type { Calendar, Options, Reset } from '@src/index';
 
 const set = (self: Calendar, options: Options, resetOptions?: Partial<Reset>) => {
-  const defaultReset = { year: true, month: true, dates: true, time: true, locale: true };
   replaceProperties(self, options);
-  reset(self, { ...defaultReset, ...resetOptions });
+  if (self.context.isInit) update(self, resetOptions);
 };
 
 export default set;
