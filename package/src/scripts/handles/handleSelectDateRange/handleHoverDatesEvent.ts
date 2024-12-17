@@ -25,10 +25,10 @@ const handleHoverDatesEvent = (e: MouseEvent) => {
   const startDate = getDate(state.self.context.selectedDates[0]);
   const endDate = getDate(lastDateString);
 
-  const firstDateEl = state.self.context.mainElement.querySelector<HTMLElement>(`[data-vc-date="${state.self.context.selectedDates[0]}"]`);
-  const lastDateEl = state.self.context.mainElement.querySelector<HTMLElement>(`[data-vc-date="${lastDateString}"]`);
+  const firstDateEls = state.self.context.mainElement.querySelectorAll<HTMLElement>(`[data-vc-date="${state.self.context.selectedDates[0]}"]`);
+  const lastDateEls = state.self.context.mainElement.querySelectorAll<HTMLElement>(`[data-vc-date="${lastDateString}"]`);
 
-  const [firstDateElCorrect, lastDateElCorrect] = startDate < endDate ? [firstDateEl, lastDateEl] : [lastDateEl, firstDateEl];
+  const [firstDateElCorrect, lastDateElCorrect] = startDate < endDate ? [firstDateEls, lastDateEls] : [lastDateEls, firstDateEls];
   const [start, end] = startDate < endDate ? [startDate, endDate] : [endDate, startDate];
 
   for (let i = new Date(start); i <= end; i.setDate(i.getDate() + 1)) {

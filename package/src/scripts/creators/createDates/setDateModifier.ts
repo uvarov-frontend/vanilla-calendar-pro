@@ -47,8 +47,14 @@ const setDateModifier = (
     dateEl.setAttribute('data-vc-date-selected', '');
     if (dateBtnEl) dateBtnEl.setAttribute('aria-selected', 'true');
     if (self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
-      if (self.context.selectedDates[0] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'first');
-      if (self.context.selectedDates[self.context.selectedDates.length - 1] === dateStr) dateEl.setAttribute('data-vc-date-selected', 'last');
+      if (self.context.selectedDates[0] === dateStr && self.context.selectedDates[self.context.selectedDates.length - 1] === dateStr) {
+        dateEl.setAttribute('data-vc-date-selected', 'first-and-last');
+      } else if (self.context.selectedDates[0] === dateStr) {
+        dateEl.setAttribute('data-vc-date-selected', 'first');
+      } else if (self.context.selectedDates[self.context.selectedDates.length - 1] === dateStr) {
+        dateEl.setAttribute('data-vc-date-selected', 'last');
+      }
+
       if (self.context.selectedDates[0] !== dateStr && self.context.selectedDates[self.context.selectedDates.length - 1] !== dateStr)
         dateEl.setAttribute('data-vc-date-selected', 'middle');
     }
