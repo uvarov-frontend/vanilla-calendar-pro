@@ -22,15 +22,20 @@ const handleMultipleYearSelection = (self: Calendar, itemEl: HTMLElement) => {
   const dateMin = getDate(self.context.dateMin);
   const dateMax = getDate(self.context.dateMax);
   const monthCount = self.context.displayMonthsCount - 1;
+  const { columnID } = getColumnID(self, 'year');
 
   const isBeforeMinDate = self.context.selectedMonth < dateMin.getMonth() && selectedYear <= dateMin.getFullYear();
-  const isAfterMaxDate = self.context.selectedMonth > dateMax.getMonth() - monthCount && selectedYear >= dateMax.getFullYear();
+  const isAfterMaxDate = self.context.selectedMonth > dateMax.getMonth() - monthCount + columnID && selectedYear >= dateMax.getFullYear();
   const isBeforeMinYear = selectedYear < dateMin.getFullYear();
   const isAfterMaxYear = selectedYear > dateMax.getFullYear();
 
   const newSelectedYear = isBeforeMinDate || isBeforeMinYear ? dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? dateMax.getFullYear() : selectedYear;
   const newSelectedMonth =
-    isBeforeMinDate || isBeforeMinYear ? dateMin.getMonth() : isAfterMaxDate || isAfterMaxYear ? dateMax.getMonth() - monthCount : self.context.selectedMonth;
+    isBeforeMinDate || isBeforeMinYear
+      ? dateMin.getMonth()
+      : isAfterMaxDate || isAfterMaxYear
+        ? dateMax.getMonth() - monthCount + columnID
+        : self.context.selectedMonth;
 
   setContext(self, 'selectedYear', newSelectedYear);
   setContext(self, 'selectedMonth', newSelectedMonth as Range<12>);
