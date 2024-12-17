@@ -54,10 +54,12 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
   for (let i = 0; i < 12; i++) {
     const dateMin = getDate(self.context.dateMin);
     const dateMax = getDate(self.context.dateMax);
+    const monthCount = self.context.displayMonthsCount - 1;
+    const { columnID } = getColumnID(self, 'month');
 
     const monthDisabled =
-      (selectedYear <= dateMin.getFullYear() && i < dateMin.getMonth() + getColumnID(self)) ||
-      (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth() - (self.context.displayMonthsCount - 1) + getColumnID(self)) ||
+      (selectedYear <= dateMin.getFullYear() && i < dateMin.getMonth() + columnID) ||
+      (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth() - monthCount + columnID) ||
       selectedYear > dateMax.getFullYear() ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
     const monthEl = createMonthEl(
