@@ -43,7 +43,7 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }
 
-  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]`)?.focus();
+  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]:not([disabled])`)?.focus();
 };
 
 export default createYears;

@@ -29,7 +29,7 @@ const handleDefaultType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNextEl
   const isArrowNextHidden =
     !self.selectionMonthsMode ||
     jumpDateMax.getFullYear() > dateMax.getFullYear() ||
-    (jumpDateMax.getFullYear() === dateMax.getFullYear() && jumpDateMax.getMonth() > dateMax.getMonth());
+    (jumpDateMax.getFullYear() === dateMax.getFullYear() && jumpDateMax.getMonth() > dateMax.getMonth() - (self.context.displayMonthsCount - 1));
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
