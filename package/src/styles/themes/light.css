@@ -106,6 +106,11 @@
   @apply bg-slate-100;
 }
 
+[data-vc-theme='light'] .vc-date[data-vc-date-hover='last'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-hover='first'] .vc-date__btn {
+  @apply bg-slate-200 surehover:hover:bg-slate-200;
+}
+
 [data-vc-theme='light'] .vc-date[data-vc-date-weekend] .vc-date__btn,
 [data-vc-theme='light'] .vc-date[data-vc-date-holiday] .vc-date__btn {
   @apply text-rose-500 surehover:hover:bg-rose-50;
@@ -114,6 +119,13 @@
 [data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover] .vc-date__btn,
 [data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover] .vc-date__btn {
   @apply bg-rose-50;
+}
+
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover='last'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover='last'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-hover='first'] .vc-date__btn,
+[data-vc-theme='light'] .vc-date[data-vc-date-holiday][data-vc-date-hover='first'] .vc-date__btn {
+  @apply bg-rose-100 surehover:hover:bg-rose-100;
 }
 
 [data-vc-theme='light'] .vc-date[data-vc-date-weekend][data-vc-date-disabled] .vc-date__btn,
