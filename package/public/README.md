@@ -38,7 +38,7 @@ Vanilla Calendar Pro is free to use for everyone, but maintaining it comes with 
 
 If you’d like to support the project, please consider making a donation or giving it a 🌟 star on [GitHub](https://github.com/uvarov-frontend/vanilla-calendar-pro).
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/uvarov_frontend)
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://buymeacoffee.com/uvarov)
 
 Feel free to report any issues or share your ideas—your feedback is invaluable!
 
