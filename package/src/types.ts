@@ -78,7 +78,9 @@ export type Reset = {
 
 export type ContextVariables = {
   isInit: boolean;
+  isShowInInputMode: boolean;
   inputModeInit: boolean;
+  cleanupHandlers: Array<() => void>;
   currentType: TypesCalendar;
   locale: LocaleStated;
   mainElement: HTMLElement;

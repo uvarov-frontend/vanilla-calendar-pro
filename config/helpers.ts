@@ -17,18 +17,15 @@ export const alias = {
 export const getInputFiles = (dir: string): string[] => {
   const files: string[] = [];
 
-  const readDir = (directory: string): void => {
-    const items = readdirSync(directory, { withFileTypes: true });
-
-    for (const item of items) {
-      const itemPath = resolve(directory, item.name);
-
+  const readDir = (path: string): void => {
+    readdirSync(path, { withFileTypes: true }).forEach((item) => {
+      const itemPath = resolve(path, item.name);
       if (item.isDirectory()) {
         readDir(itemPath);
-      } else {
+      } else if (!item.name.startsWith('.')) {
         files.push(itemPath);
       }
-    }
+    });
   };
 
   readDir(dir);
