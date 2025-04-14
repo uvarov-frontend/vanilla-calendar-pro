@@ -1,36 +1,36 @@
 import type { Calendar } from '@src/index';
 
 const handleArrowKeys = (self: Calendar) => {
-  const updateButtons = () => Array.from(self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
-
-  let currentFocusedIndex = 0;
-
-  const directionMapping: Record<string, (index: number, offset: number) => number> = {
-    ArrowUp: (index, offset) => Math.max(0, index - offset),
-    ArrowDown: (index, offset) => Math.min(updateButtons().length - 1, index + offset),
-    ArrowLeft: (index) => Math.max(0, index - 1),
-    ArrowRight: (index) => Math.min(updateButtons().length - 1, index + 1),
+  const getOffset = (btn: HTMLButtonElement) => {
+    if (btn.hasAttribute('data-vc-date-btn')) return 7;
+    if (btn.hasAttribute('data-vc-months-month')) return 4;
+    if (btn.hasAttribute('data-vc-years-year')) return 5;
+    return 1;
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
-    if (!directionMapping[event.key] || (event.target as HTMLElement)?.localName !== 'button') return;
-    const buttons = updateButtons();
-    const offset = buttons[currentFocusedIndex].hasAttribute('data-vc-date-btn')
-      ? 7
-      : buttons[currentFocusedIndex].hasAttribute('data-vc-months-month')
-        ? 4
-        : buttons[currentFocusedIndex].hasAttribute('data-vc-years-year')
-          ? 5
-          : 1;
-    currentFocusedIndex = directionMapping[event.key](currentFocusedIndex, offset);
-    buttons[currentFocusedIndex]?.focus();
+    const target = event.target as HTMLElement;
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key) || target.localName !== 'button') return;
+
+    const buttons = Array.from(self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
+    const currentIndex = buttons.indexOf(target as HTMLButtonElement);
+    if (currentIndex === -1) return;
+
+    const offset = getOffset(buttons[currentIndex]);
+
+    const direction = {
+      ArrowUp: () => Math.max(0, currentIndex - offset),
+      ArrowDown: () => Math.min(buttons.length - 1, currentIndex + offset),
+      ArrowLeft: () => Math.max(0, currentIndex - 1),
+      ArrowRight: () => Math.min(buttons.length - 1, currentIndex + 1),
+    }[event.key]!;
+
+    const nextIndex = direction();
+    buttons[nextIndex]?.focus();
   };
 
   self.context.mainElement.addEventListener('keydown', onKeyDown);
-
-  return () => {
-    self.context.mainElement.removeEventListener('keydown', onKeyDown);
-  };
+  return () => self.context.mainElement.removeEventListener('keydown', onKeyDown);
 };
 
 export default handleArrowKeys;
