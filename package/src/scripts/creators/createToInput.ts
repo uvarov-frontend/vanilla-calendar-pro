@@ -25,7 +25,7 @@ const createToInput = (self: Calendar) => {
     locale: true,
   });
 
-  queueMicrotask(() => show(self));
+  setTimeout(() => show(self));
 
   if (self.onInit) self.onInit(self);
   handleArrowKeys(self);
