@@ -22,8 +22,9 @@ const handleDay = (self: Calendar, date: string, dateInfo: Popup, datesEl: HTMLE
     if (!datePopup) return;
     const { canShow } = getAvailablePosition(dateEl, datePopup);
     const top = canShow.bottom ? dateEl.offsetHeight : -datePopup.offsetHeight;
-    const left =
-      canShow.left && !canShow.right ? dateEl.offsetWidth - datePopup.offsetWidth / 2 : !canShow.left && canShow.right ? datePopup.offsetWidth / 2 : 0;
+    // const left =
+    //   canShow.left && !canShow.right ? dateEl.offsetWidth - datePopup.offsetWidth / 2 : !canShow.left && canShow.right ? datePopup.offsetWidth / 2 : 0;
+    const left = canShow.left && !canShow.right ? dateEl.offsetWidth - datePopup.offsetWidth / 2 : 0;
     Object.assign(datePopup.style, { left: `${left}px`, top: `${top}px` });
   });
 };
