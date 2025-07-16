@@ -8,7 +8,7 @@ const handleInput = (self: Calendar) => {
 
   const handleOpenCalendar = () => {
     if (self.context.inputModeInit) {
-      queueMicrotask(() => show(self));
+      setTimeout(() => show(self));
       return;
     }
     createToInput(self);
