@@ -13,10 +13,13 @@ const options: Options = {
     }
   },
   onInit(self) {
-    const btnEl = self.context.mainElement.querySelector('#btn-close');
-    if (!btnEl) return;
-    btnEl.addEventListener('click', self.hide);
-    return () => btnEl.removeEventListener('click', self.hide);
+    const handleClickMainElement = (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest('#btn-close')) {
+        self.hide();
+      }
+    };
+    self.context.mainElement.addEventListener('click', handleClickMainElement);
+    return () => self.context.mainElement.removeEventListener('click', handleClickMainElement);
   },
   layouts: {
     default: `
