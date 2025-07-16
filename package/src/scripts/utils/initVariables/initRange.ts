@@ -1,14 +1,8 @@
 import getDate from '@scripts/utils/getDate';
-import getLocalDate from '@scripts/utils/getLocalDate';
 import parseDates from '@scripts/utils/parseDates';
+import resolveDate from '@scripts/utils/resolveDate';
 import setContext from '@scripts/utils/setContext';
-import type { Calendar, DateAny, FormatDateString } from '@src/index';
-
-const resolveDate = (date: 'today' | Date | number | string | undefined, defaultDate: DateAny): FormatDateString => {
-  if (date === 'today') return getLocalDate();
-  if (date instanceof Date || typeof date === 'number' || typeof date === 'string') return parseDates([date])[0];
-  return defaultDate as FormatDateString;
-};
+import type { Calendar } from '@src/index';
 
 const initRange = (self: Calendar) => {
   // set self.context.displayDateMin, self.context.displayDateMax
