@@ -108,8 +108,6 @@ If you want to apply a specific theme, it is recommended to import `layout.css` 
 
 ## Layouts
 
-VanillaCalendar features customizable DOM templates that allow you to modify the structure of the calendar to fit your needs. The templates are identified by tags containing the **#** character, and they should include a trailing slash at the end.
-
 The calendar contains custom `layouts` for each calendar type, which allow you to change the calendar structure to suit your needs.
 Each layout contains its own set of components that can be moved or removed from it if necessary. By default, a layout contains all the components available to it.
 Components are identified by tags containing the `#` character, and they must contain a slash at the end of the tag.
