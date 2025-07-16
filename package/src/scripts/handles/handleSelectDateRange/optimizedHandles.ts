@@ -2,13 +2,13 @@ import handleHoverDatesEvent from '@scripts/handles/handleSelectDateRange/handle
 import handleHoverSelectedDatesRangeEvent from '@scripts/handles/handleSelectDateRange/handleHoverSelectedDatesRangeEvent';
 import state from '@scripts/handles/handleSelectDateRange/state';
 
-const optimizedHoverHandler = (callback: (e: MouseEvent) => void) => {
+const optimizedHoverHandler = (callback: (target: HTMLElement | null) => void) => {
   return (e: MouseEvent) => {
-	const closuredTarget = e.target;
+    const closuredTarget = e.target as HTMLElement;
     if (!state.isHovering) {
       state.isHovering = true;
       requestAnimationFrame(() => {
-        callback(e, closuredTarget);
+        callback(closuredTarget);
         state.isHovering = false;
       });
     }

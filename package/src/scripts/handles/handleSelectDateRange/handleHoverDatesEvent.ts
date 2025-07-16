@@ -4,7 +4,7 @@ import { addHoverEffect, removeHoverEffect } from '@scripts/handles/handleSelect
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString } from '@src/index';
 
-const handleHoverDatesEvent = (e: MouseEvent, target: HTMLElement|null) => {
+const handleHoverDatesEvent = (target: HTMLElement | null) => {
   if (!target || !state.self?.context?.selectedDates[0]) return;
 
   if (!target.closest('[data-vc="dates"]')) {

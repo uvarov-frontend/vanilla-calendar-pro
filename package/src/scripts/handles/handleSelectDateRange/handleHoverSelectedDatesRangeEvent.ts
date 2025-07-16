@@ -1,8 +1,8 @@
 import createDateRangeTooltip from '@scripts/creators/createDates/createDateRangeTooltip';
 import state from '@scripts/handles/handleSelectDateRange/state';
 
-const handleHoverSelectedDatesRangeEvent = (e: MouseEvent) => {
-  const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date-selected]');
+const handleHoverSelectedDatesRangeEvent = (target: HTMLElement | null) => {
+  const dateEl = target?.closest<HTMLElement>('[data-vc-date-selected]');
 
   if (!dateEl && state.lastDateEl) {
     state.lastDateEl = null;
