@@ -4,10 +4,11 @@ import state from '@scripts/handles/handleSelectDateRange/state';
 
 const optimizedHoverHandler = (callback: (e: MouseEvent) => void) => {
   return (e: MouseEvent) => {
+	const closuredTarget = e.target;
     if (!state.isHovering) {
       state.isHovering = true;
       requestAnimationFrame(() => {
-        callback(e);
+        callback(e, closuredTarget);
         state.isHovering = false;
       });
     }

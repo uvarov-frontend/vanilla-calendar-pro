@@ -4,17 +4,17 @@ import { addHoverEffect, removeHoverEffect } from '@scripts/handles/handleSelect
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString } from '@src/index';
 
-const handleHoverDatesEvent = (e: MouseEvent) => {
-  if (!e.target || !state.self?.context?.selectedDates[0]) return;
+const handleHoverDatesEvent = (e: MouseEvent, target: HTMLElement|null) => {
+  if (!target || !state.self?.context?.selectedDates[0]) return;
 
-  if (!(e.target as HTMLElement).closest('[data-vc="dates"]')) {
+  if (!target.closest('[data-vc="dates"]')) {
     state.lastDateEl = null;
     createDateRangeTooltip(state.self, state.tooltipEl, null);
     removeHoverEffect();
     return;
   }
 
-  const dateEl = (e.target as HTMLElement).closest<HTMLElement>('[data-vc-date]');
+  const dateEl = target.closest<HTMLElement>('[data-vc-date]');
   if (!dateEl || state.lastDateEl === dateEl) return;
 
   state.lastDateEl = dateEl;
