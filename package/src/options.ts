@@ -24,6 +24,7 @@ import type {
 export default class OptionsCalendar {
   type: TypesCalendar = 'default';
 
+  openOnFocus: boolean = true;
   inputMode: boolean = false;
   positionToInput: PositionToInput = 'left';
 
