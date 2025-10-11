@@ -1,0 +1,15 @@
+---
+title: 显示日期范围
+description: 学习如何使用 displayDateMin 和 displayDateMax 参数在日历中设置显示的日期范围。配置指定范围内的日期显示和选择。
+section: 4. 管理日期和时间
+---
+
+# 显示日期范围
+
+`displayDateMin` 和 `displayDateMax` 参数定义了可以在日历中显示的日期范围，但不影响日历的生命周期。它们仅指示哪些日期允许显示和选择。
+
+例如，如果 `displayDisabledDates` 参数设置为 `true`，则用户可查看的最小和最大年份将由 `dateMin` 和 `dateMax` 参数的值确定。
+
+<Sandbox example="date-management-display-range-dates" />
+
+更改 `displayDisabledDates` 参数允许您控制日历中可供查看和选择的日期。

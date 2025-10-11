@@ -1,0 +1,15 @@
+---
+title: 本地化
+description: 学习如何使用 locale 参数本地化日历，或通过提供月份和星期几名称的数组手动设置区域设置。
+section: 3. 国际化
+---
+
+# 本地化
+
+如果您的区域设置受 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" rel="noopener noreferrer" target="_blank">`.toLocaleString()`</a> 方法支持，您可以简单地将其传递给 `locale` 参数来本地化日历。
+
+<Sandbox example="internationalization-locale" />
+
+如果区域设置不受支持或翻译不正确，您可以随时手动设置区域设置。为此，您需要提供月份和星期几名称的数组，而不是语言标签。
+
+<Sandbox example="internationalization-assign-manually" />

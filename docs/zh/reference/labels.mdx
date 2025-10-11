@@ -1,0 +1,40 @@
+---
+title: Aria 标签
+description: Aria 标签允许您为可访问性本地化日历中的所有 aria-labels。
+section: 9
+---
+
+# Aria 标签
+
+`labels` 提供了为可访问性本地化日历中所有 aria-labels 的能力。
+
+以下是所有默认 aria-labels 的列表。
+
+```ts
+new Calendar('#calendar', {
+  labels: {
+    application: '日历',
+    navigation: '日历导航',
+    arrowNext: {
+      month: '下个月',
+      year: '下一年份列表',
+    },
+    arrowPrev: {
+      month: '上个月',
+      year: '上一年份列表',
+    },
+    month: '选择月份，当前选中的月份：',
+    months: '月份列表',
+    year: '选择年份，当前选中的年份：',
+    years: '年份列表',
+    week: '一周中的天数',
+    weekNumber: '一年中的周数',
+    dates: '当前月份中的日期',
+    selectingTime: '选择时间',
+    inputHour: '小时',
+    inputMinute: '分钟',
+    rangeHour: '选择小时的滑块',
+    rangeMinute: '选择分钟的滑块',
+    btnKeeping: '切换 AM/PM，当前位置：',
+  },
+});

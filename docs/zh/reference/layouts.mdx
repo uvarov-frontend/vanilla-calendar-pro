@@ -1,0 +1,162 @@
+---
+title: 布局
+description: 布局允许您更改日历的 DOM 结构并添加您自己的 HTML 元素。
+section: 7
+---
+
+# 布局
+
+布局允许您几乎完全更改日历的 DOM 结构并添加您自己的 HTML 元素，例如按钮。每种类型的日历都有自己的默认模板，您可以自定义它们中的每一个。
+
+<Info>
+  包含符号 **«#»** 的标签是日历的注册组件，应在标签末尾包含闭合斜杠，除了包装一个月的标签 **\<#Multiple>\<#/Multiple>**。
+  所有默认模板都列出了该模板的所有可能组件。
+</Info>
+
+## layouts.default
+
+`类型: 字符串`
+
+`默认: 字符串`
+
+`选项: 字符串`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    default: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [month] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [month] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <#WeekNumbers />
+        <div class="${self.styles.content}" data-vc="content">
+          <#Week />
+          <#Dates />
+          <#DateRangeTooltip />
+        </div>
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+这是显示一个月及其日期的默认模板。
+
+---
+
+## layouts.multiple
+
+`类型: 字符串`
+
+`默认: 字符串`
+
+`选项: 字符串`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    multiple: `
+      <div class="${self.styles.controls}" data-vc="controls" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [month] />
+        <#ArrowNext [month] />
+      </div>
+      <div class="${self.styles.grid}" data-vc="grid">
+        <#Multiple>
+          <div class="${self.styles.column}" data-vc="column" role="region">
+            <div class="${self.styles.header}" data-vc="header">
+              <div class="${self.styles.headerContent}" data-vc-header="content">
+                <#Month />
+                <#Year />
+              </div>
+            </div>
+            <div class="${self.styles.wrapper}" data-vc="wrapper">
+              <#WeekNumbers />
+              <div class="${self.styles.content}" data-vc="content">
+                <#Week />
+                <#Dates />
+              </div>
+            </div>
+          </div>
+        <#/Multiple>
+        <#DateRangeTooltip />
+      </div>
+      <#ControlTime />
+    `
+  }
+});
+```
+
+这是显示多个月及其日期的默认模板。
+
+---
+
+## layouts.month
+
+`类型: 字符串`
+
+`默认: 字符串`
+
+`选项: 字符串`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    month: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <div class="${self.styles.content}" data-vc="content">
+          <#Months />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+这是选择月份的默认模板。
+
+---
+
+## layouts.year
+
+`类型: 字符串`
+
+`默认: 字符串`
+
+`选项: 字符串`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    year: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [year] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [year] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <div class="${self.styles.content}" data-vc="content">
+          <#Years />
+        </div>
+      </div>
+    `
+  }
+});
+```
+
+这是选择年份的默认模板。
