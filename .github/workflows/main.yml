@@ -41,5 +41,5 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd ${{ secrets.TARGET }}
-            yarn install
+            yarn install --frozen-lockfile
             yarn package:build
