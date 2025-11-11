@@ -9,6 +9,7 @@ node_modules
 demo/build
 demo/dist
 package/dist
+next
 
 # Tests
 cypress/videos
