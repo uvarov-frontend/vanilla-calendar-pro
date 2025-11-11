@@ -1,0 +1,8 @@
+.git
+.gitignore
+node_modules
+next/node_modules
+next/.next
+build
+*.log
+.DS_Store
