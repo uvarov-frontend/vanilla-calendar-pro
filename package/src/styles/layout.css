@@ -125,11 +125,15 @@ button[data-vc-week-day] {
 }
 
 [data-vc='dates'] {
-  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center grow pointer-events-none;
+  @apply grid grid-cols-1 grid-rows-[auto] justify-items-center items-center gap-y-1 grow pointer-events-none;
 }
 
 [data-vc='dates'][data-vc-dates-disabled] [data-vc-date-btn] {
   @apply cursor-default;
+}
+
+[data-vc-dates-row] {
+  @apply grid grid-cols-[repeat(7,_1fr)] justify-items-center items-center w-full;
 }
 
 [data-vc-date] {

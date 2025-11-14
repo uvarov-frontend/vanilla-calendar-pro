@@ -11,7 +11,7 @@ const layoutDefault = (self: Calendar) => `
   </div>
   <div class="${self.styles.wrapper}" data-vc="wrapper">
     <#WeekNumbers />
-    <div class="${self.styles.content}" data-vc="content">
+    <div class="${self.styles.content}" data-vc="content" role="grid">
       <#Week />
       <#Dates />
       <#DateRangeTooltip />

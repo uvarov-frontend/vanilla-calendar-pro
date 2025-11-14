@@ -33,7 +33,7 @@ const options: Options = {
       </div>
       <div class="vc-wrapper" data-vc="wrapper">
         <#WeekNumbers />
-        <div class="vc-content" data-vc="content">
+        <div class="vc-content" data-vc="content" role="grid">
           <#Week />
           <#Dates />
           <#DateRangeTooltip />

@@ -22,6 +22,7 @@ const styles = {
   weekNumbersContent: 'vc-week-numbers__content',
   weekNumber: 'vc-week-number',
   dates: 'vc-dates',
+  datesRow: 'vc-dates__row',
   date: 'vc-date',
   dateBtn: 'vc-date__btn',
   datePopup: 'vc-date__popup',
