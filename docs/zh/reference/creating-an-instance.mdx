@@ -1,0 +1,58 @@
+---
+title: 创建实例
+description: 学习如何使用 CSS 选择器或 HTML 元素创建 Vanilla Calendar Pro 的实例。配置日历以在单击元素时在包装器或弹出窗口中初始化。
+section: 1
+---
+
+# 创建实例
+
+`new Calendar()` - 创建 **Vanilla Calendar Pro** 的实例，该实例是日历、其设置和方法的封装。
+
+<Info>如果您使用 `<script>` 标签包含了 **Vanilla Calendar Pro**，则该对象可作为全局变量 **window.VanillaCalendarPro** 使用。</Info>
+
+`Calendar` 实例接受两个参数。第一个**必需**参数可以是 **CSS 选择器**或 **HTML 元素**。
+
+**CSS 选择器**或 **HTML 元素**可以表示日历的包装器，日历将在其中初始化，或者表示 **«输入»**。
+
+日历包装器是一个 `<div>` 标签，日历本身将在其中初始化。
+
+在日历包装器中初始化：
+
+```html
+<div id="calendar"></div>
+```
+
+```ts
+new Calendar('#calendar');
+// 或
+const calendarEl = document.querySelector('#calendar');
+new Calendar(calendarEl);
+```
+
+**«输入»** 在此日历的上下文中不一定意味着 `<input>` 标签；它可以是任何 HTML 元素，例如 `<div>`。
+
+当单击 **«输入»** 时，将出现带有日历的弹出窗口。
+
+在 **«输入»** 中初始化：
+
+```html
+<input type="text" id="input">
+<!-- 或 -->
+<div id="input"></div>
+```
+
+```ts
+new Calendar('#input', { input: true });
+// 或
+const calendarInput = document.querySelector('#input');
+new Calendar(calendarInput, {
+  inputMode: true,
+});
+```
+
+第二个**可选**参数是一个对象，定义日历的设置和操作。
+
+```ts
+new Calendar('#calendar', {
+  // 设置
+});

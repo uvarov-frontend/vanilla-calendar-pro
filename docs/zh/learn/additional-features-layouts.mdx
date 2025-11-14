@@ -1,0 +1,19 @@
+---
+title: 布局
+description: 布局允许您自定义日历的 HTML 标记，添加您自己的元素，例如按钮。学习如何自定义日历标题并为不同类型的日历添加元素。
+section: 6. 附加功能
+---
+
+# 布局
+
+日历提供了一种使用 `layouts` 参数自定义 HTML 标记的便捷方式。这允许您向日历添加自己的元素，例如按钮或任何其他 HTML 元素。
+
+`layouts` 将日历的 `type` 作为键，将字符串作为值。
+
+在以下示例中，为 `type: 'default'` 自定义了日历标题，并在日历内部添加了一个常规按钮。
+
+<Sandbox example="additional-features-layouts" />
+
+现在，让我们使用 `inputMode: true` 参数。我们将添加一个按钮，单击该按钮时将隐藏日历。
+
+<Sandbox example="additional-features-layouts-btn-close" input={true} />

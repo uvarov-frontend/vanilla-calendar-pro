@@ -1,0 +1,68 @@
+---
+title: React 组件
+description: 学习如何为 Vanilla Calendar Pro 创建和使用 React 组件。创建组件并将其集成到 React 应用程序中的详细指南。
+section: 7. 库组件
+---
+
+# React 组件
+
+<Info>
+  如果您不使用 TypeScript，请使用 `.jsx` 扩展名而不是 `.tsx`，并从组件中删除 `CalendarProps` 接口。
+</Info>
+
+出于演示目的，让我们考虑 Vanilla Calendar Pro 的最简单 React 组件。创建一个名为 `VanillaCalendar.tsx` 的文件，并将以下代码复制到其中：
+
+```tsx
+import { useEffect, useRef, useState } from 'react';
+import { Options, Calendar } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+interface CalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  config?: Options,
+}
+
+function VanillaCalendar({ config, ...attributes }: CalendarProps) {
+  const ref = useRef(null);
+  const [calendar, setCalendar] = useState<Calendar | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    setCalendar(new Calendar(ref.current, config));
+  }, [ref, config])
+
+  useEffect(() => {
+    if (!calendar) return;
+    calendar.init()
+  }, [calendar])
+
+  return (
+    <div {...attributes} ref={ref}></div>
+  )
+}
+
+export default VanillaCalendar;
+```
+
+然后，将创建的 `VanillaCalendar` 组件导入到您计划显示日历的 React 应用程序中。
+
+```tsx
+import VanillaCalendar from './VanillaCalendar';
+```
+
+使用创建的组件。
+
+```tsx
+// ...
+<VanillaCalendar />
+// ...
+```
+
+`VanillaCalendar` 组件可以接受 `<div>` 标签支持的任何 HTML 属性，以及用于配置日历的 `config` 参数。
+
+```tsx
+// ...
+<VanillaCalendar config={{
+    type: 'multiple',
+  }} className="thisIsMyClass" />
+// ...

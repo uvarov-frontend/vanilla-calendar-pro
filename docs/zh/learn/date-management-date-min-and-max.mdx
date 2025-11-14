@@ -1,0 +1,16 @@
+---
+title: 最大和最小日期
+description: 学习如何使用 dateMin 和 dateMax 参数在日历中设置日期范围。配置最小和最大日期以限制允许的范围。
+section: 4. 管理日期和时间
+---
+
+# 最大和最小日期
+
+日历中的日期范围可以使用 `dateMin` 和 `dateMax` 参数设置。这些参数指定日历中允许的日期范围。
+
+默认情况下，最小日期是 `'1970-01-01'`，对应于 <a href="https://en.wikipedia.org/wiki/Unix_time" rel="noopener noreferrer" target="_blank">UNIX 时间</a> 的开始。
+默认情况下，最大日期设置为 `'2470-12-31'`，并且是任意选择的。
+
+如果您需要设置特定的可能日期范围，请将 `dateMin` 和 `dateMax` 参数的值替换为您需要的日期。请注意，日历不会处理指定范围之外的日期。
+
+<Sandbox example="date-management-date-min-and-max" />

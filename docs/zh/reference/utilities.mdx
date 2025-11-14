@@ -1,0 +1,34 @@
+---
+title: 实用工具
+description: 发现 Vanilla Calendar Pro 提供的 4 个便捷日期实用工具。这些功能允许您格式化日期、将其转换为所需格式并确定周数。
+section: 2
+---
+
+# 实用工具
+
+日历附带其实用工具，使处理日期格式化变得容易。
+
+总共有 4 个实用工具，它们是可以在代码中任何位置使用的函数，甚至无需日历。
+
+1. **`parseDates(dates: string[])`** — 接受使用字符串格式 `FormatDateString ('YYYY-MM-DD')` 中日期之间的分隔符的日期范围数组。返回字符串格式 `FormatDateString ('YYYY-MM-DD')` 的日期数组。
+```ts
+import { parseDates } from 'vanilla-calendar-pro/utils';
+parseDates(['2024-12-12:2024-12-15']); // 返回: ['2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15']
+```
+
+2. **`getDateString(date: Date)`** — 接受 `Date` 类型的日期。返回字符串格式 `FormatDateString ('YYYY-MM-DD')` 的日期。
+```ts
+import { getDateString } from 'vanilla-calendar-pro/utils';
+getDateString(new Date('24.12.2024')); // 返回: 2024-12-24
+```
+
+3. **`getDate(date: FormatDateString)`** — 接受字符串格式的日期，例如 `FormatDateString ('YYYY-MM-DD')`。返回 `Date` 类型的日期。
+```ts
+import { getDate } from 'vanilla-calendar-pro/utils';
+getDate('2024-12-12'); // 返回: Tue Dec 24 2024 00:00:00 GMT
+```
+
+4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** — 接受字符串格式 `FormatDateString ('YYYY-MM-DD')` 的日期和周起始日，特别是其 `id` 类型为 `number` 从 0 到 6。返回参数中指定日期的对象 `{ year: yearNumber, week: weekNumber }`。
+```ts
+import { getWeekNumber } from 'vanilla-calendar-pro/utils';
+getWeekNumber('2024-12-12', 1); // 返回: {year: 2024, week: 50}

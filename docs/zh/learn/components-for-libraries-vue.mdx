@@ -1,0 +1,60 @@
+---
+title: Vue 组件
+description: 学习如何为 Vanilla Calendar Pro 创建和使用 Vue 组件。创建组件并将其集成到 Vue 应用程序中的详细指南。
+section: 7. 库组件
+---
+
+# Vue 组件
+
+为了演示，让我们为 Vanilla Calendar Pro 创建一个简单的 Vue 组件。创建一个名为 `VanillaCalendar.vue` 的文件，并将以下代码复制到其中：
+
+```vue
+<script setup lang="ts">
+import { onMounted, ref, useAttrs } from 'vue';
+import { Calendar, Options } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css'
+
+const calendarRef = ref(null);
+const attributes = useAttrs();
+const { config } = defineProps<{ config?: Options }>();
+
+onMounted(() => {
+  if (!calendarRef.value) return;
+  const calendar = new Calendar(calendarRef.value, config);
+  calendar.init();
+});
+</script>
+
+<template>
+  <div v-bind="attributes" ref="calendarRef"></div>
+</template>
+```
+
+然后将创建的 `VanillaCalendar` 组件导入到您想要显示日历的 Vue 应用程序中。
+
+```vue
+<script setup lang="ts">
+// ...
+import VanillaCalendar './VanillaCalendar.vue';
+// ...
+</script>
+```
+
+使用创建的组件。
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar />
+  <!-- -->
+</template>
+```
+
+`VanillaCalendar` 组件可以接受 `<div>` 标签支持的任何 HTML 属性，以及用于日历配置的 `config` 参数。
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar :config="{ type: 'multiple' }" />
+  <!-- -->
+</template>
