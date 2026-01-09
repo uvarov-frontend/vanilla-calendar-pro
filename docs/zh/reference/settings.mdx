@@ -42,6 +42,26 @@ new Calendar('#calendar', {
 
 ---
 
+## openOnFocus
+
+`类型: 布尔值 | 函数`
+
+`默认: true`
+
+`选项: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  openOnFocus: false,
+  // 或使用回调
+  openOnFocus: (self) => !self.context.isShowInInputMode,
+});
+```
+
+如果 `openOnFocus` 参数为 `true` 或回调返回 `true`，则聚焦 input 会打开日历。使用 `false` 或回调来控制此行为并实现您自己的焦点处理器。
+
+---
+
 ## positionToInput
 
 `类型: 字符串`
@@ -151,7 +171,7 @@ new Calendar('#calendar', {
 ```
 
 此参数设置日历的语言本地化。
-您可以根据 <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> 指定语言标签，或提供月份和星期几名称的数组，更多详细信息请参见[此处](/docs/learn/internationalization-locale)。
+您可以根据 <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> 指定语言标签，或提供月份和星期几名称的数组，更多详细信息请参见[此处](/zh/docs/learn/internationalization-locale)。
 
 ---
 
@@ -644,7 +664,7 @@ new Calendar('#calendar', {
 });
 ```
 
-此参数定义在日历初始化时将显示的月份。根据 JS 标准，月份从 0 到 11 编号。
+此参数定义在日历初始化时将显示的月份。根据 JS 标准，月份从 0 到 11 编号。参见 [enableJumpToSelectedDate](/zh/docs/reference/settings#enablejumptoselecteddate)，以默认使用第一条选中的日期。
 
 ---
 
@@ -662,7 +682,7 @@ new Calendar('#calendar', {
 });
 ```
 
-此参数定义在日历初始化时将显示的年份。
+此参数定义在日历初始化时将显示的年份。参见 [enableJumpToSelectedDate](/zh/docs/reference/settings#enablejumptoselecteddate)，以默认使用第一条选中的日期。
 
 ---
 
