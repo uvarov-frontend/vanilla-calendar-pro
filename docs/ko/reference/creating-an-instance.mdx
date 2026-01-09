@@ -1,0 +1,59 @@
+---
+title: 인스턴스 생성
+description: CSS 셀렉터 또는 HTML 요소로 Vanilla Calendar Pro 인스턴스를 생성하는 방법을 알아보세요. 요소 클릭 시 래퍼 또는 팝업에서 캘린더가 초기화되도록 설정할 수 있습니다.
+section: 1
+---
+
+# 인스턴스 생성
+
+`new Calendar()`는 **Vanilla Calendar Pro** 인스턴스를 생성합니다. 이 인스턴스는 캘린더와 그 설정, 메서드를 캡슐화합니다.
+
+<Info>`<script>` 태그로 **Vanilla Calendar Pro**를 포함했다면, 객체는 전역 변수 **window.VanillaCalendarPro**로 사용할 수 있습니다.</Info>
+
+`Calendar` 인스턴스는 두 개의 파라미터를 받습니다. 첫 번째 **필수** 파라미터는 **CSS 셀렉터** 또는 **HTML 요소**일 수 있습니다.
+
+**CSS 셀렉터** 또는 **HTML 요소**는 캘린더가 초기화될 래퍼(컨테이너) 또는 **«Input»**을 의미합니다.
+
+캘린더 래퍼는 캘린더 자체가 초기화될 `<div>` 태그입니다.
+
+캘린더 래퍼에서의 초기화:
+
+```html
+<div id="calendar"></div>
+```
+
+```ts
+new Calendar('#calendar');
+// or
+const calendarEl = document.querySelector('#calendar');
+new Calendar(calendarEl);
+```
+
+이 캘린더에서 **«Input»**은 반드시 `<input>` 태그일 필요가 없으며, `<div>` 같은 어떤 HTML 요소라도 될 수 있습니다.
+
+**«Input»**을 클릭하면 캘린더가 포함된 팝업이 표시됩니다.
+
+**«Input»**에서의 초기화:
+
+```html
+<input type="text" id="input">
+<!-- or -->
+<div id="input"></div>
+```
+
+```ts
+new Calendar('#input', { inputMode: true });
+// or
+const calendarInput = document.querySelector('#input');
+new Calendar(calendarInput, {
+  inputMode: true,
+});
+```
+
+두 번째 **선택** 파라미터는 캘린더의 설정과 액션을 정의하는 객체입니다.
+
+```ts
+new Calendar('#calendar', {
+  // Settings
+});
+```

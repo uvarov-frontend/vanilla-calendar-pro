@@ -1,0 +1,78 @@
+---
+title: 팝업
+description: 팝업을 사용하면 특정 날짜를 강조하고, 해당 날짜에 마우스를 올렸을 때 캘린더에서 바로 간단한 정보를 표시할 수 있습니다.
+section: 6
+---
+
+# 팝업
+
+팝업을 사용하면 특정 날짜를 강조하고, 해당 날짜에 마우스를 올렸을 때 캘린더에서 바로 간단한 정보를 표시할 수 있습니다.
+
+## popups['date']
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'YYYY-MM-DD': | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {},
+  }
+});
+```
+
+`YYYY-MM-DD` 형식의 날짜가 키로 사용됩니다. 위 예제에서는 2022년 6월 28일에 팝업이 설정됩니다.
+
+---
+
+## popups['date'].modifier
+
+`Type: String`
+
+`Default: null`
+
+`Options: CSS classes | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+    },
+  }
+});
+```
+
+`modifier`는 공백으로 구분된 임의의 CSS 클래스를 받습니다. 이 클래스를 이용해 날짜를 강조하거나 외형을 변경할 수 있습니다.
+
+---
+
+## popups['date'].html
+
+`Type: String`
+
+`Default: null`
+
+`Options: '' | HTML | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+      html: `<div>
+        <u><b>12:00 PM</b></u>
+        <p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
+      </div>`,
+      // or just text
+      // html: 'Airplane in Las Vegas',
+    },
+  }
+});
+```
+
+`html`은 팝업을 구성하기 위한 평문 또는 HTML 마크업을 받을 수 있습니다.
+이 예제에서는 2022년 6월 28일에 마우스를 올리면 "Airplane in Las Vegas" 텍스트와 "12:00 PM" 시간이 표시되며, `bg-red`와 `color-pink` 클래스에 지정된 스타일이 적용됩니다.

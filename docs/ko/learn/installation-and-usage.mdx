@@ -1,0 +1,94 @@
+---
+title: 설치 및 사용
+description: Vanilla Calendar Pro를 설치하고 사용하는 방법을 알아보세요. 패키지 매니저나 CDN으로 캘린더를 통합하고, 필요에 맞게 설정할 수 있습니다.
+section: 1. 시작하기
+---
+
+# 설치 및 사용
+
+Vanilla Calendar Pro는 어떤 프로젝트에도 쉽게 통합할 수 있습니다. 의존성과 빌드를 어떻게 관리하는지에 따라 여러 설치 방법이 있습니다.
+
+## 패키지 매니저로 설치
+
+가장 일반적인 방법은 패키지 매니저를 사용하는 것입니다. 이 방법은 Node.js와 최신 빌드 도구를 사용하는 프로젝트에 적합합니다.
+
+1. 패키지를 설치합니다:
+
+```bash
+npm install vanilla-calendar-pro
+# or
+yarn add vanilla-calendar-pro
+# or
+pnpm add vanilla-calendar-pro
+```
+
+2. 문서의 body에 임의의 CSS 셀렉터를 가진 HTML 요소를 만듭니다:
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
+</html>
+```
+
+<Info>이 섹션의 데모에서는 CSS 셀렉터로 `#calendar`를 사용하지만, 원하는 어떤 셀렉터도 만들고 사용할 수 있습니다.</Info>
+
+3. 스크립트를 가져오고, 캘린더 인스턴스를 만든 뒤 JavaScript 또는 TypeScript 파일에서 초기화합니다.
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+
+const calendar = new Calendar('#calendar', {
+  // Your settings
+});
+calendar.init();
+```
+
+4. 같은 파일에서 스타일을 가져옵니다. `index.css`에는 캘린더의 레이아웃 그리드와 라이트/다크 테마가 포함되어 있습니다.
+
+```ts
+import 'vanilla-calendar-pro/styles/index.css';
+```
+
+또는 다음처럼 레이아웃과 테마 스타일을 별도로 포함할 수도 있습니다:
+
+```ts
+import 'vanilla-calendar-pro/styles/layout.css'; // Only the skeleton
+import 'vanilla-calendar-pro/styles/themes/light.css'; // Light theme
+import 'vanilla-calendar-pro/styles/themes/dark.css'; // Dark theme
+// or any other custom theme...
+```
+
+5. 별도의 커스텀 설정 없이 간단히 초기화하는 전체 예제:
+
+<Sandbox example="installation-and-usage" />
+
+<Info>이 예제에서 보셨듯이, 우리는 **«Input»** 필드를 사용하지 않는 플랫 캘린더 뷰를 사용합니다. **«Input»**에 캘린더를 통합하는 방법이 궁금하다면 [이 예제](/docs/learn/type-default#with-input)를 확인하세요.</Info>
+
+## 로컬 또는 CDN
+
+빌드 도구나 패키지 매니저를 쓰지 않고 빠르게 Vanilla Calendar Pro를 통합하려면 CDN을 사용하거나 최신 버전의 <a href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro@latest/package.zip" rel="noopener noreferrer" target="_blank">아카이브를 다운로드</a>하여 로컬에 포함할 수 있습니다.
+
+```html
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+  </head>
+  <body style="display: flex; align-items: start">
+    <div id="calendar"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Destructure the Calendar constructor
+        const { Calendar } = window.VanillaCalendarPro;
+        // Create a calendar instance and initialize it.
+        const calendar = new Calendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```

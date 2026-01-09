@@ -1,0 +1,15 @@
+---
+title: 표시 날짜 범위
+description: displayDateMin 및 displayDateMax 파라미터로 캘린더에 표시할 날짜 범위를 설정하는 방법을 알아보세요. 지정된 범위 내에서 날짜 표시와 선택을 구성할 수 있습니다.
+section: 4. 날짜 및 시간 관리
+---
+
+# 표시 날짜 범위
+
+`displayDateMin`과 `displayDateMax` 파라미터는 캘린더에 표시할 수 있는 날짜 범위를 정의하지만, 캘린더의 라이프사이클에는 영향을 주지 않습니다. 즉, 표시 및 선택이 허용되는 날짜만 지정합니다.
+
+예를 들어 `displayDisabledDates` 파라미터가 `true`로 설정되어 있으면, 사용자가 볼 수 있는 최소/최대 연도는 `dateMin`과 `dateMax` 파라미터 값으로 결정됩니다.
+
+<Sandbox example="date-management-display-range-dates" />
+
+`displayDisabledDates` 파라미터를 변경하면 캘린더에서 표시 및 선택 가능한 날짜를 제어할 수 있습니다.

@@ -1,0 +1,106 @@
+---
+title: 메서드
+description: 캘린더를 관리하는 메서드로, 초기화, 업데이트, 파라미터 설정, 삭제, 표시/숨김을 포함합니다.
+section: 3
+---
+
+# 메서드
+
+## init()
+
+`init()` 메서드는 캘린더 초기화 프로세스를 시작하는 주요 인스턴스 메서드입니다.
+
+```ts
+const calendar = new Calendar(element, params);
+calendar.init();
+```
+
+---
+
+## update()
+
+`update()` 메서드는 새로운 설정을 캘린더에 적용하고 리셋을 수행할 수 있습니다.
+이 메서드는 리셋 동작을 제어하는 선택적 인자를 가진 객체를 받으며, 기본적으로 업데이트 후 사용자가 선택한 날짜/월/연도를 초기화합니다.
+
+모든 인자의 기본값은 `true`입니다:
+
+```ts
+{
+  year: boolean;
+  month: boolean;
+  dates: boolean | 'only-first';
+  holidays: boolean;
+  time: boolean;
+}
+```
+
+- `true` - 설정에 지정된 파라미터로 초기화합니다;
+- `false` - 리셋을 수행하지 않고 사용자가 선택한 값을 유지합니다;
+- `'only-first'` - 선택된 날짜를 모두 초기화하고 가장 빠른 날짜만 남깁니다. 날짜 선택 타입이 `'multiple-ranged'`로 지정되어 있다면, 호버를 위한 `'mousemove'` 및 `'keydown'` 핸들러가 추가됩니다.
+
+사용 예:
+
+```ts
+calendar.locale = 'de-AT';
+calendar.firstWeekday = 0;
+
+calendar.update({
+  dates: true,
+});
+```
+
+---
+
+## set()
+
+아직 초기화되지 않았거나 이미 초기화된 캘린더에 새로운 파라미터나 핸들러를 지정해야 한다면 `.set()` 메서드를 사용할 수 있습니다.
+이 메서드는 새 파라미터 객체와, 리셋을 제어하는 선택적 인자 객체를 받으며, 기본적으로 업데이트 후 사용자가 선택한 날짜/월/연도를 초기화합니다.
+
+사용 예:
+
+```ts
+calendar.set({
+  locale: 'de-AT',
+  firstWeekday: 0,
+}, {
+  dates: true,
+});
+```
+
+이 메서드는 캘린더 인스턴스를 생성할 때 파라미터를 지정하는 것의 대안이 될 수 있습니다. 초기화 전에 이 메서드를 호출한다면 리셋 제어 객체를 지정하지 마세요.
+
+```ts
+const calendar = new Calendar(element);
+calendar.set({ locale: 'de-AT', firstWeekday: 0 });
+calendar.init();
+```
+
+---
+
+## destroy()
+
+캘린더 인스턴스를 완전히 삭제해야 한다면 `destroy()` 메서드를 사용합니다.
+
+```ts
+calendar.destroy();
+```
+
+---
+
+## show()
+
+`show()` 메서드는 숨겨진 캘린더를 다시 표시합니다.
+
+```ts
+calendar.show();
+```
+
+---
+
+## hide()
+
+`hide()` 메서드는 표시 중인 캘린더를 숨깁니다.
+
+```ts
+calendar.hide();
+```

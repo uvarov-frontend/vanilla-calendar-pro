@@ -1,0 +1,35 @@
+---
+title: 유틸리티
+description: Vanilla Calendar Pro가 제공하는 4가지 유용한 날짜 유틸리티를 알아보세요. 날짜 포맷팅, 변환, 주 번호 계산을 지원합니다.
+section: 2
+---
+
+# 유틸리티
+
+캘린더에는 날짜 포맷팅을 쉽게 처리할 수 있는 유틸리티가 포함되어 있습니다.
+
+총 4개의 유틸리티가 있으며, 캘린더 없이도 코드 어디에서나 사용할 수 있는 함수들입니다.
+
+1. **`parseDates(dates: string[])`** — `FormatDateString ('YYYY-MM-DD')` 형식의 문자열에서 날짜 사이에 구분자를 사용한 날짜 범위 배열을 받습니다. `FormatDateString ('YYYY-MM-DD')` 형식의 날짜 배열을 반환합니다.
+```ts
+import { parseDates } from 'vanilla-calendar-pro/utils';
+parseDates(['2024-12-12:2024-12-15']); // return: ['2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15']
+```
+
+2. **`getDateString(date: Date)`** — `Date` 타입의 날짜를 받습니다. `FormatDateString ('YYYY-MM-DD')` 형식의 문자열을 반환합니다.
+```ts
+import { getDateString } from 'vanilla-calendar-pro/utils';
+getDateString(new Date('24.12.2024')); // return: 2024-12-24
+```
+
+3. **`getDate(date: FormatDateString)`** — `FormatDateString ('YYYY-MM-DD')` 형식의 문자열 날짜를 받습니다. `Date` 타입의 날짜를 반환합니다.
+```ts
+import { getDate } from 'vanilla-calendar-pro/utils';
+getDate('2024-12-12'); // return: Tue Dec 24 2024 00:00:00 GMT
+```
+
+4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** — `FormatDateString ('YYYY-MM-DD')` 형식의 문자열 날짜와 주 시작 요일(0~6의 `number` 타입 `id`)을 받습니다. 인자로 전달한 날짜에 대해 `{ year: yearNumber, week: weekNumber }` 객체를 반환합니다.
+```ts
+import { getWeekNumber } from 'vanilla-calendar-pro/utils';
+getWeekNumber('2024-12-12', 1); // return: {year: 2024, week: 50}
+```

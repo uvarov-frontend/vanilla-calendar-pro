@@ -1,0 +1,15 @@
+---
+title: 로컬라이징
+description: locale 파라미터로 캘린더를 로컬라이징하거나, 월/요일 이름 배열을 제공하여 수동으로 로컬라이징하는 방법을 알아보세요.
+section: 3. 국제화
+---
+
+# 로컬라이징
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" rel="noopener noreferrer" target="_blank">`.toLocaleString()`</a> 메서드에서 지원하는 로케일이라면 `locale` 파라미터에 전달하기만 하면 캘린더가 로컬라이징됩니다.
+
+<Sandbox example="internationalization-locale" />
+
+로케일이 지원되지 않거나 번역이 올바르지 않다면, 언제든지 수동으로 로컬라이징할 수 있습니다. 이 경우 언어 태그 대신 월과 요일 이름 배열을 제공해야 합니다.
+
+<Sandbox example="internationalization-assign-manually" />
