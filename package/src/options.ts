@@ -25,6 +25,7 @@ export default class OptionsCalendar {
   type: TypesCalendar = 'default';
 
   inputMode: boolean = false;
+  openOnFocus: ToggleSelected = true;
   positionToInput: PositionToInput = 'left';
 
   firstWeekday: WeekDayID = 1;

@@ -42,6 +42,26 @@ new Calendar('#calendar', {
 
 ---
 
+## openOnFocus
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  openOnFocus: false,
+  // или с callback
+  openOnFocus: (self) => !self.context.isShowInInputMode,
+});
+```
+
+Если параметр `openOnFocus` равен `true` или обратный вызов возвращает `true`, то фокус на input откроет календарь. Используйте `false` или колбэк, чтобы контролировать это поведение и реализовать свой обработчик фокуса.
+
+---
+
 ## positionToInput
 
 `Type: String`

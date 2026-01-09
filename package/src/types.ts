@@ -80,6 +80,7 @@ export type ContextVariables = {
   isInit: boolean;
   isShowInInputMode: boolean;
   inputModeInit: boolean;
+  openOnFocus: ToggleSelected;
   cleanupHandlers: Array<() => void>;
   currentType: TypesCalendar;
   locale: LocaleStated;

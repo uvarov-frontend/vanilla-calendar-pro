@@ -1,5 +1,6 @@
 import createToInput from '@scripts/creators/createToInput';
 import { show } from '@scripts/methods';
+import canOpenOnFocus from '@scripts/utils/canOpenOnFocus';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
@@ -15,11 +16,24 @@ const handleInput = (self: Calendar) => {
   };
 
   (self.context.inputElement as HTMLInputElement).addEventListener('click', handleOpenCalendar);
-  (self.context.inputElement as HTMLInputElement).addEventListener('focus', handleOpenCalendar);
+
+  const shouldHandleFocus = typeof self.openOnFocus === 'function' || self.openOnFocus === true;
+
+  const handleOpenOnFocus = () => {
+    if (!canOpenOnFocus(self)) return;
+    handleOpenCalendar();
+  };
+
+  if (shouldHandleFocus) {
+    (self.context.inputElement as HTMLInputElement).addEventListener('focus', handleOpenOnFocus);
+  }
 
   return () => {
     (self.context.inputElement as HTMLInputElement).removeEventListener('click', handleOpenCalendar);
-    (self.context.inputElement as HTMLInputElement).removeEventListener('focus', handleOpenCalendar);
+
+    if (shouldHandleFocus) {
+      (self.context.inputElement as HTMLInputElement).removeEventListener('focus', handleOpenOnFocus);
+    }
   };
 };
 
