@@ -1,0 +1,78 @@
+---
+title: 弹出窗口
+description: 弹出窗口允许您突出显示任何日期，并在悬停该日期时直接在日历中显示有关它的简要信息。
+section: 6
+---
+
+# 弹出窗口
+
+弹出窗口允许您突出显示任何日期，并在悬停该日期时直接在日历中显示有关它的简要信息。
+
+## popups['date']
+
+`类型: 字符串`
+
+`默认: null`
+
+`选项: 'YYYY-MM-DD': | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {},
+  }
+});
+```
+
+格式为 `YYYY-MM-DD` 的日期用作键。在给定的示例中，为 2022 年 6 月 28 日设置了弹出窗口。
+
+---
+
+## popups['date'].modifier
+
+`类型: 字符串`
+
+`默认: null`
+
+`选项: CSS 类 | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+    },
+  }
+});
+```
+
+`modifier` 接受任意 CSS 类，用空格分隔。使用这些类，您可以设置日期的样式以使其突出显示或更改其外观。
+
+---
+
+## popups['date'].html
+
+`类型: 字符串`
+
+`默认: null`
+
+`选项: '' | HTML | null`
+
+```ts
+new Calendar('#calendar', {
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+      html: `<div>
+        <u><b>12:00 PM</b></u>
+        <p style="margin: 5px 0 0;">拉斯维加斯的飞机</p>
+      </div>`,
+      // 或只是文本
+      // html: '拉斯维加斯的飞机',
+    },
+  }
+});
+```
+
+`html` 接受纯文本或 HTML 标记以格式化弹出窗口。
+在此示例中，当悬停在 2022 年 6 月 28 日上时，将显示一个弹出窗口，其中包含文本"拉斯维加斯的飞机"和时间"12:00 PM"，并且将应用在类 `bg-red` 和 `color-pink` 中指定的样式。

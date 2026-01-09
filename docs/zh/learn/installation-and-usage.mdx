@@ -1,0 +1,94 @@
+---
+title: 安装和使用
+description: 学习如何安装和使用 Vanilla Calendar Pro。通过包管理器或 CDN 集成日历，并根据您的需求进行配置。
+section: 1. 开始使用
+---
+
+# 安装和使用
+
+Vanilla Calendar Pro 可以轻松集成到任何项目中。根据您管理依赖项和构建项目的方式，有几种安装方法。
+
+## 通过包管理器安装
+
+安装 Vanilla Calendar Pro 最常见的方法是使用包管理器。这种方法非常适合使用 Node.js 和现代构建工具的项目。
+
+1. 安装包：
+
+```bash
+npm install vanilla-calendar-pro
+# 或
+yarn add vanilla-calendar-pro
+# 或
+pnpm add vanilla-calendar-pro
+```
+
+2. 在文档的 body 中创建一个带有任意 CSS 选择器的 HTML 元素：
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
+</html>
+```
+
+<Info>在本节的演示目的中，我们将使用 `#calendar` 作为 CSS 选择器，但您可以创建和使用任何其他选择器。</Info>
+
+3. 在您的 JavaScript 或 TypeScript 文件中导入脚本，创建日历实例并初始化它。
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+
+const calendar = new Calendar('#calendar', {
+  // 您的设置
+});
+calendar.init();
+```
+
+4. 在同一文件中导入样式。`index.css` 文件包含日历的布局网格，以及浅色和深色主题。
+
+```ts
+import 'vanilla-calendar-pro/styles/index.css';
+```
+
+您也可以选择分别包含布局和主题样式，如下所示：
+
+```ts
+import 'vanilla-calendar-pro/styles/layout.css'; // 仅骨架
+import 'vanilla-calendar-pro/styles/themes/light.css'; // 浅色主题
+import 'vanilla-calendar-pro/styles/themes/dark.css'; // 深色主题
+// 或任何其他自定义主题...
+```
+
+5. 没有任何自定义设置的简单初始化的完整示例：
+
+<Sandbox example="installation-and-usage" />
+
+<Info>正如您可能在此示例中注意到的，我们使用的是扁平日历视图，而不使用 **«输入»** 字段，如果您对如何将日历集成到 **«输入»** 中感兴趣，请查看 [此示例](/docs/learn/type-default#with-input)。</Info>
+
+## 本地或 CDN
+
+如果您需要快速集成 Vanilla Calendar Pro 而不使用构建工具或包管理器，可以通过 CDN 包含它，或 <a href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro@latest/package.zip" rel="noopener noreferrer" target="_blank">下载存档</a> 最新版本并在本地包含它。
+
+```html
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+  </head>
+  <body style="display: flex; align-items: start">
+    <div id="calendar"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 解构 Calendar 构造函数
+        const { Calendar } = window.VanillaCalendarPro;
+        // 创建日历实例并初始化它。
+        const calendar = new Calendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```

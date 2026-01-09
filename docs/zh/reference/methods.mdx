@@ -1,0 +1,106 @@
+---
+title: 方法
+description: 用于管理日历的方法，包括初始化、更新、设置参数、删除、显示和隐藏日历。
+section: 3
+---
+
+# 方法
+
+## init()
+
+`init()` 方法是主要的实例方法，启动日历初始化过程。
+
+```ts
+const calendar = new Calendar(element, params);
+calendar.init();
+```
+
+---
+
+## update()
+
+`update()` 方法允许您将新设置应用于日历并执行重置。
+此方法接受一个带有可选参数的对象来控制重置，默认情况下在更新后重置用户选择的日期、月份和年份。
+
+所有参数默认为 `true`：
+
+```ts
+{
+  year: boolean;
+  month: boolean;
+  dates: boolean | 'only-first';
+  holidays: boolean;
+  time: boolean;
+}
+```
+
+- `true` - 将重置为设置中指定的参数；
+- `false` - 不会执行重置，保留用户选择的参数；
+- `'only-first'` - 重置所有选定的日期，只保留最早的日期。如果日期选择类型指定为 `'multiple-ranged'`，则添加 `'mousemove'` 和 `'keydown'` 处理程序以进行悬停。
+
+使用示例：
+
+```ts
+calendar.locale = 'de-AT';
+calendar.firstWeekday = 0;
+
+calendar.update({
+  dates: true,
+});
+```
+
+---
+
+## set()
+
+如果您需要为尚未初始化或已初始化的日历指定新参数或处理程序，可以使用 `.set()` 方法。
+此方法接受一个带有新参数的对象和一个带有可选参数的对象来控制重置，默认情况下在更新后重置用户选择的日期、月份和年份。
+
+使用示例：
+
+```ts
+calendar.set({
+  locale: 'de-AT',
+  firstWeekday: 0,
+}, {
+  dates: true,
+});
+```
+
+此方法可以替代在创建日历实例时指定参数。如果您在初始化之前调用此方法，请不要指定用于控制重置的对象。
+
+```ts
+const calendar = new Calendar(element);
+calendar.set({ locale: 'de-AT', firstWeekday: 0 });
+calendar.init();
+```
+
+---
+
+## destroy()
+
+如果您需要完全删除日历实例，可以使用 `destroy()` 方法。
+
+```ts
+calendar.destroy();
+```
+
+---
+
+## show()
+
+`show()` 方法允许您显示日历（如果它被隐藏）。
+
+```ts
+calendar.show();
+```
+
+---
+
+## hide()
+
+`hide()` 方法允许您隐藏日历（如果它被显示）。
+
+```ts
+calendar.hide();
+```

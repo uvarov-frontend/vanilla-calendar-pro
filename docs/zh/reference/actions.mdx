@@ -1,0 +1,378 @@
+---
+title: 操作
+description: 了解可以为日历配置的各种操作，包括日期、周、月份、年份和箭头的点击事件处理程序，以及时间更改和工具提示显示。
+section: 5
+---
+
+# 操作
+
+## onClickDate()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickDate(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickDate(self, event) {},
+});
+```
+
+此方法在单击日历中的日期后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 鼠标事件。
+
+<Info>
+  重要的是要知道每个 HTML 日期元素都包含一个数据属性，其中包含格式为 `YYYY-MM-DD` 的完整日期。
+  如果您需要分别获取日、月和年，可以使用标准的 JS 方法。
+  例如：`new Date('2022-11-07').getDate()` 将返回 `7`。
+</Info>
+
+---
+
+## onClickWeekDay()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickWeekDay(self, day, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekDay(self, day, dateEls, event) {},
+});
+```
+
+此方法在单击日历中的星期几后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `day` - 星期几；
+- `dateEls` - 日期数组（HTML 元素）；
+- `event` - 鼠标事件。
+
+---
+
+## onClickWeekNumber()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickWeekNumber(self, number, year, dateEls, event) {},
+});
+```
+
+此方法在单击日历中的周数后触发，但要使它工作，`enableWeekNumbers` 参数必须设置为 `true`。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `number` - 周数；
+- `year` - 周的年份；
+- `dateEls` - 日期数组（HTML 元素）；
+- `event` - 鼠标事件。
+
+---
+
+## onClickTitle()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickTitle(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickTitle(self, event) {},
+});
+```
+
+此方法在单击日历中的月份或年份标题后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 鼠标事件。
+
+---
+
+## onClickMonth()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickMonth(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickMonth(self, event) {},
+});
+```
+
+此方法在日历中选择月份后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 鼠标事件。
+
+---
+
+## onClickYear()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickYear(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickYear(self, event) {},
+});
+```
+
+此方法在日历中选择年份后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 鼠标事件。
+
+---
+
+## onClickArrow()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onClickArrow(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickArrow(self, event) {},
+});
+```
+
+此方法在单击日历中的箭头后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 鼠标事件。
+
+---
+
+## onChangeTime()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onChangeTime(self, event, isError) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeTime(self, event) {},
+});
+```
+
+此方法在更改日历中的时间后触发。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 更改事件；
+- `isError` - 如果用户输入了不正确的时间，则返回 true。
+
+---
+
+## onChangeToInput()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onChangeToInput(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeToInput(self, event) {},
+});
+```
+
+要使此方法工作，`inputMode` 参数必须设置为 `true`。
+此方法在单击日历中的日期或以任何方式更改时间后触发。
+您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `event` - 事件。
+
+---
+
+## onCreateDateRangeTooltip()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
+});
+```
+
+允许为日期范围创建工具提示。如果 `selectionDatesMode` 参数设置为 `'multiple-ranged'`，则在单击和悬停日期时触发。
+您可以获取以下参数：
+- `self` - 对初始化日历的引用。
+- `dateEl` - HTML 日期元素；
+- `tooltipEl` - HTML 工具提示元素；
+- `dateElBCR` - 包含 HTML 日期元素位置和大小信息的对象；
+- `mainElBCR` - 包含主 HTML 日历元素位置和大小信息的对象。
+
+---
+
+## onCreateDateEls()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onCreateDateEls(self, dateEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateEls(self, dateEl) {},
+});
+```
+
+此方法在日历初始化和任何更改期间触发。它提供对每个日期的信息的访问。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `dateEl` - HTML 日期元素。
+
+---
+
+## onCreateMonthEls()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onCreateMonthEls(self, monthEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateMonthEls(self, monthEl) {},
+});
+```
+
+此方法在日历类型设置为 `'month'` 时触发。当用户单击月份标题或在初始化时使用参数 `type = 'month'` 时，日历类型也会变为 `'month'`。它提供对每个月份信息的访问。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `monthEl` - HTML 月份元素。
+
+---
+
+## onCreateYearEls()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onCreateYearEls(self, yearEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateYearEls(self, yearEl) {},
+});
+```
+
+此方法在日历类型设置为 `'year'` 时触发。当用户单击年份标题或在初始化时使用参数 `type = 'year'` 时，日历类型变为 `'year'`。它提供对每个年份信息的访问。您可以获取以下参数：
+- `self` - 对初始化日历的引用；
+- `yearEl` - HTML 年份元素。
+
+---
+
+## onInit()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onInit(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onInit(self) {},
+});
+```
+
+此方法在日历初始化期间触发。如果 `inputMode` 参数设置为 `true`，该方法将在日历首次显示时执行，因为这是日历初始化的时间。
+- `self` - 对初始化日历的引用。
+
+---
+
+## onUpdate()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onUpdate(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onUpdate(self) {},
+});
+```
+
+此方法在使用 `.update()` 方法更新/重置日历时触发。
+- `self` - 对初始化日历的引用。
+
+---
+
+## onDestroy()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onDestroy(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onDestroy(self) {},
+});
+```
+
+此方法在日历销毁时触发。
+- `self` - 对初始化日历的引用。
+
+---
+
+## onShow()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onShow(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onShow(self) {},
+});
+```
+
+此方法在日历显示给用户时触发，但仅当 `inputMode` 参数设置为 `true` 时。
+- `self` - 对初始化日历的引用。
+
+---
+
+## onHide()
+
+`类型: 函数`
+
+`默认: null`
+
+`选项: onHide(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onHide(self) {},
+});
+```
+
+此方法在日历隐藏时触发，但仅当 `inputMode` 参数设置为 `true` 时。
+- `self` - 对初始化日历的引用。

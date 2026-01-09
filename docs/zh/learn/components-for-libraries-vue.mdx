@@ -1,12 +1,12 @@
 ---
-title: Vue Component
-description: Learn how to create and use a Vue component for Vanilla Calendar Pro. A detailed guide on creating the component and integrating it into a Vue application.
-section: 7. Components for Libraries
+title: Vue 组件
+description: 学习如何为 Vanilla Calendar Pro 创建和使用 Vue 组件。创建组件并将其集成到 Vue 应用程序中的详细指南。
+section: 7. 库组件
 ---
 
-# Vue Component
+# Vue 组件
 
-To demonstrate, let's create a simple Vue component for Vanilla Calendar Pro. Create a file named `VanillaCalendar.vue` and copy the following code into it:
+为了演示，让我们为 Vanilla Calendar Pro 创建一个简单的 Vue 组件。创建一个名为 `VanillaCalendar.vue` 的文件，并将以下代码复制到其中：
 
 ```vue
 <script setup lang="ts">
@@ -30,7 +30,7 @@ onMounted(() => {
 </template>
 ```
 
-Then import the created `VanillaCalendar` component into your Vue application where you want to display the calendar.
+然后将创建的 `VanillaCalendar` 组件导入到您想要显示日历的 Vue 应用程序中。
 
 ```vue
 <script setup lang="ts">
@@ -40,7 +40,7 @@ import VanillaCalendar from './VanillaCalendar.vue';
 </script>
 ```
 
-Use the created component.
+使用创建的组件。
 
 ```vue
 <template>
@@ -50,7 +50,7 @@ Use the created component.
 </template>
 ```
 
-The `VanillaCalendar` component can accept any HTML attributes supported by the `<div>` tag, as well as the `config` parameter for calendar configuration.
+`VanillaCalendar` 组件可以接受 `<div>` 标签支持的任何 HTML 属性，以及用于日历配置的 `config` 参数。
 
 ```vue
 <template>

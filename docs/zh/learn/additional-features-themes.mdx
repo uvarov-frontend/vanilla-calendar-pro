@@ -1,0 +1,27 @@
+---
+title: 主题
+description: 日历支持自定义主题，默认具有浅色和深色主题。学习如何配置主题并使用系统设置或您自己的主题。
+section: 6. 附加功能
+---
+
+# 主题
+
+日历支持自定义主题，默认具有浅色和深色主题。
+
+如果 `themeAttrDetect` 参数设置为 `false`，主题将由用户的系统设置或 `selectedTheme` 参数确定。
+
+日历可以根据设置的标签和属性自动检测和跟踪网站的主题。有关此参数的更多信息可以在参考指南中找到。
+
+如果您的网站仅支持一个主题，或者您想根据自己的喜好自定义日历的外观，可以明确选择可用的主题之一。
+
+以下示例演示了强制使用深色主题：
+
+<Sandbox example="additional-features-themes-dark" themeDetection={false} />
+
+这是相同的示例，但使用浅色主题：
+
+<Sandbox example="additional-features-themes-light" themeDetection={false} />
+
+如上所述，您可以使用自己的主题，自己创建它们，或者如果它们存在，从日历中导入它们。
+
+<Sandbox example="additional-features-themes-slate-light" themeDetection={false} />

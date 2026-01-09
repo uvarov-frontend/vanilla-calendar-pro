@@ -1,0 +1,19 @@
+---
+title: 多选
+description: 学习如何使用 'multiple' 日历类型来显示多个月份并选择日期。使用 selectionDatesMode 参数配置日期范围选择。
+section: 2. 日历类型
+---
+
+# 多选
+
+`'multiple'` 日历类型显示多个月份，允许您在其中的每一个月份中选择日期。当用户需要在不同月份中选择多个日期时，这种类型的日历非常有用。为此，您需要使用 `selectionDatesMode` 参数并将其值设置为 `'multiple'`。
+
+创建 `'multiple'` 类型日历的示例代码：
+
+<Sandbox example="type-multiple" vertically={false} height={680} />
+
+如果您需要选择日期范围，可以使用 `selectionDatesMode` 参数并将其值设置为 `'multiple-ranged'`。这允许您选择日期范围而不是单个日期。
+
+<Info>当 `selectionDatesMode` 参数设置为 `'multiple-ranged'` 时，为了性能优化，所选日期的数组仅包含开始和结束日期。您可以使用 `enableEdgeDatesOnly` 禁用此功能并获取完整的所选日期列表。</Info>
+
+<Sandbox example="type-multiple-ranged" vertically={false} height={680} />

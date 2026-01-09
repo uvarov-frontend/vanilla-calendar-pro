@@ -1,0 +1,889 @@
+---
+title: 设置
+description: 日历设置，包括显示类型、输入模式、定位、本地化、日期和时间。
+section: 4
+---
+
+# 设置
+
+## type
+
+`类型: 字符串`
+
+`默认: 'default'`
+
+`选项: 'default' | 'multiple' | 'month' | 'year'`
+
+```ts
+new Calendar('#calendar', {
+  type: 'default',
+});
+```
+
+`type` 参数定义显示的日历类型。
+
+---
+
+## inputMode
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  inputMode: true,
+});
+```
+
+`inputMode` 参数指示作为第一个参数传递的 `mainElement` 表示输入字段而不是日历的包装器。
+
+---
+
+## positionToInput
+
+`类型: 字符串`
+
+`默认: 'left'`
+
+`选项: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
+
+```ts
+new Calendar('#calendar', {
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
+});
+```
+
+此参数定义日历相对于输入的位置，如果日历使用 `inputMode` 参数初始化。
+
+`positionToInput` 接受一个字符串，值为 `'left'`、`'center'` 或 `'right'`，或者一个值数组 `[Y轴, X轴]`，其中 Y 轴可以是 `'bottom'` 或 `'top'`，X 轴可以是 `'left'`、`'center'` 或 `'right'`。
+如果未指定 Y 轴，则使用默认值 `'bottom'`。
+
+您可以使用值 `positionToInput: 'auto'` 根据视口中可用空间自动确定最佳位置。
+该选项允许计算所有 4 个边的可用空间，并首先尝试在输入下方显示日历，这是默认位置。
+如果下方空间不足，它将评估另一个最佳可用位置。
+
+---
+
+## firstWeekday
+
+`类型: 数字`
+
+`默认: 1`
+
+`选项: 从 0 到 6`
+
+```ts
+new Calendar('#calendar', {
+  firstWeekday: 1,
+});
+```
+
+此参数设置一周的第一天。指定一个从 0 到 6 的数字，其中数字表示星期几的标识符。根据 JS 标准，星期几从 0 开始，0 是星期日。
+
+---
+
+## monthsToSwitch
+
+`类型: 数字`
+
+`默认: 1`
+
+`选项: 从 1 到 12`
+
+```ts
+new Calendar('#calendar', {
+  monthsToSwitch: 1,
+});
+```
+
+`monthsToSwitch` 参数控制可切换月份的数量。
+
+---
+
+## themeAttrDetect
+
+`类型: 字符串 | 假`
+
+`默认: 'html[data-theme]'`
+
+`选项: '字符串 | false`
+
+```ts
+new Calendar('#calendar', {
+  themeAttrDetect: 'html[data-theme]',
+});
+```
+
+要让日历自动跟踪并应用网站的主题，您可以传递一个字符串值，形式为 CSS 选择器。
+方括号表示包含主题名称的属性。
+默认情况下，跟踪带有 `data-theme` 属性的 `html` 标签，但您可以配置任何其他属性和标签，例如 `class`，如果类名用于设置主题：`'html[class]'`。
+如果设置为 `false`，主题将由用户的系统或 `selectedTheme` 参数确定。
+
+---
+
+## locale
+
+`类型: 字符串`
+
+`默认: 'en'`
+
+`选项: 语言标签 | 数组<区域设置>`
+
+```ts
+new Calendar('#calendar', {
+  locale: 'en',
+  // 或为您的标签指定一个对象
+  // locale: {
+  //   months: {
+  //     long: [],
+  //     short: [],
+  //   },
+  //   weekday: {
+  //     long: [],
+  //     short: [],
+  //   }
+  // },
+});
+```
+
+此参数设置日历的语言本地化。
+您可以根据 <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> 指定语言标签，或提供月份和星期几名称的数组，更多详细信息请参见[此处](/docs/learn/internationalization-locale)。
+
+---
+
+## dateToday
+
+`类型: Date 对象`
+
+`默认: 'today'`
+
+`选项: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateToday: 'today',
+});
+```
+
+`dateToday` 参数定义哪个日期将被视为日历的今天。
+
+---
+
+## dateMin
+
+`类型: 字符串`
+
+`默认: '1970-01-01'`
+
+`选项: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMin: '1970-01-01',
+});
+```
+
+`dateMin` 参数设置日历将考虑的最小允许日期，该日期不能小于此日期。
+
+---
+
+## dateMax
+
+`类型: 字符串`
+
+`默认: '2470-12-31'`
+
+`选项: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMax: '2470-12-31',
+});
+```
+
+`dateMax` 参数设置日历将考虑的最大允许日期，该日期不能大于此日期。
+
+---
+
+## displayDateMin
+
+`类型: 字符串`
+
+`默认: '1970-01-01'`
+
+`选项: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMin: '2022-07-01',
+});
+```
+
+此参数设置用户可以选择的最小日期。早于指定日期的日期将被禁用且不可选择。
+
+<Info>需要注意的是，`displayDateMin` 和 `displayDateMax` 禁用范围之外的日期，而 `dateMin` 和 `dateMax` 根本不创建它们。</Info>
+
+---
+
+## displayDateMax
+
+`类型: 字符串`
+
+`默认: '2470-12-31'`
+
+`选项: 'Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMax: '2024-07-01',
+});
+```
+
+此参数设置用户可以选择的最大日期。晚于指定日期的日期将被禁用且不可选择。
+
+<Info>需要注意的是，`displayDateMin` 和 `displayDateMax` 禁用范围之外的日期，而 `dateMin` 和 `dateMax` 根本不创建它们。</Info>
+
+---
+
+## displayDatesOutside
+
+`类型: 布尔值`
+
+`默认: true`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDatesOutside: false,
+});
+```
+
+使用此参数，您可以决定是否显示上个月和下个月的日期。
+
+---
+
+## displayDisabledDates
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDisabledDates: false,
+});
+```
+
+此参数确定是否显示所有日期，包括禁用的日期。
+
+---
+
+## displayMonthsCount
+
+`类型: 数字`
+
+`默认: 2`
+
+`选项: 从 2 到 12`
+
+```ts
+new Calendar('#calendar', {
+  displayMonthsCount: 2,
+});
+```
+
+`displayMonthsCount` 参数定义如果日历类型设置为 `'multiple'` 时显示的月份数量。
+
+---
+
+## disableDates
+
+`类型: 字符串[] | 数字[] | 日期[]`
+
+`默认: null`
+
+`选项: ['YYYY-MM-DD'] | [数字] | [日期] | null`
+
+```ts
+new Calendar('#calendar', {
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+此参数允许您禁用指定的日期，无论指定的范围如何。
+
+<Info>要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。</Info>
+
+---
+
+## disableAllDates
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableAllDates: true,
+});
+```
+
+此参数禁用所有日期，在使用 `enableDates` 时可能很有用。
+
+---
+
+## disableDatesPast
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesPast: true,
+});
+```
+
+此参数禁用所有过去的日期。
+
+---
+
+## disableDatesGaps
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesGaps: true,
+});
+```
+
+此参数禁用范围内带有禁用日期的日期选择。仅当 `selectionDatesMode` 参数设置为 `'multiple-ranged'` 时才有效。
+
+---
+
+## disableWeekdays
+
+`类型: 数字`
+
+`默认: []`
+
+`选项: 从 0 到 6`
+
+```ts
+new Calendar('#calendar', {
+  disableWeekdays: [0, 6],
+});
+```
+
+此参数允许您禁用指定的星期几。指定一个包含从 0 到 6 的数字的数组，其中每个数字表示星期几的标识符。根据 JS 标准，星期几从 0 开始，0 是星期日。
+
+---
+
+## disableToday
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableToday: true,
+});
+```
+
+使用此参数，您可以禁用日历中今天日期的选择。
+
+---
+
+## enableDates
+
+`类型: 字符串[] | 数字[] | 日期[]`
+
+`默认: null`
+
+`选项: ['YYYY-MM-DD'] | [数字] | [日期] | null`
+
+```ts
+new Calendar('#calendar', {
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+此参数允许您启用指定的日期，无论范围和禁用的日期如何。
+
+<Info>
+  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
+</Info>
+
+---
+
+## enableEdgeDatesOnly
+
+`类型: 布尔值`
+
+`默认: true`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableEdgeDatesOnly: true,
+});
+```
+
+此参数允许您仅获取用户选择的开始和结束日期，忽略中间日期。此参数仅在 `selectionDatesMode` 设置为 `'multiple-ranged'` 时有效。
+
+<Info>
+  需要注意的是，使用此参数时，日期范围内的禁用日期将无效。因此，仅当您对用户选择的开始和结束日期感兴趣时才使用此选项。
+</Info>
+
+---
+
+## enableDateToggle
+
+`类型: 布尔值 | 函数`
+
+`默认: true`
+
+`选项: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  enableDateToggle: false,
+  // 或使用回调
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+如果 `enableDateToggle` 参数为 `true` 或回调返回 `true`，则再次单击选定的日期将取消选择它。
+
+---
+
+## enableWeekNumbers
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableWeekNumbers: true,
+});
+```
+
+使用此参数，您可以决定是否在年份中显示周数。
+
+---
+
+## enableMonthChangeOnDayClick
+
+`类型: 布尔值`
+
+`默认: true`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableMonthChangeOnDayClick: false,
+});
+```
+
+使用此参数，您可以决定当单击上个月或下个月的日期时月份是否会切换。
+
+---
+
+## enableJumpToSelectedDate
+
+`类型: 布尔值`
+
+`默认: false`
+
+`选项: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
+});
+```
+
+如果启用此选项并指定一个或多个选定日期，但未指定 `selectedMonth` 和 `selectedYear`，日历将跳转到第一个选定日期。如果设置为 `false`，日历将始终打开当前月份和年份。
+
+<Info>
+  如果指定了 `selectedMonth` 和 `selectedYear`，此选项无效。
+</Info>
+
+---
+
+## selectionDatesMode
+
+`类型: 字符串 | false`
+
+`默认: 'single'`
+
+`选项: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```ts
+new Calendar('#calendar', {
+  selectionDatesMode: 'single',
+});
+```
+
+此参数确定是允许选择一个或多个日期，还是完全禁用日期选择。
+
+---
+
+## selectionMonthsMode
+
+`类型: 布尔值`
+
+`默认: true`
+
+`选项: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionMonthsMode: false,
+});
+```
+
+此参数允许您禁用月份选择，仅允许使用箭头切换月份，或允许以任何方式切换月份。
+
+---
+
+## selectionYearsMode
+
+`类型: 布尔值`
+
+`默认: true`
+
+`选项: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionYearsMode: false,
+});
+```
+
+此参数允许您禁用年份选择，仅允许使用箭头切换年份，或允许以任何方式切换年份。
+
+---
+
+## selectionTimeMode
+
+`类型: 假 | 数字`
+
+`默认: false`
+
+`选项: false | 24 | 12`
+
+```ts
+new Calendar('#calendar', {
+  selectionTimeMode: true,
+});
+```
+
+此参数启用时间选择。您还可以使用数字指定时间格式：24 小时制或 12 小时制。
+
+---
+
+## selectedDates
+
+`类型: 字符串[] | 数字[] | 日期[]`
+
+`默认: null`
+
+`选项: ['YYYY-MM-DD'] | [数字] | [日期] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+此参数允许您指定在日历初始化时将选择的日期列表。
+
+<Info>
+  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
+</Info>
+
+---
+
+## selectedMonth
+
+`类型: 数字`
+
+`默认: null`
+
+`选项: 从 0 到 11 | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedMonth: 0,
+});
+```
+
+此参数定义在日历初始化时将显示的月份。根据 JS 标准，月份从 0 到 11 编号。
+
+---
+
+## selectedYear
+
+`类型: 数字`
+
+`默认: null`
+
+`选项: 数字 (YYYY) | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedYear: 2022,
+});
+```
+
+此参数定义在日历初始化时将显示的年份。
+
+---
+
+## selectedHolidays
+
+`类型: 字符串[] | 数字[] | 日期[]`
+
+`默认: null`
+
+`选项: ['YYYY-MM-DD'] | [数字] | [日期] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+此参数允许您指定将被视为节假日的日期，并将接收额外的数据属性以进行样式设置。
+
+<Info>
+  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
+</Info>
+
+---
+
+## selectedWeekends
+
+`类型: 数字`
+
+`默认: [0, 6]`
+
+`选项: 数字[0-6]`
+
+```ts
+new Calendar('#calendar', {
+  selectedWeekends: [0, 6],
+});
+```
+
+此参数允许您指定一周的周末日。指定一个包含从 0 到 6 的数字的数组，其中每个数字表示星期几的标识符。根据 JS 标准，星期几从 0 开始，0 是星期日。
+
+---
+
+## selectedTime
+
+`类型: 字符串`
+
+`默认: null`
+
+`选项: 'hh:mm aa' | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedTime: '03:44 AM',
+});
+```
+
+此参数允许您设置在日历初始化时将显示的时间。时间以格式 `'hh:mm aa'` 设置，其中 `'aa'` 是 AM/PM 标记。如果使用 24 小时制，则不需要 `'aa'` 标记。
+
+---
+
+## selectedTheme
+
+`类型: 字符串`
+
+`默认: 'system'`
+
+`选项: 字符串 (自定义主题) | 'light' | 'dark' | 'system'`
+
+```ts
+new Calendar('#calendar', {
+  selectedTheme: 'system',
+});
+```
+
+此参数定义日历的主题。默认情况下，主题由用户的系统或网站设置确定。
+
+---
+
+## timeMinHour
+
+`类型: 数字`
+
+`默认: 0`
+
+`选项: 从 0 到 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMinHour: 0,
+});
+```
+
+此参数指定哪个小时将是选择的最小值。
+
+---
+
+## timeMaxHour
+
+`类型: 数字`
+
+`默认: 23`
+
+`选项: 从 0 到 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxHour: 23,
+});
+```
+
+此参数指定哪个小时将是选择的最大值。
+
+---
+
+## timeMinMinute
+
+`类型: 数字`
+
+`默认: 0`
+
+`选项: 从 0 到 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMinMinute: 0,
+});
+```
+
+此参数指定哪个分钟将是选择的最小值。
+
+---
+
+## timeMaxMinute
+
+`类型: 数字`
+
+`默认: 59`
+
+`选项: 从 0 到 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxMinute: 59,
+});
+```
+
+此参数指定哪个分钟将是选择的最大值。
+
+---
+
+## timeControls
+
+`类型: 字符串`
+
+`默认: 'all'`
+
+`选项: 'all' | 'range'`
+
+```ts
+new Calendar('#calendar', {
+  timeControls: 'all',
+});
+```
+
+此参数定义时间选择的方法：`'all'`（任何方法）或 `'range'`（仅使用控制器）。
+
+---
+
+## timeStepHour
+
+`类型: 数字`
+
+`默认: 1`
+
+`选项: 从 1 到 23`
+
+```ts
+new Calendar('#calendar', {
+  timeStepHour: 1,
+});
+```
+
+此参数设置小时控制器的步长。
+
+---
+
+## timeStepMinute
+
+`类型: 数字`
+
+`默认: 1`
+
+`选项: 从 1 到 59`
+
+```ts
+new Calendar('#calendar', {
+  timeStepMinute: 1,
+});
+```
+
+此参数设置分钟控制器的步长。
+
+---
+
+## sanitizerHTML
+
+`类型: 函数`
+
+`默认: (html) => html`
+
+```ts
+import DOMPurify from 'dompurify';
+
+new Calendar('#calendar', {
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizerHTML` 可以清理 HTML 模板，使其对 CSP 安全。
+
+<Info>
+  请注意，该示例使用第三方库 <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>。`sanitizerHTML` 不是日历运行所必需的。
+</Info>
