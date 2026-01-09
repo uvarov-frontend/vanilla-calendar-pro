@@ -15,7 +15,11 @@ export type MonthsCount = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type Positions = 'bottom' | 'top' | 'center' | 'left' | 'right';
 
-export type PositionToInput = 'auto' | 'center' | 'left' | 'right' | [Positions];
+export type YPosition = 'bottom' | 'top';
+
+export type XPosition = 'left' | 'center' | 'right';
+
+export type PositionToInput = 'auto' | XPosition | [YPosition, XPosition];
 
 export type Range<N extends number, Acc extends number[] = []> = Acc['length'] extends N ? Acc[number] : Range<N, [...Acc, Acc['length']]>;
 
