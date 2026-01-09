@@ -35,7 +35,7 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
     const gridEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
     const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
-    if (controlsEl) self.context.mainElement.removeChild(controlsEl);
+    if (controlsEl) controlsEl.remove();
     if (gridEl) gridEl.dataset.vcGrid = 'hidden';
     if (columnEl) columnEl.dataset.vcColumn = self.context.currentType;
     if (columnEl) columnEl.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
