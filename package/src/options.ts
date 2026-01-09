@@ -24,8 +24,8 @@ import type {
 export default class OptionsCalendar {
   type: TypesCalendar = 'default';
 
-  openOnFocus: boolean = true;
   inputMode: boolean = false;
+  openOnFocus: ToggleSelected = true;
   positionToInput: PositionToInput = 'left';
 
   firstWeekday: WeekDayID = 1;

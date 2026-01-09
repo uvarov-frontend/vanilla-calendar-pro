@@ -44,19 +44,21 @@ The `inputMode` parameter indicates that the `mainElement`, passed as the first 
 
 ## openOnFocus
 
-`Type: Boolean`
+`Type: Boolean | Function`
 
 `Default: true`
 
-`Options: true | false`
+`Options: true | false | () => false`
 
 ```ts
 new Calendar('#calendar', {
-  openOnFocus: false
+  openOnFocus: false,
+  // or with a callback
+  openOnFocus: (self) => !self.context.isShowInInputMode,
 });
 ```
 
-This parameter disables the automatic opening of the calendar allowing developers to implement their own focus handler on the input element
+If the `openOnFocus` parameter is `true` or the callback returns `true`, then focusing the input will open the calendar. Use `false` or a callback to control this behavior and implement your own focus handler.
 
 ---
 
