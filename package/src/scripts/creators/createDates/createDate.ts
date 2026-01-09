@@ -23,7 +23,7 @@ const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: We
 const createDate = (
   self: Calendar,
   currentYear: number,
-  datesEl: HTMLElement,
+  datesContainer: { addDate: (dateEl: HTMLElement) => void },
   dateID: number,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
@@ -36,13 +36,13 @@ const createDate = (
   dateEl.dataset.vcDate = dateStr;
   dateEl.dataset.vcDateMonth = monthType;
   dateEl.dataset.vcDateWeekDay = String(dayWeekID);
+  dateEl.role = 'gridcell';
 
   let dateBtnEl: HTMLButtonElement | undefined = undefined;
   if (monthType !== 'current' ? self.displayDatesOutside : true) {
     dateBtnEl = document.createElement('button');
     dateBtnEl.className = self.styles.dateBtn;
     dateBtnEl.type = 'button';
-    dateBtnEl.role = 'gridcell';
     dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
     dateBtnEl.dataset.vcDateBtn = '';
     dateBtnEl.innerText = String(dateID);
@@ -54,7 +54,7 @@ const createDate = (
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
-  datesEl.appendChild(dateEl);
+  datesContainer.addDate(dateEl);
   if (self.onCreateDateEls) self.onCreateDateEls(self, dateEl);
 };
 
