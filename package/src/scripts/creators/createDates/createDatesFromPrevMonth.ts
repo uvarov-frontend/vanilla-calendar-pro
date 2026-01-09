@@ -1,7 +1,13 @@
-import createDate, { type DateContainer } from '@scripts/creators/createDates/createDate';
+import createDate from '@scripts/creators/createDates/createDate';
 import type { Calendar, FormatDateString } from '@src/index';
 
-const createDatesFromPrevMonth = (self: Calendar, datesContainer: DateContainer, currentYear: number, currentMonth: number, firstDayWeek: number) => {
+const createDatesFromPrevMonth = (
+  self: Calendar,
+  datesContainer: { addDate: (dateEl: HTMLElement) => void },
+  currentYear: number,
+  currentMonth: number,
+  firstDayWeek: number,
+) => {
   let date = new Date(currentYear, currentMonth, 0).getDate() - (firstDayWeek - 1);
   const year = currentMonth === 0 ? currentYear - 1 : currentYear;
   const month = currentMonth === 0 ? 12 : currentMonth < 10 ? `0${currentMonth}` : currentMonth;

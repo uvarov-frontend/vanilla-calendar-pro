@@ -21,22 +21,22 @@ const createDates = (self: Calendar) => {
     const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.firstWeekday + 7) % 7;
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    // Calculate total number of weeks (rows) needed
     const totalDays = firstDayWeek + days;
     const totalWeeks = Math.ceil(totalDays / 7);
+    const daysNextMonth = totalWeeks * 7 - totalDays;
 
-    // Create all week rows
     const weekRows: HTMLElement[] = [];
+    const weekRowsFragment = document.createDocumentFragment();
+
     for (let i = 0; i < totalWeeks; i++) {
       const weekRow = document.createElement('div');
       weekRow.className = self.styles.datesRow;
-      weekRow.setAttribute('data-vc-dates-row', '');
+      weekRow.setAttribute('data-vc-dates', 'row');
       weekRow.setAttribute('role', 'row');
-      datesEl.appendChild(weekRow);
+      weekRowsFragment.appendChild(weekRow);
       weekRows.push(weekRow);
     }
 
-    // Create a wrapper container that tracks current row/position
     let currentRowIndex = 0;
     let daysInCurrentRow = 0;
 
@@ -48,12 +48,13 @@ const createDates = (self: Calendar) => {
           currentRowIndex++;
           daysInCurrentRow = 0;
         }
-      }
+      },
     };
 
     createDatesFromPrevMonth(self, dateContainer, currentYear, currentMonth, firstDayWeek);
     createDatesFromCurrentMonth(self, dateContainer, days, currentYear, currentMonth);
-    createDatesFromNextMonth(self, dateContainer, days, currentYear, currentMonth, firstDayWeek);
+    createDatesFromNextMonth(self, dateContainer, daysNextMonth, currentYear, currentMonth);
+    datesEl.appendChild(weekRowsFragment);
     createDatePopup(self, datesEl);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });

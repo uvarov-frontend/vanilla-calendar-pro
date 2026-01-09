@@ -4,10 +4,6 @@ import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
-export interface DateContainer {
-  addDate: (dateEl: HTMLElement) => void;
-}
-
 const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
   const weekNumber = getWeekNumber(dateStr, self.firstWeekday);
   if (!weekNumber) return;
@@ -27,7 +23,7 @@ const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: We
 const createDate = (
   self: Calendar,
   currentYear: number,
-  datesContainer: DateContainer,
+  datesContainer: { addDate: (dateEl: HTMLElement) => void },
   dateID: number,
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
