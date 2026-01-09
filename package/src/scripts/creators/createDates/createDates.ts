@@ -26,14 +26,12 @@ const createDates = (self: Calendar) => {
     const daysNextMonth = totalWeeks * 7 - totalDays;
 
     const weekRows: HTMLElement[] = [];
-    const weekRowsFragment = document.createDocumentFragment();
 
     for (let i = 0; i < totalWeeks; i++) {
       const weekRow = document.createElement('div');
       weekRow.className = self.styles.datesRow;
       weekRow.setAttribute('data-vc-dates', 'row');
       weekRow.setAttribute('role', 'row');
-      weekRowsFragment.appendChild(weekRow);
       weekRows.push(weekRow);
     }
 
@@ -54,7 +52,9 @@ const createDates = (self: Calendar) => {
     createDatesFromPrevMonth(self, dateContainer, currentYear, currentMonth, firstDayWeek);
     createDatesFromCurrentMonth(self, dateContainer, days, currentYear, currentMonth);
     createDatesFromNextMonth(self, dateContainer, daysNextMonth, currentYear, currentMonth);
-    datesEl.appendChild(weekRowsFragment);
+    for (const weekRow of weekRows) {
+      datesEl.appendChild(weekRow);
+    }
     createDatePopup(self, datesEl);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
