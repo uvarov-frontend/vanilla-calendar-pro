@@ -1,0 +1,25 @@
+---
+title: 기본(단일)
+description: "'default' 캘린더 타입으로 한 달을 표시하고 날짜를 선택하는 방법을 알아보세요. inputMode 파라미터로 요소 클릭 시 캘린더가 표시되도록 설정할 수 있습니다."
+section: 2. 캘린더 타입
+---
+
+# 기본(단일)
+
+## 정적
+
+`'default'` 캘린더 타입은 한 달을 표시하고 날짜를 선택할 수 있으며, 화살표로 월을 이동하고 헤더에서 월/연도를 선택할 수 있습니다. 이는 캘린더의 표준 표시 모드입니다.
+
+<Sandbox example="type-default" />
+
+## Input과 함께
+
+**«Input»**을 클릭했을 때 캘린더를 표시해야 한다면, `inputMode: true` 파라미터로 초기화하여 쉽게 설정할 수 있습니다.
+
+<Info>
+  이 캘린더에서 **«Input»**은 반드시 `<input>` 태그일 필요가 없습니다. `<div>` 같은 어떤 HTML 요소라도 될 수 있습니다. **«Input»**에서는 모든 타입의 캘린더를 초기화할 수 있습니다.
+</Info>
+
+기본적으로 캘린더는 **«Input»** 필드에 어떤 값도 쓰지 않기 때문에, `value`에 무엇을 보여줄지 완전히 제어할 수 있습니다.
+
+<Sandbox example="type-default-in-input" height={470} input={true} />

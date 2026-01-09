@@ -1,0 +1,69 @@
+---
+title: React 컴포넌트
+description: Vanilla Calendar Pro를 위한 React 컴포넌트를 만들고 사용하는 방법을 알아보세요. 컴포넌트 생성과 React 애플리케이션 통합에 대한 상세 가이드입니다.
+section: 7. 라이브러리용 컴포넌트
+---
+
+# React 컴포넌트
+
+<Info>
+  TypeScript를 사용하지 않는다면 `.tsx` 대신 `.jsx` 확장자를 사용하고, 컴포넌트에서 `CalendarProps` 인터페이스를 제거하세요.
+</Info>
+
+데모를 위해 Vanilla Calendar Pro용 가장 단순한 React 컴포넌트를 살펴보겠습니다. `VanillaCalendar.tsx` 파일을 만들고 아래 코드를 붙여넣으세요:
+
+```tsx
+import { useEffect, useRef, useState } from 'react';
+import { Options, Calendar } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+interface CalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  config?: Options,
+}
+
+function VanillaCalendar({ config, ...attributes }: CalendarProps) {
+  const ref = useRef(null);
+  const [calendar, setCalendar] = useState<Calendar | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    setCalendar(new Calendar(ref.current, config));
+  }, [ref, config])
+
+  useEffect(() => {
+    if (!calendar) return;
+    calendar.init()
+  }, [calendar])
+
+  return (
+    <div {...attributes} ref={ref}></div>
+  )
+}
+
+export default VanillaCalendar;
+```
+
+그 다음, 캘린더를 표시할 React 애플리케이션 위치에서 생성한 `VanillaCalendar` 컴포넌트를 임포트합니다.
+
+```tsx
+import VanillaCalendar from './VanillaCalendar';
+```
+
+생성한 컴포넌트를 사용하세요.
+
+```tsx
+// ...
+<VanillaCalendar />
+// ...
+```
+
+`VanillaCalendar` 컴포넌트는 `<div>`가 지원하는 모든 HTML 속성과 캘린더 설정을 위한 `config` 파라미터를 받을 수 있습니다.
+
+```tsx
+// ...
+<VanillaCalendar config={{
+    type: 'multiple',
+  }} className="thisIsMyClass" />
+// ...
+```

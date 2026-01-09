@@ -1,0 +1,16 @@
+---
+title: 최소 및 최대 날짜
+description: dateMin과 dateMax 파라미터로 캘린더의 날짜 범위를 설정하는 방법을 알아보세요. 최소/최대 날짜를 구성하여 허용 범위를 제한할 수 있습니다.
+section: 4. 날짜 및 시간 관리
+---
+
+# 최소 및 최대 날짜
+
+캘린더의 날짜 범위는 `dateMin`과 `dateMax` 파라미터로 설정할 수 있습니다. 이 파라미터들은 캘린더에서 허용되는 날짜 범위를 지정합니다.
+
+기본 최소 날짜는 `'1970-01-01'`이며, 이는 <a href="https://en.wikipedia.org/wiki/Unix_time" rel="noopener noreferrer" target="_blank">UNIX 시간</a>의 시작을 의미합니다.
+기본 최대 날짜는 `'2470-12-31'`로 설정되어 있으며 임의로 선택된 값입니다.
+
+가능한 날짜 범위를 특정 값으로 제한해야 한다면 `dateMin`과 `dateMax`의 값을 원하는 날짜로 교체하세요. 지정된 범위를 벗어난 날짜는 캘린더에서 처리되지 않습니다.
+
+<Sandbox example="date-management-date-min-and-max" />

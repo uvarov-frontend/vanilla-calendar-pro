@@ -1,0 +1,909 @@
+---
+title: 설정
+description: 표시 타입, 입력 모드, 위치 지정, 로컬라이징, 날짜와 시간 등 캘린더 설정을 설명합니다.
+section: 4
+---
+
+# 설정
+
+## type
+
+`Type: String`
+
+`Default: 'default'`
+
+`Options: 'default' | 'multiple' | 'month' | 'year'`
+
+```ts
+new Calendar('#calendar', {
+  type: 'default',
+});
+```
+
+`type` 파라미터는 표시될 캘린더 타입을 정의합니다.
+
+---
+
+## inputMode
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  inputMode: true,
+});
+```
+
+`inputMode` 파라미터는 첫 번째 파라미터로 전달된 `mainElement`가 캘린더 래퍼가 아니라 입력 필드임을 나타냅니다.
+
+---
+
+## openOnFocus
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  openOnFocus: false,
+  // or with a callback
+  openOnFocus: (self) => !self.context.isShowInInputMode,
+});
+```
+
+`openOnFocus`가 `true`이거나 콜백이 `true`를 반환하면 입력 필드에 포커스가 들어올 때 캘린더가 열립니다. 이 동작을 제어하고 자체 포커스 핸들러를 구현하려면 `false` 또는 콜백을 사용하세요.
+
+---
+
+## positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
+
+```ts
+new Calendar('#calendar', {
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
+});
+```
+
+캘린더가 `inputMode` 파라미터로 초기화된 경우, 이 파라미터는 입력 필드에 대한 캘린더 위치를 정의합니다.
+
+`positionToInput`은 `'left'`, `'center'`, `'right'` 중 하나의 문자열 또는 `[Y축, X축]` 배열을 받습니다. Y축은 `'bottom'` 또는 `'top'`, X축은 `'left'`, `'center'`, `'right'` 중 하나가 될 수 있습니다.
+Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
+
+`positionToInput: 'auto'`를 사용하면 뷰포트의 사용 가능한 공간을 기반으로 최적의 위치를 자동 계산합니다.
+이 옵션은 4방향의 여유 공간을 계산한 뒤 기본 위치인 입력 필드 아래에 먼저 표시하려고 시도합니다.
+아래 공간이 부족하면 다른 최적의 위치를 평가합니다.
+
+---
+
+## firstWeekday
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  firstWeekday: 1,
+});
+```
+
+이 파라미터는 주의 시작 요일을 설정합니다. 0~6 사이의 숫자를 지정하며, 숫자는 요일 식별자를 의미합니다. JS 표준에 따라 요일은 0부터 시작하며 0은 일요일입니다.
+
+---
+
+## monthsToSwitch
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 12`
+
+```ts
+new Calendar('#calendar', {
+  monthsToSwitch: 1,
+});
+```
+
+`monthsToSwitch` 파라미터는 전환할 월의 개수를 제어합니다.
+
+---
+
+## themeAttrDetect
+
+`Type: String | false`
+
+`Default: 'html[data-theme]'`
+
+`Options: string | false`
+
+```ts
+new Calendar('#calendar', {
+  themeAttrDetect: 'html[data-theme]',
+});
+```
+
+캘린더가 사이트 테마를 자동으로 추적하고 적용하도록 하려면, CSS 셀렉터 형태의 문자열 값을 전달할 수 있습니다.
+대괄호는 테마 이름이 들어 있는 속성을 의미합니다.
+기본적으로 `data-theme` 속성이 있는 `html` 태그를 추적하지만, 예를 들어 클래스 이름으로 테마를 설정하는 경우 `'html[class]'`처럼 다른 속성과 태그로 설정할 수 있습니다.
+`false`로 설정하면 테마는 사용자 시스템 또는 `selectedTheme` 파라미터에 의해 결정됩니다.
+
+---
+
+## locale
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | Array<locale>`
+
+```ts
+new Calendar('#calendar', {
+  locale: 'en',
+  // Or specify an object for your labels
+  // locale: {
+  //   months: {
+  //     long: [],
+  //     short: [],
+  //   },
+  //   weekday: {
+  //     long: [],
+  //     short: [],
+  //   }
+  // },
+});
+```
+
+이 파라미터는 캘린더의 언어 로컬라이징을 설정합니다.
+<a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a>에 따른 언어 태그를 지정하거나, 월/요일 이름 배열을 제공할 수 있습니다. 자세한 내용은 [여기](/docs/learn/internationalization-locale)를 참고하세요.
+
+---
+
+## dateToday
+
+`Type: Date object`
+
+`Default: 'today'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateToday: 'today',
+});
+```
+
+`dateToday` 파라미터는 캘린더에서 오늘로 간주할 날짜를 정의합니다.
+
+---
+
+## dateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMin: '1970-01-01',
+});
+```
+
+`dateMin` 파라미터는 캘린더에서 허용되는 최소 날짜를 설정하며, 이 날짜보다 이전은 허용되지 않습니다.
+
+---
+
+## dateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMax: '2470-12-31',
+});
+```
+
+`dateMax` 파라미터는 캘린더에서 허용되는 최대 날짜를 설정하며, 이 날짜보다 이후는 허용되지 않습니다.
+
+---
+
+## displayDateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMin: '2022-07-01',
+});
+```
+
+이 파라미터는 사용자가 선택할 수 있는 최소 날짜를 설정합니다. 지정된 날짜보다 이전 날짜는 비활성화되어 선택할 수 없습니다.
+
+<Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
+
+---
+
+## displayDateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMax: '2024-07-01',
+});
+```
+
+이 파라미터는 사용자가 선택할 수 있는 최대 날짜를 설정합니다. 지정된 날짜보다 이후 날짜는 비활성화되어 선택할 수 없습니다.
+
+<Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
+
+---
+
+## displayDatesOutside
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDatesOutside: false,
+});
+```
+
+이 파라미터로 이전/다음 달의 날짜를 표시할지 여부를 결정할 수 있습니다.
+
+---
+
+## displayDisabledDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDisabledDates: false,
+});
+```
+
+이 파라미터는 비활성 날짜를 포함한 모든 날짜를 표시할지 여부를 결정합니다.
+
+---
+
+## displayMonthsCount
+
+`Type: Number`
+
+`Default: 2`
+
+`Options: from 2 to 12`
+
+```ts
+new Calendar('#calendar', {
+  displayMonthsCount: 2,
+});
+```
+
+`displayMonthsCount` 파라미터는 캘린더 타입이 `'multiple'`일 때 표시되는 월 수를 정의합니다.
+
+---
+
+## disableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+이 파라미터는 지정한 날짜를 범위와 무관하게 비활성화할 수 있습니다.
+
+<Info>날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.</Info>
+
+---
+
+## disableAllDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableAllDates: true,
+});
+```
+
+이 파라미터는 모든 날짜를 비활성화하며, `enableDates`와 함께 사용할 때 유용합니다.
+
+---
+
+## disableDatesPast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesPast: true,
+});
+```
+
+이 파라미터는 과거의 모든 날짜를 비활성화합니다.
+
+---
+
+## disableDatesGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesGaps: true,
+});
+```
+
+이 파라미터는 비활성 날짜가 포함된 범위 안에서의 날짜 선택을 막습니다. `selectionDatesMode`가 `'multiple-ranged'`로 설정된 경우에만 동작합니다.
+
+---
+
+## disableWeekdays
+
+`Type: Number`
+
+`Default: []`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  disableWeekdays: [0, 6],
+});
+```
+
+이 파라미터는 특정 요일을 비활성화할 수 있습니다. 0~6의 숫자를 가진 배열을 지정하며, 숫자는 요일 식별자를 의미합니다. JS 표준에 따라 요일은 0부터 시작하며 0은 일요일입니다.
+
+---
+
+## disableToday
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableToday: true,
+});
+```
+
+이 파라미터로 오늘 날짜 선택을 비활성화할 수 있습니다.
+
+---
+
+## enableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+이 파라미터는 범위와 비활성 날짜 설정과 무관하게 지정한 날짜를 활성화할 수 있습니다.
+
+<Info>
+  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
+</Info>
+
+---
+
+## enableEdgeDatesOnly
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableEdgeDatesOnly: true,
+});
+```
+
+이 파라미터는 사용자가 선택한 날짜 중 시작/종료 날짜만 가져오고, 중간 날짜를 무시하도록 합니다. `selectionDatesMode`가 `'multiple-ranged'`로 설정된 경우에만 동작합니다.
+
+<Info>
+  이 파라미터를 사용할 경우 날짜 범위 안의 비활성 날짜는 영향을 주지 않으므로, 시작/종료 날짜만 필요한 경우에만 사용하세요.
+</Info>
+
+---
+
+## enableDateToggle
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  enableDateToggle: false,
+  // or with a callback
+  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+});
+```
+
+`enableDateToggle`이 `true`이거나 콜백이 `true`를 반환하면, 이미 선택된 날짜를 다시 클릭했을 때 선택이 해제됩니다.
+
+---
+
+## enableWeekNumbers
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableWeekNumbers: true,
+});
+```
+
+이 파라미터로 연중 주 번호 표시 여부를 결정할 수 있습니다.
+
+---
+
+## enableMonthChangeOnDayClick
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableMonthChangeOnDayClick: false,
+});
+```
+
+이 파라미터로 이전/다음 달의 날짜를 클릭했을 때 월이 전환될지 여부를 결정할 수 있습니다.
+
+---
+
+## enableJumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
+});
+```
+
+이 옵션이 활성화되어 있고 하나 이상의 선택된 날짜가 지정되었지만 `selectedMonth`와 `selectedYear`를 지정하지 않았다면, 캘린더는 첫 번째 선택된 날짜로 이동합니다. `false`로 설정하면 캘린더는 항상 현재 월/연도로 열립니다.
+
+<Info>
+  이 옵션은 `selectedMonth`와 `selectedYear`가 지정된 경우에는 영향을 주지 않습니다.
+</Info>
+
+---
+
+## selectionDatesMode
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```ts
+new Calendar('#calendar', {
+  selectionDatesMode: 'single',
+});
+```
+
+이 파라미터는 단일/다중 날짜 선택을 허용할지, 혹은 날짜 선택을 완전히 비활성화할지 결정합니다.
+
+---
+
+## selectionMonthsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionMonthsMode: false,
+});
+```
+
+이 파라미터는 월 선택을 비활성화하거나, 화살표로만 월 전환을 허용하거나, 어떤 방식으로든 월 전환을 허용할지 결정합니다.
+
+---
+
+## selectionYearsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionYearsMode: false,
+});
+```
+
+이 파라미터는 연도 선택을 비활성화하거나, 화살표로만 연도 전환을 허용하거나, 어떤 방식으로든 연도 전환을 허용할지 결정합니다.
+
+---
+
+## selectionTimeMode
+
+`Type: false | Number`
+
+`Default: false`
+
+`Options: false | 24 | 12`
+
+```ts
+new Calendar('#calendar', {
+  selectionTimeMode: true,
+});
+```
+
+이 파라미터는 시간 선택을 활성화합니다. 숫자로 24시간 또는 12시간 형식을 지정할 수도 있습니다.
+
+---
+
+## selectedDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+이 파라미터는 캘린더 초기화 시 선택될 날짜 목록을 지정할 수 있습니다.
+
+<Info>
+  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
+</Info>
+
+---
+
+## selectedMonth
+
+`Type: Number`
+
+`Default: null`
+
+`Options: from 0 to 11 | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedMonth: 0,
+});
+```
+
+이 파라미터는 캘린더 초기화 시 표시될 월을 정의합니다. JS 표준에 따라 월은 0~11로 번호가 매겨집니다. 첫 번째 선택된 날짜로 이동하려면 [enableJumpToSelectedDate](/docs/reference/settings#enablejumptoselecteddate)를 참고하세요.
+
+---
+
+## selectedYear
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedYear: 2022,
+});
+```
+
+이 파라미터는 캘린더 초기화 시 표시될 연도를 정의합니다. 첫 번째 선택된 날짜로 이동하려면 [enableJumpToSelectedDate](/docs/reference/settings#enablejumptoselecteddate)를 참고하세요.
+
+---
+
+## selectedHolidays
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+이 파라미터는 공휴일로 간주될 날짜를 지정하며, 스타일링을 위한 추가 data 속성이 부여됩니다.
+
+<Info>
+  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
+</Info>
+
+---
+
+## selectedWeekends
+
+`Type: Number`
+
+`Default: [0, 6]`
+
+`Options: number[0-6]`
+
+```ts
+new Calendar('#calendar', {
+  selectedWeekends: [0, 6],
+});
+```
+
+이 파라미터는 주말 요일을 지정할 수 있습니다. 0~6의 숫자 배열을 지정하며, 숫자는 요일 식별자를 의미합니다. JS 표준에 따라 요일은 0부터 시작하며 0은 일요일입니다.
+
+---
+
+## selectedTime
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedTime: '03:44 AM',
+});
+```
+
+이 파라미터는 캘린더 초기화 시 표시될 시간을 설정합니다. 시간은 `'hh:mm aa'` 형식이며, `'aa'`는 AM/PM 표시입니다. 24시간 형식을 사용할 때는 `'aa'` 표시가 필요 없습니다.
+
+---
+
+## selectedTheme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: string (custom theme) | 'light' | 'dark' | 'system'`
+
+```ts
+new Calendar('#calendar', {
+  selectedTheme: 'system',
+});
+```
+
+이 파라미터는 캘린더의 테마를 정의합니다. 기본적으로 테마는 사용자의 시스템 또는 사이트 설정에 따라 결정됩니다.
+
+---
+
+## timeMinHour
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMinHour: 0,
+});
+```
+
+이 파라미터는 선택 가능한 최소 시간을 지정합니다.
+
+---
+
+## timeMaxHour
+
+`Type: Number`
+
+`Default: 23`
+
+`Options: from 0 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxHour: 23,
+});
+```
+
+이 파라미터는 선택 가능한 최대 시간을 지정합니다.
+
+---
+
+## timeMinMinute
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMinMinute: 0,
+});
+```
+
+이 파라미터는 선택 가능한 최소 분을 지정합니다.
+
+---
+
+## timeMaxMinute
+
+`Type: Number`
+
+`Default: 59`
+
+`Options: from 0 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeMaxMinute: 59,
+});
+```
+
+이 파라미터는 선택 가능한 최대 분을 지정합니다.
+
+---
+
+## timeControls
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```ts
+new Calendar('#calendar', {
+  timeControls: 'all',
+});
+```
+
+이 파라미터는 시간 선택 방법을 정의합니다: `'all'`(모든 방법) 또는 `'range'`(컨트롤러만).
+
+---
+
+## timeStepHour
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 23`
+
+```ts
+new Calendar('#calendar', {
+  timeStepHour: 1,
+});
+```
+
+이 파라미터는 시간 컨트롤러의 단계(step)를 설정합니다.
+
+---
+
+## timeStepMinute
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 59`
+
+```ts
+new Calendar('#calendar', {
+  timeStepMinute: 1,
+});
+```
+
+이 파라미터는 분 컨트롤러의 단계(step)를 설정합니다.
+
+---
+
+## sanitizerHTML
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```ts
+import DOMPurify from 'dompurify';
+
+new Calendar('#calendar', {
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizerHTML`은 HTML 템플릿을 정제해 CSP에 안전하도록 만들 수 있습니다.
+
+<Info>
+  예제는 서드파티 라이브러리 <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>를 사용합니다. `sanitizerHTML`은 캘린더 동작에 필수는 아닙니다.
+</Info>

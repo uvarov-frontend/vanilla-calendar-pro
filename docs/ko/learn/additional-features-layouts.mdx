@@ -1,0 +1,19 @@
+---
+title: 레이아웃
+description: 레이아웃을 사용하면 캘린더의 HTML 마크업을 커스터마이징하고 버튼 같은 요소를 추가할 수 있습니다. 캘린더 헤더를 커스터마이징하고 다양한 타입에 요소를 추가하는 방법을 알아보세요.
+section: 6. 추가 기능
+---
+
+# 레이아웃
+
+캘린더는 `layouts` 파라미터를 통해 HTML 마크업을 편리하게 커스터마이징할 수 있습니다. 이를 통해 버튼이나 다른 HTML 요소를 캘린더에 추가할 수 있습니다.
+
+`layouts`는 캘린더의 `type`을 키로, 문자열을 값으로 받습니다.
+
+다음 예제에서는 `type: 'default'`에 대해 캘린더 헤더를 커스터마이징하고, 캘린더 안에 일반 버튼을 추가합니다.
+
+<Sandbox example="additional-features-layouts" />
+
+이제 `inputMode: true` 파라미터를 사용해 보겠습니다. 클릭 시 캘린더를 숨기는 버튼을 추가합니다.
+
+<Sandbox example="additional-features-layouts-btn-close" input={true} />
