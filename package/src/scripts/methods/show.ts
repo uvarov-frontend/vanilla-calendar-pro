@@ -1,6 +1,7 @@
 import hide from '@scripts/methods/hide';
 import setPosition from '@scripts/utils/positions/setPosition';
 import setContext from '@scripts/utils/setContext';
+import { restoreTabbing } from '@scripts/utils/toggleTabbing';
 import type { Calendar } from '@src/index';
 
 const show = (self: Calendar) => {
@@ -13,6 +14,7 @@ const show = (self: Calendar) => {
 
   setContext(self, 'cleanupHandlers', []);
   setContext(self, 'isShowInInputMode', true);
+  if (self.inputMode) restoreTabbing(self.context.mainElement);
   setPosition(self.context.inputElement, self.context.mainElement, self.positionToInput);
   self.context.mainElement.removeAttribute('data-vc-calendar-hidden');
 
