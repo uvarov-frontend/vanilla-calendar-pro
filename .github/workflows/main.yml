@@ -9,7 +9,7 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup npm package
         run: npm install
       - name: Testing
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: cypress
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Copy repository contents via scp
         uses: appleboy/scp-action@master
@@ -33,7 +33,7 @@ jobs:
           target: ${{ secrets.TARGET }}
 
       - name: Build app
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.2.4
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
