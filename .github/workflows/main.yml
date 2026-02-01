@@ -13,7 +13,7 @@ jobs:
       - name: Setup npm package
         run: npm install
       - name: Testing
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           start: npm run dev
   deploy:
@@ -33,7 +33,7 @@ jobs:
           target: ${{ secrets.TARGET }}
 
       - name: Build app
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
