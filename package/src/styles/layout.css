@@ -84,16 +84,29 @@
 }
 
 [data-vc='months'] {
-  @apply grid gap-y-4 gap-x-1 grid-cols-4 items-center grow;
+  @apply grid grid-cols-1 grid-rows-[auto] gap-y-4 items-center grow;
+}
+
+[data-vc-months='row'] {
+  @apply grid grid-cols-4 gap-x-1 items-center w-full;
 }
 
 [data-vc='years'] {
-  @apply grid gap-y-4 gap-x-1 grid-cols-5 items-center grow;
+  @apply grid grid-cols-1 grid-rows-[auto] gap-y-4 items-center grow;
+}
+
+[data-vc-years='row'] {
+  @apply grid grid-cols-5 gap-x-1 items-center w-full;
+}
+
+[data-vc-months='cell'],
+[data-vc-years='cell'] {
+  @apply flex items-center justify-center w-full;
 }
 
 [data-vc-months-month],
 [data-vc-years-year] {
-  @apply flex items-center justify-center h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer disabled:pointer-events-none;
+  @apply flex items-center justify-center w-full h-10 text-center text-xs font-semibold p-1 rounded-lg border-0 break-all cursor-pointer disabled:pointer-events-none;
 }
 
 [data-vc-week='numbers'] {
