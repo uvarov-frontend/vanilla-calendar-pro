@@ -8,8 +8,8 @@ const initRange = (self: Calendar) => {
   // set self.context.displayDateMin, self.context.displayDateMax
   const dateMin = resolveDate(self.dateMin, self.dateMin);
   const dateMax = resolveDate(self.dateMax, self.dateMax);
-  const displayDateMin = resolveDate(self.displayDateMin, dateMin);
-  const displayDateMax = resolveDate(self.displayDateMax, dateMax);
+  const displayDateMin = self.displayDateMin != null ? resolveDate(self.displayDateMin, dateMin) : dateMin;
+  const displayDateMax = self.displayDateMax != null ? resolveDate(self.displayDateMax, dateMax) : dateMax;
 
   setContext(self, 'dateToday', resolveDate(self.dateToday, self.dateToday));
 
