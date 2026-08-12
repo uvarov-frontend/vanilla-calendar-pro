@@ -68,7 +68,15 @@ export class Calendar extends OptionsCalendar {
 
   update = (resetOptions?: Partial<Reset>) => update(this, resetOptions);
 
-  destroy = () => destroy(this);
+  destroy = () => {
+    const staleElement = this.inputMode ? this.context.inputElement : this.context.mainElement;
+    destroy(this);
+    if (staleElement) {
+      for (const [selector, element] of Calendar.memoizedElements) {
+        if (element === staleElement) Calendar.memoizedElements.delete(selector);
+      }
+    }
+  };
 
   show = () => show(this);
 
