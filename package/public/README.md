@@ -13,16 +13,17 @@ This is a versatile JavaScript date and time picker component with TypeScript su
 - **Lightweight**: The final JavaScript file is minified and optimized for fast loading.
 -  **No Dependencies**: Completely self-contained, ensuring you don't need to include additional libraries.
 - **Simple Localization**: Supports simple localization for any language.
-- **Customizable**: Can be easily configured using CSS and HTML markup.
+- **Customizable**: Can be easily configured using CSS and HTML markup, including CSS custom properties for theme colors.
 - **Multiple Instances**: Allows for an unlimited number of calendar instances on a single page.
 - **Theme Support**: Supports automatic theme switching between light and dark modes, as well as custom user-defined themes.
 - **Week Start Customization**: Supports any day of the week as the starting day.
 - **Custom Weekends**: Define custom weekend days for each week as needed.
 - **Week Number Display**: Can display week numbers throughout the year.
 - **Not Tied to Input Tags**: Unlike many date pickers, it's not limited to the `<input>` tag.
+- **Shadow DOM Support**: Can be initialized inside a Shadow DOM for encapsulated Web Components.
 - **Accessible**: Includes ARIA labels, `tabindex`, and full keyboard navigation, enhancing accessibility.
 - **Date and Time Range Selection**: Supports selecting ranges for both dates and times, with maximum and minimum limits.
-- **Popups and Tooltips**: Allows setting custom popups with user-defined information, and in date range selection mode, provides tooltips on hover.
+- **Popups and Tooltips**: Allows setting custom popups with user-defined information—including a single popup for a date range—and provides tooltips on hover in date range selection mode.
 
 ## Browser Support
 
