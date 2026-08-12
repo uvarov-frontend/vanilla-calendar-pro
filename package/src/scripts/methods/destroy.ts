@@ -6,7 +6,9 @@ const destroy = (self: Calendar) => {
   if (!self.context.isInit) throw new Error(errorMessages.notInit);
 
   if (self.inputMode) {
-    self.context.mainElement.parentElement?.removeChild(self.context.mainElement);
+    if (self.context.mainElement !== self.context.inputElement) {
+      self.context.mainElement.parentElement?.removeChild(self.context.mainElement);
+    }
     self.context.inputElement?.replaceWith?.(self.context.originalElement);
     setContext(self, 'inputElement', undefined);
   } else {
