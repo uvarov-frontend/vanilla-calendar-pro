@@ -27,7 +27,7 @@ const setYearModifier = (self: Calendar, el: HTMLButtonElement, type: 'month' | 
   if (reset) {
     self.context.mainElement.querySelectorAll<HTMLElement>(selectors[type])?.forEach((el) => {
       el.removeAttribute(attributes[type].selected);
-      el.removeAttribute(attributes[type].aria);
+      el.parentElement?.removeAttribute(attributes[type].aria);
     });
 
     setContext(self, attributes[type].selectedProperty, Number(el.dataset[attributes[type].value]) as Range<12>);
@@ -37,7 +37,7 @@ const setYearModifier = (self: Calendar, el: HTMLButtonElement, type: 'month' | 
 
   if (selected) {
     el.setAttribute(attributes[type].selected, '');
-    el.setAttribute(attributes[type].aria, 'true');
+    el.parentElement?.setAttribute(attributes[type].aria, 'true');
   }
 };
 

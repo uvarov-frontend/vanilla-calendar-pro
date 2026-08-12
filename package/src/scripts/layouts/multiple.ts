@@ -16,7 +16,7 @@ const layoutMultiple = (self: Calendar) => `
         </div>
         <div class="${self.styles.wrapper}" data-vc="wrapper">
           <#WeekNumbers />
-          <div class="${self.styles.content}" data-vc="content" role="grid">
+          <div class="${self.styles.content}" data-vc="content" role="grid" aria-multiselectable="true">
             <#Week />
             <#Dates />
           </div>
