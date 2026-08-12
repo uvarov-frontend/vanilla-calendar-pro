@@ -7,17 +7,24 @@ import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
 const createYearEl = (self: Calendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
+  const yearWrapperEl = document.createElement('div');
+  yearWrapperEl.className = self.styles.yearsCell;
+  yearWrapperEl.dataset.vcYears = 'cell';
+  yearWrapperEl.role = 'gridcell';
+
   const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
   yearEl.className = self.styles.yearsYear;
   yearEl.innerText = String(id);
   yearEl.ariaLabel = String(id);
-  yearEl.role = 'gridcell';
   yearEl.dataset.vcYearsYear = `${id}`;
   if (disabled) yearEl.ariaDisabled = 'true';
   if (disabled) yearEl.tabIndex = -1;
   yearEl.disabled = disabled;
+
+  yearWrapperEl.appendChild(yearEl);
+
   setMonthOrYearModifier(self, yearEl, 'year', selected === id, false);
-  return yearEl;
+  return yearWrapperEl;
 };
 
 const createYears = (self: Calendar, target?: HTMLElement) => {
@@ -36,10 +43,20 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
   const templateYearEl = document.createElement('button');
   templateYearEl.type = 'button';
 
+  let rowEl: HTMLDivElement | undefined;
+
   for (let i = self.context.displayYear - 7; i < self.context.displayYear + 8; i++) {
+    if ((i - (self.context.displayYear - 7)) % 5 === 0) {
+      rowEl = document.createElement('div');
+      rowEl.className = self.styles.yearsRow;
+      rowEl.dataset.vcYears = 'row';
+      rowEl.role = 'row';
+      yearsEl.appendChild(rowEl);
+    }
+
     const yearDisabled = i < getDate(self.context.dateMin).getFullYear() + relationshipID || i > getDate(self.context.dateMax).getFullYear();
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
-    yearsEl.appendChild(yearEl);
+    rowEl?.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }
 

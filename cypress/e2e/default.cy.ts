@@ -9,7 +9,7 @@ describe('Init default calendar', () => {
     cy.get('#calendar').find('.vc-month').click();
     cy.get('#calendar')
       .find('.vc-months')
-      .children('.vc-months__month')
+      .find('.vc-months__month')
       .then(($month) => $month[1].click());
     cy.get('#calendar').find('.vc-month').should('have.attr', 'data-vc-month', '1');
   });
@@ -17,7 +17,7 @@ describe('Init default calendar', () => {
     cy.visit('/');
     cy.get('#calendar').find('.vc-year').should('have.attr', 'data-vc-year');
     cy.get('#calendar').find('.vc-year').click();
-    cy.get('#calendar').find('.vc-years').children('.vc-years__year[data-vc-years-year="2022"]').click();
+    cy.get('#calendar').find('.vc-years').find('.vc-years__year[data-vc-years-year="2022"]').click();
     cy.get('#calendar').find('.vc-year').should('have.attr', 'data-vc-year', '2022');
   });
   it('Check arrows', () => {

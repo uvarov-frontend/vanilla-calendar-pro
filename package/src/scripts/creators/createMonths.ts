@@ -15,17 +15,24 @@ const createMonthEl = (
   disabled: boolean,
   id: number,
 ) => {
+  const monthWrapperEl = document.createElement('div');
+  monthWrapperEl.className = self.styles.monthsCell;
+  monthWrapperEl.dataset.vcMonths = 'cell';
+  monthWrapperEl.role = 'gridcell';
+
   const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
   monthEl.className = self.styles.monthsMonth;
   monthEl.innerText = titleShort;
   monthEl.ariaLabel = titleLong;
-  monthEl.role = 'gridcell';
   monthEl.dataset.vcMonthsMonth = `${id}`;
   if (disabled) monthEl.ariaDisabled = 'true';
   if (disabled) monthEl.tabIndex = -1;
   monthEl.disabled = disabled;
+
+  monthWrapperEl.appendChild(monthEl);
+
   setMonthOrYearModifier(self, monthEl, 'month', selected === id, false);
-  return monthEl;
+  return monthWrapperEl;
 };
 
 const createMonths = (self: Calendar, target?: HTMLElement) => {
@@ -51,7 +58,17 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
   const templateMonthEl = document.createElement('button');
   templateMonthEl.type = 'button';
 
+  let rowEl: HTMLDivElement | undefined;
+
   for (let i = 0; i < 12; i++) {
+    if (i % 4 === 0) {
+      rowEl = document.createElement('div');
+      rowEl.className = self.styles.monthsRow;
+      rowEl.dataset.vcMonths = 'row';
+      rowEl.role = 'row';
+      monthsEl.appendChild(rowEl);
+    }
+
     const dateMin = getDate(self.context.dateMin);
     const dateMax = getDate(self.context.dateMax);
     const monthCount = self.context.displayMonthsCount - 1;
@@ -71,7 +88,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
       monthDisabled,
       i,
     );
-    monthsEl.appendChild(monthEl);
+    rowEl?.appendChild(monthEl);
     if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);
   }
 
