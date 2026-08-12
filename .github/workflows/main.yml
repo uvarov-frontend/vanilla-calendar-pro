@@ -9,21 +9,21 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: Setup npm package
         run: npm install
       - name: Testing
-        uses: cypress-io/github-action@v7
+        uses: cypress-io/github-action@v7.4.1
         with:
           start: npm run dev
   deploy:
     runs-on: ubuntu-latest
     needs: cypress
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: Copy repository contents via scp
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}

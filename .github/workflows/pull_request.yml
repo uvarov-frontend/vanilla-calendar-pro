@@ -10,10 +10,10 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: Setup npm package
         run: npm install
       - name: Testing
-        uses: cypress-io/github-action@v7
+        uses: cypress-io/github-action@v7.4.1
         with:
           start: npm run dev
