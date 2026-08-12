@@ -6,7 +6,7 @@ const parseDates: (dates: Array<number | string | Date>) => FormatDateString[] =
   dates.reduce((accumulator: FormatDateString[], date) => {
     if (date instanceof Date || typeof date === 'number') {
       const d = date instanceof Date ? date : new Date(date);
-      accumulator.push(d.toISOString().substring(0, 10) as FormatDateString);
+      accumulator.push(getDateString(d));
     } else if (date.match(/^(\d{4}-\d{2}-\d{2})$/g)) {
       accumulator.push(date as FormatDateString);
     } else {
