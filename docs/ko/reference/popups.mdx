@@ -14,17 +14,20 @@ section: 6
 
 `Default: null`
 
-`Options: 'YYYY-MM-DD': | null`
+`Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
 new Calendar('#calendar', {
   popups: {
     '2022-06-28': {},
+    '2022-07-01:2022-07-05': {},
   }
 });
 ```
 
 `YYYY-MM-DD` 형식의 날짜가 키로 사용됩니다. 위 예제에서는 2022년 6월 28일에 팝업이 설정됩니다.
+
+<Info>키는 `'YYYY-MM-DD:YYYY-MM-DD'` 형식의 날짜 범위일 수도 있습니다(두 날짜 사이에는 어떤 구분자를 사용해도 됩니다). 이 경우 동일한 팝업(`modifier`/`html`)이 해당 범위의 모든 날짜에 적용되어, 날짜마다 같은 항목을 반복해서 작성할 필요가 없습니다.</Info>
 
 ---
 

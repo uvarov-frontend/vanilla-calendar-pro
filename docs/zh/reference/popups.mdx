@@ -14,17 +14,20 @@ section: 6
 
 `默认: null`
 
-`选项: 'YYYY-MM-DD': | null`
+`选项: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
 new Calendar('#calendar', {
   popups: {
     '2022-06-28': {},
+    '2022-07-01:2022-07-05': {},
   }
 });
 ```
 
 格式为 `YYYY-MM-DD` 的日期用作键。在给定的示例中，为 2022 年 6 月 28 日设置了弹出窗口。
+
+<Info>键也可以是 `'YYYY-MM-DD:YYYY-MM-DD'` 格式的日期范围（两个日期之间可以使用任意分隔符）。这样同一个弹出窗口（`modifier`/`html`）会应用到该范围内的每一天，无需为每个日期重复相同的条目。</Info>
 
 ---
 
