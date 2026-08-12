@@ -1,3 +1,4 @@
+import parseDates from '@scripts/utils/parseDates';
 import getAvailablePosition from '@scripts/utils/positions/getAvailablePosition';
 import type { Calendar, Popup } from '@src/index';
 
@@ -30,7 +31,9 @@ const handleDay = (self: Calendar, date: string, dateInfo: Popup, datesEl: HTMLE
 
 const createDatePopup = (self: Calendar, datesEl: HTMLElement) => {
   if (!self.popups) return;
-  Object.entries(self.popups)?.forEach(([date, dateInfo]) => handleDay(self, date, dateInfo, datesEl));
+  Object.entries(self.popups)?.forEach(([dateKey, dateInfo]) => {
+    parseDates([dateKey]).forEach((date) => handleDay(self, date, dateInfo, datesEl));
+  });
 };
 
 export default createDatePopup;

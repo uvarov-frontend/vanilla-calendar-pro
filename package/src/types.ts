@@ -61,8 +61,10 @@ export type Popup = {
   html?: string;
 };
 
+export type PopupDateKey = FormatDateString | `${FormatDateString}:${FormatDateString}`;
+
 export type Popups = {
-  [date in FormatDateString]: Popup;
+  [date in PopupDateKey]: Popup;
 };
 
 export type HtmlElementPosition = {

@@ -14,17 +14,20 @@ Popups allow you to highlight any day and display brief information about it dir
 
 `Default: null`
 
-`Options: 'YYYY-MM-DD': | null`
+`Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
 new Calendar('#calendar', {
   popups: {
     '2022-06-28': {},
+    '2022-07-01:2022-07-05': {},
   }
 });
 ```
 
 Dates in the format `YYYY-MM-DD` are used as keys. In the given example, a popup is set for June 28, 2022.
+
+<Info>A key can also be a date range in the form `'YYYY-MM-DD:YYYY-MM-DD'` (any delimiter works between the two dates). The same popup (`modifier`/`html`) is then applied to every day in that range, instead of having to repeat an identical entry for each date.</Info>
 
 ---
 
