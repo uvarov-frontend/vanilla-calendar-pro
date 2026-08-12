@@ -84,10 +84,12 @@ export type Reset = {
 
 export type ContextVariables = {
   isInit: boolean;
+  isDestroyed: boolean;
   isShowInInputMode: boolean;
   inputModeInit: boolean;
   openOnFocus: ToggleSelected;
   cleanupHandlers: Array<() => void>;
+  cleanupSystemTheme?: () => void;
   currentType: TypesCalendar;
   locale: LocaleStated;
   mainElement: HTMLElement;

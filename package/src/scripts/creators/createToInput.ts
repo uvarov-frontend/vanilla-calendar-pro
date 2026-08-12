@@ -2,6 +2,7 @@ import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import { show } from '@scripts/methods';
 import reset from '@scripts/methods/reset';
+import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
@@ -12,10 +13,16 @@ const createToInput = (self: Calendar) => {
   calendar.dataset.vcInput = '';
   calendar.dataset.vcCalendarHidden = '';
 
+  // append into the input's own root (a ShadowRoot if the calendar lives inside one, so the
+  // popup stays inside the same encapsulated style scope; document.body otherwise, since a
+  // Document itself can't directly accept an arbitrary element as a child)
+  const inputRoot = getRootNode(self.context.mainElement);
+  const appendTarget = inputRoot === document ? document.body : inputRoot;
+
   setContext(self, 'inputModeInit', true);
   setContext(self, 'isShowInInputMode', false);
   setContext(self, 'mainElement', calendar);
-  document.body.appendChild(self.context.mainElement);
+  appendTarget.appendChild(self.context.mainElement);
 
   reset(self, {
     year: true,

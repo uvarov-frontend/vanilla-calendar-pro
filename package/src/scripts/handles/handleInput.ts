@@ -1,6 +1,7 @@
 import createToInput from '@scripts/creators/createToInput';
 import { show } from '@scripts/methods';
 import canOpenOnFocus from '@scripts/utils/canOpenOnFocus';
+import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import { clearSkipOpenOnFocus, shouldSkipOpenOnFocus } from '@scripts/utils/skipOpenOnFocus';
 import type { Calendar } from '@src/index';
@@ -35,7 +36,7 @@ const handleInput = (self: Calendar) => {
 
   const focusIntoCalendar = (event: KeyboardEvent) => {
     if (!self.context.isShowInInputMode) return false;
-    if (document.activeElement !== self.context.inputElement) return false;
+    if (getRootNode(self.context.mainElement).activeElement !== self.context.inputElement) return false;
 
     const isFocusable = (el: HTMLElement) => el.tabIndex >= 0 && !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true';
 

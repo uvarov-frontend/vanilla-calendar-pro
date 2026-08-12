@@ -1,0 +1,67 @@
+---
+title: Angular компонент
+description: Узнайте, как создать и использовать Angular компонент для Vanilla Calendar Pro. Подробное руководство по созданию компонента и его интеграции в приложение Angular.
+section: 7. Компоненты для библиотек
+---
+
+# Angular компонент
+
+<Info>
+  Этот пример рассчитан на Angular 15+ (standalone-компоненты).
+</Info>
+
+Для демонстрации давайте создадим простой Angular компонент для Vanilla Calendar Pro. Создайте файл с именем `vanilla-calendar.component.ts` и скопируйте в него следующий код:
+
+```ts
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Calendar, Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+@Component({
+  selector: 'vanilla-calendar',
+  standalone: true,
+  template: `<div #calendarRef></div>`,
+})
+export class VanillaCalendarComponent implements AfterViewInit {
+  @Input() config?: Options;
+  @ViewChild('calendarRef') calendarRef!: ElementRef<HTMLDivElement>;
+
+  ngAfterViewInit() {
+    const calendar = new Calendar(this.calendarRef.nativeElement, this.config);
+    calendar.init();
+  }
+}
+```
+
+Затем импортируйте созданный компонент `VanillaCalendarComponent` в компонент, где вы планируете отображать календарь.
+
+```ts
+// ...
+import { VanillaCalendarComponent } from './vanilla-calendar.component';
+// ...
+```
+
+Добавьте его в массив `imports` standalone-компонента и используйте в шаблоне.
+
+```ts
+@Component({
+  // ...
+  imports: [VanillaCalendarComponent],
+  template: `
+    <!-- -->
+    <vanilla-calendar />
+    <!-- -->
+  `,
+})
+```
+
+Компоненту `VanillaCalendarComponent` можно передать любые атрибуты HTML, поддерживаемые тегом `<div>` (Angular автоматически передаёт их на хост-элемент), а также параметр `config` для настройки календаря.
+
+```ts
+template: `
+  <!-- -->
+  <vanilla-calendar [config]="{ type: 'multiple' }" class="thisIsMyClass" />
+  <!-- -->
+`,
+```
