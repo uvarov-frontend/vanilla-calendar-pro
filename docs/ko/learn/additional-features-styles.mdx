@@ -13,3 +13,16 @@ section: 6. 추가 기능
 아래는 화살표 클래스만 자신의 것으로 교체한 예제입니다. 전체 클래스 목록은 레퍼런스 가이드에서 확인할 수 있습니다.
 
 <Sandbox example="additional-features-styles" />
+
+## CSS 변수
+
+색상만 바꾸고 싶다면 클래스를 재정의할 필요조차 없습니다 — 내장 테마의 모든 색상은 CSS custom property로 노출되어 있으며, 기본값(fallback)은 각 테마의 원래 색상입니다:
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+변수를 명시적으로 설정하기 전까지는 아무것도 바뀌지 않습니다. 전체 변수 목록은 [레퍼런스 가이드](/docs/reference/styles)에서 확인할 수 있습니다.

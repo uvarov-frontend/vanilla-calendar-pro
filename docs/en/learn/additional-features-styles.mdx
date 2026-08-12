@@ -13,3 +13,16 @@ All CSS classes used in the calendar are variables that can be customized by rep
 Below is an example of replacing the class for the arrows with your own. A full list of classes can be found in the reference guide.
 
 <Sandbox example="additional-features-styles" />
+
+## CSS Variables
+
+If you only need to change colors, you don't need to replace any classes at all — every color in the built-in themes is exposed as a CSS custom property, with the theme's original color as the fallback:
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+Nothing changes unless you explicitly set a variable. The full list of variables is available in the [reference guide](/docs/reference/styles).

@@ -50,3 +50,143 @@ new Calendar('#calendar', {
   },
 });
 ```
+
+---
+
+## CSS Variables
+
+Every color in the built-in themes (`light`, `dark`, `slate-light`) is defined through a CSS custom property with the theme's original color as the fallback. This means you can restyle the calendar by setting a handful of variables, without touching any CSS classes or waiting for a theme override to cascade correctly.
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+If a variable is left unset, the calendar renders exactly as before — nothing changes unless you explicitly set a variable.
+
+<Info>Setting a variable on `:root` applies it across all themes at once (light/dark/slate-light all read the same variable names). To restyle only one theme, scope the override to that theme's selector instead, e.g. `[data-vc-theme='dark'] { --vc-date-selected-bg: #7c3aed; }`.</Info>
+
+### Base
+
+| Variable                   | light      | dark       | slate-light |
+| -------------------------- | ---------- | ---------- | ----------- |
+| `--vc-bg`                  | white      | slate-900  | slate-100   |
+| `--vc-color`               | slate-900  | white      | gray-800    |
+| `--vc-focus-outline-color` | orange-300 | orange-300 | blue-300    |
+
+### Header / title
+
+| Variable                    | light     | dark      | slate-light |
+| --------------------------- | --------- | --------- | ----------- |
+| `--vc-header-color`         | slate-900 | white     | gray-800    |
+| `--vc-title-color`          | slate-900 | white     | gray-800    |
+| `--vc-title-color-hover`    | slate-500 | slate-500 | gray-600    |
+| `--vc-title-color-disabled` | slate-300 | slate-700 | gray-400    |
+
+### Month / year picker
+
+| Variable                           | light     | dark      | slate-light |
+| ---------------------------------- | --------- | --------- | ----------- |
+| `--vc-months-years-bg`             | white     | slate-900 | slate-100   |
+| `--vc-months-years-color`          | slate-500 | white     | gray-600    |
+| `--vc-months-years-bg-hover`       | slate-100 | slate-800 | slate-200   |
+| `--vc-months-years-color-disabled` | slate-300 | slate-700 | gray-400    |
+| `--vc-months-years-bg-selected`    | cyan-500  | slate-500 | blue-500    |
+| `--vc-months-years-color-selected` | white     | white     | white       |
+
+### Week row / week numbers
+
+| Variable                        | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-week-numbers-title-color` | slate-500 | white     | gray-600    |
+| `--vc-week-number-color`        | slate-500 | white     | gray-600    |
+| `--vc-week-number-color-hover`  | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-color`           | slate-500 | white     | gray-600    |
+| `--vc-week-day-color-hover`     | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-off-color`       | rose-500  | rose-500  | red-500     |
+| `--vc-week-day-off-color-hover` | rose-600  | rose-600  | red-600     |
+
+### Dates
+
+| Variable                                     | light     | dark      | slate-light |
+| -------------------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-color`                            | slate-900 | slate-400 | gray-800    |
+| `--vc-date-color-hover` <sup>dark only</sup> | —         | slate-200 | —           |
+| `--vc-date-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-edge-bg`                    | slate-200 | slate-700 | slate-300   |
+| `--vc-date-disabled-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-outside-color`                    | slate-400 | slate-600 | gray-400    |
+| `--vc-date-today-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-today-color`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-today-outside-color`              | slate-500 | slate-600 | gray-600    |
+| `--vc-date-selected-bg`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-selected-color`                   | white     | white     | white       |
+| `--vc-date-selected-outside-bg`              | slate-300 | slate-700 | slate-300   |
+| `--vc-date-selected-outside-color`           | slate-500 | slate-300 | gray-600    |
+
+### Weekends / holidays
+
+| Variable                                                     | light     | dark      | slate-light |
+| ------------------------------------------------------------ | --------- | --------- | ----------- |
+| `--vc-date-weekend-color`                                    | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-bg-hover`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-bg`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-edge-bg`                            | rose-100  | slate-700 | slate-300   |
+| `--vc-date-weekend-disabled-color`                           | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-today-color`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-today-disabled-color`                     | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-outside-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-weekend-outside-color`                            | slate-400 | slate-600 | gray-400    |
+| `--vc-date-weekend-outside-color-hover` <sup>dark only</sup> | —         | slate-300 | —           |
+| `--vc-date-weekend-outside-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-outside-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-today-outside-color`                      | slate-400 | slate-400 | gray-400    |
+| `--vc-date-weekend-disabled-outside-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-selected-bg`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-selected-color`                           | white     | white     | white       |
+
+### Selected ranges (`multiple-ranged`)
+
+| Variable                               | light           | dark            | slate-light     |
+| -------------------------------------- | --------------- | --------------- | --------------- |
+| `--vc-date-range-middle-bg`            | cyan-500 at 70% | cyan-500 at 80% | blue-500 at 80% |
+| `--vc-date-range-middle-color`         | white           | white           | white           |
+| `--vc-date-range-middle-outside-bg`    | slate-200       | slate-800       | slate-200       |
+| `--vc-date-range-middle-outside-color` | slate-500       | slate-300       | gray-600        |
+| `--vc-date-range-middle-weekend-bg`    | rose-500 at 70% | rose-500 at 80% | red-500 at 80%  |
+| `--vc-date-range-middle-weekend-color` | white           | white           | white           |
+
+### Popups & tooltip
+
+| Variable                        | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-popup-bg`            | white     | slate-800 | white       |
+| `--vc-date-popup-color`         | slate-900 | white     | gray-800    |
+| `--vc-date-range-tooltip-bg`    | slate-50  | slate-800 | slate-50    |
+| `--vc-date-range-tooltip-color` | slate-500 | slate-400 | slate-500   |
+
+### Time controls
+
+| Variable                                             | light      | dark      | slate-light |
+| ---------------------------------------------------- | ---------- | --------- | ----------- |
+| `--vc-time-border-color`                             | slate-300  | slate-800 | gray-300    |
+| `--vc-time-separator-color`                          | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-input-color`                              | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg-hover`                           | orange-100 | slate-700 | blue-100    |
+| `--vc-time-keeping-color`                            | slate-500  | slate-500 | gray-600    |
+| `--vc-time-keeping-color-hover` <sup>dark only</sup> | —          | slate-400 | —           |
+| `--vc-time-range-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-range-track-color`                        | slate-300  | slate-600 | slate-300   |
+| `--vc-time-range-thumb-bg`                           | white      | slate-800 | slate-100   |
+| `--vc-time-range-thumb-border`                       | slate-300  | slate-600 | gray-300    |
+| `--vc-time-range-thumb-border-hover`                 | slate-400  | slate-400 | gray-400    |
+
+<Info>
+  The three variables marked "dark only" exist because the dark theme has an extra hover state on those elements that the light/slate-light themes don't —
+  there's nothing to override in the other themes for those specific variables.
+</Info>
