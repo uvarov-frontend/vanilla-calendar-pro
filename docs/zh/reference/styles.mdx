@@ -50,3 +50,143 @@ new Calendar('#calendar', {
   },
 });
 ```
+
+---
+
+## CSS 变量
+
+内置主题（`light`、`dark`、`slate-light`）中的每一种颜色都通过 CSS 自定义属性定义，并以主题的原始颜色作为回退值（fallback）。这意味着您只需设置少量变量即可重新设置日历样式，而无需修改任何 CSS 类，也不必担心主题覆盖是否能正确生效。
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+如果变量未设置，日历的渲染效果与之前完全一致——只有当您显式设置某个变量时，效果才会改变。
+
+<Info>在 `:root` 上设置变量会同时应用到所有主题（light/dark/slate-light 都读取相同的变量名）。若只想重新设置某一个主题的样式，请将覆盖限定在该主题的选择器范围内，例如：`[data-vc-theme='dark'] { --vc-date-selected-bg: #7c3aed; }`。</Info>
+
+### 基础
+
+| 变量                       | light      | dark       | slate-light |
+| -------------------------- | ---------- | ---------- | ----------- |
+| `--vc-bg`                  | white      | slate-900  | slate-100   |
+| `--vc-color`               | slate-900  | white      | gray-800    |
+| `--vc-focus-outline-color` | orange-300 | orange-300 | blue-300    |
+
+### 头部 / 标题
+
+| 变量                        | light     | dark      | slate-light |
+| --------------------------- | --------- | --------- | ----------- |
+| `--vc-header-color`         | slate-900 | white     | gray-800    |
+| `--vc-title-color`          | slate-900 | white     | gray-800    |
+| `--vc-title-color-hover`    | slate-500 | slate-500 | gray-600    |
+| `--vc-title-color-disabled` | slate-300 | slate-700 | gray-400    |
+
+### 月份 / 年份选择器
+
+| 变量                               | light     | dark      | slate-light |
+| ---------------------------------- | --------- | --------- | ----------- |
+| `--vc-months-years-bg`             | white     | slate-900 | slate-100   |
+| `--vc-months-years-color`          | slate-500 | white     | gray-600    |
+| `--vc-months-years-bg-hover`       | slate-100 | slate-800 | slate-200   |
+| `--vc-months-years-color-disabled` | slate-300 | slate-700 | gray-400    |
+| `--vc-months-years-bg-selected`    | cyan-500  | slate-500 | blue-500    |
+| `--vc-months-years-color-selected` | white     | white     | white       |
+
+### 星期行 / 周数
+
+| 变量                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-week-numbers-title-color` | slate-500 | white     | gray-600    |
+| `--vc-week-number-color`        | slate-500 | white     | gray-600    |
+| `--vc-week-number-color-hover`  | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-color`           | slate-500 | white     | gray-600    |
+| `--vc-week-day-color-hover`     | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-off-color`       | rose-500  | rose-500  | red-500     |
+| `--vc-week-day-off-color-hover` | rose-600  | rose-600  | red-600     |
+
+### 日期
+
+| 变量                                         | light     | dark      | slate-light |
+| -------------------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-color`                            | slate-900 | slate-400 | gray-800    |
+| `--vc-date-color-hover` <sup>dark only</sup> | —         | slate-200 | —           |
+| `--vc-date-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-edge-bg`                    | slate-200 | slate-700 | slate-300   |
+| `--vc-date-disabled-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-outside-color`                    | slate-400 | slate-600 | gray-400    |
+| `--vc-date-today-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-today-color`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-today-outside-color`              | slate-500 | slate-600 | gray-600    |
+| `--vc-date-selected-bg`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-selected-color`                   | white     | white     | white       |
+| `--vc-date-selected-outside-bg`              | slate-300 | slate-700 | slate-300   |
+| `--vc-date-selected-outside-color`           | slate-500 | slate-300 | gray-600    |
+
+### 周末 / 节假日
+
+| 变量                                                         | light     | dark      | slate-light |
+| ------------------------------------------------------------ | --------- | --------- | ----------- |
+| `--vc-date-weekend-color`                                    | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-bg-hover`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-bg`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-edge-bg`                            | rose-100  | slate-700 | slate-300   |
+| `--vc-date-weekend-disabled-color`                           | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-today-color`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-today-disabled-color`                     | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-outside-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-weekend-outside-color`                            | slate-400 | slate-600 | gray-400    |
+| `--vc-date-weekend-outside-color-hover` <sup>dark only</sup> | —         | slate-300 | —           |
+| `--vc-date-weekend-outside-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-outside-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-today-outside-color`                      | slate-400 | slate-400 | gray-400    |
+| `--vc-date-weekend-disabled-outside-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-selected-bg`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-selected-color`                           | white     | white     | white       |
+
+### 选中的日期范围 (`multiple-ranged`)
+
+| 变量                                   | light           | dark            | slate-light     |
+| -------------------------------------- | --------------- | --------------- | --------------- |
+| `--vc-date-range-middle-bg`            | cyan-500 at 70% | cyan-500 at 80% | blue-500 at 80% |
+| `--vc-date-range-middle-color`         | white           | white           | white           |
+| `--vc-date-range-middle-outside-bg`    | slate-200       | slate-800       | slate-200       |
+| `--vc-date-range-middle-outside-color` | slate-500       | slate-300       | gray-600        |
+| `--vc-date-range-middle-weekend-bg`    | rose-500 at 70% | rose-500 at 80% | red-500 at 80%  |
+| `--vc-date-range-middle-weekend-color` | white           | white           | white           |
+
+### 弹出窗口和提示框
+
+| 变量                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-popup-bg`            | white     | slate-800 | white       |
+| `--vc-date-popup-color`         | slate-900 | white     | gray-800    |
+| `--vc-date-range-tooltip-bg`    | slate-50  | slate-800 | slate-50    |
+| `--vc-date-range-tooltip-color` | slate-500 | slate-400 | slate-500   |
+
+### 时间控件
+
+| 变量                                                 | light      | dark      | slate-light |
+| ---------------------------------------------------- | ---------- | --------- | ----------- |
+| `--vc-time-border-color`                             | slate-300  | slate-800 | gray-300    |
+| `--vc-time-separator-color`                          | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-input-color`                              | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg-hover`                           | orange-100 | slate-700 | blue-100    |
+| `--vc-time-keeping-color`                            | slate-500  | slate-500 | gray-600    |
+| `--vc-time-keeping-color-hover` <sup>dark only</sup> | —          | slate-400 | —           |
+| `--vc-time-range-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-range-track-color`                        | slate-300  | slate-600 | slate-300   |
+| `--vc-time-range-thumb-bg`                           | white      | slate-800 | slate-100   |
+| `--vc-time-range-thumb-border`                       | slate-300  | slate-600 | gray-300    |
+| `--vc-time-range-thumb-border-hover`                 | slate-400  | slate-400 | gray-400    |
+
+<Info>
+  标记为 "dark only" 的三个变量存在的原因是，深色主题在这些元素上有一个 light/slate-light
+  主题没有的额外悬停状态——在其他主题中，这些特定变量根本没有可覆盖的目标。
+</Info>

@@ -13,3 +13,16 @@ section: 6. 附加功能
 以下是用您自己的类替换箭头类的示例。完整的类列表可以在参考指南中找到。
 
 <Sandbox example="additional-features-styles" />
+
+## CSS 变量
+
+如果您只需要更改颜色，甚至不需要替换任何类——内置主题中的每一种颜色都以 CSS 自定义属性的形式暴露，并以主题的原始颜色作为回退值（fallback）：
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+只有当您显式设置某个变量时，效果才会改变。完整的变量列表可在[参考指南](/docs/reference/styles)中找到。

@@ -50,3 +50,143 @@ new Calendar('#calendar', {
   },
 });
 ```
+
+---
+
+## CSS 변수
+
+내장 테마(`light`, `dark`, `slate-light`)의 모든 색상은 CSS custom property로 정의되어 있으며, 기본값(fallback)은 각 테마의 원래 색상입니다. 즉, CSS 클래스를 건드리거나 테마 오버라이드가 제대로 적용되길 기다릴 필요 없이 몇 개의 변수만 설정하면 캘린더 스타일을 바꿀 수 있습니다.
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+변수를 설정하지 않으면 캘린더는 이전과 완전히 동일하게 렌더링됩니다 — 변수를 명시적으로 설정하기 전까지는 아무것도 바뀌지 않습니다.
+
+<Info>`:root`에 변수를 설정하면 모든 테마에 한 번에 적용됩니다(light/dark/slate-light 모두 동일한 변수 이름을 사용합니다). 특정 테마 하나만 재정의하려면, 해당 테마의 셀렉터로 범위를 제한하세요. 예: `[data-vc-theme='dark'] { --vc-date-selected-bg: #7c3aed; }`.</Info>
+
+### 기본
+
+| 변수                       | light      | dark       | slate-light |
+| -------------------------- | ---------- | ---------- | ----------- |
+| `--vc-bg`                  | white      | slate-900  | slate-100   |
+| `--vc-color`               | slate-900  | white      | gray-800    |
+| `--vc-focus-outline-color` | orange-300 | orange-300 | blue-300    |
+
+### 헤더 / 타이틀
+
+| 변수                        | light     | dark      | slate-light |
+| --------------------------- | --------- | --------- | ----------- |
+| `--vc-header-color`         | slate-900 | white     | gray-800    |
+| `--vc-title-color`          | slate-900 | white     | gray-800    |
+| `--vc-title-color-hover`    | slate-500 | slate-500 | gray-600    |
+| `--vc-title-color-disabled` | slate-300 | slate-700 | gray-400    |
+
+### 월 / 연도 선택
+
+| 변수                               | light     | dark      | slate-light |
+| ---------------------------------- | --------- | --------- | ----------- |
+| `--vc-months-years-bg`             | white     | slate-900 | slate-100   |
+| `--vc-months-years-color`          | slate-500 | white     | gray-600    |
+| `--vc-months-years-bg-hover`       | slate-100 | slate-800 | slate-200   |
+| `--vc-months-years-color-disabled` | slate-300 | slate-700 | gray-400    |
+| `--vc-months-years-bg-selected`    | cyan-500  | slate-500 | blue-500    |
+| `--vc-months-years-color-selected` | white     | white     | white       |
+
+### 요일 행 / 주 번호
+
+| 변수                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-week-numbers-title-color` | slate-500 | white     | gray-600    |
+| `--vc-week-number-color`        | slate-500 | white     | gray-600    |
+| `--vc-week-number-color-hover`  | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-color`           | slate-500 | white     | gray-600    |
+| `--vc-week-day-color-hover`     | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-off-color`       | rose-500  | rose-500  | red-500     |
+| `--vc-week-day-off-color-hover` | rose-600  | rose-600  | red-600     |
+
+### 날짜
+
+| 변수                                         | light     | dark      | slate-light |
+| -------------------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-color`                            | slate-900 | slate-400 | gray-800    |
+| `--vc-date-color-hover` <sup>dark only</sup> | —         | slate-200 | —           |
+| `--vc-date-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-edge-bg`                    | slate-200 | slate-700 | slate-300   |
+| `--vc-date-disabled-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-outside-color`                    | slate-400 | slate-600 | gray-400    |
+| `--vc-date-today-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-today-color`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-today-outside-color`              | slate-500 | slate-600 | gray-600    |
+| `--vc-date-selected-bg`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-selected-color`                   | white     | white     | white       |
+| `--vc-date-selected-outside-bg`              | slate-300 | slate-700 | slate-300   |
+| `--vc-date-selected-outside-color`           | slate-500 | slate-300 | gray-600    |
+
+### 주말 / 공휴일
+
+| 변수                                                         | light     | dark      | slate-light |
+| ------------------------------------------------------------ | --------- | --------- | ----------- |
+| `--vc-date-weekend-color`                                    | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-bg-hover`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-bg`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-edge-bg`                            | rose-100  | slate-700 | slate-300   |
+| `--vc-date-weekend-disabled-color`                           | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-today-color`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-today-disabled-color`                     | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-outside-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-weekend-outside-color`                            | slate-400 | slate-600 | gray-400    |
+| `--vc-date-weekend-outside-color-hover` <sup>dark only</sup> | —         | slate-300 | —           |
+| `--vc-date-weekend-outside-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-outside-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-today-outside-color`                      | slate-400 | slate-400 | gray-400    |
+| `--vc-date-weekend-disabled-outside-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-selected-bg`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-selected-color`                           | white     | white     | white       |
+
+### 선택된 범위 (`multiple-ranged`)
+
+| 변수                                   | light           | dark            | slate-light     |
+| -------------------------------------- | --------------- | --------------- | --------------- |
+| `--vc-date-range-middle-bg`            | cyan-500 at 70% | cyan-500 at 80% | blue-500 at 80% |
+| `--vc-date-range-middle-color`         | white           | white           | white           |
+| `--vc-date-range-middle-outside-bg`    | slate-200       | slate-800       | slate-200       |
+| `--vc-date-range-middle-outside-color` | slate-500       | slate-300       | gray-600        |
+| `--vc-date-range-middle-weekend-bg`    | rose-500 at 70% | rose-500 at 80% | red-500 at 80%  |
+| `--vc-date-range-middle-weekend-color` | white           | white           | white           |
+
+### 팝업 & 툴팁
+
+| 변수                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-popup-bg`            | white     | slate-800 | white       |
+| `--vc-date-popup-color`         | slate-900 | white     | gray-800    |
+| `--vc-date-range-tooltip-bg`    | slate-50  | slate-800 | slate-50    |
+| `--vc-date-range-tooltip-color` | slate-500 | slate-400 | slate-500   |
+
+### 시간 컨트롤
+
+| 변수                                                 | light      | dark      | slate-light |
+| ---------------------------------------------------- | ---------- | --------- | ----------- |
+| `--vc-time-border-color`                             | slate-300  | slate-800 | gray-300    |
+| `--vc-time-separator-color`                          | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-input-color`                              | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg-hover`                           | orange-100 | slate-700 | blue-100    |
+| `--vc-time-keeping-color`                            | slate-500  | slate-500 | gray-600    |
+| `--vc-time-keeping-color-hover` <sup>dark only</sup> | —          | slate-400 | —           |
+| `--vc-time-range-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-range-track-color`                        | slate-300  | slate-600 | slate-300   |
+| `--vc-time-range-thumb-bg`                           | white      | slate-800 | slate-100   |
+| `--vc-time-range-thumb-border`                       | slate-300  | slate-600 | gray-300    |
+| `--vc-time-range-thumb-border-hover`                 | slate-400  | slate-400 | gray-400    |
+
+<Info>
+  "dark only"로 표시된 세 변수는 dark 테마에만 light/slate-light 테마에는 없는 추가 hover 상태가 있기 때문에 존재합니다 — 다른 테마에서는 이 변수들을 재정의할
+  대상 자체가 없습니다.
+</Info>
