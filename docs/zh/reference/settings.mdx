@@ -247,6 +247,8 @@ new Calendar('#calendar', {
 
 <Info>需要注意的是，`displayDateMin` 和 `displayDateMax` 禁用范围之外的日期，而 `dateMin` 和 `dateMax` 根本不创建它们。</Info>
 
+<Info>在 `.set()` 中为 `displayDateMin` 传入 `null` 会将其显式重置为默认值。传入 `undefined`（例如省略该属性）则保持当前值不变。</Info>
+
 ---
 
 ## displayDateMax
@@ -266,6 +268,8 @@ new Calendar('#calendar', {
 此参数设置用户可以选择的最大日期。晚于指定日期的日期将被禁用且不可选择。
 
 <Info>需要注意的是，`displayDateMin` 和 `displayDateMax` 禁用范围之外的日期，而 `dateMin` 和 `dateMax` 根本不创建它们。</Info>
+
+<Info>在 `.set()` 中为 `displayDateMax` 传入 `null` 会将其显式重置为默认值。传入 `undefined`（例如省略该属性）则保持当前值不变。</Info>
 
 ---
 

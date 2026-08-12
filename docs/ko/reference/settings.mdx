@@ -247,6 +247,8 @@ new Calendar('#calendar', {
 
 <Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
 
+<Info>`.set()`에서 `displayDateMin`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고 유지됩니다.</Info>
+
 ---
 
 ## displayDateMax
@@ -266,6 +268,8 @@ new Calendar('#calendar', {
 이 파라미터는 사용자가 선택할 수 있는 최대 날짜를 설정합니다. 지정된 날짜보다 이후 날짜는 비활성화되어 선택할 수 없습니다.
 
 <Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
+
+<Info>`.set()`에서 `displayDateMax`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고 유지됩니다.</Info>
 
 ---
 
