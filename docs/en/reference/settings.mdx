@@ -247,6 +247,8 @@ This parameter sets the minimum date that the user can select. Dates earlier tha
 
 <Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
 
+<Info>Passing `null` to `displayDateMin` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the current value unchanged.</Info>
+
 ---
 
 ## displayDateMax
@@ -266,6 +268,8 @@ new Calendar('#calendar', {
 This parameter sets the maximum date that the user can select. Dates later than the specified date will be disabled and unavailable for selection.
 
 <Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
+
+<Info>Passing `null` to `displayDateMax` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the current value unchanged.</Info>
 
 ---
 

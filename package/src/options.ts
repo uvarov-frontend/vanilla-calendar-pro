@@ -38,8 +38,8 @@ export default class OptionsCalendar {
   dateMin: DateAny = '1970-01-01';
   dateMax: DateAny = '2470-12-31';
 
-  displayDateMin!: DateAny;
-  displayDateMax!: DateAny;
+  displayDateMin!: DateAny | null;
+  displayDateMax!: DateAny | null;
   displayDatesOutside: boolean = true;
   displayDisabledDates: boolean = false;
   displayMonthsCount!: MonthsCount;
