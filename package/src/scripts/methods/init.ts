@@ -1,7 +1,9 @@
 import create from '@scripts/creators/create';
+import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleInput from '@scripts/handles/handleInput';
+import handleSelectDateRange from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
@@ -14,6 +16,10 @@ const init = (self: Calendar) => {
 
   initAllVariables(self);
   create(self);
+  if (self.selectionDatesMode === 'multiple-ranged' && self.context.selectedDates.length === 1) {
+    handleSelectDateRange(self, null);
+    updateDateModifiers(self);
+  }
   if (self.onInit) self.onInit(self);
   handleArrowKeys(self);
   return handleClick(self);
