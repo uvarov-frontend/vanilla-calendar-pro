@@ -122,6 +122,8 @@ new Calendar('#calendar', {
 
 `monthsToSwitch` 参数控制可切换月份的数量。
 
+<Info>当 `monthsToSwitch` 大于 `1` 时，月份选择视图（month picker）也只允许选择从当前选中月份按 `monthsToSwitch` 步长可到达的月份——其他月份将显示为禁用状态。这是为了让导航与设定的步长保持一致（在 `type: 'multiple'` 下与 `displayMonthsCount` 搭配使用时尤为重要，可使多个可见月份保持同步）。</Info>
+
 ---
 
 ## themeAttrDetect

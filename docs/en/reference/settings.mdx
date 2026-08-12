@@ -122,6 +122,8 @@ new Calendar('#calendar', {
 
 The `monthsToSwitch` parameter controls the number of switchable months.
 
+<Info>When `monthsToSwitch` is greater than `1`, the month picker view will also only allow selecting months that are reachable from the currently selected month in steps of `monthsToSwitch` — other months will appear disabled. This keeps navigation consistent with the configured step size (most relevant together with `displayMonthsCount` in `type: 'multiple'`, where it keeps multiple visible months in sync).</Info>
+
 ---
 
 ## themeAttrDetect

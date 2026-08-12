@@ -122,6 +122,8 @@ new Calendar('#calendar', {
 
 `monthsToSwitch` 파라미터는 전환할 월의 개수를 제어합니다.
 
+<Info>`monthsToSwitch`가 `1`보다 크면, 월 선택(month picker) 화면에서도 현재 선택된 월로부터 `monthsToSwitch` 간격으로 도달 가능한 월만 선택할 수 있으며, 나머지 월은 비활성화되어 표시됩니다. 이는 설정된 이동 간격과 내비게이션을 일관되게 유지하기 위한 것입니다(특히 `type: 'multiple'`에서 `displayMonthsCount`와 함께 사용할 때, 여러 개의 표시된 월을 서로 동기화된 상태로 유지하는 데 중요합니다).</Info>
+
 ---
 
 ## themeAttrDetect
