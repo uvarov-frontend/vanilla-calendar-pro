@@ -1,0 +1,98 @@
+---
+title: Web Component
+description: Learn how to wrap Vanilla Calendar Pro in a native Web Component, with an optional Shadow DOM variant for full style and DOM encapsulation.
+section: 7. Components for Libraries
+---
+
+# Web Component
+
+<Info>
+  A Web Component is a native, framework-agnostic custom HTML element. Once registered, it works the same way in any framework, or in plain HTML — no wrapper library required.
+</Info>
+
+## Plain Web Component
+
+For demonstration purposes, let's consider the simplest native Web Component wrapping Vanilla Calendar Pro. Create a file named `VanillaCalendarElement.ts` and copy the following code into it:
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    this.calendar = new Calendar(this, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+The custom element renders the calendar directly into its own (light) DOM — no extra setup is required, and `disconnectedCallback` calls `calendar.destroy()` so the calendar cleans up after itself whenever the custom element is removed from the page.
+
+Once registered, use the custom element anywhere in your HTML, in any framework or none at all:
+
+```html
+<vanilla-calendar-element></vanilla-calendar-element>
+```
+
+## Web Component with Shadow DOM
+
+If you need full style and DOM encapsulation — for example, to ship the calendar inside a design-system component without its CSS leaking out or clashing with the host page — you can attach a Shadow DOM instead. Vanilla Calendar Pro fully supports being initialized inside a Shadow DOM: popups are appended to the correct root, clicks and focus are tracked relative to the shadow boundary, and the system-theme listener is scoped per instance. No special option is required.
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    // the calendar's own CSS has to be loaded inside the shadow root too, since
+    // styles in the outer document don't cross the shadow boundary
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css';
+    shadow.appendChild(link);
+
+    const container = document.createElement('div');
+    shadow.appendChild(container);
+
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    // pass the element directly rather than a string selector: a string selector is
+    // resolved with document.querySelector, which can't reach inside a Shadow DOM
+    this.calendar = new Calendar(container, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+A few points worth calling out:
+
+- The calendar's stylesheet is loaded with a `<link>` element appended directly inside the shadow root, since styles declared in the outer document do not cross the shadow boundary.
+- The container is passed to `new Calendar(...)` as an element rather than as a string selector: a string selector is resolved with `document.querySelector`, which cannot reach inside a Shadow DOM.

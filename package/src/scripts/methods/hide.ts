@@ -1,3 +1,4 @@
+import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import { setSkipOpenOnFocus } from '@scripts/utils/skipOpenOnFocus';
 import { disableTabbing } from '@scripts/utils/toggleTabbing';
@@ -15,7 +16,7 @@ const hide = (self: Calendar) => {
     setContext(self, 'cleanupHandlers', []);
   }
 
-  if (self.inputMode && self.context.inputElement && self.context.mainElement.contains(document.activeElement)) {
+  if (self.inputMode && self.context.inputElement && self.context.mainElement.contains(getRootNode(self.context.mainElement).activeElement)) {
     const shouldHandleFocus = typeof self.openOnFocus === 'function' || self.openOnFocus === true;
     if (shouldHandleFocus) setSkipOpenOnFocus(self);
     self.context.inputElement.focus();

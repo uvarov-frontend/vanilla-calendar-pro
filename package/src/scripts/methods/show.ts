@@ -31,7 +31,11 @@ const show = (self: Calendar) => {
   self.context.cleanupHandlers.push(() => document.removeEventListener('keydown', handleEscapeKey));
 
   const documentClickEvent = (e: MouseEvent) => {
-    if (e.target === self.context.inputElement || self.context.mainElement.contains(e.target as HTMLElement)) return;
+    // use composedPath() rather than e.target: for a calendar rendered inside a Shadow DOM,
+    // a document-level listener sees e.target retargeted to the shadow host, which would
+    // never match inputElement/mainElement and incorrectly close the calendar on its own clicks
+    const clickedEl = (e.composedPath()[0] ?? e.target) as HTMLElement;
+    if (clickedEl === self.context.inputElement || self.context.mainElement.contains(clickedEl)) return;
     hide(self);
   };
   document.addEventListener('click', documentClickEvent, { capture: true });

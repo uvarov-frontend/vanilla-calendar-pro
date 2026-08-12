@@ -1,0 +1,98 @@
+---
+title: 웹 컴포넌트
+description: Vanilla Calendar Pro를 네이티브 웹 컴포넌트로 감싸는 방법과, 스타일 및 DOM을 완전히 캡슐화하는 선택적 Shadow DOM 방식을 알아보세요.
+section: 7. 라이브러리용 컴포넌트
+---
+
+# 웹 컴포넌트
+
+<Info>
+  웹 컴포넌트는 프레임워크에 종속되지 않는 네이티브 커스텀 HTML 엘리먼트입니다. 한 번 등록하면 어떤 프레임워크에서든, 혹은 순수 HTML에서든 별도의 래퍼 라이브러리 없이 동일하게 동작합니다.
+</Info>
+
+## 일반 웹 컴포넌트
+
+데모를 위해 Vanilla Calendar Pro를 감싸는 가장 단순한 네이티브 웹 컴포넌트를 살펴보겠습니다. `VanillaCalendarElement.ts` 파일을 만들고 아래 코드를 붙여넣으세요:
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    this.calendar = new Calendar(this, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+이 커스텀 엘리먼트는 캘린더를 자신의 일반(light) DOM에 직접 렌더링합니다 — 별도의 설정이 필요 없으며, `disconnectedCallback`은 `calendar.destroy()`를 호출하여 커스텀 엘리먼트가 페이지에서 제거될 때마다 캘린더가 스스로 정리되도록 합니다.
+
+등록이 끝나면, 어떤 프레임워크에서든 또는 프레임워크 없이도 HTML 어디에나 커스텀 엘리먼트를 사용할 수 있습니다:
+
+```html
+<vanilla-calendar-element></vanilla-calendar-element>
+```
+
+## Shadow DOM을 사용하는 웹 컴포넌트
+
+스타일과 DOM을 완전히 캡슐화해야 한다면 — 예를 들어 디자인 시스템 컴포넌트 안에 캘린더를 넣으면서 CSS가 밖으로 새어 나가거나 호스트 페이지와 충돌하지 않게 하려면 — 대신 Shadow DOM을 연결할 수 있습니다. Vanilla Calendar Pro는 Shadow DOM 내부에서의 초기화를 완벽하게 지원합니다: 팝업은 올바른 루트에 추가되고, 클릭과 포커스는 shadow 경계를 기준으로 추적되며, 시스템 테마 리스너는 인스턴스별로 범위가 지정됩니다. 별도의 옵션은 필요하지 않습니다.
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    // the calendar's own CSS has to be loaded inside the shadow root too, since
+    // styles in the outer document don't cross the shadow boundary
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css';
+    shadow.appendChild(link);
+
+    const container = document.createElement('div');
+    shadow.appendChild(container);
+
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    // pass the element directly rather than a string selector: a string selector is
+    // resolved with document.querySelector, which can't reach inside a Shadow DOM
+    this.calendar = new Calendar(container, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+몇 가지 짚고 넘어갈 점:
+
+- 외부 문서에 선언된 스타일은 shadow 경계를 넘지 못하므로, 캘린더의 스타일시트는 shadow root 내부에 직접 추가된 `<link>` 요소로 로드됩니다.
+- 컨테이너는 문자열 선택자가 아닌 요소 자체로 `new Calendar(...)`에 전달됩니다: 문자열 선택자는 `document.querySelector`로 해석되는데, 이는 Shadow DOM 내부에 접근할 수 없습니다.

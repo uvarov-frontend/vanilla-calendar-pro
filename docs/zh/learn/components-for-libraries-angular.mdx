@@ -1,0 +1,67 @@
+---
+title: Angular 组件
+description: 学习如何为 Vanilla Calendar Pro 创建和使用 Angular 组件。创建组件并将其集成到 Angular 应用程序中的详细指南。
+section: 7. 库组件
+---
+
+# Angular 组件
+
+<Info>
+  本示例适用于 Angular 15+（standalone 组件）。
+</Info>
+
+出于演示目的，让我们为 Vanilla Calendar Pro 创建一个简单的 Angular 组件。创建一个名为 `vanilla-calendar.component.ts` 的文件，并将以下代码复制到其中：
+
+```ts
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Calendar, Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+@Component({
+  selector: 'vanilla-calendar',
+  standalone: true,
+  template: `<div #calendarRef></div>`,
+})
+export class VanillaCalendarComponent implements AfterViewInit {
+  @Input() config?: Options;
+  @ViewChild('calendarRef') calendarRef!: ElementRef<HTMLDivElement>;
+
+  ngAfterViewInit() {
+    const calendar = new Calendar(this.calendarRef.nativeElement, this.config);
+    calendar.init();
+  }
+}
+```
+
+然后，将创建的 `VanillaCalendarComponent` 导入到您计划显示日历的组件中。
+
+```ts
+// ...
+import { VanillaCalendarComponent } from './vanilla-calendar.component';
+// ...
+```
+
+将其添加到 standalone 组件的 `imports` 数组中，并在模板中使用。
+
+```ts
+@Component({
+  // ...
+  imports: [VanillaCalendarComponent],
+  template: `
+    <!-- -->
+    <vanilla-calendar />
+    <!-- -->
+  `,
+})
+```
+
+`VanillaCalendarComponent` 可以接受 `<div>` 标签支持的任何 HTML 属性（Angular 会自动将它们转发到宿主元素），以及用于配置日历的 `config` 输入属性。
+
+```ts
+template: `
+  <!-- -->
+  <vanilla-calendar [config]="{ type: 'multiple' }" class="thisIsMyClass" />
+  <!-- -->
+`,
+```

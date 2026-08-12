@@ -1,0 +1,98 @@
+---
+title: Веб-компонент
+description: Узнайте, как обернуть Vanilla Calendar Pro в нативный веб-компонент, а также опциональный вариант с Shadow DOM для полной изоляции стилей и DOM.
+section: 7. Компоненты для библиотек
+---
+
+# Веб-компонент
+
+<Info>
+  Веб-компонент — это нативный кастомный HTML-элемент, не привязанный к конкретному фреймворку. После регистрации он одинаково работает в любом фреймворке или в обычном HTML — без обёрточных библиотек.
+</Info>
+
+## Обычный веб-компонент
+
+Для демонстрации давайте рассмотрим простейший нативный веб-компонент, оборачивающий Vanilla Calendar Pro. Создайте файл с именем `VanillaCalendarElement.ts` и скопируйте в него следующий код:
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    this.calendar = new Calendar(this, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+Кастомный элемент рендерит календарь прямо в свой собственный (light) DOM — никакой дополнительной настройки не требуется, а `disconnectedCallback` вызывает `calendar.destroy()`, поэтому календарь корректно очищает за собой ресурсы при удалении кастомного элемента со страницы.
+
+После регистрации используйте кастомный элемент где угодно в вашем HTML, в любом фреймворке или вообще без него:
+
+```html
+<vanilla-calendar-element></vanilla-calendar-element>
+```
+
+## Веб-компонент с Shadow DOM
+
+Если вам нужна полная изоляция стилей и DOM — например, чтобы встроить календарь в компонент дизайн-системы так, чтобы его CSS не «протекал» наружу и не конфликтовал со стилями хост-страницы — можно вместо этого подключить Shadow DOM. Vanilla Calendar Pro полностью поддерживает инициализацию внутри Shadow DOM: всплывающее окно добавляется в правильный корневой узел, клики и фокус отслеживаются относительно границы shadow-дерева, а слушатель системной темы работает отдельно для каждого экземпляра. Никакая специальная опция для этого не требуется.
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    // the calendar's own CSS has to be loaded inside the shadow root too, since
+    // styles in the outer document don't cross the shadow boundary
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css';
+    shadow.appendChild(link);
+
+    const container = document.createElement('div');
+    shadow.appendChild(container);
+
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    // pass the element directly rather than a string selector: a string selector is
+    // resolved with document.querySelector, which can't reach inside a Shadow DOM
+    this.calendar = new Calendar(container, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+Несколько важных моментов:
+
+- Стили календаря подключаются через элемент `<link>`, добавленный прямо внутрь shadow root, поскольку стили, объявленные во внешнем документе, не пересекают границу shadow-дерева.
+- Контейнер передаётся в `new Calendar(...)` как элемент, а не как строковый селектор: строковый селектор резолвится через `document.querySelector`, который не может заглянуть внутрь Shadow DOM.

@@ -1,0 +1,98 @@
+---
+title: Web 组件
+description: 学习如何将 Vanilla Calendar Pro 封装为原生 Web 组件，以及用于完全隔离样式和 DOM 的可选 Shadow DOM 方案。
+section: 7. 库组件
+---
+
+# Web 组件
+
+<Info>
+  Web 组件是一种原生的、与框架无关的自定义 HTML 元素。注册后，它在任何框架或纯 HTML 中的表现完全一致，无需额外的封装库。
+</Info>
+
+## 普通 Web 组件
+
+出于演示目的，让我们考虑封装 Vanilla Calendar Pro 的最简单原生 Web 组件。创建一个名为 `VanillaCalendarElement.ts` 的文件，并将以下代码复制到其中：
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    this.calendar = new Calendar(this, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+该自定义元素直接将日历渲染到自身的（light）DOM 中——无需任何额外设置，`disconnectedCallback` 会调用 `calendar.destroy()`，因此每当自定义元素从页面中移除时，日历都会自行清理。
+
+注册完成后，即可在任何框架或不使用任何框架的 HTML 中的任意位置使用该自定义元素：
+
+```html
+<vanilla-calendar-element></vanilla-calendar-element>
+```
+
+## 带 Shadow DOM 的 Web 组件
+
+如果你需要完全隔离样式和 DOM——例如，要把日历放进设计系统组件中，同时避免其 CSS 泄漏出去或与宿主页面的样式冲突——可以改为附加一个 Shadow DOM。Vanilla Calendar Pro 完全支持在 Shadow DOM 内部初始化：弹出层会被添加到正确的根节点，点击和焦点会相对于 shadow 边界进行跟踪，系统主题监听器也会按实例单独作用域化。无需任何特殊选项。
+
+```ts
+import { Calendar, type Options } from 'vanilla-calendar-pro';
+
+class VanillaCalendarElement extends HTMLElement {
+  calendar?: Calendar;
+
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    // the calendar's own CSS has to be loaded inside the shadow root too, since
+    // styles in the outer document don't cross the shadow boundary
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css';
+    shadow.appendChild(link);
+
+    const container = document.createElement('div');
+    shadow.appendChild(container);
+
+    const options: Options = {
+      onClickDate(self) {
+        console.log(self.context.selectedDates);
+      },
+    };
+
+    // pass the element directly rather than a string selector: a string selector is
+    // resolved with document.querySelector, which can't reach inside a Shadow DOM
+    this.calendar = new Calendar(container, options);
+    this.calendar.init();
+  }
+
+  disconnectedCallback() {
+    if (this.calendar) this.calendar.destroy();
+  }
+}
+
+customElements.define('vanilla-calendar-element', VanillaCalendarElement);
+```
+
+有几点值得说明：
+
+- 日历的样式表通过一个直接添加到 shadow root 内部的 `<link>` 元素加载，因为外部文档中声明的样式无法穿过 shadow 边界。
+- 容器是以元素本身而非字符串选择器的形式传给 `new Calendar(...)` 的：字符串选择器是通过 `document.querySelector` 解析的，而它无法访问 Shadow DOM 内部。
