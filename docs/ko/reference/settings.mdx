@@ -88,6 +88,34 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 
 ---
 
+## animation
+
+`Type: Boolean | Object`
+
+`Default: false`
+
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+
+```ts
+new Calendar('#calendar', {
+  animation: true,
+  // animation: { duration: 400, easing: 'ease-out' },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+});
+```
+
+뷰 전환에 애니메이션을 적용합니다. 화살표로 월을 전환하거나 연도 목록을 넘길 때는 가로로 슬라이드되고, 월·연도 선택 화면을 열고 닫을 때는 크로스페이드로 전환됩니다.
+
+<Info>옵션을 켜도 성능 저하는 체감되지 않습니다. 전환마다 약 2ms의 일회성 작업만 추가되며(프레임마다가 아님), 애니메이션 자체는 컴포지터에서 실행됩니다 — `transform`과 `opacity`만 애니메이션되므로 메인 스레드가 막히지 않습니다. 번들 크기는 약 1.5 KB(gzip 기준) 늘어납니다.</Info>
+
+기본값은 전환마다 다릅니다. 슬라이드는 `250ms`, 크로스페이드는 `150ms`이며 이징은 모두 `cubic-bezier(0.4, 0, 0.2, 1)`입니다. 객체를 전달하면 두 값 중 원하는 것을 덮어씁니다. `duration`은 밀리초 단위이며, `easing`에는 모든 CSS easing 함수를 사용할 수 있습니다. 최상위 값은 모든 전환에 적용되고, `slide`(화살표)나 `fade`(선택 화면) 아래에 중첩하면 해당 그룹에만 적용되며 중첩된 값이 우선합니다.
+
+<Info>방문자가 `prefers-reduced-motion: reduce`로 모션 최소화를 요청한 경우 애니메이션은 실행되지 않습니다.</Info>
+
+기본값이 `false`인 것은 하위 호환성을 위해서입니다. 이 옵션은 나중에 추가되었고, 켜면 DOM 조회 결과가 달라집니다. 전환이 진행되는 동안 사라지는 내용은 `inert`가 지정된 `[data-vc-ghost]` 레이어 안에 남아 있어 날짜 요소가 잠시 두 번 존재합니다. 직접 작성한 코드에서 날짜 요소를 조회한다면 이 레이어를 제외하세요. 그렇지 않으면 `mainElement.querySelectorAll('[data-vc-date]')`가 사라지는 중인 셀까지 함께 반환합니다.
+
+---
+
 ## firstWeekday
 
 `Type: Number`

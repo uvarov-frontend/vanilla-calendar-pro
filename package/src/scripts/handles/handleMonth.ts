@@ -1,6 +1,7 @@
 import createDates from '@scripts/creators/createDates/createDates';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
+import animate from '@scripts/utils/animate';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import setContext from '@scripts/utils/setContext';
@@ -21,7 +22,7 @@ const handleMonth = (self: Calendar, route: 'prev' | 'next') => {
 
   visibilityTitle(self);
   visibilityArrows(self);
-  createDates(self);
+  animate(self, '[data-vc="dates"]', route, () => createDates(self));
 };
 
 export default handleMonth;

@@ -35,6 +35,17 @@ export type DatesArr = Array<Date | number | string>;
 
 export type TimeControl = 'all' | 'range';
 
+export type AnimationTiming = {
+  duration?: number;
+  easing?: string;
+};
+
+// Nested values win over the ones set at the top level.
+export type AnimationOptions = AnimationTiming & {
+  slide?: AnimationTiming;
+  fade?: AnimationTiming;
+};
+
 export type TimePicker = 'AM' | 'PM';
 
 export type ThemesDefault = 'light' | 'dark' | 'system';

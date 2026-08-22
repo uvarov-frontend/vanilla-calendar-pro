@@ -88,6 +88,34 @@ If there is not enough space below, it will evaluate another best available posi
 
 ---
 
+## animation
+
+`Type: Boolean | Object`
+
+`Default: false`
+
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+
+```ts
+new Calendar('#calendar', {
+  animation: true,
+  // animation: { duration: 400, easing: 'ease-out' },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+});
+```
+
+Animates transitions between views: switching months with the arrows and paging through the year list slide horizontally, opening and closing the month and year pickers cross-fade.
+
+<Info>Even with the option on, the cost is imperceptible: a transition adds about 2ms of one-time work (not per frame), and the animation itself runs on the compositor — only `transform` and `opacity` are animated, so the main thread is never blocked. The option adds roughly 1.5 KB (gzipped) to the bundle.</Info>
+
+Defaults differ per transition — `250ms` for the slides and `150ms` for the cross-fade, both with `cubic-bezier(0.4, 0, 0.2, 1)`. An object overrides either value: `duration` is in milliseconds, `easing` accepts any CSS easing function. Values at the top level apply to every transition; nest them under `slide` (arrows) or `fade` (pickers) to target one group, and nested values win.
+
+<Info>Animations are skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`.</Info>
+
+The default is `false` for backwards compatibility: the option was added later, and turning it on changes what a DOM query sees. While a transition runs, the outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements are briefly present twice — exclude that layer if your own code queries them, otherwise `mainElement.querySelectorAll('[data-vc-date]')` also matches the cells on their way out.
+
+---
+
 ## firstWeekday
 
 `Type: Number`

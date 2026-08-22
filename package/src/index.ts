@@ -4,6 +4,8 @@ import replaceProperties from '@scripts/utils/replaceProperties';
 import setContext from '@scripts/utils/setContext';
 import OptionsCalendar from '@src/options';
 import type {
+  AnimationOptions,
+  AnimationTiming,
   ContextVariables,
   DateAny,
   DateMode,
@@ -88,6 +90,8 @@ export class Calendar extends OptionsCalendar {
 }
 
 export {
+  AnimationOptions,
+  AnimationTiming,
   DateAny,
   DateMode,
   DatesArr,

@@ -12,7 +12,11 @@ const handleArrowKeys = (self: Calendar) => {
     const target = event.target as HTMLElement;
     if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key) || target.localName !== 'button') return;
 
-    const buttons = Array.from(self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button'));
+    // the outgoing content lives on in the DOM until the animation ends: inert keeps it out of
+    // the focus order but not out of the query, and indexing the buttons would not survive that
+    const buttons = Array.from(self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button')).filter(
+      (button) => !button.closest('[data-vc-ghost]'),
+    );
     const currentIndex = buttons.indexOf(target as HTMLButtonElement);
     if (currentIndex === -1) return;
 

@@ -1,0 +1,38 @@
+---
+title: 动画
+description: 了解如何为日历视图切换添加动画：切换月份和年份时水平滑动，切换日历类型时交叉淡入淡出。
+section: 6. 附加功能
+---
+
+# 动画
+
+视图之间的切换可以添加动画。用箭头切换月份和翻页年份列表时会水平滑动，打开和关闭月份、年份选择器时则交叉淡入淡出。
+
+<Info>出于向后兼容的考虑，动画默认关闭：该选项是后来加入的，而开启后在过渡进行期间 DOM 查询的结果会发生变化。</Info>
+
+<Sandbox example="additional-features-animation" height={400} />
+
+## 所有过渡共用一套时间
+
+传入对象而不是 `true` 即可覆盖时间设置。顶层的值会作用于所有过渡。
+
+<Sandbox example="additional-features-animation-shared" height={400} />
+
+## 分别设置时间
+
+两类过渡可以彼此独立地调整。把值嵌套在 `slide`（箭头）或 `fade`（选择器）下即可，嵌套值优先于顶层的值。
+
+下面的示例给滑动配了一条会越过目标再回弹的曲线：月份先蓄力，冲过自己的位置，然后落回；而选择器保持平缓的交叉淡入淡出。
+
+<Sandbox example="additional-features-animation-custom" height={400} />
+
+<Info>当访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，动画会被跳过。</Info>
+
+## 动画进行时查询日历
+
+过渡进行期间，正在退出的内容会保留在 DOM 中带有 `inert` 的 `[data-vc-ghost]` 图层内，因此日期元素在这段时间里会出现两份。`onClickArrow` 和 `onClickDate` 等回调正是在这个时间窗口内触发的，如果你在回调里检查日历，请排除这个图层。
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```
