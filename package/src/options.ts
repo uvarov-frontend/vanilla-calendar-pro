@@ -2,6 +2,7 @@ import type { Calendar } from '@src/index';
 import labels from '@src/labels';
 import styles from '@src/styles';
 import type {
+  AnimationOptions,
   DateAny,
   DateMode,
   DatesArr,
@@ -27,6 +28,8 @@ export default class OptionsCalendar {
   inputMode: boolean = false;
   openOnFocus: ToggleSelected = true;
   positionToInput: PositionToInput = 'left';
+
+  animation: boolean | AnimationOptions = false;
 
   firstWeekday: WeekDayID = 1;
   monthsToSwitch: 1 | MonthsCount = 1;

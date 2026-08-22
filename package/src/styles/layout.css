@@ -137,6 +137,16 @@ button[data-vc-week-day] {
   @apply cursor-pointer;
 }
 
+/* Positioning has to come together with the clipping: overflow does not clip absolutely
+   positioned descendants whose containing block sits higher up the tree, and the ghost is one. */
+[data-vc-clip] {
+  @apply relative overflow-hidden;
+}
+
+[data-vc-ghost] {
+  @apply absolute overflow-hidden pointer-events-none;
+}
+
 [data-vc='dates'] {
   @apply grid grid-cols-1 grid-rows-[auto] justify-items-center items-center grow pointer-events-none;
 }

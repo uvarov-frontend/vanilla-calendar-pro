@@ -2,12 +2,39 @@ import create from '@scripts/creators/create';
 import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
+import animate, { captureOpacity, playOpacity } from '@scripts/utils/animate';
 import getColumnID from '@scripts/utils/getColumnID';
 import getDate from '@scripts/utils/getDate';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Range } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
+
+const WRAPPER = '[data-vc="wrapper"]';
+const COLUMN = '[data-vc="column"]';
+
+const getColumnIndex = (self: Calendar, el: HTMLElement) => {
+  const columnEl = el.closest<HTMLElement>(COLUMN);
+  if (!columnEl) return 0;
+  return Array.from(self.context.mainElement.querySelectorAll<HTMLElement>(COLUMN)).indexOf(columnEl);
+};
+
+// Only one column is re-rendered, but the dim of the others changes along with it,
+// so the opacity is captured before the render and played out afterwards.
+const changeType = (self: Calendar, columnIndex: number, render: () => void) => {
+  const dim = captureOpacity(self, COLUMN);
+  animate(self, WRAPPER, 'fade', render, columnIndex);
+  playOpacity(self, COLUMN, dim);
+};
+
+// Both callers leave the picker the same way: find which column is showing it, switch the
+// context back, animate that column, and restore focus to the header that opened it.
+const leavePicker = (self: Calendar, type: (typeof typeClick)[number]) => {
+  const { columnID } = getColumnID(self, self.context.currentType);
+  setContext(self, 'currentType', self.type);
+  changeType(self, columnID, () => create(self));
+  self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+};
 
 const getValue = (self: Calendar, type: (typeof typeClick)[number], id: number) => {
   const { currentValue, columnID } = getColumnID(self, type);
@@ -76,9 +103,7 @@ const handleItemClick = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   actionByType[type]();
 
   if (self.context.currentType !== self.type) {
-    setContext(self, 'currentType', self.type);
-    create(self);
-    self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+    leavePicker(self, type);
   } else {
     setMonthOrYearModifier(self, itemEl, type, true, true);
   }
@@ -88,9 +113,10 @@ const handleClickType = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   const target = event.target as HTMLElement;
 
   const headerEl = target.closest<HTMLElement>(`[data-vc="${type}"]`);
+  const columnIndex = getColumnIndex(self, target);
   const createByType = {
-    year: () => createYears(self, target),
-    month: () => createMonths(self, target),
+    year: () => changeType(self, columnIndex, () => createYears(self, target)),
+    month: () => changeType(self, columnIndex, () => createMonths(self, target)),
   };
   if (headerEl && self.onClickTitle) self.onClickTitle(self, event);
   if (headerEl && self.context.currentType !== type) return createByType[type]();
@@ -102,9 +128,7 @@ const handleClickType = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
 
   if ((self.context.currentType === type && headerEl) || (self.type === 'multiple' && self.context.currentType === type && gridEl && !columnEl)) {
-    setContext(self, 'currentType', self.type);
-    create(self);
-    self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
+    leavePicker(self, type);
   }
 };
 
