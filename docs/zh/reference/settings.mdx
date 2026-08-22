@@ -88,6 +88,34 @@ new Calendar('#calendar', {
 
 ---
 
+## animation
+
+`Type: Boolean | Object`
+
+`Default: false`
+
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+
+```ts
+new Calendar('#calendar', {
+  animation: true,
+  // animation: { duration: 400, easing: 'ease-out' },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+});
+```
+
+为视图切换启用动画：用箭头切换月份和翻页年份列表时水平滑动，打开和关闭月份、年份选择器时交叉淡入淡出。
+
+<Info>即使开启该选项，性能损耗也感觉不到：每次过渡只增加约 2ms 的一次性开销（并非每帧），动画本身在合成器线程上运行——只对 `transform` 和 `opacity` 做动画，因此不会阻塞主线程。该选项会给打包体积增加约 1.5 KB（gzip 后）。</Info>
+
+不同过渡的默认值并不相同——滑动为 `250ms`，交叉淡入淡出为 `150ms`，缓动均为 `cubic-bezier(0.4, 0, 0.2, 1)`。传入对象可覆盖其中任意一项：`duration` 的单位是毫秒，`easing` 接受任意 CSS 缓动函数。顶层的值作用于所有过渡；嵌套在 `slide`（箭头）或 `fade`（选择器）下则只作用于该组，且嵌套值优先。
+
+<Info>当访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，动画会被跳过。</Info>
+
+出于向后兼容的考虑，默认值为 `false`：该选项是后来加入的，而开启后 DOM 查询的结果会发生变化。过渡进行期间，正在退出的内容会保留在 DOM 中带有 `inert` 的 `[data-vc-ghost]` 图层内，日期元素因此会短暂地出现两份——如果你自己的代码会查询它们，请排除这个图层，否则 `mainElement.querySelectorAll('[data-vc-date]')` 也会匹配到正在退出的单元格。
+
+---
+
 ## firstWeekday
 
 `类型: 数字`

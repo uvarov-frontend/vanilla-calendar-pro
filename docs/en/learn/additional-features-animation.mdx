@@ -1,0 +1,38 @@
+---
+title: Animation
+description: Learn how to animate transitions between calendar views: sliding when navigating months and years, and a cross-fade when the calendar type changes.
+section: 6. Additional Features
+---
+
+# Animation
+
+Transitions between views can be animated. Navigating months with the arrows and paging through the year list slide horizontally, while opening and closing the month and year pickers cross-fade.
+
+<Info>Animation is off by default for backwards compatibility: the option was added later, and turning it on changes what a DOM query sees while a transition runs.</Info>
+
+<Sandbox example="additional-features-animation" height={400} />
+
+## One Timing for Everything
+
+Passing an object instead of `true` overrides the timing. Values at the top level reach every transition.
+
+<Sandbox example="additional-features-animation-shared" height={400} />
+
+## Separate Timings
+
+The two kinds of transition can be tuned apart from each other. Nest the values under `slide` for the arrows, or under `fade` for the pickers — nested values win over the ones at the top level.
+
+The example below gives the slide an overshooting curve, so the month winds up, shoots past its place and settles back, while the pickers keep a calm cross-fade.
+
+<Sandbox example="additional-features-animation-custom" height={400} />
+
+<Info>Animations are skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`.</Info>
+
+## Querying the Calendar While It Animates
+
+While a transition runs, the outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements are momentarily present twice. Callbacks such as `onClickArrow` and `onClickDate` fire inside that window, so exclude the layer if you inspect the calendar from them.
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```
