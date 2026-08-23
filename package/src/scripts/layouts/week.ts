@@ -1,13 +1,13 @@
 import type { Calendar } from '@src/index';
 
-const layoutDefault = (self: Calendar) => `
+const layoutWeek = (self: Calendar) => `
   <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
-    <#ArrowPrev [month] />
+    <#ArrowPrev [week] />
     <div class="${self.styles.headerContent}" data-vc-header="content">
       <#Month />
       <#Year />
     </div>
-    <#ArrowNext [month] />
+    <#ArrowNext [week] />
   </div>
   <div class="${self.styles.wrapper}" data-vc="wrapper">
     <#WeekNumbers />
@@ -21,4 +21,4 @@ const layoutDefault = (self: Calendar) => `
   <#ControlTime />
 `;
 
-export default layoutDefault;
+export default layoutWeek;

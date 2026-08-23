@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>
+      The Vanilla Calendar Pro is a versatile JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript
+      frameworks and libraries.
+    </title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+    <link rel="stylesheet" href="../../index.css" />
+    <script defer src="./main.ts" type="module"></script>
+  </head>
+  <body
+    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
+  >
+    <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
+    <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
+      A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
+    </p>
+    <div class="flex flex-col items-center gap-12">
+      <figure class="flex flex-col items-center gap-3">
+        <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; a standalone week strip</figcaption>
+        <div id="calendar-week"></div>
+        <button id="btn-sunday-first" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Set Sunday as the first weekday</button>
+      </figure>
+      <figure class="flex flex-col items-center gap-3">
+        <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; with week numbers and a selected date</figcaption>
+        <div id="calendar-week-numbers"></div>
+      </figure>
+      <figure class="flex flex-col items-center gap-3">
+        <figcaption class="text-sm dark:text-slate-400">a month, for comparison</figcaption>
+        <div id="calendar-month"></div>
+      </figure>
+      <figure class="flex flex-col items-center gap-3">
+        <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; year switching disabled</figcaption>
+        <div id="calendar-week-year-locked"></div>
+      </figure>
+    </div>
+  </body>
+</html>

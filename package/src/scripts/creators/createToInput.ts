@@ -1,5 +1,6 @@
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
+import handleGestures from '@scripts/handles/handleGestures/handleGestures';
 import { show } from '@scripts/methods';
 import reset from '@scripts/methods/reset';
 import getRootNode from '@scripts/utils/getRootNode';
@@ -36,6 +37,7 @@ const createToInput = (self: Calendar) => {
 
   if (self.onInit) self.onInit(self);
   handleArrowKeys(self);
+  handleGestures(self);
   return handleClick(self);
 };
 

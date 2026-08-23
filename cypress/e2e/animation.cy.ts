@@ -268,3 +268,5 @@ describe('Animation', () => {
     column(1).find('[data-vc="wrapper"]').children().should('have.length.greaterThan', 0);
   });
 });
+
+export {};

@@ -2,6 +2,7 @@ import create from '@scripts/creators/create';
 import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
+import handleGestures from '@scripts/handles/handleGestures/handleGestures';
 import handleInput from '@scripts/handles/handleInput';
 import handleSelectDateRange from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import errorMessages from '@scripts/utils/getErrorMessages';
@@ -25,6 +26,8 @@ const init = (self: Calendar) => {
   }
   if (self.onInit) self.onInit(self);
   handleArrowKeys(self);
+  // Gestures may be enabled later through set().
+  handleGestures(self);
   return handleClick(self);
 };
 

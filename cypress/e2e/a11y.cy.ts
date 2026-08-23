@@ -35,6 +35,20 @@ describe('Accessibility (axe-core)', () => {
     cy.checkA11y(undefined, axeOptions);
   });
 
+  it('type: week calendar view has no ARIA violations', () => {
+    cy.visit('/pages/week/');
+    cy.injectAxe();
+    cy.checkA11y('#calendar-week', axeOptions);
+  });
+
+  it('collapsed calendar view has no ARIA violations', () => {
+    cy.visit('/pages/gestures/');
+    cy.get('#calendar-bounded [data-vc="collapse"]').click();
+    cy.get('#calendar-bounded').should('have.attr', 'data-vc-type', 'week');
+    cy.injectAxe();
+    cy.checkA11y('#calendar-bounded', axeOptions);
+  });
+
   it('inputMode popup has no ARIA violations', () => {
     cy.visit('/pages/input/');
     cy.get('#calendar-input').click();

@@ -1,5 +1,5 @@
 [data-vc='calendar'] {
-  @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity;
+  @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity select-none;
 }
 
 [data-vc='calendar']:focus-visible,
@@ -137,14 +137,53 @@ button[data-vc-week-day] {
   @apply cursor-pointer;
 }
 
-/* Positioning has to come together with the clipping: overflow does not clip absolutely
-   positioned descendants whose containing block sits higher up the tree, and the ghost is one. */
+[data-vc='collapse'] {
+  @apply relative block shrink-0 w-full h-4 mt-1 -mb-1 cursor-pointer border-0 bg-transparent touch-none
+	before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-8 before:h-[3px] before:rounded-full
+	surehover:before:w-4 surehover:before:h-4 surehover:before:rounded-none surehover:before:bg-no-repeat surehover:before:bg-center surehover:before:rotate-180;
+}
+
+[data-vc-type='week'] [data-vc='collapse'] {
+  @apply surehover:before:rotate-0;
+}
+
+[data-vc-type='default']:has([data-vc-collapsing]) [data-vc='collapse'] {
+  @apply surehover:before:rotate-0;
+}
+
+[data-vc-type='week']:has([data-vc-collapsing]) [data-vc='collapse'] {
+  @apply surehover:before:rotate-180;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-vc='collapse']::before {
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+[data-vc-swipe] [data-vc='content'] {
+  @apply touch-pan-y;
+}
+
+/* Prevent row redistribution while the grid height is animated. */
+[data-vc-collapsing] {
+  @apply flex-none [align-content:start];
+  overflow: hidden;
+  overflow: clip;
+}
+
+/* `clip` prevents focus scrolling; `hidden` is its fallback. Relative positioning keeps absolute
+   ghosts inside the clipping context. */
 [data-vc-clip] {
-  @apply relative overflow-hidden;
+  @apply relative;
+  overflow: hidden;
+  overflow: clip;
 }
 
 [data-vc-ghost] {
-  @apply absolute overflow-hidden pointer-events-none;
+  @apply absolute pointer-events-none;
+  overflow: hidden;
+  overflow: clip;
 }
 
 [data-vc='dates'] {
@@ -268,7 +307,7 @@ button[data-vc-week-day] {
 
 [data-vc-time-input='hour'] input,
 [data-vc-time-input='minute'] input {
-  @apply box-border relative block text-lg leading-[1.125rem] font-semibold text-center w-full p-[0.125rem] m-0 border-0 rounded disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline;
+  @apply box-border relative block text-lg leading-[1.125rem] font-semibold text-center w-full p-[0.125rem] m-0 border-0 rounded select-text disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline;
 }
 
 [data-vc-time='keeping'] {

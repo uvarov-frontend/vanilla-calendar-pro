@@ -4,8 +4,10 @@ import { addHoverEffect, removeHoverEffect } from '@scripts/handles/handleSelect
 import getDate from '@scripts/utils/getDate';
 import type { FormatDateString } from '@src/index';
 
+const isDragging = () => !!state.self?.context?.mainElement?.hasAttribute('data-vc-dragging');
+
 const handleHoverDatesEvent = (target: HTMLElement | null) => {
-  if (!target || !state.self?.context?.selectedDates[0]) return;
+  if (isDragging() || !target || !state.self?.context?.selectedDates[0]) return;
 
   if (!target.closest('[data-vc="dates"]')) {
     state.lastDateEl = null;
