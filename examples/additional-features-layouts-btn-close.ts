@@ -39,6 +39,7 @@ const options: Options = {
           <#DateRangeTooltip />
         </div>
       </div>
+      <#Collapse />
       <#ControlTime />
       <button id="btn-close" type="button">Close</button>
     `,
