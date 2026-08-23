@@ -1,9 +1,9 @@
 import type { Calendar } from '@src/index';
 
 const layoutDefault = (self: Calendar) => `
-  <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+  <div class="${self.styles.header}" data-vc="header" role="group" aria-label="${self.labels.navigation}">
     <#ArrowPrev [month] />
-    <div class="${self.styles.headerContent}" data-vc-header="content">
+    <div class="${self.styles.headerContent}" data-vc-header="content" aria-live="polite" aria-atomic="true">
       <#Month />
       <#Year />
     </div>

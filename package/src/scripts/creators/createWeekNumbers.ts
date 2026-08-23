@@ -16,8 +16,11 @@ const createWeekNumbers = (self: Calendar, firstDayWeek: number, days: number, w
   weekNumbersContentEl.dataset.vcWeekNumbers = 'content';
   weekNumbersEl.appendChild(weekNumbersContentEl);
 
-  const templateWeekNumberEl = document.createElement('button');
-  templateWeekNumberEl.type = 'button';
+  // Only make it a button when there is something to activate, and leave the row/rowheader roles
+  // out of it: the column sits beside the grid, not inside it.
+  const isClickable = !!self.onClickWeekNumber;
+  const templateWeekNumberEl = document.createElement(isClickable ? 'button' : 'b');
+  if (isClickable) (templateWeekNumberEl as HTMLButtonElement).type = 'button';
   templateWeekNumberEl.className = self.styles.weekNumber;
 
   const dateBtnEl = datesEl.querySelectorAll<HTMLButtonElement>('[data-vc-date]');
@@ -30,12 +33,10 @@ const createWeekNumbers = (self: Calendar, firstDayWeek: number, days: number, w
 
     if (!weekNumber) return;
 
-    const weekNumberEl = templateWeekNumberEl.cloneNode(true) as HTMLElement;
+    const weekNumberEl = templateWeekNumberEl.cloneNode(false) as HTMLElement;
     weekNumberEl.innerText = String(weekNumber.week);
     weekNumberEl.dataset.vcWeekNumber = String(weekNumber.week);
     weekNumberEl.dataset.vcWeekYear = String(weekNumber.year);
-    weekNumberEl.role = 'rowheader';
-    weekNumberEl.ariaLabel = `${weekNumber.week}`;
     weekNumbersContentEl.appendChild(weekNumberEl);
   }
 };

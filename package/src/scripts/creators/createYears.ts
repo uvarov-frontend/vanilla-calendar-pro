@@ -3,6 +3,7 @@ import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
+import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
@@ -60,7 +61,7 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }
 
-  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-years-year]:not([disabled])`)?.focus();
+  updateRovingTabIndex(self);
 };
 
 export default createYears;

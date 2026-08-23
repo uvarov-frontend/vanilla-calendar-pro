@@ -3,6 +3,7 @@ import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getColumnID from '@scripts/utils/getColumnID';
 import getDate from '@scripts/utils/getDate';
+import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
@@ -92,7 +93,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
     if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);
   }
 
-  self.context.mainElement.querySelector<HTMLElement>(`[data-vc-months-month]:not([disabled])`)?.focus();
+  updateRovingTabIndex(self);
 };
 
 export default createMonths;

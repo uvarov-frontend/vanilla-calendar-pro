@@ -5,6 +5,7 @@ import { show } from '@scripts/methods';
 import reset from '@scripts/methods/reset';
 import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
+import { hideFromAT } from '@scripts/utils/toggleTabbing';
 import type { Calendar } from '@src/index';
 
 const createToInput = (self: Calendar) => {
@@ -13,6 +14,7 @@ const createToInput = (self: Calendar) => {
   calendar.dataset.vc = 'calendar';
   calendar.dataset.vcInput = '';
   calendar.dataset.vcCalendarHidden = '';
+  hideFromAT(calendar);
 
   // append into the input's own root (a ShadowRoot if the calendar lives inside one, so the
   // popup stays inside the same encapsulated style scope; document.body otherwise, since a

@@ -1,40 +1,60 @@
+import { focusRovingItem } from '@scripts/utils/rovingTabIndex';
 import type { Calendar } from '@src/index';
 
 const handleArrowKeys = (self: Calendar) => {
-  const getOffset = (btn: HTMLButtonElement) => {
-    if (btn.hasAttribute('data-vc-date-btn')) return 7;
-    if (btn.hasAttribute('data-vc-months-month')) return 4;
-    if (btn.hasAttribute('data-vc-years-year')) return 5;
-    return 1;
+  type Grid = { container: string; row: string; item: string };
+  const grids: Grid[] = [
+    { container: '[data-vc="dates"]', row: '[data-vc-dates="row"]', item: '[data-vc-date-btn]' },
+    { container: '[data-vc="months"]', row: '[data-vc-months="row"]', item: '[data-vc-months-month]' },
+    { container: '[data-vc="years"]', row: '[data-vc-years="row"]', item: '[data-vc-years-year]' },
+  ];
+
+  const isEnabled = (button: HTMLButtonElement) => !button.disabled && button.getAttribute('aria-disabled') !== 'true';
+
+  const getVerticalTarget = (gridEl: HTMLElement, grid: Grid, button: HTMLButtonElement, direction: -1 | 1) => {
+    const currentRow = button.closest<HTMLElement>(grid.row);
+    if (!currentRow) return button;
+
+    const rows = Array.from(gridEl.querySelectorAll<HTMLElement>(grid.row));
+    const rowIndex = rows.indexOf(currentRow);
+    const columnIndex = Array.from(currentRow.children).indexOf(button.parentElement as Element);
+    const targetRow = rows[rowIndex + direction];
+    const target = targetRow?.children[columnIndex]?.querySelector<HTMLButtonElement>(grid.item);
+
+    return target && isEnabled(target) ? target : button;
   };
 
   const onKeyDown = (event: KeyboardEvent) => {
-    const target = event.target as HTMLElement;
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key) || target.localName !== 'button') return;
+    const target = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
+    if (!target || !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
 
-    // the outgoing content lives on in the DOM until the animation ends: inert keeps it out of
-    // the focus order but not out of the query, and indexing the buttons would not survive that
-    const buttons = Array.from(self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="calendar"] button')).filter(
-      (button) => !button.closest('[data-vc-ghost]'),
-    );
+    const grid = grids.find((item) => target.matches(item.item));
+    const gridEl = grid ? target.closest<HTMLElement>(grid.container) : null;
+    if (!grid || !gridEl || gridEl.closest('[data-vc-ghost]')) return;
+
+    const buttons = Array.from(gridEl.querySelectorAll<HTMLButtonElement>(grid.item)).filter(isEnabled);
     const currentIndex = buttons.indexOf(target as HTMLButtonElement);
     if (currentIndex === -1) return;
 
-    const offset = getOffset(buttons[currentIndex]);
-
-    const direction = {
-      ArrowUp: () => Math.max(0, currentIndex - offset),
-      ArrowDown: () => Math.min(buttons.length - 1, currentIndex + offset),
-      ArrowLeft: () => Math.max(0, currentIndex - 1),
-      ArrowRight: () => Math.min(buttons.length - 1, currentIndex + 1),
+    const nextButton = {
+      ArrowUp: () => getVerticalTarget(gridEl, grid, target, -1),
+      ArrowDown: () => getVerticalTarget(gridEl, grid, target, 1),
+      ArrowLeft: () => buttons[Math.max(0, currentIndex - 1)],
+      ArrowRight: () => buttons[Math.min(buttons.length - 1, currentIndex + 1)],
     }[event.key]!;
 
-    const nextIndex = direction();
-    buttons[nextIndex]?.focus();
+    // Arrow keys move within their grid and must not scroll the page along with them.
+    event.preventDefault();
+    nextButton()?.focus();
   };
 
   self.context.mainElement.addEventListener('keydown', onKeyDown);
-  return () => self.context.mainElement.removeEventListener('keydown', onKeyDown);
+  self.context.mainElement.addEventListener('focusin', focusRovingItem);
+
+  return () => {
+    self.context.mainElement.removeEventListener('keydown', onKeyDown);
+    self.context.mainElement.removeEventListener('focusin', focusRovingItem);
+  };
 };
 
 export default handleArrowKeys;

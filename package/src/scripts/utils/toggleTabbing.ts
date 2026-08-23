@@ -40,3 +40,17 @@ export const restoreTabbing = (root: HTMLElement) => {
   restorePrevTabIndex(root);
   root.querySelectorAll<HTMLElement>(`[${PREV_TABINDEX_ATTR}]`).forEach(restorePrevTabIndex);
 };
+
+// `inert` takes the closed popup out of the focus order and the accessibility tree in one go;
+// the tabindex bookkeeping above stays as the fallback for browsers that do not support it.
+export const hideFromAT = (root: HTMLElement) => {
+  root.setAttribute('inert', '');
+  root.ariaHidden = 'true';
+  disableTabbing(root);
+};
+
+export const showToAT = (root: HTMLElement) => {
+  root.removeAttribute('inert');
+  root.removeAttribute('aria-hidden');
+  restoreTabbing(root);
+};
