@@ -1,0 +1,35 @@
+---
+title: Collapse
+description: Learn how to let visitors fold a month down to a single week and expand it again.
+section: 6. Additional Features
+---
+
+# Collapse
+
+`enableCollapse` adds a control under the grid. Clicking it folds the month down to one week, and clicking it again unfolds it. The option is off by default and does not require `enableSwipe` or `animation`.
+
+<Sandbox example="additional-features-collapse" height={420} />
+
+The control adapts to the device. On a mouse it is a chevron; on a touch screen it becomes a grabber that can be dragged up and down, and the calendar follows the finger the whole way. A slow drag has to cover a quarter of the travel, while a quick flick can commit sooner because release velocity is also taken into account. Otherwise the calendar springs back.
+
+The target week is chosen from the first selected date when it belongs to the displayed month. Otherwise the calendar uses today when it belongs to that month, or the first day of the displayed month as the final fallback.
+
+While collapsed the arrows step one week at a time. Expanding again returns to the month around that same week.
+
+<Info>Collapsing switches `type` to `'week'`, so `calendar.type` tells you the current state and `set({ type: 'week' })` does the same thing without the transition. Only the `default` and `week` types accept this option; pairing it with `multiple` throws on `init()`.</Info>
+
+## Timing
+
+The transition uses the [`animation`](/docs/reference/settings) option. Its timing can be configured independently through the `collapse` group:
+
+```ts
+new Calendar('#calendar', {
+  animation: { collapse: { duration: 450 } },
+  enableCollapse: true,
+});
+```
+
+<Info>
+  Without `animation`, or when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`, dragging still tracks the finger but the release
+  settles instantly.
+</Info>

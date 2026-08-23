@@ -1,0 +1,32 @@
+---
+title: 折叠
+description: 了解如何让访问者把整月折叠为一周并再次展开。
+section: 6. 附加功能
+---
+
+# 折叠
+
+`enableCollapse` 会在网格下方添加一个控件。点击它，整月会折叠为一周，再次点击则展开。该选项默认关闭，并且不依赖 `enableSwipe` 或 `animation`。
+
+<Sandbox example="additional-features-collapse" height={420} />
+
+控件会随设备变化。使用鼠标时是一个箭头；在触摸屏上则变成一根可以上下拖动的小横条，日历会全程跟随手指。缓慢拖动时需要超过全程的四分之一；快速甩动还会考虑松手速度，因此可能更早完成。其他情况下日历会回弹。
+
+如果第一个选中日期属于当前显示月份，就以它所在的周为准。否则，如果今天属于该月份，就使用今天所在的周；再否则，以当前显示月份第一天所在的周为准。
+
+折叠状态下，箭头每次翻动一周。再次展开时，日历会回到围绕这一周的月份。
+
+<Info>折叠会把 `type` 切换为 `'week'`，因此 `calendar.type` 能反映当前状态，而 `set({ type: 'week' })` 会在没有过渡的情况下做同样的事。该选项只被 `default` 和 `week` 类型接受，与 `multiple` 搭配会在 `init()` 时抛出错误。</Info>
+
+## 时间设置
+
+过渡使用 [`animation`](/docs/reference/settings) 选项，并可通过 `collapse` 分组单独设置时间：
+
+```ts
+new Calendar('#calendar', {
+  animation: { collapse: { duration: 450 } },
+  enableCollapse: true,
+});
+```
+
+<Info>未启用 `animation` 或访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，拖动仍然跟随手指，但松手后会立即落位。</Info>

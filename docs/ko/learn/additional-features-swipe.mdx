@@ -1,0 +1,40 @@
+---
+title: 스와이프
+description: 방문자가 캘린더를 옆으로 끌어 다음 또는 이전 기간으로 이동하게 하는 방법을 알아보세요.
+section: 6. 추가 기능
+---
+
+# 스와이프
+
+`enableSwipe`를 켜면 캘린더 콘텐츠를 옆으로 끌 수 있습니다. 이 옵션은 기본적으로 꺼져 있고 `enableCollapse` 및 `animation`과 독립적으로 동작하며, 화살표로 이동할 수 있는 모든 뷰(`default`, `multiple`, `week`, 연도 목록)에서 사용할 수 있습니다. 제스처는 현재 뷰에서 화살표가 움직이는 만큼 이동합니다.
+
+<Sandbox example="additional-features-swipe" height={420} />
+
+이웃한 기간은 제스처가 시작되는 순간 렌더링되어 포인터와 함께 움직이므로, 끄는 동안 빈 공간이 아니라 도착할 곳이 보입니다. 천천히 끌 때는 너비의 4분의 1을 넘어야 하며, 빠르게 튕기면 손을 뗄 때의 속도도 반영되므로 더 일찍 이동할 수 있습니다. 그 밖의 경우에는 되돌아갑니다.
+
+<Info>
+  제스처는 가로축만 가져가므로 캘린더 위에서도 페이지는 그대로 세로로 스크롤됩니다. 스와이프는 해당 화살표가 보일 때만 가능하므로 `dateMin`, `dateMax`와 탐색
+  제한을 따릅니다. 손을 뗄 때 포인터 아래에 있던 날짜는 선택되지 않습니다.
+</Info>
+
+## 타이밍
+
+제스처는 [`animation`](/docs/reference/settings) 옵션의 `slide` 그룹을 사용하므로 화살표 탐색과 같은 타이밍이 적용됩니다.
+
+```ts
+new Calendar('#calendar', {
+  animation: { slide: { duration: 350 } },
+  enableSwipe: true,
+});
+```
+
+<Info>`animation`이 없거나 방문자가 `prefers-reduced-motion: reduce`로 모션 줄이기를 요청해도 끌기는 계속 포인터를 따라가지만, 손을 떼면 즉시 정착합니다.</Info>
+
+## 제스처 도중 캘린더 조회하기
+
+스와이프는 화살표 애니메이션과 같은 고스트 레이어를 사용합니다. 따라서 진행 중에는 사라지는 기간이 `inert`가 지정된 `[data-vc-ghost]` 요소 안에 남아 있어 날짜 셀이 잠시 두 번 존재합니다. 직접 작성한 코드에서 셀을 순회한다면 이 레이어를 제외하세요.
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```

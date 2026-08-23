@@ -160,3 +160,42 @@ new Calendar('#calendar', {
 ```
 
 这是选择年份的默认模板。
+
+---
+
+## layouts.week
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    week: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [week] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [week] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <#WeekNumbers />
+        <div class="${self.styles.content}" data-vc="content" role="grid">
+          <#Week />
+          <#Dates />
+          <#DateRangeTooltip />
+        </div>
+      </div>
+      <#Collapse />
+      <#ControlTime />
+    `
+  }
+});
+```
+
+这是单周的默认模板。除了箭头按周翻页之外，其余与 `layouts.default` 相同。

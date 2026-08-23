@@ -1,0 +1,40 @@
+---
+title: 滑动
+description: 了解如何让访问者横向拖动日历，切换到下一个或上一个周期。
+section: 6. 附加功能
+---
+
+# 滑动
+
+`enableSwipe` 允许横向拖动日历内容。该选项默认关闭，与 `enableCollapse` 和 `animation` 相互独立，并可用于所有能通过箭头导航的视图——`default`、`multiple`、`week` 和年份列表。手势每次移动的幅度与当前视图中的箭头一致。
+
+<Sandbox example="additional-features-swipe" height={420} />
+
+手势一开始，相邻周期就已渲染并随指针移动，因此拖动过程中看到的是即将到达的内容，而不是一片空白。缓慢拖动时需要超过宽度的四分之一；快速甩动还会考虑松手速度，因此可能更早翻页。其他情况下内容会滑回原处。
+
+<Info>
+  手势只占用横向轴，因此页面在日历上方仍可正常纵向滚动。只有对应箭头可见时才能滑动，因此手势会遵守 `dateMin`、`dateMax`
+  和导航限制。松手时指针下方的日期不会被选中。
+</Info>
+
+## 时间设置
+
+手势使用 [`animation`](/docs/reference/settings) 选项的 `slide` 分组，因此与箭头导航采用相同的时间设置：
+
+```ts
+new Calendar('#calendar', {
+  animation: { slide: { duration: 350 } },
+  enableSwipe: true,
+});
+```
+
+<Info>未启用 `animation` 或访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，拖动仍然跟随指针，但松手后会立即落位。</Info>
+
+## 手势进行时查询日历
+
+滑动使用的图层与箭头动画相同，因此在其进行期间，正在退出的周期仍保留在 DOM 中带有 `inert` 的 `[data-vc-ghost]` 元素内，日期单元格会短暂地出现两份。如果你自己的代码会遍历它们，请排除这个图层。
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```

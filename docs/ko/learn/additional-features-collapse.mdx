@@ -1,0 +1,32 @@
+---
+title: 접기
+description: 방문자가 한 달을 한 주로 접고 다시 펼칠 수 있게 하는 방법을 알아보세요.
+section: 6. 추가 기능
+---
+
+# 접기
+
+`enableCollapse`는 그리드 아래에 컨트롤을 추가합니다. 누르면 월이 한 주로 접히고, 다시 누르면 펼쳐집니다. 이 옵션은 기본적으로 꺼져 있으며 `enableSwipe`나 `animation` 없이도 사용할 수 있습니다.
+
+<Sandbox example="additional-features-collapse" height={420} />
+
+컨트롤은 기기에 맞춰 달라집니다. 마우스에서는 셰브론이고, 터치 화면에서는 위아래로 끌 수 있는 그래버가 되며 캘린더가 손가락을 그대로 따라옵니다. 천천히 끌 때는 전체 거리의 4분의 1을 넘어야 하며, 빠르게 튕기면 손을 뗄 때의 속도도 반영되므로 더 일찍 완료될 수 있습니다. 그 밖의 경우에는 원래대로 돌아갑니다.
+
+표시된 월에 속하는 첫 번째 선택 날짜가 있으면 그 날짜를 기준으로 주를 정합니다. 없으면 해당 월에 속하는 오늘을 사용하고, 그마저 없으면 표시된 월의 1일을 기준으로 합니다.
+
+접혀 있는 동안 화살표는 한 번에 한 주씩 이동합니다. 다시 펼치면 그 주를 둘러싼 월로 돌아갑니다.
+
+<Info>접으면 `type`이 `'week'`로 바뀌므로 `calendar.type`으로 현재 상태를 알 수 있고, `set({ type: 'week' })`는 전환 없이 같은 결과를 냅니다. 이 옵션은 `default`와 `week` 타입에서만 받아들여지며, `multiple`과 함께 쓰면 `init()`에서 오류가 발생합니다.</Info>
+
+## 타이밍
+
+전환은 [`animation`](/docs/reference/settings) 옵션을 사용합니다. `collapse` 그룹에서 타이밍을 별도로 설정할 수 있습니다.
+
+```ts
+new Calendar('#calendar', {
+  animation: { collapse: { duration: 450 } },
+  enableCollapse: true,
+});
+```
+
+<Info>`animation`이 없거나 방문자가 `prefers-reduced-motion: reduce`로 모션 줄이기를 요청해도 끌기는 계속 손가락을 따라가지만, 손을 떼면 즉시 정착합니다.</Info>

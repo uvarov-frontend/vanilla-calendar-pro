@@ -12,7 +12,7 @@ section: 4
 
 `默认: 'default'`
 
-`选项: 'default' | 'multiple' | 'month' | 'year'`
+`选项: 'default' | 'multiple' | 'month' | 'year' | 'week'`
 
 ```ts
 new Calendar('#calendar', {
@@ -20,7 +20,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`type` 参数定义显示的日历类型。
+`type` 参数定义显示的日历类型。`week` 类型显示单独一周而不是整月。它可以单独使用，也可以与 `enableCollapse` 一起使用，让访问者在整月和一周之间切换。
 
 ---
 
@@ -94,25 +94,25 @@ new Calendar('#calendar', {
 
 `Default: false`
 
-`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing, collapse?: Timing }`
+
+`Timing: { duration?: Number, easing?: String }`
 
 ```ts
 new Calendar('#calendar', {
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
-  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
 });
 ```
 
-为视图切换启用动画：用箭头切换月份和翻页年份列表时水平滑动，打开和关闭月份、年份选择器时交叉淡入淡出。
+为视图之间的切换添加动画。箭头导航和 `enableSwipe` 使用水平滑动，月份与年份选择器使用交叉淡入淡出，`enableCollapse` 则在整月与一周之间对日历高度进行动画。
 
-<Info>即使开启该选项，性能损耗也感觉不到：每次过渡只增加约 2ms 的一次性开销（并非每帧），动画本身在合成器线程上运行——只对 `transform` 和 `opacity` 做动画，因此不会阻塞主线程。该选项会给打包体积增加约 1.5 KB（gzip 后）。</Info>
+不同过渡的默认值并不相同——滑动为 `250ms`，交叉淡入淡出为 `150ms`，折叠为 `300ms`，缓动均为 `cubic-bezier(0.4, 0, 0.2, 1)`。传入对象可覆盖其中任意一项：`duration` 的单位是毫秒，`easing` 接受 CSS 缓动函数。顶层的值作用于所有过渡；嵌套在 `slide`（箭头和 `enableSwipe`）、`fade`（选择器）或 `collapse`（`enableCollapse`）下则只作用于该组。嵌套值优先于顶层值。
 
-不同过渡的默认值并不相同——滑动为 `250ms`，交叉淡入淡出为 `150ms`，缓动均为 `cubic-bezier(0.4, 0, 0.2, 1)`。传入对象可覆盖其中任意一项：`duration` 的单位是毫秒，`easing` 接受任意 CSS 缓动函数。顶层的值作用于所有过渡；嵌套在 `slide`（箭头）或 `fade`（选择器）下则只作用于该组，且嵌套值优先。
+<Info>当访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，松手后的过渡动画会被跳过。手势仍会跟随指针，但松手后会立即完成或返回。</Info>
 
-<Info>当访问者通过 `prefers-reduced-motion: reduce` 要求减少动效时，动画会被跳过。</Info>
-
-出于向后兼容的考虑，默认值为 `false`：该选项是后来加入的，而开启后 DOM 查询的结果会发生变化。过渡进行期间，正在退出的内容会保留在 DOM 中带有 `inert` 的 `[data-vc-ghost]` 图层内，日期元素因此会短暂地出现两份——如果你自己的代码会查询它们，请排除这个图层，否则 `mainElement.querySelectorAll('[data-vc-date]')` 也会匹配到正在退出的单元格。
+出于向后兼容的考虑，默认值为 `false`：该选项是后来加入的，而开启它会改变滑动和交叉淡入淡出期间的 DOM 查询结果。正在退出的内容仍保留在 DOM 中带有 `inert` 的 `[data-vc-ghost]` 图层内，因此日期元素可能会短暂地出现两份。如果你自己的代码会查询这些元素，请排除该图层；折叠不会创建幽灵图层。
 
 ---
 
@@ -150,7 +150,11 @@ new Calendar('#calendar', {
 
 `monthsToSwitch` 参数控制可切换月份的数量。
 
-<Info>当 `monthsToSwitch` 大于 `1` 时，月份选择视图（month picker）也只允许选择从当前选中月份按 `monthsToSwitch` 步长可到达的月份——其他月份将显示为禁用状态。这是为了让导航与设定的步长保持一致（在 `type: 'multiple'` 下与 `displayMonthsCount` 搭配使用时尤为重要，可使多个可见月份保持同步）。</Info>
+<Info>
+  当 `monthsToSwitch` 大于 `1` 时，月份选择视图（month picker）也只允许选择从当前选中月份按 `monthsToSwitch`
+  步长可到达的月份——其他月份将显示为禁用状态。这是为了让导航与设定的步长保持一致（在 `type: 'multiple'` 下与 `displayMonthsCount`
+  搭配使用时尤为重要，可使多个可见月份保持同步）。
+</Info>
 
 ---
 
@@ -483,9 +487,7 @@ new Calendar('#calendar', {
 
 此参数允许您启用指定的日期，无论范围和禁用的日期如何。
 
-<Info>
-  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
-</Info>
+<Info>要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。</Info>
 
 ---
 
@@ -505,9 +507,7 @@ new Calendar('#calendar', {
 
 此参数允许您仅获取用户选择的开始和结束日期，忽略中间日期。此参数仅在 `selectionDatesMode` 设置为 `'multiple-ranged'` 时有效。
 
-<Info>
-  需要注意的是，使用此参数时，日期范围内的禁用日期将无效。因此，仅当您对用户选择的开始和结束日期感兴趣时才使用此选项。
-</Info>
+<Info>需要注意的是，使用此参数时，日期范围内的禁用日期将无效。因此，仅当您对用户选择的开始和结束日期感兴趣时才使用此选项。</Info>
 
 ---
 
@@ -523,7 +523,7 @@ new Calendar('#calendar', {
 new Calendar('#calendar', {
   enableDateToggle: false,
   // 或使用回调
-  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  enableDateToggle: (self) => new Date(self.selectedDates[0]) < new Date(),
 });
 ```
 
@@ -584,8 +584,49 @@ new Calendar('#calendar', {
 
 如果启用此选项并指定一个或多个选定日期，但未指定 `selectedMonth` 和 `selectedYear`，日历将跳转到第一个选定日期。如果设置为 `false`，日历将始终打开当前月份和年份。
 
+<Info>如果指定了 `selectedMonth` 和 `selectedYear`，此选项无效。</Info>
+
+---
+
+## enableCollapse
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableCollapse: true,
+});
+```
+
+在网格下方添加一个控件，把整月折叠为一周，再次操作则展开。如果第一个选中日期属于当前显示月份，就以它所在的周为准；否则，如果今天属于该月份，就以今天所在的周为准；再否则，以当前显示月份第一天所在的周为准。在使用鼠标的设备上显示为箭头，在触摸设备上显示为可上下拖动的小横条。
+
+<Info>`enableCollapse` 不依赖 `enableSwipe` 或 `animation`。折叠会把 `type` 切换为 `'week'`，因此读取 `calendar.type` 即可得知当前状态，而 `set({ type: 'week' })` 会在没有过渡的情况下做同样的事。该选项仅支持 `default` 和 `week` 类型；其他类型会在 `init()` 时抛出错误。</Info>
+
+---
+
+## enableSwipe
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableSwipe: true,
+});
+```
+
+允许访问者横向拖动日历内容来切换到下一个或上一个周期，适用于所有可以用箭头导航的视图：`default`、`multiple`、`week` 和年份列表。相邻周期会跟随指针移动，松手时的距离和速度决定它是落位还是返回。
+
 <Info>
-  如果指定了 `selectedMonth` 和 `selectedYear`，此选项无效。
+  `enableSwipe` 不依赖 `enableCollapse` 或 `animation`；未启用动画时，松手后会立即落位。日历上的纵向滚动仍然交给页面。只有对应箭头可见时才能滑动，因此手势会遵守
+  `dateMin`、`dateMax` 和导航限制。拖动结束时所在的日期不会被选中。
 </Info>
 
 ---
@@ -678,9 +719,7 @@ new Calendar('#calendar', {
 
 此参数允许您指定在日历初始化时将选择的日期列表。
 
-<Info>
-  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
-</Info>
+<Info>要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。</Info>
 
 ---
 
@@ -736,9 +775,7 @@ new Calendar('#calendar', {
 
 此参数允许您指定将被视为节假日的日期，并将接收额外的数据属性以进行样式设置。
 
-<Info>
-  要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。
-</Info>
+<Info>要指定日期范围，请在单个字符串内的日期之间使用任何分隔符。</Info>
 
 ---
 
@@ -939,5 +976,9 @@ new Calendar('#calendar', {
 `sanitizerHTML` 可以清理 HTML 模板，使其对 CSP 安全。
 
 <Info>
-  请注意，该示例使用第三方库 <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>。`sanitizerHTML` 不是日历运行所必需的。
+  请注意，该示例使用第三方库{' '}
+  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
+    `dompurify`
+  </a>
+  。`sanitizerHTML` 不是日历运行所必需的。
 </Info>

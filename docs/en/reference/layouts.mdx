@@ -160,3 +160,42 @@ new Calendar('#calendar', {
 ```
 
 This is the default template for selecting a year.
+
+---
+
+## layouts.week
+
+`Type: String`
+
+`Default: string`
+
+`Options: string`
+
+```ts
+new Calendar('#calendar', {
+  layouts: {
+    week: `
+      <div class="${self.styles.header}" data-vc="header" role="toolbar" aria-label="${self.labels.navigation}">
+        <#ArrowPrev [week] />
+        <div class="${self.styles.headerContent}" data-vc-header="content">
+          <#Month />
+          <#Year />
+        </div>
+        <#ArrowNext [week] />
+      </div>
+      <div class="${self.styles.wrapper}" data-vc="wrapper">
+        <#WeekNumbers />
+        <div class="${self.styles.content}" data-vc="content" role="grid">
+          <#Week />
+          <#Dates />
+          <#DateRangeTooltip />
+        </div>
+      </div>
+      <#Collapse />
+      <#ControlTime />
+    `
+  }
+});
+```
+
+This is the default template for a single week. It matches `layouts.default` apart from the arrows, which step a week at a time.
