@@ -13,6 +13,10 @@ const CLICK_GRACE = 500;
 const SWIPE_SURFACE = '[data-vc="content"]';
 const COLLAPSE_SURFACE = '[data-vc="collapse"]';
 
+const gestureCleanups = new WeakMap<HTMLElement, () => void>();
+
+export const cleanupGestures = (mainElement: HTMLElement) => gestureCleanups.get(mainElement)?.();
+
 type Drag = {
   pointerId: number;
   tracker: DragTracker;
@@ -25,15 +29,10 @@ type Drag = {
 
 const handleGestures = (self: Calendar) => {
   const { mainElement } = self.context;
+  cleanupGestures(mainElement);
   let drag: Drag | null = null;
   let draggedAt = 0;
   let activeListenersBound = false;
-
-  const stopDragging = () => {
-    drag = null;
-    mainElement.removeAttribute('data-vc-dragging');
-    removeActiveListeners();
-  };
 
   const capture = (pointerId: number) => {
     try {
@@ -42,6 +41,14 @@ const handleGestures = (self: Calendar) => {
     } catch {
       return false;
     }
+  };
+
+  const stopDragging = () => {
+    const pointerId = drag?.pointerId;
+    drag = null;
+    mainElement.removeAttribute('data-vc-dragging');
+    removeActiveListeners();
+    if (pointerId !== undefined) release(pointerId);
   };
 
   const release = (pointerId: number) => {
@@ -60,7 +67,8 @@ const handleGestures = (self: Calendar) => {
 
   const onPointerDown = (event: PointerEvent) => {
     draggedAt = 0;
-    if (drag || !event.isPrimary || event.button !== 0) return;
+    if (!event.isPrimary || event.button !== 0) return;
+    if (drag) stopDragging();
 
     const target = event.target as HTMLElement;
     const vertical = !!(self.enableCollapse && target.closest(COLLAPSE_SURFACE));
@@ -77,7 +85,6 @@ const handleGestures = (self: Calendar) => {
     try {
       const transition = current.vertical ? buildCollapse(self) : buildSwipe(self, dx < 0 ? 'next' : 'prev', event.target as HTMLElement);
       if (!transition || !transition.distance) {
-        release(event.pointerId);
         return stopDragging();
       }
 
@@ -87,7 +94,6 @@ const handleGestures = (self: Calendar) => {
       current.distance = transition.distance;
       mainElement.dataset.vcDragging = '';
     } catch (error) {
-      release(event.pointerId);
       stopDragging();
       throw error;
     }
@@ -124,7 +130,6 @@ const handleGestures = (self: Calendar) => {
       const toEnd = transition.from === 0 ? projected > COMMIT : projected >= 1 - COMMIT;
 
       transition.settle(lost ? transition.from === 1 : toEnd);
-      release(current.pointerId);
       draggedAt = Date.now();
     }
     stopDragging();
@@ -145,33 +150,39 @@ const handleGestures = (self: Calendar) => {
     event.preventDefault();
   };
 
-  const activeListeners = [
+  const activeWindowListeners = [
     ['pointermove', onPointerMove],
     ['pointerup', onPointerUp],
     ['pointercancel', onPointerCancel],
-    ['lostpointercapture', onLostCapture],
   ] as const;
 
   function addActiveListeners() {
     if (activeListenersBound) return;
     activeListenersBound = true;
-    activeListeners.forEach(([type, listener]) => mainElement.addEventListener(type, listener as EventListener));
+    activeWindowListeners.forEach(([type, listener]) => window.addEventListener(type, listener as EventListener));
+    mainElement.addEventListener('lostpointercapture', onLostCapture);
   }
 
   function removeActiveListeners() {
     if (!activeListenersBound) return;
     activeListenersBound = false;
-    activeListeners.forEach(([type, listener]) => mainElement.removeEventListener(type, listener as EventListener));
+    activeWindowListeners.forEach(([type, listener]) => window.removeEventListener(type, listener as EventListener));
+    mainElement.removeEventListener('lostpointercapture', onLostCapture);
   }
 
   mainElement.addEventListener('pointerdown', onPointerDown);
   mainElement.addEventListener('click', onClick, { capture: true });
 
-  return () => {
+  const cleanup = () => {
+    stopDragging();
     removeActiveListeners();
     mainElement.removeEventListener('pointerdown', onPointerDown);
     mainElement.removeEventListener('click', onClick, { capture: true });
+    gestureCleanups.delete(mainElement);
   };
+
+  gestureCleanups.set(mainElement, cleanup);
+  return cleanup;
 };
 
 export default handleGestures;

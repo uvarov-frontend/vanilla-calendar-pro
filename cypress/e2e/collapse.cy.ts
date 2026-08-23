@@ -1,4 +1,15 @@
+import type { Calendar as CalendarInstance, Options } from '../../package/src';
+
 const visit = () => cy.visit('/pages/gestures/');
+
+type CalendarConstructor = new (selector: HTMLElement | string, options?: Options) => CalendarInstance;
+
+const loadCalendar = (win: Window) => {
+  const projectRoot = String(Cypress.config('projectRoot')).replace(/\\/g, '/');
+  const fsPath = projectRoot.startsWith('/') ? projectRoot : `/${projectRoot}`;
+  const evaluate = (win as Window & { eval: (code: string) => unknown }).eval;
+  return evaluate(`import(${JSON.stringify(`/@fs${fsPath}/package/src/index.ts`)})`) as Promise<{ Calendar: CalendarConstructor }>;
+};
 
 const freezeAnimations = () =>
   cy.window().then((win) => {
@@ -53,6 +64,22 @@ describe('Collapse', () => {
     cy.get('#calendar-collapsed [data-vc="collapse"]').should('have.attr', 'aria-expanded', 'true').and('have.attr', 'aria-label', 'Collapse to a single week');
     cy.get('#calendar-collapsed [data-vc-arrow="prev"]').should('have.attr', 'aria-label', 'Previous month');
     cy.get('#calendar-collapsed [data-vc-arrow="next"]').should('have.attr', 'aria-label', 'Next month');
+  });
+
+  it('does not start overlapping transitions from rapid clicks', () => {
+    visit();
+    freezeAnimations();
+    cy.get('#calendar-gestures [data-vc="collapse"]').dblclick();
+
+    cy.get('#calendar-gestures [data-vc="dates"]').then(($dates) => {
+      expect($dates[0].getAnimations()).to.have.length(1);
+      $dates[0].querySelectorAll<HTMLElement>('[data-vc-dates="row"]').forEach((row) => {
+        expect(row.getAnimations()).to.have.length(1);
+      });
+      $dates[0].getAnimations()[0].finish();
+    });
+
+    cy.get('#calendar-gestures').should('have.attr', 'data-vc-type', 'week');
   });
 
   it('collapses the month onto the week holding the selected date', () => {
@@ -231,6 +258,77 @@ describe('Collapse', () => {
     cy.get('#btn-invalid-collapse').click();
     cy.get('#log').should('contain.text', 'init() threw').and('contain.text', 'only supported by the «default» and «week»');
     cy.get('#calendar-invalid').should('not.have.attr', 'data-vc');
+  });
+
+  it('does not recreate the calendar when destroy interrupts a transition', () => {
+    cy.visit('/');
+    cy.window().then(async (win) => {
+      const { Calendar } = await loadCalendar(win);
+      const host = win.document.createElement('div');
+      host.id = 'calendar-collapse-destroy';
+      win.document.body.appendChild(host);
+
+      const calendar = new Calendar(host, {
+        animation: { collapse: { duration: 200 } },
+        enableCollapse: true,
+        selectedMonth: 3,
+        selectedYear: 2023,
+      });
+      calendar.init();
+      calendar.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click();
+      calendar.destroy();
+    });
+
+    cy.wait(300);
+    cy.get('#calendar-collapse-destroy').should('not.have.attr', 'data-vc');
+    cy.get('#calendar-collapse-destroy').should('be.empty');
+  });
+
+  it('does not let an interrupted transition overwrite update()', () => {
+    cy.visit('/');
+    cy.window().then(async (win) => {
+      const { Calendar } = await loadCalendar(win);
+      const host = win.document.createElement('div');
+      host.id = 'calendar-collapse-update';
+      win.document.body.appendChild(host);
+
+      const calendar = new Calendar(host, {
+        animation: { collapse: { duration: 200 } },
+        enableCollapse: true,
+        selectedMonth: 3,
+        selectedYear: 2023,
+      });
+      calendar.init();
+      calendar.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click();
+      calendar.set({ selectedMonth: 5 });
+    });
+
+    cy.wait(300);
+    cy.get('#calendar-collapse-update').should('have.attr', 'data-vc-type', 'default');
+    cy.get('#calendar-collapse-update [data-vc="month"]').should('have.attr', 'data-vc-month', '5');
+  });
+
+  it('ignores collapse controls in incomplete and picker layouts', () => {
+    cy.visit('/');
+    cy.window().then(async (win) => {
+      const { Calendar } = await loadCalendar(win);
+      const incompleteHost = win.document.createElement('div');
+      win.document.body.appendChild(incompleteHost);
+
+      const incomplete = new Calendar(incompleteHost, { enableCollapse: true, layouts: { default: '<#Collapse />' } });
+      incomplete.init();
+      expect(() => incomplete.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
+      expect(incomplete.context.currentType).to.equal('default');
+
+      const pickerHost = win.document.createElement('div');
+      win.document.body.appendChild(pickerHost);
+      const picker = new Calendar(pickerHost, { enableCollapse: true, layouts: { month: '<#Collapse />' } });
+      picker.init();
+      picker.context.mainElement.querySelector<HTMLElement>('[data-vc="month"]')?.click();
+      expect(picker.context.currentType).to.equal('month');
+      expect(() => picker.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
+      expect(picker.context.currentType).to.equal('month');
+    });
   });
 });
 

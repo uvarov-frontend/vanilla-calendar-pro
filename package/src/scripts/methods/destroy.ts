@@ -1,3 +1,5 @@
+import { cleanupGestures } from '@scripts/handles/handleGestures/handleGestures';
+import { cleanupPending } from '@scripts/utils/animate';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
@@ -6,6 +8,8 @@ const destroy = (self: Calendar) => {
   if (!self.context.isInit) throw new Error(errorMessages.notInit);
   if (self.context.isDestroyed) throw new Error(errorMessages.alreadyDestroyed);
 
+  cleanupGestures(self.context.mainElement);
+  cleanupPending(self.context.mainElement);
   self.context.cleanupSystemTheme?.();
 
   if (self.inputMode) {

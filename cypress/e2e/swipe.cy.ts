@@ -382,6 +382,19 @@ describe('Swipe', () => {
     cy.get('#calendar-gestures [data-vc-date-selected]').should('have.attr', 'data-vc-date', '2023-04-05');
   });
 
+  it('recovers when pointerup happens outside before capture', () => {
+    visit();
+    surface('#calendar-gestures').then(($el) => {
+      const box = $el[0].getBoundingClientRect();
+      raw($el[0], 'pointerdown', Math.round(box.left + box.width / 2), Math.round(box.top + box.height / 2));
+    });
+    cy.window().then((win) => raw(win.document.body, 'pointerup', 0, 0));
+
+    swipe('#calendar-gestures', -300);
+    cy.get('#calendar-gestures [data-vc-ghost]').should('not.exist');
+    monthOf('#calendar-gestures').should('equal', '4');
+  });
+
   it('stops where the arrows stop', () => {
     visit();
     cy.get('#calendar-bounded [data-vc-arrow="next"]').should('not.be.visible');

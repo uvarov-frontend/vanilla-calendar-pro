@@ -24,13 +24,23 @@ const stageDefault = (self: Calendar) => {
 };
 
 // Both directions animate the month DOM and swap to the resting layout only at an endpoint.
-const buildCollapse = (self: Calendar): Transition => {
+const buildCollapse = (self: Calendar): Transition | null => {
+  const { mainElement } = self.context;
+  if (!['default', 'week'].includes(self.context.currentType) || mainElement.querySelector('[data-vc-collapsing]')) return null;
+
+  const datesEl = mainElement.querySelector<HTMLElement>('[data-vc="dates"]');
+  if (!datesEl) return null;
+
   const wasCollapsed = self.context.currentType === 'week';
   if (wasCollapsed) stageDefault(self);
   else initWeek(self, true);
 
-  const datesEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="dates"]') as HTMLElement;
   const rows = Array.from(datesEl.querySelectorAll<HTMLElement>('[data-vc-dates="row"]'));
+  if (!rows.length) {
+    if (wasCollapsed) setType(self, 'week');
+    return null;
+  }
+
   const targetRow = rows.find((row) => row.querySelector(`[data-vc-date="${self.context.displayWeekDate}"]`)) ?? rows[0];
   const fromHeight = datesEl.offsetHeight;
   const targetHeight = targetRow.offsetHeight;
@@ -59,6 +69,7 @@ const buildCollapse = (self: Calendar): Transition => {
 
   const { track, seek, settle } = scrub(self, animations, duration, (toWeek) => {
     animations.forEach((animation) => animation.cancel());
+    if (self.context.isDestroyed || self.context.mainElement !== mainElement || !datesEl.isConnected) return;
     if (toWeek) return setType(self, 'week');
     if (wasCollapsed) return setType(self, 'default');
     datesEl.removeAttribute('data-vc-collapsing');
