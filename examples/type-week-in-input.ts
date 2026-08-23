@@ -13,7 +13,7 @@ const options: Options = {
   enableJumpToSelectedDate: true,
   onChangeToInput(self) {
     if (!self.context.inputElement) return;
-    self.context.inputElement.value = self.context.selectedDates[0] ?? '';
+    self.context.inputElement.value = self.context.selectedDates[0] ? self.context.selectedDates[0] : '';
   },
 };
 
