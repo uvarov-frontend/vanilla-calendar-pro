@@ -17,6 +17,7 @@ const layoutDefault = (self: Calendar) => `
       <#DateRangeTooltip />
     </div>
   </div>
+  <#Collapse />
   <#ControlTime />
 `;
 

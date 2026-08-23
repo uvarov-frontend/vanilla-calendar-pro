@@ -8,6 +8,7 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import handleTheme from '@scripts/handles/handleTheme';
 import getLocale from '@scripts/utils/getLocale';
+import initWeek from '@scripts/utils/initVariables/initWeek';
 import type { Calendar } from '@src/index';
 
 const create = (self: Calendar) => {
@@ -17,6 +18,11 @@ const create = (self: Calendar) => {
       createDates(self);
     },
     multiple: () => {
+      createWeek(self);
+      createDates(self);
+    },
+    week: () => {
+      initWeek(self);
       createWeek(self);
       createDates(self);
     },

@@ -1,6 +1,10 @@
 ---
 title: 설정
 description: 표시 타입, 입력 모드, 위치 지정, 로컬라이징, 날짜와 시간 등 캘린더 설정을 설명합니다.
+new:
+  - animation
+  - enableCollapse
+  - enableSwipe
 section: 4
 ---
 
@@ -12,7 +16,7 @@ section: 4
 
 `Default: 'default'`
 
-`Options: 'default' | 'multiple' | 'month' | 'year'`
+`Options: 'default' | 'multiple' | 'month' | 'year' | 'week'`
 
 ```ts
 new Calendar('#calendar', {
@@ -20,7 +24,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`type` 파라미터는 표시될 캘린더 타입을 정의합니다.
+`type` 파라미터는 표시될 캘린더 타입을 정의합니다. `week` 타입은 한 달 전체가 아니라 한 주만 보여 줍니다. 단독으로 사용하거나 `enableCollapse`와 함께 사용해 방문자가 월 보기와 주 보기를 전환하게 할 수 있습니다.
 
 ---
 
@@ -94,25 +98,28 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 
 `Default: false`
 
-`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing, collapse?: Timing }`
+
+`Timing: { duration?: Number, easing?: String }`
 
 ```ts
 new Calendar('#calendar', {
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
-  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
 });
 ```
 
-뷰 전환에 애니메이션을 적용합니다. 화살표로 월을 전환하거나 연도 목록을 넘길 때는 가로로 슬라이드되고, 월·연도 선택 화면을 열고 닫을 때는 크로스페이드로 전환됩니다.
+뷰 전환에 애니메이션을 적용합니다. 화살표 탐색과 `enableSwipe`는 가로 슬라이드를 사용하고, 월·연도 선택 화면은 크로스페이드되며, `enableCollapse`는 월과 주 사이에서 캘린더 높이를 애니메이션합니다.
 
-<Info>옵션을 켜도 성능 저하는 체감되지 않습니다. 전환마다 약 2ms의 일회성 작업만 추가되며(프레임마다가 아님), 애니메이션 자체는 컴포지터에서 실행됩니다 — `transform`과 `opacity`만 애니메이션되므로 메인 스레드가 막히지 않습니다. 번들 크기는 약 1.5 KB(gzip 기준) 늘어납니다.</Info>
+기본값은 전환마다 다릅니다. 슬라이드는 `250ms`, 크로스페이드는 `150ms`, 접기는 `300ms`이며 이징은 모두 `cubic-bezier(0.4, 0, 0.2, 1)`입니다. 객체를 전달하면 원하는 값을 덮어씁니다. `duration`은 밀리초 단위이며 `easing`에는 CSS easing 함수를 사용할 수 있습니다. 최상위 값은 모든 전환에 적용되고, `slide`(화살표와 `enableSwipe`), `fade`(선택 화면), `collapse`(`enableCollapse`) 아래에 중첩하면 해당 그룹에만 적용됩니다. 중첩된 값이 최상위 값보다 우선합니다.
 
-기본값은 전환마다 다릅니다. 슬라이드는 `250ms`, 크로스페이드는 `150ms`이며 이징은 모두 `cubic-bezier(0.4, 0, 0.2, 1)`입니다. 객체를 전달하면 두 값 중 원하는 것을 덮어씁니다. `duration`은 밀리초 단위이며, `easing`에는 모든 CSS easing 함수를 사용할 수 있습니다. 최상위 값은 모든 전환에 적용되고, `slide`(화살표)나 `fade`(선택 화면) 아래에 중첩하면 해당 그룹에만 적용되며 중첩된 값이 우선합니다.
+<Info>
+  방문자가 `prefers-reduced-motion: reduce`로 모션 최소화를 요청한 경우 정착 애니메이션은 실행되지 않습니다. 제스처는 계속 포인터를 따라가지만, 손을 떼면 즉시
+  완료되거나 되돌아갑니다.
+</Info>
 
-<Info>방문자가 `prefers-reduced-motion: reduce`로 모션 최소화를 요청한 경우 애니메이션은 실행되지 않습니다.</Info>
-
-기본값이 `false`인 것은 하위 호환성을 위해서입니다. 이 옵션은 나중에 추가되었고, 켜면 DOM 조회 결과가 달라집니다. 전환이 진행되는 동안 사라지는 내용은 `inert`가 지정된 `[data-vc-ghost]` 레이어 안에 남아 있어 날짜 요소가 잠시 두 번 존재합니다. 직접 작성한 코드에서 날짜 요소를 조회한다면 이 레이어를 제외하세요. 그렇지 않으면 `mainElement.querySelectorAll('[data-vc-date]')`가 사라지는 중인 셀까지 함께 반환합니다.
+기본값이 `false`인 것은 하위 호환성을 위해서입니다. 이 옵션은 나중에 추가되었고, 켜면 슬라이드와 크로스페이드 중 DOM 조회 결과가 달라집니다. 사라지는 내용은 `inert`가 지정된 `[data-vc-ghost]` 레이어 안에 남아 있어 날짜 요소가 잠시 두 번 존재할 수 있습니다. 직접 작성한 코드에서 날짜 요소를 조회한다면 이 레이어를 제외하세요. 접기는 고스트 레이어를 만들지 않습니다.
 
 ---
 
@@ -150,7 +157,11 @@ new Calendar('#calendar', {
 
 `monthsToSwitch` 파라미터는 전환할 월의 개수를 제어합니다.
 
-<Info>`monthsToSwitch`가 `1`보다 크면, 월 선택(month picker) 화면에서도 현재 선택된 월로부터 `monthsToSwitch` 간격으로 도달 가능한 월만 선택할 수 있으며, 나머지 월은 비활성화되어 표시됩니다. 이는 설정된 이동 간격과 내비게이션을 일관되게 유지하기 위한 것입니다(특히 `type: 'multiple'`에서 `displayMonthsCount`와 함께 사용할 때, 여러 개의 표시된 월을 서로 동기화된 상태로 유지하는 데 중요합니다).</Info>
+<Info>
+  `monthsToSwitch`가 `1`보다 크면, 월 선택(month picker) 화면에서도 현재 선택된 월로부터 `monthsToSwitch` 간격으로 도달 가능한 월만 선택할 수 있으며, 나머지
+  월은 비활성화되어 표시됩니다. 이는 설정된 이동 간격과 내비게이션을 일관되게 유지하기 위한 것입니다(특히 `type: 'multiple'`에서 `displayMonthsCount`와 함께
+  사용할 때, 여러 개의 표시된 월을 서로 동기화된 상태로 유지하는 데 중요합니다).
+</Info>
 
 ---
 
@@ -201,7 +212,11 @@ new Calendar('#calendar', {
 ```
 
 이 파라미터는 캘린더의 언어 로컬라이징을 설정합니다.
-<a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a>에 따른 언어 태그를 지정하거나, 월/요일 이름 배열을 제공할 수 있습니다. 자세한 내용은 [여기](/docs/learn/internationalization-locale)를 참고하세요.
+
+<a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">
+  BCP 47
+</a>
+에 따른 언어 태그를 지정하거나, 월/요일 이름 배열을 제공할 수 있습니다. 자세한 내용은 [여기](/docs/learn/internationalization-locale)를 참고하세요.
 
 ---
 
@@ -277,7 +292,10 @@ new Calendar('#calendar', {
 
 <Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
 
-<Info>`.set()`에서 `displayDateMin`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고 유지됩니다.</Info>
+<Info>
+  `.set()`에서 `displayDateMin`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고
+  유지됩니다.
+</Info>
 
 ---
 
@@ -299,7 +317,10 @@ new Calendar('#calendar', {
 
 <Info>`displayDateMin`과 `displayDateMax`는 범위 밖의 날짜를 비활성화하지만, `dateMin`과 `dateMax`는 아예 생성하지 않는다는 점에 유의하세요.</Info>
 
-<Info>`.set()`에서 `displayDateMax`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고 유지됩니다.</Info>
+<Info>
+  `.set()`에서 `displayDateMax`에 `null`을 전달하면 기본값으로 명시적으로 재설정됩니다. `undefined`를 전달하면(예: 해당 속성을 생략하면) 현재 값이 변경되지 않고
+  유지됩니다.
+</Info>
 
 ---
 
@@ -483,9 +504,7 @@ new Calendar('#calendar', {
 
 이 파라미터는 범위와 비활성 날짜 설정과 무관하게 지정한 날짜를 활성화할 수 있습니다.
 
-<Info>
-  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
-</Info>
+<Info>날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.</Info>
 
 ---
 
@@ -505,9 +524,7 @@ new Calendar('#calendar', {
 
 이 파라미터는 사용자가 선택한 날짜 중 시작/종료 날짜만 가져오고, 중간 날짜를 무시하도록 합니다. `selectionDatesMode`가 `'multiple-ranged'`로 설정된 경우에만 동작합니다.
 
-<Info>
-  이 파라미터를 사용할 경우 날짜 범위 안의 비활성 날짜는 영향을 주지 않으므로, 시작/종료 날짜만 필요한 경우에만 사용하세요.
-</Info>
+<Info>이 파라미터를 사용할 경우 날짜 범위 안의 비활성 날짜는 영향을 주지 않으므로, 시작/종료 날짜만 필요한 경우에만 사용하세요.</Info>
 
 ---
 
@@ -523,7 +540,7 @@ new Calendar('#calendar', {
 new Calendar('#calendar', {
   enableDateToggle: false,
   // or with a callback
-  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  enableDateToggle: (self) => new Date(self.selectedDates[0]) < new Date(),
 });
 ```
 
@@ -584,8 +601,49 @@ new Calendar('#calendar', {
 
 이 옵션이 활성화되어 있고 하나 이상의 선택된 날짜가 지정되었지만 `selectedMonth`와 `selectedYear`를 지정하지 않았다면, 캘린더는 첫 번째 선택된 날짜로 이동합니다. `false`로 설정하면 캘린더는 항상 현재 월/연도로 열립니다.
 
+<Info>이 옵션은 `selectedMonth`와 `selectedYear`가 지정된 경우에는 영향을 주지 않습니다.</Info>
+
+---
+
+## enableCollapse
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableCollapse: true,
+});
+```
+
+그리드 아래에 월을 한 주로 접거나 다시 펼치는 컨트롤을 추가합니다. 표시된 월에 속하는 첫 번째 선택 날짜가 있으면 그 날짜를 기준으로 하고, 없으면 해당 월에 속하는 오늘, 그마저 없으면 표시된 월의 1일을 기준으로 주를 정합니다. 마우스가 있는 기기에서는 셰브론으로, 터치 기기에서는 위아래로 끌 수 있는 그래버로 표시됩니다.
+
+<Info>`enableCollapse`는 `enableSwipe`나 `animation`을 필요로 하지 않습니다. 접으면 `type`이 `'week'`로 바뀌므로 `calendar.type`으로 현재 상태를 알 수 있고, `set({ type: 'week' })`는 전환 없이 같은 결과를 냅니다. 이 옵션은 `default`와 `week` 유형에서만 지원되며, 다른 유형은 `init()`에서 오류를 발생시킵니다.</Info>
+
+---
+
+## enableSwipe
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableSwipe: true,
+});
+```
+
+화살표로 이동할 수 있는 모든 뷰(`default`, `multiple`, `week`, 연도 목록)에서 캘린더 콘텐츠를 옆으로 끌어 다음 또는 이전 기간으로 이동할 수 있게 합니다. 이웃한 기간은 포인터를 따라가며, 손을 뗄 때의 거리와 속도에 따라 제자리에 자리 잡거나 원래대로 돌아갑니다.
+
 <Info>
-  이 옵션은 `selectedMonth`와 `selectedYear`가 지정된 경우에는 영향을 주지 않습니다.
+  `enableSwipe`는 `enableCollapse`나 `animation`을 필요로 하지 않으며, 애니메이션이 없으면 손을 뗄 때 즉시 정착합니다. 캘린더 위에서의 세로 스크롤은 페이지에
+  맡깁니다. 스와이프는 해당 화살표가 보일 때만 가능하므로 `dateMin`, `dateMax`와 탐색 제한을 따릅니다. 끌기를 끝낸 위치의 날짜는 선택되지 않습니다.
 </Info>
 
 ---
@@ -678,9 +736,7 @@ new Calendar('#calendar', {
 
 이 파라미터는 캘린더 초기화 시 선택될 날짜 목록을 지정할 수 있습니다.
 
-<Info>
-  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
-</Info>
+<Info>날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.</Info>
 
 ---
 
@@ -736,9 +792,7 @@ new Calendar('#calendar', {
 
 이 파라미터는 공휴일로 간주될 날짜를 지정하며, 스타일링을 위한 추가 data 속성이 부여됩니다.
 
-<Info>
-  날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.
-</Info>
+<Info>날짜 범위를 지정하려면 하나의 문자열 안에서 날짜 사이에 임의의 구분자를 사용하세요.</Info>
 
 ---
 
@@ -939,5 +993,9 @@ new Calendar('#calendar', {
 `sanitizerHTML`은 HTML 템플릿을 정제해 CSP에 안전하도록 만들 수 있습니다.
 
 <Info>
-  예제는 서드파티 라이브러리 <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>를 사용합니다. `sanitizerHTML`은 캘린더 동작에 필수는 아닙니다.
+  예제는 서드파티 라이브러리{' '}
+  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
+    `dompurify`
+  </a>
+  를 사용합니다. `sanitizerHTML`은 캘린더 동작에 필수는 아닙니다.
 </Info>

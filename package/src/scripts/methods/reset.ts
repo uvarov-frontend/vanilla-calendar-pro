@@ -1,10 +1,13 @@
 import create from '@scripts/creators/create';
 import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import { cleanupPending } from '@scripts/utils/animate';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 
 const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true) => {
+  cleanupPending(self.context.mainElement);
+
   const previousSelected = {
     year: self.selectedYear,
     month: self.selectedMonth,

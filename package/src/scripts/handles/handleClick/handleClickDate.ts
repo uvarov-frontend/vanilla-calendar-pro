@@ -1,5 +1,5 @@
 import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
-import handleMonth from '@scripts/handles/handleMonth';
+import handleNavigate from '@scripts/handles/handleNavigate';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import type { Calendar } from '@src/index';
@@ -26,8 +26,8 @@ const handleClickDate = (self: Calendar, event: MouseEvent) => {
   const dayNextEl = element.closest('[data-vc-date-month="next"]');
 
   const actionMapping = {
-    prev: () => (self.enableMonthChangeOnDayClick ? handleMonth(self, 'prev') : updateDateModifiers(self)),
-    next: () => (self.enableMonthChangeOnDayClick ? handleMonth(self, 'next') : updateDateModifiers(self)),
+    prev: () => (self.enableMonthChangeOnDayClick ? handleNavigate(self, 'prev') : updateDateModifiers(self)),
+    next: () => (self.enableMonthChangeOnDayClick ? handleNavigate(self, 'next') : updateDateModifiers(self)),
     current: () => updateDateModifiers(self),
   };
 

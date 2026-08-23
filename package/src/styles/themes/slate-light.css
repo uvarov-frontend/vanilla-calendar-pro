@@ -35,6 +35,11 @@
   @apply bg-[var(--vc-months-years-bg-selected,theme(colors.blue.500))] text-[var(--vc-months-years-color-selected,theme(colors.white))] surehover:hover:bg-[var(--vc-months-years-bg-selected,theme(colors.blue.500))] surehover:hover:text-[var(--vc-months-years-color-selected,theme(colors.white))];
 }
 
+[data-vc-theme='slate-light'] .vc-collapse {
+  @apply before:bg-[var(--vc-collapse-color,theme(colors.slate.300))]
+	surehover:before:bg-transparent surehover:before:bg-light-collapse surehover:hover:before:opacity-60;
+}
+
 [data-vc-theme='slate-light'] .vc-week-numbers__title {
   @apply text-[var(--vc-week-numbers-title-color,theme(colors.gray.600))];
 }

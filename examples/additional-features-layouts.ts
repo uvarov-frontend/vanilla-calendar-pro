@@ -20,6 +20,7 @@ const options: Options = {
           <#DateRangeTooltip />
         </div>
       </div>
+      <#Collapse />
       <#ControlTime />
       <button type="button">I am a button</button>
     `,

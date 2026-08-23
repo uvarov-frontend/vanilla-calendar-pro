@@ -4,10 +4,12 @@ const labels = {
   arrowNext: {
     month: 'Next month',
     year: 'Next list of years',
+    week: 'Next week',
   },
   arrowPrev: {
     month: 'Previous month',
     year: 'Previous list of years',
+    week: 'Previous week',
   },
   month: 'Select month, current selected month:',
   months: 'List of months',
@@ -15,6 +17,8 @@ const labels = {
   years: 'List of years',
   week: 'Days of the week',
   weekNumber: 'Numbers of weeks in a year',
+  collapse: 'Collapse to a single week',
+  expand: 'Expand to the whole month',
   dates: 'Dates in the current month',
   selectingTime: 'Selecting a time ',
   inputHour: 'Hours',

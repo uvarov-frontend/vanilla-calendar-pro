@@ -1,6 +1,10 @@
 ---
 title: Settings
 description: Calendar settings, including display type, input mode, positioning, localization, dates and times.
+new:
+  - animation
+  - enableCollapse
+  - enableSwipe
 section: 4
 ---
 
@@ -12,7 +16,7 @@ section: 4
 
 `Default: 'default'`
 
-`Options: 'default' | 'multiple' | 'month' | 'year'`
+`Options: 'default' | 'multiple' | 'month' | 'year' | 'week'`
 
 ```ts
 new Calendar('#calendar', {
@@ -20,7 +24,7 @@ new Calendar('#calendar', {
 });
 ```
 
-The `type` parameter defines the type of calendar displayed.
+The `type` parameter defines the type of calendar displayed. The `week` type shows a single week rather than a whole month. It works on its own or with `enableCollapse`, which lets visitors switch between the month and week views.
 
 ---
 
@@ -94,25 +98,28 @@ If there is not enough space below, it will evaluate another best available posi
 
 `Default: false`
 
-`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing }`
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing, collapse?: Timing }`
+
+`Timing: { duration?: Number, easing?: String }`
 
 ```ts
 new Calendar('#calendar', {
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
-  // animation: { slide: { duration: 400 }, fade: { duration: 120 } },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
 });
 ```
 
-Animates transitions between views: switching months with the arrows and paging through the year list slide horizontally, opening and closing the month and year pickers cross-fade.
+Animates transitions between views. Arrow navigation and `enableSwipe` use a horizontal slide, the month and year pickers cross-fade, and `enableCollapse` animates the calendar between its month and week heights.
 
-<Info>Even with the option on, the cost is imperceptible: a transition adds about 2ms of one-time work (not per frame), and the animation itself runs on the compositor — only `transform` and `opacity` are animated, so the main thread is never blocked. The option adds roughly 1.5 KB (gzipped) to the bundle.</Info>
+Defaults differ per transition — `250ms` for the slides, `150ms` for the cross-fade and `300ms` for collapsing, all with `cubic-bezier(0.4, 0, 0.2, 1)`. An object overrides any of them: `duration` is in milliseconds, and `easing` accepts a CSS easing function. Values at the top level apply to every transition; nest them under `slide` (arrows and `enableSwipe`), `fade` (pickers) or `collapse` (`enableCollapse`) to target one group. Nested values win over top-level values.
 
-Defaults differ per transition — `250ms` for the slides and `150ms` for the cross-fade, both with `cubic-bezier(0.4, 0, 0.2, 1)`. An object overrides either value: `duration` is in milliseconds, `easing` accepts any CSS easing function. Values at the top level apply to every transition; nest them under `slide` (arrows) or `fade` (pickers) to target one group, and nested values win.
+<Info>
+  Animated settling is skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`. Gestures still follow the pointer, but commit
+  or return immediately on release.
+</Info>
 
-<Info>Animations are skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`.</Info>
-
-The default is `false` for backwards compatibility: the option was added later, and turning it on changes what a DOM query sees. While a transition runs, the outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements are briefly present twice — exclude that layer if your own code queries them, otherwise `mainElement.querySelectorAll('[data-vc-date]')` also matches the cells on their way out.
+The default is `false` for backwards compatibility: the option was added later, and turning it on changes what a DOM query sees during slide and cross-fade transitions. Their outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements can briefly be present twice. Exclude that layer if your own code queries them; collapsing does not create a ghost layer.
 
 ---
 
@@ -150,7 +157,11 @@ new Calendar('#calendar', {
 
 The `monthsToSwitch` parameter controls the number of switchable months.
 
-<Info>When `monthsToSwitch` is greater than `1`, the month picker view will also only allow selecting months that are reachable from the currently selected month in steps of `monthsToSwitch` — other months will appear disabled. This keeps navigation consistent with the configured step size (most relevant together with `displayMonthsCount` in `type: 'multiple'`, where it keeps multiple visible months in sync).</Info>
+<Info>
+  When `monthsToSwitch` is greater than `1`, the month picker view will also only allow selecting months that are reachable from the currently selected month in
+  steps of `monthsToSwitch` — other months will appear disabled. This keeps navigation consistent with the configured step size (most relevant together with
+  `displayMonthsCount` in `type: 'multiple'`, where it keeps multiple visible months in sync).
+</Info>
 
 ---
 
@@ -275,9 +286,14 @@ new Calendar('#calendar', {
 
 This parameter sets the minimum date that the user can select. Dates earlier than the specified date will be disabled and unavailable for selection.
 
-<Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
+<Info>
+  It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.
+</Info>
 
-<Info>Passing `null` to `displayDateMin` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the current value unchanged.</Info>
+<Info>
+  Passing `null` to `displayDateMin` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the
+  current value unchanged.
+</Info>
 
 ---
 
@@ -297,9 +313,14 @@ new Calendar('#calendar', {
 
 This parameter sets the maximum date that the user can select. Dates later than the specified date will be disabled and unavailable for selection.
 
-<Info>It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.</Info>
+<Info>
+  It is important to note that `displayDateMin` and `displayDateMax` disable dates outside the range, while `dateMin` and `dateMax` do not create them at all.
+</Info>
 
-<Info>Passing `null` to `displayDateMax` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the current value unchanged.</Info>
+<Info>
+  Passing `null` to `displayDateMax` in `.set()` explicitly resets it back to its default value. Passing `undefined` (e.g. omitting the property) leaves the
+  current value unchanged.
+</Info>
 
 ---
 
@@ -483,9 +504,7 @@ new Calendar('#calendar', {
 
 This parameter allows you to enable specified dates, regardless of the range and disabled dates.
 
-<Info>
-  To specify a date range, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a date range, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -506,7 +525,8 @@ new Calendar('#calendar', {
 This parameter allows you to get only the start and end dates selected by the user, ignoring intermediate dates. This parameter only works if `selectionDatesMode` is set to `'multiple-ranged'`.
 
 <Info>
-  It is important to note that when using this parameter, disabled dates within the date range will have no effect. Therefore, use this option only if you are interested in the start and end dates selected by the user.
+  It is important to note that when using this parameter, disabled dates within the date range will have no effect. Therefore, use this option only if you are
+  interested in the start and end dates selected by the user.
 </Info>
 
 ---
@@ -523,7 +543,7 @@ This parameter allows you to get only the start and end dates selected by the us
 new Calendar('#calendar', {
   enableDateToggle: false,
   // or with a callback
-  enableDateToggle: (self) => (new Date(self.selectedDates[0]) < new Date()),
+  enableDateToggle: (self) => new Date(self.selectedDates[0]) < new Date(),
 });
 ```
 
@@ -584,8 +604,50 @@ new Calendar('#calendar', {
 
 If this option is enabled and one or more selected dates are specified, but without specifying `selectedMonth` and `selectedYear`, the calendar will jump to the first selected date. If set to `false`, the calendar will always open for the current month and year.
 
+<Info>This option has no effect if `selectedMonth` and `selectedYear` are specified.</Info>
+
+---
+
+## enableCollapse
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableCollapse: true,
+});
+```
+
+Adds a control under the grid that folds the month down to one week and unfolds it again. The week is anchored to the first selected date when it belongs to the displayed month, otherwise to today when it belongs to that month, and otherwise to the first day of the displayed month. The control is a chevron on devices with a mouse and a grabber on touch devices, which can be dragged up and down.
+
+<Info>`enableCollapse` does not require `enableSwipe` or `animation`. Collapsing switches `type` to `'week'`, so reading `calendar.type` tells you the current state, and `set({ type: 'week' })` does the same thing without the transition. Only the `default` and `week` types support this option; other types throw during `init()`.</Info>
+
+---
+
+## enableSwipe
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableSwipe: true,
+});
+```
+
+Lets the visitor drag the calendar content sideways to reach the next or previous period in every view the arrows can navigate — `default`, `multiple`, `week` and the year list. The neighbouring period follows the pointer. Release distance and velocity decide whether it settles into place or returns.
+
 <Info>
-  This option has no effect if `selectedMonth` and `selectedYear` are specified.
+  `enableSwipe` does not require `enableCollapse` or `animation`; without animation, release settles immediately. Vertical scrolling over the calendar is left
+  to the page, and a swipe is available only while the corresponding arrow is visible, so it observes `dateMin`, `dateMax` and navigation restrictions. The drag
+  does not select the date it ends on.
 </Info>
 
 ---
@@ -678,9 +740,7 @@ new Calendar('#calendar', {
 
 This parameter allows you to specify a list of dates that will be selected when the calendar is initialized.
 
-<Info>
-  To specify a date range, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a date range, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -736,9 +796,7 @@ new Calendar('#calendar', {
 
 This parameter allows you to specify dates that will be considered holidays and will receive an additional data attribute for styling.
 
-<Info>
-  To specify a date range, use any delimiter between dates within a single string.
-</Info>
+<Info>To specify a date range, use any delimiter between dates within a single string.</Info>
 
 ---
 
@@ -939,5 +997,9 @@ new Calendar('#calendar', {
 `sanitizerHTML` can sanitize HTML templates to make them safe for CSP.
 
 <Info>
-  Note that the example uses the third-party library <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">`dompurify`</a>. `sanitizerHTML` is not required for the calendar to function.
+  Note that the example uses the third-party library{' '}
+  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
+    `dompurify`
+  </a>
+  . `sanitizerHTML` is not required for the calendar to function.
 </Info>

@@ -1,0 +1,44 @@
+---
+title: Swipe
+new: true
+description: Learn how to let visitors drag the calendar sideways to reach the next or previous period.
+section: 6. Additional Features
+---
+
+# Swipe
+
+`enableSwipe` lets the calendar content be dragged sideways. It is off by default, works independently of `enableCollapse` and `animation`, and can be enabled in every view the arrows can navigate — `default`, `multiple`, `week` and the year list. The gesture moves by whatever the arrows move by in the current view.
+
+<Sandbox example="additional-features-swipe" height={420} />
+
+The neighbouring period is rendered as soon as the gesture starts and travels with the pointer, so the drag shows where it is going rather than an empty gap. A slow drag has to cover a quarter of the width, while a quick flick can commit sooner because release velocity is also taken into account. Otherwise the content slides back.
+
+<Info>
+  The gesture only claims the horizontal axis, so the page still scrolls vertically over the calendar. A swipe is available only while the corresponding arrow
+  is visible, so it observes `dateMin`, `dateMax` and navigation restrictions. The date under the pointer on release is not selected.
+</Info>
+
+## Timing
+
+The gesture uses the `slide` group of the [`animation`](/docs/reference/settings) option, the same timing as arrow navigation:
+
+```ts
+new Calendar('#calendar', {
+  animation: { slide: { duration: 350 } },
+  enableSwipe: true,
+});
+```
+
+<Info>
+  Without `animation`, or when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`, dragging still tracks the pointer but the release
+  settles instantly.
+</Info>
+
+## Querying the Calendar Mid-Gesture
+
+A swipe leans on the same ghost layer as the arrow animation, so while it runs the outgoing period is still in the DOM inside an `inert` `[data-vc-ghost]` element and the date cells are momentarily present twice. Exclude that layer if your own code walks them.
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```

@@ -8,6 +8,7 @@ const errorMessages = {
   incorrectTime: 'The value of the time property can be: false, 12 or 24.',
   incorrectMonthsCount:
     'For the «multiple» calendar type, the «displayMonthsCount» parameter can have a value from 2 to 12, and for all others it cannot be greater than 1.',
+  incorrectCollapseType: 'The «enableCollapse» parameter is only supported by the «default» and «week» calendar types.',
 };
 
 export default errorMessages;

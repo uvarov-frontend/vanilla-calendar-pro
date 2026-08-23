@@ -25,7 +25,7 @@ export type Range<N extends number, Acc extends number[] = []> = Acc['length'] e
 
 export type ToggleSelected = boolean | ((self: Calendar) => boolean);
 
-export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year';
+export type TypesCalendar = 'default' | 'multiple' | 'month' | 'year' | 'week';
 
 export type DateMode = 'single' | 'multiple' | 'multiple-ranged';
 
@@ -44,6 +44,7 @@ export type AnimationTiming = {
 export type AnimationOptions = AnimationTiming & {
   slide?: AnimationTiming;
   fade?: AnimationTiming;
+  collapse?: AnimationTiming;
 };
 
 export type TimePicker = 'AM' | 'PM';
@@ -112,6 +113,7 @@ export type ContextVariables = {
   displayDateMin: FormatDateString;
   displayDateMax: FormatDateString;
   displayYear: number;
+  displayWeekDate: FormatDateString;
   displayMonthsCount: MonthsCount;
   disableDates: FormatDateString[];
   enableDates: FormatDateString[];
@@ -128,16 +130,22 @@ export type Styles = typeof styles;
 
 export type Labels = typeof labels;
 
+export type LabelsOptions = Partial<Omit<Labels, 'arrowNext' | 'arrowPrev'>> & {
+  arrowNext?: Partial<Labels['arrowNext']>;
+  arrowPrev?: Partial<Labels['arrowPrev']>;
+};
+
 export type Layouts = {
   default: string;
   multiple: string;
   month: string;
   year: string;
+  week: string;
 };
 
 export type Options = Omit<Partial<options>, 'popups' | 'labels' | 'layouts' | 'styles'> & {
   popups?: Partial<Popups>;
-  labels?: Partial<Labels>;
+  labels?: LabelsOptions;
   layouts?: Partial<Layouts>;
   styles?: Partial<Styles>;
 };

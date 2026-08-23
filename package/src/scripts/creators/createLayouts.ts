@@ -1,6 +1,7 @@
 import layoutDefault from '@scripts/layouts/default';
 import layoutMonths from '@scripts/layouts/month';
 import layoutMultiple from '@scripts/layouts/multiple';
+import layoutWeek from '@scripts/layouts/week';
 import layoutYears from '@scripts/layouts/year';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
 import type { Calendar } from '@src/index';
@@ -11,6 +12,7 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
     month: layoutMonths,
     year: layoutYears,
     multiple: layoutMultiple,
+    week: layoutWeek,
   };
 
   Object.keys(templateMap).forEach((key) => {
@@ -21,6 +23,7 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
   self.context.mainElement.className = self.styles.calendar;
   self.context.mainElement.dataset.vc = 'calendar';
   self.context.mainElement.dataset.vcType = self.context.currentType;
+  self.context.mainElement.toggleAttribute('data-vc-swipe', self.enableSwipe);
   self.context.mainElement.role = 'application';
   self.context.mainElement.tabIndex = 0;
   self.context.mainElement.ariaLabel = self.labels.application;

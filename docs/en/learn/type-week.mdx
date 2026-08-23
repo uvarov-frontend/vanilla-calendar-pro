@@ -1,0 +1,42 @@
+---
+title: Week
+new: true
+description: Learn how to use the 'week' calendar type to show a single week instead of a whole month, and how the arrows step through weeks.
+section: 2. Calendar Types
+---
+
+# Week
+
+The `'week'` calendar type shows a single week instead of a whole month. It suits booking flows and any screen where the month grid takes more room than the choice deserves.
+
+The strip opens on the week holding the first selected date when that date belongs to the displayed month. Otherwise it uses today when today belongs to that month, and finally the week holding the first day of `selectedMonth`.
+
+<Sandbox example="type-week" height={300} />
+
+The arrows step one week at a time and carry the strip across month boundaries. Every day is rendered as a day of the current period, so nothing is greyed out as an outside date and clicking one never moves the strip.
+
+<Info>
+  A week that straddles two months is titled by the month that owns it — the one holding its fourth day, the same rule that decides its ISO week number.
+</Info>
+
+## Folding a Month Down to a Week
+
+`enableCollapse` adds a control under the grid that switches between the month and the week, so the visitor picks the view instead of you. See [Collapse](/docs/learn/additional-features-collapse) for the whole story.
+
+The same controls work in `inputMode`. This popup opens as a week, expands to the whole month with `enableCollapse`, and pages the current view with `enableSwipe`:
+
+<Sandbox example="type-week-in-input" height={470} input={true} />
+
+## Switching Programmatically
+
+Collapsing sets `type`, which makes the two views reachable from your own code as well:
+
+```ts
+calendar.set({ type: 'week' }); // fold down to a week
+calendar.set({ type: 'default' }); // back to the month
+calendar.type; // 'week' while collapsed
+```
+
+<Info>
+  `displayMonthsCount` stays at `1` for this type; several weeks side by side are not supported. Use `type: 'multiple'` when you need more than one grid.
+</Info>

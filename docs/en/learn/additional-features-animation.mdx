@@ -1,14 +1,18 @@
 ---
 title: Animation
-description: Learn how to animate transitions between calendar views. Navigating months and years slides horizontally, and switching the calendar type cross-fades.
+new: true
+description: Learn how to configure slide, cross-fade and collapse transitions between calendar views.
 section: 6. Additional Features
 ---
 
 # Animation
 
-Transitions between views can be animated. Navigating months with the arrows and paging through the year list slide horizontally, while opening and closing the month and year pickers cross-fade.
+Transitions between views can be animated. Arrow navigation and swiping slide horizontally, the month and year pickers cross-fade, and collapsing animates the calendar between its month and week heights.
 
-<Info>Animation is off by default for backwards compatibility: the option was added later, and turning it on changes what a DOM query sees while a transition runs.</Info>
+<Info>
+  Animation is off by default for backwards compatibility: the option was added later, and slide and cross-fade transitions temporarily change what a DOM query
+  sees.
+</Info>
 
 <Sandbox example="additional-features-animation" height={400} />
 
@@ -20,17 +24,20 @@ Passing an object instead of `true` overrides the timing. Values at the top leve
 
 ## Separate Timings
 
-The two kinds of transition can be tuned apart from each other. Nest the values under `slide` for the arrows, or under `fade` for the pickers — nested values win over the ones at the top level.
+The three groups can be tuned independently. Nest values under `slide` for arrows and swiping, `fade` for pickers, or `collapse` for folding between the month and week. Nested values win over the ones at the top level.
 
-The example below gives the slide an overshooting curve, so the month winds up, shoots past its place and settles back, while the pickers keep a calm cross-fade.
+The example below gives the slide an overshooting curve, while the pickers and collapse control use their own calmer timings.
 
 <Sandbox example="additional-features-animation-custom" height={400} />
 
-<Info>Animations are skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`.</Info>
+<Info>
+  Animated settling is skipped when the visitor asks for reduced motion through `prefers-reduced-motion: reduce`. Gestures still follow the pointer and settle
+  immediately on release.
+</Info>
 
 ## Querying the Calendar While It Animates
 
-While a transition runs, the outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements are momentarily present twice. Callbacks such as `onClickArrow` and `onClickDate` fire inside that window, so exclude the layer if you inspect the calendar from them.
+During slide and cross-fade transitions, the outgoing content stays in the DOM inside an `inert` `[data-vc-ghost]` layer, so date elements can momentarily be present twice. Callbacks such as `onClickArrow` and `onClickDate` fire inside that window, so exclude the layer if you inspect the calendar from them. Collapsing does not create a ghost layer.
 
 ```ts
 const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');

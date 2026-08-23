@@ -10,6 +10,8 @@ const updateAttribute = (el: HTMLElement | HTMLButtonElement, condition: boolean
   }
 };
 
+const getDateTime = (date: FormatDateString) => Date.parse(`${date}T00:00:00`);
+
 const setDateModifier = (
   self: Calendar,
   currentYear: number,
@@ -19,9 +21,10 @@ const setDateModifier = (
   dateStr: FormatDateString,
   monthType: 'current' | 'prev' | 'next',
 ) => {
+  const dateTime = getDateTime(dateStr);
   const isDisabled =
-    getDate(self.context.displayDateMin) > getDate(dateStr) ||
-    getDate(self.context.displayDateMax) < getDate(dateStr) ||
+    getDateTime(self.context.displayDateMin) > dateTime ||
+    getDateTime(self.context.displayDateMax) < dateTime ||
     self.context.disableDates?.includes(dateStr) ||
     (!self.selectionMonthsMode && monthType !== 'current') ||
     (!self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear);

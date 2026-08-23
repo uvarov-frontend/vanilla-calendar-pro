@@ -2,6 +2,7 @@ import createDatePopup from '@scripts/creators/createDates/createDatePopup';
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
+import createWeekDates from '@scripts/creators/createDates/createWeekDates';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import type { Calendar } from '@src/index';
 
@@ -13,6 +14,13 @@ const createDates = (self: Calendar) => {
   datesEls.forEach((datesEl, index: number) => {
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
     datesEl.textContent = '';
+
+    if (self.context.currentType === 'week') {
+      createWeekDates(self, datesEl);
+      createDatePopup(self, datesEl);
+      createWeekNumbers(self, 0, 7, weekNumbersEls[index], datesEl);
+      return;
+    }
 
     const currentDate = new Date(initDate);
     currentDate.setMonth(currentDate.getMonth() + index);

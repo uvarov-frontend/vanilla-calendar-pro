@@ -60,6 +60,8 @@ export default class OptionsCalendar {
   enableWeekNumbers: boolean = false;
   enableMonthChangeOnDayClick: boolean = true;
   enableJumpToSelectedDate: boolean = false;
+  enableCollapse: boolean = false;
+  enableSwipe: boolean = false;
 
   selectionDatesMode: false | DateMode = 'single';
   selectionMonthsMode: boolean | 'only-arrows' = true;
@@ -105,6 +107,6 @@ export default class OptionsCalendar {
 
   popups: Popups = {};
   labels: Labels = { ...labels };
-  layouts: Layouts = { default: '', multiple: '', month: '', year: '' };
+  layouts: Layouts = { default: '', multiple: '', month: '', year: '', week: '' };
   styles: Styles = { ...styles };
 }
