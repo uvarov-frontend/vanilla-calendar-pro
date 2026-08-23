@@ -1,3 +1,39 @@
+// Real pointer events are composed, so a synthetic drag has to be as well: without it the
+// pointermove/pointerup pair never leaves the shadow root and window never sees the gesture.
+const dispatch = (el: Element, type: string, clientX: number, clientY: number) =>
+  el.dispatchEvent(
+    new PointerEvent(type, {
+      pointerId: 1,
+      isPrimary: true,
+      button: 0,
+      buttons: type === 'pointerup' ? 0 : 1,
+      clientX,
+      clientY,
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    }),
+  );
+
+const swipeInside = (widget: string, dx: number) => {
+  cy.get(widget)
+    .shadow()
+    .find('[data-vc="content"]')
+    .first()
+    .then(($el) => {
+      const box = $el[0].getBoundingClientRect();
+      const x = Math.round(box.left + box.width / 2);
+      const y = Math.round(box.top + box.height / 2);
+      dispatch($el[0], 'pointerdown', x, y);
+      dispatch($el[0], 'pointermove', x + Math.sign(dx) * 12, y);
+      dispatch($el[0], 'pointermove', x + dx, y);
+      cy.wait(250);
+      dispatch($el[0], 'pointerup', x + dx, y);
+    });
+};
+
+const monthOf = (widget: string) => cy.get(widget).shadow().find('[data-vc="month"]').first().invoke('attr', 'data-vc-month');
+
 describe('Shadow DOM support', () => {
   it('renders the popup inside the shadow root, not in document.body', () => {
     cy.visit('/pages/shadow-dom/');
@@ -49,6 +85,31 @@ describe('Shadow DOM support', () => {
     cy.get('#widget-1').shadow().find('[data-vc-shadow-init]').click();
     cy.get('#widget-1').shadow().find('[data-vc-shadow-input]').click();
     cy.get('#widget-1').shadow().find('[data-vc="calendar"]').should('exist').and('not.have.attr', 'data-vc-calendar-hidden');
+  });
+
+  it('collapses and swipes a plain calendar inside the shadow root', () => {
+    cy.visit('/pages/shadow-dom/');
+    cy.get('#widget-5').shadow().find('[data-vc="collapse"]').click();
+    cy.get('#widget-5').shadow().find('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
+    cy.get('#widget-5').shadow().find('[data-vc="collapse"]').click();
+    cy.get('#widget-5').shadow().find('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'default');
+
+    monthOf('#widget-5').should('eq', '3');
+    swipeInside('#widget-5', -200);
+    monthOf('#widget-5').should('eq', '4');
+  });
+
+  it('collapses and swipes the popup of an inputMode calendar inside the shadow root', () => {
+    cy.visit('/pages/shadow-dom/');
+    cy.get('#widget-4').shadow().find('[data-vc-shadow-input]').click();
+    cy.get('#widget-4').shadow().find('[data-vc="calendar"]').should('not.have.attr', 'data-vc-calendar-hidden');
+
+    cy.get('#widget-4').shadow().find('[data-vc="collapse"]').click();
+    cy.get('#widget-4').shadow().find('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
+
+    monthOf('#widget-4').should('eq', '3');
+    swipeInside('#widget-4', -200);
+    cy.get('#widget-4').shadow().find('[data-vc="calendar"]').should('not.have.attr', 'data-vc-calendar-hidden');
   });
 
   it('a plain (non-inputMode) calendar renders directly inside the shadow root and dates are clickable', () => {

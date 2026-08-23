@@ -54,6 +54,14 @@ describe('Accessibility (axe-core)', () => {
     checkA11y('#calendar-bounded');
   });
 
+  it('calendars inside a shadow root have no ARIA violations', () => {
+    cy.visit('/pages/shadow-dom/');
+    // the inputMode popup only exists once the field has been opened
+    cy.get('#widget-4').shadow().find('[data-vc-shadow-input]').click();
+    cy.get('#widget-4').shadow().find('[data-vc="calendar"]').should('not.have.attr', 'data-vc-calendar-hidden');
+    checkA11y();
+  });
+
   it('every option combination carrying its own ARIA markup has no violations', () => {
     cy.visit('/pages/a11y/');
     checkA11y();
@@ -151,6 +159,12 @@ describe('Accessibility (keyboard and focus)', () => {
       const names = [...$inputs].map((input) => (input as HTMLInputElement).name);
       expect(new Set(names).size, 'duplicate form control name').to.eq(names.length);
     });
+  });
+
+  it('states multiselectability only where more than one date can be picked', () => {
+    cy.visit('/pages/a11y/');
+    cy.get('#calendar-ranged [data-vc="content"]').should('have.attr', 'aria-multiselectable', 'true');
+    cy.get('#calendar-popups [data-vc="content"]').should('not.have.attr', 'aria-multiselectable');
   });
 
   it('takes the closed popup out of the focus order and the accessibility tree', () => {

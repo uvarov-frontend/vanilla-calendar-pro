@@ -9,7 +9,8 @@ import type { Calendar } from '@src/index';
 const syncMultiselectable = (self: Calendar) => {
   const isMultiselectable = ['multiple', 'multiple-ranged'].includes(String(self.selectionDatesMode));
   self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="content"][role="grid"]').forEach((gridEl) => {
-    gridEl.toggleAttribute('aria-multiselectable', isMultiselectable);
+    if (isMultiselectable) gridEl.setAttribute('aria-multiselectable', 'true');
+    else gridEl.removeAttribute('aria-multiselectable');
   });
 };
 
