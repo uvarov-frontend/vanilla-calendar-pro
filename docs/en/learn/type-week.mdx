@@ -1,5 +1,6 @@
 ---
 title: Week
+new: true
 description: Learn how to use the 'week' calendar type to show a single week instead of a whole month, and how the arrows step through weeks.
 section: 2. Calendar Types
 ---
@@ -21,6 +22,10 @@ The arrows step one week at a time and carry the strip across month boundaries. 
 ## Folding a Month Down to a Week
 
 `enableCollapse` adds a control under the grid that switches between the month and the week, so the visitor picks the view instead of you. See [Collapse](/docs/learn/additional-features-collapse) for the whole story.
+
+The same controls work in `inputMode`. This popup opens as a week, expands to the whole month with `enableCollapse`, and pages the current view with `enableSwipe`:
+
+<Sandbox example="type-week-in-input" height={470} input={true} />
 
 ## Switching Programmatically
 

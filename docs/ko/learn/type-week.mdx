@@ -1,5 +1,6 @@
 ---
 title: 주
+new: true
 description: "'week' 캘린더 타입으로 한 달 전체 대신 한 주만 보여 주는 방법과 화살표가 주 단위로 이동하는 방식을 알아보세요."
 section: 2. 캘린더 타입
 ---
@@ -19,6 +20,10 @@ section: 2. 캘린더 타입
 ## 한 달을 한 주로 접기
 
 `enableCollapse`는 그리드 아래에 월과 주를 전환하는 컨트롤을 추가해, 개발자가 아니라 방문자가 보기를 고르게 합니다. 자세한 내용은 [접기](/docs/learn/additional-features-collapse)를 참고하세요.
+
+같은 컨트롤을 `inputMode`에서도 사용할 수 있습니다. 이 팝업은 주 보기로 열리고, `enableCollapse`로 전체 월을 펼치며, `enableSwipe`로 현재 보기를 넘깁니다.
+
+<Sandbox example="type-week-in-input" height={470} input={true} />
 
 ## 코드로 전환하기
 

@@ -1,5 +1,6 @@
 ---
 title: 周
+new: true
 description: 学习如何使用 'week' 日历类型只显示一周而不是整月，以及箭头如何按周翻页。
 section: 2. 日历类型
 ---
@@ -19,6 +20,10 @@ section: 2. 日历类型
 ## 把整月折叠为一周
 
 `enableCollapse` 会在网格下方添加一个在月与周之间切换的控件，让访问者自己选择视图，而不是由你决定。详见[折叠](/docs/learn/additional-features-collapse)。
+
+这些控件同样适用于 `inputMode`。下面的弹出日历会以周视图打开，可通过 `enableCollapse` 展开为整月，并通过 `enableSwipe` 翻动当前视图。
+
+<Sandbox example="type-week-in-input" height={470} input={true} />
 
 ## 用代码切换
 
