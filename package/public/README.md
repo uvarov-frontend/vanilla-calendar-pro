@@ -11,7 +11,7 @@ This is a versatile JavaScript date and time picker component with TypeScript su
 ## Key Features
 
 - **Lightweight**: The final JavaScript file is minified and optimized for fast loading.
--  **No Dependencies**: Completely self-contained, ensuring you don't need to include additional libraries.
+- **No Dependencies**: Completely self-contained, ensuring you don't need to include additional libraries.
 - **Simple Localization**: Supports simple localization for any language.
 - **Customizable**: Can be easily configured using CSS and HTML markup, including CSS custom properties for theme colors.
 - **Multiple Instances**: Allows for an unlimited number of calendar instances on a single page.
@@ -19,9 +19,11 @@ This is a versatile JavaScript date and time picker component with TypeScript su
 - **Week Start Customization**: Supports any day of the week as the starting day.
 - **Custom Weekends**: Define custom weekend days for each week as needed.
 - **Week Number Display**: Can display week numbers throughout the year.
+- **Week View and Gestures**: A single-week calendar type, plus optional swipe navigation and collapsing a month down to one week.
+- **Animated Transitions**: Optional sliding, cross-fading, and collapsing animations, with `prefers-reduced-motion` respected.
 - **Not Tied to Input Tags**: Unlike many date pickers, it's not limited to the `<input>` tag.
 - **Shadow DOM Support**: Can be initialized inside a Shadow DOM for encapsulated Web Components.
-- **Accessible**: Includes ARIA labels, `tabindex`, and full keyboard navigation, enhancing accessibility.
+- **Accessible**: ARIA grid semantics, arrow-key navigation with a single tab stop per grid, managed focus, and localizable ARIA labels.
 - **Date and Time Range Selection**: Supports selecting ranges for both dates and times, with maximum and minimum limits.
 - **Popups and Tooltips**: Allows setting custom popups with user-defined information—including a single popup for a date range—and provides tooltips on hover in date range selection mode.
 
@@ -119,9 +121,9 @@ Here is an example of the default layout:
 new Calendar('#calendar', {
   layouts: {
     default: `
-      <div class="vc-header" data-vc="header" role="toolbar" aria-label="Calendar Navigation">
+      <div class="vc-header" data-vc="header" role="group" aria-label="Calendar Navigation">
         <#ArrowPrev [month] />
-        <div class="vc-header__content" data-vc-header="content">
+        <div class="vc-header__content" data-vc-header="content" aria-live="polite" aria-atomic="true">
           <#Month />
           <#Year />
         </div>
@@ -129,12 +131,13 @@ new Calendar('#calendar', {
       </div>
       <div class="vc-wrapper" data-vc="wrapper">
         <#WeekNumbers />
-        <div class="vc-content" data-vc="content">
+        <div class="vc-content" data-vc="content" role="grid">
           <#Week />
           <#Dates />
           <#DateRangeTooltip />
         </div>
       </div>
+      <#Collapse />
       <#ControlTime />
     `
   }
