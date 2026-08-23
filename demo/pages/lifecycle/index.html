@@ -15,15 +15,18 @@
   <body
     class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
   >
-    <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-    <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-      Calling init() or destroy() more than once on the same instance should throw, not corrupt the DOM.
-    </p>
-    <div id="calendar"></div>
-    <div class="flex gap-2 mt-6">
-      <button id="btn-init" type="button" class="input">Init</button>
-      <button id="btn-destroy" type="button" class="input">Destroy</button>
-    </div>
-    <pre id="log" class="mt-6 text-left text-sm"></pre>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content" class="flex w-full flex-col items-center">
+      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
+      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
+        Calling init() or destroy() more than once on the same instance should throw, not corrupt the DOM.
+      </p>
+      <div id="calendar"></div>
+      <div class="flex gap-2 mt-6">
+        <button id="btn-init" type="button" class="input">Init</button>
+        <button id="btn-destroy" type="button" class="input">Destroy</button>
+      </div>
+      <pre id="log" class="mt-6 text-left text-sm"></pre>
+    </main>
   </body>
 </html>

@@ -15,55 +15,60 @@
   <body
     class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
   >
-    <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-    <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-      A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
-    </p>
-    <div class="flex flex-col items-center gap-12">
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> and <code>enableSwipe</code> &mdash; both gestures</figcaption>
-        <div id="calendar-gestures"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> &mdash; starting collapsed</figcaption>
-        <div id="calendar-collapsed"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with <code>type: 'multiple'</code></figcaption>
-        <div id="calendar-multiple"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with <code>dateMax</code> &mdash; cannot be dragged past the bound</figcaption>
-        <div id="calendar-bounded"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400">both gestures, no <code>animation</code></figcaption>
-        <div id="calendar-plain"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> on its own</figcaption>
-        <div id="calendar-collapse-only"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with ranged selection</figcaption>
-        <div id="calendar-range"></div>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400">no gestures &mdash; control</figcaption>
-        <div id="calendar-static"></div>
-        <button id="btn-enable-gestures" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Enable gestures dynamically</button>
-      </figure>
-      <figure class="flex flex-col items-center gap-3">
-        <figcaption class="text-sm dark:text-slate-400">both gestures in <code>inputMode</code></figcaption>
-        <input id="calendar-input-gestures" class="input" type="text" readonly />
-      </figure>
-      <div class="flex flex-col items-center gap-3">
-        <button id="btn-invalid-collapse" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">
-          init enableCollapse with type: 'multiple'
-        </button>
-        <pre id="log" class="text-xs dark:text-slate-400"></pre>
-        <div id="calendar-invalid"></div>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content" class="flex w-full flex-col items-center">
+      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
+      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
+        A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
+      </p>
+      <div class="flex flex-col items-center gap-12">
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> and <code>enableSwipe</code> &mdash; both gestures</figcaption>
+          <div id="calendar-gestures"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> &mdash; starting collapsed</figcaption>
+          <div id="calendar-collapsed"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with <code>type: 'multiple'</code></figcaption>
+          <div id="calendar-multiple"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400">
+            <code>enableSwipe</code> with <code>dateMax</code> &mdash; cannot be dragged past the bound
+          </figcaption>
+          <div id="calendar-bounded"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400">both gestures, no <code>animation</code></figcaption>
+          <div id="calendar-plain"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> on its own</figcaption>
+          <div id="calendar-collapse-only"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with ranged selection</figcaption>
+          <div id="calendar-range"></div>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400">no gestures &mdash; control</figcaption>
+          <div id="calendar-static"></div>
+          <button id="btn-enable-gestures" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Enable gestures dynamically</button>
+        </figure>
+        <figure class="flex flex-col items-center gap-3">
+          <figcaption class="text-sm dark:text-slate-400">both gestures in <code>inputMode</code></figcaption>
+          <input id="calendar-input-gestures" class="input" type="text" aria-label="Pick a date" readonly />
+        </figure>
+        <div class="flex flex-col items-center gap-3">
+          <button id="btn-invalid-collapse" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">
+            init enableCollapse with type: 'multiple'
+          </button>
+          <pre id="log" class="text-xs dark:text-slate-400"></pre>
+          <div id="calendar-invalid"></div>
+        </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

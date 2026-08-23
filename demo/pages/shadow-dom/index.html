@@ -15,15 +15,18 @@
   <body
     class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
   >
-    <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-    <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-      Issue #381 repro: calendar instances fully encapsulated inside separate Shadow DOM web components.
-    </p>
-    <div class="flex gap-10 items-start">
-      <shadow-calendar-input id="widget-1"></shadow-calendar-input>
-      <shadow-calendar-input id="widget-2"></shadow-calendar-input>
-      <shadow-calendar-plain id="widget-3"></shadow-calendar-plain>
-    </div>
-    <button id="light-dom-outside" type="button" class="mt-24">Outside click target (light DOM)</button>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content" class="flex w-full flex-col items-center">
+      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
+      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
+        Issue #381 repro: calendar instances fully encapsulated inside separate Shadow DOM web components.
+      </p>
+      <div class="flex gap-10 items-start">
+        <shadow-calendar-input id="widget-1"></shadow-calendar-input>
+        <shadow-calendar-input id="widget-2"></shadow-calendar-input>
+        <shadow-calendar-plain id="widget-3"></shadow-calendar-plain>
+      </div>
+      <button id="light-dom-outside" type="button" class="mt-24">Outside click target (light DOM)</button>
+    </main>
   </body>
 </html>
