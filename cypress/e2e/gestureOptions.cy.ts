@@ -156,6 +156,26 @@ describe('Gesture option combinations', () => {
     cy.get('#calendar-plain').trigger('pointercancel', { ...pointer, pointerType: 'touch' });
   });
 
+  it('shows a grabbing cursor while a mouse drag is active', () => {
+    visit();
+    cy.get('#calendar-plain [data-vc="content"]')
+      .first()
+      .then(($el) => {
+        const box = $el[0].getBoundingClientRect();
+        const x = Math.round(box.left + box.width / 2);
+        const y = Math.round(box.top + box.height / 2);
+        cy.wrap($el).trigger('pointerdown', { ...pointer, pointerType: 'mouse', clientX: x, clientY: y });
+        cy.wrap($el).trigger('pointermove', { ...pointer, pointerType: 'mouse', clientX: x - 6, clientY: y });
+      });
+
+    cy.get('#calendar-plain').should('have.attr', 'data-vc-dragging');
+    cy.get('#calendar-plain').should('have.css', 'cursor', 'grabbing');
+    cy.get('#calendar-plain [data-vc-date-btn]').first().should('have.css', 'cursor', 'grabbing');
+
+    cy.get('#calendar-plain').trigger('pointercancel', { ...pointer, pointerType: 'mouse' });
+    cy.get('#calendar-plain').should('not.have.attr', 'data-vc-dragging');
+  });
+
   it('does not smear a hover range across a mouse drag', () => {
     visit();
     cy.get('#calendar-range [data-vc-date="2023-04-05"] [data-vc-date-btn]').click();

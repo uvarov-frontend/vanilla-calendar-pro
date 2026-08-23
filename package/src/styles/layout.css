@@ -165,6 +165,10 @@ button[data-vc-week-day] {
   @apply touch-pan-y;
 }
 
+[data-vc-dragging] {
+  @apply cursor-grabbing [&_*]:!cursor-grabbing;
+}
+
 /* Prevent row redistribution while the grid height is animated. */
 [data-vc-collapsing] {
   @apply flex-none [align-content:start];

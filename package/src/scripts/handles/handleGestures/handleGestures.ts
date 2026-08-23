@@ -27,10 +27,12 @@ const handleGestures = (self: Calendar) => {
   const { mainElement } = self.context;
   let drag: Drag | null = null;
   let draggedAt = 0;
+  let activeListenersBound = false;
 
   const stopDragging = () => {
     drag = null;
     mainElement.removeAttribute('data-vc-dragging');
+    removeActiveListeners();
   };
 
   const capture = (pointerId: number) => {
@@ -66,6 +68,7 @@ const handleGestures = (self: Calendar) => {
     if (!vertical && !horizontal) return;
 
     drag = { pointerId: event.pointerId, tracker: createDragTracker(event), slop: slopFor(event), vertical, transition: null, sign: -1, distance: 1 };
+    addActiveListeners();
   };
 
   const startTransition = (event: PointerEvent, current: Drag, dx: number) => {
@@ -142,19 +145,31 @@ const handleGestures = (self: Calendar) => {
     event.preventDefault();
   };
 
-  const listeners = [
-    ['pointerdown', onPointerDown],
+  const activeListeners = [
     ['pointermove', onPointerMove],
     ['pointerup', onPointerUp],
     ['pointercancel', onPointerCancel],
     ['lostpointercapture', onLostCapture],
   ] as const;
 
-  listeners.forEach(([type, listener]) => mainElement.addEventListener(type, listener as EventListener));
+  function addActiveListeners() {
+    if (activeListenersBound) return;
+    activeListenersBound = true;
+    activeListeners.forEach(([type, listener]) => mainElement.addEventListener(type, listener as EventListener));
+  }
+
+  function removeActiveListeners() {
+    if (!activeListenersBound) return;
+    activeListenersBound = false;
+    activeListeners.forEach(([type, listener]) => mainElement.removeEventListener(type, listener as EventListener));
+  }
+
+  mainElement.addEventListener('pointerdown', onPointerDown);
   mainElement.addEventListener('click', onClick, { capture: true });
 
   return () => {
-    listeners.forEach(([type, listener]) => mainElement.removeEventListener(type, listener as EventListener));
+    removeActiveListeners();
+    mainElement.removeEventListener('pointerdown', onPointerDown);
     mainElement.removeEventListener('click', onClick, { capture: true });
   };
 };

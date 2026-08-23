@@ -44,6 +44,17 @@ describe('Collapse', () => {
     cy.get('#calendar-collapsed [data-vc="collapse"]').should('have.attr', 'aria-expanded', 'false');
   });
 
+  it('updates navigation semantics while the expanded layout is staged', () => {
+    visit();
+    freezeAnimations();
+    cy.get('#calendar-collapsed [data-vc="collapse"]').click();
+
+    cy.get('#calendar-collapsed [data-vc="dates"]').should('have.attr', 'data-vc-collapsing');
+    cy.get('#calendar-collapsed [data-vc="collapse"]').should('have.attr', 'aria-expanded', 'true').and('have.attr', 'aria-label', 'Collapse to a single week');
+    cy.get('#calendar-collapsed [data-vc-arrow="prev"]').should('have.attr', 'aria-label', 'Previous month');
+    cy.get('#calendar-collapsed [data-vc-arrow="next"]').should('have.attr', 'aria-label', 'Next month');
+  });
+
   it('collapses the month onto the week holding the selected date', () => {
     visit();
     cy.get('#calendar-gestures [data-vc-dates="row"]').should('have.length', 5);
