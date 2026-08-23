@@ -109,6 +109,11 @@ const handleItemClick = (self: Calendar, event: MouseEvent, type: (typeof typeCl
   }
 };
 
+// The picker is opened by a click, so the focus follows it onto its own tab stop. It must not
+// move on any other render: navigating the year list would otherwise pull the focus off the arrow.
+const focusPicker = (self: Calendar, type: (typeof typeClick)[number], columnEl: HTMLElement | null) =>
+  (columnEl ?? self.context.mainElement).querySelector<HTMLElement>(`[data-vc-${type}s-${type}][tabindex="0"]`)?.focus();
+
 const handleClickType = (self: Calendar, event: MouseEvent, type: (typeof typeClick)[number]) => {
   const target = event.target as HTMLElement;
 
@@ -119,7 +124,11 @@ const handleClickType = (self: Calendar, event: MouseEvent, type: (typeof typeCl
     month: () => changeType(self, columnIndex, () => createMonths(self, target)),
   };
   if (headerEl && self.onClickTitle) self.onClickTitle(self, event);
-  if (headerEl && self.context.currentType !== type) return createByType[type]();
+  if (headerEl && self.context.currentType !== type) {
+    const columnEl = target.closest<HTMLElement>(COLUMN);
+    createByType[type]();
+    return focusPicker(self, type, columnEl);
+  }
 
   const itemEl = target.closest<HTMLButtonElement>(`[data-vc-${type}s-${type}]`);
   if (itemEl) return handleItemClick(self, event, type, itemEl);

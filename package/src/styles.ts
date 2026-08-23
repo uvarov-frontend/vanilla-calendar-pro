@@ -21,6 +21,7 @@ const styles = {
   yearsYear: 'vc-years__year',
   week: 'vc-week',
   weekDay: 'vc-week__day',
+  weekDayBtn: 'vc-week__day-btn',
   weekNumbers: 'vc-week-numbers',
   weekNumbersTitle: 'vc-week-numbers__title',
   weekNumbersContent: 'vc-week-numbers__content',

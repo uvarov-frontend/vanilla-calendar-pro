@@ -32,9 +32,10 @@
     "lint:fix": "ESLINT_USE_FLAT_CONFIG=true npx eslint . --fix",
     "prettier": "prettier . --check --ignore-unknown",
     "prettier:fix": "prettier . -w",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run"
+    "cypress:open": "env -u ELECTRON_RUN_AS_NODE cypress open",
+    "cypress:run": "env -u ELECTRON_RUN_AS_NODE cypress run",
+    "test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run",
+    "test:cypress:a11y": "start-server-and-test dev http://localhost:5173 \"npm run cypress:run -- --spec cypress/e2e/a11y.cy.ts\""
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

@@ -14,7 +14,6 @@ const handleDay = (self: Calendar, date: string, dateInfo: Popup, datesEl: HTMLE
   datePopup.className = self.styles.datePopup;
   datePopup.dataset.vcDatePopup = '';
   datePopup.innerHTML = self.sanitizerHTML(dateInfo.html);
-  dateBtnEl.ariaExpanded = 'true';
   dateBtnEl.ariaLabel = `${dateBtnEl.ariaLabel}, ${datePopup?.textContent?.replace(/^\s+|\s+(?=\s)|\s+$/g, '').replace(/&nbsp;/g, ' ')}`;
   dateEl.appendChild(datePopup);
 

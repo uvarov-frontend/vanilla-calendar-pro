@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  .skip-link {
+    @apply fixed left-4 top-4 z-50 -translate-y-16 rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0 dark:bg-white dark:text-slate-900;
+  }
+
   #calendar {
     @apply shadow-[0_5px_40px_5px_rgb(65_65_65_/_0.1)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.1)];
   }

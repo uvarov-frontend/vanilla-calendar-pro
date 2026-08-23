@@ -8,6 +8,15 @@ import type { Calendar } from '@src/index';
 
 const handleInput = (self: Calendar) => {
   setContext(self, 'inputElement', self.context.mainElement as HTMLInputElement);
+  const inputElement = self.context.inputElement as HTMLInputElement;
+  // Announce that the field opens a picker. Only a form control has a role that carries it:
+  // inputMode also accepts a plain element, which has none.
+  if (['input', 'button', 'textarea'].includes(inputElement.localName)) {
+    inputElement.setAttribute('aria-haspopup', 'dialog');
+    if (inputElement.localName === 'button' || inputElement.getAttribute('role') === 'combobox') {
+      inputElement.setAttribute('aria-expanded', 'false');
+    }
+  }
 
   const handleOpenCalendar = () => {
     if (self.context.inputModeInit) {

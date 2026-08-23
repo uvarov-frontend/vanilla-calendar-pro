@@ -33,6 +33,7 @@ const setDateModifier = (
   updateAttribute(dateEl, isDisabled, 'data-vc-date-disabled');
   if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'aria-disabled', 'true');
   if (dateBtnEl) updateAttribute(dateBtnEl, isDisabled, 'tabindex', '-1');
+  if (dateBtnEl) dateBtnEl.disabled = !!isDisabled;
 
   // Check if the date is today
   updateAttribute(dateEl, !self.disableToday && self.context.dateToday === dateStr, 'data-vc-date-today');
@@ -45,10 +46,10 @@ const setDateModifier = (
   const selectedHolidays = self.selectedHolidays?.[0] ? parseDates(self.selectedHolidays) : [];
   updateAttribute(dateEl, selectedHolidays.includes(dateStr), 'data-vc-date-holiday');
 
-  // Check if the date is selected
+  // Check if the date is selected: aria-selected belongs on the gridcell, a button does not support it
   if (self.context.selectedDates?.includes(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
-    if (dateBtnEl) dateBtnEl.setAttribute('aria-selected', 'true');
+    dateEl.setAttribute('aria-selected', 'true');
     if (self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
       if (self.context.selectedDates[0] === dateStr && self.context.selectedDates[self.context.selectedDates.length - 1] === dateStr) {
         dateEl.setAttribute('data-vc-date-selected', 'first-and-last');
@@ -63,7 +64,7 @@ const setDateModifier = (
     }
   } else if (dateEl.hasAttribute('data-vc-date-selected')) {
     dateEl.removeAttribute('data-vc-date-selected');
-    if (dateBtnEl) dateBtnEl.removeAttribute('aria-selected');
+    dateEl.removeAttribute('aria-selected');
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)

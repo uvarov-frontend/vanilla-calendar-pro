@@ -4,6 +4,7 @@ import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesF
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
 import createWeekDates from '@scripts/creators/createDates/createWeekDates';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
+import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import type { Calendar } from '@src/index';
 
 const createDates = (self: Calendar) => {
@@ -66,6 +67,8 @@ const createDates = (self: Calendar) => {
     createDatePopup(self, datesEl);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
+
+  updateRovingTabIndex(self);
 };
 
 export default createDates;

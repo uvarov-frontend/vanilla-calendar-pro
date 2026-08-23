@@ -1,3 +1,9 @@
+const getMiddles = (containerSelector: string, itemSelector: string) =>
+  cy
+    .get(containerSelector)
+    .find(itemSelector)
+    .then(($els) => [...$els].map((el) => Math.round(el.getBoundingClientRect().top + el.getBoundingClientRect().height / 2)));
+
 const getRowWeekNumbers = (containerSelector: string) =>
   cy
     .get(containerSelector)
@@ -20,5 +26,21 @@ describe('Week numbers', () => {
   it('firstWeekday=0 (Sunday-start weeks) still numbers rows sequentially with no gaps or duplicates', () => {
     cy.visit('/pages/week-numbers/');
     getRowWeekNumbers('#calendar-sunday-start').should('deep.equal', [22, 23, 24, 25, 26]);
+  });
+
+  it('lines every number up with the row it counts', () => {
+    cy.visit('/pages/week-numbers/');
+    ['#calendar-2026', '#calendar-2025', '#calendar-sunday-start'].forEach((calendar) => {
+      getMiddles(calendar, '[data-vc-dates="row"]').then((rows) => {
+        getMiddles(calendar, '[data-vc-week-number]').should('deep.equal', rows);
+      });
+    });
+  });
+
+  it('lines them up under a clickable weekday header too', () => {
+    cy.visit('/pages/a11y/');
+    getMiddles('#calendar-clickable-headers', '[data-vc-dates="row"]').then((rows) => {
+      getMiddles('#calendar-clickable-headers', '[data-vc-week-number]').should('deep.equal', rows);
+    });
   });
 });
