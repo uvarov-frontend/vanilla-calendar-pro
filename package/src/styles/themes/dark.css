@@ -48,19 +48,21 @@
   @apply text-[var(--vc-week-number-color,theme(colors.white))] surehover:hover:text-[var(--vc-week-number-color-hover,theme(colors.slate.300))];
 }
 
-[data-vc-theme='dark'] .vc-week__day {
+[data-vc-theme='dark'] .vc-week__day,
+[data-vc-theme='dark'] .vc-week__day-btn {
   @apply text-[var(--vc-week-day-color,theme(colors.white))];
 }
 
-[data-vc-theme='dark'] button.vc-week__day {
+[data-vc-theme='dark'] .vc-week__day-btn {
   @apply surehover:hover:text-[var(--vc-week-day-color-hover,theme(colors.slate.300))];
 }
 
-[data-vc-theme='dark'] .vc-week__day[data-vc-week-day-off] {
+[data-vc-theme='dark'] .vc-week__day[data-vc-week-day-off],
+[data-vc-theme='dark'] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
   @apply text-[var(--vc-week-day-off-color,theme(colors.rose.500))];
 }
 
-[data-vc-theme='dark'] button.vc-week__day[data-vc-week-day-off] {
+[data-vc-theme='dark'] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
   @apply surehover:hover:text-[var(--vc-week-day-off-color-hover,theme(colors.rose.600))];
 }
 

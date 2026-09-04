@@ -1,0 +1,129 @@
+---
+title: 生命周期动效
+new: true
+description: 使用 Vanilla Disintegrate 为日历生命周期添加现成的粒子预设或完全可定制的效果。
+section: 6. 附加功能
+---
+
+# 生命周期动效
+
+<DisintegrateProjectLink />
+
+Vanilla Calendar Pro 在调用 `init()` 或 `destroy()` 时会立即更新真实 DOM。Vanilla Disintegrate 可在这些生命周期变更之外添加一层可选的视觉效果：`remove()` 让当前日历以动画方式离场，`restore()` 则让刚初始化的日历以动画方式出现。
+
+使用现成预设时，只需创建一个实例并调用两个方法。库内置 `dust`、`scatter`、`vapor` 和 `wind`；如果预设不能完全满足需求，还可以分别调整移除与恢复阶段的粒子、时序和音效，或换成完全自定义的效果。
+
+<Disintegrate />
+
+## 安装
+
+Vanilla Disintegrate 核心库无需安装其他软件包。本指南使用现成的 SnapDOM 捕获适配器，因此还需安装 SnapDOM：
+
+```sh
+npm install vanilla-disintegrate @zumer/snapdom
+```
+
+## 快速开始
+
+像往常一样创建两个库的实例。与日历集成时唯一需要特别处理的是 `detach`：它把移除的提交步骤交给 `destroy()`，让日历正确完成清理。
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+import Disintegrator from 'vanilla-disintegrate/snapdom';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+const effects = new Disintegrator({ preset: 'dust' });
+let calendar = new Calendar('#calendar');
+calendar.init();
+
+document.querySelector('#toggle').addEventListener('click', async () => {
+  if (!calendar.context.isDestroyed) {
+    await effects.remove(calendar.context.mainElement, {
+      detach: () => calendar.destroy(),
+    }).finished;
+    return;
+  }
+
+  calendar = new Calendar('#calendar');
+  calendar.init();
+  await effects.restore(calendar.context.mainElement).finished;
+});
+```
+
+`restore()` 会同步隐藏刚初始化的日历，再通过动画将其显现，因此紧接 `init()` 调用时不会产生多余的可见帧。
+
+## 定制自己的效果
+
+四种预设是最快的起点，而不是功能上限。`createParticleEffect()` 可以让移除与恢复从不同预设开始，并只覆盖界面真正需要调整的运动参数：
+
+```ts
+import Disintegrator, { createParticleEffect, particlePresets } from 'vanilla-disintegrate/snapdom';
+
+const effects = new Disintegrator({
+  effect: createParticleEffect({
+    remove: {
+      ...particlePresets.dust,
+      duration: 900,
+      release: 'left',
+      horizontalDrift: 60,
+    },
+    restore: {
+      ...particlePresets.vapor,
+      duration: 700,
+      release: 'top',
+      convergence: 0.8,
+    },
+  }),
+  sound: false,
+});
+```
+
+`effects.remove()` 与 `effects.restore()` 的调用方式保持不变，两个方向的音效也可以分别配置。若粒子效果仍不够，自定义效果还可以使用 Web Animations API、Canvas 2D、SVG、CSS、WebGL 或其他渲染器，生命周期集成无需改变。所有参数、代码生成和底层契约可在<a href="https://disintegrate.uvarov.tech/zh/docs/learn/custom-effects/" target="_blank" rel="noopener">Vanilla Disintegrate 自定义效果指南</a>与<a href="https://disintegrate.uvarov.tech/zh/" target="_blank" rel="noopener">Vanilla Disintegrate 交互式演练场</a>中查看。
+
+## 移除如何工作
+
+`remove()` 接收需要消散的元素，而 `context.mainElement` 正是日历渲染出的容器。
+
+默认情况下，Vanilla Disintegrate 会在完成快照后调用 `element.remove()`。传入 `detach` 会替换这个提交步骤，让日历按正常流程销毁自身：解绑手势、停止尚未完成的过渡、触发 `onDestroy`，并把原始容器放回文档。
+
+<Info>即使因为 `prefers-reduced-motion: reduce` 或 WebGL2 不可用而跳过视觉效果，`detach` 仍会执行。日历始终会被销毁；可选的只有粒子动画。</Info>
+
+## 恢复如何工作
+
+`restore()` 动画化的是已经位于文档中的元素，因此应先初始化一个新日历。`destroy()` 会移除日历的全部监听器并恢复原始容器，不应重新挂载之前渲染出的旧节点。
+
+在同一个任务中调用 `init()` 和 `restore()` 可以避免闪烁：`restore()` 会在浏览器绘制前隐藏新日历，再随着粒子归位将其显现。
+
+<Info>同样的原因，这种集成中不要给 `remove()` 传入 `retain: true`。它会保留一份日历监听器已经被清理的旧标记。</Info>
+
+## 保留日历状态
+
+重新创建的日历会从传入的选项开始。请在移除提交前从 `context` 读取用户控制的状态，并交给下一个实例。当前显示的月份和年份与已选日期同样重要；缺少它们时，日历会回到今天。
+
+```ts
+// 在 `destroy()` 丢弃已渲染日历之前读取状态。
+const carried = {
+  selectedDates: [...calendar.context.selectedDates],
+  selectedMonth: calendar.context.selectedMonth,
+  selectedYear: calendar.context.selectedYear,
+};
+
+await effects.remove(calendar.context.mainElement, {
+  detach: () => calendar.destroy(),
+}).finished;
+
+calendar = new Calendar('#calendar', carried);
+calendar.init();
+await effects.restore(calendar.context.mainElement).finished;
+```
+
+如果启用了时间选择器，请把 `selectedTime` 一并放入该对象。
+
+<Info>
+  请只在浏览器中创建 Vanilla Disintegrate。对于服务端渲染的应用，应在副作用或生命周期钩子中导入它。相应的清理方式可参阅
+  <a href="https://disintegrate.uvarov.tech/zh/docs/learn/frameworks/" target="_blank" rel="noopener">
+    Vanilla Disintegrate 框架集成指南
+  </a>
+  。
+</Info>
