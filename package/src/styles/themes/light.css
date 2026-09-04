@@ -48,19 +48,21 @@
   @apply text-[var(--vc-week-number-color,theme(colors.slate.500))] surehover:hover:text-[var(--vc-week-number-color-hover,theme(colors.slate.600))];
 }
 
-[data-vc-theme='light'] .vc-week__day {
+[data-vc-theme='light'] .vc-week__day,
+[data-vc-theme='light'] .vc-week__day-btn {
   @apply text-[var(--vc-week-day-color,theme(colors.slate.500))];
 }
 
-[data-vc-theme='light'] button.vc-week__day {
+[data-vc-theme='light'] .vc-week__day-btn {
   @apply surehover:hover:text-[var(--vc-week-day-color-hover,theme(colors.slate.600))];
 }
 
-[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off] {
+[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off],
+[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
   @apply text-[var(--vc-week-day-off-color,theme(colors.rose.500))];
 }
 
-[data-vc-theme='light'] button.vc-week__day[data-vc-week-day-off] {
+[data-vc-theme='light'] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
   @apply surehover:hover:text-[var(--vc-week-day-off-color-hover,theme(colors.rose.600))];
 }
 
