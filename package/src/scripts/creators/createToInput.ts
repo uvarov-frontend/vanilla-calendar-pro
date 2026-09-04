@@ -14,6 +14,10 @@ const createToInput = (self: Calendar) => {
   calendar.dataset.vc = 'calendar';
   calendar.dataset.vcInput = '';
   calendar.dataset.vcCalendarHidden = '';
+  // An absolutely positioned element without coordinates uses its static position at the end of
+  // the document. Even hidden by opacity, that can briefly extend the page and flash a scrollbar
+  // before show() calculates the position next to the input.
+  Object.assign(calendar.style, { left: '0', top: '0' });
   hideFromAT(calendar);
 
   // append into the input's own root (a ShadowRoot if the calendar lives inside one, so the

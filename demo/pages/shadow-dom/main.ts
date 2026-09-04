@@ -8,7 +8,7 @@ class ShadowCalendarInput extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
-    style.textContent = `${calendarStyles} input { padding: 8px; font-size: 14px; }`;
+    style.textContent = `${calendarStyles} input { padding: 8px; font-size: 14px; } button { min-height: 24px; }`;
     shadow.appendChild(style);
 
     const wrapper = document.createElement('div');
