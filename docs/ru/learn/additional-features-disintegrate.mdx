@@ -1,0 +1,135 @@
+---
+title: Эффекты жизненного цикла
+new: true
+description: Добавьте в жизненный цикл календаря готовые пресеты частиц или полностью настраиваемый эффект через Vanilla Disintegrate.
+section: 6. Дополнительные возможности
+---
+
+# Эффекты жизненного цикла
+
+<DisintegrateProjectLink />
+
+Vanilla Calendar Pro сразу изменяет настоящий DOM при вызове `init()` или `destroy()`. Vanilla Disintegrate добавляет вокруг этих действий необязательный визуальный слой: `remove()` анимирует исчезновение текущего календаря, а `restore()` — появление только что созданного.
+
+С готовым пресетом вся интеграция сводится к одному экземпляру и двум методам. В библиотеке есть `dust`, `scatter`, `vapor` и `wind`. Если ни один вариант не подходит полностью, удаление и восстановление, движение частиц, тайминг и звук можно настроить независимо или заменить собственным эффектом целиком.
+
+<Disintegrate />
+
+## Установка
+
+Основная библиотека Vanilla Disintegrate работает без дополнительных пакетов. В этом руководстве используется готовый адаптер захвата SnapDOM, поэтому установите и его:
+
+```sh
+npm install vanilla-disintegrate @zumer/snapdom
+```
+
+## Быстрый старт
+
+Создайте обе библиотеки как обычно. Единственная особенность интеграции с календарём — `detach`: он передаёт применение удаления методу `destroy()`, чтобы календарь корректно освободил свои ресурсы.
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+import Disintegrator from 'vanilla-disintegrate/snapdom';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+const effects = new Disintegrator({ preset: 'dust' });
+let calendar = new Calendar('#calendar');
+calendar.init();
+
+document.querySelector('#toggle').addEventListener('click', async () => {
+  if (!calendar.context.isDestroyed) {
+    await effects.remove(calendar.context.mainElement, {
+      detach: () => calendar.destroy(),
+    }).finished;
+    return;
+  }
+
+  calendar = new Calendar('#calendar');
+  calendar.init();
+  await effects.restore(calendar.context.mainElement).finished;
+});
+```
+
+`restore()` синхронно скрывает созданный календарь и показывает его через эффект, поэтому вызов сразу после `init()` не создаёт промежуточного видимого кадра.
+
+## Настройка своего эффекта
+
+Четыре пресета — это самый короткий путь, а не ограничение. `createParticleEffect()` позволяет взять разные пресеты за основу удаления и восстановления и переопределить только нужные параметры движения:
+
+```ts
+import Disintegrator, { createParticleEffect, particlePresets } from 'vanilla-disintegrate/snapdom';
+
+const effects = new Disintegrator({
+  effect: createParticleEffect({
+    remove: {
+      ...particlePresets.dust,
+      duration: 900,
+      release: 'left',
+      horizontalDrift: 60,
+    },
+    restore: {
+      ...particlePresets.vapor,
+      duration: 700,
+      release: 'top',
+      convergence: 0.8,
+    },
+  }),
+  sound: false,
+});
+```
+
+Вызовы `effects.remove()` и `effects.restore()` останутся прежними. Звук можно отдельно настроить для каждого направления. Если возможностей частиц недостаточно, собственный эффект может использовать Web Animations API, Canvas 2D, SVG, CSS, WebGL или другой рендерер — интеграция с жизненным циклом не изменится. Все параметры, генерация кода и низкоуровневый контракт описаны в <a href="https://disintegrate.uvarov.tech/ru/docs/learn/custom-effects/" target="_blank" rel="noopener">руководстве Vanilla Disintegrate по собственным эффектам</a> и доступны в <a href="https://disintegrate.uvarov.tech/ru/" target="_blank" rel="noopener">интерактивном плейграунде Vanilla Disintegrate</a>.
+
+## Как работает удаление
+
+`remove()` принимает элемент, который должен рассыпаться, а `context.mainElement` — именно он: контейнер, отрисованный календарём.
+
+По умолчанию Vanilla Disintegrate вызывает `element.remove()` после создания снимка. Переданный `detach` заменяет это действие, и календарь уничтожает себя штатно: отвязывает жесты, останавливает незавершённые переходы, вызывает `onDestroy` и возвращает исходный контейнер в документ.
+
+<Info>
+  `detach` срабатывает и тогда, когда визуальная часть пропускается из-за `prefers-reduced-motion: reduce` или недоступного WebGL2. Календарь уничтожается
+  всегда; необязательны только частицы.
+</Info>
+
+## Как работает восстановление
+
+`restore()` анимирует элемент, который уже находится в документе, поэтому сначала создайте новый календарь. `destroy()` удаляет все обработчики календаря и возвращает исходный контейнер; старые отрисованные узлы не следует подключать повторно.
+
+Вызовы `init()` и `restore()` в одной задаче предотвращают мигание: `restore()` скрывает свежий календарь до отрисовки браузером, а затем показывает его по мере возвращения частиц.
+
+<Info>
+  По этой же причине в такой интеграции не передавайте `remove()` опцию `retain: true`. Она сохранила бы разметку, обработчики которой календарь уже удалил.
+</Info>
+
+## Сохранение состояния календаря
+
+Пересозданный календарь начинает работу со своих опций. До применения удаления считайте из `context` всё, чем управлял пользователь, и передайте следующему экземпляру. Отображаемые месяц и год важны не меньше выбранных дат: без них календарь вернётся к сегодняшней дате.
+
+```ts
+// Считайте состояние до того, как `destroy()` удалит отрисованный календарь.
+const carried = {
+  selectedDates: [...calendar.context.selectedDates],
+  selectedMonth: calendar.context.selectedMonth,
+  selectedYear: calendar.context.selectedYear,
+};
+
+await effects.remove(calendar.context.mainElement, {
+  detach: () => calendar.destroy(),
+}).finished;
+
+calendar = new Calendar('#calendar', carried);
+calendar.init();
+await effects.restore(calendar.context.mainElement).finished;
+```
+
+Если включён выбор времени, добавьте в тот же объект `selectedTime`.
+
+<Info>
+  Создавайте Vanilla Disintegrate только в браузере. В приложении с серверным рендерингом импортируйте библиотеку внутри эффекта или хука жизненного цикла.
+  Подходящие схемы очистки приведены в{' '}
+  <a href="https://disintegrate.uvarov.tech/ru/docs/learn/frameworks/" target="_blank" rel="noopener">
+    руководствах Vanilla Disintegrate по фреймворкам
+  </a>
+  .
+</Info>

@@ -1,0 +1,135 @@
+---
+title: Lifecycle Effects
+new: true
+description: Add ready-made particle presets or a fully customized effect to the calendar lifecycle with Vanilla Disintegrate.
+section: 6. Additional Features
+---
+
+# Lifecycle Effects
+
+<DisintegrateProjectLink />
+
+Vanilla Calendar Pro updates real DOM immediately when `init()` or `destroy()` runs. Vanilla Disintegrate adds an optional visual layer around those lifecycle changes: `remove()` animates the current calendar away, while `restore()` animates a freshly initialized calendar into view.
+
+With a ready-made preset, the integration is one instance and two method calls. The library includes `dust`, `scatter`, `vapor`, and `wind`; if none of them quite fits, both particle phases, their timing, and their sound can be configured independently, or replaced with a completely custom effect.
+
+<Disintegrate />
+
+## Install
+
+The core Vanilla Disintegrate library works without additional packages. This guide uses the ready-to-use SnapDOM capture adapter, so install SnapDOM as well:
+
+```sh
+npm install vanilla-disintegrate @zumer/snapdom
+```
+
+## Quick Start
+
+Create both libraries normally. The only calendar-specific detail is `detach`: it lets `destroy()` commit the removal and clean up the calendar correctly.
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+import Disintegrator from 'vanilla-disintegrate/snapdom';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+const effects = new Disintegrator({ preset: 'dust' });
+let calendar = new Calendar('#calendar');
+calendar.init();
+
+document.querySelector('#toggle').addEventListener('click', async () => {
+  if (!calendar.context.isDestroyed) {
+    await effects.remove(calendar.context.mainElement, {
+      detach: () => calendar.destroy(),
+    }).finished;
+    return;
+  }
+
+  calendar = new Calendar('#calendar');
+  calendar.init();
+  await effects.restore(calendar.context.mainElement).finished;
+});
+```
+
+`restore()` hides the initialized calendar synchronously and reveals it through the effect, so creating the calendar immediately before the call does not produce an intermediate visible frame.
+
+## Customize the Effect
+
+The four presets are the shortest path, not a limit. `createParticleEffect()` lets removal and restoration start from different presets and override only the motion values that matter to the interface:
+
+```ts
+import Disintegrator, { createParticleEffect, particlePresets } from 'vanilla-disintegrate/snapdom';
+
+const effects = new Disintegrator({
+  effect: createParticleEffect({
+    remove: {
+      ...particlePresets.dust,
+      duration: 900,
+      release: 'left',
+      horizontalDrift: 60,
+    },
+    restore: {
+      ...particlePresets.vapor,
+      duration: 700,
+      release: 'top',
+      convergence: 0.8,
+    },
+  }),
+  sound: false,
+});
+```
+
+The same `effects.remove()` and `effects.restore()` calls continue to work. Sound can be configured separately for both directions. For motion beyond particles, a custom effect may use the Web Animations API, Canvas 2D, SVG, CSS, WebGL, or another renderer; the lifecycle integration does not change. See the <a href="https://disintegrate.uvarov.tech/docs/learn/custom-effects/" target="_blank" rel="noopener">Vanilla Disintegrate custom-effects guide</a> and the <a href="https://disintegrate.uvarov.tech/" target="_blank" rel="noopener">Vanilla Disintegrate interactive playground</a> for every option and generated code.
+
+## How Removal Works
+
+`remove()` receives the element that should dissolve, and `context.mainElement` is exactly that: the container rendered by the calendar.
+
+By default, Vanilla Disintegrate calls `element.remove()` after taking the snapshot. Passing `detach` replaces that commit, so the calendar disposes of itself normally: gestures are unbound, pending transitions stop, `onDestroy` fires, and the original container returns to the document.
+
+<Info>
+  `detach` also runs when visuals are skipped because of `prefers-reduced-motion: reduce` or unavailable WebGL2. The calendar is always destroyed; only the
+  particles are optional.
+</Info>
+
+## How Restoration Works
+
+`restore()` animates an element that is already in the document, so initialize a new calendar first. `destroy()` removes every calendar listener and restores the original container; the old rendered nodes should not be reattached.
+
+Calling `init()` and `restore()` in the same task prevents flicker: `restore()` conceals the fresh calendar before the browser paints, then reveals it as the particles settle.
+
+<Info>
+  For the same reason, do not pass `retain: true` to `remove()` in this integration. A retained node would preserve markup whose calendar listeners have already
+  been cleaned up.
+</Info>
+
+## Keep Calendar State
+
+A rebuilt calendar starts from its options. Read any user-controlled state from `context` before removal commits, then pass it to the next instance. The displayed month and year matter as much as the selection; without them, the calendar returns to today.
+
+```ts
+// Read the state before `destroy()` discards the rendered calendar.
+const carried = {
+  selectedDates: [...calendar.context.selectedDates],
+  selectedMonth: calendar.context.selectedMonth,
+  selectedYear: calendar.context.selectedYear,
+};
+
+await effects.remove(calendar.context.mainElement, {
+  detach: () => calendar.destroy(),
+}).finished;
+
+calendar = new Calendar('#calendar', carried);
+calendar.init();
+await effects.restore(calendar.context.mainElement).finished;
+```
+
+With the time picker enabled, include `selectedTime` in the same object.
+
+<Info>
+  Create Vanilla Disintegrate in the browser. In a server-rendered application, import it inside an effect or lifecycle hook. Its
+  <a href="https://disintegrate.uvarov.tech/docs/learn/frameworks/" target="_blank" rel="noopener">
+    framework integration guides
+  </a>{' '}
+  show the corresponding cleanup patterns.
+</Info>
