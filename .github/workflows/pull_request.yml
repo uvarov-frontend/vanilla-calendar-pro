@@ -1,8 +1,11 @@
 name: Testing pull request
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, synchronize]
     branches:
       - main
 
