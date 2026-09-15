@@ -218,3 +218,17 @@ If a variable is left unset, the calendar renders exactly as before — nothing 
   The three variables marked "dark only" exist because the dark theme has an extra hover state on those elements that the light/slate-light themes don't —
   there's nothing to override in the other themes for those specific variables.
 </Info>
+
+---
+
+## Sizing
+
+The calendar is sized entirely in `rem`, so it scales with the root font-size. If a page resets it away from the browser default of `16px` (common on older frameworks such as Bootstrap 3, usually to `10px`), the calendar renders at the wrong scale. Restore the intended size with a single `transform`:
+
+```css
+[data-vc='calendar'] {
+  transform: scale(16 / <root font-size in px>);
+}
+```
+
+For example, with a `10px` root: `transform: scale(1.6);`.

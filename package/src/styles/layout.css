@@ -1,5 +1,5 @@
 [data-vc='calendar'] {
-  @apply relative box-border min-w-[272px] flex flex-col p-4 rounded-xl opacity-100 transition-opacity select-none;
+  @apply relative box-border min-w-[17rem] flex flex-col p-4 rounded-xl opacity-100 transition-opacity select-none;
 }
 
 [data-vc='calendar']:focus-visible,
@@ -59,7 +59,7 @@
 }
 
 [data-vc='column'] {
-  @apply min-w-[240px] flex flex-col grow;
+  @apply min-w-[15rem] flex flex-col grow;
 }
 
 [data-vc='header'] {
@@ -142,7 +142,7 @@
    Transform and touch-action are written out by hand for that reason. */
 [data-vc='collapse'] {
   @apply relative block shrink-0 w-full h-4 mt-1 -mb-1 cursor-pointer border-0 bg-transparent touch-none
-	before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:w-8 before:h-[3px] before:rounded-full
+	before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:w-8 before:h-[0.1875rem] before:rounded-full
 	surehover:before:w-4 surehover:before:h-4 surehover:before:rounded-none surehover:before:bg-no-repeat surehover:before:bg-center;
 }
 
@@ -314,7 +314,7 @@
 }
 
 [data-vc-time-input='hour'] {
-  @apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[5px] after:top-1/2 after:mt-[calc(-50%_+_1px)];
+  @apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[0.3125rem] after:top-1/2 after:mt-[calc(-50%_+_1px)];
 }
 
 [data-vc-time-input='minute'] {
@@ -327,7 +327,7 @@
 }
 
 [data-vc-time='keeping'] {
-  @apply ml-[1px] cursor-pointer text-[0.69rem] w-[22px] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0;
+  @apply ml-[0.0625rem] cursor-pointer text-[0.69rem] w-[1.375rem] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0;
 }
 
 [data-vc-time='ranges'] {
@@ -342,7 +342,7 @@
 [data-vc-time-range]::after {
   content: '';
   transform: translateY(-50%);
-  @apply w-[1px] h-2 absolute z-10 pointer-events-none top-1/2;
+  @apply w-[0.0625rem] h-2 absolute z-10 pointer-events-none top-1/2;
 }
 
 [data-vc-time-range] input {

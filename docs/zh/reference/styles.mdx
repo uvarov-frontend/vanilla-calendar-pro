@@ -218,3 +218,17 @@ new Calendar('#calendar', {
   标记为 "dark only" 的三个变量存在的原因是，深色主题在这些元素上有一个 light/slate-light
   主题没有的额外悬停状态——在其他主题中，这些特定变量根本没有可覆盖的目标。
 </Info>
+
+---
+
+## 尺寸
+
+日历几乎完全使用 `rem` 作为单位，因此会随根字体大小（root font-size）缩放。如果页面将其从浏览器默认的 `16px` 重置为其他值（常见于 Bootstrap 3 等较旧的框架，通常是 `10px`），日历会以错误的比例渲染。用一个 `transform` 即可恢复预期大小：
+
+```css
+[data-vc='calendar'] {
+  transform: scale(16 / <根字体大小，单位 px>);
+}
+```
+
+例如，根字体大小为 `10px` 时：`transform: scale(1.6);`。

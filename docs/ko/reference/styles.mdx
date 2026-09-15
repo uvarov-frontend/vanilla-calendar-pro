@@ -218,3 +218,17 @@ new Calendar('#calendar', {
   "dark only"로 표시된 세 변수는 dark 테마에만 light/slate-light 테마에는 없는 추가 hover 상태가 있기 때문에 존재합니다 — 다른 테마에서는 이 변수들을 재정의할
   대상 자체가 없습니다.
 </Info>
+
+---
+
+## 크기
+
+캘린더는 거의 모든 크기를 `rem` 단위로 지정하므로 루트 폰트 크기(root font-size)에 따라 함께 스케일됩니다. 페이지에서 이를 브라우저 기본값인 `16px`에서 다른 값으로 재설정한 경우(오래된 프레임워크인 Bootstrap 3 등에서 흔하며, 보통 `10px`), 캘린더가 잘못된 비율로 렌더링됩니다. `transform` 하나로 원래 크기를 복원할 수 있습니다:
+
+```css
+[data-vc='calendar'] {
+  transform: scale(16 / <루트 폰트 크기, px 단위>);
+}
+```
+
+예를 들어 루트가 `10px`인 경우: `transform: scale(1.6);`.
