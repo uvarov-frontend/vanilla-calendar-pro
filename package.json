@@ -35,7 +35,8 @@
     "cypress:open": "env -u ELECTRON_RUN_AS_NODE cypress open",
     "cypress:run": "env -u ELECTRON_RUN_AS_NODE cypress run",
     "test:cypress": "start-server-and-test dev http://localhost:5173 cypress:run",
-    "test:cypress:a11y": "start-server-and-test dev http://localhost:5173 \"npm run cypress:run -- --spec cypress/e2e/a11y.cy.ts\""
+    "test:cypress:a11y": "start-server-and-test dev http://localhost:5173 \"npm run cypress:run -- --spec cypress/e2e/a11y.cy.ts\"",
+    "test:performance": "node tests/performance/run.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
