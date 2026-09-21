@@ -9,7 +9,7 @@ const set = (self: Calendar, options: Options, resetOptions?: Partial<Reset>) =>
   const keys = Object.keys(options);
   if (options.extensions) keys.splice(keys.indexOf('extensions'), 1);
   const reuse = keys.length === 1 && keys[0] === 'selectedDates' ? getReusableRender(self) : undefined;
-  replaceProperties(self, options, 'extensions');
+  replaceProperties(self, options);
   if (self.context.isInit) update(self, resetOptions, reuse);
 };
 

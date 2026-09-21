@@ -1078,7 +1078,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`sanitizerHTML`은 HTML 템플릿을 정제해 CSP에 안전하도록 만들 수 있습니다.
+`sanitizerHTML`은 `layouts`, `popups.html`, `onCreateDateRangeTooltip`에서 제공하는 HTML을 처리합니다. 기본 구현은 문자열을 그대로 반환하며 캘린더에는 HTML 정제기가 내장되어 있지 않습니다. 신뢰할 수 있는 마크업만 사용하거나 외부 콘텐츠를 렌더링하기 전에 DOMPurify처럼 유지 관리되는 정제기를 설정하세요. 이 콜백은 앱의 Content Security Policy를 설정하지 않습니다. `labels`와 `styles`는 HTML이 아닌 일반 텍스트와 CSS 클래스 이름으로 처리됩니다.
 
 <Info>
   예제는 서드파티 라이브러리{' '}

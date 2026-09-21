@@ -107,7 +107,7 @@ export default class OptionsCalendar {
   onHide!: (self: Calendar) => void;
 
   popups: Popups = {};
-  labels: Labels = { ...labels };
+  labels: Labels = { ...labels, arrowNext: { ...labels.arrowNext }, arrowPrev: { ...labels.arrowPrev } };
   layouts: Layouts = { default: '', multiple: '', month: '', year: '', week: '' };
   styles: Styles = { ...styles };
 }

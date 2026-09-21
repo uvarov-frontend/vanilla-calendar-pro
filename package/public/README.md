@@ -173,6 +173,10 @@ new Calendar('#calendar', {
 
 For detailed instructions on how to use the calendar as a component for various libraries, please visit the [website](https://vanilla-calendar.pro/docs/learn) with detailed documentation and examples.
 
+## HTML content
+
+`labels` are plain text and `styles` are CSS class names. HTML in `layouts`, `popups.html` and `onCreateDateRangeTooltip` must be trusted. The default `sanitizerHTML` callback returns HTML unchanged; configure an HTML sanitizer such as DOMPurify before rendering content from users or other untrusted sources. See the [sanitizerHTML reference](https://vanilla-calendar.pro/docs/reference/settings#sanitizerhtml).
+
 ## API Reference
 
 For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference).
@@ -183,7 +187,7 @@ This project is tested with BrowserStack.
 
 ## Development
 
-Automatic checks, server deployment and npm Trusted Publishing are described in the [CI and release guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/.github/README.md).
+Automatic checks, server deployment and npm Trusted Publishing are configured in the [GitHub workflows](https://github.com/uvarov-frontend/vanilla-calendar-pro/tree/main/.github/workflows).
 
 Use the Node and pnpm versions pinned in `package.json` (`engines.node` and `packageManager`; enable pnpm with `corepack enable`). CI reads its Node version from the same file. From the repository checkout:
 

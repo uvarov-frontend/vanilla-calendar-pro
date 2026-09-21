@@ -1065,7 +1065,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`sanitizerHTML` 可以清理 HTML 模板，使其对 CSP 安全。
+`sanitizerHTML` 处理来自 `layouts`、`popups.html` 和 `onCreateDateRangeTooltip` 的 HTML。默认实现原样返回字符串，日历不内置 HTML 清理器。请仅使用可信标记，或在渲染外部内容前配置持续维护的清理器，例如 DOMPurify。此回调不会配置应用的 Content Security Policy。`labels` 和 `styles` 分别作为普通文本和 CSS 类名处理，而不是 HTML。
 
 <Info>
   请注意，该示例使用第三方库{' '}

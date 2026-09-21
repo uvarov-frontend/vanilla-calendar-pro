@@ -15,5 +15,6 @@ export const components = { ArrowNext, ArrowPrev, Dates, DateRangeTooltip, Month
 export const getComponent = (self: Calendar, pattern: string) => {
   if (pattern === 'Collapse') return getExtensions(self).motion?.component;
   if (pattern === 'ControlTime') return getExtensions(self).timePicker?.component;
-  return components[pattern as keyof typeof components];
+  // biome-ignore lint/suspicious/noPrototypeBuiltins: Object.hasOwn is newer than the supported browsers.
+  return Object.prototype.hasOwnProperty.call(components, pattern) ? components[pattern as keyof typeof components] : undefined;
 };

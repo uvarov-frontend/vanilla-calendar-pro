@@ -1082,7 +1082,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`sanitizerHTML` can sanitize HTML templates to make them safe for CSP.
+`sanitizerHTML` processes HTML from `layouts`, `popups.html` and `onCreateDateRangeTooltip`. Its default implementation returns the string unchanged: the calendar does not include an HTML sanitizer. Use only trusted markup, or configure a maintained sanitizer such as DOMPurify before rendering external content. This hook does not configure your Content Security Policy. `labels` and `styles` are treated as literal text and CSS class names, not HTML.
 
 <Info>
   Note that the example uses the third-party library{' '}

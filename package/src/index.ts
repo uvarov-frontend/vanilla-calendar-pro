@@ -62,7 +62,7 @@ export class Calendar extends OptionsCalendar {
     const extensions = options?.extensions;
     this.extensions = extensions?.length ? Object.freeze(Array.from(new Set(extensions))) : noExtensions;
     registerExtensions(this);
-    if (options) replaceProperties(this, options, 'extensions');
+    if (options) replaceProperties(this, options);
   }
 
   private queryAndMemoize(selector: string) {

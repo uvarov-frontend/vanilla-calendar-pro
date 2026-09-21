@@ -1,3 +1,4 @@
+import escapeHTML from '@scripts/utils/escapeHTML';
 import handleTime from '@src/extensions/timePicker/handles/handleTime';
 import TimeInput from '@src/extensions/timePicker/TimeInput';
 import TimeRange from '@src/extensions/timePicker/TimeRange';
@@ -23,15 +24,15 @@ const createTime = (self: Calendar) => {
   const range = self.timeControls === 'range';
 
   const btnKeeping = (selectedKeeping: ContextVariables['selectedKeeping']) =>
-    `<button type="button" class="${self.styles.timeKeeping}" aria-label="${self.labels.btnKeeping} ${selectedKeeping}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${selectedKeeping}</button>`;
+    `<button type="button" class="${escapeHTML(self.styles.timeKeeping)}" aria-label="${escapeHTML(self.labels.btnKeeping)} ${escapeHTML(selectedKeeping)}" data-vc-time="keeping" ${range ? 'disabled' : ''}>${escapeHTML(selectedKeeping)}</button>`;
 
   timeEl.innerHTML = self.sanitizerHTML(`
-    <div class="${self.styles.timeContent}" data-vc-time="content">
+    <div class="${escapeHTML(self.styles.timeContent)}" data-vc-time="content">
       ${TimeInput('hour', self.styles.timeHour, self.labels as unknown as { [key: string]: string }, self.context.selectedHours, range)}
       ${TimeInput('minute', self.styles.timeMinute, self.labels as unknown as { [key: string]: string }, self.context.selectedMinutes, range)}
       ${self.selectionTimeMode === 12 ? btnKeeping(self.context.selectedKeeping) : ''}
     </div>
-    <div class="${self.styles.timeRanges}" data-vc-time="ranges">
+    <div class="${escapeHTML(self.styles.timeRanges)}" data-vc-time="ranges">
       ${TimeRange('hour', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minHour, maxHour, self.timeStepHour, valueHours)}
       ${TimeRange('minute', self.styles.timeRange, self.labels as unknown as { [key: string]: string }, minMinutes, maxMinutes, self.timeStepMinute, self.context.selectedMinutes)}
     </div>
