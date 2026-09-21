@@ -97,6 +97,41 @@ export async function nativeChecks({ browser: name, executablePath, url, output 
       await date.click();
       assert.deepEqual(await page.evaluate(() => window.instance.context.selectedDates), []);
     });
+    for (const [height, side] of [
+      [800, 'below'],
+      [200, 'above'],
+    ]) {
+      await check(`the sponsor link stays reachable with its popup ${side} the date`, {}, async (page) => {
+        await page.setViewportSize({ width: 400, height });
+        await page.goto(`${url}examples/additional-features-popups.html`);
+        await page.waitForFunction(() => window.exampleReady && document.querySelector('[data-vc-date-popup]')?.style.top);
+        const date = await page.locator('[data-vc-date="2024-07-03"] [data-vc-date-btn]').boundingBox();
+        const popup = page.locator('[data-vc-date-popup]');
+        const box = await popup.boundingBox();
+        assert.equal(box.y > date.y, side === 'below');
+        const pointerEvents = () => popup.evaluate((element) => getComputedStyle(element).pointerEvents);
+        await page.mouse.move(date.x + date.width / 2, date.y + date.height / 2);
+        assert.equal(await pointerEvents(), 'auto');
+        // Cross the date cell's padding, where the button itself is no longer hovered.
+        await page.mouse.move(date.x + date.width / 2, side === 'below' ? date.y + date.height + 1 : date.y - 1, { steps: 5 });
+        assert.equal(await pointerEvents(), 'auto', 'The popup stays interactive in the gap beside the date button');
+        const link = await popup.locator('a').evaluate((element) => {
+          window.sponsorClicks = 0;
+          element.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.sponsorClicks += 1;
+          });
+          const rect = element.getClientRects()[0];
+          return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+        });
+        await page.mouse.move(link.x, link.y, { steps: 10 });
+        assert.equal(await pointerEvents(), 'auto');
+        await page.mouse.click(link.x, link.y);
+        assert.equal(await page.evaluate(() => window.sponsorClicks), 1);
+        await page.mouse.move(5, 5);
+        assert.equal(await pointerEvents(), 'none', 'The popup closes when the pointer leaves both the date and popup');
+      });
+    }
     await check('native swipe retains capture outside the calendar and releases it', { enableSwipe: true, animation: true }, async (page) => {
       await beginSwipe(page);
       await page.mouse.move(1, 150, { steps: 5 });

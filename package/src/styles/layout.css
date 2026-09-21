@@ -273,7 +273,7 @@
 }
 
 [data-vc-date-btn]:focus-visible + [data-vc-date-popup],
-[data-vc-date-btn]:hover + [data-vc-date-popup],
+[data-vc-date]:hover > [data-vc-date-popup],
 [data-vc-date-popup]:focus-visible,
 [data-vc-date-popup]:hover {
   @apply opacity-100 pointer-events-auto;
