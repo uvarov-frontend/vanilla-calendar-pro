@@ -36,8 +36,8 @@ export async function fixtureServer(root, fixtureDirectory) {
   for (const format of ['module', 'script']) {
     const script =
       format === 'module'
-        ? `<script type="module">import { Calendar } from '/package/index.mjs'; import * as utils from '/package/utils/index.mjs'; window.Calendar = Calendar; window.calendarUtils = utils;</script>`
-        : `<script src="/package/index.js"></script><script src="/package/utils/index.js"></script><script>window.Calendar = VanillaCalendarPro.Calendar; window.calendarUtils = VanillaCalendarProUtils;</script>`;
+        ? `<script type="module">import { Calendar, motion, timePicker, datePopups } from '/package/index.mjs'; window.calendarExtensions = { motion, timePicker, datePopups }; import * as utils from '/package/utils/index.mjs'; window.Calendar = Calendar; window.calendarUtils = utils;</script>`
+        : `<script src="/package/index.js"></script><script src="/package/utils/index.js"></script><script>window.Calendar = VanillaCalendarPro.Calendar; window.calendarExtensions = VanillaCalendarPro; window.calendarUtils = VanillaCalendarProUtils;</script>`;
     await fs.writeFile(
       path.join(directory, format === 'module' ? 'api.html' : 'api-script.html'),
       `<!doctype html>

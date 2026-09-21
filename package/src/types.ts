@@ -1,3 +1,4 @@
+import type { CalendarExtension } from '@src/extension';
 import type { Calendar } from '@src/index';
 import type labels from '@src/labels';
 import type options from '@src/options';
@@ -145,6 +146,7 @@ export type Layouts = {
 };
 
 export type Options = Omit<Partial<options>, 'popups' | 'labels' | 'layouts' | 'styles'> & {
+  extensions?: readonly CalendarExtension[];
   popups?: Partial<Popups>;
   labels?: LabelsOptions;
   layouts?: Partial<Layouts>;

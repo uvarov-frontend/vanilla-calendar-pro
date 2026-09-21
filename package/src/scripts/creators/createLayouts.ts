@@ -4,6 +4,7 @@ import layoutMultiple from '@scripts/layouts/multiple';
 import layoutWeek from '@scripts/layouts/week';
 import layoutYears from '@scripts/layouts/year';
 import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const syncMultiselectable = (self: Calendar) => {
@@ -39,6 +40,7 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
   self.context.mainElement.ariaLabel = self.labels.application;
 
   if (self.context.currentType === 'multiple') {
+    getExtensions(self).timePicker?.destroy(self);
     self.context.mainElement.innerHTML = self.sanitizerHTML(parseMultipleLayout(self, parseLayout(self, self.layouts[self.context.currentType])));
     syncMultiselectable(self);
     return;
@@ -57,6 +59,7 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
     return;
   }
 
+  getExtensions(self).timePicker?.destroy(self);
   self.context.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
   syncMultiselectable(self);
 };

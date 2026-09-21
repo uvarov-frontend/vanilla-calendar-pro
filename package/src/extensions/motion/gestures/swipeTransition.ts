@@ -1,8 +1,8 @@
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import { scrub, type Transition } from '@scripts/handles/handleGestures/transition';
 import { getNavigator, type Route } from '@scripts/handles/handleNavigate';
-import { cleanupPending, createGhosts, dropLayers, getTiming, type Layer, slideEffect } from '@scripts/utils/animate';
+import { cleanupPending, createGhosts, dropLayers, getTiming, type Layer, slideEffect } from '@src/extensions/motion/animate';
+import { scrub, type Transition } from '@src/extensions/motion/gestures/transition';
 import type { Calendar } from '@src/index';
 
 // Keep calendar state unchanged until the staged neighbouring period is committed.

@@ -1,6 +1,6 @@
-import handleClickKeepingTime from '@scripts/handles/handleTime/handleClickKeepingTime';
-import handleInput from '@scripts/handles/handleTime/handleInput';
-import handleRange from '@scripts/handles/handleTime/handleRange';
+import handleClickKeepingTime from '@src/extensions/timePicker/handles/handleClickKeepingTime';
+import handleInput from '@src/extensions/timePicker/handles/handleInput';
+import handleRange from '@src/extensions/timePicker/handles/handleRange';
 import type { Calendar } from '@src/index';
 
 const handleMouseOver = (inputEl: HTMLInputElement) => inputEl.setAttribute('data-vc-input-focus', '');
@@ -29,15 +29,18 @@ const handleTime = (self: Calendar, timeEl: HTMLElement) => {
   timeEl.addEventListener('mouseover', handleMouseOverEvent);
   timeEl.addEventListener('mouseout', handleMouseOutEvent);
 
-  handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', self.timeMaxHour, self.timeMinHour);
-  handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', self.timeMaxMinute, self.timeMinMinute);
+  const cleanups = [
+    handleInput(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour', self.timeMaxHour, self.timeMinHour),
+    handleInput(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute', self.timeMaxMinute, self.timeMinMinute),
 
-  handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour');
-  handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute');
+    handleRange(self, rangeHourEl, inputHourEl, keepingTimeEl, 'hour'),
+    handleRange(self, rangeMinuteEl, inputMinuteEl, keepingTimeEl, 'minute'),
+  ];
 
-  if (keepingTimeEl) handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.timeMaxHour, self.timeMinHour);
+  if (keepingTimeEl) cleanups.push(handleClickKeepingTime(self, keepingTimeEl, rangeHourEl, self.timeMaxHour, self.timeMinHour));
 
   return () => {
+    cleanups.forEach((cleanup) => cleanup());
     timeEl.removeEventListener('mouseover', handleMouseOverEvent);
     timeEl.removeEventListener('mouseout', handleMouseOutEvent);
   };

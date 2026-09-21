@@ -15,7 +15,7 @@ import { unpackPackage } from './fixture.mjs';
 const root = path.resolve(import.meta.dirname, '../..');
 const require = createRequire(import.meta.url);
 const entryPoints = [
-  { subpath: '', file: 'index', global: 'VanillaCalendarPro', exports: ['Calendar'] },
+  { subpath: '', file: 'index', global: 'VanillaCalendarPro', exports: ['Calendar', 'datePopups', 'motion', 'timePicker'] },
   { subpath: '/utils', file: 'utils/index', global: 'VanillaCalendarProUtils', exports: ['getDate', 'getDateString', 'getWeekNumber', 'parseDates'] },
 ];
 let scratch;
@@ -60,6 +60,10 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     'types.d.ts',
     'labels.d.ts',
     'styles.d.ts',
+    'extension.d.ts',
+    'extensions/motion/index.d.ts',
+    'extensions/timePicker/index.d.ts',
+    'extensions/datePopups/index.d.ts',
     'utils/index.js',
     'utils/index.mjs',
     'utils/index.d.ts',
@@ -96,7 +100,17 @@ for (const entry of entryPoints) {
     const cjs = consumerRequire(`vanilla-calendar-pro${entry.subpath}`);
     for (const api of [esm, cjs, classic[entry.global], amd]) {
       assert.deepEqual(Object.keys(api).sort(), entry.exports);
-      for (const name of entry.exports) assert.equal(typeof api[name], 'function');
+      for (const name of entry.exports) {
+        if (['motion', 'timePicker', 'datePopups'].includes(name)) {
+          assert.equal(typeof api[name], 'object');
+          assert.equal(api[name].name, name);
+          assert.ok(Object.isFrozen(api[name]), `${name} must be an immutable description`);
+        } else assert.equal(typeof api[name], 'function');
+      }
+      if (!entry.subpath) {
+        const calendar = new api.Calendar({});
+        assert.equal(calendar.extensions.length, api === esm ? 0 : 3, 'Only the full distribution registers extensions automatically');
+      }
       if (entry.subpath) {
         assert.equal(api.getDateString(api.getDate('2024-02-29')), '2024-02-29');
         assert.equal(JSON.stringify(api.parseDates(['2024-02-28:2024-03-01'])), '["2024-02-28","2024-02-29","2024-03-01"]');
@@ -116,7 +130,7 @@ for (const entry of entryPoints) {
       );
       assert.match(code, /vanilla-calendar-pro v/);
       const bytes = Buffer.byteLength(code);
-      assert.ok(bytes <= (entry.subpath ? 1500 : 80000), `${file} grew to ${bytes} bytes; review the build before changing its budget`);
+      assert.ok(bytes <= (entry.subpath ? 1500 : 83500), `${file} grew to ${bytes} bytes; review the build before changing its budget`);
       t.diagnostic(`${file}: ${bytes} bytes, gzip ${gzipSync(code, { level: 9 }).length}, Brotli ${brotliCompressSync(code).length}`);
     }
   });
@@ -141,8 +155,8 @@ async function bundle(name, source) {
   return result.flatMap(({ output }) => output);
 }
 
-test('unused Calendar imports disappear from a consumer bundle', async () => {
-  const output = await bundle('unused', "import { Calendar } from 'vanilla-calendar-pro'; export const marker = 1;");
+test('unused Calendar and extension imports disappear from a consumer bundle', async () => {
+  const output = await bundle('unused', "import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro'; export const marker = 1;");
   const code = output
     .filter(({ type }) => type === 'chunk')
     .map(({ code }) => code)
@@ -150,6 +164,32 @@ test('unused Calendar imports disappear from a consumer bundle', async () => {
   assert.ok(code.length < 100, `Unused calendar retained ${code.length} bytes`);
   assert.doesNotMatch(code, /WeakMap|Calendar|data-vc/);
 });
+
+const featureMarkers = {
+  motion: /setPointerCapture|translateX\(/,
+  timePicker: /data-vc-time-range=/,
+  datePopups: /vcDatePopup/,
+};
+for (const [name, features, budget] of [
+  ['core', [], 64000],
+  ['motion', ['motion'], 75000],
+  ['timePicker', ['timePicker'], 70500],
+  ['datePopups', ['datePopups'], 66000],
+  ['all', ['motion', 'timePicker', 'datePopups'], 83500],
+]) {
+  test(`consumer ${name}: only requested implementations survive tree shaking`, async (t) => {
+    const output = await bundle(name, `export { Calendar${features.length ? `, ${features.join(', ')}` : ''} } from 'vanilla-calendar-pro';`);
+    const code = output.find(({ type }) => type === 'chunk').code;
+    for (const [feature, marker] of Object.entries(featureMarkers)) {
+      if (features.includes(feature)) assert.match(code, marker, `${feature} implementation must survive`);
+      else assert.doesNotMatch(code, marker, `Unused ${feature} implementation must disappear`);
+    }
+    assert.ok(Buffer.byteLength(code) <= budget, `${name} exceeds its ${budget}-byte budget`);
+    const gzip = gzipSync(code, { level: 9 }).length;
+    assert.ok(gzip <= (name === 'core' ? 19000 : 24500), `${name} exceeds its compressed size budget`);
+    t.diagnostic(`${name}: ${Buffer.byteLength(code)} bytes, gzip ${gzip}, Brotli ${brotliCompressSync(code).length}`);
+  });
+}
 
 test('a single utility import does not retain the other utilities or Calendar', async () => {
   const output = await bundle('utility', "export { getDate } from 'vanilla-calendar-pro/utils';");
@@ -204,6 +244,10 @@ test('all examples typecheck against the packed declarations', async () => {
         include: ['examples/**/*.ts'],
       }),
     );
-    execFileSync(process.execPath, [require.resolve('typescript/lib/tsc.js'), '-p', path.join(scratch, 'tsconfig.json')], { stdio: 'pipe' });
+    try {
+      execFileSync(process.execPath, [require.resolve('typescript/lib/tsc.js'), '-p', path.join(scratch, 'tsconfig.json')], { stdio: 'pipe' });
+    } catch (error) {
+      throw new Error(error.stdout?.toString() || error.message, { cause: error });
+    }
   }
 });

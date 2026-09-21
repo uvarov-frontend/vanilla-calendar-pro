@@ -2,6 +2,7 @@ import { destroy, hide, init, set, show, update } from '@scripts/methods';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import replaceProperties from '@scripts/utils/replaceProperties';
 import setContext from '@scripts/utils/setContext';
+import { type CalendarExtension, noExtensions, registerExtensions } from '@src/extension';
 import OptionsCalendar from '@src/options';
 import type {
   AnimationOptions,
@@ -35,6 +36,8 @@ import type {
 } from '@src/types';
 
 export class Calendar extends OptionsCalendar {
+  readonly extensions: readonly CalendarExtension[];
+
   private static memoizedElements: Map<string, HTMLElement> = new Map();
 
   constructor(selector: HTMLElement | string, options?: Options) {
@@ -56,7 +59,10 @@ export class Calendar extends OptionsCalendar {
 
     setContext(this, 'mainElement', typeof selector === 'string' ? (Calendar.memoizedElements.get(selector) ?? this.queryAndMemoize(selector)) : selector);
 
-    if (options) replaceProperties(this, options);
+    const extensions = options?.extensions;
+    this.extensions = extensions?.length ? Object.freeze(Array.from(new Set(extensions))) : noExtensions;
+    registerExtensions(this);
+    if (options) replaceProperties(this, options, 'extensions');
   }
 
   private queryAndMemoize(selector: string) {
@@ -89,6 +95,11 @@ export class Calendar extends OptionsCalendar {
 
   readonly context!: Readonly<ContextVariables>;
 }
+
+export type { CalendarExtension } from '@src/extension';
+export { datePopups } from '@src/extensions/datePopups';
+export { motion } from '@src/extensions/motion';
+export { timePicker } from '@src/extensions/timePicker';
 
 export type {
   AnimationOptions,

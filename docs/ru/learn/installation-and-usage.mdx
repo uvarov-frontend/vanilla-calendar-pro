@@ -92,3 +92,22 @@ import 'vanilla-calendar-pro/styles/themes/dark.css'; // Темная тема
   </body>
 </html>
 ```
+
+## extensions
+
+`motion` объединяет анимации, свайпы и сворачивание месяца до недели. `timePicker` предоставляет выбор времени в формате 12/24 часа. `datePopups` отвечает за содержимое попапов и модификаторы дат, в том числе для диапазонов. Сборщик ESM может удалить расширения, которые вы не импортируете и не подключаете.
+
+```ts
+import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, timePicker, datePopups],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+Календарь в инпуте, выбор дат и диапазонов, выбор месяца и года, недельный вид и тултип диапазона остаются в ядре. Полная сборка для обычного `<script>` / CommonJS автоматически включает все три расширения. Импорты CSS не меняются.

@@ -46,3 +46,9 @@ Date-only strings such as `2024-06-20` represent local calendar dates and must n
 These are functional regression tests, not a claim of 100% statement/branch coverage. Recent Chromium, Firefox and WebKit runs do not validate the oldest supported browsers, real touch hardware, screen readers or every OS/locale combination. The ES2015 syntax check protects the build target; the library's browser support policy is unchanged.
 
 Performance and resource-cleanup comparisons are maintained separately in [the performance harness](../performance/README.md). Do not run timing benchmarks alongside Cypress or builds.
+
+## ESM extension coverage
+
+The ESM API fixture exposes the original `Calendar` and extension exports from the packed package; it does not silently register modules. Existing API/native/timezone fixtures explicitly register the modules needed by their scenarios. `extensions.cy.ts` checks core-only input/range/week/month/year behavior, missing-module errors before mutation, inactive options, per-instance isolation, duplicate registration, options-array reuse, fixed composition, runtime option changes, delayed input opening, and cleanup of replaced/destroyed time controls. Existing animation, gesture, popup and accessibility suites exercise the extracted implementations. The classic-script fixture keeps automatic feature availability and tests that path separately.
+
+All examples import their own required extensions. Their browser tests and packed-declaration checks therefore also cover the documented migration syntax.

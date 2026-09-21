@@ -7,6 +7,17 @@ section: 6. 附加功能
 
 # 折叠
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  enableCollapse: true,
+}).init();
+```
+
 `enableCollapse` 会在网格下方添加一个控件。点击它，整月会折叠为一周，再次点击则展开。该选项默认关闭，并且不依赖 `enableSwipe` 或 `animation`。
 
 <Sandbox example="additional-features-collapse" height={420} />
@@ -24,7 +35,10 @@ section: 6. 附加功能
 过渡使用 [`animation`](/docs/reference/settings) 选项，并可通过 `collapse` 分组单独设置时间：
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: { collapse: { duration: 450 } },
   enableCollapse: true,
 });

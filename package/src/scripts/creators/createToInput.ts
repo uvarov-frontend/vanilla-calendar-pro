@@ -1,11 +1,11 @@
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
-import handleGestures from '@scripts/handles/handleGestures/handleGestures';
 import reset from '@scripts/methods/reset';
 import { scheduleShow } from '@scripts/methods/show';
 import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import { hideFromAT } from '@scripts/utils/toggleTabbing';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const createToInput = (self: Calendar) => {
@@ -44,7 +44,7 @@ const createToInput = (self: Calendar) => {
   if (self.onInit) self.onInit(self);
   if (self.context.isDestroyed) return;
   handleArrowKeys(self);
-  handleGestures(self);
+  getExtensions(self).motion?.bind(self);
   return handleClick(self);
 };
 

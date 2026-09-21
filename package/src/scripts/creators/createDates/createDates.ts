@@ -1,4 +1,3 @@
-import createDatePopup, { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
@@ -7,17 +6,15 @@ import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import { pauseRenderObservation, type RenderState, rememberRender } from '@scripts/utils/renderState';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
   pauseRenderObservation(self);
-  cleanupDatePopups(self);
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
   const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
-  // Share local-date checkpoints only within this render. Subsequent months
-  // retain DST stepping without walking again from the beginning of each rule.
-  const popupCursors = datesEls.length > 1 ? new Map<string, number>() : undefined;
+  const createPopups = getExtensions(self).datePopups?.prepare(self, datesEls.length);
 
   datesEls.forEach((datesEl, index: number) => {
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
@@ -28,7 +25,7 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
 
     if (self.context.currentType === 'week') {
       createWeekDates(self, datesEl);
-      createDatePopup(self, datesEl, popupCursors);
+      createPopups?.(datesEl);
       createWeekNumbers(self, 0, 7, weekNumbersEls[index], datesEl);
       return;
     }
@@ -74,7 +71,7 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
     for (const weekRow of weekRows) {
       datesEl.appendChild(weekRow);
     }
-    createDatePopup(self, datesEl, popupCursors);
+    createPopups?.(datesEl);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
 

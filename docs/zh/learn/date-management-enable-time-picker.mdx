@@ -6,6 +6,17 @@ section: 4. 管理日期和时间
 
 # 启用时间选择
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `timePicker` 的具名导入，并在构造函数中配置 `extensions: [timePicker]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
+```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [timePicker],
+  selectionTimeMode: 24,
+}).init();
+```
+
 默认情况下，时间选择是禁用的，但您可以轻松启用它并根据您的需求进行配置。
 
 ## 12 小时制带 AM/PM

@@ -14,13 +14,17 @@ const errors = [];
 window.addEventListener('error', (event) => errors.push(event.message));
 window.addEventListener('unhandledrejection', (event) => errors.push(String(event.reason)));
 const checkErrors = () => equal(errors, [], 'Uncaught browser errors');
-function mount(Calendar, options = {}) {
+function mount(module, options = {}) {
   const wrapper = document.createElement('section');
   wrapper.style.cssText = 'width:350px;position:relative;';
   const host = document.createElement(options.inputMode ? 'input' : 'div');
   wrapper.append(host);
   document.body.append(wrapper);
-  const calendar = new Calendar(host, { ...defaults, ...options });
+  const calendar = new module.Calendar(host, {
+    ...(module.motion ? { extensions: [module.motion, module.timePicker, module.datePopups] } : {}),
+    ...defaults,
+    ...options,
+  });
   calendar.init();
   return { calendar, wrapper, host };
 }
@@ -143,11 +147,11 @@ const cycleOptions = [
 ];
 let weakReferences = [];
 window.runCycles = async ({ count, tracked = false }) => {
-  const { Calendar } = await import('/current.mjs');
+  const module = await import('/current.mjs');
   const tracker = tracked ? trackResources() : null;
   try {
     for (let i = 0; i < count; i++) {
-      const instance = mount(Calendar, cycleOptions[i % cycleOptions.length]);
+      const instance = mount(module, cycleOptions[i % cycleOptions.length]);
       if (instance.calendar.inputMode) {
         instance.host.click();
         await wait();
@@ -187,10 +191,10 @@ window.checkCollected = () => {
 };
 
 window.checkMultiple = async () => {
-  const { Calendar } = await import('/current.mjs');
+  const module = await import('/current.mjs');
   const instances = [];
   const add = (options) => {
-    const instance = mount(Calendar, options);
+    const instance = mount(module, options);
     instances.push(instance);
     return instance;
   };
@@ -296,8 +300,8 @@ window.checkMultiple = async () => {
 let rapid;
 let pointerEvents = [];
 window.prepareRapid = async () => {
-  const { Calendar } = await import('/current.mjs');
-  rapid = mount(Calendar, { animation: { duration: 100 }, enableSwipe: true, enableCollapse: true, selectionDatesMode: 'multiple-ranged' });
+  const module = await import('/current.mjs');
+  rapid = mount(module, { animation: { duration: 100 }, enableSwipe: true, enableCollapse: true, selectionDatesMode: 'multiple-ranged' });
   pointerEvents = [];
   for (const type of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'gotpointercapture', 'lostpointercapture'])
     root(rapid).addEventListener(type, (event) =>
@@ -402,9 +406,9 @@ window.rapid = async (action) => {
     return true;
   }
   if (action === 'input-burst') {
-    const { Calendar } = await import('/current.mjs');
+    const module = await import('/current.mjs');
     const counts = { show: 0, hide: 0 };
-    const input = mount(Calendar, { inputMode: true, openOnFocus: true, onShow: () => counts.show++, onHide: () => counts.hide++ });
+    const input = mount(module, { inputMode: true, openOnFocus: true, onShow: () => counts.show++, onHide: () => counts.hide++ });
     try {
       for (let i = 0; i < 30; i++) {
         input.host.click();
@@ -463,7 +467,13 @@ window.runStartup = async ({ variant, scenario }) => {
   host.style.width = '1000px';
   document.body.append(host);
   const constructorStart = performance.now();
-  const calendar = new module.Calendar(host, { ...defaults, ...options });
+  const calendar = new module.Calendar(host, {
+    ...(module.motion
+      ? { extensions: [options.selectionTimeMode ? module.timePicker : undefined, options.popups ? module.datePopups : undefined].filter(Boolean) }
+      : {}),
+    ...defaults,
+    ...options,
+  });
   const constructorMs = performance.now() - constructorStart;
   const initStart = performance.now();
   calendar.init();

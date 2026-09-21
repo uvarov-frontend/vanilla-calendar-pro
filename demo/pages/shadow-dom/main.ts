@@ -1,6 +1,6 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, motion, type Options } from '@src/index';
 import calendarStyles from '@src/styles/index.css?inline';
 import controlStyles from './controls.css?inline';
 
@@ -100,6 +100,7 @@ customElements.define('shadow-calendar-plain', ShadowCalendarPlain);
 // Gestures inside a shadow root: the pointer listeners live on the calendar element, but the
 // move/up pair is bound to window, so both have to survive crossing the shadow boundary.
 const gestureOptions: Options = {
+  extensions: [motion],
   animation: true,
   enableCollapse: true,
   enableSwipe: true,

@@ -15,8 +15,8 @@ const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
 export const slideEffect: Effect = { group: 'slide', duration: 250, easing: EASING };
 
 const effects: Record<AnimationEffect, Effect> = {
-  prev: { ...slideEffect, enter: 'translateX(-100%)', leave: 'translateX(100%)' },
-  next: { ...slideEffect, enter: 'translateX(100%)', leave: 'translateX(-100%)' },
+  prev: /* @__PURE__ */ Object.assign({ enter: 'translateX(-100%)', leave: 'translateX(100%)' }, slideEffect),
+  next: /* @__PURE__ */ Object.assign({ enter: 'translateX(100%)', leave: 'translateX(-100%)' }, slideEffect),
   fade: { group: 'fade', duration: 150, easing: EASING },
 };
 

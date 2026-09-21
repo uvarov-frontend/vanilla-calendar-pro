@@ -1,10 +1,11 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, type Options, timePicker } from '@src/index';
 
 import '@src/styles/index.css';
 
 const options: Options = {
+  extensions: [timePicker],
   type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   disableDatesGaps: true,
@@ -67,7 +68,7 @@ const options: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const calendar = new Calendar('#calendar');
+  const calendar = new Calendar('#calendar', { extensions: [timePicker] });
   calendar.init();
 
   const btnSetEl = document.querySelector('#set-options');

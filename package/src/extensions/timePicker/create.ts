@@ -1,10 +1,18 @@
-import TimeInput from '@scripts/components/TimeInput';
-import TimeRange from '@scripts/components/TimeRange';
-import handleTime from '@scripts/handles/handleTime/handleTime';
-import transformTime24 from '@scripts/utils/transformTime24';
+import handleTime from '@src/extensions/timePicker/handles/handleTime';
+import TimeInput from '@src/extensions/timePicker/TimeInput';
+import TimeRange from '@src/extensions/timePicker/TimeRange';
+import transformTime24 from '@src/extensions/timePicker/transformTime24';
 import type { Calendar, ContextVariables } from '@src/index';
 
+const cleanups = new WeakMap<Calendar, () => void>();
+
+export const cleanupTime = (self: Calendar) => {
+  cleanups.get(self)?.();
+  cleanups.delete(self);
+};
+
 const createTime = (self: Calendar) => {
+  cleanupTime(self);
   const timeEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="time"]');
   if (!self.selectionTimeMode || !timeEl) return;
 
@@ -29,7 +37,8 @@ const createTime = (self: Calendar) => {
     </div>
   `);
 
-  handleTime(self, timeEl);
+  const cleanup = handleTime(self, timeEl);
+  if (cleanup) cleanups.set(self, cleanup);
 };
 
 export default createTime;

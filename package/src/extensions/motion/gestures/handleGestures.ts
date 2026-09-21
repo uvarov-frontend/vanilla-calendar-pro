@@ -1,7 +1,7 @@
-import buildCollapse from '@scripts/handles/handleGestures/collapseTransition';
-import createDragTracker, { type DragTracker } from '@scripts/handles/handleGestures/dragTracker';
-import buildSwipe from '@scripts/handles/handleGestures/swipeTransition';
-import { clamp, type Transition } from '@scripts/handles/handleGestures/transition';
+import buildCollapse from '@src/extensions/motion/gestures/collapseTransition';
+import createDragTracker, { type DragTracker } from '@src/extensions/motion/gestures/dragTracker';
+import buildSwipe from '@src/extensions/motion/gestures/swipeTransition';
+import { clamp, type Transition } from '@src/extensions/motion/gestures/transition';
 import type { Calendar } from '@src/index';
 
 const SLOP = { mouse: 4, pen: 6, touch: 10 } as const;
@@ -18,7 +18,10 @@ const gestureCleanups = new WeakMap<HTMLElement, { cleanup: () => void; cancel: 
 export const cleanupGestures = (mainElement: HTMLElement) => gestureCleanups.get(mainElement)?.cleanup();
 
 export const resetGestures = (self: Calendar) => {
-  gestureCleanups.get(self.context.mainElement)?.cancel();
+  const { mainElement } = self.context;
+  gestureCleanups.get(mainElement)?.cancel();
+  if (!self.enableSwipe && !self.enableCollapse) cleanupGestures(mainElement);
+  else if (!gestureCleanups.has(mainElement)) handleGestures(self);
 };
 
 type Drag = {
@@ -34,6 +37,7 @@ type Drag = {
 const handleGestures = (self: Calendar) => {
   const { mainElement } = self.context;
   cleanupGestures(mainElement);
+  if ((self.inputMode && !self.context.inputModeInit) || (!self.enableSwipe && !self.enableCollapse)) return;
   let drag: Drag | null = null;
   let draggedAt = 0;
   let activeListenersBound = false;

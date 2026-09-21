@@ -1,8 +1,9 @@
-import { Calendar, type Options } from 'vanilla-calendar-pro';
+import { Calendar, motion, type Options } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
+  extensions: [motion],
   animation: true,
   enableSwipe: true,
   selectedDates: ['2024-06-19'],

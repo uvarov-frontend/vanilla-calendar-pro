@@ -159,6 +159,8 @@ This method is triggered after clicking on an arrow in the calendar. You can get
 
 ## onChangeTime()
 
+ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+
 `Type: Function`
 
 `Default: null`
@@ -166,7 +168,10 @@ This method is triggered after clicking on an arrow in the calendar. You can get
 `Options: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   onChangeTime(self, event) {},
 });
 ```

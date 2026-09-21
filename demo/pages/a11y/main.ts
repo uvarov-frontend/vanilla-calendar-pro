@@ -1,6 +1,6 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, datePopups, type Options, timePicker } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     onCreateDateRangeTooltip: () => 'Selected range',
   }).init();
 
-  new Calendar('#calendar-time-range', { ...base, selectionTimeMode: 24, timeControls: 'range', selectedTime: '10:30' }).init();
+  new Calendar('#calendar-time-range', { extensions: [timePicker], ...base, selectionTimeMode: 24, timeControls: 'range', selectedTime: '10:30' }).init();
 
   new Calendar('#calendar-multiple-week-numbers', { ...base, type: 'multiple', enableWeekNumbers: true, displayMonthsCount: 2 }).init();
 
   new Calendar('#calendar-locked-titles', { ...base, selectionMonthsMode: false, selectionYearsMode: false }).init();
 
-  new Calendar('#calendar-popups', { ...base, popups: { '2023-04-12': { modifier: '', html: '<b>Meeting</b> at noon' } } }).init();
+  new Calendar('#calendar-popups', { extensions: [datePopups], ...base, popups: { '2023-04-12': { modifier: '', html: '<b>Meeting</b> at noon' } } }).init();
 
   new Calendar('#calendar-input', { ...base, inputMode: true }).init();
 });

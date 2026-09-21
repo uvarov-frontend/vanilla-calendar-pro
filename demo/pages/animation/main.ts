@@ -1,11 +1,12 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, motion, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const configAnimated: Options = {
+    extensions: [motion],
     animation: true,
     selectedMonth: 3,
     selectedYear: 2023,
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configMultiple: Options = {
+    extensions: [motion],
     type: 'multiple',
     animation: { duration: 300 },
     displayMonthsCount: 2,
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // The slide overshoots past one: the month winds up, shoots past its place and settles back.
   const configCustom: Options = {
+    extensions: [motion],
     animation: {
       slide: { duration: 700, easing: 'cubic-bezier(0.68, -0.55, 0.27, 1.55)' },
       fade: { duration: 450, easing: 'ease-in-out' },

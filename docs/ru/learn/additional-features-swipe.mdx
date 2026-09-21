@@ -7,6 +7,17 @@ section: 6. Дополнительные возможности
 
 # Свайп
 
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `motion` в конструкторе: `extensions: [motion]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  enableSwipe: true,
+}).init();
+```
+
 `enableSwipe` позволяет тянуть содержимое календаря в сторону. По умолчанию опция выключена, работает независимо от `enableCollapse` и `animation` и может использоваться во всех представлениях, где есть стрелки: `default`, `multiple`, `week` и в списке годов. Жест шагает ровно на столько же, на сколько стрелки в текущем представлении.
 
 <Sandbox example="additional-features-swipe" height={420} />
@@ -23,7 +34,10 @@ section: 6. Дополнительные возможности
 Жест использует группу `slide` опции [`animation`](/docs/reference/settings), то есть те же тайминги, что и навигация стрелками:
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: { slide: { duration: 350 } },
   enableSwipe: true,
 });

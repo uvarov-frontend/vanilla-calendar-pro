@@ -1,4 +1,4 @@
-import { isEnabled } from '@scripts/utils/animate';
+import { isEnabled } from '@src/extensions/motion/animate';
 import type { Calendar } from '@src/index';
 
 export type Transition = {

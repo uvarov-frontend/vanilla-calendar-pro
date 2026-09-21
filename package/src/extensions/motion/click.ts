@@ -1,4 +1,4 @@
-import buildCollapse from '@scripts/handles/handleGestures/collapseTransition';
+import buildCollapse from '@src/extensions/motion/gestures/collapseTransition';
 import type { Calendar } from '@src/index';
 
 const handleClickCollapse = (self: Calendar, event: MouseEvent) => {

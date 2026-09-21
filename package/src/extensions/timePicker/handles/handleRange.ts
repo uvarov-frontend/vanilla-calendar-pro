@@ -1,6 +1,6 @@
-import handleActions from '@scripts/handles/handleTime/handleActions';
 import setContext from '@scripts/utils/setContext';
-import transformTime12 from '@scripts/utils/transformTime12';
+import handleActions from '@src/extensions/timePicker/handles/handleActions';
+import transformTime12 from '@src/extensions/timePicker/transformTime12';
 import type { Calendar } from '@src/index';
 
 const updateInputAndTime = (self: Calendar, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {

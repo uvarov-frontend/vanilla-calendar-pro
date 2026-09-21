@@ -56,4 +56,23 @@ describe('Classic script distribution without a module loader', () => {
       expect(utils.getWeekNumber('2021-01-01', 1)).to.deep.equal({ year: 2020, week: 53 });
     });
   });
+
+  it('keeps motion and date popups available without extension registration', () => {
+    api().then((win) => {
+      win.instance = new win.Calendar('#calendar', {
+        animation: true,
+        enableSwipe: true,
+        enableCollapse: true,
+        popups: { '2024-06-20': { html: 'Event' } },
+      });
+      win.instance.init();
+      expect(win.instance.extensions).to.have.length(3);
+    });
+    cy.get('[data-vc-date-popup]').should('contain.text', 'Event');
+    cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-swipe');
+    cy.get('[data-vc="collapse"]').click();
+    cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
+    api().then(({ instance }) => instance.set({ selectionTimeMode: 24, selectedTime: '09:15' }));
+    hour().should('have.value', '09');
+  });
 });

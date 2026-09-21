@@ -84,11 +84,23 @@ export const scenarios = [
   },
   { name: 'update-8-locales', options: {}, locales: ['en', 'ru', 'de', 'ja', 'fr', 'es', 'zh', 'ar'], action: selected },
 ];
-function mount(Calendar, options) {
+function mount(module, options) {
   const host = document.createElement('div');
   host.style.cssText = 'width:1200px;position:relative';
   document.body.append(host);
-  const cal = new Calendar(host, { ...defaults, ...options });
+  const cal = new module.Calendar(host, {
+    ...(module.motion
+      ? {
+          extensions: [
+            options.animation || options.enableSwipe || options.enableCollapse ? module.motion : undefined,
+            options.selectionTimeMode ? module.timePicker : undefined,
+            options.popups ? module.datePopups : undefined,
+          ].filter(Boolean),
+        }
+      : {}),
+    ...defaults,
+    ...options,
+  });
   return { cal, host };
 }
 function release(instance) {
@@ -102,12 +114,12 @@ window.addEventListener('error', (e) => errors.push(e.message));
 window.addEventListener('unhandledrejection', (e) => errors.push(String(e.reason)));
 window.scenarioNames = scenarios.map((x) => x.name);
 window.sampleScenario = async ({ variant, name, repeat = 1, settled = true }) => {
-  const { Calendar } = await import(`/${variant}.mjs`);
+  const module = await import(`/${variant}.mjs`);
   const scenario = scenarios.find((x) => x.name === name);
   if (!scenario) throw new Error(`Unknown scenario: ${name}`);
   const durations = [];
   for (let i = 0; i < repeat; i++) {
-    const instances = (scenario.locales ?? [undefined]).map((locale) => mount(Calendar, { ...scenario.options, ...(locale ? { locale } : {}) }));
+    const instances = (scenario.locales ?? [undefined]).map((locale) => mount(module, { ...scenario.options, ...(locale ? { locale } : {}) }));
     if (scenario.action) {
       instances.forEach((x) => x.cal.init());
       instances.forEach(flush);

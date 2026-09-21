@@ -2,15 +2,14 @@ import create from '@scripts/creators/create';
 import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
-import animate, { captureOpacity, playOpacity } from '@scripts/utils/animate';
 import getColumnID from '@scripts/utils/getColumnID';
 import getDate from '@scripts/utils/getDate';
 import setContext from '@scripts/utils/setContext';
+import { getExtensions } from '@src/extension';
 import type { Calendar, Range } from '@src/index';
 
 const typeClick = ['month', 'year'] as const;
 
-const WRAPPER = '[data-vc="wrapper"]';
 const COLUMN = '[data-vc="column"]';
 
 const getColumnIndex = (self: Calendar, el: HTMLElement) => {
@@ -22,9 +21,9 @@ const getColumnIndex = (self: Calendar, el: HTMLElement) => {
 // Only one column is re-rendered, but the dim of the others changes along with it,
 // so the opacity is captured before the render and played out afterwards.
 const changeType = (self: Calendar, columnIndex: number, render: () => void) => {
-  const dim = captureOpacity(self, COLUMN);
-  animate(self, WRAPPER, 'fade', render, columnIndex);
-  playOpacity(self, COLUMN, dim);
+  const motion = getExtensions(self).motion;
+  if (motion && self.animation) motion.changeView(self, columnIndex, render);
+  else render();
 };
 
 // Both callers leave the picker the same way: find which column is showing it, switch the

@@ -2,6 +2,7 @@
 title: 설정
 description: 표시 타입, 입력 모드, 위치 지정, 로컬라이징, 날짜와 시간 등 캘린더 설정을 설명합니다.
 new:
+  - extensions
   - animation
   - enableCollapse
   - enableSwipe
@@ -9,6 +10,33 @@ section: 4
 ---
 
 # 설정
+
+## extensions
+
+`Type: readonly CalendarExtension[]`
+
+`Default: []`
+
+`motion`은 애니메이션, 스와이프 탐색과 월/주 접기를 제공합니다. `timePicker`는 12/24시간 시간 선택기를 제공합니다. `datePopups`는 날짜 범위를 포함한 날짜 팝업 내용과 스타일 modifier를 제공합니다. ESM 번들러는 import하고 등록하지 않은 확장 기능을 제거할 수 있습니다.
+
+```ts
+import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, timePicker, datePopups],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+확장 기능 목록은 인스턴스 생성 시 결정됩니다. 나중에 `set()` 또는 `update()`로 활성화할 모듈도 미리 등록하세요. 이 메서드는 기존 옵션을 변경하지만 모듈을 추가하거나 제거하지 않습니다. 같은 설정 객체나 확장 배열을 여러 캘린더에서 재사용해도 각 인스턴스의 상태는 독립적입니다. 필요한 확장 없이 기능을 활성화하면 `init()`, `set()` 또는 `update()`가 명확한 오류를 발생시킵니다. 비활성 설정과 콜백만으로는 모듈이 필요하지 않습니다.
+
+입력 필드 캘린더, 날짜 및 범위 선택, 월/연도 선택, 주간 보기와 범위 툴팁은 코어에 유지됩니다. 일반 `<script>` / CommonJS 전체 빌드는 세 확장 기능을 자동 등록합니다. CSS import는 바뀌지 않습니다.
+
+---
 
 ## type
 
@@ -94,6 +122,8 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 
 ## animation
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `motion`을 이름으로 import하고 생성자에 `extensions: [motion]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: Boolean | Object`
 
 `Default: false`
@@ -103,7 +133,10 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 `Timing: { duration?: Number, easing?: String }`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
   // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
@@ -607,6 +640,8 @@ new Calendar('#calendar', {
 
 ## enableCollapse
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `motion`을 이름으로 import하고 생성자에 `extensions: [motion]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: Boolean`
 
 `Default: false`
@@ -614,7 +649,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableCollapse: true,
 });
 ```
@@ -627,6 +665,8 @@ new Calendar('#calendar', {
 
 ## enableSwipe
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `motion`을 이름으로 import하고 생성자에 `extensions: [motion]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: Boolean`
 
 `Default: false`
@@ -634,7 +674,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableSwipe: true,
 });
 ```
@@ -704,6 +747,8 @@ new Calendar('#calendar', {
 
 ## selectionTimeMode
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `timePicker`을 이름으로 import하고 생성자에 `extensions: [timePicker]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: false | Number`
 
 `Default: false`
@@ -711,8 +756,11 @@ new Calendar('#calendar', {
 `Options: false | 24 | 12`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
-  selectionTimeMode: true,
+  extensions: [timePicker],
+  selectionTimeMode: 24,
 });
 ```
 
@@ -816,6 +864,8 @@ new Calendar('#calendar', {
 
 ## selectedTime
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: String`
 
 `Default: null`
@@ -823,7 +873,10 @@ new Calendar('#calendar', {
 `Options: 'hh:mm aa' | null`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   selectedTime: '03:44 AM',
 });
 ```
@@ -852,6 +905,8 @@ new Calendar('#calendar', {
 
 ## timeMinHour
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 0`
@@ -859,7 +914,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMinHour: 0,
 });
 ```
@@ -870,6 +928,8 @@ new Calendar('#calendar', {
 
 ## timeMaxHour
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 23`
@@ -877,7 +937,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMaxHour: 23,
 });
 ```
@@ -888,6 +951,8 @@ new Calendar('#calendar', {
 
 ## timeMinMinute
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 0`
@@ -895,7 +960,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMinMinute: 0,
 });
 ```
@@ -906,6 +974,8 @@ new Calendar('#calendar', {
 
 ## timeMaxMinute
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 59`
@@ -913,7 +983,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMaxMinute: 59,
 });
 ```
@@ -924,6 +997,8 @@ new Calendar('#calendar', {
 
 ## timeControls
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: String`
 
 `Default: 'all'`
@@ -931,7 +1006,10 @@ new Calendar('#calendar', {
 `Options: 'all' | 'range'`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeControls: 'all',
 });
 ```
@@ -942,6 +1020,8 @@ new Calendar('#calendar', {
 
 ## timeStepHour
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 1`
@@ -949,7 +1029,10 @@ new Calendar('#calendar', {
 `Options: from 1 to 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeStepHour: 1,
 });
 ```
@@ -960,6 +1043,8 @@ new Calendar('#calendar', {
 
 ## timeStepMinute
 
+ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 1`
@@ -967,7 +1052,10 @@ new Calendar('#calendar', {
 `Options: from 1 to 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeStepMinute: 1,
 });
 ```

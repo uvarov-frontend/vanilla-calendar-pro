@@ -89,6 +89,29 @@ calendar.init();
 // calendarWithInput.init();
 ```
 
+### Optional features in ESM
+
+`motion` provides animations, swipe navigation and month/week collapse. `timePicker` provides the 12/24-hour time editor. `datePopups` provides date popup content and modifiers, including date ranges. ESM bundlers can remove extensions that you do not import and register.
+
+```ts
+import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, timePicker, datePopups],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `motion` in the constructor with `extensions: [motion]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+Extensions are fixed at construction. Register modules you will enable later through `set()` or `update()`. Those methods still change the existing feature options; they cannot add or remove modules. Reusing the same options or extensions array is supported; each calendar has independent state. Enabling a feature without its extension throws a descriptive error at `init()`, `set()` or `update()`; inactive settings and callbacks do not require a module.
+
+Input calendars, date/range selection, month/year pickers, week view and range tooltips remain in the core. The full classic `<script>` / CommonJS distribution includes all three extensions automatically. CSS imports stay the same.
+
 ## CSS Styles
 
 ```js

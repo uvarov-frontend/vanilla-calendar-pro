@@ -6,6 +6,19 @@ section: 6. 추가 기능
 
 # 팝업 및 툴팁
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `datePopups`을 이름으로 import하고 생성자에 `extensions: [datePopups]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
+```ts
+import { Calendar, datePopups } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [datePopups],
+  popups: { '2026-09-21': { html: 'Event' } },
+}).init();
+```
+
+이 요구 사항은 `modifier`만 있는 항목을 포함해 `popups` 옵션에 적용됩니다. `inputMode`로 여는 캘린더와 범위 툴팁(`onCreateDateRangeTooltip`)에는 이 확장이 필요하지 않습니다.
+
 ## 팝업
 
 캘린더는 특정 날짜에 대한 정보를 팝업으로 추가할 수 있으며, 해당 날짜에 마우스를 올리면 표시됩니다.

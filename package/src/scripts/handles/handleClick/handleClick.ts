@@ -1,8 +1,8 @@
 import handleClickArrow from '@scripts/handles/handleClick/handleClickArrow';
-import handleClickCollapse from '@scripts/handles/handleClick/handleClickCollapse';
 import handleClickDate from '@scripts/handles/handleClick/handleClickDate';
 import handleClickMonthOrYear from '@scripts/handles/handleClick/handleClickMonthOrYear';
 import { handleClickWeekDay, handleClickWeekNumber } from '@scripts/handles/handleClick/handleClickWeek';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const handleClick = (self: Calendar) => {
@@ -12,7 +12,7 @@ const handleClick = (self: Calendar) => {
     handleClickWeekNumber(self, e);
     handleClickDate(self, e);
     handleClickMonthOrYear(self, e);
-    handleClickCollapse(self, e);
+    getExtensions(self).motion?.click(self, e);
   };
 
   self.context.mainElement.addEventListener('click', clickEventHandler);

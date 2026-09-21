@@ -7,6 +7,17 @@ section: 6. Additional Features
 
 # Animation
 
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `motion` in the constructor with `extensions: [motion]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  animation: true,
+}).init();
+```
+
 Transitions between views can be animated. Arrow navigation and swiping slide horizontally, the month and year pickers cross-fade, and collapsing animates the calendar between its month and week heights.
 
 <Info>

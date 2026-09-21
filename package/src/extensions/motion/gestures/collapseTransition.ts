@@ -1,11 +1,11 @@
 import create from '@scripts/creators/create';
 import createDates from '@scripts/creators/createDates/createDates';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
-import { scrub, type Transition } from '@scripts/handles/handleGestures/transition';
-import { collapseEffect, getTiming } from '@scripts/utils/animate';
 import initWeek from '@scripts/utils/initVariables/initWeek';
 import setContext from '@scripts/utils/setContext';
 import updateNavigationA11y from '@scripts/utils/updateNavigationA11y';
+import { collapseEffect, getTiming } from '@src/extensions/motion/animate';
+import { scrub, type Transition } from '@src/extensions/motion/gestures/transition';
 import type { Calendar, TypesCalendar } from '@src/index';
 
 const setType = (self: Calendar, type: TypesCalendar) => {

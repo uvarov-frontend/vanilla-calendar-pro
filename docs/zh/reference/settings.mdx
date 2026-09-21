@@ -2,6 +2,7 @@
 title: 设置
 description: 日历设置，包括显示类型、输入模式、定位、本地化、日期和时间。
 new:
+  - extensions
   - animation
   - enableCollapse
   - enableSwipe
@@ -9,6 +10,33 @@ section: 4
 ---
 
 # 设置
+
+## extensions
+
+`Type: readonly CalendarExtension[]`
+
+`Default: []`
+
+`motion` 包含动画、滑动导航和整月与一周之间的折叠。`timePicker` 提供 12/24 小时时间选择。`datePopups` 提供日期弹出内容和样式修饰符，也支持日期范围。ESM 打包工具可移除未导入和注册的扩展。
+
+```ts
+import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, timePicker, datePopups],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+扩展列表在创建实例时确定。稍后要通过 `set()` 或 `update()` 启用的模块也必须提前注册。这些方法仍可修改原有选项，但不能添加或移除模块。同一个配置对象或扩展数组可以供多个日历使用，各实例的状态相互独立。启用功能却未注册对应扩展时，`init()`、`set()` 或 `update()` 会抛出明确错误；未启用的设置和回调不需要模块。
+
+输入框日历、日期和范围选择、月份和年份选择、一周视图以及范围提示仍属于核心功能。完整的普通 `<script>` / CommonJS 构建会自动注册全部三个扩展。CSS 导入保持不变。
+
+---
 
 ## type
 
@@ -94,6 +122,8 @@ new Calendar('#calendar', {
 
 ## animation
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `Type: Boolean | Object`
 
 `Default: false`
@@ -103,7 +133,10 @@ new Calendar('#calendar', {
 `Timing: { duration?: Number, easing?: String }`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
   // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
@@ -594,6 +627,8 @@ new Calendar('#calendar', {
 
 ## enableCollapse
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `Type: Boolean`
 
 `Default: false`
@@ -601,7 +636,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableCollapse: true,
 });
 ```
@@ -614,6 +652,8 @@ new Calendar('#calendar', {
 
 ## enableSwipe
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `Type: Boolean`
 
 `Default: false`
@@ -621,7 +661,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableSwipe: true,
 });
 ```
@@ -691,6 +734,8 @@ new Calendar('#calendar', {
 
 ## selectionTimeMode
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `timePicker` 的具名导入，并在构造函数中配置 `extensions: [timePicker]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `类型: 假 | 数字`
 
 `默认: false`
@@ -698,8 +743,11 @@ new Calendar('#calendar', {
 `选项: false | 24 | 12`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
-  selectionTimeMode: true,
+  extensions: [timePicker],
+  selectionTimeMode: 24,
 });
 ```
 
@@ -803,6 +851,8 @@ new Calendar('#calendar', {
 
 ## selectedTime
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 字符串`
 
 `默认: null`
@@ -810,7 +860,10 @@ new Calendar('#calendar', {
 `选项: 'hh:mm aa' | null`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   selectedTime: '03:44 AM',
 });
 ```
@@ -839,6 +892,8 @@ new Calendar('#calendar', {
 
 ## timeMinHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 0`
@@ -846,7 +901,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMinHour: 0,
 });
 ```
@@ -857,6 +915,8 @@ new Calendar('#calendar', {
 
 ## timeMaxHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 23`
@@ -864,7 +924,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMaxHour: 23,
 });
 ```
@@ -875,6 +938,8 @@ new Calendar('#calendar', {
 
 ## timeMinMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 0`
@@ -882,7 +947,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMinMinute: 0,
 });
 ```
@@ -893,6 +961,8 @@ new Calendar('#calendar', {
 
 ## timeMaxMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 59`
@@ -900,7 +970,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeMaxMinute: 59,
 });
 ```
@@ -911,6 +984,8 @@ new Calendar('#calendar', {
 
 ## timeControls
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 字符串`
 
 `默认: 'all'`
@@ -918,7 +993,10 @@ new Calendar('#calendar', {
 `选项: 'all' | 'range'`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeControls: 'all',
 });
 ```
@@ -929,6 +1007,8 @@ new Calendar('#calendar', {
 
 ## timeStepHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 1`
@@ -936,7 +1016,10 @@ new Calendar('#calendar', {
 `选项: 从 1 到 23`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeStepHour: 1,
 });
 ```
@@ -947,6 +1030,8 @@ new Calendar('#calendar', {
 
 ## timeStepMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 1`
@@ -954,7 +1039,10 @@ new Calendar('#calendar', {
 `选项: 从 1 到 59`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   timeStepMinute: 1,
 });
 ```

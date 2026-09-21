@@ -159,6 +159,8 @@ new Calendar('#calendar', {
 
 ## onChangeTime()
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `timePicker`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 函数`
 
 `默认: null`
@@ -166,7 +168,10 @@ new Calendar('#calendar', {
 `选项: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   onChangeTime(self, event) {},
 });
 ```

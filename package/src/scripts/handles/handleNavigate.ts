@@ -2,13 +2,13 @@ import createDates from '@scripts/creators/createDates/createDates';
 import createYears from '@scripts/creators/createYears';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
-import animate from '@scripts/utils/animate';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import getRootNode from '@scripts/utils/getRootNode';
 import { getReusableRender, pauseRenderObservation, type RenderState } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
 import setWeekDate from '@scripts/utils/setWeekDate';
+import { getExtensions } from '@src/extension';
 import type { Calendar, Range } from '@src/index';
 
 export type Route = 'prev' | 'next';
@@ -120,7 +120,9 @@ const handleNavigate = (self: Calendar, route: Route, target?: HTMLElement) => {
   if (!indices) reuse = undefined;
   visibilityTitle(self, indices);
   visibilityArrows(self);
-  animate(self, navigator.selector, route, () => navigator.render(target, reuse));
+  const motion = getExtensions(self).motion;
+  if (motion && self.animation) motion.navigate(self, navigator.selector, route, () => navigator.render(target, reuse));
+  else navigator.render(target, reuse);
   keepFocusInside(self, route, hadFocus);
 };
 

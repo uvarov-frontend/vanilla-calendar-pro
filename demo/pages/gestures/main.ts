@@ -1,11 +1,12 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, motion, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const configGestures: Options = {
+    extensions: [motion],
     animation: true,
     enableCollapse: true,
     enableSwipe: true,
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configCollapsed: Options = {
+    extensions: [motion],
     type: 'week',
     animation: true,
     enableCollapse: true,
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configBounded: Options = {
+    extensions: [motion],
     animation: true,
     enableCollapse: true,
     enableSwipe: true,
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configMultiple: Options = {
+    extensions: [motion],
     type: 'multiple',
     animation: true,
     enableSwipe: true,
@@ -43,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configPlain: Options = {
+    extensions: [motion],
     enableCollapse: true,
     enableSwipe: true,
     selectedDates: ['2023-04-19'],
@@ -51,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configCollapseOnly: Options = {
+    extensions: [motion],
     animation: true,
     enableCollapse: true,
     selectedDates: ['2023-04-19'],
@@ -59,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configRange: Options = {
+    extensions: [motion],
     animation: true,
     enableSwipe: true,
     selectionDatesMode: 'multiple-ranged',
@@ -67,12 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configStatic: Options = {
+    extensions: [motion],
     animation: true,
     selectedMonth: 3,
     selectedYear: 2023,
   };
 
   const configInput: Options = {
+    extensions: [motion],
     inputMode: true,
     animation: true,
     enableCollapse: true,
@@ -119,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const logEl = document.getElementById('log') as HTMLPreElement;
   document.getElementById('btn-invalid-collapse')?.addEventListener('click', () => {
     try {
-      new Calendar('#calendar-invalid', { type: 'multiple', displayMonthsCount: 2, enableCollapse: true }).init();
+      new Calendar('#calendar-invalid', { extensions: [motion], type: 'multiple', displayMonthsCount: 2, enableCollapse: true }).init();
       logEl.textContent = 'init() OK';
     } catch (e) {
       logEl.textContent = `init() threw: ${(e as Error).message}`;

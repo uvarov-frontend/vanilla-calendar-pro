@@ -53,6 +53,7 @@
     "index.html",
     "package.zip",
     "utils",
+    "extensions",
     "styles"
   ],
   "exports": {

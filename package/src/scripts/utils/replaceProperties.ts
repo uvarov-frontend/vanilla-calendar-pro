@@ -1,7 +1,8 @@
-const replaceProperties = <T extends object>(original: T, replacement: T) => {
+const replaceProperties = <T extends object>(original: T, replacement: T, exclude?: keyof T) => {
   const keys = Object.keys(replacement) as Array<keyof T>;
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
+    if (key === exclude) continue;
     if (
       typeof original[key] === 'object' &&
       original[key] !== null &&

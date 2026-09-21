@@ -159,6 +159,8 @@ new Calendar('#calendar', {
 
 ## onChangeTime()
 
+ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+
 `Type: Function`
 
 `Default: null`
@@ -166,7 +168,10 @@ new Calendar('#calendar', {
 `Options: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, timePicker } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [timePicker],
   onChangeTime(self, event) {},
 });
 ```

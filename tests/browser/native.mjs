@@ -40,7 +40,13 @@ export async function nativeChecks({ browser: name, executablePath, url, output 
         for (const type of ['pointerdown', 'gotpointercapture', 'lostpointercapture']) {
           document.addEventListener(type, (event) => window.nativeEvents.push({ type, trusted: event.isTrusted }));
         }
-        window.instance = new window.Calendar('#calendar', { selectedYear: 2024, selectedMonth: 5, dateToday: '2024-06-19', ...options });
+        window.instance = new window.Calendar('#calendar', {
+          extensions: Object.values(window.calendarExtensions),
+          selectedYear: 2024,
+          selectedMonth: 5,
+          dateToday: '2024-06-19',
+          ...options,
+        });
         window.instance.init();
       }, options);
       await run(page);

@@ -6,6 +6,19 @@ section: 6. Additional Features
 
 # Popups and Tooltips
 
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `datePopups` in the constructor with `extensions: [datePopups]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+```ts
+import { Calendar, datePopups } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [datePopups],
+  popups: { '2026-09-21': { html: 'Event' } },
+}).init();
+```
+
+This requirement applies to the `popups` option, including entries with only `modifier`. It does not apply to the calendar opened by `inputMode` or the range tooltip (`onCreateDateRangeTooltip`).
+
 ## Popups
 
 The calendar allows you to add popups with information for any day, which will be displayed when hovering over that day.

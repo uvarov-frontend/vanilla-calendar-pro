@@ -1,11 +1,14 @@
-import type { Calendar, Options } from '../../package/src';
+import type { Calendar, CalendarExtension, Options } from '../../package/src';
 import { arrow, calendar, day, fixedToday, hour, minute, range, selected } from '../support/calendar';
 
-type CalendarWindow = Window & { Calendar: typeof Calendar; instance: Calendar; Date: DateConstructor };
+type CalendarWindow = Window & { Calendar: typeof Calendar; calendarExtensions: Record<string, CalendarExtension>; instance: Calendar; Date: DateConstructor };
 const api = () => cy.window().then((win) => win as unknown as CalendarWindow);
 const mount = (options: Options = {}, input = false) =>
   api().then((win) => {
-    win.instance = new win.Calendar(win.document.querySelector<HTMLElement>(input ? '#input' : '#calendar')!, options);
+    win.instance = new win.Calendar(win.document.querySelector<HTMLElement>(input ? '#input' : '#calendar')!, {
+      extensions: Object.values(win.calendarExtensions),
+      ...options,
+    });
     win.instance.init();
     return win.instance;
   });

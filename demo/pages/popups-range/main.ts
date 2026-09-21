@@ -1,12 +1,13 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, datePopups, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   // reproduction from https://github.com/uvarov-frontend/vanilla-calendar-pro/issues/406
   const options: Options = {
+    extensions: [datePopups],
     selectedMonth: 1,
     selectedYear: 2026,
     popups: {

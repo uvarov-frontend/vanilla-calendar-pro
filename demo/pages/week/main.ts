@@ -1,11 +1,12 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, motion, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const configWeek: Options = {
+    extensions: [motion],
     type: 'week',
     animation: true,
     selectedMonth: 3,
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configWeekNumbers: Options = {
+    extensions: [motion],
     type: 'week',
     animation: true,
     enableWeekNumbers: true,
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configMonth: Options = {
+    extensions: [motion],
     animation: true,
     selectedMonth: 3,
     selectedYear: 2023,
