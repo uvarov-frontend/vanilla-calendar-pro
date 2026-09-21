@@ -41,6 +41,15 @@ after(async () => {
   if (scratch) await fs.rm(scratch, { recursive: true, force: true });
 });
 
+for (const timezone of ['UTC', 'America/New_York', 'Europe/Berlin', 'America/Sao_Paulo', 'Asia/Kathmandu']) {
+  test(`public date utilities: local dates, DST, leap years and week boundaries in ${timezone}`, () => {
+    execFileSync(process.execPath, [path.join(import.meta.dirname, 'utils.assertions.mjs'), packed], {
+      env: { ...process.env, TZ: timezone },
+      stdio: 'pipe',
+    });
+  });
+}
+
 test('the packed package contains every public artifact, including the CDN ZIP download', async () => {
   const expected = [
     'LICENSE',

@@ -16,7 +16,7 @@ const initTime = (self: Calendar) => {
   if (!hours) {
     hours = isTime12 ? transformTime12(String(self.timeMinHour)) : String(self.timeMinHour);
     minutes = String(self.timeMinMinute);
-    keeping = isTime12 ? (Number(transformTime12(String(self.timeMinHour))) >= 12 ? 'PM' : 'AM') : null;
+    keeping = isTime12 ? (self.timeMinHour >= 12 ? 'PM' : 'AM') : null;
   } else if (isTime12 && !keeping) {
     keeping = 'AM';
   }
