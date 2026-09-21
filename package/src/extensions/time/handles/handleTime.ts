@@ -1,6 +1,6 @@
-import handleClickKeepingTime from '@src/extensions/timePicker/handles/handleClickKeepingTime';
-import handleInput from '@src/extensions/timePicker/handles/handleInput';
-import handleRange from '@src/extensions/timePicker/handles/handleRange';
+import handleClickKeepingTime from '@src/extensions/time/handles/handleClickKeepingTime';
+import handleInput from '@src/extensions/time/handles/handleInput';
+import handleRange from '@src/extensions/time/handles/handleRange';
 import type { Calendar } from '@src/index';
 
 const handleMouseOver = (inputEl: HTMLInputElement) => inputEl.setAttribute('data-vc-input-focus', '');

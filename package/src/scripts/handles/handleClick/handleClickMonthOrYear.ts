@@ -3,7 +3,6 @@ import createMonths from '@scripts/creators/createMonths';
 import createYears from '@scripts/creators/createYears';
 import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
 import getColumnID from '@scripts/utils/getColumnID';
-import getDate from '@scripts/utils/getDate';
 import setContext from '@scripts/utils/setContext';
 import { getExtensions } from '@src/extension';
 import type { Calendar, Range } from '@src/index';
@@ -35,61 +34,14 @@ const leavePicker = (self: Calendar, type: (typeof typeClick)[number]) => {
   self.context.mainElement.querySelector<HTMLElement>(`[data-vc="${type}"]`)?.focus();
 };
 
-const getValue = (self: Calendar, type: (typeof typeClick)[number], id: number) => {
-  const { currentValue, columnID } = getColumnID(self, type);
-
-  if (self.context.currentType === 'month' && columnID >= 0) return id - columnID;
-  if (self.context.currentType === 'year' && self.context.selectedYear !== currentValue) return id - 1;
-  return id;
-};
-
-const handleMultipleYearSelection = (self: Calendar, itemEl: HTMLElement) => {
-  const selectedYear = getValue(self, 'year', Number(itemEl.dataset.vcYearsYear));
-  const dateMin = getDate(self.context.dateMin);
-  const dateMax = getDate(self.context.dateMax);
-  const monthCount = self.context.displayMonthsCount - 1;
-  const { columnID } = getColumnID(self, 'year');
-
-  const isBeforeMinDate = self.context.selectedMonth < dateMin.getMonth() && selectedYear <= dateMin.getFullYear();
-  const isAfterMaxDate = self.context.selectedMonth > dateMax.getMonth() - monthCount + columnID && selectedYear >= dateMax.getFullYear();
-  const isBeforeMinYear = selectedYear < dateMin.getFullYear();
-  const isAfterMaxYear = selectedYear > dateMax.getFullYear();
-
-  const newSelectedYear = isBeforeMinDate || isBeforeMinYear ? dateMin.getFullYear() : isAfterMaxDate || isAfterMaxYear ? dateMax.getFullYear() : selectedYear;
-  const newSelectedMonth =
-    isBeforeMinDate || isBeforeMinYear
-      ? dateMin.getMonth()
-      : isAfterMaxDate || isAfterMaxYear
-        ? dateMax.getMonth() - monthCount + columnID
-        : self.context.selectedMonth;
-
-  setContext(self, 'selectedYear', newSelectedYear);
-  setContext(self, 'selectedMonth', newSelectedMonth as Range<12>);
-};
-
-const handleMultipleMonthSelection = (self: Calendar, itemEl: HTMLElement) => {
-  const column = itemEl.closest('[data-vc-column="month"]') as HTMLElement;
-  const yearEl = column.querySelector('[data-vc="year"]') as HTMLElement;
-  const selectedMonth = getValue(self, 'month', Number(itemEl.dataset.vcMonthsMonth));
-  const selectedYear = Number(yearEl.dataset.vcYear);
-  const dateMin = getDate(self.context.dateMin);
-  const dateMax = getDate(self.context.dateMax);
-
-  const isBeforeMinDate = selectedMonth < dateMin.getMonth() && selectedYear <= dateMin.getFullYear();
-  const isAfterMaxDate = selectedMonth > dateMax.getMonth() && selectedYear >= dateMax.getFullYear();
-
-  setContext(self, 'selectedYear', selectedYear);
-  setContext(self, 'selectedMonth', (isBeforeMinDate ? dateMin.getMonth() : isAfterMaxDate ? dateMax.getMonth() : selectedMonth) as Range<12>);
-};
-
 const handleItemClick = (self: Calendar, event: MouseEvent, type: (typeof typeClick)[number], itemEl: HTMLButtonElement) => {
   const selectByType = {
     year: () => {
-      if (self.type === 'multiple') return handleMultipleYearSelection(self, itemEl);
+      if (self.type === 'multiple') return getExtensions(self).months?.select(self, 'year', itemEl);
       setContext(self, 'selectedYear', Number(itemEl.dataset.vcYearsYear));
     },
     month: () => {
-      if (self.type === 'multiple') return handleMultipleMonthSelection(self, itemEl);
+      if (self.type === 'multiple') return getExtensions(self).months?.select(self, 'month', itemEl);
       setContext(self, 'selectedMonth', Number(itemEl.dataset.vcMonthsMonth) as Range<12>);
     },
   };

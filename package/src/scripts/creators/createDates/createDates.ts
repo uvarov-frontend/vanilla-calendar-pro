@@ -1,9 +1,7 @@
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
-import createWeekDates from '@scripts/creators/createDates/createWeekDates';
 import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
-import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import { pauseRenderObservation, type RenderState, rememberRender } from '@scripts/utils/renderState';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import { getExtensions } from '@src/extension';
@@ -13,8 +11,9 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
   pauseRenderObservation(self);
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
   const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
-  const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
-  const createPopups = getExtensions(self).datePopups?.prepare(self, datesEls.length);
+  const weeks = getExtensions(self).weeks;
+  const weekNumbersEls = self.enableWeekNumbers ? self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]') : [];
+  const createPopups = getExtensions(self).annotations?.prepare(self, datesEls.length);
 
   datesEls.forEach((datesEl, index: number) => {
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
@@ -24,9 +23,9 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
     prepareDateRules(self);
 
     if (self.context.currentType === 'week') {
-      createWeekDates(self, datesEl);
+      weeks?.dates(self, datesEl);
       createPopups?.(datesEl);
-      createWeekNumbers(self, 0, 7, weekNumbersEls[index], datesEl);
+      weeks?.numbers(self, 0, 7, weekNumbersEls[index], datesEl);
       return;
     }
 
@@ -72,7 +71,7 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
       datesEl.appendChild(weekRow);
     }
     createPopups?.(datesEl);
-    createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
+    weeks?.numbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
 
   updateRovingTabIndex(self);

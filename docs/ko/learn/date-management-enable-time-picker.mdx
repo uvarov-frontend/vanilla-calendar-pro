@@ -6,13 +6,13 @@ section: 4. 날짜 및 시간 관리
 
 # 시간 선택 활성화
 
-확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `timePicker`을 이름으로 import하고 생성자에 `extensions: [timePicker]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `time`을 이름으로 import하고 생성자에 `extensions: [time]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   selectionTimeMode: 24,
 }).init();
 ```

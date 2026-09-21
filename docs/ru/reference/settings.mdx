@@ -17,14 +17,14 @@ section: 4
 
 `Default: []`
 
-`motion` объединяет анимации, свайпы и сворачивание месяца до недели. `timePicker` предоставляет выбор времени в формате 12/24 часа. `datePopups` отвечает за содержимое попапов и модификаторы дат, в том числе для диапазонов. Сборщик ESM может удалить расширения, которые вы не импортируете и не подключаете.
+`motion` предоставляет анимации и жесты. `time` отвечает за выбор времени в формате 12/24 часа. `annotations` добавляет попапы, модификаторы дат и тултип диапазона. `weeks` предоставляет недельный вид, сворачивание, номера недель и обработчики кликов по дням и номерам недель. `months` отображает несколько месяцев и управляет их навигацией. Сборщик ESM может удалить расширения, которые вы не импортируете и не подключаете.
 
 ```ts
-import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const calendar = new Calendar('#calendar', {
-  extensions: [motion, timePicker, datePopups],
+  extensions: [motion, time, annotations],
   animation: true,
   selectionTimeMode: 24,
   popups: { '2026-09-21': { html: 'Event' } },
@@ -34,11 +34,13 @@ calendar.init();
 
 Состав расширений задаётся при создании экземпляра. Заранее зарегистрируйте модули, которые будете включать через `set()` или `update()`. Эти методы по-прежнему меняют существующие опции, но не добавляют и не удаляют модули. Один объект настроек или массив расширений можно использовать для нескольких календарей: состояние каждого экземпляра независимо. Включение функции без модуля вызывает понятную ошибку в `init()`, `set()` или `update()`; неактивные настройки и обработчики модуля не требуют.
 
-Календарь в инпуте, выбор дат и диапазонов, выбор месяца и года, недельный вид и тултип диапазона остаются в ядре. Полная сборка для обычного `<script>` / CommonJS автоматически включает все три расширения. Импорты CSS не меняются.
+Календарь в инпуте, выбор дат и диапазонов, выбор месяца и года остаются в ядре. Обычные заголовки дней недели не требуют расширения. Полная сборка для обычного `<script>` / CommonJS автоматически включает все пять расширений. Импорты CSS не меняются.
 
 ---
 
 ## type
+
+Для ESM режим `type: 'multiple'` требует `months`, а `type: 'week'` — `weeks`. Зарегистрируйте модуль в конструкторе, в том числе при последующем переключении вида через `set()`.
 
 `Type: String`
 
@@ -397,6 +399,8 @@ new Calendar('#calendar', {
 
 ## displayMonthsCount
 
+Миграция ESM: сохраните существующие опции и обработчики, импортируйте `months` из `vanilla-calendar-pro` и добавьте его в массив `extensions: [months]` конструктора без вызова как функции.
+
 `Type: Number`
 
 `Default: 2`
@@ -404,7 +408,11 @@ new Calendar('#calendar', {
 `Options: от 2 до 12`
 
 ```ts
+import { Calendar, months } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [months],
+  type: 'multiple',
   displayMonthsCount: 2,
 });
 ```
@@ -588,6 +596,8 @@ new Calendar('#calendar', {
 
 ## enableWeekNumbers
 
+Миграция ESM: сохраните существующие опции и обработчики, импортируйте `weeks` из `vanilla-calendar-pro` и добавьте его в массив `extensions: [weeks]` конструктора без вызова как функции.
+
 `Type: Boolean`
 
 `Default: false`
@@ -595,7 +605,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableWeekNumbers: true,
 });
 ```
@@ -645,7 +658,7 @@ new Calendar('#calendar', {
 
 ## enableCollapse
 
-При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `motion` в конструкторе: `extensions: [motion]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `weeks` в конструкторе: `extensions: [weeks]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
 
 `Type: Boolean`
 
@@ -654,10 +667,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
-import { Calendar, motion } from 'vanilla-calendar-pro';
+import { Calendar, weeks } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [motion],
+  extensions: [weeks],
   enableCollapse: true,
 });
 ```
@@ -667,6 +680,9 @@ new Calendar('#calendar', {
 <Info>`enableCollapse` не требует `enableSwipe` или `animation`. Сворачивание переключает `type` на `'week'`, поэтому `calendar.type` показывает текущее состояние, а `set({ type: 'week' })` делает то же самое без перехода. Опцию поддерживают только типы `default` и `week`; другие типы вызывают ошибку при `init()`.</Info>
 
 ---
+
+
+За сворачивание и разворачивание отвечает `weeks`: без `motion` нажатие на кнопку переключает вид мгновенно. Для перетаскивания подключите `weeks` и `motion`, для анимации завершения включите `animation`. Сам `motion` не включает недельный вид.
 
 ## enableSwipe
 
@@ -753,7 +769,7 @@ new Calendar('#calendar', {
 
 ## selectionTimeMode
 
-При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `timePicker` в конструкторе: `extensions: [timePicker]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `time` в конструкторе: `extensions: [time]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
 
 `Type: false | Number`
 
@@ -762,10 +778,10 @@ new Calendar('#calendar', {
 `Options: false | 24 | 12`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   selectionTimeMode: 24,
 });
 ```
@@ -870,7 +886,7 @@ new Calendar('#calendar', {
 
 ## selectedTime
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: String`
 
@@ -879,10 +895,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: 'hh:mm aa' | null`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   selectedTime: '03:44 AM',
 });
 ```
@@ -911,7 +927,7 @@ new Calendar('#calendar', {
 
 ## timeMinHour
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -920,10 +936,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 0 до 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMinHour: 0,
 });
 ```
@@ -934,7 +950,7 @@ new Calendar('#calendar', {
 
 ## timeMaxHour
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -943,10 +959,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 0 до 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMaxHour: 23,
 });
 ```
@@ -957,7 +973,7 @@ new Calendar('#calendar', {
 
 ## timeMinMinute
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -966,10 +982,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 0 до 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMinMinute: 0,
 });
 ```
@@ -980,7 +996,7 @@ new Calendar('#calendar', {
 
 ## timeMaxMinute
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -989,10 +1005,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 0 до 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMaxMinute: 59,
 });
 ```
@@ -1003,7 +1019,7 @@ new Calendar('#calendar', {
 
 ## timeControls
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: String`
 
@@ -1012,10 +1028,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: 'all' | 'range'`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeControls: 'all',
 });
 ```
@@ -1026,7 +1042,7 @@ new Calendar('#calendar', {
 
 ## timeStepHour
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -1035,10 +1051,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 1 до 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeStepHour: 1,
 });
 ```
@@ -1049,7 +1065,7 @@ new Calendar('#calendar', {
 
 ## timeStepMinute
 
-ESM: требуется `timePicker` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
 
 `Type: Number`
 
@@ -1058,10 +1074,10 @@ ESM: требуется `timePicker` в массиве `extensions` констр
 `Options: от 1 до 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeStepMinute: 1,
 });
 ```

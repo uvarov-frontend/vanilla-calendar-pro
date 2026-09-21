@@ -91,14 +91,14 @@ calendar.init();
 
 ### Optional features in ESM
 
-`motion` provides animations, swipe navigation and month/week collapse. `timePicker` provides the 12/24-hour time editor. `datePopups` provides date popup content and modifiers, including date ranges. ESM bundlers can remove extensions that you do not import and register.
+`motion` provides animations and gestures. `time` provides the 12/24-hour time editor. `annotations` provides date popup content, modifiers and range tooltips. `weeks` provides the weekly view, collapse, week numbers and weekday/week-number callbacks. `months` displays and navigates several months together. ESM bundlers can remove extensions that you do not import and register.
 
 ```ts
-import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, motion, time, annotations, weeks, months } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const calendar = new Calendar('#calendar', {
-  extensions: [motion, timePicker, datePopups],
+  extensions: [motion, time, annotations, weeks, months],
   animation: true,
   selectionTimeMode: 24,
   popups: { '2026-09-21': { html: 'Event' } },
@@ -110,7 +110,9 @@ When upgrading from a version without extensions, keep your existing options and
 
 Extensions are fixed at construction. Register modules you will enable later through `set()` or `update()`. Those methods still change the existing feature options; they cannot add or remove modules. Reusing the same options or extensions array is supported; each calendar has independent state. Enabling a feature without its extension throws a descriptive error at `init()`, `set()` or `update()`; inactive settings and callbacks do not require a module.
 
-Input calendars, date/range selection, month/year pickers, week view and range tooltips remain in the core. The full classic `<script>` / CommonJS distribution includes all three extensions automatically. CSS imports stay the same.
+Input calendars, date/range selection and month/year pickers remain in the core. Weekday headings do not require an extension. The full classic `<script>` / CommonJS distribution includes all five extensions automatically. CSS imports stay the same.
+
+`weeks` owns collapse/expand and works without `motion`: clicking the control switches views immediately. Register both `weeks` and `motion` for dragging; enable `animation` for animated settling. `motion` alone does not include the weekly view.
 
 ## CSS Styles
 

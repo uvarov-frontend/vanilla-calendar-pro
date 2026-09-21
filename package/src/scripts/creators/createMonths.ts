@@ -1,40 +1,11 @@
 import createLayouts from '@scripts/creators/createLayouts';
-import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
+import createPickerCell from '@scripts/creators/createPickerCell';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getColumnID from '@scripts/utils/getColumnID';
 import getDate from '@scripts/utils/getDate';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
-
-const createMonthEl = (
-  self: Calendar,
-  templateEl: HTMLButtonElement,
-  selected: number,
-  titleShort: string,
-  titleLong: string,
-  disabled: boolean,
-  id: number,
-) => {
-  const monthWrapperEl = document.createElement('div');
-  monthWrapperEl.className = self.styles.monthsCell;
-  monthWrapperEl.dataset.vcMonths = 'cell';
-  monthWrapperEl.role = 'gridcell';
-
-  const monthEl = templateEl.cloneNode(false) as HTMLButtonElement;
-  monthEl.className = self.styles.monthsMonth;
-  monthEl.innerText = titleShort;
-  monthEl.ariaLabel = titleLong;
-  monthEl.dataset.vcMonthsMonth = `${id}`;
-  if (disabled) monthEl.ariaDisabled = 'true';
-  if (disabled) monthEl.tabIndex = -1;
-  monthEl.disabled = disabled;
-
-  monthWrapperEl.appendChild(monthEl);
-
-  setMonthOrYearModifier(self, monthEl, 'month', selected === id, false);
-  return monthWrapperEl;
-};
 
 const createMonths = (self: Calendar, target?: HTMLElement) => {
   const yearEl = target?.closest('[data-vc="header"]')?.querySelector<HTMLElement>('[data-vc="year"]');
@@ -84,14 +55,15 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
       (selectedYear >= dateMax.getFullYear() && i > dateMax.getMonth() - monthCount + columnID) ||
       selectedYear > dateMax.getFullYear() ||
       (i !== selectedMonth && !activeMonthsID.includes(i));
-    const monthEl = createMonthEl(
+    const monthEl = createPickerCell(
       self,
+      'month',
       templateMonthEl,
       selectedMonth,
-      self.context.locale.months.short[i],
-      self.context.locale.months.long[i],
       monthDisabled,
       i,
+      self.context.locale.months.short[i],
+      self.context.locale.months.long[i],
     );
     rowEl?.appendChild(monthEl);
     if (self.onCreateMonthEls) self.onCreateMonthEls(self, monthEl);

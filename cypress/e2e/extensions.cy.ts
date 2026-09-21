@@ -4,7 +4,7 @@ import { syntheticPointerCapture } from '../support/pointerCapture';
 
 type Api = Window & {
   Calendar: typeof Calendar;
-  calendarExtensions: Record<'motion' | 'timePicker' | 'datePopups', CalendarExtension>;
+  calendarExtensions: Record<CalendarExtension['name'], CalendarExtension>;
   instance: Calendar;
 };
 const api = () => cy.window().then((win) => win as unknown as Api);
@@ -24,7 +24,7 @@ describe('Explicit ESM extensions', () => {
     cy.window().its('Calendar').should('be.a', 'function');
   });
 
-  it('keeps input, range selection, month/year selection and week view in core', () => {
+  it('keeps input, range selection, month/year selection in core', () => {
     mount([], { inputMode: true, selectionDatesMode: 'multiple-ranged' });
     cy.get('#input').click();
     day('2024-06-20').click();
@@ -37,16 +37,23 @@ describe('Explicit ESM extensions', () => {
     cy.get('[data-vc-months-month="6"]').click();
     cy.get('[data-vc="year"]').click();
     cy.get('[data-vc-years-year="2025"]').click();
-    api().then(({ instance }) => instance.set({ type: 'week' }));
-    cy.get('[data-vc="dates"] [data-vc-date]').should('have.length', 7);
+    api().then(({ instance }) => {
+      expect(instance.context.selectedYear).to.equal(2025);
+      expect(instance.context.selectedMonth).to.equal(6);
+    });
   });
 
   for (const [option, name, value] of [
     ['animation', 'motion', true],
     ['enableSwipe', 'motion', true],
-    ['enableCollapse', 'motion', true],
-    ['selectionTimeMode', 'timePicker', 24],
-    ['popups', 'datePopups', { '2024-06-20': { modifier: 'event' } }],
+    ['enableCollapse', 'weeks', true],
+    ['type', 'weeks', 'week'],
+    ['type', 'months', 'multiple'],
+    ['enableWeekNumbers', 'weeks', true],
+    ['onClickWeekDay', 'weeks', () => {}],
+    ['onCreateDateRangeTooltip', 'annotations', () => 'Range'],
+    ['selectionTimeMode', 'time', 24],
+    ['popups', 'annotations', { '2024-06-20': { modifier: 'event' } }],
   ] as const) {
     it(`rejects missing ${name} for ${option} before init/set mutate the calendar`, () => {
       api().then((win) => {
@@ -69,7 +76,7 @@ describe('Explicit ESM extensions', () => {
   it('validates input options before installing delayed opening handlers', () => {
     api().then((win) => {
       const calendar = new win.Calendar('#input', { inputMode: true, selectionTimeMode: 12 });
-      expect(() => calendar.init()).to.throw('requires timePicker');
+      expect(() => calendar.init()).to.throw('requires time');
       expect(calendar.context.isInit).not.to.equal(true);
     });
     cy.get('#input').click();
@@ -86,6 +93,7 @@ describe('Explicit ESM extensions', () => {
       timeMinHour: 8,
       popups: {},
       onChangeTime() {},
+      onClickWeekNumber() {},
     });
     arrow('next').click();
     api().then(({ instance }) => instance.update());
@@ -107,8 +115,8 @@ describe('Explicit ESM extensions', () => {
 
   it('shares immutable descriptions safely, snapshots arrays and deduplicates registration', () => {
     api().then((win) => {
-      const { motion, timePicker } = win.calendarExtensions;
-      const extensions = [motion, motion, timePicker];
+      const { motion, time } = win.calendarExtensions;
+      const extensions = [motion, motion, time];
       const options = { extensions, enableSwipe: true, selectionTimeMode: 24 as const };
       const first = new win.Calendar('#calendar', options);
       const host = win.document.createElement('div');
@@ -133,11 +141,11 @@ describe('Explicit ESM extensions', () => {
   });
 
   it('rejects changes to extension composition and permits the same set in a different order', () => {
-    mount(['motion', 'timePicker']);
-    api().then(({ instance, calendarExtensions: { motion, timePicker, datePopups } }) => {
-      instance.set({ extensions: [timePicker, motion, motion] });
+    mount(['motion', 'time']);
+    api().then(({ instance, calendarExtensions: { motion, time, annotations } }) => {
+      instance.set({ extensions: [time, motion, motion] });
       expect(() => instance.set({ extensions: [] })).to.throw('fixed at construction');
-      expect(() => instance.set({ extensions: [motion, timePicker, datePopups] })).to.throw('fixed at construction');
+      expect(() => instance.set({ extensions: [motion, time, annotations] })).to.throw('fixed at construction');
       expect(instance.extensions).to.have.length(2);
       instance.animation = true;
       instance.update();
@@ -155,7 +163,7 @@ describe('Explicit ESM extensions', () => {
   });
 
   it('can toggle time repeatedly and releases listeners on replaced and destroyed fields', () => {
-    mount(['timePicker']);
+    mount(['time']);
     api().then(({ instance }) => instance.set({ selectionTimeMode: 24, selectedTime: '10:30' }));
     hour().should('have.value', '10');
     api().then(({ instance }) => {
@@ -173,7 +181,7 @@ describe('Explicit ESM extensions', () => {
   });
 
   it('enables and disables gestures through set() without accumulating handlers', () => {
-    mount(['motion']);
+    mount(['motion', 'weeks']);
     api().then(({ instance }) => {
       const host = instance.context.mainElement;
       const add = cy.spy(host, 'addEventListener');
@@ -189,8 +197,8 @@ describe('Explicit ESM extensions', () => {
     cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
   });
 
-  it('keeps popups, modifiers and sanitized labels working with only datePopups', () => {
-    mount(['datePopups'], {
+  it('keeps popups, modifiers and sanitized labels working with only annotations', () => {
+    mount(['annotations'], {
       popups: { '2024-06-20:2024-06-22': { modifier: 'event', html: '<b>Meeting</b>' } },
       sanitizerHTML: (html) => html.replace('Meeting', 'Appointment'),
     });
@@ -201,7 +209,7 @@ describe('Explicit ESM extensions', () => {
   });
 
   it('supports all extensions on an input configured before its first opening', () => {
-    mount(['motion', 'timePicker', 'datePopups'], { inputMode: true });
+    mount(['motion', 'time', 'annotations', 'weeks', 'months'], { inputMode: true });
     api().then(({ instance }) =>
       instance.set({ enableCollapse: true, selectionTimeMode: 24, selectedTime: '09:15', popups: { '2024-06-20': { html: 'Event' } } }),
     );
@@ -212,6 +220,85 @@ describe('Explicit ESM extensions', () => {
     cy.get('[data-vc-input]').should('have.attr', 'data-vc-type', 'week');
     api().then(({ instance }) => instance.destroy());
     cy.get('[data-vc-input]').should('not.exist');
+  });
+
+  it('collapses and expands with weeks alone without motion or pointer listeners', () => {
+    api().then((win) => {
+      const host = win.document.querySelector<HTMLElement>('#calendar')!;
+      const add = cy.spy(host, 'addEventListener');
+      win.instance = new win.Calendar(host, { extensions: [win.calendarExtensions.weeks], enableCollapse: true });
+      win.instance.init();
+      expect(add.getCalls().filter((call) => call.args[0] === 'pointerdown')).to.have.length(0);
+    });
+    cy.get('[data-vc="collapse"]').click();
+    cy.get('[data-vc="dates"] [data-vc-date]').should('have.length', 7);
+    arrow('next').click();
+    cy.get('[data-vc="collapse"]').click();
+    cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'default');
+    cy.get('[data-vc-animating], [data-vc-collapsing], [data-vc-ghost]').should('not.exist');
+    api().then(({ instance }) => {
+      instance.set({ type: 'week' });
+      instance.update();
+    });
+    cy.get('[data-vc="dates"] [data-vc-date]').should('have.length', 7);
+  });
+
+  it('does not make weekly features available through motion', () => {
+    mount(['motion'], { animation: true, enableSwipe: true });
+    api().then(({ instance }) => {
+      expect(() => instance.set({ type: 'week' })).to.throw('requires weeks');
+      expect(() => instance.set({ enableCollapse: true })).to.throw('requires weeks');
+      expect(instance.type).to.equal('default');
+    });
+    arrow('next').click();
+    cy.get('[data-vc-ghost]').should('not.exist');
+    api().then(({ instance }) => expect(instance.context.selectedMonth).to.equal(6));
+  });
+
+  it('supports multiple months and reuses columns with only months', () => {
+    mount(['months'], { type: 'multiple', displayMonthsCount: 3, selectionDatesMode: 'multiple-ranged' });
+    let retained: HTMLElement;
+    cy.get('[data-vc="column"]').then(($columns) => {
+      retained = $columns[1];
+    });
+    arrow('next').click();
+    cy.get('[data-vc="column"]').should(($columns) => {
+      expect($columns).to.have.length(3);
+      expect($columns[0]).to.equal(retained);
+    });
+    cy.get('[data-vc="month"]').eq(1).click();
+    cy.get('[data-vc-months-month="8"]').click();
+    cy.get('[data-vc="year"]').eq(1).click();
+    cy.get('[data-vc-years-year="2025"]').click();
+    cy.get('[data-vc="column"]').should('have.length', 3);
+    api().then(({ instance }) => {
+      instance.set({ type: 'default', displayMonthsCount: 1 });
+      instance.set({ type: 'multiple', displayMonthsCount: 2 });
+      expect(instance.context.displayMonthsCount).to.equal(2);
+    });
+  });
+
+  it('uses annotations for a range tooltip without weeks, months or motion', () => {
+    mount(['annotations'], { selectionDatesMode: 'multiple-ranged', onCreateDateRangeTooltip: () => '<b>Range</b>' });
+    day('2024-06-20').click();
+    day('2024-06-23').trigger('mousemove');
+    cy.get('[data-vc-date-range-tooltip="visible"]').should('contain', 'Range');
+    day('2024-06-23').click();
+    day('2024-06-21').trigger('mousemove');
+    cy.get('[data-vc-date-range-tooltip="visible"]').should('contain', 'Range');
+    api().then(({ instance }) => {
+      instance.update();
+      instance.destroy();
+    });
+    cy.get('[data-vc-date-range-tooltip]').should('not.exist');
+  });
+
+  it('supports week numbers and weekday callbacks with weeks alone', () => {
+    mount(['weeks'], { enableWeekNumbers: true, onClickWeekNumber: cy.stub().as('weekNumber'), onClickWeekDay: cy.stub().as('weekday') });
+    cy.get('[data-vc-week-number]').first().click();
+    cy.get('@weekNumber').should('have.been.calledOnce');
+    cy.get('[data-vc-week-day-btn]').first().click();
+    cy.get('@weekday').should('have.been.calledOnce');
   });
 
   it('does not attach keyboard or motion handlers after destruction inside onInit', () => {

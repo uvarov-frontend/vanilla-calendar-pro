@@ -134,7 +134,7 @@ try {
           await check('input date/time round trip around the US spring DST transition', async (page) => {
             await page.evaluate(() => {
               window.instance = new window.Calendar('#input', {
-                extensions: [window.calendarExtensions.timePicker],
+                extensions: [window.calendarExtensions.time],
                 inputMode: true,
                 selectedYear: 2024,
                 selectedMonth: 2,

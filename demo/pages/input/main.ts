@@ -1,6 +1,6 @@
 import '../../workbench';
 
-import { Calendar, datePopups, type Options } from '@src/index';
+import { annotations, Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -19,7 +19,7 @@ const configInput: Options = {
 };
 
 const configDiv: Options = {
-  extensions: [datePopups],
+  extensions: [annotations],
   inputMode: true,
   positionToInput: 'auto',
   onChangeToInput(self) {

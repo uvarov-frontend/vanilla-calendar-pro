@@ -35,7 +35,11 @@ async function run(mod, options, fn) {
   const host = document.createElement(options.inputMode ? 'input' : 'div');
   host.style.width = '1200px';
   document.body.append(host);
-  const cal = new mod.Calendar(host, { ...(mod.motion ? { extensions: [mod.motion, mod.timePicker, mod.datePopups] } : {}), ...defaults, ...options });
+  const cal = new mod.Calendar(host, {
+    ...(mod.motion ? { extensions: [mod.motion, mod.time ?? mod.timePicker, mod.annotations ?? mod.datePopups, mod.weeks, mod.months].filter(Boolean) } : {}),
+    ...defaults,
+    ...options,
+  });
   try {
     cal.init();
     return await fn(cal);

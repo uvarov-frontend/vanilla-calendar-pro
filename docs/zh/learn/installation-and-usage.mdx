@@ -95,14 +95,14 @@ import 'vanilla-calendar-pro/styles/themes/dark.css'; // 深色主题
 
 ## extensions
 
-`motion` 包含动画、滑动导航和整月与一周之间的折叠。`timePicker` 提供 12/24 小时时间选择。`datePopups` 提供日期弹出内容和样式修饰符，也支持日期范围。ESM 打包工具可移除未导入和注册的扩展。
+`motion` 提供动画和手势。`time` 提供 12/24 小时时间选择。`annotations` 提供日期弹出内容、样式修饰符和范围提示。`weeks` 提供一周视图、折叠、周数和星期/周数点击回调。`months` 提供多月显示和导航。ESM 打包工具可移除未导入和注册的扩展。
 
 ```ts
-import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const calendar = new Calendar('#calendar', {
-  extensions: [motion, timePicker, datePopups],
+  extensions: [motion, time, annotations],
   animation: true,
   selectionTimeMode: 24,
   popups: { '2026-09-21': { html: 'Event' } },
@@ -110,4 +110,4 @@ const calendar = new Calendar('#calendar', {
 calendar.init();
 ```
 
-输入框日历、日期和范围选择、月份和年份选择、一周视图以及范围提示仍属于核心功能。完整的普通 `<script>` / CommonJS 构建会自动注册全部三个扩展。CSS 导入保持不变。
+输入框日历、日期和范围选择以及月份和年份选择仍属于核心功能。普通星期标题无需扩展。完整的普通 `<script>` / CommonJS 构建会自动注册全部五个扩展。CSS 导入保持不变。

@@ -6,7 +6,7 @@ section: 6
 
 # 팝업
 
-확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `datePopups`을 이름으로 import하고 생성자에 `extensions: [datePopups]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `annotations` 확장을 이름으로 import하고 생성자에 `extensions: [annotations]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
 
 이 요구 사항은 `modifier`만 있는 항목을 포함해 `popups` 옵션에 적용됩니다. `inputMode`로 여는 캘린더와 범위 툴팁(`onCreateDateRangeTooltip`)에는 이 확장이 필요하지 않습니다.
 
@@ -21,10 +21,10 @@ section: 6
 `Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {},
     '2022-07-01:2022-07-05': {},
@@ -47,10 +47,10 @@ new Calendar('#calendar', {
 `Options: CSS classes | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',
@@ -74,10 +74,10 @@ new Calendar('#calendar', {
 `Options: '' | HTML | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',

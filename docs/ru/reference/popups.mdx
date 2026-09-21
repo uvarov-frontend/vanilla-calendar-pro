@@ -6,7 +6,7 @@ section: 6
 
 # Попапы
 
-При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `datePopups` в конструкторе: `extensions: [datePopups]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `annotations` в конструкторе: `extensions: [annotations]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
 
 Требование относится к опции `popups`, включая записи только с `modifier`. Для календаря, открываемого через `inputMode`, и тултипа диапазона (`onCreateDateRangeTooltip`) это расширение не требуется.
 
@@ -21,10 +21,10 @@ section: 6
 `Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {},
     '2022-07-01:2022-07-05': {},
@@ -47,10 +47,10 @@ new Calendar('#calendar', {
 `Options: CSS classes | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',
@@ -74,10 +74,10 @@ new Calendar('#calendar', {
 `Options: '' | HTML | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',

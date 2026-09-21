@@ -8,7 +8,7 @@ section: 7
 
 This API accepts HTML. Use trusted markup, or configure [`sanitizerHTML`](/docs/reference/settings#sanitizerhtml) when content comes from users or other untrusted sources; the default callback does not sanitize it.
 
-`<#ControlTime />` renders only with `timePicker` registered and `selectionTimeMode` enabled. `<#Collapse />` renders only with `motion` registered and `enableCollapse: true`. Keep these template tags; registration does not enable the corresponding options.
+`<#ControlTime />` requires `time` and an enabled `selectionTimeMode`. `<#Collapse />` requires `weeks` and `enableCollapse: true`; `<#WeekNumbers />` requires `weeks` and `enableWeekNumbers: true`. `<#DateRangeTooltip />` requires `annotations` and `onCreateDateRangeTooltip`. `<#Multiple>` requires `months`. Keep the template tags and existing options.
 
 Layouts allow you to almost completely change the DOM structure of the calendar and add your own HTML elements, such as buttons. Each type of calendar has its own default template, and you can customize each of them.
 

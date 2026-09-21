@@ -34,6 +34,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekDay()
 
+ESM 마이그레이션: 기존 옵션과 콜백을 유지하고 `vanilla-calendar-pro`에서 `weeks` 확장을 import한 뒤 생성자의 `extensions: [weeks]` 배열에 추가하세요. 함수처럼 호출하지 않습니다.
+
 `Type: Function`
 
 `Default: null`
@@ -41,7 +43,10 @@ new Calendar('#calendar', {
 `Options: onClickWeekDay(self, day, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekDay(self, day, dateEls, event) {},
 });
 ```
@@ -56,6 +61,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekNumber()
 
+ESM 마이그레이션: 기존 옵션과 콜백을 유지하고 `vanilla-calendar-pro`에서 `weeks` 확장을 import한 뒤 생성자의 `extensions: [weeks]` 배열에 추가하세요. 함수처럼 호출하지 않습니다.
+
 `Type: Function`
 
 `Default: null`
@@ -63,7 +70,10 @@ new Calendar('#calendar', {
 `Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekNumber(self, number, year, dateEls, event) {},
 });
 ```
@@ -159,7 +169,7 @@ new Calendar('#calendar', {
 
 ## onChangeTime()
 
-ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
 
 `Type: Function`
 
@@ -168,10 +178,10 @@ ESM: 생성자의 `extensions` 배열에 `timePicker`을 등록해야 합니다.
 `Options: onChangeTime(self, event, isError) => void | null`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   onChangeTime(self, event) {},
 });
 ```
@@ -207,6 +217,8 @@ new Calendar('#calendar', {
 
 ## onCreateDateRangeTooltip()
 
+ESM 마이그레이션: 기존 옵션과 콜백을 유지하고 `vanilla-calendar-pro`에서 `annotations` 확장을 import한 뒤 생성자의 `extensions: [annotations]` 배열에 추가하세요. 함수처럼 호출하지 않습니다.
+
 이 API는 HTML을 받습니다. 신뢰할 수 있는 마크업을 사용하거나, 사용자 또는 신뢰할 수 없는 출처의 콘텐츠에는 [`sanitizerHTML`](/ko/docs/reference/settings#sanitizerhtml)을 설정하세요. 기본 콜백은 HTML을 정제하지 않습니다.
 
 `Type: Function`
@@ -216,7 +228,10 @@ new Calendar('#calendar', {
 `Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
 });
 ```

@@ -95,14 +95,14 @@ If you need to quickly integrate Vanilla Calendar Pro without using build tools 
 
 ## extensions
 
-`motion` provides animations, swipe navigation and month/week collapse. `timePicker` provides the 12/24-hour time editor. `datePopups` provides date popup content and modifiers, including date ranges. ESM bundlers can remove extensions that you do not import and register.
+`motion` provides animations and gestures. `time` provides the 12/24-hour time editor. `annotations` provides date popup content, modifiers and range tooltips. `weeks` provides the weekly view, collapse, week numbers and weekday/week-number callbacks. `months` displays and navigates several months together. ESM bundlers can remove extensions that you do not import and register.
 
 ```ts
-import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const calendar = new Calendar('#calendar', {
-  extensions: [motion, timePicker, datePopups],
+  extensions: [motion, time, annotations],
   animation: true,
   selectionTimeMode: 24,
   popups: { '2026-09-21': { html: 'Event' } },
@@ -110,4 +110,4 @@ const calendar = new Calendar('#calendar', {
 calendar.init();
 ```
 
-Input calendars, date/range selection, month/year pickers, week view and range tooltips remain in the core. The full classic `<script>` / CommonJS distribution includes all three extensions automatically. CSS imports stay the same.
+Input calendars, date/range selection and month/year pickers remain in the core. Weekday headings do not require an extension. The full classic `<script>` / CommonJS distribution includes all five extensions automatically. CSS imports stay the same.

@@ -97,9 +97,11 @@ export class Calendar extends OptionsCalendar {
 }
 
 export type { CalendarExtension } from '@src/extension';
-export { datePopups } from '@src/extensions/datePopups';
+export { annotations } from '@src/extensions/annotations';
+export { months } from '@src/extensions/months';
 export { motion } from '@src/extensions/motion';
-export { timePicker } from '@src/extensions/timePicker';
+export { time } from '@src/extensions/time';
+export { weeks } from '@src/extensions/weeks';
 
 export type {
   AnimationOptions,

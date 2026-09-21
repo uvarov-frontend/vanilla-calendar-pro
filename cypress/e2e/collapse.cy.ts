@@ -7,7 +7,7 @@ type CalendarConstructor = new (selector: HTMLElement | string, options?: Option
 
 const loadCalendar = (win: Window) => {
   const evaluate = (win as Window & { eval: (code: string) => unknown }).eval;
-  return evaluate('import("/package/index.mjs")') as Promise<{ Calendar: CalendarConstructor; motion: CalendarExtension }>;
+  return evaluate('import("/package/index.mjs")') as Promise<{ Calendar: CalendarConstructor; motion: CalendarExtension; weeks: CalendarExtension }>;
 };
 
 const freezeAnimations = () =>
@@ -262,13 +262,13 @@ describe('Collapse', () => {
   it('does not recreate the calendar when destroy interrupts a transition', () => {
     cy.visit('/');
     cy.window().then(async (win) => {
-      const { Calendar, motion } = await loadCalendar(win);
+      const { Calendar, motion, weeks } = await loadCalendar(win);
       const host = win.document.createElement('div');
       host.id = 'calendar-collapse-destroy';
       win.document.body.appendChild(host);
 
       const calendar = new Calendar(host, {
-        extensions: [motion],
+        extensions: [motion, weeks],
         animation: { collapse: { duration: 200 } },
         enableCollapse: true,
         selectedMonth: 3,
@@ -287,13 +287,13 @@ describe('Collapse', () => {
   it('does not let an interrupted transition overwrite update()', () => {
     cy.visit('/');
     cy.window().then(async (win) => {
-      const { Calendar, motion } = await loadCalendar(win);
+      const { Calendar, motion, weeks } = await loadCalendar(win);
       const host = win.document.createElement('div');
       host.id = 'calendar-collapse-update';
       win.document.body.appendChild(host);
 
       const calendar = new Calendar(host, {
-        extensions: [motion],
+        extensions: [motion, weeks],
         animation: { collapse: { duration: 200 } },
         enableCollapse: true,
         selectedMonth: 3,
@@ -312,23 +312,27 @@ describe('Collapse', () => {
   it('ignores collapse controls in incomplete and picker layouts', () => {
     cy.visit('/');
     cy.window().then(async (win) => {
-      const { Calendar, motion } = await loadCalendar(win);
-      const incompleteHost = win.document.createElement('div');
-      win.document.body.appendChild(incompleteHost);
+      const { Calendar, motion, weeks } = await loadCalendar(win);
+      for (const extensions of [[weeks], [weeks, motion]]) {
+        const incompleteHost = win.document.createElement('div');
+        win.document.body.appendChild(incompleteHost);
 
-      const incomplete = new Calendar(incompleteHost, { extensions: [motion], enableCollapse: true, layouts: { default: '<#Collapse />' } });
-      incomplete.init();
-      expect(() => incomplete.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
-      expect(incomplete.context.currentType).to.equal('default');
+        const incomplete = new Calendar(incompleteHost, { extensions, enableCollapse: true, layouts: { default: '<#Collapse />' } });
+        incomplete.init();
+        expect(() => incomplete.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
+        expect(incomplete.context.currentType).to.equal('default');
 
-      const pickerHost = win.document.createElement('div');
-      win.document.body.appendChild(pickerHost);
-      const picker = new Calendar(pickerHost, { extensions: [motion], enableCollapse: true, layouts: { month: '<#Collapse />' } });
-      picker.init();
-      picker.context.mainElement.querySelector<HTMLElement>('[data-vc="month"]')?.click();
-      expect(picker.context.currentType).to.equal('month');
-      expect(() => picker.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
-      expect(picker.context.currentType).to.equal('month');
+        const pickerHost = win.document.createElement('div');
+        win.document.body.appendChild(pickerHost);
+        const picker = new Calendar(pickerHost, { extensions, enableCollapse: true, layouts: { month: '<#Collapse />' } });
+        picker.init();
+        picker.context.mainElement.querySelector<HTMLElement>('[data-vc="month"]')?.click();
+        expect(picker.context.currentType).to.equal('month');
+        expect(() => picker.context.mainElement.querySelector<HTMLElement>('[data-vc="collapse"]')?.click()).not.to.throw();
+        expect(picker.context.currentType).to.equal('month');
+        incomplete.destroy();
+        picker.destroy();
+      }
     });
   });
 });

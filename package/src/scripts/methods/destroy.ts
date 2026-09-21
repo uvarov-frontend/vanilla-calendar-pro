@@ -14,8 +14,8 @@ const destroy = (self: Calendar) => {
   clearRenderState(self);
   const extensions = getExtensions(self);
   extensions.motion?.destroy(self);
-  extensions.timePicker?.destroy(self);
-  extensions.datePopups?.destroy(self);
+  extensions.time?.destroy(self);
+  extensions.annotations?.destroy(self);
   cleanupDateRange(self);
   clearDateRules(self);
   cancelPendingShow(self);

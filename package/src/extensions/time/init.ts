@@ -1,6 +1,6 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
 import setContext from '@scripts/utils/setContext';
-import transformTime12 from '@src/extensions/timePicker/transformTime12';
+import transformTime12 from '@src/extensions/time/transformTime12';
 import type { Calendar } from '@src/index';
 
 const initTime = (self: Calendar) => {

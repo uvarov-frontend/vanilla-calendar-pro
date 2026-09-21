@@ -13,8 +13,8 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recr
   pauseRenderObservation(self);
   const extensions = getExtensions(self);
   extensions.motion?.reset(self);
-  extensions.timePicker?.destroy(self);
-  extensions.datePopups?.destroy(self);
+  extensions.time?.destroy(self);
+  extensions.annotations?.destroy(self);
   cleanupDateRange(self);
 
   const previousSelected = {
@@ -48,7 +48,7 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recr
     if (reuse) getLocale(self);
     if (reuse && reuse.structure === renderStructure(self)) {
       handleTheme(self);
-      extensions.timePicker?.render(self);
+      extensions.time?.render(self);
       updateDateModifiers(self, true);
     } else create(self, false);
   }

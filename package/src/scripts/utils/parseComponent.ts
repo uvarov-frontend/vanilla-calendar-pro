@@ -13,12 +13,3 @@ export const parseLayout = (self: Calendar, template: string): string => {
     })
     .replace(/[\n\t]/g, '');
 };
-
-export const parseMultipleLayout = (self: Calendar, template: string): string => {
-  return template
-    .replace(/<#Multiple>(.*?)<#\/Multiple>/gs, (_, content) => {
-      const repeatedContent = Array(self.context.displayMonthsCount).fill(content).join('');
-      return self.sanitizerHTML(repeatedContent);
-    })
-    .replace(/[\n\t]/g, '');
-};

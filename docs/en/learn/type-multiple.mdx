@@ -6,6 +6,8 @@ section: 2. Calendar Types
 
 # Multiple
 
+ESM migration: keep the existing options and callbacks, import `months` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [months]` array without calling it.
+
 The `'multiple'` calendar type displays multiple months, allowing you to select days in each of them. This type of calendar is useful when the user needs to select multiple dates across different months. To do this, you need to use the `selectionDatesMode` parameter and set its value to `'multiple'`.
 
 Example code for creating a calendar with the `'multiple'` type:

@@ -17,14 +17,14 @@ section: 4
 
 `Default: []`
 
-`motion` provides animations, swipe navigation and month/week collapse. `timePicker` provides the 12/24-hour time editor. `datePopups` provides date popup content and modifiers, including date ranges. ESM bundlers can remove extensions that you do not import and register.
+`motion` provides animations and gestures. `time` provides the 12/24-hour time editor. `annotations` provides date popup content, modifiers and range tooltips. `weeks` provides the weekly view, collapse, week numbers and weekday/week-number callbacks. `months` displays and navigates several months together. ESM bundlers can remove extensions that you do not import and register.
 
 ```ts
-import { Calendar, motion, timePicker, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const calendar = new Calendar('#calendar', {
-  extensions: [motion, timePicker, datePopups],
+  extensions: [motion, time, annotations],
   animation: true,
   selectionTimeMode: 24,
   popups: { '2026-09-21': { html: 'Event' } },
@@ -34,11 +34,13 @@ calendar.init();
 
 Extensions are fixed at construction. Register modules you will enable later through `set()` or `update()`. Those methods still change the existing feature options; they cannot add or remove modules. Reusing the same options or extensions array is supported; each calendar has independent state. Enabling a feature without its extension throws a descriptive error at `init()`, `set()` or `update()`; inactive settings and callbacks do not require a module.
 
-Input calendars, date/range selection, month/year pickers, week view and range tooltips remain in the core. The full classic `<script>` / CommonJS distribution includes all three extensions automatically. CSS imports stay the same.
+Input calendars, date/range selection and month/year pickers remain in the core. Weekday headings do not require an extension. The full classic `<script>` / CommonJS distribution includes all five extensions automatically. CSS imports stay the same.
 
 ---
 
 ## type
+
+For ESM, `type: 'multiple'` requires `months`; `type: 'week'` requires `weeks`. Register the module in the constructor, including when switching to that view later with `set()`.
 
 `Type: String`
 
@@ -395,6 +397,8 @@ This parameter determines whether all days, including disabled days, will be dis
 
 ## displayMonthsCount
 
+ESM migration: keep the existing options and callbacks, import `months` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [months]` array without calling it.
+
 `Type: Number`
 
 `Default: 2`
@@ -402,7 +406,11 @@ This parameter determines whether all days, including disabled days, will be dis
 `Options: from 2 to 12`
 
 ```ts
+import { Calendar, months } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [months],
+  type: 'multiple',
   displayMonthsCount: 2,
 });
 ```
@@ -586,6 +594,8 @@ If the `enableDateToggle` parameter is `true` or the callback returns `true`, th
 
 ## enableWeekNumbers
 
+ESM migration: keep the existing options and callbacks, import `weeks` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [weeks]` array without calling it.
+
 `Type: Boolean`
 
 `Default: false`
@@ -593,7 +603,10 @@ If the `enableDateToggle` parameter is `true` or the callback returns `true`, th
 `Options: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableWeekNumbers: true,
 });
 ```
@@ -643,7 +656,7 @@ If this option is enabled and one or more selected dates are specified, but with
 
 ## enableCollapse
 
-When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `motion` in the constructor with `extensions: [motion]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `weeks` in the constructor with `extensions: [weeks]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
 
 `Type: Boolean`
 
@@ -652,10 +665,10 @@ When upgrading from a version without extensions, keep your existing options and
 `Options: true | false`
 
 ```ts
-import { Calendar, motion } from 'vanilla-calendar-pro';
+import { Calendar, weeks } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [motion],
+  extensions: [weeks],
   enableCollapse: true,
 });
 ```
@@ -665,6 +678,9 @@ Adds a control under the grid that folds the month down to one week and unfolds 
 <Info>`enableCollapse` does not require `enableSwipe` or `animation`. Collapsing switches `type` to `'week'`, so reading `calendar.type` tells you the current state, and `set({ type: 'week' })` does the same thing without the transition. Only the `default` and `week` types support this option; other types throw during `init()`.</Info>
 
 ---
+
+
+`weeks` owns collapse/expand and works without `motion`: clicking the control switches views immediately. Register both `weeks` and `motion` for dragging; enable `animation` for animated settling. `motion` alone does not include the weekly view.
 
 ## enableSwipe
 
@@ -751,7 +767,7 @@ This parameter allows you to disable year selection, allow year switching only w
 
 ## selectionTimeMode
 
-When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `timePicker` in the constructor with `extensions: [timePicker]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `time` in the constructor with `extensions: [time]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
 
 `Type: false | Number`
 
@@ -760,10 +776,10 @@ When upgrading from a version without extensions, keep your existing options and
 `Options: false | 24 | 12`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   selectionTimeMode: 24,
 });
 ```
@@ -868,7 +884,7 @@ This parameter allows you to specify the weekend days of the week. Specify an ar
 
 ## selectedTime
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: String`
 
@@ -877,10 +893,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: 'hh:mm aa' | null`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   selectedTime: '03:44 AM',
 });
 ```
@@ -909,7 +925,7 @@ This parameter defines the theme of the calendar. By default, the theme is deter
 
 ## timeMinHour
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -918,10 +934,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 0 to 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMinHour: 0,
 });
 ```
@@ -932,7 +948,7 @@ This parameter specifies which hour will be the minimum for selection.
 
 ## timeMaxHour
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -941,10 +957,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 0 to 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMaxHour: 23,
 });
 ```
@@ -955,7 +971,7 @@ This parameter specifies which hour will be the maximum for selection.
 
 ## timeMinMinute
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -964,10 +980,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 0 to 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMinMinute: 0,
 });
 ```
@@ -978,7 +994,7 @@ This parameter specifies which minute will be the minimum for selection.
 
 ## timeMaxMinute
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -987,10 +1003,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 0 to 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeMaxMinute: 59,
 });
 ```
@@ -1001,7 +1017,7 @@ This parameter specifies which minute will be the maximum for selection.
 
 ## timeControls
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: String`
 
@@ -1010,10 +1026,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: 'all' | 'range'`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeControls: 'all',
 });
 ```
@@ -1024,7 +1040,7 @@ This parameter defines the method of time selection: `'all'` (any method) or `'r
 
 ## timeStepHour
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -1033,10 +1049,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 1 to 23`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeStepHour: 1,
 });
 ```
@@ -1047,7 +1063,7 @@ This parameter sets the step for the hour controller.
 
 ## timeStepMinute
 
-ESM: requires `timePicker` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
 
 `Type: Number`
 
@@ -1056,10 +1072,10 @@ ESM: requires `timePicker` in the constructor’s `extensions` array; keep this 
 `Options: from 1 to 59`
 
 ```ts
-import { Calendar, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, time } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [timePicker],
+  extensions: [time],
   timeStepMinute: 1,
 });
 ```

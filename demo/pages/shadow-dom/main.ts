@@ -1,6 +1,6 @@
 import '../../workbench';
 
-import { Calendar, motion, type Options } from '@src/index';
+import { Calendar, motion, type Options, weeks } from '@src/index';
 import calendarStyles from '@src/styles/index.css?inline';
 import controlStyles from './controls.css?inline';
 
@@ -36,6 +36,7 @@ class ShadowCalendarInput extends HTMLElement {
       const inputEl = shadow.querySelector('[data-vc-shadow-input]') as HTMLInputElement;
 
       const options: Options = {
+        extensions: [weeks, motion],
         inputMode: true,
         positionToInput: 'auto',
         selectedTheme: 'system',
@@ -84,7 +85,10 @@ class ShadowCalendarPlain extends HTMLElement {
     shadow.appendChild(wrapper);
 
     const targetEl = shadow.querySelector('[data-vc-shadow-plain]') as HTMLElement;
-    const options: Options = { selectedTheme: 'system' };
+    const options: Options = {
+      extensions: [weeks, motion],
+      selectedTheme: 'system',
+    };
 
     this.calendar = new Calendar(targetEl, options);
     this.calendar.init();
@@ -100,7 +104,7 @@ customElements.define('shadow-calendar-plain', ShadowCalendarPlain);
 // Gestures inside a shadow root: the pointer listeners live on the calendar element, but the
 // move/up pair is bound to window, so both have to survive crossing the shadow boundary.
 const gestureOptions: Options = {
-  extensions: [motion],
+  extensions: [motion, weeks],
   animation: true,
   enableCollapse: true,
   enableSwipe: true,
@@ -133,6 +137,7 @@ class ShadowCalendarGesturesInput extends HTMLElement {
     const inputEl = shadow.querySelector('[data-vc-shadow-input]') as HTMLInputElement;
 
     this.calendar = new Calendar(inputEl, {
+      extensions: [weeks, motion],
       ...gestureOptions,
       inputMode: true,
       positionToInput: 'auto',

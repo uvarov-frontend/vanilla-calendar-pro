@@ -1,13 +1,7 @@
 import { isEnabled } from '@src/extensions/motion/animate';
 import type { Calendar } from '@src/index';
 
-export type Transition = {
-  distance: number;
-  from: number;
-  track: () => void;
-  seek: (progress: number) => void;
-  settle: (toEnd: boolean) => void;
-};
+export type { Transition } from '@src/extension';
 
 export const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
 

@@ -6,7 +6,7 @@ section: 6
 
 # 弹出窗口
 
-从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `datePopups` 的具名导入，并在构造函数中配置 `extensions: [datePopups]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `annotations` 的具名导入，并在构造函数中配置 `extensions: [annotations]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
 
 此要求适用于 `popups` 选项，包括仅含 `modifier` 的条目。`inputMode` 打开的日历和范围提示（`onCreateDateRangeTooltip`）不需要此扩展。
 
@@ -21,10 +21,10 @@ section: 6
 `选项: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {},
     '2022-07-01:2022-07-05': {},
@@ -47,10 +47,10 @@ new Calendar('#calendar', {
 `选项: CSS 类 | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',
@@ -74,10 +74,10 @@ new Calendar('#calendar', {
 `选项: '' | HTML | null`
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',

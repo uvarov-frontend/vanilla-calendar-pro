@@ -6,18 +6,18 @@ section: 6. 附加功能
 
 # 弹出窗口和工具提示
 
-从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `datePopups` 的具名导入，并在构造函数中配置 `extensions: [datePopups]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `annotations` 的具名导入，并在构造函数中配置 `extensions: [annotations]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
 
 ```ts
-import { Calendar, datePopups } from 'vanilla-calendar-pro';
+import { Calendar, annotations } from 'vanilla-calendar-pro';
 
 new Calendar('#calendar', {
-  extensions: [datePopups],
+  extensions: [annotations],
   popups: { '2026-09-21': { html: 'Event' } },
 }).init();
 ```
 
-此要求适用于 `popups` 选项，包括仅含 `modifier` 的条目。`inputMode` 打开的日历和范围提示（`onCreateDateRangeTooltip`）不需要此扩展。
+`popups`（包括仅含修饰符的条目）和 `onCreateDateRangeTooltip` 需要 `annotations`。通过 `inputMode` 打开的日历仍属于核心功能。
 
 ## 弹出窗口
 

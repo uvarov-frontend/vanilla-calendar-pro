@@ -1,6 +1,6 @@
 import '../../workbench';
 
-import { Calendar, motion, type Options } from '@src/index';
+import { Calendar, months, motion, type Options } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const configMultiple: Options = {
-    extensions: [motion],
+    extensions: [months, motion],
     type: 'multiple',
     animation: { duration: 300 },
     displayMonthsCount: 2,

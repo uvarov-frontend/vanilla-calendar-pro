@@ -1,9 +1,9 @@
-import { Calendar, datePopups, type Options } from 'vanilla-calendar-pro';
+import { annotations, Calendar, type Options } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  extensions: [datePopups],
+  extensions: [annotations],
   selectedMonth: 6,
   selectedYear: 2024,
   popups: {

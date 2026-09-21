@@ -21,7 +21,9 @@ function mount(module, options = {}) {
   wrapper.append(host);
   document.body.append(wrapper);
   const calendar = new module.Calendar(host, {
-    ...(module.motion ? { extensions: [module.motion, module.timePicker, module.datePopups] } : {}),
+    ...(module.motion
+      ? { extensions: [module.motion, module.time ?? module.timePicker, module.annotations ?? module.datePopups, module.weeks, module.months].filter(Boolean) }
+      : {}),
     ...defaults,
     ...options,
   });
@@ -469,7 +471,13 @@ window.runStartup = async ({ variant, scenario }) => {
   const constructorStart = performance.now();
   const calendar = new module.Calendar(host, {
     ...(module.motion
-      ? { extensions: [options.selectionTimeMode ? module.timePicker : undefined, options.popups ? module.datePopups : undefined].filter(Boolean) }
+      ? {
+          extensions: [
+            options.selectionTimeMode ? (module.time ?? module.timePicker) : undefined,
+            options.popups ? (module.annotations ?? module.datePopups) : undefined,
+            options.type === 'multiple' ? module.months : undefined,
+          ].filter(Boolean),
+        }
       : {}),
     ...defaults,
     ...options,

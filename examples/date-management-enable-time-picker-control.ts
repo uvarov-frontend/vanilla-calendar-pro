@@ -1,9 +1,9 @@
-import { Calendar, type Options, timePicker } from 'vanilla-calendar-pro';
+import { Calendar, type Options, time } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  extensions: [timePicker],
+  extensions: [time],
   selectionTimeMode: 12,
   timeControls: 'range',
   timeStepHour: 5,

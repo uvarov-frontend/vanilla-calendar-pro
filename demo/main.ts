@@ -1,6 +1,6 @@
 import './workbench';
 
-import { Calendar, timePicker } from '@src/index';
+import { Calendar, time } from '@src/index';
 
 import '@src/styles/index.css';
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const calendar = new Calendar('#calendar', {
-    extensions: [timePicker],
+    extensions: [time],
     selectedMonth: 3,
     selectedYear: 2023,
     selectionTimeMode: 12,

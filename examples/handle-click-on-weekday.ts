@@ -1,8 +1,9 @@
-import { Calendar, type FormatDateString, type Options } from 'vanilla-calendar-pro';
+import { Calendar, type FormatDateString, type Options, weeks } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
+  extensions: [weeks],
   selectionDatesMode: 'multiple',
   onClickWeekDay(self, _day, dateEls) {
     const selectedDates = dateEls.map((dateEl) => dateEl.dataset.vcDate) as FormatDateString[];

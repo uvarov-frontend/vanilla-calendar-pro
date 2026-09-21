@@ -93,8 +93,12 @@ function mount(module, options) {
       ? {
           extensions: [
             options.animation || options.enableSwipe || options.enableCollapse ? module.motion : undefined,
-            options.selectionTimeMode ? module.timePicker : undefined,
-            options.popups ? module.datePopups : undefined,
+            options.selectionTimeMode ? (module.time ?? module.timePicker) : undefined,
+            options.popups || options.onCreateDateRangeTooltip ? (module.annotations ?? module.datePopups) : undefined,
+            options.type === 'multiple' ? module.months : undefined,
+            options.type === 'week' || options.enableCollapse || options.enableWeekNumbers || options.onClickWeekDay || options.onClickWeekNumber
+              ? module.weeks
+              : undefined,
           ].filter(Boolean),
         }
       : {}),

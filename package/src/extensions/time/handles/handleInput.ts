@@ -1,7 +1,7 @@
 import setContext from '@scripts/utils/setContext';
-import handleActions from '@src/extensions/timePicker/handles/handleActions';
-import transformTime12 from '@src/extensions/timePicker/transformTime12';
-import transformTime24 from '@src/extensions/timePicker/transformTime24';
+import handleActions from '@src/extensions/time/handles/handleActions';
+import transformTime12 from '@src/extensions/time/transformTime12';
+import transformTime24 from '@src/extensions/time/transformTime24';
 import type { Calendar, ContextVariables } from '@src/index';
 
 const updateInputAndRange = (inputEl: HTMLInputElement, rangeEl: HTMLInputElement, valueInput: string, valueRange: string) => {

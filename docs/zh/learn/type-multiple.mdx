@@ -6,6 +6,8 @@ section: 2. 日历类型
 
 # 多选
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `months`，并加入构造函数的 `extensions: [months]` 数组，无需调用扩展函数。
+
 `'multiple'` 日历类型显示多个月份，允许您在其中的每一个月份中选择日期。当用户需要在不同月份中选择多个日期时，这种类型的日历非常有用。为此，您需要使用 `selectionDatesMode` 参数并将其值设置为 `'multiple'`。
 
 创建 `'multiple'` 类型日历的示例代码：

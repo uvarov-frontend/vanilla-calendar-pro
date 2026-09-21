@@ -4,7 +4,7 @@ import { fixedToday } from '../support/calendar';
 type Api = Window & {
   Object: ObjectConstructor;
   Calendar: typeof Calendar;
-  calendarExtensions: Record<'motion' | 'timePicker' | 'datePopups', CalendarExtension>;
+  calendarExtensions: Record<CalendarExtension['name'], CalendarExtension>;
 };
 const api = () => cy.window().then((win) => win as unknown as Api);
 const injection = `Calendar & <text> " onpointerover="window.__vcpInjected=1" data-injected="'`;
@@ -96,7 +96,7 @@ for (const format of ['module', 'script']) {
         api().then((win) => {
           const instance = new win.Calendar('#calendar', {
             type,
-            extensions: [win.calendarExtensions.motion, win.calendarExtensions.timePicker],
+            extensions: Object.values(win.calendarExtensions),
             enableWeekNumbers: true,
             enableCollapse: type === 'default' || type === 'week',
             selectionTimeMode: 12,
@@ -127,7 +127,7 @@ for (const format of ['module', 'script']) {
     it('does not interpret forged numeric time settings as HTML', () => {
       api().then((win) => {
         const instance = new win.Calendar('#calendar', {
-          extensions: [win.calendarExtensions.timePicker],
+          extensions: [win.calendarExtensions.time],
           selectionTimeMode: 24,
           timeMinHour: injection,
           timeMinMinute: injection,
@@ -149,6 +149,7 @@ for (const format of ['module', 'script']) {
             months: { short: Array(12).fill(injection), long: Array(12).fill(injection) },
             weekdays: { short: Array(7).fill(injection), long: Array(7).fill(injection) },
           },
+          extensions: [win.calendarExtensions.weeks],
           onClickWeekDay() {},
         });
         instance.init();
@@ -167,6 +168,7 @@ for (const format of ['module', 'script']) {
         const instance = new win.Calendar('#calendar', {
           selectionDatesMode: 'multiple-ranged',
           selectedDates: ['2024-06-20'],
+          extensions: [win.calendarExtensions.annotations],
           onCreateDateRangeTooltip: () => '<b data-user-content>Range</b>',
           sanitizerHTML: (html) => html.replace(/data-user-content/g, 'data-sanitized-content'),
         });
@@ -194,7 +196,7 @@ for (const format of ['module', 'script']) {
       api().then((win) => {
         const sanitizer = cy.spy((html: string) => html.replace(/data-user-content/g, 'data-sanitized-content'));
         const instance = new win.Calendar('#calendar', {
-          extensions: [win.calendarExtensions.datePopups],
+          extensions: [win.calendarExtensions.annotations],
           layouts: { default: '<div data-user-content="layout"><#Dates /></div>' },
           popups: { '2024-06-20': { html: '<strong data-user-content="popup">Event &amp; details</strong>' } },
           sanitizerHTML: sanitizer,

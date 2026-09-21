@@ -1,6 +1,6 @@
-import createDateRangeTooltip from '@scripts/creators/createDates/createDateRangeTooltip';
 import getRangeState from '@scripts/handles/handleSelectDateRange/state';
 import type { Calendar } from '@src/index';
+import createDateRangeTooltip from './renderTooltip';
 
 const handleHoverSelectedDatesRangeEvent = (self: Calendar, target: HTMLElement | null) => {
   const state = getRangeState(self);

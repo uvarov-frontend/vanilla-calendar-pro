@@ -66,7 +66,7 @@ describe('Classic script distribution without a module loader', () => {
         popups: { '2024-06-20': { html: 'Event' } },
       });
       win.instance.init();
-      expect(win.instance.extensions).to.have.length(3);
+      expect(win.instance.extensions).to.have.length(5);
     });
     cy.get('[data-vc-date-popup]').should('contain.text', 'Event');
     cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-swipe');
@@ -74,5 +74,8 @@ describe('Classic script distribution without a module loader', () => {
     cy.get('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
     api().then(({ instance }) => instance.set({ selectionTimeMode: 24, selectedTime: '09:15' }));
     hour().should('have.value', '09');
+    api().then(({ instance }) => instance.set({ type: 'multiple', enableCollapse: false, displayMonthsCount: 2, enableWeekNumbers: true }));
+    cy.get('[data-vc="column"]').should('have.length', 2);
+    cy.get('[data-vc-week-number]').should('exist');
   });
 });

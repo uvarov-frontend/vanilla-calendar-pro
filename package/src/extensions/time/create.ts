@@ -1,8 +1,8 @@
 import escapeHTML from '@scripts/utils/escapeHTML';
-import handleTime from '@src/extensions/timePicker/handles/handleTime';
-import TimeInput from '@src/extensions/timePicker/TimeInput';
-import TimeRange from '@src/extensions/timePicker/TimeRange';
-import transformTime24 from '@src/extensions/timePicker/transformTime24';
+import handleTime from '@src/extensions/time/handles/handleTime';
+import TimeInput from '@src/extensions/time/TimeInput';
+import TimeRange from '@src/extensions/time/TimeRange';
+import transformTime24 from '@src/extensions/time/transformTime24';
 import type { Calendar, ContextVariables } from '@src/index';
 
 const cleanups = new WeakMap<Calendar, () => void>();

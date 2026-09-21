@@ -1,8 +1,9 @@
-import { Calendar, type Options } from 'vanilla-calendar-pro';
+import { annotations, Calendar, type Options } from 'vanilla-calendar-pro';
 
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
+  extensions: [annotations],
   selectionDatesMode: 'multiple-ranged',
   onCreateDateRangeTooltip(self) {
     const createRow = (title: string, value: string) =>

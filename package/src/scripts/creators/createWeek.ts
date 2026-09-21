@@ -1,3 +1,4 @@
+import { getExtensions } from '@src/extension';
 import type { Calendar, WeekDayID } from '@src/index';
 
 const createWeek = (self: Calendar) => {
@@ -12,12 +13,8 @@ const createWeek = (self: Calendar) => {
 
   // A columnheader is not a role a button may carry, so the clickable variant keeps the header
   // cell as its own element and nests the button inside it.
-  const isClickable = !!self.onClickWeekDay;
-  const templateWeekDayEl = document.createElement(isClickable ? 'div' : 'b');
-  const templateWeekDayBtnEl = document.createElement('button');
-  templateWeekDayBtnEl.type = 'button';
-  templateWeekDayBtnEl.className = self.styles.weekDayBtn;
-  templateWeekDayBtnEl.dataset.vcWeekDayBtn = '';
+  const createButton = getExtensions(self).weeks?.weekday(self);
+  const templateWeekDayEl = document.createElement(createButton ? 'div' : 'b');
 
   self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="week"]').forEach((weekEl) => {
     weekdays.forEach((weekday) => {
@@ -28,14 +25,8 @@ const createWeek = (self: Calendar) => {
       weekDayEl.dataset.vcWeekDay = String(weekday.id);
       if (weekday.isWeekend) weekDayEl.dataset.vcWeekDayOff = '';
 
-      if (isClickable) {
-        const weekDayBtnEl = templateWeekDayBtnEl.cloneNode(false) as HTMLButtonElement;
-        weekDayBtnEl.innerText = weekday.titleShort;
-        weekDayBtnEl.ariaLabel = weekday.titleLong;
-        weekDayEl.appendChild(weekDayBtnEl);
-      } else {
-        weekDayEl.innerText = weekday.titleShort;
-      }
+      if (createButton) createButton(weekDayEl, weekday.titleShort, weekday.titleLong);
+      else weekDayEl.innerText = weekday.titleShort;
 
       weekEl.appendChild(weekDayEl);
     });

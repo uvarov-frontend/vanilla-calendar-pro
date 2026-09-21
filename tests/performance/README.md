@@ -84,7 +84,7 @@ When continuing in another chat, point to this file and name the slow real-world
 
 ## Extension-aware comparisons
 
-For ESM revisions with extensions, timing fixtures register only modules needed by the measured options. Rendering parity and lifecycle fixtures register all available modules so later `set()` changes still exercise the same behavior; older baselines have no module exports and need no registration. No wrapper or global auto-registration is inserted into the measured Calendar implementation.
+For ESM revisions with extensions, timing fixtures register only modules needed by the measured options. Rendering parity and lifecycle fixtures register all available modules so later `set()` changes still exercise the same behavior; the fixtures also accept the previous timePicker/datePopups names, and older baselines without module exports need no registration. No wrapper or global auto-registration is inserted into the measured Calendar implementation.
 
 The `index.mjs` artifact and cold-start measurements include the complete published ESM file. They do not measure the download size after a consumer bundler removes unused extensions. Run `pnpm test:package` for separate consumer builds of core, each extension and all extensions together: it checks that unused implementations disappear, keeps raw/gzip budgets, and reports raw, gzip and Brotli sizes. Keep full-distribution and consumer figures separate in comparisons.
 

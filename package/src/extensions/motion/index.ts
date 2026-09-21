@@ -1,13 +1,11 @@
 import type { CalendarExtension, MotionExtension } from '@src/extension';
 import animate, { captureOpacity, cleanupPending, playOpacity } from './animate';
-import Collapse from './Collapse';
-import click from './click';
+import collapse from './gestures/collapseTransition';
 import handleGestures, { cleanupGestures, resetGestures } from './gestures/handleGestures';
 
-/** Animations, swipes and month/week collapse. Configuration stays on Calendar. */
+/** Animations and gestures for the registered calendar views. Configuration stays on Calendar. */
 export const motion: CalendarExtension = /* @__PURE__ */ Object.freeze({
   name: 'motion',
-  component: Collapse,
   bind: handleGestures,
   reset(self) {
     resetGestures(self);
@@ -17,7 +15,7 @@ export const motion: CalendarExtension = /* @__PURE__ */ Object.freeze({
     cleanupGestures(self.context.mainElement);
     cleanupPending(self.context.mainElement);
   },
-  click,
+  collapse,
   navigate: animate,
   changeView(self, column, render) {
     const selector = '[data-vc="column"]';
