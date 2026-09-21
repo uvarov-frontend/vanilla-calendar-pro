@@ -427,6 +427,28 @@ describe('Customization and accessibility', () => {
     selected(['2024-06-20']);
   });
 
+  it('keeps dates clickable before the popup positioning frame runs', () => {
+    let positionPopup: FrameRequestCallback;
+    api().then((win) => {
+      cy.stub(win, 'requestAnimationFrame').callsFake((callback: FrameRequestCallback) => {
+        positionPopup = callback;
+        return 1;
+      });
+    });
+    mount({ popups: { '2024-06-20': { html: '<b>Details</b>' } } });
+    day('2024-06-20').click(10, 15);
+    selected(['2024-06-20']);
+    cy.then(() => positionPopup(0));
+    cy.get('[data-vc-date-popup]').should(($popup) => {
+      const popup = $popup[0];
+      const date = popup.parentElement!;
+      expect(popup.style.top).not.to.equal('');
+      expect(popup.getBoundingClientRect().top).to.be.at.least(date.getBoundingClientRect().bottom);
+    });
+    day('2024-06-20').click(10, 15);
+    selected([]);
+  });
+
   it('calls month/year creation hooks and preserves their output', () => {
     mount({
       onCreateMonthEls: (_self, element) => element.setAttribute('data-custom-month', ''),

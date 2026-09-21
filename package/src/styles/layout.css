@@ -288,6 +288,9 @@
 }
 
 [data-vc-date-popup] {
+  /* Keep the date clickable until the positioning frame chooses the final side. */
+  top: 100%;
+  left: 0;
   transform: translateX(-50%);
   @apply absolute z-20 min-w-20 max-w-36 py-1 px-2 text-xs font-normal rounded-lg transition-opacity duration-75 opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
 }

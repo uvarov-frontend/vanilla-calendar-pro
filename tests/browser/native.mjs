@@ -72,6 +72,31 @@ export async function nativeChecks({ browser: name, executablePath, url, output 
         assert.deepEqual(await page.evaluate(() => window.instance.context.selectedDates), ['2024-06-22']);
       },
     );
+    await check('date popups preserve native clicks before and after their positioning frame', {}, async (page) => {
+      await page.evaluate(() => {
+        const requestFrame = window.requestAnimationFrame;
+        const pending = [];
+        window.requestAnimationFrame = (callback) => pending.push(callback);
+        window.flushPopupPosition = () => {
+          window.requestAnimationFrame = requestFrame;
+          pending.forEach((callback) => callback(performance.now()));
+        };
+        window.instance.set({ popups: { '2024-06-20': { html: '<a href="#popup-details">Details</a>' } } });
+      });
+      const date = page.locator('[data-vc-date="2024-06-20"] [data-vc-date-btn]');
+      const box = await date.boundingBox();
+      // Use real hit testing over the part that an unpositioned popup can cover.
+      await page.mouse.move(box.x + 10, box.y + box.height / 2);
+      await page.mouse.click(box.x + 10, box.y + box.height / 2);
+      assert.deepEqual(await page.evaluate(() => window.instance.context.selectedDates), ['2024-06-20']);
+      await page.evaluate(() => window.flushPopupPosition());
+      await date.focus();
+      await page.locator('[data-vc-date-popup] a').click();
+      assert.equal(new URL(page.url()).hash, '#popup-details');
+      assert.deepEqual(await page.evaluate(() => window.instance.context.selectedDates), ['2024-06-20']);
+      await date.click();
+      assert.deepEqual(await page.evaluate(() => window.instance.context.selectedDates), []);
+    });
     await check('native swipe retains capture outside the calendar and releases it', { enableSwipe: true, animation: true }, async (page) => {
       await beginSwipe(page);
       await page.mouse.move(1, 150, { steps: 5 });
