@@ -88,7 +88,7 @@ const handleGestures = (self: Calendar) => {
 
     try {
       const transition = current.vertical ? buildCollapse(self) : buildSwipe(self, dx < 0 ? 'next' : 'prev', event.target as HTMLElement);
-      if (!transition || !transition.distance) {
+      if (!transition?.distance) {
         return stopDragging();
       }
 

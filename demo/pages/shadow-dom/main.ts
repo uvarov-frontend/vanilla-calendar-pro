@@ -1,5 +1,8 @@
+import '../../workbench';
+
 import { Calendar, type Options } from '@src/index';
 import calendarStyles from '@src/styles/index.css?inline';
+import controlStyles from './controls.css?inline';
 
 class ShadowCalendarInput extends HTMLElement {
   calendar?: Calendar;
@@ -8,17 +11,20 @@ class ShadowCalendarInput extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
-    style.textContent = `${calendarStyles} input { padding: 8px; font-size: 14px; } button { min-height: 24px; }`;
+    style.textContent = `${calendarStyles} ${controlStyles}`;
     shadow.appendChild(style);
 
     const wrapper = document.createElement('div');
+    wrapper.className = 'shadow-controls';
     wrapper.innerHTML = `
       <label>
-        <div>Calendar inside Shadow DOM (${this.id})</div>
-        <input type="text" readonly data-vc-shadow-input />
+        Date
+        <input type="text" readonly placeholder="Choose a date" data-vc-shadow-input />
       </label>
-      <button type="button" data-vc-shadow-init>Init</button>
-      <button type="button" data-vc-shadow-destroy>Destroy</button>
+      <div class="shadow-actions">
+        <button type="button" data-vc-shadow-init>Initialize</button>
+        <button type="button" data-vc-shadow-destroy>Destroy</button>
+      </div>
     `;
     shadow.appendChild(wrapper);
 
@@ -68,12 +74,11 @@ class ShadowCalendarPlain extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
-    style.textContent = calendarStyles;
+    style.textContent = `${calendarStyles} ${controlStyles}`;
     shadow.appendChild(style);
 
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
-      <div>Plain calendar inside Shadow DOM (${this.id})</div>
       <div data-vc-shadow-plain></div>
     `;
     shadow.appendChild(wrapper);
@@ -111,13 +116,16 @@ class ShadowCalendarGesturesInput extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
-    style.textContent = `${calendarStyles} input { padding: 8px; font-size: 14px; }`;
+    style.textContent = `${calendarStyles} ${controlStyles}`;
     shadow.appendChild(style);
 
     const wrapper = document.createElement('div');
+    wrapper.className = 'shadow-controls';
     wrapper.innerHTML = `
-      <div>Shadow DOM + inputMode + gestures (${this.id})</div>
-      <input type="text" readonly aria-label="Pick a date" data-vc-shadow-input>
+      <label>
+        Date
+        <input type="text" readonly placeholder="Choose a date" data-vc-shadow-input>
+      </label>
     `;
     shadow.appendChild(wrapper);
 
@@ -148,12 +156,11 @@ class ShadowCalendarGesturesPlain extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const style = document.createElement('style');
-    style.textContent = calendarStyles;
+    style.textContent = `${calendarStyles} ${controlStyles}`;
     shadow.appendChild(style);
 
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
-      <div>Shadow DOM + gestures (${this.id})</div>
       <div data-vc-shadow-plain></div>
     `;
     shadow.appendChild(wrapper);

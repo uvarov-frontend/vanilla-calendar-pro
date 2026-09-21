@@ -3,7 +3,7 @@ import { Calendar, type Options } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
-  onCreateDateEls(self, dateEl) {
+  onCreateDateEls(_self, dateEl) {
     const randomBoolean = Math.random() < 0.5;
     if (!randomBoolean) return;
     const randomPrice = Math.floor(Math.random() * (999 - 100 + 1) + 100);

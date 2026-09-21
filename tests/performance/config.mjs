@@ -18,7 +18,7 @@ export const coreScenarios = [
 
 export const help = `Calendar performance checks (Node 22+, Git, tar and Chrome/Chromium).
 
-npm run test:performance -- [options]
+pnpm test:performance [options]
 
   --baseline=HEAD                Git revision to compare with the working tree
   --suite=timing                 timing | checks | extended | all

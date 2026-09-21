@@ -49,10 +49,12 @@ Feel free to report any issues or share your ideas—your feedback is invaluable
 
 ### Installation
 
-You can install it using `npm` or `yarn`:
+You can install it using `npm`, `pnpm`, or `yarn`:
 
 ```sh
 npm install vanilla-calendar-pro
+# or
+pnpm add vanilla-calendar-pro
 # or
 yarn add vanilla-calendar-pro
 ```
@@ -103,8 +105,8 @@ The calendar can automatically switch between a light or dark theme depending on
 
 - The `index.css` file contains all the styles from the `layout.css` file, as well as the light and dark theme styles.
 - The `layout.css` file contains the essential structural styles for the calendar.
-- The `themes/light.min.css` theme provides a light color scheme.
-- The `themes/dark.min.css` theme offers a dark color scheme.
+- The `themes/light.css` theme provides a light color scheme.
+- The `themes/dark.css` theme offers a dark color scheme.
 - ...and others
 
 If you want to apply a specific theme, it is recommended to import `layout.css` along with your preferred theme instead of `index.css`.
@@ -156,9 +158,35 @@ For detailed information on the available parameters and settings, please refer 
 
 This project is tested with BrowserStack.
 
+## Development
+
+Automatic checks, server deployment and npm Trusted Publishing are described in the [CI and release guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/.github/README.md).
+
+Use the Node and pnpm versions pinned in `package.json` (`engines.node` and `packageManager`; enable pnpm with `corepack enable`). CI reads its Node version from the same file. From the repository checkout:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+pnpm lint
+pnpm lint:fix
+pnpm package:build
+pnpm test:package
+pnpm test:cypress
+```
+
+Biome handles code formatting, linting, and import sorting. `pnpm format:check` only checks formatting. Generated builds and the lockfile are excluded. CSS specificity and `!important` rules are disabled because calendar modifiers and demo overrides intentionally use the cascade; browser fallback declarations are kept.
+
+Tailwind stays on stable 3.4 to preserve browser compatibility. TypeScript 6 is used while declaration tooling still depends on its compiler API; Cypress 15 matches the supported peer range of `cypress-axe`. These are development dependencies and are not included in the published calendar. Deployments that build from source need the same Node/pnpm versions as CI.
+
+Package builds use Vite/Rolldown with Oxc compression and final Terser minification, targeting ES2015 with Terser's Safari 10 workaround. ESM annotations are preserved for consumer tree shaking; CSS imports are marked as side effects. Declarations for both entry points are generated together. CSS uses Tailwind 3, Autoprefixer and cssnano. The standalone `package/dist/package.zip` is intentionally included in the npm package so it can be downloaded through a CDN.
+
+`pnpm test:package` builds and packs the actual distribution in an OS temporary directory. It checks package contents, ESM/CommonJS/browser-global/AMD exports, ES2015 syntax, raw JS size budgets, consumer tree shaking (including CSS retention), and every example against the packed TypeScript declarations in bundler and NodeNext resolution modes. It requires `tar` and cleans up its temporary files. Size budgets live in `tests/package/package.test.mjs`; review any increase before changing them. Syntax checks do not replace testing on the oldest supported browsers.
+
+`pnpm test:cypress` checks the packed library in a browser, including every example, public methods, date/time selection, input integration, gestures, Shadow DOM and accessibility. `pnpm test:cypress:browsers` runs Chrome, Firefox and experimental WebKit sequentially, with additional native-input checks in Chrome/WebKit. `pnpm test:timezones` checks calendar behavior in 10 timezones in Chrome and WebKit. Reports and failure screenshots stay in an OS temporary directory. See [the browser test guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/browser/README.md) for prerequisites, focused runs and coverage details.
+
 ## Performance checks
 
-For contributors, [the performance harness](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/performance/README.md) compares the working tree with a Git revision, measures production bundles, and checks rendering and lifecycle behavior. Start with `npm run test:performance -- --suite=all --quick` from the repository checkout; results are saved outside the repository.
+For contributors, [the performance harness](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/performance/README.md) compares the working tree with a Git revision, measures production bundles, and checks rendering and lifecycle behavior. Start with `pnpm test:performance --suite=all --quick` from the repository checkout; results are saved outside the repository.
 
 ## License
 

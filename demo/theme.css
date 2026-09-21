@@ -1,0 +1,66 @@
+:root {
+  color-scheme: light;
+  background: #fff;
+  color: #1a1a1a;
+  --dev-bg: #fff;
+  --dev-panel: #fff;
+  --dev-sidebar: #fff;
+  --dev-canvas: #f6f6f6;
+  --dev-text: #1a1a1a;
+  --dev-muted: #6b6b70;
+  --dev-line: #e8e8e8;
+  --dev-accent: #0b0b0c;
+  --dev-accent-soft: #f6f6f6;
+  --dev-nav-indicator: #36f25b;
+  --dev-code: #f6f8fa;
+  --dev-code-text: #24292f;
+  --dev-code-line: #d8dee4;
+  --dev-code-control: #fff;
+  --dev-code-hover: #eaeef2;
+  --dev-code-keyword: #cf222e;
+  --dev-code-string: #0a3069;
+  --dev-code-number: #0550ae;
+  --dev-code-title: #8250df;
+  --dev-code-comment: #57606a;
+  --dev-code-meta: #953800;
+  --dev-code-tag: #116329;
+  --dev-scroll-thumb: #c5c8cd;
+  --dev-mono: "JetBrains Mono", monospace;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background: #0d0f12;
+  color: #dfe4ea;
+  --dev-bg: #0d0f12;
+  --dev-panel: #14181e;
+  --dev-sidebar: #0d0f12;
+  --dev-canvas: #10141a;
+  --dev-text: #dfe4ea;
+  --dev-muted: #98a2ae;
+  --dev-line: #262c35;
+  --dev-accent: #f2f5f8;
+  --dev-accent-soft: #161a20;
+  --dev-code: #0a0d11;
+  --dev-code-text: #e6edf3;
+  --dev-code-line: #262c35;
+  --dev-code-control: #14181e;
+  --dev-code-hover: #1c222a;
+  --dev-code-keyword: #ff7b72;
+  --dev-code-string: #a5d6ff;
+  --dev-code-number: #79c0ff;
+  --dev-code-title: #d2a8ff;
+  --dev-code-comment: #8b949e;
+  --dev-code-meta: #ffa657;
+  --dev-code-tag: #7ee787;
+  --dev-scroll-thumb: #46505c;
+}
+
+/* A dark canvas is available even before scripts run or when scripts are blocked. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    background: #0d0f12;
+    color: #dfe4ea;
+  }
+}

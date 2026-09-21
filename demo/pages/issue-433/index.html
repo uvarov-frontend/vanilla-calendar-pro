@@ -2,28 +2,114 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
-    <title>Issue #433 reproduction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Input positioning · Vanilla Calendar Pro</title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body class="min-h-screen bg-white p-4 font-sans text-slate-900 dark:bg-slate-900 dark:text-white">
-    <label class="block" for="calendar">Date: <input id="calendar" class="input" type="text" placeholder="Choose date" readonly /></label>
-    <div class="mt-2 space-y-1" aria-hidden="true">
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
+  <body class="dev-app">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Integration &amp; edge cases</p>
+            <h1>Input positioning</h1>
+            <p class="dev-description">A scrollable reproduction for issue #433. Open the input and inspect the position of its popover.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-position" aria-labelledby="title-position">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-position">Scrollable input</h2>
+                <p>Issue #433 · default input positioning</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-position" aria-label="Link to Scrollable input">#</a>
+            </header>
+            <div class="dev-canvas">
+              <label class="dev-field" for="calendar">
+                Date
+                <input id="calendar" class="input" type="text" placeholder="Choose a date" readonly />
+              </label>
+              <div class="dev-scroll-fixture" aria-hidden="true">
+                <div>
+                  <span>01</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>02</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>03</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>04</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>05</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>06</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>07</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>08</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>09</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>10</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>11</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>12</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>13</span>
+                  Scroll reference
+                </div>
+                <div>
+                  <span>14</span>
+                  Scroll reference
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/issue-433/main.ts</code>
+        </footer>
+      </main>
     </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

@@ -1,3 +1,5 @@
+import '../../workbench';
+
 import { Calendar } from '@src/index';
 
 import '@src/styles/index.css';

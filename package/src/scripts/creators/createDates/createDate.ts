@@ -59,7 +59,7 @@ const createDate = (
   dateEl.dataset.vcDateWeekDay = String(dayWeekID);
   dateEl.role = 'gridcell';
 
-  let dateBtnEl: HTMLButtonElement | undefined = undefined;
+  let dateBtnEl: HTMLButtonElement | undefined;
   if (monthType !== 'current' ? self.displayDatesOutside : true) {
     dateBtnEl = document.createElement('button');
     dateBtnEl.className = self.styles.dateBtn;
@@ -76,7 +76,7 @@ const createDate = (
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
   datesContainer.addDate(dateEl);
-  if (self.onCreateDateEls) {
+  if (!!self.onCreateDateEls) {
     self.onCreateDateEls(self, dateEl);
     prepareDateRules(self);
   }

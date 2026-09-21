@@ -2,41 +2,102 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Week view · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
-      </p>
-      <div class="flex flex-col items-center gap-12">
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; a standalone week strip</figcaption>
-          <div id="calendar-week"></div>
-          <button id="btn-sunday-first" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Set Sunday as the first weekday</button>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; with week numbers and a selected date</figcaption>
-          <div id="calendar-week-numbers"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">a month, for comparison</figcaption>
-          <div id="calendar-month"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'week'</code> &mdash; year switching disabled</figcaption>
-          <div id="calendar-week-year-locked"></div>
-        </figure>
-      </div>
-    </main>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Calendar views</p>
+            <h1>Week view</h1>
+            <p class="dev-description">Compare a standalone week with a full month, week numbers, and locked navigation.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-calendar-week" aria-labelledby="title-calendar-week">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-week">Standalone week</h2>
+                <p>
+                  <code>type: 'week'</code>
+                  &mdash;
+                  a standalone week strip
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-week" aria-label="Link to Standalone week">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-week"></div>
+              <button id="btn-sunday-first" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Set Sunday as the first weekday</button>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-week-numbers" aria-labelledby="title-calendar-week-numbers">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-week-numbers">With week numbers</h2>
+                <p>
+                  <code>type: 'week'</code>
+                  &mdash;
+                  with week numbers and a selected date
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-week-numbers" aria-label="Link to With week numbers">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-week-numbers"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-month" aria-labelledby="title-calendar-month">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-month">Full month control</h2>
+                <p>a month, for comparison</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-month" aria-label="Link to Full month control">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-month"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-week-year-locked" aria-labelledby="title-calendar-week-year-locked">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-week-year-locked">Locked year</h2>
+                <p>
+                  <code>type: 'week'</code>
+                  &mdash;
+                  year switching disabled
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-week-year-locked" aria-label="Link to Locked year">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-week-year-locked"></div>
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/week/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

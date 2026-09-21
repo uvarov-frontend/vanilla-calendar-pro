@@ -4,36 +4,36 @@ This harness preserves the repeatable parts of the calendar performance audit. I
 
 ## Run
 
-Requirements: Node 22+, installed project dependencies (`npm install`), Git, `tar`, and a recent Chrome or Chromium. The runner supports macOS/Linux and finds common browser locations. Set `CHROME_PATH` to an executable if necessary. The Node/browser requirement is for the development harness; the library's supported browser versions do not change.
+Requirements: Node and pnpm as pinned in `package.json` (`engines.node` and `packageManager`), installed project dependencies (`pnpm install --frozen-lockfile`), Git, `tar`, and a recent Chrome or Chromium. The runner supports macOS/Linux and finds common browser locations. Set `CHROME_PATH` to an executable if necessary. The Node/browser requirement is for the development harness; the library's supported browser versions do not change.
 
 ```sh
 # Exercise the runner and all checks with a small timing sample.
-npm run test:performance -- --suite=all --quick
+pnpm test:performance --suite=all --quick
 
 # Compare uncommitted changes against the current commit.
-npm run test:performance -- --baseline=HEAD
+pnpm test:performance --baseline=HEAD
 
-# Compare with the optimized checkpoint, even after later commits.
-npm run test:performance -- --baseline=bfb110f --suite=all --samples=20 --rates=1,4,8
+# Run a full comparison with a revision using the current build toolchain.
+pnpm test:performance --baseline=HEAD --suite=all --samples=20 --rates=1,4,8
 
 # Run all 30 timing scenarios rather than the 13 default scenarios.
-npm run test:performance -- --only=all --rates=4
+pnpm test:performance --only=all --rates=4
 
 # Focus on a suspected regression.
-npm run test:performance -- --only=set-selected-date,navigate-12-months --rates=4 --samples=30
+pnpm test:performance --only=set-selected-date,navigate-12-months --rates=4 --samples=30
 
 # Check behavior, memory, or cold startup independently.
-npm run test:performance -- --suite=checks
-npm run test:performance -- --suite=extended --groups=memory,multiple,rapid --rates=1,4
-npm run test:performance -- --suite=extended --groups=startup --samples=15 --rates=1,4
+pnpm test:performance --suite=checks
+pnpm test:performance --suite=extended --groups=memory,multiple,rapid --rates=1,4
+pnpm test:performance --suite=extended --groups=startup --samples=15 --rates=1,4
 
 # Save profiles for both versions; load .cpuprofile in Chrome DevTools.
-npm run test:performance -- --profile --only=navigate-12-months --rates=4
+pnpm test:performance --profile --only=navigate-12-months --rates=4
 
-npm run test:performance -- --help
+pnpm test:performance --help
 ```
 
-Both versions are freshly built with `npm run package:build` in temporary directories, using the same installed dependencies. The current snapshot includes tracked and non-ignored untracked files, including unstaged edits and deletions. The baseline is resolved to a full Git commit. No checkout, reset, dependency installation, commit or push is performed. The repository's `package/dist` is not used or modified.
+Both versions are freshly built with `pnpm package:build` in temporary directories, using the same installed dependencies. Dependency-location verification is disabled only in these build subprocesses because their temporary directories share the checkout’s `node_modules`. The current snapshot includes tracked and non-ignored untracked files, including unstaged edits and deletions. The baseline is resolved to a full Git commit. No checkout, reset, dependency installation, commit or push is performed. The repository's `package/dist` is not used or modified.
 
 The runner prints the results directory and writes:
 
@@ -73,17 +73,19 @@ Memory checks assert no live probed calendars/nodes after GC, no event-listener 
 ## Context for future work
 
 - `f327ffe`: initial rendering and lifecycle optimization checkpoint, before the later rule caches and DOM reuse.
-- `bfb110f`: optimized checkpoint including date-rule/locale caches, selective date updates and reuse of overlapping month columns. Use this as a fixed baseline for future work. Comparing it with `f327ffe` includes both later optimization stages; it does not reproduce an intermediate working-tree-only baseline from the original audit.
+- `bfb110f`: optimized checkpoint including date-rule/locale caches, selective date updates and reuse of overlapping month columns. This checkpoint uses the old Yarn/Vite 4 toolchain; use its historical harness and dependencies when reproducing it. Comparing it with `f327ffe` includes both later optimization stages; it does not reproduce an intermediate working-tree-only baseline from the original audit.
 - API and browser support must remain compatible unless a task explicitly changes that requirement: Chrome 57+, Firefox 52+, Edge 80+, Opera 44+, Safari 10.1+; production target ES6. Running this harness in recent Chrome does not validate historical browsers.
 - Fast DOM reuse is deliberately conservative. Custom creation callbacks, layouts/sanitizers, animation/collapse, popups, gap rules, external DOM edits and focus requirements can require the original rendering path. Do not force reuse merely to improve the benchmark.
 - Caches must notice in-place changes to dates/rules and timezone changes, remain bounded, and release per-instance resources on destroy.
 - Do not trade callback order, focus, keyboard behavior or cleanup for a faster timing number. Check raw bundle growth as well as compression. The last DOM changes added roughly 4 KiB of raw ESM; first creation and simple navigation were not made faster by that work.
 - Previous prototypes that moved date rows between containers caused unnecessary style/layout work. Retaining whole month columns produced the meaningful navigation gain.
 
-When continuing in another chat, point to this file and name the slow real-world scenario. A useful starting instruction is: “Read tests/performance/README.md, compare the working tree against bfb110f, inspect timing and bundle regressions, preserve the existing API/browser floor, and keep generated reports outside the repository.”
+When continuing in another chat, point to this file and name the slow real-world scenario. A useful starting instruction is: “Read tests/performance/README.md, compare the working tree against a named revision using the current pnpm toolchain, inspect timing and bundle regressions, preserve the existing API/browser floor, and keep generated reports outside the repository.”
 
 ## Maintain the harness
 
 `scenarios.browser.mjs` contains timing fixtures; `rendering.browser.mjs` contains public-API parity checks; `lifecycle.browser.mjs` contains memory/interaction/startup fixtures. Node runners handle build snapshots, CDP, measurements and reports. Add scenarios here when a real regression is found. Keep fixtures fixed and deterministic. Change parity expectations intentionally when the API/markup contract is intentionally changed.
 
 The runner needs the selected revision to support the relevant API and existing build command. It shares current installed build tools between revisions to isolate source changes. It does not recreate historical dependency installations. If build dependencies change incompatibly, compare compatible revisions or adapt the harness explicitly rather than silently using a stale `dist`.
+
+Revisions before the pnpm/Biome migration (including `f327ffe` and `bfb110f`) cannot build with the current dependencies. The runner rejects those baselines explicitly. Use a post-migration revision for new comparisons. To compare toolchain upgrades themselves, build each checkout with its own locked dependencies and audit CSS changes separately.

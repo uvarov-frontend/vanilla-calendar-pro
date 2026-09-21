@@ -2,28 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Lifecycle · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        Calling init() or destroy() more than once on the same instance should throw, not corrupt the DOM.
-      </p>
-      <div id="calendar"></div>
-      <div class="flex gap-2 mt-6">
-        <button id="btn-init" type="button" class="input">Init</button>
-        <button id="btn-destroy" type="button" class="input">Destroy</button>
-      </div>
-      <pre id="log" class="mt-6 text-left text-sm"></pre>
-    </main>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Integration &amp; edge cases</p>
+            <h1>Lifecycle</h1>
+            <p class="dev-description">Call init() and destroy() explicitly. Repeated calls should report an error without corrupting the page.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case dev-case--wide" id="case-lifecycle" aria-labelledby="title-lifecycle">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-lifecycle">Instance lifecycle</h2>
+                <p>Initialize the instance, then destroy it. Repeat to check the guard.</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-lifecycle" aria-label="Link to Instance lifecycle">#</a>
+            </header>
+            <div class="dev-canvas dev-canvas--compact">
+              <div class="dev-actions">
+                <button id="btn-init" type="button" class="dev-button dev-button--primary">Initialize</button>
+                <button id="btn-destroy" type="button" class="dev-button">Destroy</button>
+              </div>
+              <div id="calendar"></div>
+              <pre id="log" class="dev-log" aria-live="polite">Waiting for an action…</pre>
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/lifecycle/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

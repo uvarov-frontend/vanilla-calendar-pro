@@ -15,7 +15,9 @@ const parseDates = (dates: Array<number | string | Date>, within?: { start: Date
         const startTime = within ? within.start.getTime() : -Infinity;
         const cursor = within?.cursors?.get(rangeKey);
         const currentDate = cursor !== undefined && cursor <= startTime ? new Date(cursor) : getDate(startDateStr);
-        let endTime = getDate(endDateStr).getTime();
+        // A midnight DST jump can carry the cursor to 01:00 on subsequent days.
+        // Include the whole final civil day, not only its first instant.
+        let endTime = getDate(endDateStr).setHours(23, 59, 59, 999);
         if (within) {
           if (endTime < startTime) return _;
           endTime = Math.min(endTime, new Date(within.end).setHours(23, 59, 59, 999));

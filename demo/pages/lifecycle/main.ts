@@ -1,3 +1,5 @@
+import '../../workbench';
+
 import { Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
@@ -7,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const logEl = document.getElementById('log') as HTMLPreElement;
 
   const log = (message: string) => {
+    if (!logEl.dataset.vcLastMessage) logEl.textContent = '';
     logEl.textContent += `${message}\n`;
     logEl.dataset.vcLastMessage = message;
   };

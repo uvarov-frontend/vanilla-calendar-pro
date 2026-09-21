@@ -1,4 +1,6 @@
-const visit = () => cy.visit('/pages/gestures/');
+import { syntheticPointerCapture } from '../support/pointerCapture';
+
+const visit = () => cy.visit('/pages/gestures/', { onBeforeLoad: syntheticPointerCapture });
 
 const monthOf = (id: string) => cy.get(`${id} [data-vc="month"]`).first().invoke('attr', 'data-vc-month');
 
@@ -407,5 +409,3 @@ describe('Swipe', () => {
     monthOf('#calendar-bounded').should('equal', '2');
   });
 });
-
-export {};

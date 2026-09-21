@@ -37,7 +37,7 @@ const getLocale = (self: Calendar): void => {
       weekdays: { short: getNames(self.locale, 'weekday', 'short'), long: getNames(self.locale, 'weekday', 'long') },
       months: { short: getNames(self.locale, 'month', 'short'), long: getNames(self.locale, 'month', 'long') },
     };
-    if (locales.size >= 8) locales.delete(locales.keys().next().value);
+    if (locales.size >= 8) locales.delete(locales.keys().next().value as string);
     locales.set(self.locale, locale);
   }
   // The cached arrays are private; callbacks may edit an instance's locale.

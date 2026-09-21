@@ -2,40 +2,102 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Animation · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
-      </p>
-      <div class="flex flex-col items-center gap-12">
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>animation: true</code> &mdash; defaults</figcaption>
-          <div id="calendar-animated"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">no <code>animation</code> &mdash; control</figcaption>
-          <div id="calendar-static"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'multiple'</code> &mdash; one timing shared by both groups</figcaption>
-          <div id="calendar-multiple"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">custom timings &mdash; overshooting slide, calm cross-fade</figcaption>
-          <div id="calendar-custom"></div>
-        </figure>
-      </div>
-    </main>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Interactions</p>
+            <h1>Animation</h1>
+            <p class="dev-description">Compare default motion, a static control, and custom timing curves side by side.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-calendar-animated" aria-labelledby="title-calendar-animated">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-animated">Default animation</h2>
+                <p>
+                  <code>animation: true</code>
+                  &mdash;
+                  defaults
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-animated" aria-label="Link to Default animation">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-animated"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-static" aria-labelledby="title-calendar-static">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-static">Static control</h2>
+                <p>
+                  no
+                  <code>animation</code>
+                  &mdash;
+                  control
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-static" aria-label="Link to Static control">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-static"></div>
+            </div>
+          </section>
+          <section class="dev-case dev-case--wide" id="case-calendar-multiple" aria-labelledby="title-calendar-multiple">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-multiple">Shared timing</h2>
+                <p>
+                  <code>type: 'multiple'</code>
+                  &mdash;
+                  one timing shared by both groups
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-multiple" aria-label="Link to Shared timing">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-multiple"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-custom" aria-labelledby="title-calendar-custom">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-custom">Custom easing</h2>
+                <p>custom timings &mdash; overshooting slide, calm cross-fade</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-custom" aria-label="Link to Custom easing">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-custom"></div>
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/animation/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

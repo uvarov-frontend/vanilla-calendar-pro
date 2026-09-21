@@ -43,6 +43,18 @@
   "module": "./index.mjs",
   "types": "./index.d.ts",
   "style": "./styles/index.css",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "*.js",
+    "*.mjs",
+    "*.d.ts",
+    "index.html",
+    "package.zip",
+    "utils",
+    "styles"
+  ],
   "exports": {
     ".": {
       "types": "./index.d.ts",

@@ -4,7 +4,8 @@ export async function extended({ browser, url, config, report: overall, checkpoi
   const { cdp } = browser;
   const sampleCount = config.samples;
   const groups = config.groups;
-  const report = (overall.extended = { failures: [] });
+  const report = { failures: [] };
+  overall.extended = report;
   const assert = (condition, message) => {
     if (!condition) throw new Error(message);
   };

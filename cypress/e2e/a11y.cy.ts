@@ -121,9 +121,13 @@ describe('Accessibility (keyboard and focus)', () => {
   it('moves the focus with the arrow keys without scrolling the page along', () => {
     cy.visit('/');
     cy.get('[data-vc-date-btn][tabindex="0"]').focus();
-    cy.focused().trigger('keydown', { key: 'ArrowRight' });
-    cy.focused().should('have.attr', 'tabindex', '0').and('have.attr', 'data-vc-date-btn');
-    cy.window().its('scrollY').should('eq', 0);
+    // Focusing may scroll the preview into view; arrow navigation must not add a scroll.
+    cy.window().then((win) => {
+      const scrollY = win.scrollY;
+      cy.focused().trigger('keydown', { key: 'ArrowRight', scrollBehavior: false });
+      cy.focused().should('have.attr', 'tabindex', '0').and('have.attr', 'data-vc-date-btn');
+      cy.window().its('scrollY').should('eq', scrollY);
+    });
   });
 
   it('keeps arrow-key focus inside its grid and leaves disabled dates unfocusable', () => {

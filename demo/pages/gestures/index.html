@@ -2,70 +2,196 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Swipe &amp; collapse · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        A universal JavaScript date and time picker component with TypeScript support, making it compatible with any JavaScript framework and library.
-      </p>
-      <div class="flex flex-col items-center gap-12">
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> and <code>enableSwipe</code> &mdash; both gestures</figcaption>
-          <div id="calendar-gestures"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> &mdash; starting collapsed</figcaption>
-          <div id="calendar-collapsed"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with <code>type: 'multiple'</code></figcaption>
-          <div id="calendar-multiple"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">
-            <code>enableSwipe</code> with <code>dateMax</code> &mdash; cannot be dragged past the bound
-          </figcaption>
-          <div id="calendar-bounded"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">both gestures, no <code>animation</code></figcaption>
-          <div id="calendar-plain"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>enableCollapse</code> on its own</figcaption>
-          <div id="calendar-collapse-only"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>enableSwipe</code> with ranged selection</figcaption>
-          <div id="calendar-range"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">no gestures &mdash; control</figcaption>
-          <div id="calendar-static"></div>
-          <button id="btn-enable-gestures" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Enable gestures dynamically</button>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">both gestures in <code>inputMode</code></figcaption>
-          <input id="calendar-input-gestures" class="input" type="text" aria-label="Pick a date" readonly />
-        </figure>
-        <div class="flex flex-col items-center gap-3">
-          <button id="btn-invalid-collapse" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">
-            init enableCollapse with type: 'multiple'
-          </button>
-          <pre id="log" class="text-xs dark:text-slate-400"></pre>
-          <div id="calendar-invalid"></div>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Interactions</p>
+            <h1>Swipe &amp; collapse</h1>
+            <p class="dev-description">Drag, swipe, and collapse the calendar. Compare combinations, limits, and runtime updates.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-calendar-gestures" aria-labelledby="title-calendar-gestures">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-gestures">Swipe & collapse</h2>
+                <p>
+                  <code>enableCollapse</code>
+                  and
+                  <code>enableSwipe</code>
+                  &mdash;
+                  both gestures
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-gestures" aria-label="Link to Swipe &amp; collapse">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-gestures"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-collapsed" aria-labelledby="title-calendar-collapsed">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-collapsed">Start collapsed</h2>
+                <p>
+                  <code>enableCollapse</code>
+                  &mdash;
+                  starting collapsed
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-collapsed" aria-label="Link to Start collapsed">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-collapsed"></div>
+            </div>
+          </section>
+          <section class="dev-case dev-case--wide" id="case-calendar-multiple" aria-labelledby="title-calendar-multiple">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-multiple">Multiple months</h2>
+                <p>
+                  <code>enableSwipe</code>
+                  with
+                  <code>type: 'multiple'</code>
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-multiple" aria-label="Link to Multiple months">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-multiple"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-bounded" aria-labelledby="title-calendar-bounded">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-bounded">Navigation boundary</h2>
+                <p>
+                  <code>enableSwipe</code>
+                  with
+                  <code>dateMax</code>
+                  &mdash;
+                  cannot be dragged past the bound
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-bounded" aria-label="Link to Navigation boundary">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-bounded"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-plain" aria-labelledby="title-calendar-plain">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-plain">Without animation</h2>
+                <p>
+                  both gestures, no
+                  <code>animation</code>
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-plain" aria-label="Link to Without animation">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-plain"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-collapse-only" aria-labelledby="title-calendar-collapse-only">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-collapse-only">Collapse only</h2>
+                <p>
+                  <code>enableCollapse</code>
+                  on its own
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-collapse-only" aria-label="Link to Collapse only">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-collapse-only"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-range" aria-labelledby="title-calendar-range">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-range">Range selection</h2>
+                <p>
+                  <code>enableSwipe</code>
+                  with ranged selection
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-range" aria-label="Link to Range selection">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-range"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-static" aria-labelledby="title-calendar-static">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-static">Enable at runtime</h2>
+                <p>no gestures &mdash; control</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-static" aria-label="Link to Enable at runtime">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-static"></div>
+              <button id="btn-enable-gestures" type="button" class="rounded-lg border border-slate-500 px-3 py-1 text-sm">Enable gestures dynamically</button>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-input-gestures" aria-labelledby="title-calendar-input-gestures">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-input-gestures">Input gestures</h2>
+                <p>
+                  both gestures in
+                  <code>inputMode</code>
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-input-gestures" aria-label="Link to Input gestures">#</a>
+            </header>
+            <div class="dev-canvas">
+              <input id="calendar-input-gestures" class="input" type="text" aria-label="Pick a date" readonly />
+            </div>
+          </section>
+          <section class="dev-case" id="case-invalid" aria-labelledby="title-invalid">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-invalid">Unsupported combination</h2>
+                <p>An explicit error for collapse in a multiple-month calendar.</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-invalid" aria-label="Link to Unsupported combination">#</a>
+            </header>
+            <div class="dev-canvas">
+              <button id="btn-invalid-collapse" type="button" class="dev-button">Init unsupported combination</button>
+              <pre id="log" class="dev-log" aria-live="polite"></pre>
+              <div id="calendar-invalid"></div>
+            </div>
+          </section>
         </div>
-      </div>
-    </main>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/gestures/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

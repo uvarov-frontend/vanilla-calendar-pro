@@ -2,23 +2,12 @@ import type { Calendar, WeekDayID } from '@src/index';
 
 const createWeek = (self: Calendar) => {
   const weekend = self.selectedWeekends ? [...self.selectedWeekends] : [];
-  const weekdaysData = [...self.context.locale.weekdays.long].reduce(
-    (acc, day, index) => [
-      ...acc,
-      {
-        id: index as WeekDayID,
-        titleShort: self.context.locale.weekdays.short[index],
-        titleLong: day,
-        isWeekend: weekend.includes(index as WeekDayID),
-      },
-    ],
-    [] as Array<{
-      id: WeekDayID;
-      titleShort: string;
-      titleLong: string;
-      isWeekend: boolean;
-    }>,
-  );
+  const weekdaysData = [...self.context.locale.weekdays.long].map((day, index) => ({
+    id: index as WeekDayID,
+    titleShort: self.context.locale.weekdays.short[index],
+    titleLong: day,
+    isWeekend: weekend.includes(index as WeekDayID),
+  }));
   const weekdays = [...weekdaysData.slice(self.firstWeekday), ...weekdaysData.slice(0, self.firstWeekday)];
 
   // A columnheader is not a role a button may carry, so the clickable variant keeps the header
