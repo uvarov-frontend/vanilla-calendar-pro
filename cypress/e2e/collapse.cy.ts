@@ -1,14 +1,13 @@
 import type { Calendar as CalendarInstance, Options } from '../../package/src';
+import { syntheticPointerCapture } from '../support/pointerCapture';
 
-const visit = () => cy.visit('/pages/gestures/');
+const visit = () => cy.visit('/pages/gestures/', { onBeforeLoad: syntheticPointerCapture });
 
 type CalendarConstructor = new (selector: HTMLElement | string, options?: Options) => CalendarInstance;
 
 const loadCalendar = (win: Window) => {
-  const projectRoot = String(Cypress.config('projectRoot')).replace(/\\/g, '/');
-  const fsPath = projectRoot.startsWith('/') ? projectRoot : `/${projectRoot}`;
   const evaluate = (win as Window & { eval: (code: string) => unknown }).eval;
-  return evaluate(`import(${JSON.stringify(`/@fs${fsPath}/package/src/index.ts`)})`) as Promise<{ Calendar: CalendarConstructor }>;
+  return evaluate('import("/package/index.mjs")') as Promise<{ Calendar: CalendarConstructor }>;
 };
 
 const freezeAnimations = () =>

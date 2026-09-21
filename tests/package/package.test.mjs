@@ -10,9 +10,9 @@ import vm from 'node:vm';
 import { brotliCompressSync, gzipSync } from 'node:zlib';
 import { parse } from 'acorn';
 import { build } from 'vite';
+import { unpackPackage } from './fixture.mjs';
 
 const root = path.resolve(import.meta.dirname, '../..');
-const dist = path.join(root, 'package/dist');
 const require = createRequire(import.meta.url);
 const entryPoints = [
   { subpath: '', file: 'index', global: 'VanillaCalendarPro', exports: ['Calendar'] },
@@ -26,13 +26,9 @@ let packedFiles;
 
 before(async () => {
   scratch = await fs.mkdtemp(path.join(os.tmpdir(), 'vanilla-calendar-package-'));
-  const result = JSON.parse(execFileSync('pnpm', ['--dir', dist, 'pack', '--json', '--pack-destination', scratch], { encoding: 'utf8' }));
-  packedFiles = result.files.map(({ path: name }) => name);
-  execFileSync('tar', ['-xf', path.join(scratch, path.basename(result.filename)), '-C', scratch]);
-  await fs.mkdir(path.join(scratch, 'node_modules'));
-  packed = path.join(scratch, 'node_modules/vanilla-calendar-pro');
-  await fs.rename(path.join(scratch, 'package'), packed);
-  await fs.writeFile(path.join(scratch, 'package.json'), '{"private":true,"type":"module"}');
+  const fixture = await unpackPackage(root, scratch);
+  packed = fixture.packed;
+  packedFiles = fixture.files;
   consumerRequire = createRequire(path.join(scratch, 'package.json'));
   manifest = consumerRequire('vanilla-calendar-pro/package.json');
 });

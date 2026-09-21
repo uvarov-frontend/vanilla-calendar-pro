@@ -1,3 +1,5 @@
+import { syntheticPointerCapture } from '../support/pointerCapture';
+
 // Real pointer events are composed, so a synthetic drag has to be as well: without it the
 // pointermove/pointerup pair never leaves the shadow root and window never sees the gesture.
 const dispatch = (el: Element, type: string, clientX: number, clientY: number) =>
@@ -88,7 +90,7 @@ describe('Shadow DOM support', () => {
   });
 
   it('collapses and swipes a plain calendar inside the shadow root', () => {
-    cy.visit('/pages/shadow-dom/');
+    cy.visit('/pages/shadow-dom/', { onBeforeLoad: syntheticPointerCapture });
     cy.get('#widget-5').shadow().find('[data-vc="collapse"]').click();
     cy.get('#widget-5').shadow().find('[data-vc="calendar"]').should('have.attr', 'data-vc-type', 'week');
     cy.get('#widget-5').shadow().find('[data-vc="collapse"]').click();
@@ -100,7 +102,7 @@ describe('Shadow DOM support', () => {
   });
 
   it('collapses and swipes the popup of an inputMode calendar inside the shadow root', () => {
-    cy.visit('/pages/shadow-dom/');
+    cy.visit('/pages/shadow-dom/', { onBeforeLoad: syntheticPointerCapture });
     cy.get('#widget-4').shadow().find('[data-vc-shadow-input]').click();
     cy.get('#widget-4').shadow().find('[data-vc="calendar"]').should('not.have.attr', 'data-vc-calendar-hidden');
 

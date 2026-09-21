@@ -21,10 +21,7 @@ jobs:
       - name: Check source and build package
         run: pnpm lint && pnpm package:build && pnpm build
       - name: Testing
-        uses: cypress-io/github-action@v7.4.3
-        with:
-          install: false
-          start: pnpm dev
+        run: pnpm cypress:run && node --test tests/package/package.test.mjs
   deploy:
     runs-on: ubuntu-latest
     needs: cypress

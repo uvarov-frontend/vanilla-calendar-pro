@@ -1,8 +1,11 @@
-const visit = () => cy.visit('/pages/gestures/');
+import { syntheticPointerCapture } from '../support/pointerCapture';
+
+const visit = () => cy.visit('/pages/gestures/', { onBeforeLoad: syntheticPointerCapture });
 
 const visitWithoutAnimationsApi = () =>
   cy.visit('/pages/gestures/', {
     onBeforeLoad(win) {
+      syntheticPointerCapture(win);
       Object.defineProperty(win.Element.prototype, 'animate', { configurable: true, value: undefined });
     },
   });
@@ -202,9 +205,17 @@ describe('Gesture option combinations', () => {
     visit();
     cy.get('#calendar-static').should('have.css', 'user-select', 'none');
 
-    ['[data-vc="header"]', '[data-vc="month"]', '[data-vc-week-day]', '[data-vc-date]', '[data-vc-date-btn]'].forEach((selector) =>
-      cy.get(`#calendar-static ${selector}`).first().should('have.css', 'user-select', 'none'),
-    );
+    for (const selector of ['[data-vc="header"]', '[data-vc="month"]', '[data-vc-week-day]', '[data-vc-date]', '[data-vc-date-btn]']) {
+      cy.get(`#calendar-static ${selector}`)
+        .first()
+        .should(($el) => {
+          let element: HTMLElement | null = $el[0];
+          // WebKit can report computed "auto"; its used value follows an ancestor's
+          // "none". An explicit selectable override must still fail this assertion.
+          while (element && getComputedStyle(element).userSelect === 'auto') element = element.parentElement;
+          expect(element && getComputedStyle(element).userSelect).to.equal('none');
+        });
+    }
   });
 
   it('leaves the time fields selectable', () => {
@@ -220,5 +231,3 @@ describe('Gesture option combinations', () => {
     cy.get('#log').should('contain.text', 'init() threw').and('contain.text', 'only supported by the «default» and «week»');
   });
 });
-
-export {};

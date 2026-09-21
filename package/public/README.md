@@ -180,6 +180,8 @@ Package builds use Vite/Rolldown with Oxc compression and final Terser minificat
 
 `pnpm test:package` builds and packs the actual distribution in an OS temporary directory. It checks package contents, ESM/CommonJS/browser-global/AMD exports, ES2015 syntax, raw JS size budgets, consumer tree shaking (including CSS retention), and every example against the packed TypeScript declarations in bundler and NodeNext resolution modes. It requires `tar` and cleans up its temporary files. Size budgets live in `tests/package/package.test.mjs`; review any increase before changing them. Syntax checks do not replace testing on the oldest supported browsers.
 
+`pnpm test:cypress` checks the packed library in a browser, including every example, public methods, date/time selection, input integration, gestures, Shadow DOM and accessibility. `pnpm test:cypress:browsers` runs Chrome, Firefox and experimental WebKit sequentially, with additional native-input checks in Chrome/WebKit. `pnpm test:timezones` checks calendar behavior in 10 timezones in Chrome and WebKit. Reports and failure screenshots stay in an OS temporary directory. See [the browser test guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/browser/README.md) for prerequisites, focused runs and coverage details.
+
 ## Performance checks
 
 For contributors, [the performance harness](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/performance/README.md) compares the working tree with a Git revision, measures production bundles, and checks rendering and lifecycle behavior. Start with `pnpm test:performance --suite=all --quick` from the repository checkout; results are saved outside the repository.
