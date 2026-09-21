@@ -45,7 +45,16 @@ document.querySelector('#dev-topbar')!.innerHTML =
   `<div class="dev-breadcrumb"><button id="dev-menu" class="dev-icon-button" type="button" aria-label="Open navigation" aria-controls="dev-sidebar" aria-expanded="false">${icon('menu')}</button><span>Workbench</span><span class="dev-slash" aria-hidden="true">/</span><strong>${current.title}</strong></div><div class="dev-topbar-actions"><a href="https://vanilla-calendar.pro" target="_blank" rel="noopener noreferrer" class="dev-docs-link">Documentation <span aria-hidden="true">↗</span></a><span class="dev-toolbar-divider"></span><div class="dev-theme-switch" role="group" aria-label="Color theme"><button data-theme-mode="system" type="button" aria-label="System theme" aria-pressed="false" title="Use device theme">${icon('system')}<span>System</span></button><button data-theme-mode="light" type="button" aria-label="Light theme" aria-pressed="false" title="Light theme">${icon('light')}<span>Light</span></button><button data-theme-mode="dark" type="button" aria-label="Dark theme" aria-pressed="false" title="Dark theme">${icon('theme')}<span>Dark</span></button></div><button id="dev-reset" class="dev-button dev-reset" type="button" title="Reload this scenario with its original configuration">${icon('reset')}<span>Reset scenario</span></button></div>`;
 const cases = [...document.querySelectorAll<HTMLElement>('.dev-case')];
 document.querySelector('#dev-viewbar')!.innerHTML =
-  `<div class="dev-tabs" role="tablist" aria-label="Scenario view"><button id="dev-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="dev-preview">${icon('preview')}Live preview</button><button id="dev-source-tab" type="button" role="tab" aria-selected="false" aria-controls="dev-source" tabindex="-1">${icon('code')}Source code</button></div><div class="dev-view-meta">${cases.length > 1 ? `<label class="dev-jump-label" for="dev-jump">Jump to</label><select id="dev-jump" aria-label="Jump to a case"><option value="">${cases.length} cases on this page</option>${cases.map((element) => `<option value="${element.id}">${element.querySelector('h2')!.textContent}</option>`).join('')}</select>` : ''}</div>`;
+  `<div class="dev-tabs" role="tablist" aria-label="Scenario view"><button id="dev-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="dev-preview">${icon('preview')}Live preview</button><button id="dev-source-tab" type="button" role="tab" aria-selected="false" aria-controls="dev-source" tabindex="-1">${icon('code')}Source code</button></div><div class="dev-view-meta">${cases.length > 1 ? `<label class="dev-jump-label" for="dev-jump">Jump to</label><select id="dev-jump" aria-label="Jump to a case"><option value="">${cases.length} cases on this page</option></select>` : ''}</div>`;
+const jumpSelect = document.querySelector<HTMLSelectElement>('#dev-jump');
+if (jumpSelect) {
+  for (const element of cases) {
+    const option = document.createElement('option');
+    option.value = element.id;
+    option.textContent = element.querySelector('h2')!.textContent;
+    jumpSelect.append(option);
+  }
+}
 const preview = document.querySelector<HTMLElement>('#dev-preview')!;
 const sourcePanel = document.querySelector<HTMLElement>('#dev-source')!;
 preview.setAttribute('role', 'tabpanel');
@@ -122,7 +131,7 @@ copy.addEventListener('click', async () => {
   }
 });
 document.querySelector('#dev-reset')!.addEventListener('click', () => location.reload());
-document.querySelector<HTMLSelectElement>('#dev-jump')?.addEventListener('change', (event) => {
+jumpSelect?.addEventListener('change', (event) => {
   const id = (event.target as HTMLSelectElement).value;
   if (!id) return;
   showView('preview');

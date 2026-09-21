@@ -72,6 +72,24 @@ describe('Development workbench', () => {
     cy.get('#calendar-popups').should('be.visible');
   });
 
+  it('preserves HTML characters in case titles without creating extra options', () => {
+    const title = 'Month <option value="unexpected">extra</option> & "labels"';
+    cy.intercept('GET', '**/pages/a11y/', (request) => {
+      request.continue((response) => {
+        response.body = response.body.replace(
+          '<h2 id="title-calendar-month">Month picker</h2>',
+          '<h2 id="title-calendar-month">Month &lt;option value="unexpected"&gt;extra&lt;/option&gt; &amp; "labels"</h2>',
+        );
+      });
+    });
+    cy.visit('/pages/a11y/');
+    cy.get('#title-calendar-month').should('have.text', title);
+    cy.get('#dev-jump option').eq(1).should('have.text', title);
+    cy.get('.dev-case').then((cases) => cy.get('#dev-jump option').should('have.length', cases.length + 1));
+    cy.get('#dev-jump').select(title);
+    cy.location('hash').should('eq', '#case-calendar-month');
+  });
+
   it('opens mobile navigation, closes with Escape, and keeps the page within the viewport', () => {
     cy.viewport(390, 844);
     cy.visit('/');
