@@ -6,6 +6,7 @@ import animate from '@scripts/utils/animate';
 import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import getRootNode from '@scripts/utils/getRootNode';
+import { getReusableRender, pauseRenderObservation, type RenderState } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
 import setWeekDate from '@scripts/utils/setWeekDate';
 import type { Calendar, Range } from '@src/index';
@@ -15,7 +16,7 @@ export type Route = 'prev' | 'next';
 type Navigator = {
   selector: string;
   shift: (route: Route) => void;
-  render: (target?: HTMLElement) => void;
+  render: (target?: HTMLElement, reuse?: RenderState) => void;
 };
 
 const DATES = '[data-vc="dates"]';
@@ -36,7 +37,11 @@ const shiftWeek = (self: Calendar, route: Route) => {
 };
 
 export const getNavigator = (self: Calendar): Navigator | null => {
-  const byMonth = { selector: DATES, shift: (route: Route) => shiftMonth(self, route), render: () => createDates(self) };
+  const byMonth = {
+    selector: DATES,
+    shift: (route: Route) => shiftMonth(self, route),
+    render: (_?: HTMLElement, reuse?: RenderState) => createDates(self, reuse),
+  };
 
   return (
     {
@@ -67,6 +72,40 @@ const keepFocusInside = (self: Calendar, route: Route, hadFocus: boolean) => {
     ?.focus();
 };
 
+// Rotate only outgoing columns. Retained months stay attached to their original
+// parents, preserving their layout and avoiding style work for every date cell.
+const rotateColumns = (self: Calendar, reuse: RenderState) => {
+  const shift = self.context.selectedYear * 12 + self.context.selectedMonth - reuse.month;
+  if (!shift || Math.abs(shift) >= reuse.count) return;
+  const columns = Array.from(self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="column"]'));
+  const parent = columns[0]?.parentElement;
+  if (!parent || columns.length !== reuse.count || columns.some((column) => column.parentElement !== parent)) return;
+  if (
+    Array.from(parent.childNodes).some((node) =>
+      node.nodeType === 1 ? !columns.includes(node as HTMLElement) : node.nodeType !== 3 || !!node.textContent?.trim(),
+    )
+  )
+    return;
+  const indices: number[] = [];
+  if (shift > 0) {
+    const after = columns[columns.length - 1].nextSibling;
+    for (let index = 0; index < shift; index++) {
+      const space = columns[index].nextSibling;
+      if (space?.nodeType === 3 && space !== after) parent.insertBefore(space, after);
+      parent.insertBefore(columns[index], after);
+      indices.push(reuse.count - shift + index);
+    }
+  } else {
+    for (let index = reuse.count + shift; index < reuse.count; index++) {
+      const space = columns[index].previousSibling;
+      parent.insertBefore(columns[index], columns[0]);
+      if (space?.nodeType === 3) parent.insertBefore(space, columns[0]);
+      indices.push(index - reuse.count - shift);
+    }
+  }
+  return indices;
+};
+
 const handleNavigate = (self: Calendar, route: Route, target?: HTMLElement) => {
   const navigator = getNavigator(self);
   if (!navigator) return;
@@ -74,10 +113,14 @@ const handleNavigate = (self: Calendar, route: Route, target?: HTMLElement) => {
   const { mainElement } = self.context;
   const hadFocus = mainElement.contains(getRootNode(mainElement).activeElement);
 
+  let reuse = self.context.currentType === 'multiple' ? getReusableRender(self, true) : undefined;
+  pauseRenderObservation(self);
   navigator.shift(route);
-  visibilityTitle(self);
+  const indices = reuse ? rotateColumns(self, reuse) : undefined;
+  if (!indices) reuse = undefined;
+  visibilityTitle(self, indices);
   visibilityArrows(self);
-  animate(self, navigator.selector, route, () => navigator.render(target));
+  animate(self, navigator.selector, route, () => navigator.render(target, reuse));
   keepFocusInside(self, route, hadFocus);
 };
 

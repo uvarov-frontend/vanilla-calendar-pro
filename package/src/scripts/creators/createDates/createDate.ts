@@ -3,6 +3,7 @@ import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
+import sortDates from '@scripts/utils/sortDates';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
 const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
@@ -11,19 +12,20 @@ const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: Form
   dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
 };
 
-const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
+export const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
   const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.context.enableDates?.[0];
 
   const rules = getDateRules(self);
-  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !rules.enabled.has(date) && !rules.disabled.has(date)) {
+  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !rules.enabled.set.has(date) && !rules.disabled.set.has(date)) {
     const dates = self.context.disableDates;
-    rules.disabled.add(date);
+    rules.disabled.set.add(date);
     // Callbacks can change the public array's order. Keep their existing sorting
     // behavior; otherwise insert into the sorted list without sorting it again.
     if (!!self.onCreateDateEls) {
       dates.push(date);
-      dates.sort((a, b) => +new Date(a) - +new Date(b));
+      sortDates(dates);
+      rules.disabled.values = dates.slice();
     } else {
       const time = +new Date(date);
       let low = 0;
@@ -34,6 +36,7 @@ const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: We
         else high = middle;
       }
       dates.splice(low, 0, date);
+      rules.disabled.values.splice(low, 0, date);
     }
   }
 };
@@ -61,8 +64,8 @@ const createDate = (
     dateBtnEl = document.createElement('button');
     dateBtnEl.className = self.styles.dateBtn;
     dateBtnEl.type = 'button';
-    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
     dateBtnEl.dataset.vcDateBtn = '';
+    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate);
     dateBtnEl.innerText = String(dateID);
     dateEl.appendChild(dateBtnEl);
   }

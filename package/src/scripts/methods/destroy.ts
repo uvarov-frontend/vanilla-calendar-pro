@@ -5,6 +5,7 @@ import { cleanupDateRange } from '@scripts/handles/handleSelectDateRange/handleS
 import { cancelPendingShow } from '@scripts/methods/show';
 import { cleanupPending } from '@scripts/utils/animate';
 import errorMessages from '@scripts/utils/getErrorMessages';
+import { clearRenderState } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
 
@@ -12,6 +13,7 @@ const destroy = (self: Calendar) => {
   if (!self.context.isInit) throw new Error(errorMessages.notInit);
   if (self.context.isDestroyed) throw new Error(errorMessages.alreadyDestroyed);
 
+  clearRenderState(self);
   cleanupGestures(self.context.mainElement);
   cleanupDateRange(self);
   cleanupPending(self.context.mainElement);

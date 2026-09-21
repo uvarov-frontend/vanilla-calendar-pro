@@ -1,3 +1,4 @@
+import { defaultSanitizer } from '@scripts/utils/renderState';
 import type { Calendar } from '@src/index';
 import labels from '@src/labels';
 import styles from '@src/styles';
@@ -84,7 +85,7 @@ export default class OptionsCalendar {
   timeStepHour: number = 1;
   timeStepMinute: number = 1;
 
-  sanitizerHTML: (dirtyHtml: string) => string = (dirtyHtml: string) => dirtyHtml;
+  sanitizerHTML: (dirtyHtml: string) => string = defaultSanitizer;
 
   onClickDate!: (self: Calendar, event: MouseEvent) => void;
   onClickWeekDay!: (self: Calendar, day: number, dateEls: HTMLElement[], event: MouseEvent) => void;

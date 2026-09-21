@@ -21,11 +21,19 @@ const getActiveItem = (containerEl: HTMLElement, group: Group, items: HTMLElemen
 };
 
 const setRovingItem = (containerEl: HTMLElement, group: Group, activeEl: HTMLElement | null) => {
+  if (activeEl && isEnabled(activeEl)) {
+    containerEl.querySelectorAll<HTMLElement>(`${group.item}:not([tabindex="-1"])`).forEach((item) => {
+      if (item !== activeEl) item.tabIndex = -1;
+    });
+    if (activeEl.getAttribute('tabindex') !== '0') activeEl.tabIndex = 0;
+    return;
+  }
   const items = Array.from(containerEl.querySelectorAll<HTMLElement>(group.item));
   if (!items[0]) return;
-  const active = activeEl && isEnabled(activeEl) ? activeEl : getActiveItem(containerEl, group, items);
+  const active = getActiveItem(containerEl, group, items);
   items.forEach((item) => {
-    item.tabIndex = item === active ? 0 : -1;
+    const tabIndex = item === active ? 0 : -1;
+    if (item.getAttribute('tabindex') !== String(tabIndex)) item.tabIndex = tabIndex;
   });
 };
 

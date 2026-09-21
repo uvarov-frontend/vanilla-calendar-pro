@@ -8,6 +8,7 @@ import updateDisabledDates from '@scripts/handles/handleSelectDateRange/updateDi
 import canToggleSelection from '@scripts/utils/canToggleSelection';
 import parseDates from '@scripts/utils/parseDates';
 import setContext from '@scripts/utils/setContext';
+import sortDates from '@scripts/utils/sortDates';
 import type { Calendar, FormatDateString } from '@src/index';
 
 export const cleanupDateRange = clearRangeState;
@@ -50,7 +51,7 @@ const handleSelectDateRange = (self: Calendar, dateEl: HTMLElement | null, recal
             ? [formattedDate]
             : [...self.context.selectedDates, formattedDate];
     setContext(self, 'selectedDates', selectedDates);
-    if (self.context.selectedDates.length > 1) self.context.selectedDates.sort((a, b) => +new Date(a) - +new Date(b));
+    if (self.context.selectedDates.length > 1) sortDates(self.context.selectedDates);
   }
 
   const selectionHandlers = {

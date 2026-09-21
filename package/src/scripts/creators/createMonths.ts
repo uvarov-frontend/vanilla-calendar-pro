@@ -60,6 +60,13 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
   templateMonthEl.type = 'button';
 
   let rowEl: HTMLDivElement | undefined;
+  const getLimits = () => ({
+    min: getDate(self.context.dateMin),
+    max: getDate(self.context.dateMax),
+    monthCount: self.context.displayMonthsCount - 1,
+    columnID: getColumnID(self, 'month').columnID,
+  });
+  const limits = !self.onCreateMonthEls ? getLimits() : undefined;
 
   for (let i = 0; i < 12; i++) {
     if (i % 4 === 0) {
@@ -70,10 +77,7 @@ const createMonths = (self: Calendar, target?: HTMLElement) => {
       monthsEl.appendChild(rowEl);
     }
 
-    const dateMin = getDate(self.context.dateMin);
-    const dateMax = getDate(self.context.dateMax);
-    const monthCount = self.context.displayMonthsCount - 1;
-    const { columnID } = getColumnID(self, 'month');
+    const { min: dateMin, max: dateMax, monthCount, columnID } = limits ?? getLimits();
 
     const monthDisabled =
       (selectedYear <= dateMin.getFullYear() && i < dateMin.getMonth() + columnID) ||

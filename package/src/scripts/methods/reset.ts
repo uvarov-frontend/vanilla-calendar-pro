@@ -1,13 +1,19 @@
 import create from '@scripts/creators/create';
 import { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
+import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
+import createTime from '@scripts/creators/createTime';
 import { resetGestures } from '@scripts/handles/handleGestures/handleGestures';
 import handleDayRangedSelection, { cleanupDateRange } from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import handleTheme from '@scripts/handles/handleTheme';
 import { cleanupPending } from '@scripts/utils/animate';
+import getLocale from '@scripts/utils/getLocale';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
+import { pauseRenderObservation, rememberRender, type RenderState, renderStructure } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 
-const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true) => {
+const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true, reuse?: RenderState) => {
+  pauseRenderObservation(self);
   resetGestures(self);
   cleanupPending(self.context.mainElement);
   cleanupDatePopups(self);
@@ -40,13 +46,21 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recr
   }
 
   initAllVariables(self);
-  if (recreate) create(self);
+  if (recreate) {
+    if (reuse) getLocale(self);
+    if (reuse && reuse.structure === renderStructure(self)) {
+      handleTheme(self);
+      createTime(self);
+      updateDateModifiers(self, true);
+    } else create(self, false);
+  }
 
   self.selectedYear = previousSelected.year;
   self.selectedMonth = previousSelected.month;
   self.selectedDates = previousSelected.dates;
   self.selectedTime = previousSelected.time;
   if (self.selectionDatesMode === 'multiple-ranged') handleDayRangedSelection(self, null, !!dates);
+  if (recreate) rememberRender(self, true);
 };
 
 export default reset;

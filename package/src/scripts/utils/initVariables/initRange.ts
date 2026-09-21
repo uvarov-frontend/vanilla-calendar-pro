@@ -1,5 +1,5 @@
 import getDate from '@scripts/utils/getDate';
-import parseDates from '@scripts/utils/parseDates';
+import parseDateRules from '@scripts/utils/parseDateRules';
 import resolveDate from '@scripts/utils/resolveDate';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
@@ -24,12 +24,11 @@ const initRange = (self: Calendar) => {
   setContext(
     self,
     'disableDates',
-    self.disableDates[0] && !self.disableAllDates ? parseDates(self.disableDates) : self.disableAllDates ? [self.context.displayDateMin] : [],
+    self.disableDates[0] && !self.disableAllDates ? parseDateRules(self, 'disableDates') : self.disableAllDates ? [self.context.displayDateMin] : [],
   );
-  if (self.context.disableDates.length > 1) self.context.disableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
   // set self.context.enableDates
-  setContext(self, 'enableDates', self.enableDates[0] ? parseDates(self.enableDates) : []);
+  setContext(self, 'enableDates', self.enableDates[0] ? parseDateRules(self, 'enableDates') : []);
   if (self.context.enableDates?.[0] && self.context.disableDates?.[0]) {
     const enabled = new Set(self.context.enableDates);
     setContext(
@@ -38,7 +37,6 @@ const initRange = (self: Calendar) => {
       self.context.disableDates.filter((d) => !enabled.has(d)),
     );
   }
-  if (self.context.enableDates.length > 1) self.context.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.context.enableDates?.[0] && self.disableAllDates) {
     setContext(self, 'displayDateMin', self.context.enableDates[0]);

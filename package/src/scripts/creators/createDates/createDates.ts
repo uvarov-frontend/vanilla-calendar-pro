@@ -5,23 +5,30 @@ import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesF
 import createWeekDates from '@scripts/creators/createDates/createWeekDates';
 import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
+import { pauseRenderObservation, rememberRender, type RenderState } from '@scripts/utils/renderState';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import type { Calendar } from '@src/index';
 
-const createDates = (self: Calendar) => {
+const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
+  pauseRenderObservation(self);
   cleanupDatePopups(self);
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
   const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
+  // Share local-date checkpoints only within this render. Subsequent months
+  // retain DST stepping without walking again from the beginning of each rule.
+  const popupCursors = datesEls.length > 1 ? new Map<string, number>() : undefined;
 
   datesEls.forEach((datesEl, index: number) => {
-    prepareDateRules(self);
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
+    const previousIndex = reuse ? self.context.selectedYear * 12 + self.context.selectedMonth + index - reuse.month : -1;
+    if (reuse && previousIndex >= 0 && previousIndex < reuse.count) return;
     datesEl.textContent = '';
+    prepareDateRules(self);
 
     if (self.context.currentType === 'week') {
       createWeekDates(self, datesEl);
-      createDatePopup(self, datesEl);
+      createDatePopup(self, datesEl, popupCursors);
       createWeekNumbers(self, 0, 7, weekNumbersEls[index], datesEl);
       return;
     }
@@ -67,11 +74,12 @@ const createDates = (self: Calendar) => {
     for (const weekRow of weekRows) {
       datesEl.appendChild(weekRow);
     }
-    createDatePopup(self, datesEl);
+    createDatePopup(self, datesEl, popupCursors);
     createWeekNumbers(self, firstDayWeek, days, weekNumbersEls[index], datesEl);
   });
 
   updateRovingTabIndex(self);
+  if (capture) rememberRender(self, reuse?.fullLayout);
 };
 
 export default createDates;

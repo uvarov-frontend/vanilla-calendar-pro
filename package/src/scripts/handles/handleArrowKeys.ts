@@ -32,20 +32,20 @@ const handleArrowKeys = (self: Calendar) => {
     const gridEl = grid ? target.closest<HTMLElement>(grid.container) : null;
     if (!grid || !gridEl || gridEl.closest('[data-vc-ghost]')) return;
 
-    const buttons = Array.from(gridEl.querySelectorAll<HTMLButtonElement>(grid.item)).filter(isEnabled);
-    const currentIndex = buttons.indexOf(target as HTMLButtonElement);
-    if (currentIndex === -1) return;
-
-    const nextButton = {
-      ArrowUp: () => getVerticalTarget(gridEl, grid, target, -1),
-      ArrowDown: () => getVerticalTarget(gridEl, grid, target, 1),
-      ArrowLeft: () => buttons[Math.max(0, currentIndex - 1)],
-      ArrowRight: () => buttons[Math.min(buttons.length - 1, currentIndex + 1)],
-    }[event.key]!;
+    if (!isEnabled(target)) return;
+    let nextButton: HTMLButtonElement | undefined;
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      nextButton = getVerticalTarget(gridEl, grid, target, event.key === 'ArrowUp' ? -1 : 1);
+    } else {
+      const buttons = Array.from(gridEl.querySelectorAll<HTMLButtonElement>(grid.item)).filter(isEnabled);
+      const currentIndex = buttons.indexOf(target);
+      if (currentIndex === -1) return;
+      nextButton = event.key === 'ArrowLeft' ? buttons[Math.max(0, currentIndex - 1)] : buttons[Math.min(buttons.length - 1, currentIndex + 1)];
+    }
 
     // Arrow keys move within their grid and must not scroll the page along with them.
     event.preventDefault();
-    nextButton()?.focus();
+    nextButton?.focus();
   };
 
   self.context.mainElement.addEventListener('keydown', onKeyDown);

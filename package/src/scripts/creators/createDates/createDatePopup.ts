@@ -52,7 +52,7 @@ const handleDay = (self: Calendar, dateEl: HTMLElement | undefined, dateInfo: Po
   positionPopup(self, dateEl, popup);
 };
 
-const createDatePopup = (self: Calendar, datesEl: HTMLElement) => {
+const createDatePopup = (self: Calendar, datesEl: HTMLElement, cursors?: Map<string, number>) => {
   const popups = self.popups && Object.entries(self.popups);
   if (!popups?.length) return;
   const visible = new Map<FormatDateString, HTMLElement>();
@@ -62,7 +62,7 @@ const createDatePopup = (self: Calendar, datesEl: HTMLElement) => {
   });
   const times = Array.from(visible.keys(), (date) => +getDate(date)).filter(Number.isFinite);
   if (!times.length) return;
-  const within = { start: new Date(Math.min(...times)), end: new Date(Math.max(...times)) };
+  const within = { start: new Date(Math.min(...times)), end: new Date(Math.max(...times)), cursors };
   popups.forEach(([dateKey, dateInfo]) => {
     parseDates([dateKey], within).forEach((date) => handleDay(self, visible.get(date), dateInfo));
   });
