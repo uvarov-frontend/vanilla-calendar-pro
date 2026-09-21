@@ -1,7 +1,9 @@
+import { getDateRules, prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
 import getWeekNumber from '@scripts/utils/getWeekNumber';
+import sortDates from '@scripts/utils/sortDates';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
 const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
@@ -10,13 +12,32 @@ const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: Form
   dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
 };
 
-const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
+export const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
   const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.context.enableDates?.[0];
 
-  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !self.context.enableDates?.includes(date) && !self.context.disableDates?.includes(date)) {
-    self.context.disableDates.push(date);
-    self.context.disableDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  const rules = getDateRules(self);
+  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !rules.enabled.set.has(date) && !rules.disabled.set.has(date)) {
+    const dates = self.context.disableDates;
+    rules.disabled.set.add(date);
+    // Callbacks can change the public array's order. Keep their existing sorting
+    // behavior; otherwise insert into the sorted list without sorting it again.
+    if (!!self.onCreateDateEls) {
+      dates.push(date);
+      sortDates(dates);
+      rules.disabled.values = dates.slice();
+    } else {
+      const time = +new Date(date);
+      let low = 0;
+      let high = dates.length;
+      while (low < high) {
+        const middle = (low + high) >>> 1;
+        if (+new Date(dates[middle]) <= time) low = middle + 1;
+        else high = middle;
+      }
+      dates.splice(low, 0, date);
+      rules.disabled.values.splice(low, 0, date);
+    }
   }
 };
 
@@ -43,8 +64,8 @@ const createDate = (
     dateBtnEl = document.createElement('button');
     dateBtnEl.className = self.styles.dateBtn;
     dateBtnEl.type = 'button';
-    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate, { dateStyle: 'long', timeZone: 'UTC' });
     dateBtnEl.dataset.vcDateBtn = '';
+    dateBtnEl.ariaLabel = getLocaleString(dateStr, localeDate);
     dateBtnEl.innerText = String(dateID);
     dateEl.appendChild(dateBtnEl);
   }
@@ -55,7 +76,10 @@ const createDate = (
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
   datesContainer.addDate(dateEl);
-  if (self.onCreateDateEls) self.onCreateDateEls(self, dateEl);
+  if (self.onCreateDateEls) {
+    self.onCreateDateEls(self, dateEl);
+    prepareDateRules(self);
+  }
 };
 
 export default createDate;

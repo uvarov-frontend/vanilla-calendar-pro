@@ -23,12 +23,16 @@ const visibilityHandler = (self: Calendar, el: HTMLButtonElement, index: number,
   el.disabled = isDisabled;
 };
 
-const visibilityTitle = (self: Calendar) => {
+const visibilityTitle = (self: Calendar, indices?: number[]) => {
   const monthEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="month"]');
   const yearEls = self.context.mainElement.querySelectorAll<HTMLButtonElement>('[data-vc="year"]');
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
 
-  [monthEls, yearEls].forEach((els) => els?.forEach((el, index) => visibilityHandler(self, el, index, initDate, el.dataset.vc as 'month' | 'year')));
+  [monthEls, yearEls].forEach((els) =>
+    els?.forEach((el, index) => {
+      if (!indices || indices.includes(index)) visibilityHandler(self, el, index, initDate, el.dataset.vc as 'month' | 'year');
+    }),
+  );
 };
 
 export default visibilityTitle;

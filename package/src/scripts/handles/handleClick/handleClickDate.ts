@@ -2,6 +2,7 @@ import updateDateModifiers from '@scripts/creators/createDates/updateDateModifie
 import handleNavigate from '@scripts/handles/handleNavigate';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import sortDates from '@scripts/utils/sortDates';
 import type { Calendar } from '@src/index';
 
 const handleClickDate = (self: Calendar, event: MouseEvent) => {
@@ -17,7 +18,7 @@ const handleClickDate = (self: Calendar, event: MouseEvent) => {
     'multiple-ranged': () => handleSelectDateRanged(self, dateEl),
   };
   daySelectionActions[self.selectionDatesMode]();
-  self.context.selectedDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  if (self.context.selectedDates) sortDates(self.context.selectedDates);
 
   if (self.onClickDate) self.onClickDate(self, event);
   if (self.inputMode && self.context.inputElement && self.context.mainElement && self.onChangeToInput) self.onChangeToInput(self, event);

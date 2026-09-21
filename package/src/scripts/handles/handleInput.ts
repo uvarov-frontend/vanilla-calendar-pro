@@ -1,5 +1,5 @@
 import createToInput from '@scripts/creators/createToInput';
-import { show } from '@scripts/methods';
+import { scheduleShow } from '@scripts/methods/show';
 import canOpenOnFocus from '@scripts/utils/canOpenOnFocus';
 import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
@@ -20,7 +20,7 @@ const handleInput = (self: Calendar) => {
 
   const handleOpenCalendar = () => {
     if (self.context.inputModeInit) {
-      setTimeout(() => show(self));
+      scheduleShow(self);
       return;
     }
     createToInput(self);
@@ -76,13 +76,13 @@ const handleInput = (self: Calendar) => {
   (self.context.inputElement as HTMLInputElement).addEventListener('keydown', handleKeyIntoCalendar);
 
   return () => {
-    (self.context.inputElement as HTMLInputElement).removeEventListener('click', handleOpenCalendar);
+    inputElement.removeEventListener('click', handleOpenCalendar);
 
     if (shouldHandleFocus) {
-      (self.context.inputElement as HTMLInputElement).removeEventListener('focus', handleOpenOnFocus);
+      inputElement.removeEventListener('focus', handleOpenOnFocus);
     }
 
-    (self.context.inputElement as HTMLInputElement).removeEventListener('keydown', handleKeyIntoCalendar);
+    inputElement.removeEventListener('keydown', handleKeyIntoCalendar);
   };
 };
 

@@ -45,6 +45,8 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
   templateYearEl.type = 'button';
 
   let rowEl: HTMLDivElement | undefined;
+  const getLimits = () => [getDate(self.context.dateMin).getFullYear(), getDate(self.context.dateMax).getFullYear()];
+  const limits = !self.onCreateYearEls ? getLimits() : undefined;
 
   for (let i = self.context.displayYear - 7; i < self.context.displayYear + 8; i++) {
     if ((i - (self.context.displayYear - 7)) % 5 === 0) {
@@ -55,7 +57,8 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
       yearsEl.appendChild(rowEl);
     }
 
-    const yearDisabled = i < getDate(self.context.dateMin).getFullYear() + relationshipID || i > getDate(self.context.dateMax).getFullYear();
+    const [min, max] = limits ?? getLimits();
+    const yearDisabled = i < min + relationshipID || i > max;
     const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
     rowEl?.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);

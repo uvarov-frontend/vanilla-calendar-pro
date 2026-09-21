@@ -50,7 +50,7 @@ const LAYOUT_PROPS = [
 
 const GRID_SELECTOR = '[data-vc="dates"], [data-vc="months"], [data-vc="years"]';
 
-export const createGhost = (el: HTMLElement) => {
+const prepareGhost = (el: HTMLElement) => {
   const ghost = document.createElement('div');
   const computed = getComputedStyle(el);
   ghost.dataset.vcGhost = '';
@@ -64,12 +64,22 @@ export const createGhost = (el: HTMLElement) => {
   ghost.style.width = `${el.offsetWidth}px`;
   ghost.style.height = `${el.offsetHeight}px`;
   // Root type changes can otherwise restyle the outgoing grid before it disappears.
-  el.querySelectorAll<HTMLElement>(GRID_SELECTOR).forEach((grid) => {
-    grid.style.height = `${grid.offsetHeight}px`;
-    grid.style.flex = 'none';
-  });
-  ghost.append(...el.children);
-  return ghost;
+  const grids = Array.from(el.querySelectorAll<HTMLElement>(GRID_SELECTOR), (grid) => ({ grid, height: grid.offsetHeight }));
+  return () => {
+    grids.forEach(({ grid, height }) => {
+      grid.style.height = `${height}px`;
+      grid.style.flex = 'none';
+    });
+    ghost.append(...el.children);
+    return ghost;
+  };
+};
+
+export const createGhosts = (elements: HTMLElement[]) => {
+  elements.forEach((el) => el.parentElement?.setAttribute('data-vc-clip', ''));
+  // Moving a grid invalidates layout for its siblings. Capture all geometry
+  // first so a multi-month transition pays for one measurement phase.
+  return elements.map(prepareGhost).map((create) => create());
 };
 
 const stopAnimating = (el: HTMLElement) => {
@@ -119,29 +129,27 @@ export const buildTransition = (self: Calendar, selector: string, effectName: An
   // Keep the ghost at its endpoint until the queued finish handler removes it.
   const ghostTiming: KeyframeAnimationOptions = { ...timing, fill: 'forwards' };
 
-  const snapshots = Array.from(mainElement.querySelectorAll<HTMLElement>(selector)).map((el, index) => {
-    if (onlyIndex !== undefined && onlyIndex !== index) return null;
-    el.parentElement?.setAttribute('data-vc-clip', '');
-    return { ghost: createGhost(el) };
-  });
+  const snapshots = createGhosts(
+    Array.from(mainElement.querySelectorAll<HTMLElement>(selector)).filter((_, index) => onlyIndex === undefined || onlyIndex === index),
+  );
 
   render();
 
   const layers: Layer[] = [];
 
   mainElement.querySelectorAll<HTMLElement>(selector).forEach((el, index) => {
-    const snapshot = snapshots[index];
-    if (!snapshot) return;
+    const ghost = snapshots[onlyIndex === undefined ? index : onlyIndex === index ? 0 : -1];
+    if (!ghost) return;
 
     if (!el.children.length) {
-      el.append(...snapshot.ghost.children);
+      el.append(...ghost.children);
       stopAnimating(el);
       return;
     }
 
     el.dataset.vcAnimating = '';
     el.parentElement?.setAttribute('data-vc-clip', '');
-    el.parentElement?.appendChild(snapshot.ghost);
+    el.parentElement?.appendChild(ghost);
 
     const [leave, enter]: [Keyframe[], Keyframe[]] = effect.enter
       ? [
@@ -153,7 +161,7 @@ export const buildTransition = (self: Calendar, selector: string, effectName: An
           [{ opacity: 0 }, { opacity: 1 }],
         ];
 
-    layers.push({ el, ghost: snapshot.ghost, animations: [snapshot.ghost.animate(leave, ghostTiming), el.animate(enter, timing)] });
+    layers.push({ el, ghost, animations: [ghost.animate(leave, ghostTiming), el.animate(enter, timing)] });
   });
 
   return { layers, duration: timing.duration };

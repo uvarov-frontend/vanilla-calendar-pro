@@ -156,6 +156,10 @@ For detailed information on the available parameters and settings, please refer 
 
 This project is tested with BrowserStack.
 
+## Performance checks
+
+For contributors, [the performance harness](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/tests/performance/README.md) compares the working tree with a Git revision, measures production bundles, and checks rendering and lifecycle behavior. Start with `npm run test:performance -- --suite=all --quick` from the repository checkout; results are saved outside the repository.
+
 ## License
 
 MIT License

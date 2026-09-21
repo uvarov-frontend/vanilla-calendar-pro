@@ -16,7 +16,11 @@ const init = (self: Calendar) => {
   setContext(self, 'originalElement', self.context.mainElement.cloneNode(true) as HTMLElement);
   setContext(self, 'isInit', true);
 
-  if (self.inputMode) return handleInput(self);
+  if (self.inputMode) {
+    const cleanup = handleInput(self);
+    setContext(self, 'cleanupInput', cleanup);
+    return cleanup;
+  }
 
   initAllVariables(self);
   create(self);

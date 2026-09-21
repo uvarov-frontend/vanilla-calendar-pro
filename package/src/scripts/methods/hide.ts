@@ -1,3 +1,4 @@
+import { cancelPendingShow } from '@scripts/methods/show';
 import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import { setSkipOpenOnFocus } from '@scripts/utils/skipOpenOnFocus';
@@ -5,6 +6,7 @@ import { hideFromAT } from '@scripts/utils/toggleTabbing';
 import type { Calendar } from '@src/index';
 
 const hide = (self: Calendar) => {
+  cancelPendingShow(self);
   if (!self.context.isShowInInputMode || !self.context.currentType) return;
 
   // `inert` blurs whatever it covers, so where the focus stands has to be read before it is set
