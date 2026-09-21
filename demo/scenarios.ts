@@ -1,0 +1,86 @@
+export const scenarios = [
+  {
+    slug: '',
+    title: 'Playground',
+    group: 'Start here',
+    keywords: 'default date time getting started',
+  },
+  {
+    slug: 'multiple',
+    title: 'Multiple months',
+    group: 'Calendar views',
+    keywords: 'range dates multiple',
+  },
+  {
+    slug: 'week',
+    title: 'Week view',
+    group: 'Calendar views',
+    keywords: 'week collapse first weekday',
+  },
+  {
+    slug: 'week-numbers',
+    title: 'Week numbers',
+    group: 'Calendar views',
+    keywords: 'iso year boundary sunday',
+  },
+  {
+    slug: 'input',
+    title: 'Input & popover',
+    group: 'Interactions',
+    keywords: 'input popup field datepicker',
+  },
+  {
+    slug: 'animation',
+    title: 'Animation',
+    group: 'Interactions',
+    keywords: 'motion transition timing easing',
+  },
+  {
+    slug: 'gestures',
+    title: 'Swipe & collapse',
+    group: 'Interactions',
+    keywords: 'touch drag swipe collapse motion',
+  },
+  {
+    slug: 'popups-range',
+    title: 'Date popups',
+    group: 'Interactions',
+    keywords: 'tooltip popup hover range',
+  },
+  {
+    slug: 'a11y',
+    title: 'Accessibility',
+    group: 'Integration & edge cases',
+    keywords: 'a11y keyboard aria focus',
+  },
+  {
+    slug: 'lang',
+    title: 'Localization',
+    group: 'Integration & edge cases',
+    keywords: 'locale language russian labels',
+  },
+  {
+    slug: 'shadow-dom',
+    title: 'Shadow DOM',
+    group: 'Integration & edge cases',
+    keywords: 'shadow web component isolation',
+  },
+  {
+    slug: 'lifecycle',
+    title: 'Lifecycle',
+    group: 'Integration & edge cases',
+    keywords: 'init destroy errors logs',
+  },
+  {
+    slug: 'disable-dates-gaps',
+    title: 'Disabled date gaps',
+    group: 'Integration & edge cases',
+    keywords: 'disabled enabled selection regression 407',
+  },
+  {
+    slug: 'issue-433',
+    title: 'Input positioning',
+    group: 'Integration & edge cases',
+    keywords: 'regression 433 scroll input popup',
+  },
+];

@@ -2,23 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Date popups · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        Issue #406 repro: popups with a "start:end" range key should apply the same popup to every day in the range.
-      </p>
-      <div id="calendar"></div>
-    </main>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Interactions</p>
+            <h1>Date popups</h1>
+            <p class="dev-description">Hover a highlighted date to inspect content shared across a range of dates.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-popups-range" aria-labelledby="title-popups-range">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-popups-range">Range popups</h2>
+                <p>February 10–17, 2026 · hover a highlighted date.</p>
+              </div>
+              <a class="dev-case-anchor" href="#case-popups-range" aria-label="Link to Range popups">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar"></div>
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/popups-range/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createServer } from 'vite';
+import { devSiteThemePlugin } from '../../config/dev-site.mjs';
 import { unpackPackage } from '../package/fixture.mjs';
 
 export async function fixtureServer(root, fixtureDirectory) {
@@ -12,6 +13,8 @@ export async function fixtureServer(root, fixtureDirectory) {
   });
   await fs.cp(path.join(root, 'examples'), path.join(directory, 'examples'), { recursive: true });
   await fs.symlink(packed, path.join(directory, 'package'), 'dir');
+  // The dev workbench loads its highlighter lazily; the calendar still comes only from the tarball.
+  await fs.cp(await fs.realpath(path.join(root, 'node_modules/highlight.js')), path.join(directory, 'node_modules/highlight.js'), { recursive: true });
   const examples = (await fs.readdir(path.join(directory, 'examples')))
     .filter((name) => name.endsWith('.ts'))
     .map((name) => name.slice(0, -3))
@@ -45,13 +48,14 @@ ${script}
     );
   }
   const server = await createServer({
+    plugins: [devSiteThemePlugin()],
     configFile: false,
     root: directory,
     publicDir: false,
     cacheDir: path.join(directory, '.vite'),
     logLevel: 'warn',
     css: { postcss: root },
-    optimizeDeps: { noDiscovery: true },
+    optimizeDeps: { noDiscovery: true, include: ['highlight.js/lib/core', 'highlight.js/lib/languages/typescript'] },
     resolve: {
       alias: [
         { find: '@src/index', replacement: path.join(packed, 'index.mjs') },

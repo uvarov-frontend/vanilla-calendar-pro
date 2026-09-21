@@ -2,63 +2,190 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="format-detection" content="telephone=no" />
-    <title>Vanilla Calendar Pro — JavaScript Date &amp; Time Picker</title>
+    <title>Accessibility · Vanilla Calendar Pro</title>
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../index.css" />
-    <script defer src="./main.ts" type="module"></script>
+    <script src="./main.ts" type="module"></script>
   </head>
-  <body
-    class="font-sans bg-white bg-light-mode text-slate-900 min-h-screen container mx-auto text-center flex flex-col items-center py-12 dark:bg-slate-900 dark:bg-dark-mode dark:text-white"
-  >
+  <body class="dev-app">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="flex w-full flex-col items-center">
-      <h1 class="block mb-7 text-6xl font-extrabold">Vanilla Calendar Pro</h1>
-      <p class="block max-w-[700px] text-lg mb-12 dark:text-slate-400">
-        Every option combination that carries its own ARIA markup, gathered on one page for the accessibility checks.
-      </p>
-      <div class="flex flex-col items-center gap-12">
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'month'</code> &mdash; a picker as the opening view</figcaption>
-          <div id="calendar-month"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'year'</code> &mdash; a picker as the opening view</figcaption>
-          <div id="calendar-year"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>onClickWeekDay</code> and <code>onClickWeekNumber</code> &mdash; clickable headers</figcaption>
-          <div id="calendar-clickable-headers"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>selectionDatesMode: 'multiple-ranged'</code> with a range tooltip</figcaption>
-          <div id="calendar-ranged"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>timeControls: 'range'</code> &mdash; sliders, with the inputs disabled</figcaption>
-          <div id="calendar-time-range"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>type: 'multiple'</code> with <code>enableWeekNumbers</code></figcaption>
-          <div id="calendar-multiple-week-numbers"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400">
-            <code>selectionMonthsMode</code> and <code>selectionYearsMode</code> off &mdash; locked titles
-          </figcaption>
-          <div id="calendar-locked-titles"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>popups</code> &mdash; a date carrying extra content</figcaption>
-          <div id="calendar-popups"></div>
-        </figure>
-        <figure class="flex flex-col items-center gap-3">
-          <figcaption class="text-sm dark:text-slate-400"><code>inputMode</code> &mdash; the popup, open and closed</figcaption>
-          <label class="text-sm dark:text-slate-400" for="calendar-input">Pick a date</label>
-          <input id="calendar-input" class="input" type="text" readonly />
-        </figure>
-      </div>
-    </main>
+    <aside id="dev-sidebar" class="dev-sidebar" aria-label="Development navigation"></aside>
+    <button id="dev-backdrop" class="dev-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="dev-workspace">
+      <header id="dev-topbar" class="dev-topbar"></header>
+      <main id="main-content" class="dev-main">
+        <header class="dev-page-heading">
+          <div>
+            <p class="dev-eyebrow">Integration &amp; edge cases</p>
+            <h1>Accessibility</h1>
+            <p class="dev-description">Exercise keyboard navigation, focus, and ARIA across the supported calendar configurations.</p>
+          </div>
+        </header>
+        <div id="dev-viewbar" class="dev-viewbar"></div>
+        <div id="dev-preview" class="dev-preview dev-case-grid">
+          <section class="dev-case" id="case-calendar-month" aria-labelledby="title-calendar-month">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-month">Month picker</h2>
+                <p>
+                  <code>type: 'month'</code>
+                  &mdash;
+                  a picker as the opening view
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-month" aria-label="Link to Month picker">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-month"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-year" aria-labelledby="title-calendar-year">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-year">Year picker</h2>
+                <p>
+                  <code>type: 'year'</code>
+                  &mdash;
+                  a picker as the opening view
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-year" aria-label="Link to Year picker">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-year"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-clickable-headers" aria-labelledby="title-calendar-clickable-headers">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-clickable-headers">Clickable headers</h2>
+                <p>
+                  <code>onClickWeekDay</code>
+                  and
+                  <code>onClickWeekNumber</code>
+                  &mdash;
+                  clickable headers
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-clickable-headers" aria-label="Link to Clickable headers">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-clickable-headers"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-ranged" aria-labelledby="title-calendar-ranged">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-ranged">Date range</h2>
+                <p>
+                  <code>selectionDatesMode: 'multiple-ranged'</code>
+                  with a range tooltip
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-ranged" aria-label="Link to Date range">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-ranged"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-time-range" aria-labelledby="title-calendar-time-range">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-time-range">Time sliders</h2>
+                <p>
+                  <code>timeControls: 'range'</code>
+                  &mdash;
+                  sliders, with the inputs disabled
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-time-range" aria-label="Link to Time sliders">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-time-range"></div>
+            </div>
+          </section>
+          <section class="dev-case dev-case--wide" id="case-calendar-multiple-week-numbers" aria-labelledby="title-calendar-multiple-week-numbers">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-multiple-week-numbers">Multiple months & week numbers</h2>
+                <p>
+                  <code>type: 'multiple'</code>
+                  with
+                  <code>enableWeekNumbers</code>
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-multiple-week-numbers" aria-label="Link to Multiple months &amp; week numbers">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-multiple-week-numbers"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-locked-titles" aria-labelledby="title-calendar-locked-titles">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-locked-titles">Locked titles</h2>
+                <p>
+                  <code>selectionMonthsMode</code>
+                  and
+                  <code>selectionYearsMode</code>
+                  off
+                  &mdash;
+                  locked titles
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-locked-titles" aria-label="Link to Locked titles">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-locked-titles"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-popups" aria-labelledby="title-calendar-popups">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-popups">Popup content</h2>
+                <p>
+                  <code>popups</code>
+                  &mdash;
+                  a date carrying extra content
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-popups" aria-label="Link to Popup content">#</a>
+            </header>
+            <div class="dev-canvas">
+              <div id="calendar-popups"></div>
+            </div>
+          </section>
+          <section class="dev-case" id="case-calendar-input" aria-labelledby="title-calendar-input">
+            <header class="dev-case-header">
+              <div>
+                <h2 id="title-calendar-input">Input popover</h2>
+                <p>
+                  <code>inputMode</code>
+                  &mdash;
+                  the popup, open and closed
+                </p>
+              </div>
+              <a class="dev-case-anchor" href="#case-calendar-input" aria-label="Link to Input popover">#</a>
+            </header>
+            <div class="dev-canvas">
+              <label class="text-sm dark:text-slate-400" for="calendar-input">Pick a date</label>
+              <input id="calendar-input" class="input" type="text" readonly />
+            </div>
+          </section>
+        </div>
+        <section id="dev-source" class="dev-source" aria-label="Scenario TypeScript source" hidden></section>
+        <footer class="dev-footer">
+          <span>
+            Vanilla Calendar Pro
+            <span class="dev-footer-separator">/</span>
+            Development workbench
+          </span>
+          <code>demo/pages/a11y/main.ts</code>
+        </footer>
+      </main>
+    </div>
+    <div id="dev-announcement" class="dev-sr-only" role="status"></div>
   </body>
 </html>

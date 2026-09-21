@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path, { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import { devSiteThemePlugin } from './config/dev-site.mjs';
 
 const getInputVite: () => { [key: string]: string } = () => {
   const pages: string[] = [];
@@ -33,6 +34,7 @@ const getInputVite: () => { [key: string]: string } = () => {
 };
 
 export default defineConfig({
+  plugins: [devSiteThemePlugin()],
   root: './demo',
   build: {
     assetsDir: '',

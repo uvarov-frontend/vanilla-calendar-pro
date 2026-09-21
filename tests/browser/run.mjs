@@ -4,6 +4,7 @@ import path from 'node:path';
 import cypress from 'cypress';
 import { nativeChecks } from './native.mjs';
 import { fixtureServer } from './server.mjs';
+import { workbenchChecks } from './workbench.mjs';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const args = process.argv.slice(2);
@@ -56,6 +57,7 @@ try {
       if (result.failures || result.totalFailed || !result.totalTests || result.totalPending || result.totalSkipped) process.exitCode = 1;
       if (!options.spec && ['chrome', 'webkit'].includes(browser)) {
         if (!(await nativeChecks({ browser, executablePath: result.browserPath, url: fixture.url, output }))) process.exitCode = 1;
+        if (!(await workbenchChecks({ browser, executablePath: result.browserPath, url: fixture.url, output }))) process.exitCode = 1;
       }
     }
   }

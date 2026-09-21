@@ -1,3 +1,5 @@
+import '../../workbench';
+
 import { Calendar, type Options } from '@src/index';
 
 import '@src/styles/index.css';
@@ -66,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
   calendarDiv.init();
+
+  document.querySelector('#calendar-div')?.addEventListener('keydown', (event) => {
+    if (!['Enter', ' '].includes((event as KeyboardEvent).key)) return;
+    event.preventDefault();
+    calendarDiv.show();
+  });
 
   document.querySelector('#set-date')?.addEventListener('click', () => {
     calendarInput.set({

@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  width: 288px;
+  max-width: 100%;
+}
+
+/* Input popovers must sit above inline calendars in neighboring demo cards. */
+[data-vc="calendar"][data-vc-input] {
+  z-index: 30;
+}
+
+.shadow-controls,
+.shadow-controls label {
+  display: grid;
+  gap: 10px;
+}
+
+.shadow-controls {
+  gap: 16px;
+  color: var(--dev-text);
+  font:
+    14px / 1.5 "Lato",
+    sans-serif;
+}
+
+.shadow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+[data-vc-shadow-input],
+.shadow-actions button {
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid var(--dev-line);
+  border-radius: 8px;
+  background: var(--dev-panel);
+  color: var(--dev-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+[data-vc-shadow-input] {
+  width: 100%;
+  min-width: 0;
+}
+
+[data-vc-shadow-input]::placeholder {
+  color: var(--dev-muted);
+}
+
+[data-vc-shadow-input]:hover,
+.shadow-actions button:hover {
+  border-color: var(--dev-muted);
+}
+
+[data-vc-shadow-input]:focus-visible,
+.shadow-actions button:focus-visible {
+  outline: 2px solid var(--dev-accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  [data-vc-shadow-input] {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
