@@ -17,6 +17,9 @@ importers:
       '@types/node':
         specifier: 22.20.4
         version: 22.20.4
+      acorn:
+        specifier: 8.18.0
+        version: 8.18.0
       archiver:
         specifier: 8.0.0
         version: 8.0.0

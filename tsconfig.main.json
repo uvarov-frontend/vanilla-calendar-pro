@@ -22,6 +22,6 @@
     "rootDir": "./package/src",
     "types": ["node"]
   },
-  "include": ["package/src/*.ts"],
+  "include": ["package/src/*.ts", "package/src/utils/index.ts"],
   "exclude": ["node_modules"]
 }

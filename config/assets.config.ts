@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-import { bannerPlugin, getInputFiles } from './helpers.ts';
+import { getInputFiles, packageOutputPlugin } from './helpers.ts';
 
 const outDir = './package/dist';
 const input = getInputFiles(resolve(import.meta.dirname, '../package/src/styles'));
@@ -23,5 +23,5 @@ export default defineConfig({
       input,
     },
   },
-  plugins: [bannerPlugin()],
+  plugins: [packageOutputPlugin()],
 });
