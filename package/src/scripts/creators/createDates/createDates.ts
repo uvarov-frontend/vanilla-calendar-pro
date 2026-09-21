@@ -5,7 +5,7 @@ import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesF
 import createWeekDates from '@scripts/creators/createDates/createWeekDates';
 import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
-import { pauseRenderObservation, rememberRender, type RenderState } from '@scripts/utils/renderState';
+import { pauseRenderObservation, type RenderState, rememberRender } from '@scripts/utils/renderState';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import type { Calendar } from '@src/index';
 

@@ -11,13 +11,13 @@ const getLocaleString = (dateStr: FormatDateString, locale: string) => {
   let formatter = formatters.get(locale);
   if (!formatter) {
     formatter = new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' });
-    if (formatters.size >= 8) formatters.delete(formatters.keys().next().value);
+    if (formatters.size >= 8) formatters.delete(formatters.keys().next().value as string);
     formatters.set(locale, formatter);
   }
 
   const label = formatter.format(new Date(`${dateStr}T00:00:00.000Z`));
   // Bound the shared cache even when calendars visit many years and locales.
-  if (labels.size >= 512) labels.delete(labels.keys().next().value);
+  if (labels.size >= 512) labels.delete(labels.keys().next().value as string);
   labels.set(key, label);
   return label;
 };

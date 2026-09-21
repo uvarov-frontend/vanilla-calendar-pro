@@ -8,7 +8,7 @@ import handleTheme from '@scripts/handles/handleTheme';
 import { cleanupPending } from '@scripts/utils/animate';
 import getLocale from '@scripts/utils/getLocale';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
-import { pauseRenderObservation, rememberRender, type RenderState, renderStructure } from '@scripts/utils/renderState';
+import { pauseRenderObservation, type RenderState, rememberRender, renderStructure } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 

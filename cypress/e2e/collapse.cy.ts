@@ -331,5 +331,3 @@ describe('Collapse', () => {
     });
   });
 });
-
-export {};

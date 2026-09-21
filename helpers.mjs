@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require('fs');
-const path = require('path');
-const { minify: minifyJs } = require('terser');
-const postcss = require('postcss');
-const cssnano = require('cssnano');
-const pako = require('pako');
-const archiver = require('archiver');
-require('colors');
+import fs from 'node:fs';
+import path from 'node:path';
+import { gzipSync } from 'node:zlib';
+import { ZipArchive } from 'archiver';
+import cssnano from 'cssnano';
+import postcss from 'postcss';
+import { minify as minifyJs } from 'terser';
 
-const inputDir = path.resolve(__dirname, 'package/dist');
+const inputDir = path.resolve(import.meta.dirname, 'package/dist');
 
 const logMessage = (type, file, originalSize, minifiedSize, gzipSize) => {
   const sizeToKb = (size) => Math.round((size / 1024) * 100) / 100;
@@ -16,10 +14,10 @@ const logMessage = (type, file, originalSize, minifiedSize, gzipSize) => {
   const minifiedSizeKb = sizeToKb(minifiedSize);
   const gzipSizeKb = sizeToKb(gzipSize);
 
-  console.log(`Minified ${type}: `.gray + `${file}`.blue + ' | ' + `${originalSizeKb} kB → ${minifiedSizeKb} kB `.green + `(gzip: ${gzipSizeKb} kB)`.magenta);
+  console.log(`Minified ${type}: ${file} | ${originalSizeKb} kB → ${minifiedSizeKb} kB (gzip: ${gzipSizeKb} kB)`);
 };
 
-const getGzipSize = (content) => Buffer.byteLength(pako.gzip(content));
+const getGzipSize = (content) => gzipSync(content).length;
 
 const minifyFile = async (filePath, minifier) => {
   const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -33,7 +31,7 @@ const minifyFile = async (filePath, minifier) => {
     const gzipSize = getGzipSize(result.code || result.css);
     logMessage(path.extname(filePath).slice(1).toUpperCase(), path.basename(filePath), originalSize, minifiedSize, gzipSize);
   } catch (e) {
-    console.error(`Error minifying ${path.basename(filePath)}:`.red, e);
+    throw new Error(`Error minifying ${path.basename(filePath)}`, { cause: e });
   }
 };
 
@@ -45,7 +43,7 @@ const processDirectory = async (directory) => {
       if (fs.statSync(filePath).isDirectory()) {
         await processDirectory(filePath);
       } else if (file.endsWith('.js') || file.endsWith('.mjs')) {
-        await minifyFile(filePath, minifyJs);
+        await minifyFile(filePath, (content) => minifyJs(content, { ecma: 2015, module: file.endsWith('.mjs'), safari10: true }));
       } else if (file.endsWith('.css')) {
         await minifyFile(filePath, (content) => postcss([cssnano]).process(content, { from: filePath }));
       }
@@ -59,11 +57,11 @@ const zipDirectory = async (sourceDir) => {
   if (fs.existsSync(outputZipPath)) fs.unlinkSync(outputZipPath);
 
   const output = fs.createWriteStream(outputZipPath);
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = new ZipArchive({ zlib: { level: 9 } });
 
   return new Promise((resolve, reject) => {
     output.on('close', () => {
-      console.log(`Archive created: ${outputZipPath.green}`.blue + ` (${(archive.pointer() / 1024).toFixed(2)} kB)`.green);
+      console.log(`Archive created: ${outputZipPath} (${(archive.pointer() / 1024).toFixed(2)} kB)`);
       resolve();
     });
 
@@ -94,11 +92,12 @@ const zipDirectory = async (sourceDir) => {
 const main = async () => {
   try {
     await processDirectory(inputDir);
-    console.log('Minification complete.'.green);
+    console.log('Minification complete.');
     await zipDirectory(inputDir);
-    console.log('Archiving complete.'.green);
+    console.log('Archiving complete.');
   } catch (err) {
-    console.error('Error during processing:'.red, err);
+    console.error('Error during processing:', err);
+    process.exitCode = 1;
   }
 };
 

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**", "!!**/node_modules", "!!**/next", "!!**/demo/build", "!!**/demo/dist", "!!**/package/dist", "!!**/coverage", "!!**/pnpm-lock.yaml"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 160,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noExtraBooleanCast": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "useIterableCallbackReturn": {
+          "level": "error",
+          "options": {
+            "checkForEach": false
+          }
+        }
+      }
+    }
+  },
+  "assist": {
+    "enabled": true
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDescendingSpecificity": "off"
+          },
+          "complexity": {
+            "noImportantStyles": "off"
+          },
+          "suspicious": {
+            "noUnknownAtRules": {
+              "level": "error",
+              "options": {
+                "ignore": ["tailwind"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

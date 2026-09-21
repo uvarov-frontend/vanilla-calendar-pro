@@ -1,17 +1,27 @@
-import { readdirSync } from 'fs';
-import { resolve } from 'path';
-import banner from 'vite-plugin-banner';
+import { readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+import type { Plugin } from 'vite';
 
-import { version } from '../package/public/package.json';
+import metadata from '../package/public/package.json' with { type: 'json' };
 
-export const bannerPlugin = (outDir: string) =>
-  banner({ outDir, content: `name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro` });
+const { version } = metadata;
+
+export const bannerPlugin = (): Plugin => ({
+  name: 'calendar-banner',
+  generateBundle(_options, bundle) {
+    const banner = `/*! name: vanilla-calendar-pro v${version} | url: https://github.com/uvarov-frontend/vanilla-calendar-pro */\n`;
+    for (const output of Object.values(bundle)) {
+      if (output.type === 'chunk') output.code = banner + output.code;
+      else if (output.fileName.endsWith('.css')) output.source = banner + output.source;
+    }
+  },
+});
 
 export const alias = {
-  '@': resolve(__dirname, '../'),
-  '@package': resolve(__dirname, '../package'),
-  '@src': resolve(__dirname, '../package/src'),
-  '@scripts': resolve(__dirname, '../package/src/scripts'),
+  '@': resolve(import.meta.dirname, '../'),
+  '@package': resolve(import.meta.dirname, '../package'),
+  '@src': resolve(import.meta.dirname, '../package/src'),
+  '@scripts': resolve(import.meta.dirname, '../package/src/scripts'),
 };
 
 export const getInputFiles = (dir: string): string[] => {

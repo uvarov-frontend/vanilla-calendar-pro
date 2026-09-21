@@ -9,9 +9,10 @@ const updateDisabledDates = (self: Calendar) => {
 
   const [startDate, endDate] = self.context.disableDates
     .map((dateStr) => getDate(dateStr))
-    .reduce<
-      [Date | null, Date | null]
-    >(([start, end], disabledDate) => [selectedDate >= disabledDate ? disabledDate : start, selectedDate < disabledDate && end === null ? disabledDate : end], [null, null]);
+    .reduce<[Date | null, Date | null]>(
+      ([start, end], disabledDate) => [selectedDate >= disabledDate ? disabledDate : start, selectedDate < disabledDate && end === null ? disabledDate : end],
+      [null, null],
+    );
 
   if (startDate) setContext(self, 'displayDateMin', getDateString(new Date(startDate.setDate(startDate.getDate() + 1))));
   if (endDate) setContext(self, 'displayDateMax', getDateString(new Date(endDate.setDate(endDate.getDate() - 1))));

@@ -4,7 +4,7 @@ import 'vanilla-calendar-pro/styles/index.css';
 
 const options: Options = {
   selectionDatesMode: 'multiple',
-  onClickWeekDay(self, day, dateEls) {
+  onClickWeekDay(self, _day, dateEls) {
     const selectedDates = dateEls.map((dateEl) => dateEl.dataset.vcDate) as FormatDateString[];
     self.set({ selectedDates }, { dates: true });
   },

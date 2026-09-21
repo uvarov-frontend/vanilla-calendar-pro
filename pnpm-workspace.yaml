@@ -1,0 +1,6 @@
+packages:
+  - '.'
+saveExact: true
+verifyDepsBeforeRun: error
+allowBuilds:
+  cypress: true

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./build/",
     "target": "ESNext",
     "allowJs": true,
@@ -10,10 +9,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "types": ["cypress", "node", "vite"],
     "paths": {
       "@scripts/*": ["./package/src/scripts/*"],
@@ -21,9 +21,10 @@
       "@package/*": ["./package/*"],
       "@/*": ["./*"],
       "vanilla-calendar-pro": ["./package/src/index.ts"],
-      "vanilla-calendar-pro/types": ["package/src/types.ts"]
-    }
+      "vanilla-calendar-pro/types": ["./package/src/types.ts"]
+    },
+    "rootDir": "."
   },
   "include": ["**/*.ts", "**/*.js", "**/*.mjs", "**/*.cy.ts"],
-  "exclude": ["node_modules", "next/*"]
+  "exclude": ["node_modules", "next", "package/dist", "demo/build"]
 }

@@ -1,15 +1,14 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import eslint from 'vite-plugin-eslint';
 
-import { alias, bannerPlugin } from './helpers';
+import { alias, bannerPlugin } from './helpers.ts';
 
 const outDir = './package/dist/utils';
 
 export default defineConfig({
   build: {
-    target: 'ES6',
+    target: 'es2015',
     assetsDir: '',
     outDir,
     minify: false,
@@ -18,9 +17,9 @@ export default defineConfig({
       name: 'VanillaCalendarProUtils',
       formats: ['es', 'umd'],
       fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
-      entry: resolve(__dirname, '../package/src/utils/index.ts'),
+      entry: resolve(import.meta.dirname, '../package/src/utils/index.ts'),
     },
   },
   resolve: { alias },
-  plugins: [bannerPlugin(outDir), eslint(), dts({ tsconfigPath: './tsconfig.utils.json', outDir: './package/dist' })],
+  plugins: [bannerPlugin(), dts({ tsconfigPath: './tsconfig.utils.json', outDirs: './package/dist' })],
 });

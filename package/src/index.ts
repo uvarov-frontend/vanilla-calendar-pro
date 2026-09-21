@@ -90,9 +90,10 @@ export class Calendar extends OptionsCalendar {
   readonly context!: Readonly<ContextVariables>;
 }
 
-export {
+export type {
   AnimationOptions,
   AnimationTiming,
+  ContextVariables,
   DateAny,
   DateMode,
   DatesArr,
@@ -109,7 +110,6 @@ export {
   Popups,
   Positions,
   PositionToInput,
-  ContextVariables,
   Range,
   Reset,
   Styles,

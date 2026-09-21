@@ -8,9 +8,9 @@ import { brotliCompressSync, constants, gzipSync } from 'node:zlib';
 
 export const hash = (data) => createHash('sha256').update(data).digest('hex');
 
-export function command(file, args, cwd, log) {
+export function command(file, args, cwd, log, env = {}) {
   return new Promise((resolve, reject) => {
-    const child = spawn(file, args, { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn(file, args, { cwd, env: { ...process.env, ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
     const stream = log ? createWriteStream(log) : undefined;
     const stdout = [];
     const stderr = [];
@@ -50,6 +50,11 @@ export async function prepareBuilds(root, scratch, output, baselineRef) {
   const archive = path.join(scratch, 'baseline.tar');
   await command('git', ['archive', '--format=tar', `--output=${archive}`, baselineCommit], root);
   await command('tar', ['-xf', archive, '-C', directories.baseline], root);
+  const baselinePackage = JSON.parse(await fs.readFile(path.join(directories.baseline, 'package.json'), 'utf8'));
+  if (!baselinePackage.packageManager?.startsWith('pnpm@'))
+    throw new Error(
+      'This baseline predates the pnpm/toolchain migration. Choose a later revision, or run the historical harness in a checkout with its original dependencies. See tests/performance/README.md.',
+    );
   const files = (await command('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], root)).split('\0').filter(Boolean);
   for (const file of new Set(files)) {
     const source = path.join(root, file);
@@ -71,7 +76,10 @@ export async function prepareBuilds(root, scratch, output, baselineRef) {
   for (const [variant, directory] of Object.entries(directories)) {
     await fs.symlink(path.join(root, 'node_modules'), path.join(directory, 'node_modules'), 'dir');
     console.log(`Building ${variant}${variant === 'baseline' ? ` (${baselineCommit.slice(0, 8)})` : ' (working tree)'}...`);
-    await command('npm', ['run', 'package:build'], directory, path.join(output, `build-${variant}.log`));
+    // The snapshot intentionally shares installed dependencies with another workspace path.
+    await command('pnpm', ['run', 'package:build'], directory, path.join(output, `build-${variant}.log`), {
+      pnpm_config_verify_deps_before_run: 'false',
+    });
     const dist = path.join(directory, 'package/dist');
     const code = await fs.readFile(path.join(dist, 'index.mjs'), 'utf8');
     const css = await fs.readFile(path.join(dist, 'styles/layout.css'), 'utf8');

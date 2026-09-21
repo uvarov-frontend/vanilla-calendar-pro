@@ -10,12 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - name: Setup npm package
-        run: npm install
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: package.json
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          cache: true
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check source and build package
+        run: pnpm lint && pnpm package:build && pnpm build
       - name: Testing
         uses: cypress-io/github-action@v7.4.3
         with:
-          start: npm run dev
+          install: false
+          start: pnpm dev
   deploy:
     runs-on: ubuntu-latest
     needs: cypress
@@ -41,5 +50,5 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd ${{ secrets.TARGET }}
-            yarn install --frozen-lockfile
-            yarn package:build
+            corepack pnpm install --frozen-lockfile
+            corepack pnpm package:build

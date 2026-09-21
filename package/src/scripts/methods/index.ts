@@ -6,4 +6,4 @@ import set from '@scripts/methods/set';
 import show from '@scripts/methods/show';
 import update from '@scripts/methods/update';
 
-export { init, update, reset, destroy, show, hide, set };
+export { destroy, hide, init, reset, set, show, update };

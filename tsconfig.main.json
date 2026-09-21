@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "target": "ESNext",
     "allowJs": true,
     "esModuleInterop": true,
@@ -11,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "paths": {
@@ -19,7 +18,9 @@
       "@src/*": ["./package/src/*"],
       "@package/*": ["./package/*"],
       "@/*": ["./*"]
-    }
+    },
+    "rootDir": "./package/src",
+    "types": ["node"]
   },
   "include": ["package/src/*.ts"],
   "exclude": ["node_modules"]
