@@ -160,6 +160,8 @@ This project is tested with BrowserStack.
 
 ## Development
 
+Automatic checks, server deployment and npm Trusted Publishing are described in the [CI and release guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/.github/README.md).
+
 Use the Node and pnpm versions pinned in `package.json` (`engines.node` and `packageManager`; enable pnpm with `corepack enable`). CI reads its Node version from the same file. From the repository checkout:
 
 ```sh

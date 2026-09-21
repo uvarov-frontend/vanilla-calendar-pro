@@ -1,12 +1,30 @@
 import assert from 'node:assert/strict';
+import { constants } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { chromium, webkit } from 'playwright-webkit';
 
+export async function resolveBrowserExecutable(executable, searchPath = process.env.PATH ?? '') {
+  assert.ok(executable, 'Cypress must report the Chrome executable');
+  if (path.isAbsolute(executable)) return executable;
+  // On Linux Cypress can report a command such as google-chrome. Playwright
+  // expects a filesystem path and does not resolve that command through PATH.
+  for (const directory of searchPath.split(path.delimiter)) {
+    const candidate = path.resolve(directory, executable);
+    try {
+      await fs.access(candidate, constants.X_OK);
+      return candidate;
+    } catch {
+      // Keep searching when this PATH entry does not contain the executable.
+    }
+  }
+  throw new Error(`Cannot resolve Cypress browser executable: ${executable}`);
+}
+
 // Real browser input complements Cypress's synthetic pointer sequences. In
 // particular, it exercises native pointer capture without modifying DOM APIs.
 export async function nativeChecks({ browser: name, executablePath, url, output }) {
-  const browser = await (name === 'webkit' ? webkit.launch() : chromium.launch({ executablePath }));
+  const browser = await (name === 'webkit' ? webkit.launch() : chromium.launch({ executablePath: await resolveBrowserExecutable(executablePath) }));
   const results = [];
   const check = async (title, options, run) => {
     const page = await browser.newPage({ viewport: { width: 1000, height: 800 } });

@@ -20,11 +20,12 @@ export async function fixtureServer(root, fixtureDirectory) {
   const inputs = new Set(['type-default-in-input', 'type-week-in-input', 'additional-features-layouts-btn-close']);
   for (const name of examples) {
     const host = inputs.has(name) ? '<label for="calendar">Date</label><input id="calendar" autocomplete="off">' : '<div id="calendar"></div>';
+    // Keep the outside-click target clear of popovers regardless of browser fonts.
     await fs.writeFile(
       path.join(directory, 'examples', `${name}.html`),
       `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>${name}</title>
-<style>body{margin:40px;font-family:sans-serif}#outside{display:block;margin-top:40px}</style></head>
+<style>body{margin:40px;font-family:sans-serif}#outside{position:fixed;right:20px;bottom:20px}</style></head>
 <body>${host}<button id="outside">Outside</button>
 <script type="module">import './${name}.ts'; window.exampleReady = true;</script></body></html>`,
     );

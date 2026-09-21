@@ -41,7 +41,8 @@
     "test:package": "pnpm package:build && node --test tests/package/package.test.mjs",
     "test:examples": "pnpm test:cypress --spec cypress/e2e/examples.cy.ts,cypress/e2e/api.cy.ts",
     "test:cypress:browsers": "pnpm test:cypress --browsers=chrome,firefox,webkit",
-    "test:timezones": "pnpm package:build && node tests/browser/timezones.mjs"
+    "test:timezones": "pnpm package:build && node tests/browser/timezones.mjs",
+    "test:ci": "node --test tests/ci/*.test.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",

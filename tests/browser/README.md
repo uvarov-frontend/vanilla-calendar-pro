@@ -25,7 +25,7 @@ Chrome and Firefox must be installed separately. WebKit is provided by the pinne
 
 `run.mjs` packs `package/dist` using `pnpm pack`, extracts it into a temporary consumer project, starts Vite on an available localhost port, and invokes Cypress. The real `examples/*.ts` files import the extracted package without changing their options. Existing demo pages resolve `@src/index` and styles to the same published artifacts. API fixtures exercise ESM imports and classic script globals; no library TypeScript is compiled by this fixture server.
 
-The command prints an OS temporary directory containing a JSON result for each browser and screenshots of failures. A failure, missing tests, or skipped/pending tests causes a nonzero exit status. Fixtures and the server are cleaned up on completion; reports remain outside the repository. CI calls `pnpm cypress:run` after building the package.
+The command prints an OS temporary directory containing a JSON result for each browser and screenshots of failures. A failure, missing tests, or skipped/pending tests causes a nonzero exit status. Fixtures and the server are cleaned up on completion; reports remain outside the repository. CI builds the package once, then downloads that artifact into four parallel browser jobs. Chrome/WebKit also run native input and timezone checks. Reports and screenshots are uploaded as GitHub Actions artifacts; see [CI and releases](../../.github/README.md).
 
 ## Coverage and maintenance
 

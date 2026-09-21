@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  # Finish main deployments; superseded PR checks can be cancelled safely.
+  cancel-in-progress: ${{ github.event_name != 'push' }}
+
+jobs:
+  checks:
+    name: Checks
+    uses: ./.github/workflows/checks.yml
+
+  deploy:
+    name: Deploy tested package to the server
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'uvarov-frontend/vanilla-calendar-pro'
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: package-dist
+          path: package/dist
+      - name: Stage tracked repository files
+        shell: bash
+        run: |
+          mkdir .deploy
+          git archive HEAD | tar -xf - -C .deploy
+      - name: Copy repository files to the server
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          source: .deploy/.
+          strip_components: 1
+          target: ${{ secrets.TARGET }}
+      - name: Replace the generated package with the tested build
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          source: package/dist/.
+          strip_components: 2
+          target: ${{ secrets.TARGET }}/package/dist
+          # Only the generated directory is replaced; removed build files must not linger.
+          rm: true
