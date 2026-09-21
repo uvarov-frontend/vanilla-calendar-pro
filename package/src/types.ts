@@ -102,6 +102,7 @@ export type ContextVariables = {
   openOnFocus: ToggleSelected;
   cleanupHandlers: Array<() => void>;
   cleanupSystemTheme?: () => void;
+  cleanupInput?: () => void;
   currentType: TypesCalendar;
   locale: LocaleStated;
   mainElement: HTMLElement;

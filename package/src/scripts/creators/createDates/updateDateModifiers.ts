@@ -1,9 +1,11 @@
+import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
 const updateDateModifiers = (self: Calendar) => {
+  prepareDateRules(self);
   const dateEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-date]');
   dateEls.forEach((dateEl) => {
     const dateBtnEl = dateEl.querySelector<HTMLButtonElement>('[data-vc-date-btn]') as HTMLButtonElement;

@@ -1,20 +1,21 @@
 import handleHoverDatesEvent from '@scripts/handles/handleSelectDateRange/handleHoverDatesEvent';
 import handleHoverSelectedDatesRangeEvent from '@scripts/handles/handleSelectDateRange/handleHoverSelectedDatesRangeEvent';
-import state from '@scripts/handles/handleSelectDateRange/state';
+import getRangeState from '@scripts/handles/handleSelectDateRange/state';
+import type { Calendar } from '@src/index';
 
-const optimizedHoverHandler = (callback: (target: HTMLElement | null) => void) => {
-  return (e: MouseEvent) => {
-    const closuredTarget = e.target as HTMLElement;
-    if (!state.isHovering) {
-      state.isHovering = true;
-      requestAnimationFrame(() => {
-        callback(closuredTarget);
-        state.isHovering = false;
-      });
-    }
-  };
+const optimizedHoverHandler = (self: Calendar) => (event: MouseEvent) => {
+  if (!self.context.selectedDates[0] || (self.context.selectedDates.length !== 1 && !self.onCreateDateRangeTooltip)) return;
+  const state = getRangeState(self);
+  if (state.isHovering) return;
+  const target = event.target as HTMLElement;
+  state.isHovering = true;
+  state.frameId = requestAnimationFrame(() => {
+    state.frameId = null;
+    state.isHovering = false;
+    if (self.context.isDestroyed || !self.context.mainElement.contains(target)) return;
+    if (self.context.selectedDates.length === 1) handleHoverDatesEvent(self, target);
+    else if (self.context.selectedDates[0] && !!self.onCreateDateRangeTooltip) handleHoverSelectedDatesRangeEvent(self, target);
+  });
 };
 
-export const optimizedHandleHoverDatesEvent = optimizedHoverHandler(handleHoverDatesEvent);
-
-export const optimizedHandleHoverSelectedDatesRangeEvent = optimizedHoverHandler(handleHoverSelectedDatesRangeEvent);
+export default optimizedHoverHandler;

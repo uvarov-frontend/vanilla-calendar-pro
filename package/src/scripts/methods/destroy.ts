@@ -1,4 +1,8 @@
+import { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
+import { clearDateRules } from '@scripts/creators/createDates/dateRules';
 import { cleanupGestures } from '@scripts/handles/handleGestures/handleGestures';
+import { cleanupDateRange } from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import { cancelPendingShow } from '@scripts/methods/show';
 import { cleanupPending } from '@scripts/utils/animate';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import setContext from '@scripts/utils/setContext';
@@ -9,7 +13,16 @@ const destroy = (self: Calendar) => {
   if (self.context.isDestroyed) throw new Error(errorMessages.alreadyDestroyed);
 
   cleanupGestures(self.context.mainElement);
+  cleanupDateRange(self);
   cleanupPending(self.context.mainElement);
+  cleanupDatePopups(self);
+  clearDateRules(self);
+  cancelPendingShow(self);
+  self.context.cleanupInput?.();
+  setContext(self, 'cleanupInput', undefined);
+  self.context.cleanupHandlers?.forEach((cleanup) => cleanup());
+  setContext(self, 'cleanupHandlers', []);
+  setContext(self, 'isShowInInputMode', false);
   self.context.cleanupSystemTheme?.();
 
   if (self.inputMode) {

@@ -1,8 +1,8 @@
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
 import handleGestures from '@scripts/handles/handleGestures/handleGestures';
-import { show } from '@scripts/methods';
 import reset from '@scripts/methods/reset';
+import { scheduleShow } from '@scripts/methods/show';
 import getRootNode from '@scripts/utils/getRootNode';
 import setContext from '@scripts/utils/setContext';
 import { hideFromAT } from '@scripts/utils/toggleTabbing';
@@ -39,9 +39,10 @@ const createToInput = (self: Calendar) => {
     locale: true,
   });
 
-  setTimeout(() => show(self));
+  scheduleShow(self);
 
   if (self.onInit) self.onInit(self);
+  if (self.context.isDestroyed) return;
   handleArrowKeys(self);
   handleGestures(self);
   return handleClick(self);

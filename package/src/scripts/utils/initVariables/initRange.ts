@@ -30,12 +30,14 @@ const initRange = (self: Calendar) => {
 
   // set self.context.enableDates
   setContext(self, 'enableDates', self.enableDates[0] ? parseDates(self.enableDates) : []);
-  if (self.context.enableDates?.[0] && self.context.disableDates?.[0])
+  if (self.context.enableDates?.[0] && self.context.disableDates?.[0]) {
+    const enabled = new Set(self.context.enableDates);
     setContext(
       self,
       'disableDates',
-      self.context.disableDates.filter((d) => !self.context.enableDates.includes(d)),
+      self.context.disableDates.filter((d) => !enabled.has(d)),
     );
+  }
   if (self.context.enableDates.length > 1) self.context.enableDates.sort((a, b) => +new Date(a) - +new Date(b));
 
   if (self.context.enableDates?.[0] && self.disableAllDates) {

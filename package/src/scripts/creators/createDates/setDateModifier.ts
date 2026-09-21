@@ -1,5 +1,5 @@
+import { getDateRules } from '@scripts/creators/createDates/dateRules';
 import getDate from '@scripts/utils/getDate';
-import parseDates from '@scripts/utils/parseDates';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
 
 const updateAttribute = (el: HTMLElement | HTMLButtonElement, condition: boolean | undefined, attr: string, value = '') => {
@@ -22,10 +22,11 @@ const setDateModifier = (
   monthType: 'current' | 'prev' | 'next',
 ) => {
   const dateTime = getDateTime(dateStr);
+  const rules = getDateRules(self);
   const isDisabled =
-    getDateTime(self.context.displayDateMin) > dateTime ||
-    getDateTime(self.context.displayDateMax) < dateTime ||
-    self.context.disableDates?.includes(dateStr) ||
+    rules.min > dateTime ||
+    rules.max < dateTime ||
+    rules.disabled.has(dateStr) ||
     (!self.selectionMonthsMode && monthType !== 'current') ||
     (!self.selectionYearsMode && getDate(dateStr).getFullYear() !== currentYear);
 
@@ -43,11 +44,10 @@ const setDateModifier = (
   updateAttribute(dateEl, self.selectedWeekends?.includes(dayWeekID), 'data-vc-date-weekend');
 
   // Check if the date is a holiday
-  const selectedHolidays = self.selectedHolidays?.[0] ? parseDates(self.selectedHolidays) : [];
-  updateAttribute(dateEl, selectedHolidays.includes(dateStr), 'data-vc-date-holiday');
+  updateAttribute(dateEl, rules.holidays.has(dateStr), 'data-vc-date-holiday');
 
   // Check if the date is selected: aria-selected belongs on the gridcell, a button does not support it
-  if (self.context.selectedDates?.includes(dateStr)) {
+  if (rules.selected.has(dateStr)) {
     dateEl.setAttribute('data-vc-date-selected', '');
     dateEl.setAttribute('aria-selected', 'true');
     if (self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
@@ -68,12 +68,7 @@ const setDateModifier = (
   }
 
   // When using multiple-ranged with range edges only (only includes start/end selected dates)
-  if (
-    !self.context.disableDates.includes(dateStr) &&
-    self.enableEdgeDatesOnly &&
-    self.context.selectedDates.length > 1 &&
-    self.selectionDatesMode === 'multiple-ranged'
-  ) {
+  if (!rules.disabled.has(dateStr) && self.enableEdgeDatesOnly && self.context.selectedDates.length > 1 && self.selectionDatesMode === 'multiple-ranged') {
     const firstDate = getDate(self.context.selectedDates[0]);
     const lastDate = getDate(self.context.selectedDates[self.context.selectedDates.length - 1]);
     const currentDate = getDate(dateStr);

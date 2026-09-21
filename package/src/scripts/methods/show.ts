@@ -4,8 +4,27 @@ import setContext from '@scripts/utils/setContext';
 import { showToAT } from '@scripts/utils/toggleTabbing';
 import type { Calendar } from '@src/index';
 
+const pending = new WeakMap<Calendar, ReturnType<typeof setTimeout>>();
+
+export const cancelPendingShow = (self: Calendar) => {
+  clearTimeout(pending.get(self));
+  pending.delete(self);
+};
+
+export const scheduleShow = (self: Calendar) => {
+  cancelPendingShow(self);
+  pending.set(
+    self,
+    setTimeout(() => {
+      pending.delete(self);
+      if (!self.context.isDestroyed) show(self);
+    }),
+  );
+};
+
 const show = (self: Calendar) => {
-  if (self.context.isShowInInputMode) return;
+  cancelPendingShow(self);
+  if (self.context.isShowInInputMode || self.context.isDestroyed) return;
 
   if (!self.context.currentType) {
     self.context.mainElement.click();

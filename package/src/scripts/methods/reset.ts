@@ -1,12 +1,17 @@
 import create from '@scripts/creators/create';
-import handleDayRangedSelection from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
+import { resetGestures } from '@scripts/handles/handleGestures/handleGestures';
+import handleDayRangedSelection, { cleanupDateRange } from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import { cleanupPending } from '@scripts/utils/animate';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar, Reset } from '@src/index';
 
 const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true) => {
+  resetGestures(self);
   cleanupPending(self.context.mainElement);
+  cleanupDatePopups(self);
+  cleanupDateRange(self);
 
   const previousSelected = {
     year: self.selectedYear,
@@ -41,7 +46,7 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recr
   self.selectedMonth = previousSelected.month;
   self.selectedDates = previousSelected.dates;
   self.selectedTime = previousSelected.time;
-  if (self.selectionDatesMode === 'multiple-ranged' && dates) handleDayRangedSelection(self, null);
+  if (self.selectionDatesMode === 'multiple-ranged') handleDayRangedSelection(self, null, !!dates);
 };
 
 export default reset;

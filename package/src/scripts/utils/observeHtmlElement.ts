@@ -9,7 +9,8 @@ const trackChangesHTMLElement = (htmlEl: HTMLElement, attr: string, actions: () 
     }
   };
   const observer = new MutationObserver(changes);
-  observer.observe(htmlEl, { attributes: true });
+  observer.observe(htmlEl, { attributes: true, attributeFilter: [attr] });
+  return () => observer.disconnect();
 };
 
 export default trackChangesHTMLElement;

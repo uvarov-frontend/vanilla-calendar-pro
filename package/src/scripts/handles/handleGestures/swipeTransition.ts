@@ -2,7 +2,7 @@ import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import { scrub, type Transition } from '@scripts/handles/handleGestures/transition';
 import { getNavigator, type Route } from '@scripts/handles/handleNavigate';
-import { cleanupPending, createGhost, dropLayers, getTiming, type Layer, slideEffect } from '@scripts/utils/animate';
+import { cleanupPending, createGhosts, dropLayers, getTiming, type Layer, slideEffect } from '@scripts/utils/animate';
 import type { Calendar } from '@src/index';
 
 // Keep calendar state unchanged until the staged neighbouring period is committed.
@@ -35,10 +35,7 @@ const buildSwipe = (self: Calendar, route: Route, target: HTMLElement): Transiti
 
   navigator.shift(route);
   navigator.render(target);
-  const staged = containers().map((el) => {
-    el.parentElement?.setAttribute('data-vc-clip', '');
-    return createGhost(el);
-  });
+  const staged = createGhosts(containers());
   navigator.shift(opposite);
   navigator.render(target);
 

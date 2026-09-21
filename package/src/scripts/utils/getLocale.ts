@@ -1,23 +1,16 @@
 import errorMessages from '@scripts/utils/getErrorMessages';
 import setContext from '@scripts/utils/setContext';
-import type { Calendar } from '@src/index';
+import type { Calendar, LocaleStated } from '@src/index';
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).replace(/\./, '');
 
-const getLocaleWeekday = (self: Calendar, dayIndex: number, locale: string): void => {
-  const date = new Date(`1978-01-0${dayIndex + 1}T00:00:00.000Z`);
-  const weekdayShort = date.toLocaleString(locale, { weekday: 'short', timeZone: 'UTC' });
-  const weekdayLong = date.toLocaleString(locale, { weekday: 'long', timeZone: 'UTC' });
-  self.context.locale.weekdays.short.push(capitalizeFirstLetter(weekdayShort));
-  self.context.locale.weekdays.long.push(capitalizeFirstLetter(weekdayLong));
-};
+const locales = new Map<string, LocaleStated>();
 
-const getLocaleMonth = (self: Calendar, monthIndex: number, locale: string): void => {
-  const date = new Date(`1978-${String(monthIndex + 1).padStart(2, '0')}-01T00:00:00.000Z`);
-  const monthShort = date.toLocaleString(locale, { month: 'short', timeZone: 'UTC' });
-  const monthLong = date.toLocaleString(locale, { month: 'long', timeZone: 'UTC' });
-  self.context.locale.months.short.push(capitalizeFirstLetter(monthShort));
-  self.context.locale.months.long.push(capitalizeFirstLetter(monthLong));
+const getNames = (locale: string, unit: 'weekday' | 'month', length: 'short' | 'long') => {
+  const formatter = new Intl.DateTimeFormat(locale, { [unit]: length, timeZone: 'UTC' });
+  return Array.from({ length: unit === 'weekday' ? 7 : 12 }, (_, index) =>
+    capitalizeFirstLetter(formatter.format(new Date(Date.UTC(1978, unit === 'month' ? index : 0, unit === 'weekday' ? index + 1 : 1)))),
+  );
 };
 
 const getLocale = (self: Calendar): void => {
@@ -38,8 +31,19 @@ const getLocale = (self: Calendar): void => {
 
   if (typeof self.locale === 'string' && !self.locale.length) throw new Error(errorMessages.notLocale);
 
-  Array.from({ length: 7 }, (_, i) => getLocaleWeekday(self, i, self.locale as string));
-  Array.from({ length: 12 }, (_, i) => getLocaleMonth(self, i, self.locale as string));
+  let locale = locales.get(self.locale);
+  if (!locale) {
+    locale = {
+      weekdays: { short: getNames(self.locale, 'weekday', 'short'), long: getNames(self.locale, 'weekday', 'long') },
+      months: { short: getNames(self.locale, 'month', 'short'), long: getNames(self.locale, 'month', 'long') },
+    };
+    if (locales.size >= 8) locales.delete(locales.keys().next().value);
+    locales.set(self.locale, locale);
+  }
+  // The cached arrays are private; callbacks may edit an instance's locale.
+  for (const unit of ['weekdays', 'months'] as const) {
+    for (const length of ['short', 'long'] as const) self.context.locale[unit][length].push(...locale[unit][length]);
+  }
 };
 
 export default getLocale;

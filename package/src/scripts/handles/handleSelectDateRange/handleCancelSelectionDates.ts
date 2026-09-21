@@ -1,17 +1,16 @@
 import createDateRangeTooltip from '@scripts/creators/createDates/createDateRangeTooltip';
-import { optimizedHandleHoverDatesEvent } from '@scripts/handles/handleSelectDateRange/optimizedHandles';
-import state from '@scripts/handles/handleSelectDateRange/state';
+import getRangeState from '@scripts/handles/handleSelectDateRange/state';
 import { removeHoverEffect } from '@scripts/handles/handleSelectDateRange/toggleHoverEffect';
 import setContext from '@scripts/utils/setContext';
+import type { Calendar } from '@src/index';
 
-const handleCancelSelectionDates = (e: KeyboardEvent) => {
-  if (!state.self || e.key !== 'Escape') return;
+const handleCancelSelectionDates = (self: Calendar, event: KeyboardEvent) => {
+  if (event.key !== 'Escape' || self.context.selectedDates.length !== 1) return;
+  const state = getRangeState(self);
   state.lastDateEl = null;
-  setContext(state.self, 'selectedDates', []);
-  state.self.context.mainElement!.removeEventListener('mousemove', optimizedHandleHoverDatesEvent);
-  state.self.context.mainElement!.removeEventListener('keydown', handleCancelSelectionDates);
-  createDateRangeTooltip(state.self, state.tooltipEl, null);
-  removeHoverEffect();
+  setContext(self, 'selectedDates', []);
+  createDateRangeTooltip(self, state.tooltipEl, null);
+  removeHoverEffect(self);
 };
 
 export default handleCancelSelectionDates;

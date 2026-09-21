@@ -1,18 +1,21 @@
-import createDatePopup from '@scripts/creators/createDates/createDatePopup';
+import createDatePopup, { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
 import createDatesFromCurrentMonth from '@scripts/creators/createDates/createDatesFromCurrentMonth';
 import createDatesFromNextMonth from '@scripts/creators/createDates/createDatesFromNextMonth';
 import createDatesFromPrevMonth from '@scripts/creators/createDates/createDatesFromPrevMonth';
 import createWeekDates from '@scripts/creators/createDates/createWeekDates';
+import { prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import createWeekNumbers from '@scripts/creators/createWeekNumbers';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import type { Calendar } from '@src/index';
 
 const createDates = (self: Calendar) => {
+  cleanupDatePopups(self);
   const initDate = new Date(self.context.selectedYear as number, self.context.selectedMonth as number, 1);
   const datesEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc="dates"]');
   const weekNumbersEls = self.context.mainElement.querySelectorAll<HTMLElement>('[data-vc-week="numbers"]');
 
   datesEls.forEach((datesEl, index: number) => {
+    prepareDateRules(self);
     if (!self.selectionDatesMode) datesEl.dataset.vcDatesDisabled = '';
     datesEl.textContent = '';
 

@@ -13,9 +13,13 @@ const CLICK_GRACE = 500;
 const SWIPE_SURFACE = '[data-vc="content"]';
 const COLLAPSE_SURFACE = '[data-vc="collapse"]';
 
-const gestureCleanups = new WeakMap<HTMLElement, () => void>();
+const gestureCleanups = new WeakMap<HTMLElement, { cleanup: () => void; cancel: () => void }>();
 
-export const cleanupGestures = (mainElement: HTMLElement) => gestureCleanups.get(mainElement)?.();
+export const cleanupGestures = (mainElement: HTMLElement) => gestureCleanups.get(mainElement)?.cleanup();
+
+export const resetGestures = (self: Calendar) => {
+  gestureCleanups.get(self.context.mainElement)?.cancel();
+};
 
 type Drag = {
   pointerId: number;
@@ -181,7 +185,13 @@ const handleGestures = (self: Calendar) => {
     gestureCleanups.delete(mainElement);
   };
 
-  gestureCleanups.set(mainElement, cleanup);
+  gestureCleanups.set(mainElement, {
+    cleanup,
+    cancel: () => {
+      stopDragging();
+      draggedAt = 0;
+    },
+  });
   return cleanup;
 };
 

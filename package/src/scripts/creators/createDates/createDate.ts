@@ -1,3 +1,4 @@
+import { getDateRules, prepareDateRules } from '@scripts/creators/createDates/dateRules';
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
@@ -14,9 +15,26 @@ const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: We
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
   const isDisableAllDaysAndIsRangeEnabled = self.disableAllDates && !!self.context.enableDates?.[0];
 
-  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !self.context.enableDates?.includes(date) && !self.context.disableDates?.includes(date)) {
-    self.context.disableDates.push(date);
-    self.context.disableDates?.sort((a, b) => +new Date(a) - +new Date(b));
+  const rules = getDateRules(self);
+  if ((isDisableWeekday || isDisableAllDaysAndIsRangeEnabled) && !rules.enabled.has(date) && !rules.disabled.has(date)) {
+    const dates = self.context.disableDates;
+    rules.disabled.add(date);
+    // Callbacks can change the public array's order. Keep their existing sorting
+    // behavior; otherwise insert into the sorted list without sorting it again.
+    if (!!self.onCreateDateEls) {
+      dates.push(date);
+      dates.sort((a, b) => +new Date(a) - +new Date(b));
+    } else {
+      const time = +new Date(date);
+      let low = 0;
+      let high = dates.length;
+      while (low < high) {
+        const middle = (low + high) >>> 1;
+        if (+new Date(dates[middle]) <= time) low = middle + 1;
+        else high = middle;
+      }
+      dates.splice(low, 0, date);
+    }
   }
 };
 
@@ -55,7 +73,10 @@ const createDate = (
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);
 
   datesContainer.addDate(dateEl);
-  if (self.onCreateDateEls) self.onCreateDateEls(self, dateEl);
+  if (self.onCreateDateEls) {
+    self.onCreateDateEls(self, dateEl);
+    prepareDateRules(self);
+  }
 };
 
 export default createDate;
