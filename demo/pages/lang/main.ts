@@ -1,10 +1,13 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, months, type Options, time } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/months.css';
+import '@src/styles/time.css';
 
 const options: Options = {
+  extensions: [time, months],
   type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   disableDatesGaps: true,
@@ -67,7 +70,7 @@ const options: Options = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const calendar = new Calendar('#calendar');
+  const calendar = new Calendar('#calendar', { extensions: [time, months] });
   calendar.init();
 
   const btnSetEl = document.querySelector('#set-options');

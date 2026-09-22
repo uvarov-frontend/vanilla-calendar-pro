@@ -2,6 +2,7 @@
 title: 设置
 description: 日历设置，包括显示类型、输入模式、定位、本地化、日期和时间。
 new:
+  - extensions
   - animation
   - enableCollapse
   - enableSwipe
@@ -10,7 +11,36 @@ section: 4
 
 # 设置
 
+## extensions
+
+`Type: readonly CalendarExtension[]`
+
+`Default: []`
+
+`motion` 提供动画和手势。`time` 提供 12/24 小时时间选择。`annotations` 提供日期弹出内容、样式修饰符和范围提示。`weeks` 提供一周视图、折叠、周数和星期/周数点击回调。`months` 提供多月显示和导航。ESM 打包工具可移除未导入和注册的扩展。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+扩展列表在创建实例时确定。稍后要通过 `set()` 或 `update()` 启用的模块也必须提前注册。这些方法仍可修改原有选项，但不能添加或移除模块。同一个配置对象或扩展数组可以供多个日历使用，各实例的状态相互独立。启用功能却未注册对应扩展时，`init()`、`set()` 或 `update()` 会抛出明确错误；未启用的设置和回调不需要模块。
+
+输入框日历、日期和范围选择以及月份和年份选择仍属于核心功能。普通星期标题无需扩展。完整的普通 `<script>` / CommonJS 构建会自动注册全部五个扩展。CSS 导入保持不变。
+
+---
+
 ## type
+
+使用 ESM 时，`type: 'multiple'` 需要 `months`，`type: 'week'` 需要 `weeks`。即使以后才通过 `set()` 切换，也应在构造函数中注册扩展。
 
 `类型: 字符串`
 
@@ -94,6 +124,8 @@ new Calendar('#calendar', {
 
 ## animation
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `Type: Boolean | Object`
 
 `Default: false`
@@ -103,7 +135,10 @@ new Calendar('#calendar', {
 `Timing: { duration?: Number, easing?: String }`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
   // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
@@ -349,6 +384,8 @@ new Calendar('#calendar', {
 
 ## displayMonthsCount
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `months`，并加入构造函数的 `extensions: [months]` 数组，无需调用扩展函数。
+
 `类型: 数字`
 
 `默认: 2`
@@ -356,7 +393,11 @@ new Calendar('#calendar', {
 `选项: 从 2 到 12`
 
 ```ts
+import { Calendar, months } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [months],
+  type: 'multiple',
   displayMonthsCount: 2,
 });
 ```
@@ -537,6 +578,8 @@ new Calendar('#calendar', {
 
 ## enableWeekNumbers
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `weeks`，并加入构造函数的 `extensions: [weeks]` 数组，无需调用扩展函数。
+
 `类型: 布尔值`
 
 `默认: false`
@@ -544,7 +587,10 @@ new Calendar('#calendar', {
 `选项: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableWeekNumbers: true,
 });
 ```
@@ -594,6 +640,8 @@ new Calendar('#calendar', {
 
 ## enableCollapse
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `weeks` 的具名导入，并在构造函数中配置 `extensions: [weeks]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `Type: Boolean`
 
 `Default: false`
@@ -601,7 +649,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableCollapse: true,
 });
 ```
@@ -612,7 +663,12 @@ new Calendar('#calendar', {
 
 ---
 
+
+折叠和展开由 `weeks` 提供；不使用 `motion` 时，点击按钮会立即切换视图。拖动需要同时注册 `weeks` 和 `motion`；启用 `animation` 可添加过渡动画。单独使用 `motion` 不会包含一周视图。
+
 ## enableSwipe
+
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
 
 `Type: Boolean`
 
@@ -621,7 +677,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableSwipe: true,
 });
 ```
@@ -691,6 +750,8 @@ new Calendar('#calendar', {
 
 ## selectionTimeMode
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `time` 的具名导入，并在构造函数中配置 `extensions: [time]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
 `类型: 假 | 数字`
 
 `默认: false`
@@ -698,8 +759,11 @@ new Calendar('#calendar', {
 `选项: false | 24 | 12`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
-  selectionTimeMode: true,
+  extensions: [time],
+  selectionTimeMode: 24,
 });
 ```
 
@@ -803,6 +867,8 @@ new Calendar('#calendar', {
 
 ## selectedTime
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 字符串`
 
 `默认: null`
@@ -810,7 +876,10 @@ new Calendar('#calendar', {
 `选项: 'hh:mm aa' | null`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   selectedTime: '03:44 AM',
 });
 ```
@@ -839,6 +908,8 @@ new Calendar('#calendar', {
 
 ## timeMinHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 0`
@@ -846,7 +917,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMinHour: 0,
 });
 ```
@@ -857,6 +931,8 @@ new Calendar('#calendar', {
 
 ## timeMaxHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 23`
@@ -864,7 +940,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMaxHour: 23,
 });
 ```
@@ -875,6 +954,8 @@ new Calendar('#calendar', {
 
 ## timeMinMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 0`
@@ -882,7 +963,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMinMinute: 0,
 });
 ```
@@ -893,6 +977,8 @@ new Calendar('#calendar', {
 
 ## timeMaxMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 59`
@@ -900,7 +986,10 @@ new Calendar('#calendar', {
 `选项: 从 0 到 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMaxMinute: 59,
 });
 ```
@@ -911,6 +1000,8 @@ new Calendar('#calendar', {
 
 ## timeControls
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 字符串`
 
 `默认: 'all'`
@@ -918,7 +1009,10 @@ new Calendar('#calendar', {
 `选项: 'all' | 'range'`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeControls: 'all',
 });
 ```
@@ -929,6 +1023,8 @@ new Calendar('#calendar', {
 
 ## timeStepHour
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 1`
@@ -936,7 +1032,10 @@ new Calendar('#calendar', {
 `选项: 从 1 到 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeStepHour: 1,
 });
 ```
@@ -947,6 +1046,8 @@ new Calendar('#calendar', {
 
 ## timeStepMinute
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 数字`
 
 `默认: 1`
@@ -954,7 +1055,10 @@ new Calendar('#calendar', {
 `选项: 从 1 到 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeStepMinute: 1,
 });
 ```
@@ -977,7 +1081,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`sanitizerHTML` 可以清理 HTML 模板，使其对 CSP 安全。
+`sanitizerHTML` 处理来自 `layouts`、`popups.html` 和 `onCreateDateRangeTooltip` 的 HTML。默认实现原样返回字符串，日历不内置 HTML 清理器。请仅使用可信标记，或在渲染外部内容前配置持续维护的清理器，例如 DOMPurify。此回调不会配置应用的 Content Security Policy。`labels` 和 `styles` 分别作为普通文本和 CSS 类名处理，而不是 HTML。
 
 <Info>
   请注意，该示例使用第三方库{' '}

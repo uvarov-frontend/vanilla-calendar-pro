@@ -3,9 +3,8 @@ import initMonthsCount from '@scripts/utils/initVariables/initMonthsCount';
 import initRange from '@scripts/utils/initVariables/initRange';
 import initSelectedDates from '@scripts/utils/initVariables/initSelectedDates';
 import initSelectedMonthYear from '@scripts/utils/initVariables/initSelectedMonthYear';
-import initTime from '@scripts/utils/initVariables/initTime';
-import initWeek from '@scripts/utils/initVariables/initWeek';
 import setContext from '@scripts/utils/setContext';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const initAllVariables = (self: Calendar) => {
@@ -15,8 +14,8 @@ const initAllVariables = (self: Calendar) => {
   initRange(self);
   initSelectedMonthYear(self);
   initSelectedDates(self);
-  initWeek(self);
-  initTime(self);
+  getExtensions(self).weeks?.init(self);
+  getExtensions(self).time?.init(self);
 };
 
 export default initAllVariables;

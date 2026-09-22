@@ -1,8 +1,11 @@
-import { Calendar, type Options } from 'vanilla-calendar-pro';
+import { Calendar, motion, type Options, weeks } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/index.css';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/motion.css';
+import 'vanilla-calendar-pro/styles/weeks.css';
 
 const options: Options = {
+  extensions: [motion, weeks],
   animation: {
     slide: { duration: 700, easing: 'cubic-bezier(0.68, -0.55, 0.27, 1.55)' },
     fade: { duration: 450, easing: 'ease-in-out' },

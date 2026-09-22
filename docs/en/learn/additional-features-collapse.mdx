@@ -7,6 +7,19 @@ section: 6. Additional Features
 
 # Collapse
 
+`weeks` owns collapse/expand and works without `motion`: clicking the control switches views immediately. Register both `weeks` and `motion` for dragging; enable `animation` for animated settling. `motion` alone does not include the weekly view.
+
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `weeks` in the constructor with `extensions: [weeks]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableCollapse: true,
+}).init();
+```
+
 `enableCollapse` adds a control under the grid. Clicking it folds the month down to one week, and clicking it again unfolds it. The option is off by default and does not require `enableSwipe` or `animation`.
 
 <Sandbox example="additional-features-collapse" height={420} />
@@ -24,7 +37,10 @@ While collapsed the arrows step one week at a time. Expanding again returns to t
 The transition uses the [`animation`](/docs/reference/settings) option. Its timing can be configured independently through the `collapse` group:
 
 ```ts
+import { Calendar, weeks, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks, motion],
   animation: { collapse: { duration: 450 } },
   enableCollapse: true,
 });

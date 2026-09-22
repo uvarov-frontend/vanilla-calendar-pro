@@ -6,6 +6,17 @@ section: 4. Managing Dates and Time
 
 # Enable Time Selection
 
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `time` in the constructor with `extensions: [time]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
 By default, time selection is disabled, but you can easily enable it and configure it according to your needs.
 
 ## 12-Hour Day with AM/PM

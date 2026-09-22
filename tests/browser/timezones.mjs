@@ -34,7 +34,7 @@ const selectedDates = (page) =>
   );
 const mount = (page, options) =>
   page.evaluate((options) => {
-    window.instance = new window.Calendar('#calendar', options);
+    window.instance = new window.Calendar('#calendar', { extensions: Object.values(window.calendarExtensions), ...options });
     window.instance.init();
   }, options);
 
@@ -134,6 +134,7 @@ try {
           await check('input date/time round trip around the US spring DST transition', async (page) => {
             await page.evaluate(() => {
               window.instance = new window.Calendar('#input', {
+                extensions: [window.calendarExtensions.time],
                 inputMode: true,
                 selectedYear: 2024,
                 selectedMonth: 2,

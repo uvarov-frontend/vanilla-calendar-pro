@@ -1,21 +1,11 @@
 import layoutDefault from '@scripts/layouts/default';
-import layoutMultiple from '@scripts/layouts/multiple';
 import getRootNode from '@scripts/utils/getRootNode';
+import { getExtensions, type RenderState } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 export const defaultSanitizer = (html: string) => html;
 
-export type RenderState = {
-  observer: MutationObserver;
-  dirty: boolean;
-  fullLayout: boolean;
-  options: string;
-  context: string;
-  structure: string;
-  timezone: string;
-  month: number;
-  count: number;
-};
+export type { RenderState } from '@src/extension';
 
 const states = new WeakMap<Calendar, RenderState>();
 
@@ -35,7 +25,7 @@ const eligible = (self: Calendar) =>
   !(self.popups && Object.keys(self.popups).length) &&
   self.sanitizerHTML === defaultSanitizer &&
   (self.context.currentType === 'default' || self.context.currentType === 'multiple') &&
-  self.layouts[self.context.currentType] === (self.context.currentType === 'multiple' ? layoutMultiple(self) : layoutDefault(self));
+  self.layouts[self.context.currentType] === (self.context.currentType === 'multiple' ? getExtensions(self).months?.layout(self) : layoutDefault(self));
 
 const optionsKey = (self: Calendar) =>
   JSON.stringify(

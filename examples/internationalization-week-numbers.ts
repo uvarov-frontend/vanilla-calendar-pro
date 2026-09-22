@@ -1,8 +1,10 @@
-import { Calendar, type Options } from 'vanilla-calendar-pro';
+import { Calendar, type Options, weeks } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/index.css';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/weeks.css';
 
 const options: Options = {
+  extensions: [weeks],
   enableWeekNumbers: true,
 };
 

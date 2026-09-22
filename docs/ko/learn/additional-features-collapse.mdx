@@ -7,6 +7,19 @@ section: 6. 추가 기능
 
 # 접기
 
+접기와 펼치기는 `weeks`가 담당합니다. `motion` 없이도 버튼을 누르면 즉시 전환됩니다. 드래그에는 `weeks`와 `motion`을 함께 등록하고, 전환 애니메이션에는 `animation`을 활성화하세요. `motion`만으로는 주간 보기가 포함되지 않습니다.
+
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `weeks` 확장을 이름으로 import하고 생성자에 `extensions: [weeks]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableCollapse: true,
+}).init();
+```
+
 `enableCollapse`는 그리드 아래에 컨트롤을 추가합니다. 누르면 월이 한 주로 접히고, 다시 누르면 펼쳐집니다. 이 옵션은 기본적으로 꺼져 있으며 `enableSwipe`나 `animation` 없이도 사용할 수 있습니다.
 
 <Sandbox example="additional-features-collapse" height={420} />
@@ -24,7 +37,10 @@ section: 6. 추가 기능
 전환은 [`animation`](/docs/reference/settings) 옵션을 사용합니다. `collapse` 그룹에서 타이밍을 별도로 설정할 수 있습니다.
 
 ```ts
+import { Calendar, weeks, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks, motion],
   animation: { collapse: { duration: 450 } },
   enableCollapse: true,
 });

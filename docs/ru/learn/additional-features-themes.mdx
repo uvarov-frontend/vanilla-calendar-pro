@@ -25,3 +25,25 @@ section: 6. Дополнительные возможности
 Как описано выше, вы можете использовать собственные темы, создавать их самостоятельно или импортировать из календаря, если они существуют.
 
 <Sandbox example="additional-features-themes-slate-light" themeDetection={false} />
+
+## Модульные стили
+
+Существующие импорты `styles/index.css`, `styles/layout.css` и `styles/themes/*.css` остаются полными и совместимыми. Для уменьшения CSS подключайте только нужные части. Регистрация расширения JavaScript сама по себе не загружает CSS.
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+Вместо `light` можно использовать `dark` или `slate-light`. Для своей темы нужны только соответствующие части раскладки и ваш CSS. Определение темы и `selectedTheme` работают как прежде; подключайте все темы, на которые календарь может переключаться.
+
+Выборочное подключение CSS описано в [справочнике стилей](/docs/reference/styles). Старые полные файлы поддерживаются; примеры подключают только необходимые части.

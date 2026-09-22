@@ -25,3 +25,25 @@ And here is the same example, but using the light theme:
 As described above, you can use your own themes, create them yourself, or import them from the calendar if they exist.
 
 <Sandbox example="additional-features-themes-slate-light" themeDetection={false} />
+
+## Modular CSS
+
+Existing `styles/index.css`, `styles/layout.css` and `styles/themes/*.css` imports remain complete and compatible. To reduce CSS, choose the parts you use. JavaScript extension registration does not load CSS automatically.
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+Use `dark` or `slate-light` instead of `light` for another built-in theme. A custom theme needs only the corresponding layout parts plus your own CSS. Theme detection and `selectedTheme` work as before; load every theme the calendar may switch to.
+
+Optional CSS parts are documented in the [styles reference](/docs/reference/styles). Existing full stylesheet imports remain supported; examples use only the required parts.

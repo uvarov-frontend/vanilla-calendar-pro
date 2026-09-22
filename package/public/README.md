@@ -89,6 +89,31 @@ calendar.init();
 // calendarWithInput.init();
 ```
 
+### Optional features in ESM
+
+`motion` provides animations and gestures. `time` provides the 12/24-hour time editor. `annotations` provides date popup content, modifiers and range tooltips. `weeks` provides the weekly view, collapse, week numbers and weekday/week-number callbacks. `months` displays and navigates several months together. ESM bundlers can remove extensions that you do not import and register.
+
+```ts
+import { Calendar, motion, time, annotations, weeks, months } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations, weeks, months],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `motion` in the constructor with `extensions: [motion]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+Extensions are fixed at construction. Register modules you will enable later through `set()` or `update()`. Those methods still change the existing feature options; they cannot add or remove modules. Reusing the same options or extensions array is supported; each calendar has independent state. Enabling a feature without its extension throws a descriptive error at `init()`, `set()` or `update()`; inactive settings and callbacks do not require a module.
+
+Input calendars, date/range selection and month/year pickers remain in the core. Weekday headings do not require an extension. The full classic `<script>` / CommonJS distribution includes all five extensions automatically. CSS imports stay the same.
+
+`weeks` owns collapse/expand and works without `motion`: clicking the control switches views immediately. Register both `weeks` and `motion` for dragging; enable `animation` for animated settling. `motion` alone does not include the weekly view.
+
 ## CSS Styles
 
 ```js
@@ -110,6 +135,56 @@ The calendar can automatically switch between a light or dark theme depending on
 - ...and others
 
 If you want to apply a specific theme, it is recommended to import `layout.css` along with your preferred theme instead of `index.css`.
+
+## Modular CSS
+
+Existing `styles/index.css`, `styles/layout.css` and `styles/themes/*.css` imports remain complete and compatible. To reduce CSS, choose the parts you use. JavaScript extension registration does not load CSS automatically.
+
+Each family provides `core`, `motion`, `time`, `annotations`, `weeks` and `months`. Import `core` and the styles for every extension you enable, including options enabled later through `set()`.
+
+| Path | Contents |
+| --- | --- |
+| `styles/index.css` | All layout rules and the light/dark themes |
+| `styles/{part}.css` | The selected part, with layout and light/dark themes |
+| `styles/layout/{part}.css` | Only the selected layout rules; no theme |
+| `styles/themes/{theme}/{part}.css` | Only the selected part of one theme |
+
+For a calendar with time selection and automatic light/dark switching:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+To choose one theme independently, use layout parts and matching theme parts. For example, a light calendar with time selection:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+Use `dark` or `slate-light` instead of `light` for another built-in theme. A custom theme needs only the corresponding layout parts plus your own CSS. Theme detection and `selectedTheme` work as before; load every theme the calendar may switch to.
+
+Choose either the full files or the modular files for each layer to avoid loading the same rules twice. CSS classes, selectors, browser support and public `--vc-*` overrides are unchanged. Some theme parts, such as `motion` and `months`, have no theme-specific rules and are valid empty stylesheets.
+
+If you use every extension, keep the full stylesheet: it compresses better than importing all six parts.
+
+The downloadable `package.zip` includes the five complete stylesheets. Modular CSS is available in the npm package and through direct CDN URLs.
 
 ## Layouts
 
@@ -150,6 +225,10 @@ new Calendar('#calendar', {
 
 For detailed instructions on how to use the calendar as a component for various libraries, please visit the [website](https://vanilla-calendar.pro/docs/learn) with detailed documentation and examples.
 
+## HTML content
+
+`labels` are plain text and `styles` are CSS class names. HTML in `layouts`, `popups.html` and `onCreateDateRangeTooltip` must be trusted. The default `sanitizerHTML` callback returns HTML unchanged; configure an HTML sanitizer such as DOMPurify before rendering content from users or other untrusted sources. See the [sanitizerHTML reference](https://vanilla-calendar.pro/docs/reference/settings#sanitizerhtml).
+
 ## API Reference
 
 For detailed information on the available parameters and settings, please refer to the [API reference](https://vanilla-calendar.pro/docs/reference).
@@ -160,7 +239,7 @@ This project is tested with BrowserStack.
 
 ## Development
 
-Automatic checks, server deployment and npm Trusted Publishing are described in the [CI and release guide](https://github.com/uvarov-frontend/vanilla-calendar-pro/blob/main/.github/README.md).
+Automatic checks, server deployment and npm Trusted Publishing are configured in the [GitHub workflows](https://github.com/uvarov-frontend/vanilla-calendar-pro/tree/main/.github/workflows).
 
 Use the Node and pnpm versions pinned in `package.json` (`engines.node` and `packageManager`; enable pnpm with `corepack enable`). CI reads its Node version from the same file. From the repository checkout:
 

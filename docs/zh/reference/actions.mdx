@@ -34,6 +34,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekDay()
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `weeks`，并加入构造函数的 `extensions: [weeks]` 数组，无需调用扩展函数。
+
 `类型: 函数`
 
 `默认: null`
@@ -41,7 +43,10 @@ new Calendar('#calendar', {
 `选项: onClickWeekDay(self, day, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekDay(self, day, dateEls, event) {},
 });
 ```
@@ -56,6 +61,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekNumber()
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `weeks`，并加入构造函数的 `extensions: [weeks]` 数组，无需调用扩展函数。
+
 `类型: 函数`
 
 `默认: null`
@@ -63,7 +70,10 @@ new Calendar('#calendar', {
 `选项: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekNumber(self, number, year, dateEls, event) {},
 });
 ```
@@ -159,6 +169,8 @@ new Calendar('#calendar', {
 
 ## onChangeTime()
 
+ESM：需要在构造函数的 `extensions` 数组中注册 `time`；此选项及其值仍保留在 Calendar 配置中。
+
 `类型: 函数`
 
 `默认: null`
@@ -166,7 +178,10 @@ new Calendar('#calendar', {
 `选项: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   onChangeTime(self, event) {},
 });
 ```
@@ -202,6 +217,10 @@ new Calendar('#calendar', {
 
 ## onCreateDateRangeTooltip()
 
+ESM 迁移：保留现有选项和回调，从 `vanilla-calendar-pro` 导入 `annotations`，并加入构造函数的 `extensions: [annotations]` 数组，无需调用扩展函数。
+
+此 API 接受 HTML。请使用可信标记；如果内容来自用户或其他不可信来源，请配置 [`sanitizerHTML`](/zh/docs/reference/settings#sanitizerhtml)。默认回调不会清理 HTML。
+
 `类型: 函数`
 
 `默认: null`
@@ -209,7 +228,10 @@ new Calendar('#calendar', {
 `选项: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
 });
 ```

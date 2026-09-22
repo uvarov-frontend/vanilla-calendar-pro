@@ -1,9 +1,8 @@
 import layoutDefault from '@scripts/layouts/default';
 import layoutMonths from '@scripts/layouts/month';
-import layoutMultiple from '@scripts/layouts/multiple';
-import layoutWeek from '@scripts/layouts/week';
 import layoutYears from '@scripts/layouts/year';
-import { parseLayout, parseMultipleLayout } from '@scripts/utils/parseComponent';
+import { parseLayout } from '@scripts/utils/parseComponent';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const syncMultiselectable = (self: Calendar) => {
@@ -15,17 +14,18 @@ const syncMultiselectable = (self: Calendar) => {
 };
 
 const createLayouts = (self: Calendar, target?: HTMLElement) => {
+  const extensions = getExtensions(self);
   const templateMap = {
     default: layoutDefault,
     month: layoutMonths,
     year: layoutYears,
-    multiple: layoutMultiple,
-    week: layoutWeek,
+    multiple: extensions.months?.layout,
+    week: extensions.weeks?.layout,
   };
 
   Object.keys(templateMap).forEach((key) => {
     const typedKey = key as keyof typeof templateMap;
-    if (!self.layouts[typedKey].length) self.layouts[typedKey] = templateMap[typedKey](self);
+    if (!self.layouts[typedKey].length) self.layouts[typedKey] = templateMap[typedKey]?.(self) ?? '';
   });
 
   self.context.mainElement.className = self.styles.calendar;
@@ -38,26 +38,10 @@ const createLayouts = (self: Calendar, target?: HTMLElement) => {
   self.context.mainElement.tabIndex = -1;
   self.context.mainElement.ariaLabel = self.labels.application;
 
-  if (self.context.currentType === 'multiple') {
-    self.context.mainElement.innerHTML = self.sanitizerHTML(parseMultipleLayout(self, parseLayout(self, self.layouts[self.context.currentType])));
-    syncMultiselectable(self);
-    return;
+  if (!extensions.months?.render(self, target)) {
+    extensions.time?.destroy(self);
+    self.context.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
   }
-
-  if (self.type === 'multiple' && target) {
-    const controlsEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="controls"]');
-    const gridEl = self.context.mainElement.querySelector<HTMLElement>('[data-vc="grid"]');
-    const columnEl = target.closest<HTMLElement>('[data-vc="column"]');
-
-    if (controlsEl) controlsEl.remove();
-    if (gridEl) gridEl.dataset.vcGrid = 'hidden';
-    if (columnEl) columnEl.dataset.vcColumn = self.context.currentType;
-    if (columnEl) columnEl.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
-    syncMultiselectable(self);
-    return;
-  }
-
-  self.context.mainElement.innerHTML = self.sanitizerHTML(parseLayout(self, self.layouts[self.context.currentType]));
   syncMultiselectable(self);
 };
 

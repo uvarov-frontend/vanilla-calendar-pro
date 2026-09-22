@@ -1,0 +1,27 @@
+[data-vc-date-btn]:focus-visible + [data-vc-date-popup],
+[data-vc-date]:hover > [data-vc-date-popup],
+[data-vc-date-popup]:focus-visible,
+[data-vc-date-popup]:hover {
+  @apply opacity-100 pointer-events-auto;
+}
+
+[data-vc-date-popup] {
+  /* Keep the date clickable until the positioning frame chooses the final side. */
+  top: 100%;
+  left: 0;
+  transform: translateX(-50%);
+  @apply absolute z-20 min-w-20 max-w-36 py-1 px-2 text-xs font-normal rounded-lg transition-opacity duration-75 opacity-0 pointer-events-none hover:opacity-100 hover:pointer-events-auto;
+}
+
+[data-vc-date-range-tooltip] {
+  transform: translate(-50%, -100%);
+  @apply absolute z-30 max-w-36 py-1 px-2 text-xs font-normal rounded-md pointer-events-none;
+}
+
+[data-vc-date-range-tooltip="hidden"] {
+  @apply opacity-0;
+}
+
+[data-vc-date-range-tooltip="visible"] {
+  @apply opacity-100;
+}

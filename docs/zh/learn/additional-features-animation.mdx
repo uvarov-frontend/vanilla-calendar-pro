@@ -7,6 +7,17 @@ section: 6. 附加功能
 
 # 动画
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `motion` 的具名导入，并在构造函数中配置 `extensions: [motion]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  animation: true,
+}).init();
+```
+
 视图之间的切换可以添加动画。箭头导航和滑动手势会水平滑动，月份与年份选择器使用交叉淡入淡出，折叠则在整月与一周之间对日历高度进行动画。
 
 <Info>出于向后兼容的考虑，动画默认关闭：该选项是后来加入的，而滑动和交叉淡入淡出进行期间，DOM 查询结果会短暂发生变化。</Info>

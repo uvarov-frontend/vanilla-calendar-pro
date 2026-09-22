@@ -25,3 +25,25 @@ section: 6. 附加功能
 如上所述，您可以使用自己的主题，自己创建它们，或者如果它们存在，从日历中导入它们。
 
 <Sandbox example="additional-features-themes-slate-light" themeDetection={false} />
+
+## 模块化 CSS
+
+现有的 `styles/index.css`、`styles/layout.css` 和 `styles/themes/*.css` 仍提供完整样式并保持兼容。要减小 CSS 体积，可以只导入需要的部分。注册 JavaScript 扩展不会自动加载 CSS。
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+可以将 `light` 替换为 `dark` 或 `slate-light`。自定义主题只需导入对应的布局部分并添加自己的 CSS。主题检测和 `selectedTheme` 的行为不变；请加载日历可能切换到的所有主题。
+
+按需导入 CSS 的说明见[样式参考](/docs/reference/styles)。原有完整样式表仍受支持，示例仅导入所需部分。

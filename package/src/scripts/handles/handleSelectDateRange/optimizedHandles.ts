@@ -1,6 +1,6 @@
 import handleHoverDatesEvent from '@scripts/handles/handleSelectDateRange/handleHoverDatesEvent';
-import handleHoverSelectedDatesRangeEvent from '@scripts/handles/handleSelectDateRange/handleHoverSelectedDatesRangeEvent';
 import getRangeState from '@scripts/handles/handleSelectDateRange/state';
+import { getExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const optimizedHoverHandler = (self: Calendar) => (event: MouseEvent) => {
@@ -14,7 +14,7 @@ const optimizedHoverHandler = (self: Calendar) => (event: MouseEvent) => {
     state.isHovering = false;
     if (self.context.isDestroyed || !self.context.mainElement.contains(target)) return;
     if (self.context.selectedDates.length === 1) handleHoverDatesEvent(self, target);
-    else if (self.context.selectedDates[0] && !!self.onCreateDateRangeTooltip) handleHoverSelectedDatesRangeEvent(self, target);
+    else if (self.context.selectedDates[0] && !!self.onCreateDateRangeTooltip) getExtensions(self).annotations?.hover(self, target);
   });
 };
 

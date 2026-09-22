@@ -92,3 +92,28 @@ import 'vanilla-calendar-pro/styles/themes/dark.css'; // 深色主题
   </body>
 </html>
 ```
+
+## extensions
+
+`motion` 提供动画和手势。`time` 提供 12/24 小时时间选择。`annotations` 提供日期弹出内容、样式修饰符和范围提示。`weeks` 提供一周视图、折叠、周数和星期/周数点击回调。`months` 提供多月显示和导航。ESM 打包工具可移除未导入和注册的扩展。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+输入框日历、日期和范围选择以及月份和年份选择仍属于核心功能。普通星期标题无需扩展。完整的普通 `<script>` / CommonJS 构建会自动注册全部五个扩展。CSS 导入保持不变。
+
+## 模块化 CSS
+
+现有的 `styles/index.css`、`styles/layout.css` 和 `styles/themes/*.css` 仍提供完整样式并保持兼容。要减小 CSS 体积，可以只导入需要的部分。注册 JavaScript 扩展不会自动加载 CSS。
+
+按需导入 CSS 的说明见[样式参考](/docs/reference/styles)。原有完整样式表仍受支持，示例仅导入所需部分。

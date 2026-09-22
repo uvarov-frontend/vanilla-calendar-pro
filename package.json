@@ -23,9 +23,10 @@
   "scripts": {
     "package:assets": "vite build --config config/assets.config.ts",
     "package:main": "vite build --config config/main.config.ts",
+    "package:browser": "vite build --config config/browser.config.ts",
     "package:utils": "vite build --config config/utils.config.ts",
     "package:helpers": "node helpers.mjs",
-    "package:build": "tsc && pnpm package:assets && pnpm package:main && pnpm package:utils && pnpm package:helpers",
+    "package:build": "tsc && pnpm package:assets && pnpm package:main && pnpm package:browser && pnpm package:utils && pnpm package:helpers",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "biome check . --error-on-warnings",

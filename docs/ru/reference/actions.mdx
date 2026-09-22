@@ -34,6 +34,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekDay()
 
+Миграция ESM: сохраните существующие опции и обработчики, импортируйте `weeks` из `vanilla-calendar-pro` и добавьте его в массив `extensions: [weeks]` конструктора без вызова как функции.
+
 `Type: Function`
 
 `Default: null`
@@ -41,7 +43,10 @@ new Calendar('#calendar', {
 `Options: onClickWeekDay(self, day, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekDay(self, day, dateEls, event) {},
 });
 ```
@@ -56,6 +61,8 @@ new Calendar('#calendar', {
 
 ## onClickWeekNumber()
 
+Миграция ESM: сохраните существующие опции и обработчики, импортируйте `weeks` из `vanilla-calendar-pro` и добавьте его в массив `extensions: [weeks]` конструктора без вызова как функции.
+
 `Type: Function`
 
 `Default: null`
@@ -63,7 +70,10 @@ new Calendar('#calendar', {
 `Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekNumber(self, number, year, dateEls, event) {},
 });
 ```
@@ -159,6 +169,8 @@ new Calendar('#calendar', {
 
 ## onChangeTime()
 
+ESM: требуется `time` в массиве `extensions` конструктора; сама опция и её значение остаются в конфигурации Calendar.
+
 `Type: Function`
 
 `Default: null`
@@ -166,7 +178,10 @@ new Calendar('#calendar', {
 `Options: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   onChangeTime(self, event) {},
 });
 ```
@@ -202,6 +217,10 @@ new Calendar('#calendar', {
 
 ## onCreateDateRangeTooltip()
 
+Миграция ESM: сохраните существующие опции и обработчики, импортируйте `annotations` из `vanilla-calendar-pro` и добавьте его в массив `extensions: [annotations]` конструктора без вызова как функции.
+
+Этот API принимает HTML. Используйте доверенную разметку либо настройте [`sanitizerHTML`](/ru/docs/reference/settings#sanitizerhtml), если содержимое поступает от пользователей или из других недоверенных источников; по умолчанию обработчик ничего не очищает.
+
 `Type: Function`
 
 `Default: null`
@@ -209,7 +228,10 @@ new Calendar('#calendar', {
 `Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
 });
 ```

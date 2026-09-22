@@ -12,8 +12,8 @@ export default defineConfig({
     outDir,
     lib: {
       name: 'VanillaCalendarPro',
-      formats: ['es', 'umd'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      formats: ['es'],
+      fileName: () => 'index.mjs',
       entry: resolve(import.meta.dirname, '../package/src/index.ts'),
     },
   },

@@ -17,6 +17,10 @@ pnpm cypress:open                 # Interactive runner with the same packed fixt
 pnpm package:build
 pnpm cypress:run --spec cypress/e2e/distribution.cy.ts
 
+# CSS before/after comparison against a saved styles directory from an earlier build.
+# Without this variable the same tests compare the full and modular current styles.
+CALENDAR_CSS_BASELINE=/absolute/path/to/previous/styles pnpm cypress:run --spec cypress/e2e/styles.cy.ts
+
 # Package exports, declarations, tree shaking, size and date utilities
 pnpm test:package
 ```
@@ -25,17 +29,20 @@ Chrome and Firefox must be installed separately. WebKit is provided by the pinne
 
 `run.mjs` packs `package/dist` using `pnpm pack`, extracts it into a temporary consumer project, starts Vite on an available localhost port, and invokes Cypress. The real `examples/*.ts` files import the extracted package without changing their options. Existing demo pages resolve `@src/index` and styles to the same published artifacts. API fixtures exercise ESM imports and classic script globals; no library TypeScript is compiled by this fixture server.
 
-The command prints an OS temporary directory containing a JSON result for each browser and screenshots of failures. A failure, missing tests, or skipped/pending tests causes a nonzero exit status. Fixtures and the server are cleaned up on completion; reports remain outside the repository. CI builds the package once, then downloads that artifact into four parallel browser jobs. Chrome/WebKit also run native input and timezone checks. Reports and screenshots are uploaded as GitHub Actions artifacts; see [CI and releases](../../.github/README.md).
+The command prints an OS temporary directory containing a JSON result for each browser and screenshots of failures. A failure, missing tests, or skipped/pending tests causes a nonzero exit status. Fixtures and the server are cleaned up on completion; reports remain outside the repository. CI builds the package once, then downloads that artifact into four parallel browser jobs. Chrome/WebKit also run native input and timezone checks. Reports and screenshots are uploaded as GitHub Actions artifacts.
 
 ## Coverage and maintenance
 
 - `cypress/e2e/examples.cy.ts`: every current example, with assertions for its documented interactions. Its inventory test compares scenarios with `examples/*.ts`; adding or renaming an example requires updating the scenario map. Input examples also need an input host in `tests/browser/server.mjs`.
 - `cypress/e2e/api.cy.ts`: public methods, callbacks, reset controls, independent instances, date boundaries, range modes, input lifecycle/positioning, time validation, customization and keyboard behavior.
+- `cypress/e2e/security.cy.ts`: prototype pollution, protected instance state/methods, label isolation, literal labels/classes in all views and time controls, component lookup, and the custom HTML sanitizer boundary in both ESM and classic-script builds.
+- `cypress/e2e/styles.cy.ts`: full and modular CSS in light/dark/slate-light; selected features, reversed import order, combined files, input, pickers, date states, time, popups, week/collapse, multiple months, renamed classes, inherited public variables and Shadow DOM. Compares computed geometry/painting/pseudo-element styles in normal and emulated hover/focus states. Real pointer hover and focus remain covered by the native checks.
 - `cypress/e2e/distribution.cy.ts`: browser globals loaded by ordinary script tags, including range selection, input/time integration and utility exports.
 - Existing specs: animation and interruption, reduced motion, swipes, collapse/week views, Shadow DOM, range popups, gap rules, lifecycle cleanup, ARIA and keyboard focus.
 - `cypress/e2e/workbench.cy.ts`: development-site navigation and search, source highlighting and preview state, instance inspector, theme persistence, source colors in both themes, case anchors, literal handling of HTML characters in case titles, and mobile navigation/focus.
 - `tests/browser/workbench.mjs`: three theme checks in full Chrome/WebKit runs. The application module is blocked to verify the initial HTML already uses the device or saved theme; system changes are then checked after the application loads.
-- `tests/package/package.test.mjs`: package contents (including the CDN ZIP), ESM/CommonJS/AMD/globals, ES2015 parsing, raw bundle budgets, consumer tree shaking, styles, and all example types against the packed declarations. Utility assertions run in five timezones and cover leap years, week boundaries and DST, including historical midnight transitions.
+- `tests/package/package.test.mjs`: package contents, CDN ZIP entries and their extracted bytes (five complete stylesheets, no modular CSS), ESM/CommonJS/AMD/globals, ES2015 parsing, raw bundle budgets, consumer tree shaking, styles, and all example types against the packed declarations. Utility assertions run in five timezones and cover leap years, week boundaries and DST, including historical midnight transitions.
+- `tests/package/styles.mjs`: all 35 standalone CSS files, per-feature contents, theme isolation, reconstruction of complete files, CSS size budgets and the pre-split selector/declaration contract. `styles-contract.json` stores hashes captured before the split at `ea08201`; intentionally changing visual styles requires reviewing these hashes together with browser tests. Full and modular CSS share the sources under `package/src/styles/layout/` and `package/src/styles/themes/`.
 - `tests/browser/native.mjs`: eight checks using real mouse/keyboard input, including Enter, date clicks before popup positioning, movement onto the sponsor link in the real popup example (above and below the date), pointer capture outside the calendar, collapse/expand, and interruption by `set()`/`destroy()`. Full Chrome/WebKit runs execute these after Cypress. Cypress gesture specs use a scoped capture shim for synthetic pointers, which browsers do not consistently register as active hardware pointers; these native checks do not use the shim.
 - `tests/browser/timezones.mjs`: 14 scenarios in each of 10 timezones, in both Chrome and WebKit. Covers rendered selection and callback/input values, inclusive ranges across leap days/year boundaries/DST, local Date objects and timestamps, min/max/disabled rules, week numbers, and local today/past-date restrictions at two fixed instants. `pnpm test:timezones` runs this matrix separately and saves results outside the repository.
 
@@ -46,3 +53,9 @@ Date-only strings such as `2024-06-20` represent local calendar dates and must n
 These are functional regression tests, not a claim of 100% statement/branch coverage. Recent Chromium, Firefox and WebKit runs do not validate the oldest supported browsers, real touch hardware, screen readers or every OS/locale combination. The ES2015 syntax check protects the build target; the library's browser support policy is unchanged.
 
 Performance and resource-cleanup comparisons are maintained separately in [the performance harness](../performance/README.md). Do not run timing benchmarks alongside Cypress or builds.
+
+## ESM extension coverage
+
+The ESM API fixture exposes the original `Calendar` and extension exports from the packed package; it does not silently register modules. Existing API/native/timezone fixtures explicitly register the modules needed by their scenarios. `extensions.cy.ts` checks core-only input/range/month/year behavior, standalone weeks/months/annotations, collapse without motion, and independent motion, missing-module errors before mutation, inactive options, per-instance isolation, duplicate registration, options-array reuse, fixed composition, runtime option changes, delayed input opening, and cleanup of replaced/destroyed time controls. Existing animation, gesture, popup and accessibility suites exercise the extracted implementations. The classic-script fixture keeps automatic feature availability and tests that path separately.
+
+All examples import their own required extensions. Their browser tests and packed-declaration checks therefore also cover the documented migration syntax.

@@ -6,6 +6,10 @@ section: 7
 
 # 布局
 
+此 API 接受 HTML。请使用可信标记；如果内容来自用户或其他不可信来源，请配置 [`sanitizerHTML`](/zh/docs/reference/settings#sanitizerhtml)。默认回调不会清理 HTML。
+
+`<#ControlTime />` 需要 `time` 和已启用的 `selectionTimeMode`。`<#Collapse />` 需要 `weeks` 和 `enableCollapse: true`；`<#WeekNumbers />` 需要 `weeks` 和 `enableWeekNumbers: true`。`<#DateRangeTooltip />` 需要 `annotations` 和 `onCreateDateRangeTooltip`。`<#Multiple>` 需要 `months`。请保留原有模板标签和选项。
+
 布局允许您几乎完全更改日历的 DOM 结构并添加您自己的 HTML 元素，例如按钮。每种类型的日历都有自己的默认模板，您可以自定义它们中的每一个。
 
 <Info>

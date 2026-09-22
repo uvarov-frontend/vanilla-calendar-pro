@@ -2,16 +2,18 @@ import create from '@scripts/creators/create';
 import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
 import handleArrowKeys from '@scripts/handles/handleArrowKeys';
 import handleClick from '@scripts/handles/handleClick/handleClick';
-import handleGestures from '@scripts/handles/handleGestures/handleGestures';
 import handleInput from '@scripts/handles/handleInput';
 import handleSelectDateRange from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import errorMessages from '@scripts/utils/getErrorMessages';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import setContext from '@scripts/utils/setContext';
+import { getExtensions, validateExtensions } from '@src/extension';
 import type { Calendar } from '@src/index';
 
 const init = (self: Calendar) => {
   if (self.context.isInit) throw new Error(errorMessages.alreadyInit);
+
+  validateExtensions(self);
 
   setContext(self, 'originalElement', self.context.mainElement.cloneNode(true) as HTMLElement);
   setContext(self, 'isInit', true);
@@ -29,9 +31,9 @@ const init = (self: Calendar) => {
     updateDateModifiers(self);
   }
   if (self.onInit) self.onInit(self);
+  if (self.context.isDestroyed) return;
   handleArrowKeys(self);
-  // Gestures may be enabled later through set().
-  handleGestures(self);
+  getExtensions(self).motion?.bind(self);
   return handleClick(self);
 };
 

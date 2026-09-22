@@ -6,6 +6,10 @@ section: 7
 
 # Макеты
 
+Этот API принимает HTML. Используйте доверенную разметку либо настройте [`sanitizerHTML`](/ru/docs/reference/settings#sanitizerhtml), если содержимое поступает от пользователей или из других недоверенных источников; по умолчанию обработчик ничего не очищает.
+
+`<#ControlTime />` требует `time` и включённую `selectionTimeMode`. `<#Collapse />` требует `weeks` и `enableCollapse: true`, а `<#WeekNumbers />` — `weeks` и `enableWeekNumbers: true`. `<#DateRangeTooltip />` требует `annotations` и `onCreateDateRangeTooltip`. `<#Multiple>` требует `months`. Теги шаблона и существующие опции сохраняются.
+
 Макеты позволяют вам почти полностью изменить структуру DOM календаря и добавить собственные HTML-элементы, такие как кнопки. Каждый тип календаря имеет свой собственный шаблон по умолчанию, и вы можете настроить каждый из них.
 
 <Info>

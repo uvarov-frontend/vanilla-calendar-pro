@@ -6,6 +6,19 @@ section: 6. 附加功能
 
 # 弹出窗口和工具提示
 
+从没有扩展机制的版本升级时，请保留现有选项和回调。使用 ESM 时，添加 `annotations` 的具名导入，并在构造函数中配置 `extensions: [annotations]`。无需调用扩展函数。仅导入或注册扩展不会自动启用功能。
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: { '2026-09-21': { html: 'Event' } },
+}).init();
+```
+
+`popups`（包括仅含修饰符的条目）和 `onCreateDateRangeTooltip` 需要 `annotations`。通过 `inputMode` 打开的日历仍属于核心功能。
+
 ## 弹出窗口
 
 日历允许您为任何日期添加带有信息的弹出窗口，这些信息将在悬停该日期时显示。

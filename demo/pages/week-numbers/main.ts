@@ -1,12 +1,14 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { Calendar, type Options, weeks } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/weeks.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 2026 has 53 ISO weeks (Dec 28-30, 2026 fall in week 53)
   const config2026: Options = {
+    extensions: [weeks],
     selectedMonth: 11,
     selectedYear: 2026,
     enableWeekNumbers: true,
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // December 2025's last week rolls over into week 1 of 2026 (year-boundary case, control for #402)
   const config2025: Options = {
+    extensions: [weeks],
     selectedMonth: 11,
     selectedYear: 2025,
     enableWeekNumbers: true,
@@ -22,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // firstWeekday other than Monday (ISO 8601 has no official rule here) - checks the library's
   // generalized week numbering stays self-consistent (sequential, no gaps/duplicates)
   const configSundayStart: Options = {
+    extensions: [weeks],
     selectedMonth: 5,
     selectedYear: 2028,
     firstWeekday: 0,

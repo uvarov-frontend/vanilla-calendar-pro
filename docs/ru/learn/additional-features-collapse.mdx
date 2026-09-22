@@ -7,6 +7,19 @@ section: 6. Дополнительные возможности
 
 # Сворачивание
 
+За сворачивание и разворачивание отвечает `weeks`: без `motion` нажатие на кнопку переключает вид мгновенно. Для перетаскивания подключите `weeks` и `motion`, для анимации завершения включите `animation`. Сам `motion` не включает недельный вид.
+
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `weeks` в конструкторе: `extensions: [weeks]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableCollapse: true,
+}).init();
+```
+
 `enableCollapse` добавляет под сеткой элемент управления. Клик по нему сворачивает месяц до одной недели, повторный клик разворачивает обратно. По умолчанию опция выключена и не требует `enableSwipe` или `animation`.
 
 <Sandbox example="additional-features-collapse" height={420} />
@@ -24,7 +37,10 @@ section: 6. Дополнительные возможности
 Переход использует опцию [`animation`](/docs/reference/settings). Его тайминги можно настроить отдельно через группу `collapse`:
 
 ```ts
+import { Calendar, weeks, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks, motion],
   animation: { collapse: { duration: 450 } },
   enableCollapse: true,
 });

@@ -2,6 +2,7 @@
 title: 설정
 description: 표시 타입, 입력 모드, 위치 지정, 로컬라이징, 날짜와 시간 등 캘린더 설정을 설명합니다.
 new:
+  - extensions
   - animation
   - enableCollapse
   - enableSwipe
@@ -10,7 +11,36 @@ section: 4
 
 # 설정
 
+## extensions
+
+`Type: readonly CalendarExtension[]`
+
+`Default: []`
+
+`motion`은 애니메이션과 제스처를 제공합니다. `time`은 12/24시간 선택기를 제공합니다. `annotations`는 날짜 팝업, 스타일 modifier와 범위 툴팁을 제공합니다. `weeks`는 주간 보기, 접기, 주 번호와 요일/주 번호 클릭 콜백을 제공합니다. `months`는 여러 달을 함께 표시하고 탐색합니다. ESM 번들러는 import하고 등록하지 않은 확장을 제거할 수 있습니다.
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+확장 기능 목록은 인스턴스 생성 시 결정됩니다. 나중에 `set()` 또는 `update()`로 활성화할 모듈도 미리 등록하세요. 이 메서드는 기존 옵션을 변경하지만 모듈을 추가하거나 제거하지 않습니다. 같은 설정 객체나 확장 배열을 여러 캘린더에서 재사용해도 각 인스턴스의 상태는 독립적입니다. 필요한 확장 없이 기능을 활성화하면 `init()`, `set()` 또는 `update()`가 명확한 오류를 발생시킵니다. 비활성 설정과 콜백만으로는 모듈이 필요하지 않습니다.
+
+입력 필드 캘린더, 날짜 및 범위 선택, 월/연도 선택은 코어에 유지됩니다. 기본 요일 제목에는 확장이 필요하지 않습니다. 일반 `<script>` / CommonJS 전체 빌드는 다섯 확장을 자동 등록합니다. CSS import는 바뀌지 않습니다.
+
+---
+
 ## type
+
+ESM에서 `type: 'multiple'`에는 `months`, `type: 'week'`에는 `weeks`가 필요합니다. 나중에 `set()`으로 전환하는 경우에도 생성자에서 미리 등록하세요.
 
 `Type: String`
 
@@ -94,6 +124,8 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 
 ## animation
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `motion`을 이름으로 import하고 생성자에 `extensions: [motion]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: Boolean | Object`
 
 `Default: false`
@@ -103,7 +135,10 @@ Y축이 지정되지 않으면 기본값 `'bottom'`이 사용됩니다.
 `Timing: { duration?: Number, easing?: String }`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   animation: true,
   // animation: { duration: 400, easing: 'ease-out' },
   // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
@@ -362,6 +397,8 @@ new Calendar('#calendar', {
 
 ## displayMonthsCount
 
+ESM 마이그레이션: 기존 옵션과 콜백을 유지하고 `vanilla-calendar-pro`에서 `months` 확장을 import한 뒤 생성자의 `extensions: [months]` 배열에 추가하세요. 함수처럼 호출하지 않습니다.
+
 `Type: Number`
 
 `Default: 2`
@@ -369,7 +406,11 @@ new Calendar('#calendar', {
 `Options: from 2 to 12`
 
 ```ts
+import { Calendar, months } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [months],
+  type: 'multiple',
   displayMonthsCount: 2,
 });
 ```
@@ -550,6 +591,8 @@ new Calendar('#calendar', {
 
 ## enableWeekNumbers
 
+ESM 마이그레이션: 기존 옵션과 콜백을 유지하고 `vanilla-calendar-pro`에서 `weeks` 확장을 import한 뒤 생성자의 `extensions: [weeks]` 배열에 추가하세요. 함수처럼 호출하지 않습니다.
+
 `Type: Boolean`
 
 `Default: false`
@@ -557,7 +600,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableWeekNumbers: true,
 });
 ```
@@ -607,6 +653,8 @@ new Calendar('#calendar', {
 
 ## enableCollapse
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `weeks` 확장을 이름으로 import하고 생성자에 `extensions: [weeks]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: Boolean`
 
 `Default: false`
@@ -614,7 +662,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   enableCollapse: true,
 });
 ```
@@ -625,7 +676,12 @@ new Calendar('#calendar', {
 
 ---
 
+
+접기와 펼치기는 `weeks`가 담당합니다. `motion` 없이도 버튼을 누르면 즉시 전환됩니다. 드래그에는 `weeks`와 `motion`을 함께 등록하고, 전환 애니메이션에는 `animation`을 활성화하세요. `motion`만으로는 주간 보기가 포함되지 않습니다.
+
 ## enableSwipe
+
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `motion`을 이름으로 import하고 생성자에 `extensions: [motion]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
 
 `Type: Boolean`
 
@@ -634,7 +690,10 @@ new Calendar('#calendar', {
 `Options: true | false`
 
 ```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [motion],
   enableSwipe: true,
 });
 ```
@@ -704,6 +763,8 @@ new Calendar('#calendar', {
 
 ## selectionTimeMode
 
+확장 기능이 없는 이전 버전에서 업그레이드할 때 기존 옵션과 콜백은 유지하세요. ESM에서는 `time`을 이름으로 import하고 생성자에 `extensions: [time]`을 추가하세요. 확장 기능을 함수처럼 호출하지 않습니다. import하거나 등록하는 것만으로 기능이 활성화되지는 않습니다.
+
 `Type: false | Number`
 
 `Default: false`
@@ -711,8 +772,11 @@ new Calendar('#calendar', {
 `Options: false | 24 | 12`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
-  selectionTimeMode: true,
+  extensions: [time],
+  selectionTimeMode: 24,
 });
 ```
 
@@ -816,6 +880,8 @@ new Calendar('#calendar', {
 
 ## selectedTime
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: String`
 
 `Default: null`
@@ -823,7 +889,10 @@ new Calendar('#calendar', {
 `Options: 'hh:mm aa' | null`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   selectedTime: '03:44 AM',
 });
 ```
@@ -852,6 +921,8 @@ new Calendar('#calendar', {
 
 ## timeMinHour
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 0`
@@ -859,7 +930,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMinHour: 0,
 });
 ```
@@ -870,6 +944,8 @@ new Calendar('#calendar', {
 
 ## timeMaxHour
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 23`
@@ -877,7 +953,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMaxHour: 23,
 });
 ```
@@ -888,6 +967,8 @@ new Calendar('#calendar', {
 
 ## timeMinMinute
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 0`
@@ -895,7 +976,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMinMinute: 0,
 });
 ```
@@ -906,6 +990,8 @@ new Calendar('#calendar', {
 
 ## timeMaxMinute
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 59`
@@ -913,7 +999,10 @@ new Calendar('#calendar', {
 `Options: from 0 to 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeMaxMinute: 59,
 });
 ```
@@ -924,6 +1013,8 @@ new Calendar('#calendar', {
 
 ## timeControls
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: String`
 
 `Default: 'all'`
@@ -931,7 +1022,10 @@ new Calendar('#calendar', {
 `Options: 'all' | 'range'`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeControls: 'all',
 });
 ```
@@ -942,6 +1036,8 @@ new Calendar('#calendar', {
 
 ## timeStepHour
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 1`
@@ -949,7 +1045,10 @@ new Calendar('#calendar', {
 `Options: from 1 to 23`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeStepHour: 1,
 });
 ```
@@ -960,6 +1059,8 @@ new Calendar('#calendar', {
 
 ## timeStepMinute
 
+ESM: 생성자의 `extensions` 배열에 `time`을 등록해야 합니다. 이 옵션과 값은 기존 Calendar 설정에 그대로 둡니다.
+
 `Type: Number`
 
 `Default: 1`
@@ -967,7 +1068,10 @@ new Calendar('#calendar', {
 `Options: from 1 to 59`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   timeStepMinute: 1,
 });
 ```
@@ -990,7 +1094,7 @@ new Calendar('#calendar', {
 });
 ```
 
-`sanitizerHTML`은 HTML 템플릿을 정제해 CSP에 안전하도록 만들 수 있습니다.
+`sanitizerHTML`은 `layouts`, `popups.html`, `onCreateDateRangeTooltip`에서 제공하는 HTML을 처리합니다. 기본 구현은 문자열을 그대로 반환하며 캘린더에는 HTML 정제기가 내장되어 있지 않습니다. 신뢰할 수 있는 마크업만 사용하거나 외부 콘텐츠를 렌더링하기 전에 DOMPurify처럼 유지 관리되는 정제기를 설정하세요. 이 콜백은 앱의 Content Security Policy를 설정하지 않습니다. `labels`와 `styles`는 HTML이 아닌 일반 텍스트와 CSS 클래스 이름으로 처리됩니다.
 
 <Info>
   예제는 서드파티 라이브러리{' '}

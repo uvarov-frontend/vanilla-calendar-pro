@@ -1,22 +1,20 @@
 import create from '@scripts/creators/create';
-import { cleanupDatePopups } from '@scripts/creators/createDates/createDatePopup';
 import updateDateModifiers from '@scripts/creators/createDates/updateDateModifiers';
-import createTime from '@scripts/creators/createTime';
-import { resetGestures } from '@scripts/handles/handleGestures/handleGestures';
 import handleDayRangedSelection, { cleanupDateRange } from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
 import handleTheme from '@scripts/handles/handleTheme';
-import { cleanupPending } from '@scripts/utils/animate';
 import getLocale from '@scripts/utils/getLocale';
 import initAllVariables from '@scripts/utils/initVariables/initAllVariables';
 import { pauseRenderObservation, type RenderState, rememberRender, renderStructure } from '@scripts/utils/renderState';
 import setContext from '@scripts/utils/setContext';
+import { getExtensions } from '@src/extension';
 import type { Calendar, Reset } from '@src/index';
 
 const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recreate = true, reuse?: RenderState) => {
   pauseRenderObservation(self);
-  resetGestures(self);
-  cleanupPending(self.context.mainElement);
-  cleanupDatePopups(self);
+  const extensions = getExtensions(self);
+  extensions.motion?.reset(self);
+  extensions.time?.destroy(self);
+  extensions.annotations?.destroy(self);
   cleanupDateRange(self);
 
   const previousSelected = {
@@ -50,7 +48,7 @@ const reset = (self: Calendar, { year, month, dates, time, locale }: Reset, recr
     if (reuse) getLocale(self);
     if (reuse && reuse.structure === renderStructure(self)) {
       handleTheme(self);
-      createTime(self);
+      extensions.time?.render(self);
       updateDateModifiers(self, true);
     } else create(self, false);
   }

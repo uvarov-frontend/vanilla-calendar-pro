@@ -8,9 +8,59 @@ section: 8
 
 `styles`는 캘린더의 어떤 CSS 클래스든 덮어쓸 수 있는 기능을 제공합니다. 각 값을 CSS 클래스 목록으로 교체할 수 있습니다.
 
-아래는 모든 기본 클래스 목록입니다.
+## 모듈별 CSS
+
+기존 `styles/index.css`, `styles/layout.css`, `styles/themes/*.css`는 모든 기능의 스타일을 계속 제공하며 호환성을 유지합니다. CSS 크기를 줄이려면 필요한 부분만 가져오세요. JavaScript 확장을 등록해도 CSS가 자동으로 로드되지는 않습니다.
+
+각 그룹에는 `core`, `motion`, `time`, `annotations`, `weeks`, `months`가 있습니다. `core`와 사용하는 모든 확장의 스타일을 가져오세요. 나중에 `set()`으로 활성화할 기능도 포함해야 합니다.
+
+| 경로 | 내용 |
+| --- | --- |
+| `styles/index.css` | 전체 레이아웃과 밝은/어두운 테마 |
+| `styles/{part}.css` | 선택한 부분의 레이아웃과 밝은/어두운 테마 |
+| `styles/layout/{part}.css` | 선택한 부분의 레이아웃만 포함, 테마 제외 |
+| `styles/themes/{theme}/{part}.css` | 선택한 테마에서 해당 부분의 스타일만 포함 |
+
+시간 선택과 자동 밝은/어두운 테마 전환을 사용하는 달력:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+테마를 별도로 선택하려면 레이아웃 부분과 해당 테마 부분을 가져오세요. 시간 선택을 사용하는 밝은 달력의 예:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+`light` 대신 `dark` 또는 `slate-light`를 사용할 수 있습니다. 사용자 정의 테마에는 해당 레이아웃 부분과 직접 작성한 CSS만 필요합니다. 테마 감지와 `selectedTheme`는 기존과 동일하게 동작합니다. 달력이 전환할 수 있는 모든 테마를 가져오세요.
+
+각 계층에서 전체 파일 또는 모듈 파일 중 하나를 선택하여 규칙이 중복 로드되지 않게 하세요. CSS 클래스, 선택자, 브라우저 지원과 공개 `--vc-*` 재정의는 유지됩니다. `motion`, `months`와 같이 테마별 규칙이 없는 부분은 유효한 빈 CSS 파일입니다.
+
+모든 확장을 사용한다면 전체 스타일시트를 유지하세요. 여섯 부분을 모두 가져오는 것보다 압축 효율이 좋습니다.
+
+다운로드 가능한 `package.zip`에는 다섯 개의 전체 스타일시트가 포함됩니다. 모듈별 CSS는 npm 패키지와 직접 CDN URL로 제공됩니다.
 
 ## CSS 클래스
+
+아래는 모든 기본 클래스 목록입니다.
 
 ```ts
 new Calendar('#calendar', {

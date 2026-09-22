@@ -1,0 +1,19 @@
+[data-vc-theme="slate-light"] .vc-collapse {
+  @apply before:bg-[var(--vc-collapse-color,theme(colors.slate.300))] surehover:before:bg-transparent surehover:before:bg-light-collapse surehover:hover:before:opacity-60;
+}
+
+[data-vc-theme="slate-light"] .vc-week-numbers__title {
+  @apply text-[var(--vc-week-numbers-title-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-week-number {
+  @apply text-[var(--vc-week-number-color,theme(colors.gray.600))] surehover:hover:text-[var(--vc-week-number-color-hover,theme(colors.gray.800))];
+}
+
+[data-vc-theme="slate-light"] .vc-week__day-btn {
+  @apply surehover:hover:text-[var(--vc-week-day-color-hover,theme(colors.gray.800))];
+}
+
+[data-vc-theme="slate-light"] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
+  @apply surehover:hover:text-[var(--vc-week-day-off-color-hover,theme(colors.red.600))];
+}

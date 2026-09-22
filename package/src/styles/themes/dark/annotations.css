@@ -1,0 +1,7 @@
+[data-vc-theme="dark"] .vc-date__popup {
+  @apply text-[var(--vc-date-popup-color,theme(colors.white))] bg-[var(--vc-date-popup-bg,theme(colors.slate.800))] shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.05)];
+}
+
+[data-vc-theme="dark"] .vc-date-range-tooltip {
+  @apply text-[var(--vc-date-range-tooltip-color,theme(colors.slate.400))] bg-[var(--vc-date-range-tooltip-bg,theme(colors.slate.800))] shadow-[inset_0_0_0_1px_rgb(255_255_255_/_0.05)];
+}

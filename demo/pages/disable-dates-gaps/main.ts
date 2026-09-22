@@ -2,7 +2,7 @@ import '../../workbench';
 
 import { Calendar, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   // reproduction from https://github.com/uvarov-frontend/vanilla-calendar-pro/issues/407

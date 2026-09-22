@@ -1,0 +1,24 @@
+[data-vc="calendar"][data-vc-type="multiple"] [data-vc="dates"] {
+  @apply grow-0;
+}
+
+[data-vc="controls"] {
+  @apply absolute z-20 left-0 right-0 top-0 flex justify-between items-center pt-5 px-4 pointer-events-none box-content;
+}
+
+[data-vc="grid"] {
+  @apply flex flex-wrap gap-7 grow;
+}
+
+[data-vc="grid"][data-vc-grid="hidden"] [data-vc="column"] {
+  @apply opacity-30 pointer-events-none;
+}
+
+[data-vc="grid"][data-vc-grid="hidden"] [data-vc="column"][data-vc-column="month"],
+[data-vc="grid"][data-vc-grid="hidden"] [data-vc="column"][data-vc-column="year"] {
+  @apply opacity-100 pointer-events-auto;
+}
+
+[data-vc="column"] {
+  @apply min-w-[15rem] flex flex-col grow;
+}

@@ -1,8 +1,9 @@
 import './workbench';
 
-import { Calendar } from '@src/index';
+import { Calendar, time } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/time.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const today = new Date();
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const calendar = new Calendar('#calendar', {
+    extensions: [time],
     selectedMonth: 3,
     selectedYear: 2023,
     selectionTimeMode: 12,

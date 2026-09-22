@@ -6,6 +6,10 @@ section: 6
 
 # Попапы
 
+При обновлении с версии без расширений сохраните прежние опции и обработчики. Для ESM добавьте именованный импорт и зарегистрируйте `annotations` в конструкторе: `extensions: [annotations]`. Вызывать расширение как функцию не нужно. Импорт или регистрация сами по себе не включают функцию.
+
+Требование относится к опции `popups`, включая записи только с `modifier`. Для календаря, открываемого через `inputMode`, и тултипа диапазона (`onCreateDateRangeTooltip`) это расширение не требуется.
+
 Попапы позволяют выделить любой день и выводить краткую информацию о нем прямо в календаре при наведении курсора на этот день.
 
 ## popups['date']
@@ -17,7 +21,10 @@ section: 6
 `Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {},
     '2022-07-01:2022-07-05': {},
@@ -40,7 +47,10 @@ new Calendar('#calendar', {
 `Options: CSS classes | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',
@@ -55,6 +65,8 @@ new Calendar('#calendar', {
 
 ## popups['date'].html
 
+Этот API принимает HTML. Используйте доверенную разметку либо настройте [`sanitizerHTML`](/ru/docs/reference/settings#sanitizerhtml), если содержимое поступает от пользователей или из других недоверенных источников; по умолчанию обработчик ничего не очищает.
+
 `Type: String`
 
 `Default: null`
@@ -62,7 +74,10 @@ new Calendar('#calendar', {
 `Options: '' | HTML | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',

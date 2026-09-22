@@ -34,6 +34,8 @@ This method is triggered after clicking on a day in the calendar. You can get th
 
 ## onClickWeekDay()
 
+ESM migration: keep the existing options and callbacks, import `weeks` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [weeks]` array without calling it.
+
 `Type: Function`
 
 `Default: null`
@@ -41,7 +43,10 @@ This method is triggered after clicking on a day in the calendar. You can get th
 `Options: onClickWeekDay(self, day, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekDay(self, day, dateEls, event) {},
 });
 ```
@@ -56,6 +61,8 @@ This method is triggered after clicking on a weekday in the calendar. You can ge
 
 ## onClickWeekNumber()
 
+ESM migration: keep the existing options and callbacks, import `weeks` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [weeks]` array without calling it.
+
 `Type: Function`
 
 `Default: null`
@@ -63,7 +70,10 @@ This method is triggered after clicking on a weekday in the calendar. You can ge
 `Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
 
 ```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [weeks],
   onClickWeekNumber(self, number, year, dateEls, event) {},
 });
 ```
@@ -159,6 +169,8 @@ This method is triggered after clicking on an arrow in the calendar. You can get
 
 ## onChangeTime()
 
+ESM: requires `time` in the constructor’s `extensions` array; keep this option and its value in the Calendar configuration.
+
 `Type: Function`
 
 `Default: null`
@@ -166,7 +178,10 @@ This method is triggered after clicking on an arrow in the calendar. You can get
 `Options: onChangeTime(self, event, isError) => void | null`
 
 ```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [time],
   onChangeTime(self, event) {},
 });
 ```
@@ -202,6 +217,10 @@ You can get the following parameters:
 
 ## onCreateDateRangeTooltip()
 
+ESM migration: keep the existing options and callbacks, import `annotations` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [annotations]` array without calling it.
+
+This API accepts HTML. Use trusted markup, or configure [`sanitizerHTML`](/docs/reference/settings#sanitizerhtml) when content comes from users or other untrusted sources; the default callback does not sanitize it.
+
 `Type: Function`
 
 `Default: null`
@@ -209,7 +228,10 @@ You can get the following parameters:
 `Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
 });
 ```

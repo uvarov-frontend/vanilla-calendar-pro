@@ -1,0 +1,45 @@
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-vc="collapse"]::before {
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+[data-vc-swipe] [data-vc="content"] {
+  touch-action: pan-y;
+}
+
+[data-vc-dragging] {
+  @apply cursor-grabbing [&_*]:!cursor-grabbing;
+}
+
+/* Prevent row redistribution while the grid height is animated. */
+
+[data-vc-collapsing] {
+  @apply flex-none [align-content:start];
+  overflow: hidden;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: hidden is the fallback for browsers without overflow: clip. */
+  overflow: clip;
+}
+
+/* The full layout originally restores grid growth after flex:none. Keep that cascade boundary
+   here as well, so loading motion after core preserves the same layout during collapse. */
+[data-vc="dates"] {
+  @apply grow;
+}
+
+/* `clip` prevents focus scrolling; `hidden` is its fallback. Relative positioning keeps absolute
+   ghosts inside the clipping context. */
+
+[data-vc-clip] {
+  @apply relative;
+  overflow: hidden;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: hidden is the fallback for browsers without overflow: clip. */
+  overflow: clip;
+}
+
+[data-vc-ghost] {
+  @apply absolute pointer-events-none;
+  overflow: hidden;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: hidden is the fallback for browsers without overflow: clip. */
+  overflow: clip;
+}

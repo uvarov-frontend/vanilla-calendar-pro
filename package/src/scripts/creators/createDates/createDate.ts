@@ -2,15 +2,9 @@ import { getDateRules, prepareDateRules } from '@scripts/creators/createDates/da
 import setDateModifier from '@scripts/creators/createDates/setDateModifier';
 import getDate from '@scripts/utils/getDate';
 import getLocaleString from '@scripts/utils/getLocaleString';
-import getWeekNumber from '@scripts/utils/getWeekNumber';
 import sortDates from '@scripts/utils/sortDates';
+import { getExtensions } from '@src/extension';
 import type { Calendar, FormatDateString, WeekDayID } from '@src/index';
-
-const addWeekNumberForDate = (self: Calendar, dateEl: HTMLElement, dateStr: FormatDateString) => {
-  const weekNumber = getWeekNumber(dateStr, self.firstWeekday);
-  if (!weekNumber) return;
-  dateEl.dataset.vcDateWeekNumber = String(weekNumber.week);
-};
 
 export const setDaysAsDisabled = (self: Calendar, date: FormatDateString, dayWeekID: WeekDayID) => {
   const isDisableWeekday = self.disableWeekdays?.includes(dayWeekID);
@@ -70,7 +64,7 @@ const createDate = (
     dateEl.appendChild(dateBtnEl);
   }
 
-  if (self.enableWeekNumbers) addWeekNumberForDate(self, dateEl, dateStr);
+  if (self.enableWeekNumbers) getExtensions(self).weeks?.date(self, dateEl, dateStr);
 
   setDaysAsDisabled(self, dateStr, dayWeekID);
   setDateModifier(self, currentYear, dateEl, dateBtnEl, dayWeekID, dateStr, monthType);

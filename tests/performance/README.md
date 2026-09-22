@@ -82,6 +82,12 @@ Memory checks assert no live probed calendars/nodes after GC, no event-listener 
 
 When continuing in another chat, point to this file and name the slow real-world scenario. A useful starting instruction is: “Read tests/performance/README.md, compare the working tree against a named revision using the current pnpm toolchain, inspect timing and bundle regressions, preserve the existing API/browser floor, and keep generated reports outside the repository.”
 
+## Extension-aware comparisons
+
+For ESM revisions with extensions, timing fixtures register only modules needed by the measured options. Rendering parity and lifecycle fixtures register all available modules so later `set()` changes still exercise the same behavior; the fixtures also accept the previous timePicker/datePopups names, and older baselines without module exports need no registration. No wrapper or global auto-registration is inserted into the measured Calendar implementation.
+
+The `index.mjs` artifact and cold-start measurements include the complete published ESM file. They do not measure the download size after a consumer bundler removes unused extensions. Run `pnpm test:package` for separate consumer builds of core, each extension and all extensions together: it checks that unused implementations disappear, keeps raw/gzip budgets, and reports raw, gzip and Brotli sizes. Keep full-distribution and consumer figures separate in comparisons.
+
 ## Maintain the harness
 
 `scenarios.browser.mjs` contains timing fixtures; `rendering.browser.mjs` contains public-API parity checks; `lifecycle.browser.mjs` contains memory/interaction/startup fixtures. Node runners handle build snapshots, CDP, measurements and reports. Add scenarios here when a real regression is found. Keep fixtures fixed and deterministic. Change parity expectations intentionally when the API/markup contract is intentionally changed.

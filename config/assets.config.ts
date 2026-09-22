@@ -1,10 +1,12 @@
-import { resolve } from 'node:path';
+import { relative, resolve, sep } from 'node:path';
 import { defineConfig } from 'vite';
 
 import { getInputFiles, packageOutputPlugin } from './helpers.ts';
 
 const outDir = './package/dist';
-const input = getInputFiles(resolve(import.meta.dirname, '../package/src/styles'));
+const styles = resolve(import.meta.dirname, '../package/src/styles');
+const input = getInputFiles(styles);
+const stylesheetPath = (file: string) => `styles/${relative(styles, resolve(file)).split(sep).join('/')}`;
 
 export default defineConfig({
   publicDir: './package/public',
@@ -17,11 +19,35 @@ export default defineConfig({
     emptyOutDir: true,
     rolldownOptions: {
       output: {
-        assetFileNames: (assetInfo) =>
-          assetInfo.name && ['index.css', 'layout.css'].includes(assetInfo.name) ? 'styles/[name].[ext]' : 'styles/themes/[name].[ext]',
+        assetFileNames: (assetInfo) => {
+          const original = assetInfo.originalFileNames[0];
+          if (!original) throw new Error(`Missing stylesheet source for ${assetInfo.names.join(', ')}`);
+          return stylesheetPath(original);
+        },
       },
       input,
     },
   },
-  plugins: [packageOutputPlugin()],
+  plugins: [
+    {
+      name: 'calendar-style-paths',
+      generateBundle(_, bundle) {
+        // Vite deduplicates identical CSS assets, including empty theme parts. Every documented
+        // import must still resolve to a standalone file at its own path.
+        const files = new Set(Object.keys(bundle));
+        for (const asset of Object.values(bundle)) {
+          if (asset.type !== 'asset' || !asset.fileName.endsWith('.css')) continue;
+          for (const original of asset.originalFileNames) {
+            const fileName = stylesheetPath(original);
+            if (!files.has(fileName)) {
+              this.emitFile({ type: 'asset', fileName, source: asset.source });
+              files.add(fileName);
+            }
+          }
+        }
+        for (const file of input) if (!files.has(stylesheetPath(file))) throw new Error(`Missing stylesheet: ${file}`);
+      },
+    },
+    packageOutputPlugin(),
+  ],
 });

@@ -13,6 +13,9 @@ export async function fixtureServer(root, fixtureDirectory) {
   });
   await fs.cp(path.join(root, 'examples'), path.join(directory, 'examples'), { recursive: true });
   await fs.symlink(packed, path.join(directory, 'package'), 'dir');
+  // A previous build may be supplied for before/after CSS audits. Normal CI compares the full
+  // packed styles against their modular equivalents, without depending on Git history.
+  await fs.cp(process.env.CALENDAR_CSS_BASELINE ?? path.join(packed, 'styles'), path.join(directory, 'reference-styles'), { recursive: true });
   // The dev workbench loads its highlighter lazily; the calendar still comes only from the tarball.
   await fs.cp(await fs.realpath(path.join(root, 'node_modules/highlight.js')), path.join(directory, 'node_modules/highlight.js'), { recursive: true });
   const examples = (await fs.readdir(path.join(directory, 'examples')))
@@ -36,8 +39,8 @@ export async function fixtureServer(root, fixtureDirectory) {
   for (const format of ['module', 'script']) {
     const script =
       format === 'module'
-        ? `<script type="module">import { Calendar } from '/package/index.mjs'; import * as utils from '/package/utils/index.mjs'; window.Calendar = Calendar; window.calendarUtils = utils;</script>`
-        : `<script src="/package/index.js"></script><script src="/package/utils/index.js"></script><script>window.Calendar = VanillaCalendarPro.Calendar; window.calendarUtils = VanillaCalendarProUtils;</script>`;
+        ? `<script type="module">import { Calendar, motion, time, annotations, weeks, months } from '/package/index.mjs'; window.calendarExtensions = { motion, time, annotations, weeks, months }; import * as utils from '/package/utils/index.mjs'; window.Calendar = Calendar; window.calendarUtils = utils;</script>`
+        : `<script src="/package/index.js"></script><script src="/package/utils/index.js"></script><script>window.Calendar = VanillaCalendarPro.Calendar; const { motion, time, annotations, weeks, months } = VanillaCalendarPro; window.calendarExtensions = { motion, time, annotations, weeks, months }; window.calendarUtils = VanillaCalendarProUtils;</script>`;
     await fs.writeFile(
       path.join(directory, format === 'module' ? 'api.html' : 'api-script.html'),
       `<!doctype html>

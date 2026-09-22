@@ -6,6 +6,8 @@ section: 3
 
 # Methods
 
+Extensions are fixed at construction. Register modules you will enable later through `set()` or `update()`. Those methods still change the existing feature options; they cannot add or remove modules. Reusing the same options or extensions array is supported; each calendar has independent state. Enabling a feature without its extension throws a descriptive error at `init()`, `set()` or `update()`; inactive settings and callbacks do not require a module.
+
 ## init()
 
 The `init()` method is the main instance method that starts the calendar initialization process.

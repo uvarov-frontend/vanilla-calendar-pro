@@ -6,6 +6,10 @@ section: 6
 
 # Popups
 
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `annotations` in the constructor with `extensions: [annotations]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+This requirement applies to the `popups` option, including entries with only `modifier`. It does not apply to the calendar opened by `inputMode` or the range tooltip (`onCreateDateRangeTooltip`).
+
 Popups allow you to highlight any day and display brief information about it directly in the calendar when hovering over the day.
 
 ## popups['date']
@@ -17,7 +21,10 @@ Popups allow you to highlight any day and display brief information about it dir
 `Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {},
     '2022-07-01:2022-07-05': {},
@@ -40,7 +47,10 @@ Dates in the format `YYYY-MM-DD` are used as keys. In the given example, a popup
 `Options: CSS classes | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',
@@ -55,6 +65,8 @@ new Calendar('#calendar', {
 
 ## popups['date'].html
 
+This API accepts HTML. Use trusted markup, or configure [`sanitizerHTML`](/docs/reference/settings#sanitizerhtml) when content comes from users or other untrusted sources; the default callback does not sanitize it.
+
 `Type: String`
 
 `Default: null`
@@ -62,7 +74,10 @@ new Calendar('#calendar', {
 `Options: '' | HTML | null`
 
 ```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
 new Calendar('#calendar', {
+  extensions: [annotations],
   popups: {
     '2022-06-28': {
       modifier: 'bg-red color-pink',

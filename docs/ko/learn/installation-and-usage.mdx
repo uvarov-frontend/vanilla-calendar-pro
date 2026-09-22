@@ -92,3 +92,28 @@ import 'vanilla-calendar-pro/styles/themes/dark.css'; // Dark theme
   </body>
 </html>
 ```
+
+## extensions
+
+`motion`은 애니메이션과 제스처를 제공합니다. `time`은 12/24시간 선택기를 제공합니다. `annotations`는 날짜 팝업, 스타일 modifier와 범위 툴팁을 제공합니다. `weeks`는 주간 보기, 접기, 주 번호와 요일/주 번호 클릭 콜백을 제공합니다. `months`는 여러 달을 함께 표시하고 탐색합니다. ESM 번들러는 import하고 등록하지 않은 확장을 제거할 수 있습니다.
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+입력 필드 캘린더, 날짜 및 범위 선택, 월/연도 선택은 코어에 유지됩니다. 기본 요일 제목에는 확장이 필요하지 않습니다. 일반 `<script>` / CommonJS 전체 빌드는 다섯 확장을 자동 등록합니다. CSS import는 바뀌지 않습니다.
+
+## 모듈별 CSS
+
+기존 `styles/index.css`, `styles/layout.css`, `styles/themes/*.css`는 모든 기능의 스타일을 계속 제공하며 호환성을 유지합니다. CSS 크기를 줄이려면 필요한 부분만 가져오세요. JavaScript 확장을 등록해도 CSS가 자동으로 로드되지는 않습니다.
+
+선택적 CSS 가져오기는 [스타일 참조](/docs/reference/styles)에 설명되어 있습니다. 기존 전체 스타일시트도 지원되며, 예제는 필요한 부분만 가져옵니다.

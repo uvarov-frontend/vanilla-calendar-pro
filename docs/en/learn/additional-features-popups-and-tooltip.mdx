@@ -6,6 +6,19 @@ section: 6. Additional Features
 
 # Popups and Tooltips
 
+When upgrading from a version without extensions, keep your existing options and callbacks. For ESM, add the named import and register `annotations` in the constructor with `extensions: [annotations]`. Do not call the extension. Importing or registering it does not enable the feature by itself.
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: { '2026-09-21': { html: 'Event' } },
+}).init();
+```
+
+`annotations` is required for `popups` (including modifier-only entries) and `onCreateDateRangeTooltip`. The calendar opened by `inputMode` remains in core.
+
 ## Popups
 
 The calendar allows you to add popups with information for any day, which will be displayed when hovering over that day.

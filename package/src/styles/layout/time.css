@@ -1,0 +1,59 @@
+[data-vc="time"] {
+  @apply grid grid-cols-[auto_1fr] gap-3 border-solid border-t border-b-0 border-l-0 border-r-0 pt-3 mt-3;
+}
+
+[data-vc-time="content"] {
+  @apply grid grid-flow-col items-center;
+}
+
+[data-vc-time-input="hour"] {
+  @apply relative w-7 mr-[0.35rem] after:content-[':'] after:block after:absolute after:-right-[0.3125rem] after:top-1/2 after:mt-[calc(-50%_+_1px)];
+}
+
+[data-vc-time-input="minute"] {
+  @apply w-7;
+}
+
+[data-vc-time-input="hour"] input,
+[data-vc-time-input="minute"] input {
+  @apply box-border relative block text-lg leading-[1.125rem] font-semibold text-center w-full p-[0.125rem] m-0 border-0 rounded select-text disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline;
+}
+
+[data-vc-time="keeping"] {
+  @apply ml-[0.0625rem] cursor-pointer text-[0.69rem] w-[1.375rem] rounded mt-1 disabled:cursor-default disabled:hover:bg-transparent focus-visible:outline-1 focus-visible:outline bg-transparent border-0 p-0;
+}
+
+[data-vc-time="ranges"] {
+  @apply grid grid-flow-row;
+}
+
+[data-vc-time-range] {
+  @apply text-[0] relative z-10 before:left-0 after:right-0;
+}
+
+[data-vc-time-range]::before,
+[data-vc-time-range]::after {
+  content: "";
+  transform: translateY(-50%);
+  @apply w-[0.0625rem] h-2 absolute z-10 pointer-events-none top-1/2;
+}
+
+[data-vc-time-range] input {
+  @apply w-full relative appearance-none h-6 cursor-pointer m-0 outline-0;
+}
+
+[data-vc-time-range] input::-webkit-slider-thumb {
+  @apply appearance-none -mt-2 relative z-20 box-border border border-solid h-4 w-3 shadow-none rounded cursor-pointer;
+}
+
+[data-vc-time-range] input::-moz-range-thumb {
+  @apply relative z-20 box-border border border-solid h-4 w-3 shadow-none rounded cursor-pointer;
+}
+
+[data-vc-time-range] input::-webkit-slider-runnable-track {
+  @apply box-border w-full h-[1px] mt-[1px] cursor-pointer shadow-none;
+}
+
+[data-vc-time-range] input::-moz-range-track {
+  @apply box-border w-full h-[1px] mt-[1px] cursor-pointer shadow-none;
+}

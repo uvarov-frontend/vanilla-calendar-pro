@@ -57,3 +57,24 @@ new Calendar('#calendar', {
   // Settings
 });
 ```
+
+## extensions
+
+`motion`은 애니메이션과 제스처를 제공합니다. `time`은 12/24시간 선택기를 제공합니다. `annotations`는 날짜 팝업, 스타일 modifier와 범위 툴팁을 제공합니다. `weeks`는 주간 보기, 접기, 주 번호와 요일/주 번호 클릭 콜백을 제공합니다. `months`는 여러 달을 함께 표시하고 탐색합니다. ESM 번들러는 import하고 등록하지 않은 확장을 제거할 수 있습니다.
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+확장 기능 목록은 인스턴스 생성 시 결정됩니다. 나중에 `set()` 또는 `update()`로 활성화할 모듈도 미리 등록하세요. 이 메서드는 기존 옵션을 변경하지만 모듈을 추가하거나 제거하지 않습니다. 같은 설정 객체나 확장 배열을 여러 캘린더에서 재사용해도 각 인스턴스의 상태는 독립적입니다. 필요한 확장 없이 기능을 활성화하면 `init()`, `set()` 또는 `update()`가 명확한 오류를 발생시킵니다. 비활성 설정과 콜백만으로는 모듈이 필요하지 않습니다.
+
+입력 필드 캘린더, 날짜 및 범위 선택, 월/연도 선택은 코어에 유지됩니다. 기본 요일 제목에는 확장이 필요하지 않습니다. 일반 `<script>` / CommonJS 전체 빌드는 다섯 확장을 자동 등록합니다. CSS import는 바뀌지 않습니다.

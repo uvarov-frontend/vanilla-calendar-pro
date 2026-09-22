@@ -7,15 +7,16 @@ import path from 'node:path';
 import { after, before, test } from 'node:test';
 import { pathToFileURL } from 'node:url';
 import vm from 'node:vm';
-import { brotliCompressSync, gzipSync } from 'node:zlib';
+import { brotliCompressSync, gzipSync, inflateRawSync } from 'node:zlib';
 import { parse } from 'acorn';
 import { build } from 'vite';
 import { unpackPackage } from './fixture.mjs';
+import { assertModularStyles, assertStyleContracts, modularStyles } from './styles.mjs';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const require = createRequire(import.meta.url);
 const entryPoints = [
-  { subpath: '', file: 'index', global: 'VanillaCalendarPro', exports: ['Calendar'] },
+  { subpath: '', file: 'index', global: 'VanillaCalendarPro', exports: ['Calendar', 'annotations', 'months', 'motion', 'time', 'weeks'] },
   { subpath: '/utils', file: 'utils/index', global: 'VanillaCalendarProUtils', exports: ['getDate', 'getDateString', 'getWeekNumber', 'parseDates'] },
 ];
 let scratch;
@@ -60,6 +61,12 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     'types.d.ts',
     'labels.d.ts',
     'styles.d.ts',
+    'extension.d.ts',
+    'extensions/motion/index.d.ts',
+    'extensions/time/index.d.ts',
+    'extensions/annotations/index.d.ts',
+    'extensions/weeks/index.d.ts',
+    'extensions/months/index.d.ts',
     'utils/index.js',
     'utils/index.mjs',
     'utils/index.d.ts',
@@ -68,6 +75,7 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     'styles/themes/light.css',
     'styles/themes/dark.css',
     'styles/themes/slate-light.css',
+    ...modularStyles,
   ];
   assert.deepEqual(packedFiles.sort(), expected.sort());
   assert.deepEqual(manifest.dependencies, {});
@@ -78,6 +86,42 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     for (const file of Object.values(resolved)) await fs.access(path.join(packed, file));
   }
 });
+
+test('the CDN ZIP contains full styles only and preserves every archived file', async () => {
+  const zip = await fs.readFile(path.join(packed, 'package.zip'));
+  // Read the generated ZIP's central directory and inflate its actual entries. No system unzip
+  // command or extra dependency is needed; this distribution fits the ordinary ZIP32 format.
+  const end = zip.length - 22;
+  assert.equal(zip.readUInt32LE(end), 0x06054b50);
+  const count = zip.readUInt16LE(end + 10);
+  let offset = zip.readUInt32LE(end + 16);
+  const files = [];
+  for (let index = 0; index < count; index++) {
+    assert.equal(zip.readUInt32LE(offset), 0x02014b50);
+    const nameLength = zip.readUInt16LE(offset + 28);
+    const name = zip.toString('utf8', offset + 46, offset + 46 + nameLength);
+    const local = zip.readUInt32LE(offset + 42);
+    assert.equal(zip.readUInt32LE(local), 0x04034b50);
+    const start = local + 30 + zip.readUInt16LE(local + 26) + zip.readUInt16LE(local + 28);
+    const data = zip.subarray(start, start + zip.readUInt32LE(offset + 20));
+    const compression = zip.readUInt16LE(offset + 10);
+    assert.ok(compression === 0 || compression === 8, `${name}: unsupported ZIP compression`);
+    assert.ok(packedFiles.includes(name), `Unexpected ZIP entry: ${name}`);
+    const contents = compression === 8 ? inflateRawSync(data) : data;
+    // pnpm pack reformats package.json; compare its values rather than trailing whitespace.
+    if (name === 'package.json') assert.deepEqual(JSON.parse(contents.toString()), manifest);
+    else assert.deepEqual(contents, await fs.readFile(path.join(packed, name)), name);
+    files.push(name);
+    offset += 46 + nameLength + zip.readUInt16LE(offset + 30) + zip.readUInt16LE(offset + 32);
+  }
+  assert.equal(offset, end);
+  assert.deepEqual(files.sort(), packedFiles.filter((file) => file !== 'package.zip' && !modularStyles.includes(file)).sort());
+  assert.equal(files.filter((file) => file.endsWith('.css')).length, 5);
+});
+
+test('full styles preserve the pre-split selectors, values and browser fallbacks', () => assertStyleContracts(packed));
+
+test('modular CSS is standalone, contains only its feature and reconstructs the full styles', (t) => assertModularStyles(packed, t));
 
 for (const entry of entryPoints) {
   test(`${entry.file}: ESM, CommonJS, classic script and AMD expose the same API`, async () => {
@@ -96,7 +140,21 @@ for (const entry of entryPoints) {
     const cjs = consumerRequire(`vanilla-calendar-pro${entry.subpath}`);
     for (const api of [esm, cjs, classic[entry.global], amd]) {
       assert.deepEqual(Object.keys(api).sort(), entry.exports);
-      for (const name of entry.exports) assert.equal(typeof api[name], 'function');
+      for (const name of entry.exports) {
+        if (['motion', 'time', 'annotations', 'weeks', 'months'].includes(name)) {
+          assert.equal(typeof api[name], 'object');
+          assert.equal(api[name].name, name);
+          assert.ok(Object.isFrozen(api[name]), `${name} must be an immutable description`);
+        } else assert.equal(typeof api[name], 'function');
+      }
+      if (!entry.subpath) {
+        const calendar = new api.Calendar({});
+        assert.equal(calendar.extensions.length, api === esm ? 0 : 5, 'Only the full distribution registers extensions automatically');
+        for (const name of ['motion', 'time', 'annotations', 'weeks', 'months']) {
+          assert.match(name, /^[a-z]+$/);
+          assert.equal(name in calendar, false, `${name} must not collide with a Calendar option or method`);
+        }
+      }
       if (entry.subpath) {
         assert.equal(api.getDateString(api.getDate('2024-02-29')), '2024-02-29');
         assert.equal(JSON.stringify(api.parseDates(['2024-02-28:2024-03-01'])), '["2024-02-28","2024-02-29","2024-03-01"]');
@@ -116,7 +174,7 @@ for (const entry of entryPoints) {
       );
       assert.match(code, /vanilla-calendar-pro v/);
       const bytes = Buffer.byteLength(code);
-      assert.ok(bytes <= (entry.subpath ? 1500 : 80000), `${file} grew to ${bytes} bytes; review the build before changing its budget`);
+      assert.ok(bytes <= (entry.subpath ? 1500 : 83500), `${file} grew to ${bytes} bytes; review the build before changing its budget`);
       t.diagnostic(`${file}: ${bytes} bytes, gzip ${gzipSync(code, { level: 9 }).length}, Brotli ${brotliCompressSync(code).length}`);
     }
   });
@@ -141,8 +199,19 @@ async function bundle(name, source) {
   return result.flatMap(({ output }) => output);
 }
 
-test('unused Calendar imports disappear from a consumer bundle', async () => {
-  const output = await bundle('unused', "import { Calendar } from 'vanilla-calendar-pro'; export const marker = 1;");
+test('every modular CSS import resolves from the packed package and survives tree shaking', async () => {
+  const output = await bundle('modular-styles', modularStyles.map((file) => `import 'vanilla-calendar-pro/${file}';`).join('\n'));
+  const css = output
+    .filter(({ type, fileName }) => type === 'asset' && fileName.endsWith('.css'))
+    .map(({ source }) => source)
+    .join('\n');
+  assert.match(css, /data-vc-theme=slate-light/);
+  assert.match(css, /data-vc-time/);
+  assert.match(css, /data-vc-ghost/);
+});
+
+test('unused Calendar and extension imports disappear from a consumer bundle', async () => {
+  const output = await bundle('unused', "import { Calendar, motion, time, annotations, weeks, months } from 'vanilla-calendar-pro'; export const marker = 1;");
   const code = output
     .filter(({ type }) => type === 'chunk')
     .map(({ code }) => code)
@@ -150,6 +219,38 @@ test('unused Calendar imports disappear from a consumer bundle', async () => {
   assert.ok(code.length < 100, `Unused calendar retained ${code.length} bytes`);
   assert.doesNotMatch(code, /WeakMap|Calendar|data-vc/);
 });
+
+const featureMarkers = {
+  motion: /setPointerCapture|translateX\(/,
+  time: /data-vc-time-range=/,
+  annotations: /vcDatePopup|vcDateRangeTooltip="visible"/,
+  weeks: /vcDateWeekNumber|\.vcDates="row"/,
+  months: /vcGrid="hidden"/,
+};
+for (const [name, features, budget] of [
+  ['core', [], 55000],
+  ['motion', ['motion'], 64500],
+  ['time', ['time'], 61000],
+  ['annotations', ['annotations'], 57500],
+  ['weeks', ['weeks'], 61000],
+  ['months', ['months'], 59000],
+  ['motion-weeks', ['motion', 'weeks'], 70500],
+  ['motion-months', ['motion', 'months'], 69000],
+  ['all', ['motion', 'time', 'annotations', 'weeks', 'months'], 83500],
+]) {
+  test(`consumer ${name}: only requested implementations survive tree shaking`, async (t) => {
+    const output = await bundle(name, `export { Calendar${features.length ? `, ${features.join(', ')}` : ''} } from 'vanilla-calendar-pro';`);
+    const code = output.find(({ type }) => type === 'chunk').code;
+    for (const [feature, marker] of Object.entries(featureMarkers)) {
+      if (features.includes(feature)) assert.match(code, marker, `${feature} implementation must survive`);
+      else assert.doesNotMatch(code, marker, `Unused ${feature} implementation must disappear`);
+    }
+    assert.ok(Buffer.byteLength(code) <= budget, `${name} exceeds its ${budget}-byte budget`);
+    const gzip = gzipSync(code, { level: 9 }).length;
+    assert.ok(gzip <= (name === 'core' ? 17000 : 25500), `${name} exceeds its compressed size budget`);
+    t.diagnostic(`${name}: ${Buffer.byteLength(code)} bytes, gzip ${gzip}, Brotli ${brotliCompressSync(code).length}`);
+  });
+}
 
 test('a single utility import does not retain the other utilities or Calendar', async () => {
   const output = await bundle('utility', "export { getDate } from 'vanilla-calendar-pro/utils';");
@@ -204,6 +305,10 @@ test('all examples typecheck against the packed declarations', async () => {
         include: ['examples/**/*.ts'],
       }),
     );
-    execFileSync(process.execPath, [require.resolve('typescript/lib/tsc.js'), '-p', path.join(scratch, 'tsconfig.json')], { stdio: 'pipe' });
+    try {
+      execFileSync(process.execPath, [require.resolve('typescript/lib/tsc.js'), '-p', path.join(scratch, 'tsconfig.json')], { stdio: 'pipe' });
+    } catch (error) {
+      throw new Error(error.stdout?.toString() || error.message, { cause: error });
+    }
   }
 });

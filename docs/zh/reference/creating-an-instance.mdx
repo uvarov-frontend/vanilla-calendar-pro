@@ -57,3 +57,24 @@ new Calendar('#calendar', {
   // 设置
 });
 ```
+
+## extensions
+
+`motion` 提供动画和手势。`time` 提供 12/24 小时时间选择。`annotations` 提供日期弹出内容、样式修饰符和范围提示。`weeks` 提供一周视图、折叠、周数和星期/周数点击回调。`months` 提供多月显示和导航。ESM 打包工具可移除未导入和注册的扩展。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+扩展列表在创建实例时确定。稍后要通过 `set()` 或 `update()` 启用的模块也必须提前注册。这些方法仍可修改原有选项，但不能添加或移除模块。同一个配置对象或扩展数组可以供多个日历使用，各实例的状态相互独立。启用功能却未注册对应扩展时，`init()`、`set()` 或 `update()` 会抛出明确错误；未启用的设置和回调不需要模块。
+
+输入框日历、日期和范围选择以及月份和年份选择仍属于核心功能。普通星期标题无需扩展。完整的普通 `<script>` / CommonJS 构建会自动注册全部五个扩展。CSS 导入保持不变。

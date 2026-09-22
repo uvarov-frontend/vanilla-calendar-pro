@@ -1,32 +1,11 @@
 import createLayouts from '@scripts/creators/createLayouts';
-import setMonthOrYearModifier from '@scripts/creators/setMonthOrYearModifier';
+import createPickerCell from '@scripts/creators/createPickerCell';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
-
-const createYearEl = (self: Calendar, templateEl: HTMLButtonElement, selected: number, disabled: boolean, id: number) => {
-  const yearWrapperEl = document.createElement('div');
-  yearWrapperEl.className = self.styles.yearsCell;
-  yearWrapperEl.dataset.vcYears = 'cell';
-  yearWrapperEl.role = 'gridcell';
-
-  const yearEl = templateEl.cloneNode(false) as HTMLButtonElement;
-  yearEl.className = self.styles.yearsYear;
-  yearEl.innerText = String(id);
-  yearEl.ariaLabel = String(id);
-  yearEl.dataset.vcYearsYear = `${id}`;
-  if (disabled) yearEl.ariaDisabled = 'true';
-  if (disabled) yearEl.tabIndex = -1;
-  yearEl.disabled = disabled;
-
-  yearWrapperEl.appendChild(yearEl);
-
-  setMonthOrYearModifier(self, yearEl, 'year', selected === id, false);
-  return yearWrapperEl;
-};
 
 const createYears = (self: Calendar, target?: HTMLElement) => {
   const selectedYear = target?.dataset.vcYear ? Number(target.dataset.vcYear) : self.context.selectedYear;
@@ -59,7 +38,7 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
 
     const [min, max] = limits ?? getLimits();
     const yearDisabled = i < min + relationshipID || i > max;
-    const yearEl = createYearEl(self, templateYearEl, selectedYear, yearDisabled, i);
+    const yearEl = createPickerCell(self, 'year', templateYearEl, selectedYear, yearDisabled, i, String(i), String(i));
     rowEl?.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }

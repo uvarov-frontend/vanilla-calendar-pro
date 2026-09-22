@@ -6,6 +6,8 @@ section: 5. Action Handlers
 
 # Handling Day of Week and Week Number Clicks
 
+ESM migration: keep the existing options and callbacks, import `weeks` from `vanilla-calendar-pro`, and add it to the constructor’s `extensions: [weeks]` array without calling it.
+
 ## Day of the Week
 
 You can intercept a click on a day of the week and, for example, select all days of the month that correspond to that day of the week.

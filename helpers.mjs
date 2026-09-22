@@ -3,6 +3,8 @@ import path from 'node:path';
 import { ZipArchive } from 'archiver';
 
 const inputDir = path.resolve(import.meta.dirname, 'package/dist');
+// The ZIP is the ready-to-use full distribution. Optional CSS stays in npm/CDN files.
+const archiveStyles = new Set(['styles/index.css', 'styles/layout.css', 'styles/themes/light.css', 'styles/themes/dark.css', 'styles/themes/slate-light.css']);
 
 const zipDirectory = async (sourceDir) => {
   const outputZipPath = path.join(sourceDir, 'package.zip');
@@ -32,7 +34,9 @@ const zipDirectory = async (sourceDir) => {
         if (stat.isDirectory()) {
           addFilesToArchive(filePath);
         } else if (stat.isFile() && path.extname(file) !== '.zip') {
-          archive.file(filePath, { name: path.relative(sourceDir, filePath) });
+          const name = path.relative(sourceDir, filePath).split(path.sep).join('/');
+          if (path.extname(file) === '.css' && !archiveStyles.has(name)) return;
+          archive.file(filePath, { name });
         }
       });
     }

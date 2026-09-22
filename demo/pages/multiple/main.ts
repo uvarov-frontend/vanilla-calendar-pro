@@ -1,10 +1,13 @@
 import '../../workbench';
 
-import { Calendar, type Options } from '@src/index';
+import { annotations, Calendar, months, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/annotations.css';
+import '@src/styles/months.css';
 
 const config: Options = {
+  extensions: [months, annotations],
   type: 'multiple',
   selectionDatesMode: 'multiple-ranged',
   selectedMonth: 3,
