@@ -87,6 +87,14 @@ test('the packed package contains every public artifact, including the CDN ZIP d
   }
 });
 
+test('package documentation matches the regular files in the repository root', async () => {
+  for (const file of ['README.md', 'LICENSE']) {
+    const source = path.join(root, file);
+    assert.ok((await fs.lstat(source)).isFile(), `${file} must be a regular file in the repository root`);
+    assert.deepEqual(await fs.readFile(path.join(packed, file)), await fs.readFile(source), `${file} must match the source`);
+  }
+});
+
 test('the CDN ZIP contains full styles only and preserves every archived file', async () => {
   const zip = await fs.readFile(path.join(packed, 'package.zip'));
   // Read the generated ZIP's central directory and inflate its actual entries. No system unzip

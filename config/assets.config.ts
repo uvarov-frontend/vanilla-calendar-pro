@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { relative, resolve, sep } from 'node:path';
 import { defineConfig } from 'vite';
 
@@ -29,6 +30,16 @@ export default defineConfig({
     },
   },
   plugins: [
+    {
+      name: 'calendar-package-docs',
+      async buildStart() {
+        for (const fileName of ['README.md', 'LICENSE']) {
+          const source = resolve(import.meta.dirname, '..', fileName);
+          this.addWatchFile(source);
+          this.emitFile({ type: 'asset', fileName, source: await readFile(source) });
+        }
+      },
+    },
     {
       name: 'calendar-style-paths',
       generateBundle(_, bundle) {
