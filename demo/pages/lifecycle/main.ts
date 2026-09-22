@@ -2,7 +2,7 @@ import '../../workbench';
 
 import { Calendar, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   let calendar: Calendar | undefined;

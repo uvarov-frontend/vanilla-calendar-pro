@@ -2,7 +2,8 @@ import './workbench';
 
 import { Calendar, time } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/time.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const today = new Date();

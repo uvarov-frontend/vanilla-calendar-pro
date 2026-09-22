@@ -2,7 +2,9 @@ import '../../workbench';
 
 import { annotations, Calendar, months, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/annotations.css';
+import '@src/styles/months.css';
 
 const config: Options = {
   extensions: [months, annotations],

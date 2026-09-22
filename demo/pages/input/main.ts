@@ -2,7 +2,8 @@ import '../../workbench';
 
 import { annotations, Calendar, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/annotations.css';
 
 const configInput: Options = {
   inputMode: true,

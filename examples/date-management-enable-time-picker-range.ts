@@ -1,6 +1,7 @@
 import { Calendar, type Options, time } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/index.css';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
 
 const options: Options = {
   extensions: [time],

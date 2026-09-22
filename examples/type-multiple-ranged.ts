@@ -1,6 +1,7 @@
 import { Calendar, months, type Options } from 'vanilla-calendar-pro';
 
-import 'vanilla-calendar-pro/styles/index.css';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/months.css';
 
 const options: Options = {
   extensions: [months],

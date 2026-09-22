@@ -11,6 +11,7 @@ import { brotliCompressSync, gzipSync } from 'node:zlib';
 import { parse } from 'acorn';
 import { build } from 'vite';
 import { unpackPackage } from './fixture.mjs';
+import { assertModularStyles, assertStyleContracts, modularStyles } from './styles.mjs';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const require = createRequire(import.meta.url);
@@ -74,6 +75,7 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     'styles/themes/light.css',
     'styles/themes/dark.css',
     'styles/themes/slate-light.css',
+    ...modularStyles,
   ];
   assert.deepEqual(packedFiles.sort(), expected.sort());
   assert.deepEqual(manifest.dependencies, {});
@@ -84,6 +86,10 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     for (const file of Object.values(resolved)) await fs.access(path.join(packed, file));
   }
 });
+
+test('full styles preserve the pre-split selectors, values and browser fallbacks', () => assertStyleContracts(packed));
+
+test('modular CSS is standalone, contains only its feature and reconstructs the full styles', (t) => assertModularStyles(packed, t));
 
 for (const entry of entryPoints) {
   test(`${entry.file}: ESM, CommonJS, classic script and AMD expose the same API`, async () => {
@@ -160,6 +166,17 @@ async function bundle(name, source) {
   });
   return result.flatMap(({ output }) => output);
 }
+
+test('every modular CSS import resolves from the packed package and survives tree shaking', async () => {
+  const output = await bundle('modular-styles', modularStyles.map((file) => `import 'vanilla-calendar-pro/${file}';`).join('\n'));
+  const css = output
+    .filter(({ type, fileName }) => type === 'asset' && fileName.endsWith('.css'))
+    .map(({ source }) => source)
+    .join('\n');
+  assert.match(css, /data-vc-theme=slate-light/);
+  assert.match(css, /data-vc-time/);
+  assert.match(css, /data-vc-ghost/);
+});
 
 test('unused Calendar and extension imports disappear from a consumer bundle', async () => {
   const output = await bundle('unused', "import { Calendar, motion, time, annotations, weeks, months } from 'vanilla-calendar-pro'; export const marker = 1;");

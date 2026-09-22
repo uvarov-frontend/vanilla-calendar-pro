@@ -2,7 +2,11 @@ import '../../workbench';
 
 import { annotations, Calendar, months, type Options, time, weeks } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/annotations.css';
+import '@src/styles/months.css';
+import '@src/styles/time.css';
+import '@src/styles/weeks.css';
 
 const base: Options = {
   selectedMonth: 3,

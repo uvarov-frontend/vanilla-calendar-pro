@@ -111,3 +111,9 @@ calendar.init();
 ```
 
 输入框日历、日期和范围选择以及月份和年份选择仍属于核心功能。普通星期标题无需扩展。完整的普通 `<script>` / CommonJS 构建会自动注册全部五个扩展。CSS 导入保持不变。
+
+## 模块化 CSS
+
+现有的 `styles/index.css`、`styles/layout.css` 和 `styles/themes/*.css` 仍提供完整样式并保持兼容。要减小 CSS 体积，可以只导入需要的部分。注册 JavaScript 扩展不会自动加载 CSS。
+
+按需导入 CSS 的说明见[样式参考](/docs/reference/styles)。原有完整样式表仍受支持，示例仅导入所需部分。

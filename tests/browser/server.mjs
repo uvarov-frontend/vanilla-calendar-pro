@@ -13,6 +13,9 @@ export async function fixtureServer(root, fixtureDirectory) {
   });
   await fs.cp(path.join(root, 'examples'), path.join(directory, 'examples'), { recursive: true });
   await fs.symlink(packed, path.join(directory, 'package'), 'dir');
+  // A previous build may be supplied for before/after CSS audits. Normal CI compares the full
+  // packed styles against their modular equivalents, without depending on Git history.
+  await fs.cp(process.env.CALENDAR_CSS_BASELINE ?? path.join(packed, 'styles'), path.join(directory, 'reference-styles'), { recursive: true });
   // The dev workbench loads its highlighter lazily; the calendar still comes only from the tarball.
   await fs.cp(await fs.realpath(path.join(root, 'node_modules/highlight.js')), path.join(directory, 'node_modules/highlight.js'), { recursive: true });
   const examples = (await fs.readdir(path.join(directory, 'examples')))

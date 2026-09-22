@@ -2,7 +2,8 @@ import '../../workbench';
 
 import { Calendar, type Options, weeks } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/weeks.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 2026 has 53 ISO weeks (Dec 28-30, 2026 fall in week 53)

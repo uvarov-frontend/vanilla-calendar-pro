@@ -8,9 +8,57 @@ section: 8
 
 `styles` предоставляет возможность переопределить любой CSS-класс в календаре. Вы можете заменить любые значения на список из CSS классов.
 
-Ниже приведен список всех классов по умолчанию.
+## Модульные стили
+
+Существующие импорты `styles/index.css`, `styles/layout.css` и `styles/themes/*.css` остаются полными и совместимыми. Для уменьшения CSS подключайте только нужные части. Регистрация расширения JavaScript сама по себе не загружает CSS.
+
+В каждой группе доступны `core`, `motion`, `time`, `annotations`, `weeks` и `months`. Подключите `core` и стили всех используемых расширений, включая функции, которые будут включены позднее через `set()`.
+
+| Путь | Содержимое |
+| --- | --- |
+| `styles/index.css` | Вся раскладка и светлая/тёмная темы |
+| `styles/{part}.css` | Выбранная часть: раскладка и светлое/тёмное оформление |
+| `styles/layout/{part}.css` | Только выбранная часть раскладки, без темы |
+| `styles/themes/{theme}/{part}.css` | Только выбранная часть одной темы |
+
+Календарь с выбором времени и автоматическим переключением светлой/тёмной темы:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+Для независимого выбора темы подключите части раскладки и соответствующие части темы. Например, светлый календарь с выбором времени:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+Вместо `light` можно использовать `dark` или `slate-light`. Для своей темы нужны только соответствующие части раскладки и ваш CSS. Определение темы и `selectedTheme` работают как прежде; подключайте все темы, на которые календарь может переключаться.
+
+В каждом слое выбирайте полные файлы либо отдельные части, чтобы не загружать одни правила дважды. CSS-классы, селекторы, поддержка браузеров и публичные переопределения `--vc-*` сохраняются. Некоторые части тем, например `motion` и `months`, не содержат собственных цветовых правил и являются корректными пустыми CSS-файлами.
+
+Если используются все расширения, оставьте полный файл стилей: он сжимается лучше, чем все шесть частей вместе.
 
 ## CSS-классы
+
+Ниже приведен список всех классов по умолчанию.
 
 ```ts
 new Calendar('#calendar', {

@@ -2,7 +2,10 @@ import '../../workbench';
 
 import { Calendar, months, motion, type Options, weeks } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/months.css';
+import '@src/styles/motion.css';
+import '@src/styles/weeks.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const configGestures: Options = {

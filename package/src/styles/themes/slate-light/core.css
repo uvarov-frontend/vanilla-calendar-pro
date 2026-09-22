@@ -1,0 +1,179 @@
+[data-vc-theme="slate-light"].vc {
+  @apply bg-[var(--vc-bg,theme(colors.slate.100))] text-[var(--vc-color,theme(colors.gray.800))];
+}
+
+[data-vc-theme="slate-light"].vc_to-input {
+  @apply shadow-[0_9px_20px_rgba(0,0,0,.05)];
+}
+
+[data-vc-theme="slate-light"].vc:focus-visible,
+[data-vc-theme="slate-light"].vc button:focus-visible,
+[data-vc-theme="slate-light"].vc [tabindex="0"]:focus-visible {
+  @apply outline-[var(--vc-focus-outline-color,theme(colors.blue.300))];
+}
+
+[data-vc-theme="slate-light"] .vc-arrow {
+  @apply bg-transparent before:bg-light-arrow surehover:hover:before:opacity-60;
+}
+
+[data-vc-theme="slate-light"] .vc-header__content {
+  @apply text-[var(--vc-header-color,theme(colors.gray.800))];
+}
+
+[data-vc-theme="slate-light"] .vc-month,
+[data-vc-theme="slate-light"] .vc-year {
+  @apply text-[var(--vc-title-color,theme(colors.gray.800))] surehover:hover:text-[var(--vc-title-color-hover,theme(colors.gray.600))] disabled:text-[var(--vc-title-color-disabled,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-months__month,
+[data-vc-theme="slate-light"] .vc-years__year {
+  @apply bg-[var(--vc-months-years-bg,theme(colors.slate.100))] text-[var(--vc-months-years-color,theme(colors.gray.600))] surehover:hover:bg-[var(--vc-months-years-bg-hover,theme(colors.slate.200))] disabled:text-[var(--vc-months-years-color-disabled,theme(colors.gray.400))] disabled:surehover:hover:text-[var(--vc-months-years-color-disabled,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-months__month[data-vc-months-month-selected],
+[data-vc-theme="slate-light"] .vc-years__year[data-vc-years-year-selected] {
+  @apply bg-[var(--vc-months-years-bg-selected,theme(colors.blue.500))] text-[var(--vc-months-years-color-selected,theme(colors.white))] surehover:hover:bg-[var(--vc-months-years-bg-selected,theme(colors.blue.500))] surehover:hover:text-[var(--vc-months-years-color-selected,theme(colors.white))];
+}
+
+[data-vc-theme="slate-light"] .vc-week__day,
+[data-vc-theme="slate-light"] .vc-week__day-btn {
+  @apply text-[var(--vc-week-day-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-week__day[data-vc-week-day-off],
+[data-vc-theme="slate-light"] .vc-week__day[data-vc-week-day-off] .vc-week__day-btn {
+  @apply text-[var(--vc-week-day-off-color,theme(colors.red.500))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-weekend][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-holiday][data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-range-middle-weekend-bg,rgb(239_68_68_/_0.8))] text-[var(--vc-date-range-middle-weekend-color,theme(colors.white))] surehover:hover:bg-[var(--vc-date-range-middle-weekend-bg,rgb(239_68_68_/_0.8))] surehover:hover:text-[var(--vc-date-range-middle-weekend-color,theme(colors.white))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-weekend][data-vc-date-month="prev"][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-holiday][data-vc-date-month="prev"][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-weekend][data-vc-date-month="next"][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-holiday][data-vc-date-month="next"][data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-range-middle-outside-bg,theme(colors.slate.200))] text-[var(--vc-date-range-middle-outside-color,theme(colors.gray.600))] surehover:hover:bg-[var(--vc-date-range-middle-outside-bg,theme(colors.slate.200))] surehover:hover:text-[var(--vc-date-range-middle-outside-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-range-middle-bg,rgb(59_130_246_/_0.8))] text-[var(--vc-date-range-middle-color,theme(colors.white))] surehover:hover:bg-[var(--vc-date-range-middle-bg,rgb(59_130_246_/_0.8))] surehover:hover:text-[var(--vc-date-range-middle-color,theme(colors.white))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-month="prev"][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected="middle"][data-vc-date-month="next"][data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-range-middle-outside-bg,theme(colors.slate.200))] text-[var(--vc-date-range-middle-outside-color,theme(colors.gray.600))] surehover:hover:bg-[var(--vc-date-range-middle-outside-bg,theme(colors.slate.200))] surehover:hover:text-[var(--vc-date-range-middle-outside-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-date__btn {
+  @apply text-[var(--vc-date-color,theme(colors.gray.800))] bg-[var(--vc-date-bg,theme(colors.slate.100))] surehover:hover:bg-[var(--vc-date-bg-hover,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-today] .vc-date__btn {
+  @apply text-[var(--vc-date-today-color,theme(colors.blue.500))] surehover:hover:text-[var(--vc-date-today-color,theme(colors.blue.500))] bg-[var(--vc-date-today-bg,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-today][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-today][data-vc-date-month="next"] .vc-date__btn {
+  @apply text-[var(--vc-date-today-outside-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-month="next"] .vc-date__btn {
+  @apply text-[var(--vc-date-outside-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-disabled] .vc-date__btn {
+  @apply text-[var(--vc-date-disabled-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-hover] .vc-date__btn {
+  @apply bg-[var(--vc-date-hover-bg,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-hover="last"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-hover="first"] .vc-date__btn {
+  @apply bg-[var(--vc-date-hover-edge-bg,theme(colors.slate.300))] surehover:hover:bg-[var(--vc-date-hover-edge-bg,theme(colors.slate.300))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-color,theme(colors.red.500))] surehover:hover:bg-[var(--vc-date-weekend-bg-hover,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-hover] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-hover] .vc-date__btn {
+  @apply bg-[var(--vc-date-weekend-hover-bg,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-hover="last"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-hover="last"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-hover="first"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-hover="first"] .vc-date__btn {
+  @apply bg-[var(--vc-date-weekend-hover-edge-bg,theme(colors.slate.300))] surehover:hover:bg-[var(--vc-date-weekend-hover-edge-bg,theme(colors.slate.300))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-disabled] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-disabled] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-disabled-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-today] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-today] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-today-color,theme(colors.red.500))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-disabled] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-disabled] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-today-disabled-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-month="next"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-month="next"] .vc-date__btn {
+  @apply bg-[var(--vc-date-weekend-outside-bg,theme(colors.slate.100))] text-[var(--vc-date-weekend-outside-color,theme(colors.gray.400))] surehover:hover:bg-[var(--vc-date-weekend-outside-bg-hover,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-hover][data-vc-date-month="next"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-hover][data-vc-date-month="next"] .vc-date__btn {
+  @apply bg-[var(--vc-date-weekend-outside-hover-bg,theme(colors.slate.200))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-today][data-vc-date-month="next"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-today][data-vc-date-month="next"] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-today-outside-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-disabled][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-disabled][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-disabled][data-vc-date-month="next"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-disabled][data-vc-date-month="next"] .vc-date__btn {
+  @apply text-[var(--vc-date-weekend-disabled-outside-color,theme(colors.gray.400))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-selected] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-weekend-selected-bg,theme(colors.red.500))] text-[var(--vc-date-weekend-selected-color,theme(colors.white))] surehover:hover:bg-[var(--vc-date-weekend-selected-bg,theme(colors.red.500))] surehover:hover:text-[var(--vc-date-weekend-selected-color,theme(colors.white))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-selected][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-selected][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-weekend][data-vc-date-selected][data-vc-date-month="next"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-holiday][data-vc-date-selected][data-vc-date-month="next"] .vc-date__btn {
+  @apply bg-[var(--vc-date-selected-outside-bg,theme(colors.slate.300))] text-[var(--vc-date-selected-outside-color,theme(colors.gray.600))] surehover:hover:bg-[var(--vc-date-selected-outside-bg,theme(colors.slate.300))] surehover:hover:text-[var(--vc-date-selected-outside-color,theme(colors.gray.600))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected] .vc-date__btn {
+  @apply bg-[var(--vc-date-selected-bg,theme(colors.blue.500))] text-[var(--vc-date-selected-color,theme(colors.white))] surehover:hover:bg-[var(--vc-date-selected-bg,theme(colors.blue.500))] surehover:hover:text-[var(--vc-date-selected-color,theme(colors.white))];
+}
+
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected][data-vc-date-month="prev"] .vc-date__btn,
+[data-vc-theme="slate-light"] .vc-date[data-vc-date-selected][data-vc-date-month="next"] .vc-date__btn {
+  @apply bg-[var(--vc-date-selected-outside-bg,theme(colors.slate.300))] text-[var(--vc-date-selected-outside-color,theme(colors.gray.600))] surehover:hover:bg-[var(--vc-date-selected-outside-bg,theme(colors.slate.300))] surehover:hover:text-[var(--vc-date-selected-outside-color,theme(colors.gray.600))];
+}

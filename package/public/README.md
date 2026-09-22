@@ -136,6 +136,54 @@ The calendar can automatically switch between a light or dark theme depending on
 
 If you want to apply a specific theme, it is recommended to import `layout.css` along with your preferred theme instead of `index.css`.
 
+## Modular CSS
+
+Existing `styles/index.css`, `styles/layout.css` and `styles/themes/*.css` imports remain complete and compatible. To reduce CSS, choose the parts you use. JavaScript extension registration does not load CSS automatically.
+
+Each family provides `core`, `motion`, `time`, `annotations`, `weeks` and `months`. Import `core` and the styles for every extension you enable, including options enabled later through `set()`.
+
+| Path | Contents |
+| --- | --- |
+| `styles/index.css` | All layout rules and the light/dark themes |
+| `styles/{part}.css` | The selected part, with layout and light/dark themes |
+| `styles/layout/{part}.css` | Only the selected layout rules; no theme |
+| `styles/themes/{theme}/{part}.css` | Only the selected part of one theme |
+
+For a calendar with time selection and automatic light/dark switching:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+To choose one theme independently, use layout parts and matching theme parts. For example, a light calendar with time selection:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+Use `dark` or `slate-light` instead of `light` for another built-in theme. A custom theme needs only the corresponding layout parts plus your own CSS. Theme detection and `selectedTheme` work as before; load every theme the calendar may switch to.
+
+Choose either the full files or the modular files for each layer to avoid loading the same rules twice. CSS classes, selectors, browser support and public `--vc-*` overrides are unchanged. Some theme parts, such as `motion` and `months`, have no theme-specific rules and are valid empty stylesheets.
+
+If you use every extension, keep the full stylesheet: it compresses better than importing all six parts.
+
 ## Layouts
 
 The calendar contains custom `layouts` for each calendar type, which allow you to change the calendar structure to suit your needs.

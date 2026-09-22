@@ -2,7 +2,9 @@ import '../../workbench';
 
 import { Calendar, months, type Options, time } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/months.css';
+import '@src/styles/time.css';
 
 const options: Options = {
   extensions: [time, months],

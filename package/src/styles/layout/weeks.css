@@ -1,0 +1,46 @@
+[data-vc-week="numbers"] {
+  @apply flex flex-col;
+}
+
+[data-vc-week-numbers="title"] {
+  @apply text-xs font-bold flex items-center min-h-6 justify-center mb-1.5;
+}
+
+[data-vc-week-numbers="content"] {
+  @apply grid grid-flow-row items-center justify-items-center gap-y-1 py-0.5;
+}
+
+[data-vc-week-number] {
+  @apply text-xs font-semibold w-full min-h-[1.875rem] min-w-[1.875rem] flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
+}
+
+[data-vc-week-day-btn] {
+  @apply text-xs font-bold w-full h-full min-h-6 flex items-center justify-center cursor-pointer bg-transparent border-none p-0 m-0;
+}
+
+/* The published stylesheet ships without Tailwind's preflight, so any utility whose value is
+   composed from several `--tw-*` variables resolves to an invalid declaration and is dropped.
+   Transform and touch-action are written out by hand for that reason. */
+
+[data-vc="collapse"] {
+  @apply relative block shrink-0 w-full h-4 mt-1 -mb-1 cursor-pointer border-0 bg-transparent touch-none before:content-[''] before:absolute before:left-1/2 before:top-1/2 before:w-8 before:h-[0.1875rem] before:rounded-full surehover:before:w-4 surehover:before:h-4 surehover:before:rounded-none surehover:before:bg-no-repeat surehover:before:bg-center;
+}
+
+[data-vc="collapse"]::before {
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-vc="collapse"]::before {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  [data-vc-type="week"] [data-vc="collapse"]::before,
+  [data-vc-type="default"]:has([data-vc-collapsing]) [data-vc="collapse"]::before {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  [data-vc-type="week"]:has([data-vc-collapsing]) [data-vc="collapse"]::before {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+}

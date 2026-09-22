@@ -8,9 +8,57 @@ section: 8
 
 `styles` 提供了覆盖日历中任何 CSS 类的能力。您可以用 CSS 类列表替换任何值。
 
-以下是所有默认类的列表。
+## 模块化 CSS
+
+现有的 `styles/index.css`、`styles/layout.css` 和 `styles/themes/*.css` 仍提供完整样式并保持兼容。要减小 CSS 体积，可以只导入需要的部分。注册 JavaScript 扩展不会自动加载 CSS。
+
+每组都提供 `core`、`motion`、`time`、`annotations`、`weeks` 和 `months`。请导入 `core` 和所有使用的扩展样式，包括以后通过 `set()` 启用的功能。
+
+| 路径 | 内容 |
+| --- | --- |
+| `styles/index.css` | 全部布局及亮色/暗色主题 |
+| `styles/{part}.css` | 所选部分的布局及亮色/暗色主题 |
+| `styles/layout/{part}.css` | 仅所选部分的布局，不包含主题 |
+| `styles/themes/{theme}/{part}.css` | 仅指定主题中所选部分的样式 |
+
+带时间选择并自动切换亮色/暗色主题的日历：
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+要独立选择主题，请导入布局部分和对应的主题部分。例如，带时间选择的亮色日历：
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+可以将 `light` 替换为 `dark` 或 `slate-light`。自定义主题只需导入对应的布局部分并添加自己的 CSS。主题检测和 `selectedTheme` 的行为不变；请加载日历可能切换到的所有主题。
+
+每一层请选择完整文件或模块文件，避免重复加载相同规则。CSS 类名、选择器、浏览器支持以及公开的 `--vc-*` 自定义变量保持不变。某些主题部分（如 `motion` 和 `months`）没有主题专属规则，因此是有效的空 CSS 文件。
+
+如果使用所有扩展，请保留完整样式表；它比同时导入全部六个部分的压缩效果更好。
 
 ## CSS 类
+
+以下是所有默认类的列表。
 
 ```ts
 new Calendar('#calendar', {

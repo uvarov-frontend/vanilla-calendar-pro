@@ -2,7 +2,9 @@ import '../../workbench';
 
 import { Calendar, months, motion, type Options } from '@src/index';
 
-import '@src/styles/index.css';
+import '@src/styles/core.css';
+import '@src/styles/months.css';
+import '@src/styles/motion.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const configAnimated: Options = {
