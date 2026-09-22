@@ -7,7 +7,7 @@ import path from 'node:path';
 import { after, before, test } from 'node:test';
 import { pathToFileURL } from 'node:url';
 import vm from 'node:vm';
-import { brotliCompressSync, gzipSync } from 'node:zlib';
+import { brotliCompressSync, gzipSync, inflateRawSync } from 'node:zlib';
 import { parse } from 'acorn';
 import { build } from 'vite';
 import { unpackPackage } from './fixture.mjs';
@@ -85,6 +85,38 @@ test('the packed package contains every public artifact, including the CDN ZIP d
     const resolved = manifest.exports[`.${entry.subpath}`];
     for (const file of Object.values(resolved)) await fs.access(path.join(packed, file));
   }
+});
+
+test('the CDN ZIP contains full styles only and preserves every archived file', async () => {
+  const zip = await fs.readFile(path.join(packed, 'package.zip'));
+  // Read the generated ZIP's central directory and inflate its actual entries. No system unzip
+  // command or extra dependency is needed; this distribution fits the ordinary ZIP32 format.
+  const end = zip.length - 22;
+  assert.equal(zip.readUInt32LE(end), 0x06054b50);
+  const count = zip.readUInt16LE(end + 10);
+  let offset = zip.readUInt32LE(end + 16);
+  const files = [];
+  for (let index = 0; index < count; index++) {
+    assert.equal(zip.readUInt32LE(offset), 0x02014b50);
+    const nameLength = zip.readUInt16LE(offset + 28);
+    const name = zip.toString('utf8', offset + 46, offset + 46 + nameLength);
+    const local = zip.readUInt32LE(offset + 42);
+    assert.equal(zip.readUInt32LE(local), 0x04034b50);
+    const start = local + 30 + zip.readUInt16LE(local + 26) + zip.readUInt16LE(local + 28);
+    const data = zip.subarray(start, start + zip.readUInt32LE(offset + 20));
+    const compression = zip.readUInt16LE(offset + 10);
+    assert.ok(compression === 0 || compression === 8, `${name}: unsupported ZIP compression`);
+    assert.ok(packedFiles.includes(name), `Unexpected ZIP entry: ${name}`);
+    const contents = compression === 8 ? inflateRawSync(data) : data;
+    // pnpm pack reformats package.json; compare its values rather than trailing whitespace.
+    if (name === 'package.json') assert.deepEqual(JSON.parse(contents.toString()), manifest);
+    else assert.deepEqual(contents, await fs.readFile(path.join(packed, name)), name);
+    files.push(name);
+    offset += 46 + nameLength + zip.readUInt16LE(offset + 30) + zip.readUInt16LE(offset + 32);
+  }
+  assert.equal(offset, end);
+  assert.deepEqual(files.sort(), packedFiles.filter((file) => file !== 'package.zip' && !modularStyles.includes(file)).sort());
+  assert.equal(files.filter((file) => file.endsWith('.css')).length, 5);
 });
 
 test('full styles preserve the pre-split selectors, values and browser fallbacks', () => assertStyleContracts(packed));

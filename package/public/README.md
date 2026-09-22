@@ -184,6 +184,8 @@ Choose either the full files or the modular files for each layer to avoid loadin
 
 If you use every extension, keep the full stylesheet: it compresses better than importing all six parts.
 
+The downloadable `package.zip` includes the five complete stylesheets. Modular CSS is available in the npm package and through direct CDN URLs.
+
 ## Layouts
 
 The calendar contains custom `layouts` for each calendar type, which allow you to change the calendar structure to suit your needs.
