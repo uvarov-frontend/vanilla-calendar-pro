@@ -290,6 +290,22 @@ describe('Input lifecycle and positioning', () => {
     cy.get('[data-vc-input]').should('not.exist');
   });
 
+  it('preserves selection when the open calendar input becomes disabled', () => {
+    const onChangeToInput = cy.stub().as('changeToInput');
+    mount({ inputMode: true, selectedMonth: 5, selectedYear: 2024, selectedDates: ['2024-06-20'], onChangeToInput }, true);
+    cy.get('#input').click();
+    cy.get('#input').invoke('prop', 'disabled', true);
+
+    day('2024-06-22').click();
+    selected(['2024-06-20']);
+    cy.get('@changeToInput').should('not.have.been.called');
+
+    cy.get('#input').invoke('prop', 'disabled', false);
+    day('2024-06-22').click();
+    selected(['2024-06-22']);
+    cy.get('@changeToInput').should('have.been.calledOnce');
+  });
+
   it('can disable opening on focus while retaining click opening', () => {
     mount({ inputMode: true, openOnFocus: false }, true);
     cy.get('#input').focus();

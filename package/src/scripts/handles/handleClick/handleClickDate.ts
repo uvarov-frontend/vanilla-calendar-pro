@@ -6,6 +6,8 @@ import sortDates from '@scripts/utils/sortDates';
 import type { Calendar } from '@src/index';
 
 const handleClickDate = (self: Calendar, event: MouseEvent) => {
+  if (self.inputMode && self.context.inputElement?.matches(':disabled')) return;
+
   const element = event.target as HTMLElement;
   const dateBtnEl = element.closest<HTMLButtonElement>('[data-vc-date-btn]');
 
