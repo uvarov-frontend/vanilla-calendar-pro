@@ -69,6 +69,12 @@ const handleInput = (
   };
 
   const handleInputAction = (event: Event) => {
+    const { inputElement, selectedHours, selectedMinutes } = self.context;
+    if (self.inputMode && inputElement?.matches(':disabled')) {
+      inputEl.value = type === 'hour' ? selectedHours : selectedMinutes;
+      return;
+    }
+
     const value = Number(inputEl.value);
     const valueStr = inputEl.value.padStart(2, '0');
     if (handlers[type]) handlers[type](value, valueStr, event);

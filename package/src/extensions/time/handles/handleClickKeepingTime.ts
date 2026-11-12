@@ -5,6 +5,8 @@ import type { Calendar } from '@src/index';
 
 const handleClickKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
   const handleClickKeepingTimeAction = (event: Event) => {
+    if (self.inputMode && self.context.inputElement?.matches(':disabled')) return;
+
     const newSelectedKeeping = self.context.selectedKeeping === 'AM' ? 'PM' : 'AM';
     const hour = transformTime24(self.context.selectedHours, newSelectedKeeping);
 

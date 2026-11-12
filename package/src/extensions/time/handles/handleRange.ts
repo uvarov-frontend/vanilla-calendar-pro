@@ -1,6 +1,7 @@
 import setContext from '@scripts/utils/setContext';
 import handleActions from '@src/extensions/time/handles/handleActions';
 import transformTime12 from '@src/extensions/time/transformTime12';
+import transformTime24 from '@src/extensions/time/transformTime24';
 import type { Calendar } from '@src/index';
 
 const updateInputAndTime = (self: Calendar, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {
@@ -22,6 +23,13 @@ const handleRange = (
   type: 'hour' | 'minute',
 ) => {
   const handleRangeAction = (event: Event) => {
+    const { inputElement, selectedHours, selectedMinutes, selectedKeeping } = self.context;
+    if (self.inputMode && inputElement?.matches(':disabled')) {
+      const selectedValue = type === 'hour' ? selectedHours : selectedMinutes;
+      rangeEl.value = type === 'hour' && self.selectionTimeMode === 12 && selectedKeeping ? transformTime24(selectedValue, selectedKeeping) : selectedValue;
+      return;
+    }
+
     const value = Number(rangeEl.value);
     const valueStr = rangeEl.value.padStart(2, '0');
 
