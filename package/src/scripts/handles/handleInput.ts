@@ -47,7 +47,9 @@ const handleInput = (self: Calendar) => {
     if (!self.context.isShowInInputMode) return false;
     if (getRootNode(self.context.mainElement).activeElement !== self.context.inputElement) return false;
 
-    const isFocusable = (el: HTMLElement) => el.tabIndex >= 0 && !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true';
+    // An arrow outside dateMin/dateMax is only hidden, so it stays in the tab order but cannot take the focus.
+    const isFocusable = (el: HTMLElement) =>
+      el.tabIndex >= 0 && !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true' && el.style.visibility !== 'hidden';
 
     const walker = document.createTreeWalker(self.context.mainElement, NodeFilter.SHOW_ELEMENT, {
       acceptNode: (node) => {
