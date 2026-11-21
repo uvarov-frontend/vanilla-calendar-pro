@@ -194,6 +194,17 @@ describe('Accessibility (keyboard and focus)', () => {
     cy.focused().should('have.id', 'calendar-input');
   });
 
+  it('tabs from the field into the popup past an arrow hidden by dateMin', () => {
+    cy.visit('/pages/a11y/');
+    cy.get('#calendar-input').focus().click();
+    cy.get('[data-vc-input] [data-vc-arrow="prev"]').should('have.css', 'visibility', 'hidden');
+    cy.get('#calendar-input').trigger('keydown', { key: 'Tab' });
+    cy.focused().should('not.have.id', 'calendar-input').and('be.visible');
+    cy.document().then((doc) => {
+      expect(doc.querySelector('[data-vc-input]')?.contains(doc.activeElement)).to.eq(true);
+    });
+  });
+
   it('tells the field that it opens a picker', () => {
     cy.visit('/pages/a11y/');
     cy.get('#calendar-input').should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');

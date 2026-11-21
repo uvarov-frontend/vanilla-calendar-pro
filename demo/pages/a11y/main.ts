@@ -71,5 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new Calendar('#calendar-input', {
     ...base,
     inputMode: true,
+    // hides the previous arrow, which comes first in the popup (#444)
+    dateMin: '2023-04-01',
   }).init();
 });
