@@ -1,6 +1,8 @@
+import isInputLocked from '@scripts/utils/isInputLocked';
 import setContext from '@scripts/utils/setContext';
 import handleActions from '@src/extensions/time/handles/handleActions';
 import transformTime12 from '@src/extensions/time/transformTime12';
+import transformTime24 from '@src/extensions/time/transformTime24';
 import type { Calendar } from '@src/index';
 
 const updateInputAndTime = (self: Calendar, inputEl: HTMLInputElement, event: Event, type: 'hour' | 'minute', value: string) => {
@@ -22,6 +24,12 @@ const handleRange = (
   type: 'hour' | 'minute',
 ) => {
   const handleRangeAction = (event: Event) => {
+    if (isInputLocked(self)) {
+      const { selectedHours, selectedMinutes, selectedKeeping } = self.context;
+      // the hour range always runs 0–23, also in 12-hour mode
+      rangeEl.value = type === 'minute' ? selectedMinutes : selectedKeeping ? transformTime24(selectedHours, selectedKeeping) : selectedHours;
+      return;
+    }
     const value = Number(rangeEl.value);
     const valueStr = rangeEl.value.padStart(2, '0');
 

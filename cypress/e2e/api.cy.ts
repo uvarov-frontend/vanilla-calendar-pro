@@ -290,6 +290,50 @@ describe('Input lifecycle and positioning', () => {
     cy.get('[data-vc-input]').should('not.exist');
   });
 
+  it('keeps the date and time when the field is disabled while the popup is open', () => {
+    const onChangeToInput = cy.stub().as('changeToInput');
+    const onChangeTime = cy.stub().as('changeTime');
+    mount(
+      {
+        inputMode: true,
+        selectedMonth: 5,
+        selectedYear: 2024,
+        selectedDates: ['2024-06-20'],
+        selectionTimeMode: 12,
+        selectedTime: '09:15 PM',
+        onChangeToInput,
+        onChangeTime,
+      },
+      true,
+    );
+    cy.get('#input').click();
+    cy.get('#input').invoke('prop', 'disabled', true);
+
+    day('2024-06-22').click();
+    range('hour').invoke('val', '3').trigger('input');
+    range('minute').invoke('val', '40').trigger('input');
+    hour().clear().type('10').trigger('change');
+    minute().clear().type('05').trigger('change');
+    cy.get('[data-vc-time="keeping"]').click();
+
+    selected(['2024-06-20']);
+    use((instance) => expect(instance.context.selectedTime).to.equal('09:15 PM'));
+    range('hour').should('have.value', '21');
+    range('minute').should('have.value', '15');
+    hour().should('have.value', '09');
+    minute().should('have.value', '15');
+    cy.get('[data-vc-time="keeping"]').should('have.text', 'PM');
+    cy.get('@changeToInput').should('not.have.been.called');
+    cy.get('@changeTime').should('not.have.been.called');
+
+    cy.get('#input').invoke('prop', 'disabled', false);
+    day('2024-06-22').click();
+    range('minute').invoke('val', '40').trigger('input');
+    selected(['2024-06-22']);
+    use((instance) => expect(instance.context.selectedTime).to.equal('09:40 PM'));
+    cy.get('@changeToInput').should('have.been.calledTwice');
+  });
+
   it('can disable opening on focus while retaining click opening', () => {
     mount({ inputMode: true, openOnFocus: false }, true);
     cy.get('#input').focus();
