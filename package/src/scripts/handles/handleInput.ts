@@ -2,6 +2,7 @@ import createToInput from '@scripts/creators/createToInput';
 import { scheduleShow } from '@scripts/methods/show';
 import canOpenOnFocus from '@scripts/utils/canOpenOnFocus';
 import getRootNode from '@scripts/utils/getRootNode';
+import getTabbables from '@scripts/utils/getTabbables';
 import setContext from '@scripts/utils/setContext';
 import { clearSkipOpenOnFocus, shouldSkipOpenOnFocus } from '@scripts/utils/skipOpenOnFocus';
 import type { Calendar } from '@src/index';
@@ -47,21 +48,8 @@ const handleInput = (self: Calendar) => {
     if (!self.context.isShowInInputMode) return false;
     if (getRootNode(self.context.mainElement).activeElement !== self.context.inputElement) return false;
 
-    // An arrow outside dateMin/dateMax is only hidden, so it stays in the tab order but cannot take the focus.
-    const isFocusable = (el: HTMLElement) =>
-      el.tabIndex >= 0 && !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true' && el.style.visibility !== 'hidden';
-
-    const walker = document.createTreeWalker(self.context.mainElement, NodeFilter.SHOW_ELEMENT, {
-      acceptNode: (node) => {
-        const el = node as HTMLElement;
-        if (!isFocusable(el)) return NodeFilter.FILTER_SKIP;
-        return NodeFilter.FILTER_ACCEPT;
-      },
-    });
-
-    const focusTarget = (walker.nextNode() as HTMLElement | null) ?? (isFocusable(self.context.mainElement) ? self.context.mainElement : null);
-
-    if (!focusTarget || focusTarget.tabIndex < 0) return false;
+    const focusTarget = getTabbables(self.context.mainElement)[0];
+    if (!focusTarget) return false;
 
     event.preventDefault();
     focusTarget.focus();

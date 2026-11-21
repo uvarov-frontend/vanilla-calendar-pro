@@ -205,6 +205,44 @@ describe('Accessibility (keyboard and focus)', () => {
     });
   });
 
+  it('closes the popup when Tab leaves it, so the focus goes back to the form', () => {
+    const tabbables = (doc: Document) =>
+      [...doc.querySelectorAll<HTMLElement>('[data-vc-input] *')].filter(
+        (el) => el.tabIndex >= 0 && !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true' && el.style.visibility !== 'hidden',
+      );
+    cy.visit('/pages/a11y/');
+
+    cy.get('#calendar-input').click();
+    cy.document().then((doc) => {
+      const [first, second] = tabbables(doc);
+      first.focus();
+      cy.wrap(first).trigger('keydown', { key: 'Tab' });
+      cy.get('[data-vc-input]').should('not.have.attr', 'data-vc-calendar-hidden');
+      second.focus();
+      cy.wrap(second).trigger('keydown', { key: 'Tab', shiftKey: true });
+      cy.get('[data-vc-input]').should('not.have.attr', 'data-vc-calendar-hidden');
+    });
+
+    cy.document().then((doc) => {
+      const list = tabbables(doc);
+      const last = list[list.length - 1];
+      last.focus();
+      cy.wrap(last).trigger('keydown', { key: 'Tab' });
+    });
+    cy.get('[data-vc-input]').should('have.attr', 'data-vc-calendar-hidden');
+    cy.focused().should('have.id', 'calendar-input');
+
+    cy.get('#calendar-input').click();
+    cy.get('[data-vc-input]').should('not.have.attr', 'data-vc-calendar-hidden');
+    cy.document().then((doc) => {
+      const [first] = tabbables(doc);
+      first.focus();
+      cy.wrap(first).trigger('keydown', { key: 'Tab', shiftKey: true });
+    });
+    cy.get('[data-vc-input]').should('have.attr', 'data-vc-calendar-hidden');
+    cy.focused().should('have.id', 'calendar-input');
+  });
+
   it('tells the field that it opens a picker', () => {
     cy.visit('/pages/a11y/');
     cy.get('#calendar-input').should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');

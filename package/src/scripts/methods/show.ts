@@ -1,4 +1,5 @@
 import hide from '@scripts/methods/hide';
+import getTabbables from '@scripts/utils/getTabbables';
 import setPosition from '@scripts/utils/positions/setPosition';
 import setContext from '@scripts/utils/setContext';
 import { showToAT } from '@scripts/utils/toggleTabbing';
@@ -44,11 +45,19 @@ const show = (self: Calendar) => {
   window.addEventListener('resize', handleResize);
   self.context.cleanupHandlers.push(() => window.removeEventListener('resize', handleResize));
 
-  const handleEscapeKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') hide(self);
+  // Tabbing out of the popup closes it too: it sits at the end of the body, so the focus would leave the form. hide()
+  // puts the focus back on the field, from where a forward Tab carries on to the next field and Shift+Tab stays put.
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') return hide(self);
+    if (e.key !== 'Tab') return;
+    const tabbables = getTabbables(self.context.mainElement);
+    // composedPath() also sees through a shadow root, where e.target is retargeted to the host
+    if (e.composedPath()[0] !== tabbables[e.shiftKey ? 0 : tabbables.length - 1]) return;
+    if (e.shiftKey) e.preventDefault();
+    hide(self);
   };
-  document.addEventListener('keydown', handleEscapeKey);
-  self.context.cleanupHandlers.push(() => document.removeEventListener('keydown', handleEscapeKey));
+  document.addEventListener('keydown', handleKeydown);
+  self.context.cleanupHandlers.push(() => document.removeEventListener('keydown', handleKeydown));
 
   const documentClickEvent = (e: MouseEvent) => {
     // use composedPath() rather than e.target: for a calendar rendered inside a Shadow DOM,
