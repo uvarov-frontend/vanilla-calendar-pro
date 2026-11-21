@@ -1,3 +1,4 @@
+import isInputLocked from '@scripts/utils/isInputLocked';
 import setContext from '@scripts/utils/setContext';
 import handleActions from '@src/extensions/time/handles/handleActions';
 import transformTime12 from '@src/extensions/time/transformTime12';
@@ -69,6 +70,10 @@ const handleInput = (
   };
 
   const handleInputAction = (event: Event) => {
+    if (isInputLocked(self)) {
+      inputEl.value = type === 'hour' ? self.context.selectedHours : self.context.selectedMinutes;
+      return;
+    }
     const value = Number(inputEl.value);
     const valueStr = inputEl.value.padStart(2, '0');
     if (handlers[type]) handlers[type](value, valueStr, event);

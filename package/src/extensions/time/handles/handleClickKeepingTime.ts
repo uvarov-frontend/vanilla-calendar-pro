@@ -1,3 +1,4 @@
+import isInputLocked from '@scripts/utils/isInputLocked';
 import setContext from '@scripts/utils/setContext';
 import handleActions from '@src/extensions/time/handles/handleActions';
 import transformTime24 from '@src/extensions/time/transformTime24';
@@ -5,6 +6,7 @@ import type { Calendar } from '@src/index';
 
 const handleClickKeepingTime = (self: Calendar, keepingTimeEl: HTMLButtonElement, rangeHourEl: HTMLInputElement, max: number, min: number) => {
   const handleClickKeepingTimeAction = (event: Event) => {
+    if (isInputLocked(self)) return;
     const newSelectedKeeping = self.context.selectedKeeping === 'AM' ? 'PM' : 'AM';
     const hour = transformTime24(self.context.selectedHours, newSelectedKeeping);
 

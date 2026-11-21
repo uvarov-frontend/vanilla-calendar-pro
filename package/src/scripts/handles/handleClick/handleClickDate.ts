@@ -2,6 +2,7 @@ import updateDateModifiers from '@scripts/creators/createDates/updateDateModifie
 import handleNavigate from '@scripts/handles/handleNavigate';
 import handleSelectDate from '@scripts/handles/handleSelectDate';
 import handleSelectDateRanged from '@scripts/handles/handleSelectDateRange/handleSelectDateRange';
+import isInputLocked from '@scripts/utils/isInputLocked';
 import sortDates from '@scripts/utils/sortDates';
 import type { Calendar } from '@src/index';
 
@@ -9,7 +10,7 @@ const handleClickDate = (self: Calendar, event: MouseEvent) => {
   const element = event.target as HTMLElement;
   const dateBtnEl = element.closest<HTMLButtonElement>('[data-vc-date-btn]');
 
-  if (!self.selectionDatesMode || !['single', 'multiple', 'multiple-ranged'].includes(self.selectionDatesMode) || !dateBtnEl) return;
+  if (!self.selectionDatesMode || !['single', 'multiple', 'multiple-ranged'].includes(self.selectionDatesMode) || !dateBtnEl || isInputLocked(self)) return;
 
   const dateEl = dateBtnEl.closest('[data-vc-date]') as HTMLElement;
   const daySelectionActions = {
