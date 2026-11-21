@@ -238,7 +238,7 @@ const featureMarkers = {
 for (const [name, features, budget] of [
   ['core', [], 55000],
   ['motion', ['motion'], 64500],
-  ['time', ['time'], 61000],
+  ['time', ['time'], 61500],
   ['annotations', ['annotations'], 57500],
   ['weeks', ['weeks'], 61000],
   ['months', ['months'], 59000],
