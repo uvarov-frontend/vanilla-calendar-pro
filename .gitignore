@@ -29,3 +29,7 @@ Desktop.ini
 .DS_Store*
 ehthumbs.db
 Icon?
+
+# Local tool settings
+.claude/settings.local.json
+.claude/launch.json
