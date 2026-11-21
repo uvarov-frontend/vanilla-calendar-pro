@@ -28,6 +28,8 @@ const zipDirectory = async (sourceDir) => {
 
     function addFilesToArchive(dir) {
       fs.readdirSync(dir).forEach((file) => {
+        // Hidden files such as Finder's .DS_Store are local leftovers, not part of the distribution.
+        if (file.startsWith('.')) return;
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
 
