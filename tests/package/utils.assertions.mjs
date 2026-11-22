@@ -39,6 +39,10 @@ for (const [date, firstWeekday, expected] of [
   ['2024-12-30', 1, { year: 2025, week: 1 }],
   ['2024-06-23', 1, { year: 2024, week: 25 }],
   ['2024-06-23', 0, { year: 2024, week: 26 }],
+  // Later in a year that starts in daylight saving time (southern hemisphere, Brazil before 2019).
+  ['2016-04-04', 1, { year: 2016, week: 14 }],
+  ['2021-04-05', 1, { year: 2021, week: 14 }],
+  ['2027-09-30', 1, { year: 2027, week: 39 }],
 ]) {
   assert.deepEqual(getWeekNumber(date, firstWeekday), expected, `week number: ${date}, start ${firstWeekday}`);
 }
