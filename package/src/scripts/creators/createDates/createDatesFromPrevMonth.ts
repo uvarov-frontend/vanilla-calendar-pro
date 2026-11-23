@@ -8,7 +8,7 @@ const createDatesFromPrevMonth = (
   currentMonth: number,
   firstDayWeek: number,
 ) => {
-  let date = new Date(currentYear, currentMonth, 0).getDate() - (firstDayWeek - 1);
+  let date = new Date(Date.UTC(currentYear, currentMonth, 0)).getUTCDate() - (firstDayWeek - 1);
   const year = currentMonth === 0 ? currentYear - 1 : currentYear;
   const month = currentMonth === 0 ? 12 : currentMonth < 10 ? `0${currentMonth}` : currentMonth;
 

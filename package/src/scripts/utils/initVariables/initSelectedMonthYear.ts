@@ -5,21 +5,21 @@ import type { Calendar, Range } from '@src/index';
 import resolveDate from '@src/scripts/utils/resolveDate';
 
 const displayClosestValidDate = (self: Calendar) => {
-  const isBefore = (date1: string | Date, date2: Date) => new Date(date1).getTime() < date2.getTime();
-  const isAfter = (date1: string | Date, date2: Date) => new Date(date1).getTime() > date2.getTime();
+  // Compare local civil dates: new Date('YYYY-MM-DD') would read the option as UTC midnight.
+  const today = self.context.dateToday;
 
   const gotoMonthYear = (dateOrStr: Date) => {
     const gotoDate = new Date(dateOrStr);
     setInitialContext(self, gotoDate.getMonth() as Range<12>, gotoDate.getFullYear());
   };
 
-  if (self.displayDateMin && self.displayDateMin !== 'today' && isAfter(self.displayDateMin as string, new Date())) {
+  if (self.displayDateMin && self.displayDateMin !== 'today' && resolveDate(self.displayDateMin, today) > today) {
     const parsedDate = self.selectedDates.length && self.selectedDates[0] ? parseDates(self.selectedDates)[0] : self.displayDateMin;
     gotoMonthYear(getDate(resolveDate(parsedDate, self.displayDateMin)));
     return true;
   }
 
-  if (self.displayDateMax && self.displayDateMax !== 'today' && isBefore(self.displayDateMax as string, new Date())) {
+  if (self.displayDateMax && self.displayDateMax !== 'today' && resolveDate(self.displayDateMax, today) < today) {
     const parsedDate = self.selectedDates.length && self.selectedDates[0] ? parseDates(self.selectedDates)[0] : self.displayDateMax;
     gotoMonthYear(getDate(resolveDate(parsedDate, self.displayDateMax)));
     return true;

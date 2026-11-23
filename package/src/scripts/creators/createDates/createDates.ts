@@ -34,7 +34,8 @@ const createDates = (self: Calendar, reuse?: RenderState, capture = true) => {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     const firstDayWeek = (new Date(currentYear, currentMonth, 1).getDay() - self.firstWeekday + 7) % 7;
-    const days = new Date(currentYear, currentMonth + 1, 0).getDate();
+    // In UTC: a zone that skipped the month's last day (Pacific/Kiritimati, 1994-12-31) would roll local day 0 over.
+    const days = new Date(Date.UTC(currentYear, currentMonth + 1, 0)).getUTCDate();
 
     const totalDays = firstDayWeek + days;
     const totalWeeks = Math.ceil(totalDays / 7);
