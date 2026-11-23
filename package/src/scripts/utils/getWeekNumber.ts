@@ -7,7 +7,8 @@ const getWeekNumber = (date: FormatDateString, weekStartDay: WeekDayID) => {
   currentDate.setDate(currentDate.getDate() + 3 - currentDay);
 
   const yearStart = new Date(currentDate.getFullYear(), 0, 1);
-  const weekNumber = Math.ceil(((+currentDate - +yearStart) / 86400000 + 1) / 7);
+  const dayOfYear = Math.round((+currentDate - +yearStart) / 86400000);
+  const weekNumber = Math.ceil((dayOfYear + 1) / 7);
 
   return {
     year: currentDate.getFullYear(),
