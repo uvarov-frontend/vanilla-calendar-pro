@@ -2,6 +2,10 @@ import getDate from '@scripts/utils/getDate';
 import getDateString from '@scripts/utils/getDateString';
 import type { FormatDateString } from '@src/index';
 
+// The last instant before the next civil day: 23:59:59.999 itself can fall in a DST gap
+// (America/Nuuk springs forward at 23:00), which would carry the range into the next day.
+const getDayEnd = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getTime() - 1;
+
 const parseDates = (dates: Array<number | string | Date>, within?: { start: Date; end: Date; cursors?: Map<string, number> }): FormatDateString[] =>
   dates.reduce((accumulator: FormatDateString[], date) => {
     if (date instanceof Date || typeof date === 'number') {
@@ -17,10 +21,10 @@ const parseDates = (dates: Array<number | string | Date>, within?: { start: Date
         const currentDate = cursor !== undefined && cursor <= startTime ? new Date(cursor) : getDate(startDateStr);
         // A midnight DST jump can carry the cursor to 01:00 on subsequent days.
         // Include the whole final civil day, not only its first instant.
-        let endTime = getDate(endDateStr).setHours(23, 59, 59, 999);
+        let endTime = getDayEnd(getDate(endDateStr));
         if (within) {
           if (endTime < startTime) return _;
-          endTime = Math.min(endTime, new Date(within.end).setHours(23, 59, 59, 999));
+          endTime = Math.min(endTime, getDayEnd(within.end));
         }
 
         // Retain local setDate stepping through midnight DST transitions. Only

@@ -12,6 +12,8 @@ const zones = [
   ['America/New_York', 240, '2023-12-31', '2024-01-01'],
   ['America/Los_Angeles', 420, '2023-12-31', '2024-01-01'],
   ['America/Sao_Paulo', 180, '2023-12-31', '2024-01-01'],
+  // DST starts at midnight here, so some local days begin at 01:00.
+  ['America/Havana', 240, '2023-12-31', '2024-01-01'],
   ['Asia/Tokyo', -540, '2024-01-01', '2024-01-01'],
   ['Asia/Kathmandu', -345, '2024-01-01', '2024-01-01'],
   ['Australia/Sydney', -600, '2024-01-01', '2024-01-01'],
@@ -179,6 +181,45 @@ try {
               instant,
             );
           }
+          // The opening month compares displayDateMin/displayDateMax with today's local date, not with UTC midnight.
+          const localTime = (date, time) => new Date(Date.parse(`${date}T${time}:00Z`) + offset * 60000).toISOString();
+          await check(
+            'a displayDateMin of tomorrow opens its month late in the local evening',
+            async (page) => {
+              await mount(page, { displayDateMin: '2024-07-01' });
+              assert.deepEqual(await page.evaluate(() => [window.instance.context.selectedYear, window.instance.context.selectedMonth]), [2024, 6]);
+              assert.equal(await page.locator(day('2024-07-01')).isDisabled(), false);
+            },
+            localTime('2024-06-30', '21:00'),
+          );
+          await check(
+            'a displayDateMin of today keeps the chosen month early in the local morning',
+            async (page) => {
+              await mount(page, { displayDateMin: '2024-07-01', selectedYear: 2024, selectedMonth: 7 });
+              assert.deepEqual(await page.evaluate(() => [window.instance.context.selectedYear, window.instance.context.selectedMonth]), [2024, 7]);
+            },
+            localTime('2024-07-01', '05:00'),
+          );
+          await check(
+            'the week view can reach a dateMax on the first day of the next week',
+            async (page) => {
+              await mount(page, { type: 'week', firstWeekday: 0, selectedDates: ['2024-03-10'], dateMin: '2024-03-09', dateMax: '2024-03-17' });
+              assert.equal(await page.evaluate(() => window.instance.context.displayWeekDate), '2024-03-10');
+              assert.equal(await page.locator('[data-vc-arrow="next"]').evaluate((arrow) => arrow.style.visibility), '');
+            },
+            '2024-03-10T16:00:00Z',
+          );
+          await check('months around a skipped last day of the month keep all their days', async (page) => {
+            // Pacific/Kiritimati skipped 1994-12-31.
+            const currentDays = () => page.locator('[data-vc-date-month="current"]').evaluateAll((cells) => cells.map((cell) => cell.dataset.vcDate));
+            await mount(page, { selectedYear: 1994, selectedMonth: 11 });
+            const december = await currentDays();
+            assert.equal(december.length, 31);
+            assert.equal(new Set(december).size, 31);
+            await page.locator('[data-vc-arrow="next"]').click();
+            assert.deepEqual((await currentDays()).slice(0, 2), ['1995-01-01', '1995-01-02']);
+            assert.equal((await currentDays()).length, 31);
+          });
           await check('an absolute timestamp intentionally resolves to the local civil date', async (page) => {
             await mount(page, { selectedDates: [Date.parse('2024-01-01T00:30:00Z')], enableJumpToSelectedDate: true });
             assert.deepEqual(await selectedDates(page), [midnightDate]);

@@ -1,6 +1,7 @@
 import { setVisibilityArrows } from '@scripts/creators/visibilityArrows';
 import type { Route } from '@scripts/handles/handleNavigate';
 import getDate from '@scripts/utils/getDate';
+import getDateString from '@scripts/utils/getDateString';
 import type { Calendar } from '@src/index';
 import setWeekDate from './setDate';
 export const shiftWeek = (self: Calendar, route: Route) => {
@@ -25,8 +26,9 @@ export const handleWeekType = (self: Calendar, arrowPrevEl: HTMLElement, arrowNe
   const prevChangesYear = !self.selectionYearsMode && ownerYear(prevWeekStart) !== self.context.selectedYear;
   const nextChangesYear = !self.selectionYearsMode && ownerYear(nextWeekStart) !== self.context.selectedYear;
 
-  const isArrowPrevHidden = !self.selectionMonthsMode || prevChangesYear || prevWeekEnd < getDate(self.context.dateMin);
-  const isArrowNextHidden = !self.selectionMonthsMode || nextChangesYear || nextWeekStart > getDate(self.context.dateMax);
+  // Compare civil dates: where DST starts at midnight, a week can start at 01:00 while dateMin/dateMax parse at 00:00.
+  const isArrowPrevHidden = !self.selectionMonthsMode || prevChangesYear || getDateString(prevWeekEnd) < self.context.dateMin;
+  const isArrowNextHidden = !self.selectionMonthsMode || nextChangesYear || getDateString(nextWeekStart) > self.context.dateMax;
 
   setVisibilityArrows(arrowPrevEl, arrowNextEl, isArrowPrevHidden, isArrowNextHidden);
 };
