@@ -8,12 +8,13 @@ const options: Options = {
     if (!randomBoolean) return;
     const randomPrice = Math.floor(Math.random() * (999 - 100 + 1) + 100);
     const btnEl = dateEl.querySelector('[data-vc-date-btn]') as HTMLButtonElement;
-    const day = btnEl.innerText;
+    const dayEl = document.createElement('span');
+    dayEl.textContent = btnEl.textContent;
+    const priceEl = document.createElement('span');
+    priceEl.style.cssText = 'font-size: 8px;color: #8BC34A;';
+    priceEl.textContent = `$${randomPrice}`;
     btnEl.style.flexDirection = 'column';
-    btnEl.innerHTML = `
-      <span>${day}</span>
-      <span style="font-size: 8px;color: #8BC34A;">$${randomPrice}</span>
-    `;
+    btnEl.replaceChildren(dayEl, priceEl);
   },
 };
 
