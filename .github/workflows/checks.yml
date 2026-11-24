@@ -139,7 +139,9 @@ jobs:
       - name: Install browser system libraries
         timeout-minutes: 12
         run: |
-          echo 'Acquire::Retries "3";' | sudo tee /etc/apt/apt.conf.d/80-retries > /dev/null
+          # A stalled mirror connection fails after 20 s and is retried, instead of hanging; this also covers the
+          # apt-get update that playwright install --with-deps runs for WebKit.
+          printf 'Acquire::Retries "3";\nAcquire::http::Timeout "20";\nAcquire::https::Timeout "20";\n' | sudo tee /etc/apt/apt.conf.d/80-retries > /dev/null
           for attempt in 1 2 3; do
             sudo timeout 180 apt-get update &&
               sudo timeout 240 apt-get install --no-install-recommends -y libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb &&
