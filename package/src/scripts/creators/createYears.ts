@@ -3,6 +3,7 @@ import createPickerCell from '@scripts/creators/createPickerCell';
 import visibilityArrows from '@scripts/creators/visibilityArrows';
 import visibilityTitle from '@scripts/creators/visibilityTitle';
 import getDate from '@scripts/utils/getDate';
+import getYearLabel from '@scripts/utils/getYearLabel';
 import updateRovingTabIndex from '@scripts/utils/rovingTabIndex';
 import setContext from '@scripts/utils/setContext';
 import type { Calendar } from '@src/index';
@@ -38,7 +39,10 @@ const createYears = (self: Calendar, target?: HTMLElement) => {
 
     const [min, max] = limits ?? getLimits();
     const yearDisabled = i < min + relationshipID || i > max;
-    const yearEl = createPickerCell(self, 'year', templateYearEl, selectedYear, yearDisabled, i, String(i), String(i));
+    const yearLabel = getYearLabel(self, i, self.context.selectedMonth);
+    // An era year is too wide for one line of a cell: break it before the number (令和 / 6年), not at any character.
+    const yearTitle = yearLabel.replace(/(\D)(?=[\d元])/, '$1\n');
+    const yearEl = createPickerCell(self, 'year', templateYearEl, selectedYear, yearDisabled, i, yearTitle, yearLabel);
     rowEl?.appendChild(yearEl);
     if (self.onCreateYearEls) self.onCreateYearEls(self, yearEl);
   }

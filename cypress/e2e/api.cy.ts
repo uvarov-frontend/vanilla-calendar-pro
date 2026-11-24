@@ -150,6 +150,16 @@ describe('Public methods and callbacks on the packed calendar', () => {
     selected(['2024-06-20', '2024-06-21']);
     cy.get('@click').should('have.been.calledTwice');
   });
+
+  it('writes the year in the calendar a locale names, era changes included', () => {
+    mount({ locale: 'ja-JP-u-ca-japanese', selectedYear: 2019, selectedMonth: 3 });
+    cy.get('[data-vc="year"]').should('have.text', '平成31年');
+    arrow('next').click();
+    cy.get('[data-vc="year"]').should('have.text', '令和元年').click();
+    cy.get('[data-vc-years-year="2024"]').should('have.text', '令和6年');
+    use((instance) => instance.set({ locale: 'en' }));
+    cy.get('[data-vc="year"]').should('have.text', '2019');
+  });
 });
 
 describe('Date selection boundaries', () => {
