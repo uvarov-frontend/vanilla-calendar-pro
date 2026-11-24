@@ -1,0 +1,133 @@
+---
+title: ライフサイクルエフェクト
+new: true
+description: Vanilla Disintegrate を使って、既製のパーティクルプリセットや完全にカスタマイズしたエフェクトをカレンダーのライフサイクルに追加します。
+section: 6. 追加機能
+---
+
+# ライフサイクルエフェクト
+
+<DisintegrateProjectLink />
+
+Vanilla Calendar Pro は、`init()` や `destroy()` が実行されると実際の DOM を即座に更新します。Vanilla Disintegrate は、こうしたライフサイクルの変化に任意で使える視覚的なレイヤーを加えます。`remove()` は現在のカレンダーを消えていくようにアニメーションさせ、`restore()` は新しく初期化したカレンダーを現れるようにアニメーションさせます。
+
+既製のプリセットを使えば、連携に必要なのは 1 つのインスタンスと 2 回のメソッド呼び出しだけです。ライブラリには `dust`、`scatter`、`vapor`、`wind` が含まれています。どれもしっくりこない場合は、2 つのパーティクルフェーズ、そのタイミング、サウンドをそれぞれ個別に設定することも、完全に独自のエフェクトに置き換えることもできます。
+
+<Disintegrate />
+
+## インストール
+
+Vanilla Disintegrate のコアライブラリは追加のパッケージなしで動作します。このガイドではすぐに使える SnapDOM キャプチャアダプターを使用するため、SnapDOM もインストールしてください。
+
+```sh
+npm install vanilla-disintegrate @zumer/snapdom
+```
+
+## クイックスタート
+
+両方のライブラリを通常どおり作成します。カレンダー固有の点は `detach` だけです。これにより、`destroy()` が削除を確定し、カレンダーを正しくクリーンアップできます。
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+import Disintegrator from 'vanilla-disintegrate/snapdom';
+
+import 'vanilla-calendar-pro/styles/index.css';
+
+const effects = new Disintegrator({ preset: 'dust' });
+let calendar = new Calendar('#calendar');
+calendar.init();
+
+document.querySelector('#toggle').addEventListener('click', async () => {
+  if (!calendar.context.isDestroyed) {
+    await effects.remove(calendar.context.mainElement, {
+      detach: () => calendar.destroy(),
+    }).finished;
+    return;
+  }
+
+  calendar = new Calendar('#calendar');
+  calendar.init();
+  await effects.restore(calendar.context.mainElement).finished;
+});
+```
+
+`restore()` は初期化されたカレンダーを同期的に非表示にし、エフェクトを通して表示します。そのため、呼び出しの直前にカレンダーを作成しても、途中の状態が一瞬表示されることはありません。
+
+## エフェクトのカスタマイズ
+
+4 つのプリセットは最短の手段であって、上限ではありません。`createParticleEffect()` を使うと、削除と復元をそれぞれ異なるプリセットから始め、インターフェースにとって重要な動きの値だけを上書きできます。
+
+```ts
+import Disintegrator, { createParticleEffect, particlePresets } from 'vanilla-disintegrate/snapdom';
+
+const effects = new Disintegrator({
+  effect: createParticleEffect({
+    remove: {
+      ...particlePresets.dust,
+      duration: 900,
+      release: 'left',
+      horizontalDrift: 60,
+    },
+    restore: {
+      ...particlePresets.vapor,
+      duration: 700,
+      release: 'top',
+      convergence: 0.8,
+    },
+  }),
+  sound: false,
+});
+```
+
+同じ `effects.remove()` と `effects.restore()` の呼び出しはそのまま動作します。サウンドは両方向で個別に設定できます。パーティクル以外の動きには、Web Animations API、Canvas 2D、SVG、CSS、WebGL などのレンダラーを使った独自のエフェクトを使用でき、ライフサイクルとの連携は変わりません。すべてのオプションと生成されるコードについては、<a href="https://disintegrate.uvarov.tech/docs/learn/custom-effects/" target="_blank" rel="noopener">Vanilla Disintegrate のカスタムエフェクトガイド</a>と<a href="https://disintegrate.uvarov.tech/" target="_blank" rel="noopener">Vanilla Disintegrate のインタラクティブなプレイグラウンド</a>を参照してください。
+
+## 削除の仕組み
+
+`remove()` は消える対象の要素を受け取ります。`context.mainElement` はまさにそれ、つまりカレンダーがレンダリングしたコンテナーです。
+
+デフォルトでは、Vanilla Disintegrate はスナップショットを取得した後に `element.remove()` を呼び出します。`detach` を渡すとこの確定処理が置き換えられ、カレンダーは通常どおり自身を破棄します。ジェスチャーのバインドが解除され、進行中のトランジションが停止し、`onDestroy` が発火し、元のコンテナーがドキュメントに戻ります。
+
+<Info>
+  `detach` は、`prefers-reduced-motion: reduce` や WebGL2 が利用できないことにより視覚効果がスキップされた場合にも実行されます。カレンダーは必ず破棄され、省略可能なのはパーティクルだけです。
+</Info>
+
+## 復元の仕組み
+
+`restore()` はすでにドキュメント内にある要素をアニメーションさせるため、先に新しいカレンダーを初期化してください。`destroy()` はカレンダーのすべてのリスナーを削除して元のコンテナーを復元します。古いレンダリング済みのノードを再びアタッチしてはいけません。
+
+`init()` と `restore()` を同じタスク内で呼び出すと、ちらつきを防げます。`restore()` はブラウザーが描画する前に新しいカレンダーを隠し、パーティクルが落ち着くにつれて表示します。
+
+<Info>
+  同じ理由から、この連携では `remove()` に `retain: true` を渡さないでください。保持されたノードには、カレンダーのリスナーがすでにクリーンアップされたマークアップが残ってしまいます。
+</Info>
+
+## カレンダーの状態を保持する
+
+再構築されたカレンダーは、オプションで指定した状態から始まります。削除が確定する前に、ユーザーが操作した状態を `context` から読み取り、次のインスタンスに渡してください。表示中の月と年は選択内容と同じくらい重要です。これらがないと、カレンダーは今日に戻ります。
+
+```ts
+// Read the state before `destroy()` discards the rendered calendar.
+const carried = {
+  selectedDates: [...calendar.context.selectedDates],
+  selectedMonth: calendar.context.selectedMonth,
+  selectedYear: calendar.context.selectedYear,
+};
+
+await effects.remove(calendar.context.mainElement, {
+  detach: () => calendar.destroy(),
+}).finished;
+
+calendar = new Calendar('#calendar', carried);
+calendar.init();
+await effects.restore(calendar.context.mainElement).finished;
+```
+
+時刻ピッカーを有効にしている場合は、同じオブジェクトに `selectedTime` も含めてください。
+
+<Info>
+  Vanilla Disintegrate はブラウザー内で作成してください。サーバーサイドレンダリングのアプリケーションでは、エフェクトやライフサイクルフックの中でインポートします。対応するクリーンアップのパターンは
+  <a href="https://disintegrate.uvarov.tech/docs/learn/frameworks/" target="_blank" rel="noopener">
+    フレームワーク連携ガイド
+  </a>{' '}
+  で紹介しています。
+</Info>

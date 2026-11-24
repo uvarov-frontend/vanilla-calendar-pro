@@ -1,0 +1,54 @@
+---
+title: アニメーション
+new: true
+description: カレンダーのビュー間で行うスライド、クロスフェード、折りたたみのトランジションを設定する方法を学びます。
+section: 6. 追加機能
+---
+
+# アニメーション
+
+拡張機能がないバージョンからアップグレードする場合、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [motion]` として `motion` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  animation: true,
+}).init();
+```
+
+ビュー間のトランジションにはアニメーションを付けられます。矢印によるナビゲーションとスワイプは横方向にスライドし、月と年のピッカーはクロスフェードし、折りたたみではカレンダーが月表示と週表示の高さの間でアニメーションします。
+
+<Info>
+  後方互換性のため、アニメーションはデフォルトで無効です。このオプションは後から追加されたもので、スライドとクロスフェードのトランジション中は DOM クエリで取得される内容が一時的に変わるためです。
+</Info>
+
+<Sandbox example="additional-features-animation" height={400} />
+
+## すべてに共通のタイミング
+
+`true` の代わりにオブジェクトを渡すと、タイミングを上書きできます。トップレベルの値はすべてのトランジションに適用されます。
+
+<Sandbox example="additional-features-animation-shared" height={400} />
+
+## 個別のタイミング
+
+3 つのグループはそれぞれ個別に調整できます。矢印とスワイプは `slide`、ピッカーは `fade`、月と週の間の折りたたみは `collapse` の下に値をネストします。ネストした値はトップレベルの値より優先されます。
+
+次の例では、スライドにオーバーシュートするカーブを指定し、ピッカーと折りたたみコントロールにはそれぞれ落ち着いた独自のタイミングを使っています。
+
+<Sandbox example="additional-features-animation-custom" height={400} />
+
+<Info>
+  訪問者が `prefers-reduced-motion: reduce` で動きの軽減を求めている場合、離した後のアニメーションによる確定はスキップされます。ジェスチャーは引き続きポインターに追従し、離した時点ですぐに確定します。
+</Info>
+
+## アニメーション中にカレンダーを参照する
+
+スライドとクロスフェードのトランジション中、切り替わる前の内容は `inert` な `[data-vc-ghost]` レイヤー内で DOM に残るため、日付要素が一時的に重複して存在することがあります。`onClickArrow` や `onClickDate` などのコールバックはこの期間内に発火するため、そこからカレンダーを調べる場合はこのレイヤーを除外してください。折りたたみではゴーストレイヤーは作成されません。
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```

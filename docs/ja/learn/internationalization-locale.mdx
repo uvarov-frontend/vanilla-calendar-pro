@@ -1,0 +1,15 @@
+---
+title: ローカライズ
+description: locale パラメーターを使ってカレンダーをローカライズする方法や、月名と曜日名の配列を渡してロケールを手動で設定する方法を学びます。
+section: 3. 国際化
+---
+
+# ローカライズ
+
+お使いのロケールが <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" rel="noopener noreferrer" target="_blank">`.toLocaleString()`</a> メソッドでサポートされている場合は、それを `locale` パラメーターに渡すだけでカレンダーをローカライズできます。
+
+<Sandbox example="internationalization-locale" />
+
+ロケールがサポートされていない場合や正しく翻訳されない場合は、いつでもロケールを手動で設定できます。その場合は、言語タグの代わりに月名と曜日名の配列を渡します。
+
+<Sandbox example="internationalization-assign-manually" />

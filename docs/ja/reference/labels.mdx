@@ -1,0 +1,45 @@
+---
+title: Aria ラベル
+description: Aria ラベルを使うと、アクセシビリティのためにカレンダー内のすべての aria-label をローカライズできます。
+section: 9
+---
+
+# Aria ラベル
+
+`labels` を使うと、アクセシビリティのためにカレンダー内のすべての aria-label をローカライズできます。
+
+以下はデフォルトの aria-label の一覧です。
+
+```ts
+new Calendar('#calendar', {
+  labels: {
+    application: 'Calendar',
+    navigation: 'Calendar Navigation',
+    arrowNext: {
+      month: 'Next month',
+      year: 'Next list of years',
+      week: 'Next week',
+    },
+    arrowPrev: {
+      month: 'Previous month',
+      year: 'Previous list of years',
+      week: 'Previous week',
+    },
+    month: 'Select month, current selected month:',
+    months: 'List of months',
+    year: 'Select year, current selected year:',
+    years: 'List of years',
+    week: 'Days of the week',
+    weekNumber: 'Numbers of weeks in a year',
+    collapse: 'Collapse to a single week',
+    expand: 'Expand to the whole month',
+    dates: 'Dates in the current month',
+    selectingTime: 'Selecting a time ',
+    inputHour: 'Hours',
+    inputMinute: 'Minutes',
+    rangeHour: 'Slider for selecting hours',
+    rangeMinute: 'Slider for selecting minutes',
+    btnKeeping: 'Switch AM/PM, current position:',
+  },
+});
+```

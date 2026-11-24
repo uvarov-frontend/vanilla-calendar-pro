@@ -1,0 +1,96 @@
+---
+title: ポップアップ
+description: ポップアップを使うと、任意の日を強調表示し、その日にホバーしたときにカレンダー上で簡単な情報を表示できます。
+section: 6
+---
+
+# ポップアップ
+
+拡張機能のないバージョンからアップグレードする場合、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [annotations]` として `annotations` を登録してください。拡張機能を関数として呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+この要件は `popups` オプションに適用され、`modifier` だけを指定したエントリーも対象になります。`inputMode` で開くカレンダーや範囲のツールチップ（`onCreateDateRangeTooltip`）には適用されません。
+
+ポップアップを使うと、任意の日を強調表示し、その日にホバーしたときにカレンダー上で簡単な情報を表示できます。
+
+## popups['date']
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'YYYY-MM-DD' | 'YYYY-MM-DD:YYYY-MM-DD' | null`
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: {
+    '2022-06-28': {},
+    '2022-07-01:2022-07-05': {},
+  }
+});
+```
+
+キーには `YYYY-MM-DD` 形式の日付を使用します。この例では、2022 年 6 月 28 日にポップアップが設定されています。
+
+<Info>キーには `'YYYY-MM-DD:YYYY-MM-DD'` 形式の日付範囲も指定できます（2 つの日付の間の区切り文字は任意です）。この場合、同じエントリーを日付ごとに繰り返さなくても、範囲内のすべての日に同じポップアップ（`modifier`/`html`）が適用されます。</Info>
+
+---
+
+## popups['date'].modifier
+
+`Type: String`
+
+`Default: null`
+
+`Options: CSS classes | null`
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+    },
+  }
+});
+```
+
+`modifier` には、スペース区切りで任意の CSS クラスを指定できます。これらのクラスを使って日付にスタイルを適用し、強調表示したり見た目を変えたりできます。
+
+---
+
+## popups['date'].html
+
+この API は HTML を受け付けます。信頼できるマークアップを使用するか、ユーザーなど信頼できないソースから来るコンテンツの場合は [`sanitizerHTML`](/ja/docs/reference/settings#sanitizerhtml) を設定してください。デフォルトのコールバックはサニタイズを行いません。
+
+`Type: String`
+
+`Default: null`
+
+`Options: '' | HTML | null`
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: {
+    '2022-06-28': {
+      modifier: 'bg-red color-pink',
+      html: `<div>
+        <u><b>12:00 PM</b></u>
+        <p style="margin: 5px 0 0;">Airplane in Las Vegas</p>
+      </div>`,
+      // or just text
+      // html: 'Airplane in Las Vegas',
+    },
+  }
+});
+```
+
+`html` には、ポップアップの内容としてプレーンテキストまたは HTML マークアップを指定できます。
+この例では、2022 年 6 月 28 日にホバーすると、テキスト「Airplane in Las Vegas」と時刻「12:00 PM」を含むポップアップが表示され、クラス `bg-red` と `color-pink` で指定したスタイルが適用されます。

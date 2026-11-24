@@ -1,0 +1,15 @@
+---
+title: 表示する日付範囲
+description: displayDateMin と displayDateMax パラメーターを使って、カレンダーに表示する日付の範囲を設定する方法を学びます。指定した範囲内での日付の表示と選択を設定できます。
+section: 4. 日付と時刻の管理
+---
+
+# 表示する日付範囲
+
+`displayDateMin` と `displayDateMax` パラメーターは、カレンダーに表示できる日付の範囲を定義しますが、カレンダーのライフサイクルには影響しません。これらは、どの日付の表示と選択を許可するかを示すだけです。
+
+たとえば、`displayDisabledDates` パラメーターが `true` に設定されている場合、ユーザーが閲覧できる最小年と最大年は、`dateMin` と `dateMax` パラメーターの値によって決まります。
+
+<Sandbox example="date-management-display-range-dates" />
+
+`displayDisabledDates` パラメーターを変更することで、カレンダーで閲覧・選択できる日付を制御できます。

@@ -1,0 +1,36 @@
+---
+title: ポップアップとツールチップ
+description: カレンダーの任意の日に情報を表示するポップアップを追加する方法と、日付範囲の選択時にツールチップを使う方法を学びます。
+section: 6. 追加機能
+---
+
+# ポップアップとツールチップ
+
+拡張機能がないバージョンからアップグレードする場合、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [annotations]` として `annotations` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  popups: { '2026-09-21': { html: 'Event' } },
+}).init();
+```
+
+`popups`(修飾子のみのエントリーを含む)と `onCreateDateRangeTooltip` には `annotations` が必要です。`inputMode` で開くカレンダーは引き続きコアに含まれます。
+
+## ポップアップ
+
+カレンダーでは、任意の日に情報を表示するポップアップを追加でき、その日にホバーすると表示されます。
+
+この例では、特定の日を CSS 修飾子で強調表示し、ポップアップに情報を追加しています。
+
+ポップアップの詳細はリファレンスガイドを参照してください。
+
+<Sandbox example="additional-features-popups" />
+
+## ツールチップ
+
+ツールチップは、`selectionDatesMode` パラメーターが `'multiple-ranged'` に設定されている場合に使用できます。`onCreateDateRangeTooltip` を使うと、完全にカスタマイズしたツールチップを作成できます。
+
+<Sandbox example="additional-features-tooltips" />

@@ -1,0 +1,16 @@
+---
+title: 最大日付と最小日付
+description: dateMin と dateMax パラメーターを使ってカレンダーの日付範囲を設定する方法を学びます。最小日付と最大日付を設定して、許可する範囲を制限できます。
+section: 4. 日付と時刻の管理
+---
+
+# 最大日付と最小日付
+
+カレンダーの日付範囲は、`dateMin` と `dateMax` パラメーターで設定できます。これらのパラメーターは、カレンダーで許可される日付の範囲を指定します。
+
+デフォルトでは、最小日付は `'1970-01-01'` で、これは <a href="https://en.wikipedia.org/wiki/Unix_time" rel="noopener noreferrer" target="_blank">UNIX 時間</a> の始まりに相当します。
+最大日付はデフォルトで `'2470-12-31'` に設定されており、これは任意に選ばれた値です。
+
+特定の日付範囲を設定する必要がある場合は、`dateMin` と `dateMax` パラメーターの値を必要な日付に置き換えてください。カレンダーは指定された範囲外の日付を処理しない点に注意してください。
+
+<Sandbox example="date-management-date-min-and-max" />

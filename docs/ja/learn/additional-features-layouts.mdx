@@ -1,0 +1,19 @@
+---
+title: レイアウト
+description: レイアウトを使うと、カレンダーの HTML マークアップをカスタマイズし、ボタンなどの独自の要素を追加できます。カレンダーのヘッダーをカスタマイズする方法や、カレンダーの種類ごとに要素を追加する方法を学びます。
+section: 6. 追加機能
+---
+
+# レイアウト
+
+カレンダーでは、`layouts` パラメーターを使って HTML マークアップを手軽にカスタマイズできます。これにより、ボタンやその他の任意の HTML 要素など、独自の要素をカレンダーに追加できます。
+
+`layouts` は、カレンダーの `type` をキー、文字列を値として受け取ります。
+
+次の例では、`type: 'default'` のカレンダーヘッダーをカスタマイズし、カレンダー内に通常のボタンを追加しています。
+
+<Sandbox example="additional-features-layouts" />
+
+次は `inputMode: true` パラメーターを使ってみましょう。クリックするとカレンダーを閉じるボタンを追加します。
+
+<Sandbox example="additional-features-layouts-btn-close" input={true} />
