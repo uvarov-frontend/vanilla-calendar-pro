@@ -36,17 +36,48 @@ jobs:
       - name: Check release metadata against the source version
         run: node .github/scripts/release.mjs --source
 
+  # The tagged commit is on main, so CI has usually checked it already. Reuse that run's build instead of
+  # repeating every check; without one (expired, failed or never run), run the full checks here.
+  verified:
+    name: Find the verified main build
+    needs: release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      run-id: ${{ steps.find.outputs.run-id }}
+    steps:
+      - name: Look for a successful CI run of this commit on main
+        id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          run_id=$(gh api "repos/$REPO/actions/workflows/ci.yml/runs?head_sha=$SHA&branch=main&event=push&status=success&per_page=1" --jq '.workflow_runs[0].id // empty')
+          if [ -n "$run_id" ] && gh api "repos/$REPO/actions/runs/$run_id/artifacts?name=package-dist" --jq '.artifacts[] | select(.expired | not) | .id' | grep -q .; then
+            echo "Reusing the build verified by CI run $run_id"
+            echo "run-id=$run_id" >> "$GITHUB_OUTPUT"
+          else
+            echo 'No verified build for this commit: running the full checks'
+          fi
+
   checks:
     name: Release checks
-    needs: release
+    needs: verified
+    if: needs.verified.outputs.run-id == ''
     uses: ./.github/workflows/checks.yml
 
   publish:
     name: Publish verified build to npm
-    needs: checks
+    needs: [verified, checks]
+    if: ${{ always() && needs.verified.result == 'success' && (needs.verified.outputs.run-id != '' || needs.checks.result == 'success') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
+      actions: read
       contents: read
       id-token: write
     steps:
@@ -59,7 +90,17 @@ jobs:
           package-manager-cache: false
       - name: Install npm with Trusted Publishing support
         run: npm install --global npm@12.0.2 --ignore-scripts --no-audit --no-fund
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - name: Download the build verified by CI on main
+        if: needs.verified.outputs.run-id != ''
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: package-dist
+          path: package/dist
+          run-id: ${{ needs.verified.outputs.run-id }}
+          github-token: ${{ github.token }}
+      - name: Download the build verified by the release checks
+        if: needs.verified.outputs.run-id == ''
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: package-dist
           path: package/dist
