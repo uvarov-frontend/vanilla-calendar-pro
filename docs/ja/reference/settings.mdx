@@ -1,0 +1,1111 @@
+---
+title: 設定
+description: 表示タイプ、入力モード、配置、ローカライズ、日付と時刻など、カレンダーの設定です。
+new:
+  - extensions
+  - animation
+  - enableCollapse
+  - enableSwipe
+section: 4
+---
+
+# 設定
+
+## extensions
+
+`Type: readonly CalendarExtension[]`
+
+`Default: []`
+
+`motion` はアニメーションとジェスチャーを提供します。`time` は 12/24 時間制の時刻エディターを提供します。`annotations` は日付のポップアップの内容、モディファイア、範囲のツールチップを提供します。`weeks` は週表示、折りたたみ、週番号、曜日・週番号のコールバックを提供します。`months` は複数の月をまとめて表示し、ナビゲーションできるようにします。ESM バンドラーは、インポートして登録していない拡張機能を取り除けます。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+拡張機能はインスタンスの生成時に固定されます。後で `set()` や `update()` で有効にするモジュールも、あらかじめ登録しておいてください。これらのメソッドは既存の機能のオプションを変更できますが、モジュールを追加・削除することはできません。同じオプションや拡張機能の配列を使い回しても問題なく、各カレンダーは独立した状態を持ちます。拡張機能なしで機能を有効にすると、`init()`、`set()`、`update()` でわかりやすいエラーがスローされます。有効になっていない設定やコールバックにはモジュールは不要です。
+
+入力モードのカレンダー、日付・範囲の選択、月・年ピッカーはコアに含まれています。曜日の見出しに拡張機能は不要です。従来の `<script>` / CommonJS 用のフルディストリビューションには、5 つの拡張機能がすべて自動的に含まれます。CSS のインポートは変わりません。
+
+---
+
+## type
+
+ESM では、`type: 'multiple'` には `months` が、`type: 'week'` には `weeks` が必要です。後から `set()` でそのビューに切り替える場合も含め、モジュールはコンストラクターで登録してください。
+
+`Type: String`
+
+`Default: 'default'`
+
+`Options: 'default' | 'multiple' | 'month' | 'year' | 'week'`
+
+```ts
+new Calendar('#calendar', {
+  type: 'default',
+});
+```
+
+`type` パラメーターは、表示するカレンダーの種類を定義します。`week` タイプは月全体ではなく 1 週間だけを表示します。単独でも、月表示と週表示を切り替えられる `enableCollapse` と組み合わせても使えます。
+
+---
+
+## inputMode
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  inputMode: true,
+});
+```
+
+`inputMode` パラメーターは、第 1 引数として渡した `mainElement` がカレンダーのラッパーではなく入力フィールドであることを示します。
+
+---
+
+## openOnFocus
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  openOnFocus: false,
+  // or with a callback
+  openOnFocus: (self) => !self.context.isShowInInputMode,
+});
+```
+
+`openOnFocus` パラメーターが `true` の場合、またはコールバックが `true` を返す場合、入力フィールドにフォーカスするとカレンダーが開きます。この動作を制御して独自のフォーカスハンドラーを実装するには、`false` またはコールバックを使用します。
+
+---
+
+## positionToInput
+
+`Type: String`
+
+`Default: 'left'`
+
+`Options: 'auto' | 'center' | 'left' | 'right' | ['bottom' | 'top', 'center' | 'left' | 'right']`
+
+```ts
+new Calendar('#calendar', {
+  positionToInput: 'auto',
+  // positionToInput: ['bottom', 'center'],
+});
+```
+
+このパラメーターは、カレンダーを `inputMode` パラメーター付きで初期化した場合に、入力フィールドに対するカレンダーの位置を定義します。
+
+`positionToInput` には、`'left'`、`'center'`、`'right'` のいずれかの文字列、または `[Y-axis, X-axis]` の配列（Y 軸、X 軸）を指定できます。Y 軸には `'bottom'` または `'top'`、X 軸には `'left'`、`'center'`、`'right'` を指定します。
+Y 軸を指定しない場合は、デフォルト値の `'bottom'` が使われます。
+
+`positionToInput: 'auto'` を指定すると、ビューポート内の空きスペースに応じて最適な位置が自動的に決まります。
+このオプションは上下左右 4 方向の空きスペースを計算し、まずデフォルトの位置である入力フィールドの下にカレンダーを表示しようとします。
+下に十分なスペースがない場合は、ほかに利用できる最適な位置を判断します。
+
+---
+
+## animation
+
+拡張機能のないバージョンからアップグレードする場合も、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [motion]` として `motion` を登録してください。拡張機能を呼び出す必要はありません。インポートや登録だけでは機能は有効になりません。
+
+`Type: Boolean | Object`
+
+`Default: false`
+
+`Options: true | false | { duration?: Number, easing?: String, slide?: Timing, fade?: Timing, collapse?: Timing }`
+
+`Timing: { duration?: Number, easing?: String }`
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  animation: true,
+  // animation: { duration: 400, easing: 'ease-out' },
+  // animation: { slide: { duration: 400 }, fade: { duration: 120 }, collapse: { duration: 300 } },
+});
+```
+
+ビュー間の切り替えをアニメーションさせます。矢印によるナビゲーションと `enableSwipe` は横方向のスライド、月・年ピッカーはクロスフェード、`enableCollapse` は月表示と週表示の高さの間でカレンダーをアニメーションさせます。
+
+デフォルト値は切り替えの種類ごとに異なり、スライドは `250ms`、クロスフェードは `150ms`、折りたたみは `300ms` で、いずれも `cubic-bezier(0.4, 0, 0.2, 1)` を使います。オブジェクトを渡すと、これらを上書きできます。`duration` はミリ秒単位で、`easing` には CSS のイージング関数を指定します。トップレベルの値はすべての切り替えに適用されます。特定のグループだけを対象にするには、`slide`（矢印と `enableSwipe`）、`fade`（ピッカー）、`collapse`（`enableCollapse`）の下にネストします。ネストした値はトップレベルの値より優先されます。
+
+<Info>
+  訪問者が `prefers-reduced-motion: reduce` で動きの軽減を求めている場合、アニメーションによる位置の確定は省略されます。ジェスチャーは引き続きポインターに追従しますが、
+  指を離すと即座に確定するか元に戻ります。
+</Info>
+
+後方互換性のため、デフォルトは `false` です。このオプションは後から追加されたもので、有効にするとスライドとクロスフェードの切り替え中に DOM クエリから見える内容が変わります。切り替え前の内容は `inert` な `[data-vc-ghost]` レイヤー内で DOM に残るため、日付要素が一時的に 2 つ存在することがあります。独自のコードでこれらの要素をクエリする場合は、このレイヤーを除外してください。折りたたみではゴーストレイヤーは作成されません。
+
+---
+
+## firstWeekday
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  firstWeekday: 1,
+});
+```
+
+このパラメーターは週の最初の曜日を設定します。0 から 6 の数値で曜日の識別子を指定します。JS の標準に従い、曜日は 0 から始まり、0 は日曜日です。
+
+---
+
+## monthsToSwitch
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 12`
+
+```ts
+new Calendar('#calendar', {
+  monthsToSwitch: 1,
+});
+```
+
+`monthsToSwitch` パラメーターは、一度に切り替える月の数を制御します。
+
+<Info>
+  `monthsToSwitch` が `1` より大きい場合、月ピッカーでも、現在選択中の月から `monthsToSwitch` 単位の移動で到達できる月だけが選択可能になり、
+  それ以外の月は無効として表示されます。これにより、ナビゲーションが設定したステップ幅と一致します（特に `type: 'multiple'` で
+  `displayMonthsCount` と組み合わせた場合に重要で、表示中の複数の月の同期が保たれます）。
+</Info>
+
+---
+
+## themeAttrDetect
+
+`Type: String | false`
+
+`Default: 'html[data-theme]'`
+
+`Options: string | false`
+
+```ts
+new Calendar('#calendar', {
+  themeAttrDetect: 'html[data-theme]',
+});
+```
+
+カレンダーがサイトのテーマを自動的に追跡して適用するようにするには、CSS セレクター形式の文字列を渡します。
+角括弧は、テーマ名を含む属性を表します。
+デフォルトでは `data-theme` 属性を持つ `html` タグが追跡されますが、ほかの属性やタグも設定できます。たとえば、クラス名でテーマを設定している場合は `class` を使って `'html[class]'` とします。
+`false` を指定すると、テーマはユーザーのシステム設定または `selectedTheme` パラメーターによって決まります。
+
+---
+
+## locale
+
+`Type: String`
+
+`Default: 'en'`
+
+`Options: Language label | Array<locale>`
+
+```ts
+new Calendar('#calendar', {
+  locale: 'en',
+  // Or specify an object for your labels
+  // locale: {
+  //   months: {
+  //     long: [],
+  //     short: [],
+  //   },
+  //   weekday: {
+  //     long: [],
+  //     short: [],
+  //   }
+  // },
+});
+```
+
+このパラメーターは、カレンダーの言語のローカライズを設定します。
+<a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> に準拠した言語タグを指定するか、月名と曜日名の配列を渡せます。詳しくは[こちら](/ja/docs/learn/internationalization-locale)を参照してください。
+
+`'ja-JP-u-ca-japanese'`（和暦）、`'th-TH-u-ca-buddhist'`、`'zh-TW-u-ca-roc'` のように、グレゴリオ暦の月を使う暦をタグで指定すると、ヘッダーと年ピッカーの年がその暦で表記されます（例：`令和6年`）。日付と月はグレゴリオ暦のままのため、独自の月を持つ暦（イスラム暦、ヘブライ暦、ペルシャ暦）には対応していません。
+
+---
+
+## dateToday
+
+`Type: Date object`
+
+`Default: 'today'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateToday: 'today',
+});
+```
+
+`dateToday` パラメーターは、カレンダーで今日として扱う日を定義します。
+
+---
+
+## dateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMin: '1970-01-01',
+});
+```
+
+`dateMin` パラメーターは、カレンダーが扱う最小の日付を設定します。これより前の日付は扱われません。
+
+---
+
+## dateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  dateMax: '2470-12-31',
+});
+```
+
+`dateMax` パラメーターは、カレンダーが扱う最大の日付を設定します。これより後の日付は扱われません。
+
+---
+
+## displayDateMin
+
+`Type: String`
+
+`Default: '1970-01-01'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMin: '2022-07-01',
+});
+```
+
+このパラメーターは、ユーザーが選択できる最小の日付を設定します。指定した日付より前の日付は無効になり、選択できなくなります。
+
+<Info>
+  `displayDateMin` と `displayDateMax` は範囲外の日付を無効にするのに対し、`dateMin` と `dateMax` は範囲外の日付をそもそも生成しない点に注意してください。
+</Info>
+
+<Info>
+  `.set()` で `displayDateMin` に `null` を渡すと、明示的にデフォルト値へリセットされます。`undefined` を渡した場合（プロパティを省略した場合など）は、
+  現在の値が変更されずに残ります。
+</Info>
+
+---
+
+## displayDateMax
+
+`Type: String`
+
+`Default: '2470-12-31'`
+
+`Options: Date | number | 'YYYY-MM-DD' | 'today'`
+
+```ts
+new Calendar('#calendar', {
+  displayDateMax: '2024-07-01',
+});
+```
+
+このパラメーターは、ユーザーが選択できる最大の日付を設定します。指定した日付より後の日付は無効になり、選択できなくなります。
+
+<Info>
+  `displayDateMin` と `displayDateMax` は範囲外の日付を無効にするのに対し、`dateMin` と `dateMax` は範囲外の日付をそもそも生成しない点に注意してください。
+</Info>
+
+<Info>
+  `.set()` で `displayDateMax` に `null` を渡すと、明示的にデフォルト値へリセットされます。`undefined` を渡した場合（プロパティを省略した場合など）は、
+  現在の値が変更されずに残ります。
+</Info>
+
+---
+
+## displayDatesOutside
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDatesOutside: false,
+});
+```
+
+このパラメーターで、前月と翌月の日を表示するかどうかを指定できます。
+
+---
+
+## displayDisabledDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  displayDisabledDates: false,
+});
+```
+
+このパラメーターは、無効な日も含めてすべての日を表示するかどうかを決めます。
+
+---
+
+## displayMonthsCount
+
+ESM への移行：既存のオプションとコールバックはそのままにして、`vanilla-calendar-pro` から `months` をインポートし、呼び出さずにコンストラクターの `extensions: [months]` 配列に追加してください。
+
+`Type: Number`
+
+`Default: 2`
+
+`Options: from 2 to 12`
+
+```ts
+import { Calendar, months } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [months],
+  type: 'multiple',
+  displayMonthsCount: 2,
+});
+```
+
+`displayMonthsCount` パラメーターは、カレンダーの種類が `'multiple'` の場合に表示する月の数を定義します。
+
+---
+
+## disableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  disableDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+このパラメーターを使うと、範囲の指定に関係なく、指定した日付を無効にできます。
+
+<Info>日付範囲を指定するには、1 つの文字列内で日付の間に任意の区切り文字を使用します。</Info>
+
+---
+
+## disableAllDates
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableAllDates: true,
+});
+```
+
+このパラメーターはすべての日を無効にします。`enableDates` と組み合わせると便利です。
+
+---
+
+## disableDatesPast
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesPast: true,
+});
+```
+
+このパラメーターは過去の日をすべて無効にします。
+
+---
+
+## disableDatesGaps
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableDatesGaps: true,
+});
+```
+
+このパラメーターは、無効な日付を含む範囲内の日の選択を無効にします。`selectionDatesMode` パラメーターが `'multiple-ranged'` の場合にのみ機能します。
+
+---
+
+## disableWeekdays
+
+`Type: Number`
+
+`Default: []`
+
+`Options: from 0 to 6`
+
+```ts
+new Calendar('#calendar', {
+  disableWeekdays: [0, 6],
+});
+```
+
+このパラメーターを使うと、指定した曜日を無効にできます。0 から 6 の数値の配列を指定し、各数値が曜日の識別子を表します。JS の標準に従い、曜日は 0 から始まり、0 は日曜日です。
+
+---
+
+## disableToday
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  disableToday: true,
+});
+```
+
+このパラメーターで、カレンダーで今日の日付を選択できないようにできます。
+
+---
+
+## enableDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  enableDates: ['2022-08-11:2022-08-16', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+このパラメーターを使うと、範囲や無効な日付に関係なく、指定した日付を有効にできます。
+
+<Info>日付範囲を指定するには、1 つの文字列内で日付の間に任意の区切り文字を使用します。</Info>
+
+---
+
+## enableEdgeDatesOnly
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableEdgeDatesOnly: true,
+});
+```
+
+このパラメーターを使うと、中間の日付を無視して、ユーザーが選択した開始日と終了日だけを取得できます。`selectionDatesMode` が `'multiple-ranged'` の場合にのみ機能します。
+
+<Info>
+  このパラメーターを使用すると、日付範囲内の無効な日付は効果を持たなくなる点に注意してください。そのため、このオプションは
+  ユーザーが選択した開始日と終了日だけが必要な場合にのみ使用してください。
+</Info>
+
+---
+
+## enableDateToggle
+
+`Type: Boolean | Function`
+
+`Default: true`
+
+`Options: true | false | () => false`
+
+```ts
+new Calendar('#calendar', {
+  enableDateToggle: false,
+  // or with a callback
+  enableDateToggle: (self) => new Date(self.selectedDates[0]) < new Date(),
+});
+```
+
+`enableDateToggle` パラメーターが `true` の場合、またはコールバックが `true` を返す場合、選択された日付をもう一度クリックすると選択が解除されます。
+
+---
+
+## enableWeekNumbers
+
+ESM への移行：既存のオプションとコールバックはそのままにして、`vanilla-calendar-pro` から `weeks` をインポートし、呼び出さずにコンストラクターの `extensions: [weeks]` 配列に追加してください。
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableWeekNumbers: true,
+});
+```
+
+このパラメーターで、年間の週番号を表示するかどうかを指定できます。
+
+---
+
+## enableMonthChangeOnDayClick
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableMonthChangeOnDayClick: false,
+});
+```
+
+このパラメーターで、前月や翌月の日をクリックしたときに月を切り替えるかどうかを指定できます。
+
+---
+
+## enableJumpToSelectedDate
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+new Calendar('#calendar', {
+  enableJumpToSelectedDate: true,
+  selectedDates: ['2018-05-02'],
+});
+```
+
+このオプションを有効にし、`selectedMonth` と `selectedYear` を指定せずに 1 つ以上の選択された日付を指定した場合、カレンダーは最初の選択された日付に移動します。`false` の場合、カレンダーは常に現在の月と年で開きます。
+
+<Info>`selectedMonth` と `selectedYear` が指定されている場合、このオプションは効果がありません。</Info>
+
+---
+
+## enableCollapse
+
+拡張機能のないバージョンからアップグレードする場合も、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [weeks]` として `weeks` を登録してください。拡張機能を呼び出す必要はありません。インポートや登録だけでは機能は有効になりません。
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableCollapse: true,
+});
+```
+
+グリッドの下に、月表示を 1 週間に折りたたみ、再び展開するためのコントロールを追加します。表示される週は、最初の選択された日付が表示中の月に含まれる場合はその日付、含まれない場合は今日が表示中の月に含まれればその日、どちらでもなければ表示中の月の 1 日を基準にします。このコントロールは、マウスのあるデバイスでは山形の矢印、タッチデバイスでは上下にドラッグできるつまみとして表示されます。
+
+<Info>`enableCollapse` は `enableSwipe` や `animation` を必要としません。折りたたむと `type` が `'week'` に切り替わるため、`calendar.type` を読めば現在の状態がわかります。また、`set({ type: 'week' })` は切り替えのアニメーションなしで同じ動作をします。このオプションに対応しているのは `default` と `week` タイプだけで、それ以外のタイプでは `init()` でエラーがスローされます。</Info>
+
+---
+
+
+折りたたみと展開は `weeks` が担当し、`motion` なしでも動作します。コントロールをクリックするとビューが即座に切り替わります。ドラッグするには `weeks` と `motion` の両方を登録し、アニメーションで位置を確定させるには `animation` を有効にしてください。`motion` だけでは週表示は含まれません。
+
+## enableSwipe
+
+拡張機能のないバージョンからアップグレードする場合も、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [motion]` として `motion` を登録してください。拡張機能を呼び出す必要はありません。インポートや登録だけでは機能は有効になりません。
+
+`Type: Boolean`
+
+`Default: false`
+
+`Options: true | false`
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  enableSwipe: true,
+});
+```
+
+矢印でナビゲーションできるすべてのビュー（`default`、`multiple`、`week`、年リスト）で、カレンダーの内容を横にドラッグして次または前の期間に移動できるようにします。隣の期間がポインターに追従し、指を離したときの距離と速度によって、その位置に確定するか元に戻るかが決まります。
+
+<Info>
+  `enableSwipe` は `enableCollapse` や `animation` を必要としません。アニメーションがない場合、指を離すと即座に確定します。カレンダー上での縦スクロールは
+  ページに任され、スワイプは対応する矢印が表示されている間だけ使えるため、`dateMin`、`dateMax` やナビゲーションの制限に従います。ドラッグを終えた位置の
+  日付は選択されません。
+</Info>
+
+---
+
+## selectionDatesMode
+
+`Type: String | false`
+
+`Default: 'single'`
+
+`Options: 'single' | 'multiple' | 'multiple-ranged' | false`
+
+```ts
+new Calendar('#calendar', {
+  selectionDatesMode: 'single',
+});
+```
+
+このパラメーターは、1 日だけの選択か複数日の選択を許可するか、または日付の選択を完全に無効にするかを決めます。
+
+---
+
+## selectionMonthsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionMonthsMode: false,
+});
+```
+
+このパラメーターを使うと、月の選択を無効にする、矢印でのみ月の切り替えを許可する、またはあらゆる方法での月の切り替えを許可する、のいずれかを指定できます。
+
+---
+
+## selectionYearsMode
+
+`Type: Boolean`
+
+`Default: true`
+
+`Options: true | false | 'only-arrows'`
+
+```ts
+new Calendar('#calendar', {
+  selectionYearsMode: false,
+});
+```
+
+このパラメーターを使うと、年の選択を無効にする、矢印でのみ年の切り替えを許可する、またはあらゆる方法での年の切り替えを許可する、のいずれかを指定できます。
+
+---
+
+## selectionTimeMode
+
+拡張機能のないバージョンからアップグレードする場合も、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [time]` として `time` を登録してください。拡張機能を呼び出す必要はありません。インポートや登録だけでは機能は有効になりません。
+
+`Type: false | Number`
+
+`Default: false`
+
+`Options: false | 24 | 12`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+});
+```
+
+このパラメーターは時刻の選択を有効にします。数値で時刻の形式（24 時間制または 12 時間制）も指定できます。
+
+---
+
+## selectedDates
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedDates: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+このパラメーターを使うと、カレンダーの初期化時に選択される日付のリストを指定できます。
+
+<Info>日付範囲を指定するには、1 つの文字列内で日付の間に任意の区切り文字を使用します。</Info>
+
+---
+
+## selectedMonth
+
+`Type: Number`
+
+`Default: null`
+
+`Options: from 0 to 11 | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedMonth: 0,
+});
+```
+
+このパラメーターは、カレンダーの初期化時に表示する月を定義します。JS の標準に従い、月には 0 から 11 の番号が付きます。最初の選択された日付をデフォルトにするには、[enableJumpToSelectedDate](/ja/docs/reference/settings#enablejumptoselecteddate) を参照してください。
+
+---
+
+## selectedYear
+
+`Type: Number`
+
+`Default: null`
+
+`Options: Number (YYYY) | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedYear: 2022,
+});
+```
+
+このパラメーターは、カレンダーの初期化時に表示する年を定義します。最初の選択された日付をデフォルトにするには、[enableJumpToSelectedDate](/ja/docs/reference/settings#enablejumptoselecteddate) を参照してください。
+
+---
+
+## selectedHolidays
+
+`Type: String[] | Number[] | Date[]`
+
+`Default: null`
+
+`Options: ['YYYY-MM-DD'] | [Number] | [Date] | null`
+
+```ts
+new Calendar('#calendar', {
+  selectedHolidays: ['2022-08-10:2022-08-15', '2022-08-20', 1722152977141, new Date()],
+});
+```
+
+このパラメーターを使うと、祝日として扱う日付を指定できます。これらの日付には、スタイル設定用の追加のデータ属性が付与されます。
+
+<Info>日付範囲を指定するには、1 つの文字列内で日付の間に任意の区切り文字を使用します。</Info>
+
+---
+
+## selectedWeekends
+
+`Type: Number`
+
+`Default: [0, 6]`
+
+`Options: number[0-6]`
+
+```ts
+new Calendar('#calendar', {
+  selectedWeekends: [0, 6],
+});
+```
+
+このパラメーターを使うと、週末とする曜日を指定できます。0 から 6 の数値の配列を指定し、各数値が曜日の識別子を表します。JS の標準に従い、曜日は 0 から始まり、0 は日曜日です。
+
+---
+
+## selectedTime
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: String`
+
+`Default: null`
+
+`Options: 'hh:mm aa' | null`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectedTime: '03:44 AM',
+});
+```
+
+このパラメーターを使うと、カレンダーの初期化時に表示する時刻を設定できます。時刻は `'hh:mm aa'` 形式で指定し、`'aa'` は AM/PM の表示です。24 時間制を使う場合、`'aa'` は不要です。
+
+---
+
+## selectedTheme
+
+`Type: String`
+
+`Default: 'system'`
+
+`Options: string (custom theme) | 'light' | 'dark' | 'system'`
+
+```ts
+new Calendar('#calendar', {
+  selectedTheme: 'system',
+});
+```
+
+このパラメーターはカレンダーのテーマを定義します。デフォルトでは、テーマはユーザーのシステム設定またはサイトの設定によって決まります。
+
+---
+
+## timeMinHour
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 23`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeMinHour: 0,
+});
+```
+
+このパラメーターは、選択できる最小の時を指定します。
+
+---
+
+## timeMaxHour
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 23`
+
+`Options: from 0 to 23`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeMaxHour: 23,
+});
+```
+
+このパラメーターは、選択できる最大の時を指定します。
+
+---
+
+## timeMinMinute
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 0`
+
+`Options: from 0 to 59`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeMinMinute: 0,
+});
+```
+
+このパラメーターは、選択できる最小の分を指定します。
+
+---
+
+## timeMaxMinute
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 59`
+
+`Options: from 0 to 59`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeMaxMinute: 59,
+});
+```
+
+このパラメーターは、選択できる最大の分を指定します。
+
+---
+
+## timeControls
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: String`
+
+`Default: 'all'`
+
+`Options: 'all' | 'range'`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeControls: 'all',
+});
+```
+
+このパラメーターは時刻の選択方法を定義します。`'all'`（任意の方法）または `'range'`（コントローラーのみ）を指定します。
+
+---
+
+## timeStepHour
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 23`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeStepHour: 1,
+});
+```
+
+このパラメーターは、時のコントローラーのステップ幅を設定します。
+
+---
+
+## timeStepMinute
+
+ESM：コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定に残してください。
+
+`Type: Number`
+
+`Default: 1`
+
+`Options: from 1 to 59`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  timeStepMinute: 1,
+});
+```
+
+このパラメーターは、分のコントローラーのステップ幅を設定します。
+
+---
+
+## sanitizerHTML
+
+`Type: Function`
+
+`Default: (html) => html`
+
+```ts
+import DOMPurify from 'dompurify';
+
+new Calendar('#calendar', {
+  sanitizerHTML: (html) => DOMPurify.sanitize(html),
+});
+```
+
+`sanitizerHTML` は、`layouts`、`popups.html`、`onCreateDateRangeTooltip` の HTML を処理します。デフォルトの実装は文字列をそのまま返します。カレンダーには HTML サニタイザーは含まれていません。信頼できるマークアップだけを使用するか、外部のコンテンツをレンダリングする前に DOMPurify などのメンテナンスされているサニタイザーを設定してください。このフックは Content Security Policy を設定しません。`labels` と `styles` は HTML ではなく、それぞれリテラルのテキストと CSS クラス名として扱われます。
+
+<Info>
+  この例ではサードパーティライブラリ{' '}
+  <a href="https://www.npmjs.com/package/dompurify" target="_blank" rel="nofollow noreferrer">
+    `dompurify`
+  </a>
+  を使用している点に注意してください。`sanitizerHTML` はカレンダーの動作に必須ではありません。
+</Info>

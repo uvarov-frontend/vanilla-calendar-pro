@@ -1,0 +1,119 @@
+---
+title: インストールと使い方
+description: Vanilla Calendar Pro のインストール方法と使い方を学びます。パッケージマネージャーまたは CDN でカレンダーを組み込み、ニーズに合わせて設定しましょう。
+section: 1. はじめに
+---
+
+# インストールと使い方
+
+Vanilla Calendar Pro はどんなプロジェクトにも簡単に組み込めます。依存関係の管理方法やプロジェクトのビルド方法に応じて、いくつかのインストール方法があります。
+
+## パッケージマネージャーによるインストール
+
+Vanilla Calendar Pro をインストールする最も一般的な方法は、パッケージマネージャーを使うことです。この方法は、Node.js とモダンなビルドツールを使うプロジェクトに最適です。
+
+1. パッケージをインストールします。
+
+```bash
+npm install vanilla-calendar-pro
+# or
+yarn add vanilla-calendar-pro
+# or
+pnpm add vanilla-calendar-pro
+```
+
+2. ドキュメントの body 内に、任意の CSS セレクターを持つ HTML 要素を作成します。
+
+```html
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="calendar"></div>
+  </body>
+</html>
+```
+
+<Info>このセクションではデモのために CSS セレクターとして `#calendar` を使いますが、ほかの任意のセレクターを作成して使用できます。</Info>
+
+3. JavaScript または TypeScript ファイルでスクリプトをインポートし、カレンダーのインスタンスを作成して初期化します。
+
+```ts
+import { Calendar } from 'vanilla-calendar-pro';
+
+const calendar = new Calendar('#calendar', {
+  // Your settings
+});
+calendar.init();
+```
+
+4. 同じファイルでスタイルをインポートします。`index.css` ファイルには、カレンダーのレイアウトグリッドと、ライトテーマ・ダークテーマが含まれています。
+
+```ts
+import 'vanilla-calendar-pro/styles/index.css';
+```
+
+次のように、レイアウトとテーマのスタイルを個別に読み込むこともできます。
+
+```ts
+import 'vanilla-calendar-pro/styles/layout.css'; // Only the skeleton
+import 'vanilla-calendar-pro/styles/themes/light.css'; // Light theme
+import 'vanilla-calendar-pro/styles/themes/dark.css'; // Dark theme
+// or any other custom theme...
+```
+
+5. カスタム設定なしのシンプルな初期化の完全な例です。
+
+<Sandbox example="installation-and-usage" />
+
+<Info>この例でお気づきのとおり、ここでは **«Input»** フィールドを使わずにフラットなカレンダー表示を使っています。カレンダーを **«Input»** に組み込む方法については、[こちらの例](/ja/docs/learn/type-default#input)をご覧ください。</Info>
+
+## ローカルまたは CDN
+
+ビルドツールやパッケージマネージャーを使わずに Vanilla Calendar Pro をすばやく組み込みたい場合は、CDN 経由で読み込むか、最新バージョンの<a href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro@latest/package.zip" rel="noopener noreferrer" target="_blank">アーカイブをダウンロード</a>してローカルで読み込めます。
+
+```html
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+  </head>
+  <body style="display: flex; align-items: start">
+    <div id="calendar"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Destructure the Calendar constructor
+        const { Calendar } = window.VanillaCalendarPro;
+        // Create a calendar instance and initialize it.
+        const calendar = new Calendar('#calendar');
+        calendar.init();
+      });
+    </script>
+  </body>
+</html>
+```
+
+## extensions
+
+`motion` はアニメーションとジェスチャーを提供します。`time` は 12/24 時間制の時刻エディターを提供します。`annotations` は日付のポップアップの内容、モディファイア、範囲のツールチップを提供します。`weeks` は週表示、折りたたみ、週番号、曜日・週番号のコールバックを提供します。`months` は複数の月をまとめて表示・ナビゲーションします。ESM のバンドラーは、インポートして登録していない拡張機能を取り除けます。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+入力モードのカレンダー、日付・範囲の選択、月・年のピッカーはコアに含まれたままです。曜日の見出しに拡張機能は必要ありません。従来の `<script>` / CommonJS 向けのフル配布物には、5 つの拡張機能がすべて自動的に含まれます。CSS のインポートは変わりません。
+
+## モジュラー CSS
+
+既存の `styles/index.css`、`styles/layout.css`、`styles/themes/*.css` のインポートは、引き続きすべてのスタイルを含み、互換性も保たれます。CSS を減らしたい場合は、使用する部分だけを選んでください。JavaScript で拡張機能を登録しても、CSS は自動的には読み込まれません。
+
+任意で追加できる CSS パーツについては [スタイルリファレンス](/ja/docs/reference/styles) で説明しています。既存のフルスタイルシートのインポートも引き続きサポートされます。例では必要なパーツだけを使っています。

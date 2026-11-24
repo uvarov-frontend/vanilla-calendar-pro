@@ -1,0 +1,22 @@
+---
+title: 時刻の選択と変更
+description: カレンダーで時刻の選択と変更を有効にして処理する方法を学びます。時刻が変更されるたびにデータを取得できます。
+section: 5. アクションハンドラー
+---
+
+# 時刻の選択と変更
+
+拡張機能のないバージョンからアップグレードする場合は、既存のオプションとコールバックをそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [time]` として `time` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+`selectionTimeMode` パラメーターを有効にすると、時刻が変更されるたびに必要なデータを自動的に受け取れるようになります。
+
+<Sandbox example="handle-select-and-change-of-time" height={400} />

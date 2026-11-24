@@ -1,0 +1,50 @@
+---
+title: 時刻選択を有効にする
+description: カレンダーで時刻選択を有効にして設定する方法を学びます。12 時間制と 24 時間制、初期時刻の設定、時刻範囲とステップの管理に対応しています。
+section: 4. 日付と時刻の管理
+---
+
+# 時刻選択を有効にする
+
+拡張機能のないバージョンからアップグレードする場合は、既存のオプションとコールバックをそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [time]` として `time` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+デフォルトでは時刻選択は無効ですが、簡単に有効にして必要に応じて設定できます。
+
+## AM/PM 付きの 12 時間制
+
+12 時間制の時刻形式を有効にし、AM/PM マーカーを追加できます。
+
+<Sandbox example="date-management-enable-time-picker-12" height={400} />
+
+## 24 時間制
+
+AM/PM なしの 24 時間制の時刻形式が必要な場合は、次のように設定します。
+
+<Sandbox example="date-management-enable-time-picker-24" height={400} />
+
+## 独自の時刻を設定する
+
+カレンダーの初期化時に初期時刻を設定できます。24 時間制の場合、AM/PM マーカーを指定する必要はありません。
+
+<Sandbox example="date-management-enable-time-picker-your-time" height={400} />
+
+## 時刻範囲の管理
+
+選択可能な時刻の範囲を設定できます。
+
+<Sandbox example="date-management-enable-time-picker-range" height={400} />
+
+## 時刻ステップの管理
+
+さらに、分と時間のステップを設定できます。また、入力フィールドへの時刻の手動入力を無効にすることもできます。
+
+<Sandbox example="date-management-enable-time-picker-control" height={400} />

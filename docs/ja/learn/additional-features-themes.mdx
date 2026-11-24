@@ -1,0 +1,49 @@
+---
+title: テーマ
+description: カレンダーはカスタムテーマに対応しており、デフォルトでライトテーマとダークテーマを備えています。テーマの設定方法や、システム設定または独自テーマの使い方を学びます。
+section: 6. 追加機能
+---
+
+# テーマ
+
+カレンダーはカスタムテーマに対応しており、デフォルトでライトテーマとダークテーマを備えています。
+
+`themeAttrDetect` パラメーターが `false` に設定されている場合、テーマはユーザーのシステム設定または `selectedTheme` パラメーターによって決まります。
+
+カレンダーは、指定したタグと属性に基づいてサイトのテーマを自動的に検出し、追跡できます。このパラメーターの詳細はリファレンスガイドを参照してください。
+
+サイトが 1 つのテーマしかサポートしていない場合や、カレンダーの見た目を好みに合わせたい場合は、利用可能なテーマのいずれかを明示的に選択できます。
+
+次の例では、ダークテーマを強制的に使用しています。
+
+<Sandbox example="additional-features-themes-dark" themeDetection={false} />
+
+こちらは同じ例でライトテーマを使用したものです。
+
+<Sandbox example="additional-features-themes-light" themeDetection={false} />
+
+前述のとおり、独自のテーマを使用できます。自分で作成することも、カレンダーに用意されているものがあればインポートすることもできます。
+
+<Sandbox example="additional-features-themes-slate-light" themeDetection={false} />
+
+## モジュール式 CSS
+
+既存の `styles/index.css`、`styles/layout.css`、`styles/themes/*.css` のインポートは、引き続き完全かつ互換性のある形で使えます。CSS を減らしたい場合は、使用するパーツを選んでください。JavaScript の拡張機能を登録しても、CSS は自動では読み込まれません。
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+別の組み込みテーマを使う場合は、`light` の代わりに `dark` または `slate-light` を指定します。カスタムテーマに必要なのは、対応するレイアウトのパーツと独自の CSS だけです。テーマの検出と `selectedTheme` はこれまでどおり動作します。カレンダーが切り替える可能性のあるテーマはすべて読み込んでください。
+
+任意の CSS パーツは[スタイルリファレンス](/ja/docs/reference/styles)で説明しています。既存のスタイルシート全体のインポートも引き続きサポートされており、例では必要なパーツのみを使用しています。

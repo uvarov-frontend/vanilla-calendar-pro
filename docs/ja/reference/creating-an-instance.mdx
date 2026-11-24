@@ -1,0 +1,80 @@
+---
+title: インスタンスの作成
+description: CSS セレクターまたは HTML 要素を使って Vanilla Calendar Pro のインスタンスを作成する方法を説明します。カレンダーをラッパー内に初期化するか、要素のクリック時にポップアップとして初期化するかを設定できます。
+section: 1
+---
+
+# インスタンスの作成
+
+`new Calendar()` は **Vanilla Calendar Pro** のインスタンスを作成します。インスタンスはカレンダー本体とそのオプション、メソッドをカプセル化したものです。
+
+<Info>**Vanilla Calendar Pro** を `<script>` タグで読み込んだ場合、オブジェクトはグローバル変数 **window.VanillaCalendarPro** として利用できます。</Info>
+
+`Calendar` インスタンスは 2 つのパラメーターを受け取ります。1 つ目の**必須**パラメーターには **CSS セレクター**または **HTML 要素**を指定します。
+
+**CSS セレクター**または **HTML 要素**は、カレンダーを初期化するラッパー、または **«Input»** のいずれかを表します。
+
+カレンダーのラッパーとは、その内部でカレンダー本体が初期化される `<div>` タグのことです。
+
+カレンダーのラッパー内での初期化:
+
+```html
+<div id="calendar"></div>
+```
+
+```ts
+new Calendar('#calendar');
+// or
+const calendarEl = document.querySelector('#calendar');
+new Calendar(calendarEl);
+```
+
+このカレンダーにおける **«Input»** は、必ずしも `<input>` タグを意味するわけではありません。`<div>` など任意の HTML 要素を使用できます。
+
+**«Input»** をクリックすると、カレンダーを含むポップアップが表示されます。
+
+**«Input»** での初期化:
+
+```html
+<input type="text" id="input">
+<!-- or -->
+<div id="input"></div>
+```
+
+```ts
+new Calendar('#input', { inputMode: true });
+// or
+const calendarInput = document.querySelector('#input');
+new Calendar(calendarInput, {
+  inputMode: true,
+});
+```
+
+2 つ目の**任意**パラメーターは、カレンダーのオプションとアクションを定義するオブジェクトです。
+
+```ts
+new Calendar('#calendar', {
+  // Settings
+});
+```
+
+## extensions
+
+`motion` はアニメーションとジェスチャーを提供します。`time` は 12/24 時間制の時刻エディターを提供します。`annotations` は日付のポップアップの内容、モディファイア、範囲のツールチップを提供します。`weeks` は週表示、折りたたみ、週番号、曜日/週番号のコールバックを提供します。`months` は複数の月をまとめて表示・ナビゲーションします。ESM バンドラーでは、インポートおよび登録していない拡張機能を削除できます。
+
+```ts
+import { Calendar, motion, time, annotations } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
+const calendar = new Calendar('#calendar', {
+  extensions: [motion, time, annotations],
+  animation: true,
+  selectionTimeMode: 24,
+  popups: { '2026-09-21': { html: 'Event' } },
+});
+calendar.init();
+```
+
+拡張機能はインスタンスの作成時に確定します。後から `set()` や `update()` で有効にする機能のモジュールも、あらかじめ登録しておいてください。これらのメソッドで既存の機能のオプションは変更できますが、モジュールを追加・削除することはできません。同じオプションや extensions 配列を使い回すことも可能で、各カレンダーはそれぞれ独立した状態を持ちます。拡張機能なしで機能を有効にすると、`init()`、`set()`、`update()` の時点で内容がわかるエラーがスローされます。無効なままのオプションやコールバックにはモジュールは不要です。
+
+入力モードのカレンダー、日付/範囲の選択、月/年ピッカーはコアに含まれています。曜日の見出しにも拡張機能は不要です。従来の `<script>` / CommonJS 向けのフルディストリビューションには、5 つの拡張機能すべてが自動的に含まれます。CSS のインポートは変わりません。

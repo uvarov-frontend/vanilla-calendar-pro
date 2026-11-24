@@ -1,0 +1,284 @@
+---
+title: スタイル
+description: styles パラメーターを使ってカレンダーの CSS クラスをカスタマイズするための総合ガイドです。デフォルトのクラスの一覧とその置き換え方法を説明します。
+section: 8
+---
+
+# スタイル
+
+`styles` を使うと、カレンダー内のあらゆる CSS クラスを上書きできます。どの値も CSS クラスのリストに置き換えられます。
+
+## モジュール化された CSS
+
+既存の `styles/index.css`、`styles/layout.css`、`styles/themes/*.css` のインポートは、これまでどおりすべてのスタイルを含み、互換性も保たれています。CSS を削減したい場合は、使用するパーツだけを選んでください。JavaScript で拡張機能を登録しても、CSS は自動では読み込まれません。
+
+各ファミリーには `core`、`motion`、`time`、`annotations`、`weeks`、`months` が用意されています。`core` と、有効にするすべての拡張機能（後から `set()` で有効にするオプションも含む）のスタイルをインポートしてください。
+
+| パス | 内容 |
+| --- | --- |
+| `styles/index.css` | すべてのレイアウトルールと light/dark テーマ |
+| `styles/{part}.css` | 選択したパーツ（レイアウトと light/dark テーマを含む） |
+| `styles/layout/{part}.css` | 選択したレイアウトルールのみ（テーマなし） |
+| `styles/themes/{theme}/{part}.css` | 1 つのテーマの選択したパーツのみ |
+
+時刻選択があり、light/dark を自動で切り替えるカレンダーの場合:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/core.css';
+import 'vanilla-calendar-pro/styles/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+}).init();
+```
+
+テーマを 1 つだけ個別に選ぶ場合は、レイアウトのパーツと対応するテーマのパーツを使用します。たとえば、時刻選択がある light テーマのカレンダーの場合:
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/layout/core.css';
+import 'vanilla-calendar-pro/styles/layout/time.css';
+import 'vanilla-calendar-pro/styles/themes/light/core.css';
+import 'vanilla-calendar-pro/styles/themes/light/time.css';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  selectionTimeMode: 24,
+  selectedTheme: 'light',
+}).init();
+```
+
+別の組み込みテーマを使う場合は、`light` の代わりに `dark` または `slate-light` を指定します。カスタムテーマには、対応するレイアウトのパーツと独自の CSS だけが必要です。テーマの検出と `selectedTheme` はこれまでどおり動作します。カレンダーが切り替わる可能性のあるテーマはすべて読み込んでください。
+
+同じルールを二重に読み込まないよう、レイヤーごとにフルファイルかモジュールファイルのどちらか一方を選んでください。CSS クラス、セレクター、ブラウザーサポート、公開されている `--vc-*` による上書きは変わりません。`motion` や `months` など一部のテーマパーツにはテーマ固有のルールがなく、空のスタイルシートとして有効です。
+
+すべての拡張機能を使う場合は、フルのスタイルシートを使い続けてください。6 つのパーツをすべてインポートするよりも圧縮効率が高くなります。
+
+ダウンロード用の `package.zip` には 5 つの完全なスタイルシートが含まれています。モジュール化された CSS は npm パッケージと CDN の直接 URL から利用できます。
+
+## CSS クラス
+
+以下はデフォルトのクラスの一覧です。
+
+```ts
+new Calendar('#calendar', {
+  styles: {
+    // Basics
+    calendar: 'vc',
+    controls: 'vc-controls',
+    grid: 'vc-grid',
+    column: 'vc-column',
+
+    // Header
+    header: 'vc-header',
+    headerContent: 'vc-header__content',
+    month: 'vc-month',
+    year: 'vc-year',
+    arrowPrev: 'vc-arrow vc-arrow_prev',
+    arrowNext: 'vc-arrow vc-arrow_next',
+
+    // Month / year picker
+    wrapper: 'vc-wrapper',
+    content: 'vc-content',
+    months: 'vc-months',
+    monthsRow: 'vc-months__row',
+    monthsCell: 'vc-months__cell',
+    monthsMonth: 'vc-months__month',
+    years: 'vc-years',
+    yearsRow: 'vc-years__row',
+    yearsCell: 'vc-years__cell',
+    yearsYear: 'vc-years__year',
+
+    // Week row / week numbers
+    week: 'vc-week',
+    weekDay: 'vc-week__day',
+    weekDayBtn: 'vc-week__day-btn',
+    weekNumbers: 'vc-week-numbers',
+    weekNumbersTitle: 'vc-week-numbers__title',
+    weekNumbersContent: 'vc-week-numbers__content',
+    weekNumber: 'vc-week-number',
+
+    // Dates
+    collapse: 'vc-collapse',
+    dates: 'vc-dates',
+    datesRow: 'vc-dates__row',
+    date: 'vc-date',
+    dateBtn: 'vc-date__btn',
+
+    // Popups and tooltip
+    datePopup: 'vc-date__popup',
+    dateRangeTooltip: 'vc-date-range-tooltip',
+
+    // Time controls
+    time: 'vc-time',
+    timeContent: 'vc-time__content',
+    timeHour: 'vc-time__hour',
+    timeMinute: 'vc-time__minute',
+    timeKeeping: 'vc-time__keeping',
+    timeRanges: 'vc-time__ranges',
+    timeRange: 'vc-time__range',
+  },
+});
+```
+
+---
+
+## CSS 変数
+
+組み込みテーマ（`light`、`dark`、`slate-light`）のすべての色は、テーマ本来の色をフォールバックとする CSS カスタムプロパティで定義されています。そのため、CSS クラスに手を加えたり、テーマの上書きが正しくカスケードされるかを気にしたりすることなく、いくつかの変数を設定するだけでカレンダーの見た目を変更できます。
+
+```css
+:root {
+  --vc-date-selected-bg: #7c3aed;
+  --vc-date-selected-color: #fff;
+}
+```
+
+変数を設定しない場合、カレンダーはこれまでとまったく同じように描画されます。変数を明示的に設定しない限り、何も変わりません。
+
+<Info>`:root` に変数を設定すると、すべてのテーマに一度に適用されます（light/dark/slate-light はすべて同じ変数名を参照します）。1 つのテーマだけを変更したい場合は、`[data-vc-theme='dark'] { --vc-date-selected-bg: #7c3aed; }` のように、そのテーマのセレクターに上書きを限定してください。</Info>
+
+### 基本
+
+| 変数                       | light      | dark       | slate-light |
+| -------------------------- | ---------- | ---------- | ----------- |
+| `--vc-bg`                  | white      | slate-900  | slate-100   |
+| `--vc-color`               | slate-900  | white      | gray-800    |
+| `--vc-focus-outline-color` | orange-300 | orange-300 | blue-300    |
+
+### ヘッダー / タイトル
+
+| 変数                        | light     | dark      | slate-light |
+| --------------------------- | --------- | --------- | ----------- |
+| `--vc-header-color`         | slate-900 | white     | gray-800    |
+| `--vc-title-color`          | slate-900 | white     | gray-800    |
+| `--vc-title-color-hover`    | slate-500 | slate-500 | gray-600    |
+| `--vc-title-color-disabled` | slate-300 | slate-700 | gray-400    |
+
+### 月 / 年ピッカー
+
+| 変数                               | light     | dark      | slate-light |
+| ---------------------------------- | --------- | --------- | ----------- |
+| `--vc-months-years-bg`             | white     | slate-900 | slate-100   |
+| `--vc-months-years-color`          | slate-500 | white     | gray-600    |
+| `--vc-months-years-bg-hover`       | slate-100 | slate-800 | slate-200   |
+| `--vc-months-years-color-disabled` | slate-300 | slate-700 | gray-400    |
+| `--vc-months-years-bg-selected`    | cyan-500  | slate-500 | blue-500    |
+| `--vc-months-years-color-selected` | white     | white     | white       |
+
+### 折りたたみコントロール
+
+| 変数                  | light     | dark      | slate-light |
+| --------------------- | --------- | --------- | ----------- |
+| `--vc-collapse-color` | slate-300 | slate-600 | slate-300   |
+
+### 曜日行 / 週番号
+
+| 変数                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-week-numbers-title-color` | slate-500 | white     | gray-600    |
+| `--vc-week-number-color`        | slate-500 | white     | gray-600    |
+| `--vc-week-number-color-hover`  | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-color`           | slate-500 | white     | gray-600    |
+| `--vc-week-day-color-hover`     | slate-600 | slate-300 | gray-800    |
+| `--vc-week-day-off-color`       | rose-500  | rose-500  | red-500     |
+| `--vc-week-day-off-color-hover` | rose-600  | rose-600  | red-600     |
+
+### 日付
+
+| 変数                                         | light     | dark      | slate-light |
+| -------------------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-color`                            | slate-900 | slate-400 | gray-800    |
+| `--vc-date-color-hover` <sup>dark のみ</sup> | —         | slate-200 | —           |
+| `--vc-date-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-hover-edge-bg`                    | slate-200 | slate-700 | slate-300   |
+| `--vc-date-disabled-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-outside-color`                    | slate-400 | slate-600 | gray-400    |
+| `--vc-date-today-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-today-color`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-today-outside-color`              | slate-500 | slate-600 | gray-600    |
+| `--vc-date-selected-bg`                      | cyan-500  | cyan-500  | blue-500    |
+| `--vc-date-selected-color`                   | white     | white     | white       |
+| `--vc-date-selected-outside-bg`              | slate-300 | slate-700 | slate-300   |
+| `--vc-date-selected-outside-color`           | slate-500 | slate-300 | gray-600    |
+
+### 週末 / 祝日
+
+| 変数                                                         | light     | dark      | slate-light |
+| ------------------------------------------------------------ | --------- | --------- | ----------- |
+| `--vc-date-weekend-color`                                    | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-bg-hover`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-bg`                                 | rose-50   | slate-800 | slate-200   |
+| `--vc-date-weekend-hover-edge-bg`                            | rose-100  | slate-700 | slate-300   |
+| `--vc-date-weekend-disabled-color`                           | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-today-color`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-today-disabled-color`                     | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-outside-bg`                               | white     | slate-900 | slate-100   |
+| `--vc-date-weekend-outside-color`                            | slate-400 | slate-600 | gray-400    |
+| `--vc-date-weekend-outside-color-hover` <sup>dark のみ</sup> | —         | slate-300 | —           |
+| `--vc-date-weekend-outside-bg-hover`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-outside-hover-bg`                         | slate-100 | slate-800 | slate-200   |
+| `--vc-date-weekend-today-outside-color`                      | slate-400 | slate-400 | gray-400    |
+| `--vc-date-weekend-disabled-outside-color`                   | slate-300 | slate-700 | gray-400    |
+| `--vc-date-weekend-selected-bg`                              | rose-500  | rose-500  | red-500     |
+| `--vc-date-weekend-selected-color`                           | white     | white     | white       |
+
+### 選択された範囲（`multiple-ranged`）
+
+| 変数                                   | light           | dark            | slate-light     |
+| -------------------------------------- | --------------- | --------------- | --------------- |
+| `--vc-date-range-middle-bg`            | cyan-500（70%） | cyan-500（80%） | blue-500（80%） |
+| `--vc-date-range-middle-color`         | white           | white           | white           |
+| `--vc-date-range-middle-outside-bg`    | slate-200       | slate-800       | slate-200       |
+| `--vc-date-range-middle-outside-color` | slate-500       | slate-300       | gray-600        |
+| `--vc-date-range-middle-weekend-bg`    | rose-500（70%） | rose-500（80%） | red-500（80%）  |
+| `--vc-date-range-middle-weekend-color` | white           | white           | white           |
+
+### ポップアップとツールチップ
+
+| 変数                            | light     | dark      | slate-light |
+| ------------------------------- | --------- | --------- | ----------- |
+| `--vc-date-popup-bg`            | white     | slate-800 | white       |
+| `--vc-date-popup-color`         | slate-900 | white     | gray-800    |
+| `--vc-date-range-tooltip-bg`    | slate-50  | slate-800 | slate-50    |
+| `--vc-date-range-tooltip-color` | slate-500 | slate-400 | slate-500   |
+
+### 時刻コントロール
+
+| 変数                                                 | light      | dark      | slate-light |
+| ---------------------------------------------------- | ---------- | --------- | ----------- |
+| `--vc-time-border-color`                             | slate-300  | slate-800 | gray-300    |
+| `--vc-time-separator-color`                          | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-input-color`                              | slate-900  | white     | gray-800    |
+| `--vc-time-input-bg-hover`                           | orange-100 | slate-700 | blue-100    |
+| `--vc-time-keeping-color`                            | slate-500  | slate-500 | gray-600    |
+| `--vc-time-keeping-color-hover` <sup>dark のみ</sup> | —          | slate-400 | —           |
+| `--vc-time-range-bg`                                 | white      | slate-900 | slate-100   |
+| `--vc-time-range-track-color`                        | slate-300  | slate-600 | slate-300   |
+| `--vc-time-range-thumb-bg`                           | white      | slate-800 | slate-100   |
+| `--vc-time-range-thumb-border`                       | slate-300  | slate-600 | gray-300    |
+| `--vc-time-range-thumb-border-hover`                 | slate-400  | slate-400 | gray-400    |
+
+<Info>
+  「dark のみ」と記載された 3 つの変数が存在するのは、dark テーマのこれらの要素にだけ、light/slate-light テーマにはない追加のホバー状態があるためです。
+  他のテーマには、これらの変数で上書きする対象はありません。
+</Info>
+
+---
+
+## サイズ調整
+
+カレンダーのサイズはすべて `rem` で指定されているため、ルートのフォントサイズに合わせて拡大縮小されます。ページがルートのフォントサイズをブラウザーのデフォルトである `16px` から変更している場合（Bootstrap 3 などの古いフレームワークでよく見られ、通常は `10px`）、カレンダーは正しくないスケールで表示されます。`transform` を 1 つ指定するだけで本来のサイズに戻せます:
+
+```css
+[data-vc='calendar'] {
+  transform: scale(16 / <root font-size in px>);
+}
+```
+
+たとえば、ルートが `10px` の場合は `transform: scale(1.6);` とします。

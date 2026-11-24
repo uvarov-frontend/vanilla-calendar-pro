@@ -1,0 +1,400 @@
+---
+title: アクション
+description: カレンダーに設定できるさまざまなアクションについて説明します。日付、週、月、年、矢印のクリックに対するイベントハンドラーのほか、時刻の変更やツールチップの表示も扱います。
+section: 5
+---
+
+# アクション
+
+## onClickDate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickDate(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickDate(self, event) {},
+});
+```
+
+このメソッドは、カレンダーの日をクリックした後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - マウスイベント
+
+<Info>
+  各日の HTML 要素には、`YYYY-MM-DD` 形式の完全な日付を持つ data 属性が含まれていることを覚えておいてください。
+  日、月、年を個別に取得したい場合は、標準の JS メソッドを使用できます。
+  例: `new Date('2022-11-07').getDate()` は `7` を返します。
+</Info>
+
+---
+
+## onClickWeekDay()
+
+ESM への移行: 既存のオプションとコールバックはそのままにし、`vanilla-calendar-pro` から `weeks` をインポートして、呼び出さずにコンストラクターの `extensions: [weeks]` 配列に追加してください。
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekDay(self, day, dateEls, event) => void | null`
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  onClickWeekDay(self, day, dateEls, event) {},
+});
+```
+
+このメソッドは、カレンダーの曜日をクリックした後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `day` - 曜日
+- `dateEls` - 日の配列(HTML 要素)
+- `event` - マウスイベント
+
+---
+
+## onClickWeekNumber()
+
+ESM への移行: 既存のオプションとコールバックはそのままにし、`vanilla-calendar-pro` から `weeks` をインポートして、呼び出さずにコンストラクターの `extensions: [weeks]` 配列に追加してください。
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickWeekNumber(self, number, year, dateEls, event) => void | null`
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  onClickWeekNumber(self, number, year, dateEls, event) {},
+});
+```
+
+このメソッドは、カレンダーの週番号をクリックした後に呼び出されます。ただし、動作させるには `enableWeekNumbers` パラメーターを `true` に設定する必要があります。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `number` - 週番号
+- `year` - その週の年
+- `dateEls` - 日の配列(HTML 要素)
+- `event` - マウスイベント
+
+---
+
+## onClickTitle()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickTitle(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickTitle(self, event) {},
+});
+```
+
+このメソッドは、カレンダーの月または年のタイトルをクリックした後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - マウスイベント
+
+---
+
+## onClickMonth()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickMonth(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickMonth(self, event) {},
+});
+```
+
+このメソッドは、カレンダーで月を選択した後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - マウスイベント
+
+---
+
+## onClickYear()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickYear(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickYear(self, event) {},
+});
+```
+
+このメソッドは、カレンダーで年を選択した後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - マウスイベント
+
+---
+
+## onClickArrow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onClickArrow(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onClickArrow(self, event) {},
+});
+```
+
+このメソッドは、カレンダーの矢印をクリックした後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - マウスイベント
+
+---
+
+## onChangeTime()
+
+ESM: コンストラクターの `extensions` 配列に `time` が必要です。このオプションとその値は Calendar の設定にそのまま残してください。
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeTime(self, event, isError) => void | null`
+
+```ts
+import { Calendar, time } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [time],
+  onChangeTime(self, event) {},
+});
+```
+
+このメソッドは、カレンダーで時刻を変更した後に呼び出されます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - change イベント
+- `isError` - ユーザーが不正な時刻を入力した場合に true を返します。
+
+---
+
+## onChangeToInput()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onChangeToInput(self, event) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onChangeToInput(self, event) {},
+});
+```
+
+このメソッドを動作させるには、`inputMode` パラメーターを `true` に設定する必要があります。
+このメソッドは、カレンダーの日をクリックした後、または何らかの方法で時刻を変更した後に呼び出されます。
+次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `event` - イベント
+
+---
+
+## onCreateDateRangeTooltip()
+
+ESM への移行: 既存のオプションとコールバックはそのままにし、`vanilla-calendar-pro` から `annotations` をインポートして、呼び出さずにコンストラクターの `extensions: [annotations]` 配列に追加してください。
+
+この API は HTML を受け取ります。信頼できるマークアップを使用するか、コンテンツがユーザーやその他の信頼できないソースに由来する場合は [`sanitizerHTML`](/ja/docs/reference/settings#sanitizerhtml) を設定してください。デフォルトのコールバックはサニタイズを行いません。
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) => void | null`
+
+```ts
+import { Calendar, annotations } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [annotations],
+  onCreateDateRangeTooltip(self, dateEl, tooltipEl, dateElBCR, mainElBCR) {},
+});
+```
+
+日付範囲のツールチップを作成できます。`selectionDatesMode` パラメーターが `'multiple-ranged'` に設定されている場合、日をクリックしたときやホバーしたときに呼び出されます。
+次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `dateEl` - 日付の HTML 要素
+- `tooltipEl` - ツールチップの HTML 要素
+- `dateElBCR` - 日付の HTML 要素の位置とサイズの情報を持つオブジェクト
+- `mainElBCR` - カレンダーのメイン HTML 要素の位置とサイズの情報を持つオブジェクト
+
+---
+
+## onCreateDateEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateDateEls(self, dateEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateDateEls(self, dateEl) {},
+});
+```
+
+このメソッドは、カレンダーの初期化時と何らかの変更があるたびに呼び出されます。各日の情報にアクセスできます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `dateEl` - 日付の HTML 要素
+
+---
+
+## onCreateMonthEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateMonthEls(self, monthEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateMonthEls(self, monthEl) {},
+});
+```
+
+このメソッドは、カレンダーのタイプが `'month'` に設定されたときに呼び出されます。ユーザーが月のタイトルをクリックしたときや、`type = 'month'` パラメーターを指定して初期化したときにも、カレンダーのタイプは `'month'` になります。各月の情報にアクセスできます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `monthEl` - 月の HTML 要素
+
+---
+
+## onCreateYearEls()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onCreateYearEls(self, yearEl) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onCreateYearEls(self, yearEl) {},
+});
+```
+
+このメソッドは、カレンダーのタイプが `'year'` に設定されたときに呼び出されます。ユーザーが年のタイトルをクリックしたときや、`type = 'year'` パラメーターを指定して初期化したときに、カレンダーのタイプは `'year'` になります。各年の情報にアクセスできます。次のパラメーターを受け取れます。
+- `self` - 初期化されたカレンダーへの参照
+- `yearEl` - 年の HTML 要素
+
+---
+
+## onInit()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onInit(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onInit(self) {},
+});
+```
+
+このメソッドは、カレンダーの初期化時に呼び出されます。`inputMode` パラメーターが `true` に設定されている場合は、カレンダーを初めて表示したときに実行されます。その時点でカレンダーが初期化されるためです。
+- `self` - 初期化されたカレンダーへの参照
+
+---
+
+## onUpdate()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onUpdate(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onUpdate(self) {},
+});
+```
+
+このメソッドは、`.update()` メソッドでカレンダーを更新またはリセットしたときに呼び出されます。
+- `self` - 初期化されたカレンダーへの参照
+
+---
+
+## onDestroy()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onDestroy(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onDestroy(self) {},
+});
+```
+
+このメソッドは、カレンダーが破棄されたときに呼び出されます。
+- `self` - 初期化されたカレンダーへの参照
+
+---
+
+## onShow()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onShow(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onShow(self) {},
+});
+```
+
+このメソッドは、カレンダーがユーザーに表示されたときに呼び出されます。ただし、`inputMode` パラメーターが `true` に設定されている場合に限ります。
+- `self` - 初期化されたカレンダーへの参照
+
+---
+
+## onHide()
+
+`Type: Function`
+
+`Default: null`
+
+`Options: onHide(self) => void | null`
+
+```ts
+new Calendar('#calendar', {
+  onHide(self) {},
+});
+```
+
+このメソッドは、カレンダーが非表示になったときに呼び出されます。ただし、`inputMode` パラメーターが `true` に設定されている場合に限ります。
+- `self` - 初期化されたカレンダーへの参照

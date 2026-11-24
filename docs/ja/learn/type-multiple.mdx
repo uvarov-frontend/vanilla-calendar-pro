@@ -1,0 +1,21 @@
+---
+title: 複数
+description: "'multiple' タイプのカレンダーを使って複数の月を表示し、日付を選択する方法を学びます。selectionDatesMode パラメーターで日付範囲の選択を設定できます。"
+section: 2. カレンダーの種類
+---
+
+# 複数
+
+ESM への移行：既存のオプションとコールバックはそのまま維持し、`vanilla-calendar-pro` から `months` をインポートして、呼び出さずにコンストラクターの `extensions: [months]` 配列に追加します。
+
+`'multiple'` タイプのカレンダーは複数の月を表示し、それぞれの月で日を選択できます。この種類のカレンダーは、ユーザーが異なる月にまたがって複数の日付を選択する必要がある場合に便利です。そのためには、`selectionDatesMode` パラメーターを使用し、その値を `'multiple'` に設定します。
+
+`'multiple'` タイプのカレンダーを作成するコード例：
+
+<Sandbox example="type-multiple" vertically={false} height={680} />
+
+日付範囲を選択する必要がある場合は、`selectionDatesMode` パラメーターの値を `'multiple-ranged'` に設定します。これにより、個々の日ではなく日付範囲を選択できるようになります。
+
+<Info>`selectionDatesMode` パラメーターが `'multiple-ranged'` に設定されている場合、パフォーマンスを最適化するため、選択された日付の配列には開始日と終了日のみが含まれます。`enableEdgeDatesOnly` を使ってこれを無効にし、選択されたすべての日付を取得できます。</Info>
+
+<Sandbox example="type-multiple-ranged" vertically={false} height={680} />

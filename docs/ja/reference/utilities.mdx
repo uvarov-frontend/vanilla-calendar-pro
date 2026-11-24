@@ -1,0 +1,35 @@
+---
+title: ユーティリティ
+description: Vanilla Calendar Pro に付属する 4 つの便利な日付ユーティリティを紹介します。日付のフォーマット、目的の形式への変換、週番号の算出が行えます。
+section: 2
+---
+
+# ユーティリティ
+
+カレンダーには日付のフォーマットを簡単に扱うためのユーティリティが付属しています。
+
+ユーティリティは全部で 4 つあり、カレンダーを使わなくてもコード内のどこでも利用できる関数です。
+
+1. **`parseDates(dates: string[])`** — 文字列形式 `FormatDateString ('YYYY-MM-DD')` の日付を区切り文字でつないだ日付範囲の配列を受け取ります。文字列形式 `FormatDateString ('YYYY-MM-DD')` の日付の配列を返します。
+```ts
+import { parseDates } from 'vanilla-calendar-pro/utils';
+parseDates(['2024-12-12:2024-12-15']); // return: ['2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15']
+```
+
+2. **`getDateString(date: Date)`** — `Date` 型の日付を受け取ります。文字列形式 `FormatDateString ('YYYY-MM-DD')` の日付を返します。
+```ts
+import { getDateString } from 'vanilla-calendar-pro/utils';
+getDateString(new Date('24.12.2024')); // return: 2024-12-24
+```
+
+3. **`getDate(date: FormatDateString)`** — `FormatDateString ('YYYY-MM-DD')` などの文字列形式の日付を受け取ります。`Date` 型の日付を返します。
+```ts
+import { getDate } from 'vanilla-calendar-pro/utils';
+getDate('2024-12-12'); // return: Tue Dec 24 2024 00:00:00 GMT
+```
+
+4. **`getWeekNumber(date: FormatDateString, weekStartDay: WeekDayID)`** — 文字列形式 `FormatDateString ('YYYY-MM-DD')` の日付と、週の開始曜日（0〜6 の `number` 型の `id`）を受け取ります。引数で指定した日付について、オブジェクト `{ year: yearNumber, week: weekNumber }` を返します。
+```ts
+import { getWeekNumber } from 'vanilla-calendar-pro/utils';
+getWeekNumber('2024-12-12', 1); // return: {year: 2024, week: 50}
+```

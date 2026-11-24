@@ -1,0 +1,51 @@
+---
+title: 折りたたみ
+new: true
+description: 訪問者が月表示を 1 週間分に折りたたみ、再び展開できるようにする方法を学びます。
+section: 6. 追加機能
+---
+
+# 折りたたみ
+
+折りたたみと展開は `weeks` が担当し、`motion` なしでも動作します。この場合、コントロールをクリックするとビューが即座に切り替わります。ドラッグには `weeks` と `motion` の両方を登録し、確定時のアニメーションには `animation` を有効にしてください。`motion` だけでは週表示は含まれません。
+
+拡張機能がないバージョンからアップグレードする場合、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [weeks]` として `weeks` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, weeks } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks],
+  enableCollapse: true,
+}).init();
+```
+
+`enableCollapse` はグリッドの下にコントロールを追加します。クリックすると月表示が 1 週間分に折りたたまれ、もう一度クリックすると展開されます。このオプションはデフォルトで無効で、`enableSwipe` や `animation` は必要ありません。
+
+<Sandbox example="additional-features-collapse" height={420} />
+
+コントロールはデバイスに合わせて変化します。マウスではシェブロンになり、タッチスクリーンでは上下にドラッグできるグラバーになって、カレンダーは指の動きに最後まで追従します。ゆっくりドラッグした場合は移動距離の 4 分の 1 に達する必要がありますが、離したときの速度も考慮されるため、素早くフリックすればそれより早く確定できます。それ以外の場合、カレンダーは元に戻ります。
+
+対象の週は、最初の選択された日付が表示中の月に含まれていれば、その日付から決まります。含まれていない場合は、今日が表示中の月に含まれていれば今日を使い、最終的なフォールバックとして表示中の月の初日を使います。
+
+折りたたみ中は、矢印で 1 週間ずつ移動します。再び展開すると、同じ週を含む月に戻ります。
+
+<Info>折りたたむと `type` が `'week'` に切り替わるため、`calendar.type` で現在の状態がわかり、`set({ type: 'week' })` でもトランジションなしで同じ操作ができます。このオプションを受け付けるのは `default` と `week` タイプのみで、`multiple` と組み合わせると `init()` でエラーがスローされます。</Info>
+
+## タイミング
+
+トランジションには [`animation`](/ja/docs/reference/settings) オプションが使われます。そのタイミングは `collapse` グループで個別に設定できます。
+
+```ts
+import { Calendar, weeks, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [weeks, motion],
+  animation: { collapse: { duration: 450 } },
+  enableCollapse: true,
+});
+```
+
+<Info>
+  `animation` がない場合、または訪問者が `prefers-reduced-motion: reduce` で動きの軽減を求めている場合でも、ドラッグは指に追従しますが、離したときには即座に確定します。
+</Info>

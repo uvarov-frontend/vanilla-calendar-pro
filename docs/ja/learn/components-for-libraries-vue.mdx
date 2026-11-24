@@ -1,0 +1,65 @@
+---
+title: Vue コンポーネント
+description: Vanilla Calendar Pro 用の Vue コンポーネントを作成して使う方法を説明します。コンポーネントの作成から Vue アプリケーションへの組み込みまでを詳しく解説するガイドです。
+section: 7. ライブラリ向けコンポーネント
+---
+
+# Vue コンポーネント
+
+<Info>
+  この例は Vue 3.2 以降 (`<script setup>` を使った Composition API) を対象としています。
+</Info>
+
+例として、Vanilla Calendar Pro 用のシンプルな Vue コンポーネントを作成してみましょう。`VanillaCalendar.vue` という名前のファイルを作成し、次のコードをコピーします。
+
+```vue
+<script setup lang="ts">
+import { onMounted, ref, useAttrs } from 'vue';
+import { Calendar, Options } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css'
+
+const calendarRef = ref(null);
+const attributes = useAttrs();
+const { config } = defineProps<{ config?: Options }>();
+
+onMounted(() => {
+  if (!calendarRef.value) return;
+  const calendar = new Calendar(calendarRef.value, config);
+  calendar.init();
+});
+</script>
+
+<template>
+  <div v-bind="attributes" ref="calendarRef"></div>
+</template>
+```
+
+次に、作成した `VanillaCalendar` コンポーネントを、カレンダーを表示したい Vue アプリケーションにインポートします。
+
+```vue
+<script setup lang="ts">
+// ...
+import VanillaCalendar from './VanillaCalendar.vue';
+// ...
+</script>
+```
+
+作成したコンポーネントを使用します。
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar />
+  <!-- -->
+</template>
+```
+
+`VanillaCalendar` コンポーネントは、`<div>` タグがサポートする任意の HTML 属性に加えて、カレンダーを設定するための `config` パラメーターを受け取れます。
+
+```vue
+<template>
+  <!-- -->
+  <VanillaCalendar :config="{ type: 'multiple' }" />
+  <!-- -->
+</template>
+```

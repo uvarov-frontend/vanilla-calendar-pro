@@ -1,0 +1,56 @@
+---
+title: スワイプ
+new: true
+description: 訪問者がカレンダーを横にドラッグして、次または前の期間に移動できるようにする方法を学びます。
+section: 6. 追加機能
+---
+
+# スワイプ
+
+拡張機能がないバージョンからアップグレードする場合、既存のオプションとコールバックはそのまま使えます。ESM では名前付きインポートを追加し、コンストラクターで `extensions: [motion]` として `motion` を登録してください。拡張機能そのものは呼び出さないでください。インポートや登録だけでは機能は有効になりません。
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  enableSwipe: true,
+}).init();
+```
+
+`enableSwipe` を使うと、カレンダーの内容を横方向にドラッグできます。デフォルトでは無効で、`enableCollapse` や `animation` とは独立して動作し、矢印で移動できるすべてのビュー(`default`、`multiple`、`week`、年リスト)で有効にできます。ジェスチャーによる移動量は、現在のビューで矢印が移動する量と同じです。
+
+<Sandbox example="additional-features-swipe" height={420} />
+
+隣の期間はジェスチャーの開始と同時にレンダリングされ、ポインターと一緒に移動するため、ドラッグ中は空白ではなく移動先が表示されます。ゆっくりドラッグした場合は幅の 4 分の 1 に達する必要がありますが、離したときの速度も考慮されるため、素早くフリックすればそれより早く確定できます。それ以外の場合、内容は元の位置に戻ります。
+
+<Info>
+  ジェスチャーは横軸のみを扱うため、カレンダーの上でもページは縦方向にスクロールできます。スワイプは対応する矢印が表示されている間のみ使えるため、`dateMin`、`dateMax` やナビゲーションの制限に従います。離した時点でポインターの下にある日付は選択されません。
+</Info>
+
+## タイミング
+
+ジェスチャーには [`animation`](/ja/docs/reference/settings) オプションの `slide` グループが使われ、矢印によるナビゲーションと同じタイミングになります。
+
+```ts
+import { Calendar, motion } from 'vanilla-calendar-pro';
+
+new Calendar('#calendar', {
+  extensions: [motion],
+  animation: { slide: { duration: 350 } },
+  enableSwipe: true,
+});
+```
+
+<Info>
+  `animation` がない場合、または訪問者が `prefers-reduced-motion: reduce` で動きの軽減を求めている場合でも、ドラッグはポインターに追従しますが、離したときには即座に確定します。
+</Info>
+
+## ジェスチャー中にカレンダーを参照する
+
+スワイプは矢印のアニメーションと同じゴーストレイヤーを利用します。そのため、スワイプ中は切り替わる前の期間が `inert` な `[data-vc-ghost]` 要素内で DOM に残り、日付セルが一時的に重複して存在します。独自のコードで日付セルを走査する場合は、このレイヤーを除外してください。
+
+```ts
+const dates = calendar.context.mainElement.querySelectorAll('[data-vc-date]');
+const visible = [...dates].filter((date) => !date.closest('[data-vc-ghost]'));
+```
