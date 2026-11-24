@@ -2,6 +2,10 @@ name: Checks
 
 on:
   workflow_call:
+    outputs:
+      code:
+        description: Whether the build and browser checks ran ('true') or were skipped for a docs-only change ('false')
+        value: ${{ jobs.changes.outputs.code }}
 
 permissions:
   contents: read
@@ -11,6 +15,42 @@ defaults:
     shell: bash
 
 jobs:
+  # Docs, root Markdown, LICENSE and .github/assets cannot affect the package, so a change that touches
+  # only those skips the build and browser checks. Releases, manual runs and anything else run everything.
+  changes:
+    name: Detect affected checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.detect.outputs.code }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compare with the base commit
+        id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: |
+          case "$EVENT_NAME" in
+            pull_request) base="$PR_BASE" ;;
+            push) base="$PUSH_BEFORE" ;;
+            *) base='' ;;
+          esac
+          if [ -z "$base" ] || [ "$base" = 0000000000000000000000000000000000000000 ] || ! git fetch --quiet --depth=1 origin "$base"; then
+            echo 'code=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files=$(git diff --name-only "$base" HEAD)
+          printf 'Changed files:\n%s\n' "$files"
+          if [ -n "$files" ] && ! grep -qvE '^(docs/|[^/]+\.md$|LICENSE$|\.github/assets/)' <<< "$files"; then
+            echo 'code=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'code=true' >> "$GITHUB_OUTPUT"
+          fi
+
   quality:
     name: Code and workflow checks
     runs-on: ubuntu-24.04
@@ -35,6 +75,8 @@ jobs:
 
   build:
     name: Build and package checks
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -91,10 +133,20 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
+      # A mirror that serves a stale index (digest-mismatch) or stalls must not hold the job until its timeout:
+      # bound each attempt and retry.
       - name: Install browser system libraries
+        timeout-minutes: 12
         run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
+          echo 'Acquire::Retries "3";' | sudo tee /etc/apt/apt.conf.d/80-retries > /dev/null
+          for attempt in 1 2 3; do
+            sudo timeout 180 apt-get update &&
+              sudo timeout 240 apt-get install --no-install-recommends -y libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb &&
+              exit 0
+            echo "apt attempt $attempt failed, retrying"
+            sleep 15
+          done
+          exit 1
       - name: Cache WebKit binary
         if: matrix.browser == 'webkit' && github.event_name != 'release'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -103,7 +155,14 @@ jobs:
           key: webkit-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install WebKit and its system libraries
         if: matrix.browser == 'webkit'
-        run: pnpm exec playwright install --with-deps webkit
+        timeout-minutes: 15
+        run: |
+          for attempt in 1 2 3; do
+            timeout 270 pnpm exec playwright install --with-deps webkit && exit 0
+            echo "WebKit install attempt $attempt failed, retrying"
+            sleep 15
+          done
+          exit 1
       # Chrome and Firefox are provided by the GitHub-hosted Ubuntu image.
       - name: Install and verify Cypress
         run: |
@@ -135,16 +194,25 @@ jobs:
   ready:
     name: All checks passed
     if: ${{ always() }}
-    needs: [quality, build, browsers]
+    needs: [changes, quality, build, browsers]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
-      - name: Require every check to pass
+      - name: Require every check that applies to pass
         env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          CODE: ${{ needs.changes.outputs.code }}
           QUALITY_RESULT: ${{ needs.quality.result }}
           BUILD_RESULT: ${{ needs.build.result }}
           BROWSERS_RESULT: ${{ needs.browsers.result }}
         run: |
+          test "$CHANGES_RESULT" = success
           test "$QUALITY_RESULT" = success
-          test "$BUILD_RESULT" = success
-          test "$BROWSERS_RESULT" = success
+          if [ "$CODE" = false ]; then
+            echo 'Docs-only change: build and browser checks skipped.'
+            test "$BUILD_RESULT" = skipped
+            test "$BROWSERS_RESULT" = skipped
+          else
+            test "$BUILD_RESULT" = success
+            test "$BROWSERS_RESULT" = success
+          fi
