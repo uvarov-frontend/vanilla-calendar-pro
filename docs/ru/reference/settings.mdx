@@ -249,6 +249,8 @@ new Calendar('#calendar', {
 Этот параметр задает языковую локализацию календаря.
 Вы можете указать метку языка согласно <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> или предоставить массивы названий месяцев и недель, подробнее см. [тут](/ru/docs/learn/internationalization-locale).
 
+Если в метке указан календарь с григорианскими месяцами, например `'ja-JP-u-ca-japanese'` (японские эры), `'th-TH-u-ca-buddhist'` или `'zh-TW-u-ca-roc'`, год в заголовке и в выборе года записывается в этом календаре, например `令和6年`. Даты и месяцы остаются григорианскими, поэтому календари со своими месяцами (исламский, еврейский, персидский) не поддерживаются.
+
 ---
 
 ## dateToday

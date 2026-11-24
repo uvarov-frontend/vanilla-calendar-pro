@@ -249,6 +249,8 @@ new Calendar('#calendar', {
 This parameter sets the language localization of the calendar.
 You can specify a language label according to <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> or provide arrays of month and weekday names, see more details [here](/docs/learn/internationalization-locale).
 
+If the label names a calendar with Gregorian months, such as `'ja-JP-u-ca-japanese'` (Japanese eras), `'th-TH-u-ca-buddhist'` or `'zh-TW-u-ca-roc'`, the year in the header and in the year picker is written in that calendar, for example `令和6年`. Dates and months stay Gregorian, so calendars with their own months (Islamic, Hebrew, Persian) are not supported.
+
 ---
 
 ## dateToday

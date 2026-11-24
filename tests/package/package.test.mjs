@@ -236,12 +236,12 @@ const featureMarkers = {
   months: /vcGrid="hidden"/,
 };
 for (const [name, features, budget] of [
-  ['core', [], 55000],
-  ['motion', ['motion'], 64500],
+  ['core', [], 55500],
+  ['motion', ['motion'], 65000],
   ['time', ['time'], 61500],
-  ['annotations', ['annotations'], 57500],
+  ['annotations', ['annotations'], 58000],
   ['weeks', ['weeks'], 61000],
-  ['months', ['months'], 59000],
+  ['months', ['months'], 59500],
   ['motion-weeks', ['motion', 'weeks'], 70500],
   ['motion-months', ['motion', 'months'], 69000],
   ['all', ['motion', 'time', 'annotations', 'weeks', 'months'], 83500],

@@ -246,6 +246,8 @@ new Calendar('#calendar', {
 此参数设置日历的语言本地化。
 您可以根据 <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" rel="nofollow noreferrer">BCP 47</a> 指定语言标签，或提供月份和星期几名称的数组，更多详细信息请参见[此处](/zh/docs/learn/internationalization-locale)。
 
+如果标签指定了与公历月份相同的历法，例如 `'ja-JP-u-ca-japanese'`（日本年号）、`'th-TH-u-ca-buddhist'` 或 `'zh-TW-u-ca-roc'`，标题和年份选择器中的年份将按该历法显示，例如 `令和6年`。日期和月份仍为公历，因此不支持拥有自己月份的历法（伊斯兰历、希伯来历、波斯历）。
+
 ---
 
 ## dateToday

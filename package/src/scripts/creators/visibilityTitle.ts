@@ -1,16 +1,18 @@
+import getYearLabel from '@scripts/utils/getYearLabel';
 import type { Calendar } from '@src/index';
 
 const visibilityHandler = (self: Calendar, el: HTMLButtonElement, index: number, initDate: Date, type: 'month' | 'year') => {
   const yearID = new Date(initDate.setFullYear(self.context.selectedYear as number, (self.context.selectedMonth as number) + index)).getFullYear();
   const monthID = new Date(initDate.setMonth((self.context.selectedMonth as number) + index)).getMonth();
   const monthLabel = self.context.locale.months.long[monthID];
+  const yearLabel = getYearLabel(self, yearID, monthID);
 
   const columnEl = el.closest('[data-vc="column"]');
-  if (columnEl) columnEl.ariaLabel = `${monthLabel} ${yearID}`;
+  if (columnEl) columnEl.ariaLabel = `${monthLabel} ${yearLabel}`;
 
   const value = {
     month: { id: monthID, label: monthLabel },
-    year: { id: yearID, label: yearID },
+    year: { id: yearID, label: yearLabel },
   };
 
   el.innerText = String(value[type].label);
