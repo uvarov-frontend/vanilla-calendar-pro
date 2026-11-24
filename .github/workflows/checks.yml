@@ -134,7 +134,8 @@ jobs:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
       # A mirror that serves a stale index (digest-mismatch) or stalls must not hold the job until its timeout:
-      # bound each attempt and retry.
+      # bound each attempt and retry. Before a retry, stop whatever apt/dpkg the timed-out attempt left behind
+      # (it keeps the dpkg lock), finish an interrupted install and drop the stale package index.
       - name: Install browser system libraries
         timeout-minutes: 12
         run: |
@@ -144,6 +145,10 @@ jobs:
               sudo timeout 240 apt-get install --no-install-recommends -y libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb &&
               exit 0
             echo "apt attempt $attempt failed, retrying"
+            sudo killall -q -KILL apt-get apt dpkg || true
+            sudo rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/lib/apt/lists/lock
+            sudo dpkg --configure -a || true
+            sudo rm -rf /var/lib/apt/lists/*
             sleep 15
           done
           exit 1
@@ -160,6 +165,11 @@ jobs:
           for attempt in 1 2 3; do
             timeout 270 pnpm exec playwright install --with-deps webkit && exit 0
             echo "WebKit install attempt $attempt failed, retrying"
+            # timeout stops playwright but not the apt-get it started, which would keep the dpkg lock.
+            sudo killall -q -KILL apt-get apt dpkg || true
+            sudo rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/lib/apt/lists/lock
+            sudo dpkg --configure -a || true
+            sudo rm -rf /var/lib/apt/lists/*
             sleep 15
           done
           exit 1
